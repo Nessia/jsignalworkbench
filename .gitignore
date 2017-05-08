@@ -1,1 +1,11 @@
 /trunk/build/
+
+.classpath
+
+# Netbeans files and folders
+/nbproject/
+
+# Eclipse
+.project
+build.xml
+manifest.mf
