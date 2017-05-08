@@ -2,7 +2,6 @@ package tmp;
 
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.SignalIntervalProperties;
-import net.javahispano.jsignalwb.plugins.Plugin;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 import javax.swing.Icon;
@@ -25,10 +24,13 @@ import net.javahispano.jsignalwb.utilities.TimePositionConverter;
  * @version 0.5
  */
 public class AdjustSignalsSartsAndEnds extends AlgorithmAdapter {
+
+    @Override
     public String getName() {
         return "Ajustar principio y fin de las senhales";
     }
 
+    @Override
     public void runAlgorithm(SignalManager sm,
                              List<SignalIntervalProperties> signals,
             AlgorithmRunner ar) {
@@ -66,19 +68,20 @@ public class AdjustSignalsSartsAndEnds extends AlgorithmAdapter {
                 s.setStart(maximumStart);
             }
         }
-
     }
 
-
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
+        }
+        if (gUIPositions == GUIPositions.TOOLBAR) {
             return false;
         }
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return super.generateImageSimple("SE", Color.blue);
     }

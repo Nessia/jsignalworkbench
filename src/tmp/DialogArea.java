@@ -1,6 +1,5 @@
 package tmp;
 
-import java.awt.BorderLayout;
 import java.awt.Frame;
 
 import javax.swing.JDialog;
@@ -21,22 +20,28 @@ import javax.swing.*;
 import java.awt.Dimension;
 
 public class DialogArea extends JDialog {
+    /**
+    *
+    */
+    private static final long serialVersionUID = 2418684831429057683L;
+
+    private String[] drogas = {"Acetilcolina inicio", "Nitroprusiato inicio",
+          "Noradrenalina inicio", "Acetilcolina fin", "Nitroprusiato fin",
+          "Noradrenali fin"
+    };
     private JPanel panel1 = new JPanel();
     private JLabel jLabel1 = new JLabel();
     private JLabel jLabel2 = new JLabel();
-     JTextField jTextFieldPeso = new JTextField();
     private JLabel jLabel3 = new JLabel();
-     JComboBox jComboBoxDroga;
-     JCheckBox jCheckBoxValle = new JCheckBox();
-    private JButton jButton1 = new JButton();
-     JCheckBox jCheckBoxPico = new JCheckBox();
     private JLabel jLabel4 = new JLabel();
-     JComboBox jComboBoxParametro;
-     boolean cancelado = false;
-    private String[] drogas = {"Acetilcolina inicio", "Nitroprusiato inicio",
-                              "Noradrenalina inicio", "Acetilcolina fin", "Nitroprusiato fin",
-                              "Noradrenali fin"
-    };
+    private JButton jButton1 = new JButton();
+    private JButton jButton2 = new JButton();
+    protected JTextField jTextFieldPeso = new JTextField();
+    protected JComboBox<String> jComboBoxDroga;
+    protected JComboBox<String> jComboBoxParametro;
+    protected JCheckBox jCheckBoxValle = new JCheckBox();
+    protected JCheckBox jCheckBoxPico = new JCheckBox();
+    protected boolean cancelado = false;
 
     private String[] parametro = {"Presión arterial sistólica",
                                  "Presión arterial media",
@@ -47,15 +52,14 @@ public class DialogArea extends JDialog {
                                  "Flujo carótida", "Flujo riñón",
                                  "Flujo corteza", "Flujo médula"
     };
-    private JButton jButton2 = new JButton();
 
 
     public DialogArea(Frame owner, String title, boolean modal) {
         super(owner, title, modal);
         try {
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            jComboBoxDroga = new JComboBox(drogas);
-            jComboBoxParametro = new JComboBox(parametro);
+            jComboBoxDroga = new JComboBox<String>(drogas);
+            jComboBoxParametro = new JComboBox<String>(parametro);
             jbInit();
             pack();
         } catch (Exception exception) {

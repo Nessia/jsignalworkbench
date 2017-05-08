@@ -9,14 +9,17 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import java.awt.Dimension;
 import javax.swing.JButton;
-import javax.swing.JTextPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.datatransfer.*;
 import java.awt.*;
-import net.javahispano.jsignalwb.JSWBManager;
 
 public class DialogResultadosMedida extends JDialog {
+    /**
+    *
+    */
+    private static final long serialVersionUID = -8907848707721914212L;
+
     private JPanel panel1 = new JPanel();
     private BorderLayout borderLayout1 = new BorderLayout();
     private BorderLayout borderLayout2 = new BorderLayout();

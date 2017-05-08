@@ -22,12 +22,16 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  * @version 0.5
  */
 public class DiuresisEstimador extends AlgorithmAdapter {
+
+    int numDesplazamientos = 2;
+    float fs = 1.0F / 1800;
+
+    @Override
     public String getName() {
         return "Diuresis error";
     }
 
-        int numDesplazamientos = 2;
-        float fs = 1.0F / 1800;
+    @Override
     public void runAlgorithm(SignalManager sm,
                              List<SignalIntervalProperties> signals,
             AlgorithmRunner ar) {
@@ -84,9 +88,9 @@ public class DiuresisEstimador extends AlgorithmAdapter {
     }
 
     private void generaSenhalesDiuresis(SignalManager sm, Signal diuresisSignal, float[][] diuresisMinMedYMax) {
-        Signal s2 = new Signal("Mínimo2", diuresisMinMedYMax[0], fs, diuresisSignal.getStart(), "");
+        Signal s2 = new Signal("MÃ­nimo2", diuresisMinMedYMax[0], fs, diuresisSignal.getStart(), "");
         Signal s3 = new Signal("Media2", diuresisMinMedYMax[1], fs, diuresisSignal.getStart(), "");
-        Signal s4 = new Signal("Máximo2", diuresisMinMedYMax[2], fs, diuresisSignal.getStart(), "");
+        Signal s4 = new Signal("MÃ¡ximo2", diuresisMinMedYMax[2], fs, diuresisSignal.getStart(), "");
         sm.addSignal(s2);
         sm.addSignal(s3);
         sm.addSignal(s4);
@@ -144,33 +148,32 @@ public class DiuresisEstimador extends AlgorithmAdapter {
      */
     public float standardDeviation(float[] population) {
             return (float)Math.sqrt(variance(population));
-}
+    }
 
 
-        private float mediaDiuresis(float[] datos) {
-            float media = 0;
-            for (int desplazamiento = 0; desplazamiento <= (numDesplazamientos-1); desplazamiento++) {
-                media += datos[desplazamiento];
-            }
-            return media / numDesplazamientos;
+    private float mediaDiuresis(float[] datos) {
+        float media = 0;
+        for (int desplazamiento = 0; desplazamiento <= (numDesplazamientos-1); desplazamiento++) {
+            media += datos[desplazamiento];
         }
+        return media / numDesplazamientos;
+    }
 
 
-        private float mediaErrores(float[] datos) {
-            float media = 0;
-            for (int desplazamiento = (numDesplazamientos-1); desplazamiento <= datos.length-(numDesplazamientos-1); desplazamiento++) {
-                media += datos[desplazamiento];
-            }
-            return media / (datos.length-(numDesplazamientos-1)-(numDesplazamientos-1)) ;
+    private float mediaErrores(float[] datos) {
+        float media = 0;
+        for (int desplazamiento = (numDesplazamientos-1); desplazamiento <= datos.length-(numDesplazamientos-1); desplazamiento++) {
+            media += datos[desplazamiento];
         }
+        return media / (datos.length-(numDesplazamientos-1)-(numDesplazamientos-1)) ;
+    }
 
-
-
-
+    @Override
     public Icon getIcon() {
         return generateImage("DE");
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions g) {
         return true;
     }

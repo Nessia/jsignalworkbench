@@ -4,11 +4,9 @@ import net.javahispano.jsignalwb.Signal;
 import java.awt.Image;
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.plugins.MarkPluginAdapter;
-import java.awt.geom.RoundRectangle2D;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Stroke;
-import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
 import java.awt.Graphics2D;
 import net.javahispano.jsignalwb.jsignalmonitor.marks.MarkPaintInfo;
 import java.awt.Window;
@@ -27,23 +25,25 @@ import net.javahispano.jsignalwb.plugins.MarkPlugin;
  * @author Abraham Otero
  * @version 0.5
  */
-public class ValleCerdo extends MarkPluginAdapter implements Comparable {
+public class ValleCerdo extends MarkPluginAdapter implements Comparable<MarkPlugin> {
+
     private long markTime;
     private long endTime;
     private String title;
-    private String comentary;
+    //private String comentary;
     protected Color color;
     private BufferedImage im;
     private JSWBManager jswbManager;
     private int extraheightPixels = 10;
-    private MarkPaintInfo markPaintInfo;
+    //private MarkPaintInfo markPaintInfo;
     private int innerTransparencyLevel = 50;
     private int borderTransparencyLevel = 200;
+
     public ValleCerdo() {
         markTime = 0;
         endTime = 0;
         title = "Write here the mark title...";
-        comentary = "Write here your comentary....";
+        //comentary = "Write here your comentary....";
         color = Color.BLUE;
         jswbManager = null;
         refreshBufferedImage();
@@ -103,7 +103,7 @@ public class ValleCerdo extends MarkPluginAdapter implements Comparable {
 
     public void paint(Graphics2D g2d, MarkPaintInfo markPaintInfo) {
         //if(this.markPaintInfo==null || !this.markPaintInfo.equals(markPaintInfo)){
-        this.markPaintInfo = markPaintInfo;
+        //this.markPaintInfo = markPaintInfo;
         Stroke oldStroke = g2d.getStroke();
         Color color2 = new Color(color.getRed(), color.getGreen(),
                                  color.getBlue(), innerTransparencyLevel);
@@ -138,6 +138,7 @@ public class ValleCerdo extends MarkPluginAdapter implements Comparable {
     public void showMarkInfo(Window owner) {
        //  new DefaultIntervalMarkInfoPanel(signal, this).showJWindow(owner);
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -165,8 +166,8 @@ public class ValleCerdo extends MarkPluginAdapter implements Comparable {
      *   object is less than, equal to, or greater than the specified object.
      * @todo Implement this java.lang.Comparable method
      */
-    public int compareTo(Object o) {
-        MarkPlugin i = (MarkPlugin) o;
+    @Override
+    public int compareTo(MarkPlugin i) {
         if (i.getMarkTime() < this.getMarkTime()) {
             return 1;
         } else if (i.getMarkTime() > this.getMarkTime()) {
@@ -175,6 +176,7 @@ public class ValleCerdo extends MarkPluginAdapter implements Comparable {
         return 0;
     }
 
+    @Override
     public int hashCode() {
         return (int) (this.getMarkTime() | this.getEndTime());
     }

@@ -8,7 +8,6 @@ import javax.swing.Icon;
 
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
-import net.javahispano.jsignalwb.plugins.Plugin;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 
 public class FCRatas extends AlgorithmAdapter {
@@ -17,6 +16,7 @@ public class FCRatas extends AlgorithmAdapter {
     private boolean debug = false;
     private int distanciaMinEntreLatidosEnMuestras = 15;
 
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
 
@@ -134,34 +134,38 @@ public class FCRatas extends AlgorithmAdapter {
         return derivadaCeros;
     }
 
-
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
-
-        this.runAlgorithm(jswbManager.getSignalManager(), null, null);
-
+        this.runAlgorithm(JSWBManager.getSignalManager(), null, null);
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
+        }
+        if (gUIPositions == GUIPositions.TOOLBAR) {
             return true;
         }
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return super.generateImageSimple("PR", Color.blue);
     }
 
+    @Override
     public String getName() {
         return "Frecuencia cardiaca de las ratas";
     }
 
+    @Override
     public String getDescription() {
         return "Frecuencia cardiaca de las ratas";
     }
 
+    @Override
     public String getShortDescription() {
         return "Frecuencia cardiaca de las ratas";
     }

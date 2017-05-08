@@ -20,10 +20,13 @@ import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
  * @version 0.5
  */
 public class PigAlg extends AlgorithmAdapter {
+
+    @Override
     public String getName() {
         return "Diuresis";
     }
 
+    @Override
     public void runAlgorithm(SignalManager sm,
                              List<SignalIntervalProperties> signals,
             AlgorithmRunner ar) {

@@ -1,23 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package tmp;
 
 import java.util.Collection;
 import java.util.List;
 
 import javax.swing.Icon;
-import javax.swing.JFrame;
 
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
-import net.javahispano.jsignalwb.plugins.Plugin;
 import net.javahispano.jsignalwb.plugins.calculator.CalculatorGUI.Operation;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
-import net.javahispano.jsignalwb.utilities.TimePositionConverter;
-import net.javahispano.jsignalwb.jsignalmonitor.Resample;
 
 /**
  *
@@ -30,7 +21,7 @@ public class NetWork extends AlgorithmAdapter {
     Operation operation = Operation.ADD;
     float[] firstSignalValues, secondSignalValues;
 
-
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
              Collection<Signal> allSignals = sm.getSignals();
@@ -42,18 +33,12 @@ public class NetWork extends AlgorithmAdapter {
         }
     }
 
-
-
+    @Override
     public boolean hasOwnExecutionGUI() {
         return false;
     }
 
-   // public void launchExecutionGUI(JSWBManager jswbManager) {
-
-
-
-    //}
-
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
@@ -63,18 +48,22 @@ public class NetWork extends AlgorithmAdapter {
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return super.generateImage("NT");
     }
 
+    @Override
     public String getName() {
         return "Net";
     }
 
+    @Override
     public String getDescription() {
         return "Net";
     }
 
+    @Override
     public String getShortDescription() {
         return "Net";
     }

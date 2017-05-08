@@ -1,15 +1,12 @@
 package tmp;
 
-import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMarkInfoPanel;
 import net.javahispano.jsignalwb.Signal;
 import java.awt.Image;
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.plugins.MarkPluginAdapter;
-import java.awt.geom.RoundRectangle2D;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Stroke;
-import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
 import java.awt.Graphics2D;
 import net.javahispano.jsignalwb.jsignalmonitor.marks.MarkPaintInfo;
 import java.awt.Window;
@@ -28,23 +25,28 @@ import net.javahispano.jsignalwb.plugins.MarkPlugin;
  * @author Abraham Otero
  * @version 0.5
  */
-public class PicoCerdo extends MarkPluginAdapter implements Comparable {
+public class PicoCerdo extends MarkPluginAdapter implements Comparable<MarkPlugin> {
     private long markTime;
     private long endTime;
     private String title;
-    private String comentary;
+    //private String comentary;
     protected Color color;
     private BufferedImage im;
     private JSWBManager jswbManager;
     private int extraheightPixels = 10;
-    private MarkPaintInfo markPaintInfo;
+    //private MarkPaintInfo markPaintInfo;
     private int innerTransparencyLevel = 50;
     private int borderTransparencyLevel = 200;
+
+    /*
+     * Constructores
+     */
+
     public PicoCerdo() {
         markTime = 0;
         endTime = 0;
         title = "Write here the mark title...";
-        comentary = "Write here your comentary....";
+        //comentary = "Write here your comentary....";
         color = Color.RED;
         jswbManager = null;
         refreshBufferedImage();
@@ -104,7 +106,7 @@ public class PicoCerdo extends MarkPluginAdapter implements Comparable {
 
     public void paint(Graphics2D g2d, MarkPaintInfo markPaintInfo) {
         //if(this.markPaintInfo==null || !this.markPaintInfo.equals(markPaintInfo)){
-        this.markPaintInfo = markPaintInfo;
+        //this.markPaintInfo = markPaintInfo;
         Stroke oldStroke = g2d.getStroke();
         Color color2 = new Color(color.getRed(), color.getGreen(),
                                  color.getBlue(), innerTransparencyLevel);
@@ -166,8 +168,7 @@ public class PicoCerdo extends MarkPluginAdapter implements Comparable {
      *   object is less than, equal to, or greater than the specified object.
      * @todo Implement this java.lang.Comparable method
      */
-    public int compareTo(Object o) {
-        MarkPlugin i = (MarkPlugin) o;
+    public int compareTo(MarkPlugin i) {
         if (i.getMarkTime() < this.getMarkTime()) {
             return 1;
         } else if (i.getMarkTime() > this.getMarkTime()) {

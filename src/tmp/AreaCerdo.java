@@ -4,26 +4,35 @@ import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.plugins.framework.*;
 import java.util.*;
-import net.javahispano.plugins.basicstats.MediaMovil;
-import net.javahispano.plugins.basicstats.*;
 import javax.swing.Icon;
 import java.awt.Color;
 import net.javahispano.jsignalwb.utilities.TimePositionConverter;
-import javax.swing.JPanel;
 import net.javahispano.jsignalwb.plugins.defaults.DefaultAlgorithmConfiguration;
 import javax.swing.JDialog;
 import javax.swing.*;
 
 public class AreaCerdo extends AlgorithmAdapter {
-    private String droga = "Presión arterial";
-
-    private String parametro = "Presión arterial";
-    private float peso = 10;
-    private boolean caida = true;
     private static int indiceDroga = 0;
     private static int indiceParametro = 0;
-    MedidaDroga medidaActual;
 
+    private String droga = "PresiÃ³n arterial";
+    private String parametro = "PresiÃ³n arterial";
+    private float peso = 10;
+    private boolean caida = true;
+    protected MedidaDroga medidaActual;
+
+    public static void retrocedeMedida() {
+        indiceParametro--;
+        if (indiceParametro == -1) {
+            indiceParametro = 7;
+            indiceDroga--;
+            if (indiceDroga == -1) {
+                indiceDroga = 5;
+            }
+        }
+    }
+
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
 
@@ -41,9 +50,9 @@ public class AreaCerdo extends AlgorithmAdapter {
 
         String n = signal.getName();
         if (!n.contains("P.") && !n.contains("suavizado")) {
-            if (n.contains("Presión")) {
+            if (n.contains("PresiÃ³n")) {
                 JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
-                                              "Por favor, seleccione la presión sistólica o diastólica", "Error",
+                                              "Por favor, seleccione la presion sistolica o diastolica", "Error",
                                               JOptionPane.ERROR_MESSAGE);
             } else {
                 String nuevoNombre = "Flujo suavizado";
@@ -109,9 +118,9 @@ public class AreaCerdo extends AlgorithmAdapter {
     private void calculaValorBasal(MedidaDroga medida, SignalIntervalProperties si, Signal s) {
         float frecuencia = s.getSRate();
         int ventana;
-        if (frecuencia > 10) { //se trata de la señal original
+        if (frecuencia > 10) { //se trata de la seï¿½al original
             ventana = 200; //cogemos 20 segundos
-        } else { //se trata de la señal filtrada
+        } else { //se trata de la seï¿½al filtrada
             ventana = 2; //cogemos 20 segundos
         }
 
@@ -120,7 +129,7 @@ public class AreaCerdo extends AlgorithmAdapter {
         int i;
         int principioVentanaBasal = si.getFirstArrayPosition() - ventana;
         for (i = si.getFirstArrayPosition(); i >= principioVentanaBasal; i--) {
-            if (datos[i] == 0) { //0, la señal está cortada
+            if (datos[i] == 0) { //0, la seï¿½al estï¿½ cortada
                 break;
             }
             valorBasal += datos[i];
@@ -154,85 +163,55 @@ public class AreaCerdo extends AlgorithmAdapter {
         medida.setArea(areaReal);
     }
 
-    /**
-     * getName
-     *
-     * @return String
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
+    @Override
     public String getName() {
         return "Calculo areas";
     }
 
-    /**
-     * Devuelve la version del plugin.
-     *
-     * @return Version del plugin
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
+    @Override
     public String getPluginVersion() {
         return "0";
     }
 
-    /**
-     * Devuelve una de extincion textual corta sobre la funcionalidad del
-     * plugin.
-     *
-     * @return descripcion textual corta
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
+    @Override
     public String getShortDescription() {
-        return "Cálculo de áreas";
+        return "CÃ¡lculo de Ã¡reas";
     }
 
-    /**
-     * numberOfSignalsNeeded
-     *
-     * @return int
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Algorithm
-     *   method
-     */
+    @Override
     public int numberOfSignalsNeeded() {
         return 1;
     }
 
-
+    @Override
     public Icon getIcon() {
         return super.generateImageSimple("V", Color.blue);
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
+        }
+        if (gUIPositions == GUIPositions.TOOLBAR) {
             return true;
         }
         return false;
     }
 
+    @Override
     public boolean hasOwnExecutionGUI() {
         return false;
     }
 
-    public static void retrocedeMedida() {
-        indiceParametro--;
-        if (indiceParametro == -1) {
-            indiceParametro = 7;
-            indiceDroga--;
-            if (indiceDroga == -1) {
-                indiceDroga = 5;
-            }
-        }
-
-    }
-
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
-        DialogArea dialogArea = new DialogArea(null, "Realización de medida", true);
+        DialogArea dialogArea = new DialogArea(null, "RealizaciÃ³n de medida", true);
         dialogArea.jTextFieldPeso.setText("" + peso);
         dialogArea.jComboBoxDroga.setSelectedIndex(indiceDroga);
         dialogArea.jComboBoxParametro.setSelectedIndex(indiceParametro);
         dialogArea.setSize(600, 400);
-        dialogArea.setLocationRelativeTo(jswbManager.getParentWindow());
+        dialogArea.setLocationRelativeTo(JSWBManager.getParentWindow());
 
         dialogArea.setVisible(true);
         if (dialogArea.cancelado) {
@@ -253,7 +232,7 @@ public class AreaCerdo extends AlgorithmAdapter {
             }
         }
 
-        JDialog conf = new JDialog(jswbManager.getParentWindow(), "Execution GUI");
+        JDialog conf = new JDialog(JSWBManager.getParentWindow(), "Execution GUI");
 
         conf.setModal(true);
         DefaultAlgorithmConfiguration jPane = new DefaultAlgorithmConfiguration(this,
@@ -265,19 +244,19 @@ public class AreaCerdo extends AlgorithmAdapter {
         conf.setResizable(false);
         conf.setLocationRelativeTo(conf.getParent());
         // conf.setVisible(true);
-
-
     }
 
+    @Override
     public boolean hasResultsGUI() {
         return true;
     }
 
+    @Override
     public void launchResultsGUI(JSWBManager jswbManager) {
         DialogResultadosMedida d = new DialogResultadosMedida(null, "Resultado", true);
         d.jTextAreaMedida.setText(medidaActual.toString(true));
         d.setSize(450, 400);
-        d.setLocationRelativeTo(jswbManager.getParentWindow());
+        d.setLocationRelativeTo(JSWBManager.getParentWindow());
         d.setVisible(true);
     }
 

@@ -8,8 +8,6 @@ import net.javahispano.jsignalwb.SignalIntervalProperties;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import javax.swing.Icon;
 import java.awt.Color;
-import net.javahispano.jsignalwb.plugins.Plugin;
-import javax.swing.JPanel;
 import javax.swing.JDialog;
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.plugins.defaults.DefaultAlgorithmConfiguration;
@@ -27,6 +25,8 @@ import net.javahispano.jsignalwb.plugins.defaults.DefaultAlgorithmConfiguration;
  * @version 0.5
  */
 public class FillInterval extends AlgorithmAdapter {
+
+    @Override
     public String getName() {
         return "Interpolar en hueco";
     }
@@ -40,10 +40,10 @@ public class FillInterval extends AlgorithmAdapter {
         float[] datos = signal.getValues();
         int inicio = i.getFirstArrayPosition();
         int fin =  i.getLastArrayPosition();
-    for (int j = inicio; j < fin; j++) {
+        for (int j = inicio; j < fin; j++) {
             datos[j] = datos[j]/3;
         }
-    
+
     /*
         int ventana = (int) (5* signal.getSRate());
         ventana = Math.max(ventana,1);
@@ -56,28 +56,27 @@ public class FillInterval extends AlgorithmAdapter {
         }*/
     }
 
-    private float calcularValorMedio2MinDespues(float[] datos, int fin, int ventana) {
-        float media=0;
-        for (int j = fin; j <  fin+ventana; j++) {
-                   media +=datos [j] ;
-               }
-               media /=ventana;
-        return media;
-    }
+//    private float calcularValorMedio2MinDespues(float[] datos, int fin, int ventana) {
+//        float media=0;
+//        for (int j = fin; j <  fin+ventana; j++) {
+//                   media +=datos [j] ;
+//               }
+//               media /=ventana;
+//        return media;
+//    }
+//
+//    private float calcularValorMedio2MinAntes(float[] datos, int inicio, int ventana) {
+//        float media=0;
+//        for (int j = inicio-ventana; j < inicio; j++) {
+//            media +=datos [j] ;
+//        }
+//        media /=ventana;
+//        return media;
+//    }
 
-    private float calcularValorMedio2MinAntes(float[] datos, int inicio, int ventana) {
-        float media=0;
-        for (int j = inicio-ventana; j < inicio; j++) {
-            media +=datos [j] ;
-        }
-        media /=ventana;
-        return media;
-    }
-
-
-
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
-        JDialog conf = new JDialog(jswbManager.getParentWindow(), "Execution GUI");
+        JDialog conf = new JDialog(JSWBManager.getParentWindow(), "Execution GUI");
 
         conf.setModal(true);
         DefaultAlgorithmConfiguration jPane = new DefaultAlgorithmConfiguration(this,
@@ -90,15 +89,18 @@ public class FillInterval extends AlgorithmAdapter {
         conf.setLocationRelativeTo(conf.getParent());
         conf.setVisible(true);*/
     }
+
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
         } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
+            return true; // TODO antes era false @vanesa
         }
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return super.generateImageSimple("F", Color.blue);
     }

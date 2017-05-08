@@ -22,6 +22,11 @@ import java.awt.Dimension;
  * @version 0.5
  */
 public class PanelVisualizadorCerdo extends JPanel {
+    /**
+    *
+    */
+    private static final long serialVersionUID = -2377357430461240801L;
+
     private JLabel jLabel1 = new JLabel();
     private JCheckBox jCheckBoxDiuresis = new JCheckBox();
     private JCheckBox jCheckBoxPresiones = new JCheckBox();
