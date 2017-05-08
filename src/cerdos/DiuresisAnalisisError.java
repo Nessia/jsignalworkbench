@@ -2,21 +2,14 @@ package cerdos;
 
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.SignalIntervalProperties;
-import tmp.DialogResultadosMedida;
 import net.javahispano.jsignalwb.JSWBManager;
-import javax.swing.JOptionPane;
 import javax.swing.*;
 import net.javahispano.jsignalwb.SignalManager;
 import java.awt.Color;
 import tmp.MedidaDroga;
-import javax.swing.JDialog;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
-import net.javahispano.jsignalwb.utilities.TimePositionConverter;
-import tmp.DialogArea;
-import net.javahispano.jsignalwb.plugins.defaults.DefaultAlgorithmConfiguration;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 import java.util.List;
-import tmp.VisualizadorDatosCerdo;
 
 /**
  * <p>Title: </p>
@@ -31,13 +24,13 @@ import tmp.VisualizadorDatosCerdo;
  * @version 0.5
  */
 public class DiuresisAnalisisError extends AlgorithmAdapter {
-    private String droga = "Presión arterial";
+    //private String droga = "PresiÃ³n arterial";
 
-    private String parametro = "Presión arterial";
-    private float peso = 10;
-    private boolean caida = true;
-    private static int indiceDroga = 0;
-    private static int indiceParametro = 0;
+    //private String parametro = "PresiÃ³n arterial";
+    //private float peso = 10;
+    //private boolean caida = true;
+    //private static int indiceDroga = 0;
+    //private static int indiceParametro = 0;
     MedidaDroga medidaActual;
 
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
@@ -101,11 +94,11 @@ public class DiuresisAnalisisError extends AlgorithmAdapter {
 
     void calculaError(float[] diuresisAcumulada, float[] diuresisAcumuladaIdeal, float[]diuresis) {
         StringBuilder stringBuilderCVRMSE = new StringBuilder();
-        StringBuilder stringBuilderrm = new StringBuilder();
+        //StringBuilder stringBuilderrm = new StringBuilder();
         StringBuilder stringBuilderMeanPerMinute = new StringBuilder();
         StringBuilder stringBuilderVarianza = new StringBuilder();
         for (int i = 0; i < diuresisAcumulada.length; ) {
-            int hora = 0;
+            //int hora = 0;
             int contador = 0;
             double rmse = 0;
             int inicio = i;
@@ -113,23 +106,23 @@ public class DiuresisAnalisisError extends AlgorithmAdapter {
                 rmse += Math.pow(diuresisAcumulada[i] - diuresisAcumuladaIdeal[i], 2);
                 contador++;
             }
-            
+
             final float meanUOPerMinute = (float)(diuresisAcumulada[i - 1]/contador);
             i=inicio;
             float varianza = 0;
             for (int j = 0; j < 60 && i < diuresisAcumulada.length; j++, i++) {
                 varianza += Math.pow(diuresis[i], 2);
             }
-            varianza = varianza/contador;//Valor esperado 
+            varianza = varianza/contador;//Valor esperado
             varianza = varianza - meanUOPerMinute*meanUOPerMinute;
-            
+
             rmse = Math.sqrt(rmse / contador);
             assert (diuresisAcumulada[i - 1] == diuresisAcumuladaIdeal[i - 1]);
             double cvrmse = contador * rmse / (diuresisAcumulada[i - 1]);
             stringBuilderCVRMSE.append((float)cvrmse + "; ");// + rmse + ", ");
             stringBuilderMeanPerMinute.append(meanUOPerMinute + ", ");
             stringBuilderVarianza.append(varianza + ", ");
-            hora ++;
+            //hora ++;
         }
         System.out.println(stringBuilderCVRMSE);
         System.out.println(stringBuilderMeanPerMinute);
@@ -141,7 +134,7 @@ public class DiuresisAnalisisError extends AlgorithmAdapter {
     void calculaError2(float[] diuresisAcumulada, float[] diuresisAcumuladaIdeal) {
     StringBuilder stringBuilder = new StringBuilder();
     for (int i = 0; i < diuresisAcumulada.length; ) {
-        int hora = 0;
+        //int hora = 0;
         int contador = 0;
         double rmse = 0;
         for (int j = 0; j < 60 && i < diuresisAcumulada.length; j++, i++) {
@@ -152,7 +145,7 @@ public class DiuresisAnalisisError extends AlgorithmAdapter {
         assert (diuresisAcumulada[i - 1] == diuresisAcumuladaIdeal[i - 1]);
         double cvrmse =  rmse / (diuresisAcumuladaIdeal[i - 1]);
         stringBuilder.append((float)cvrmse + "; ");// + rmse + ", ");
-        hora ++;
+        //hora ++;
     }
     System.out.println(stringBuilder);
 }
@@ -187,7 +180,7 @@ public class DiuresisAnalisisError extends AlgorithmAdapter {
      * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
      */
     public String getShortDescription() {
-        return "Cálculo de Errores";
+        return "CÃ¡lculo de Errores";
     }
 
     /**
