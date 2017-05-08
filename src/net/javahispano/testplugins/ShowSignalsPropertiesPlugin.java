@@ -20,12 +20,14 @@ import net.javahispano.jsignalwb.plugins.GenericPluginAdapter;
 public class ShowSignalsPropertiesPlugin extends GenericPluginAdapter {
 
 
+    @Override
     public String getName() {
         return "ShowSignalsPropertiesPlugin";
     }
 
+    @Override
     public void launch(JSWBManager jswbManager) {
-        SignalManager sm = jswbManager.getSignalManager();
+        SignalManager sm = JSWBManager.getSignalManager();
         Iterator<String> names = sm.getSignalsNames().iterator();
         String global = "Propiedades de las senhales:\n";
         while (names.hasNext()) {
@@ -45,7 +47,7 @@ public class ShowSignalsPropertiesPlugin extends GenericPluginAdapter {
             }
             global = global + "\n";
         }
-        JOptionPane.showMessageDialog(jswbManager.getParentWindow(), global);
+        JOptionPane.showMessageDialog(JSWBManager.getParentWindow(), global);
     }
 
 }

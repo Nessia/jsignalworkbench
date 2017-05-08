@@ -121,7 +121,7 @@ public class PruebaDeConcurrenciaParaSwing extends AlgorithmAdapter {
 
     private void esperar(int tiempo) {
         try {
-            Thread.currentThread().sleep(tiempo);
+            Thread.sleep(tiempo);
         } catch (InterruptedException ex) {
         }
     }
