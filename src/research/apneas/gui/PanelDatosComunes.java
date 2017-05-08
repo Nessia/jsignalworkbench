@@ -21,6 +21,10 @@ import research.apneas.LimitacionFlujo;
 public class PanelDatosComunes extends javax.swing.JPanel implements PropertyChangeListener {
 
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8418731573548689021L;
     private LimitacionFlujo dim;
 //    private long principio, fin;
     private float duracion;

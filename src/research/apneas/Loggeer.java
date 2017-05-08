@@ -20,11 +20,11 @@ public class Loggeer {
     private float frecuencia = 1;
     private long fechaBase = 0;
     private SignalManager sm;
-    private Signal senalReferencia;
+//    private Signal senalReferencia;
 
     public Loggeer(Signal senalReferencia) {
         sm = JSWBManager.getJSWBManagerInstance().getSignalManager();
-        this.senalReferencia = senalReferencia;
+//        this.senalReferencia = senalReferencia;
         fechaBase = senalReferencia.getStart();
         frecuencia = senalReferencia.getSRate();
     }

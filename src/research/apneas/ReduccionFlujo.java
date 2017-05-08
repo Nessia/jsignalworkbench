@@ -13,7 +13,7 @@ public class ReduccionFlujo {
     private TrapezoidalDistribution magnitudHipoapnea = new TrapezoidalDistribution(0, 0, 0.2F, 0.2F);
     private TrapezoidalDistribution magnitudApnea = new TrapezoidalDistribution(0.2F, 0.2F, 0.75F, 0.75F);
     private TrapezoidalDistribution duracionHipoapnea = new TrapezoidalDistribution(4, 10, 60, 140);
-    private TrapezoidalDistribution duracionApnea = new TrapezoidalDistribution(4, 10, 100, 140);
+//    private TrapezoidalDistribution duracionApnea = new TrapezoidalDistribution(4, 10, 100, 140);
 
     private float anchoVentanaValorMedioHipoApnea = 2;
     private int ventanaBasal = 200;
@@ -40,7 +40,7 @@ public class ReduccionFlujo {
     private TreeSet<Intervalo> apneasIntervalos = new TreeSet<Intervalo>();
     private Loggeer logger;
     private boolean apnea;
-    private Signal senalDeFlujoNasal;
+//    private Signal senalDeFlujoNasal;
     private final boolean debugNivel1 = false;
     private final boolean debugNivel2 = false;
 
@@ -60,7 +60,7 @@ public class ReduccionFlujo {
         logger.setDebugNivel1(debugNivel1);
         logger.setDebugNivel2(debugNivel2);
         this.apnea = apnea;
-        this.senalDeFlujoNasal = nasal;
+//        this.senalDeFlujoNasal = nasal;
         calcularReduccionesFlujo();
         if (!apnea) {
             return hipoapneasIntervalos;
@@ -83,7 +83,8 @@ public class ReduccionFlujo {
         float[] energia = calcularEnergia(sanalFiltrada);
         logger.debugNivel2("Energia", energia);
 
-        this.valorBasal = calcularValorBasal(delta, energia);
+        // TODO variable estática modificada en instancia
+        ReduccionFlujo.valorBasal = calcularValorBasal(delta, energia);
         logger.debugNivel1("basal", valorBasal);
 
         float[] posibilidad = calcularPosibilidad(delta, valorBasal);
@@ -203,7 +204,7 @@ public class ReduccionFlujo {
         episodio.setDatos(datos);
         episodio.setFrecuencia(frecuencia);
         episodio.setFechaBase(this.fechaBase);
-        episodio.setValorBasal(this.valorBasal, this.delta);
+        episodio.setValorBasal(ReduccionFlujo.valorBasal, ReduccionFlujo.delta);
         if (!apnea) {
             hipoapneasIntervalos.add(episodio);
         } else {
@@ -225,7 +226,7 @@ public class ReduccionFlujo {
           else{
               color= Color.yellow;
           }*/
-        LimitacionFlujo episodio2 = (LimitacionFlujo) episodio;
+//        LimitacionFlujo episodio2 = (LimitacionFlujo) episodio;
         // LimitacionFlujoMark marca = new LimitacionFlujoMark(episodio2, color);
         LimitacionAnotacion marca = new LimitacionAnotacion();
         long t = episodio.getPrincipioAbsoluto();
@@ -418,9 +419,9 @@ public class ReduccionFlujo {
         this.considerarSoloOndasNegativas = considerarSoloNegativos;
     }
 
-    public void setDuracionApnea(TrapezoidalDistribution duracionApnea) {
-        this.duracionApnea = duracionApnea;
-    }
+//    public void setDuracionApnea(TrapezoidalDistribution duracionApnea) {
+//        this.duracionApnea = duracionApnea;
+//    }
 
     public void setDuracionHipoapnea(TrapezoidalDistribution duracionHipoapnea) {
         this.duracionHipoapnea = duracionHipoapnea;

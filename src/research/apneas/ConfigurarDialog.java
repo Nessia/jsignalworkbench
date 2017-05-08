@@ -24,6 +24,11 @@ import net.javahispano.fuzzyutilities.representation.TrapezoidalDistribution;
  */
 public class ConfigurarDialog extends JDialog {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4772156014945415167L;
+
     public ConfigurarDialog() {
         try {
             jbInit();

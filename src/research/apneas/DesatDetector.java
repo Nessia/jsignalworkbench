@@ -19,7 +19,7 @@ public class DesatDetector {
     private TrapezoidalDistribution valorAdmisibleDesaturacionRespectoBasal;
 
     private int ventanaFiltroMediano = 3;
-    private int rellenarValoresPorDebajoDe;
+//    private int rellenarValoresPorDebajoDe;
 
     private int ventanaBasalSatO2 = 90;
     private int ventanaPendientesSaO2 = 3;
@@ -49,7 +49,7 @@ public class DesatDetector {
     private float[] datosFiltrados;
     private float[] posibilidadPrincipio;
     float[] posibilidadFin;
-    private SignalManager sm;
+//    private SignalManager sm;
     private float frecuencia;
     private long fechaBase;
     private final boolean debugNivel1 = false;
@@ -57,7 +57,7 @@ public class DesatDetector {
 
 
     public DesatDetector(SignalManager sm, Signal s) {
-        this.sm = sm;
+//        this.sm = sm;
         logger = new Loggeer(s);
         logger.setDebugNivel1(debugNivel1);
         logger.setDebugNivel2(debugNivel2);
@@ -369,14 +369,14 @@ public class DesatDetector {
 
         while (i.hasNext()) {
             EpisodioDesaturacion e = i.next();
-// generarEpisodioDesaturacion(e, null,satO2);
+            // generarEpisodioDesaturacion(e, null,satO2);
 
             //Enfasis
             for (int j = e.getPrincipio(); j < e.getFin(); j++) {
                 p[j] = (short) e.getPosibilidad();
             }
-            Signal s = sm.getSignal(satO2.getName());
-            //      s.setEmphasisLevel(p);
+            //Signal s = sm.getSignal(satO2.getName());
+            //s.setEmphasisLevel(p);
 
         }
     }
@@ -429,11 +429,11 @@ public class DesatDetector {
             }
             principio = i;
             float posibilidad = 0;
-            int longitudEpisodio = 0;
+//            int longitudEpisodio = 0;
             while (i < posibilidadPrincipio.length && posibilidadPrincipio[i] > 0) {
                 posibilidad = Math.max(posibilidad, posibilidadPrincipio[i]);
                 i++;
-                longitudEpisodio++;
+//                longitudEpisodio++;
             }
             fin = i - 1;
             Intervalo intervalo = new Intervalo(principio, fin, (int) posibilidad);

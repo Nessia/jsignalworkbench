@@ -9,8 +9,26 @@ import javax.swing.event.ChangeListener;
 
 public class SliderTextField extends JPanel {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1082773121747880067L;
+
+    BorderLayout borderLayout1 = new BorderLayout();
+    JPanel jPanel1 = new JPanel();
+    JLabel jLabel1 = new JLabel();
+    JPanel jPanel2 = new JPanel();
+    JSlider jSlider = new JSlider();
+    JTextField jTextField = new JTextField();
+    private int maximum = 100;
+//    private int valor = 20;
+    private int majorTickSpacing = 10;
+    private int sliderPreferredWidth = 300;
+    private JTextField JTextField;
+    private String texto = "texto por defecto";
+
     public SliderTextField(int valor, String texto) {
-        this.valor = valor;
+//        this.valor = valor;
         setTexto(texto);
 
     }
@@ -47,18 +65,6 @@ public class SliderTextField extends JPanel {
         jPanel2.add(jTextField);
     }
 
-    BorderLayout borderLayout1 = new BorderLayout();
-    JPanel jPanel1 = new JPanel();
-    JLabel jLabel1 = new JLabel();
-    JPanel jPanel2 = new JPanel();
-    JSlider jSlider = new JSlider();
-    JTextField jTextField = new JTextField();
-    private int maximum = 100;
-    private int valor = 20;
-    private int majorTickSpacing = 10;
-    private int sliderPreferredWidth = 300;
-    private JTextField JTextField;
-    private String texto = "texto por defecto";
     public void jSlider1_stateChanged(ChangeEvent e) {
         jTextField.setText("" + jSlider.getValue());
 
@@ -120,7 +126,7 @@ public class SliderTextField extends JPanel {
     }
 
     public void setValor(int valor) {
-        this.valor = valor;
+//        this.valor = valor;
         jSlider.setValue(valor);
     }
 

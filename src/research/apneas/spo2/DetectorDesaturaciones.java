@@ -2,9 +2,6 @@ package research.apneas.spo2;
 
 import static java.lang.Math.*;
 import java.util.Arrays;
-import net.javahispano.jsignalwb.utilities.TimePositionConverter;
-import net.javahispano.jsignalwb.JSWBManager;
-import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
 
 /**
  *

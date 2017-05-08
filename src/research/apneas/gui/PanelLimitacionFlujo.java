@@ -8,8 +8,6 @@ package research.apneas.gui;
 
 import java.awt.Window;
 
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle;
 
 import research.apneas.LimitacionFlujo;
 
@@ -18,6 +16,11 @@ import research.apneas.LimitacionFlujo;
  * @author  b
  */
 public class PanelLimitacionFlujo extends javax.swing.JPanel {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2832977794177141800L;
 
     /** Creates new form PanelLimitacionFlujo */
     public PanelLimitacionFlujo(LimitacionFlujo limitacionFlujo) {

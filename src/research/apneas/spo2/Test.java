@@ -90,7 +90,7 @@ public class Test {
                                   100, 100, 100, 100, 100, 100, 100, 100, 100, 100, //500
     };
 
-    private static float[] testReal = {99,
+    /*private static float[] testReal = {99,
                                       99,
                                       99,
                                       99,
@@ -5853,7 +5853,7 @@ public class Test {
                                       96,
                                       89,
                                       85,
-                                      85};
+                                      85};*/
 
     private static long inicio = 0;
 

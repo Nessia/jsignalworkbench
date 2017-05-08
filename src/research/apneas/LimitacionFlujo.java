@@ -17,7 +17,7 @@ import static java.lang.Math.*;
 public class LimitacionFlujo extends Intervalo {
     private float porcentajeReduccion;
     private boolean usarEnEstadisticas = true;
-    private float[] valorBasal = null, delta = null;
+//    private float[] valorBasal = null, delta = null;
     public LimitacionFlujo(int principio, int fin, int posibilidad) {
         super(principio, fin, posibilidad);
     }
@@ -43,8 +43,8 @@ public class LimitacionFlujo extends Intervalo {
     }
 
     public void setValorBasal(float[] valorBasal, float[] delta) {
-        this.valorBasal = valorBasal;
-        this.delta = delta;
+//        this.valorBasal = valorBasal;
+//        this.delta = delta;
         float energia = 0, energiaBasal = 0;
         for (int i = principio; i < fin; i++) {
             energia += energia + pow(delta[i], 2);

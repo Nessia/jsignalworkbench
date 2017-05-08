@@ -1,17 +1,14 @@
 package research.apneas;
 
 import java.awt.Color;
-import static java.lang.Math.*;
 import java.util.*;
 import java.util.List;
 
 import net.javahispano.fuzzyutilities.representation.TrapezoidalDistribution;
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
-import net.javahispano.jsignalwb.plugins.Plugin;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 import research.apneas.spo2.DetectorDesaturacionesWrapper;
-import research.beats.anotaciones.LimitacionAnotacion;
 
 /**
  * <p>Title: </p>
@@ -87,12 +84,12 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
 
     //se da en tanto por ciento
     private int limiteEnergia = 50;
-    private float limiteEnergiaAlto = 2F;
+    //private float limiteEnergiaAlto = 2F;
     private int principioIntervaloFiltroEnergia = 60;
     private int finIntervaloFiltroEnergia = 70;
     //se da en tanto por ciento
     private int relacionPrimerFiltroDerivada = 33;
-    private int principioIntervaloSegundoFiltroEnergia = 90;
+    //private int principioIntervaloSegundoFiltroEnergia = 90;
     private int finIntervaloSegundoFiltroEnergia = 95;
     private boolean considerarSoloOndasNegativas = false;
     private float ventanaCalculoDeltas = 1.5F;
@@ -103,6 +100,7 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
             TrapezoidalDistribution(6, 10, 30, 45);
 
     public ApneaAlgorithm() {
+       //Empty
     }
 
 
@@ -115,6 +113,7 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
      * @todo Implement this net.javahispano.jsignalwb.plugins.Algorithm
      *   method
      */
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
 
@@ -264,11 +263,12 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
         return d.detectar(s, apnea);
     }
 
-
+    @Override
     public boolean hasOwnConfigureGUI() {
         return true;
     }
 
+    @Override
     public void launchConfigureGUI(JSWBManager jswbManager) {
         ConfigurarDialog c = new ConfigurarDialog(jswbManager.getParentWindow(),
                                                   "configurar", pendienteNormal,
@@ -495,6 +495,7 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
      * @return String
      * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
      */
+    @Override
     public String getDescription() {
         return "";
     }
@@ -515,6 +516,7 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
      * @return String
      * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
      */
+    @Override
     public String getName() {
         return "apnea";
     }
@@ -525,6 +527,7 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
      * @return Version del plugin
      * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
      */
+    @Override
     public String getPluginVersion() {
         return "0";
     }
@@ -536,6 +539,7 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
      * @return descripcion textual corta
      * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
      */
+    @Override
     public String getShortDescription() {
         return "";
     }
@@ -555,7 +559,7 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
         return true;
     }
 
-
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;

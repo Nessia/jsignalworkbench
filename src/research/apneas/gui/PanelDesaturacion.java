@@ -11,6 +11,11 @@ package research.apneas.gui;
  * @author  b
  */
 public class PanelDesaturacion extends javax.swing.JPanel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5399655716490816797L;
+
     /** Creates new form PanelDesaturacion */
     public PanelDesaturacion() {
         initComponents();

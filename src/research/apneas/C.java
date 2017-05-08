@@ -50,9 +50,6 @@ public class C {
     private void detectar() {
         filtrarApneas();
         asociarApneasADesaturaciones();
-        if (false) {
-            return;
-        }
         buscaHipoapneasQueContenganUnaApnea();
         asociarHipoapneasADesaturaciones();
 
