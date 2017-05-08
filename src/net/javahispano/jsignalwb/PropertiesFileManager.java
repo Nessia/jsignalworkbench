@@ -53,11 +53,10 @@ public class PropertiesFileManager {
             try {
                 SAXBuilder builder = new SAXBuilder();
                 Document doc = builder.build(propertiesFile);
-                Element root = doc.getRootElement();
-                Iterator it = root.getChildren("PluginToDelete").iterator();
+                @SuppressWarnings("unchecked")
+                Iterator<Element> it = doc.getRootElement().getChildren("PluginToDelete").iterator();
                 while (it.hasNext()) {
-                    Object obj = it.next();
-                    Element elem = (Element) obj;
+                    Element elem = it.next();
                     File fd = new File(elem.getAttribute("path").getValue());
                     if (fd.exists()) {
                         fd.delete();

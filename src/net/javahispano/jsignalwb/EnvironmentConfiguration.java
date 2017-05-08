@@ -16,21 +16,24 @@ public class EnvironmentConfiguration {
     private Properties propiedades;
     private final static String directorio = "/.HerrmientaDeMonitorizacion";
     private final static String archivo = "/config.txt";
-    private final static String PAIS = "Pais", IDIOMA = "Idioma", NUMERO_DE_DIGITOS = "Numero_de_digitos_decimales",
-    PATH_JF_ABRIR_FICHEROS = "PATH_JF_ABRIR_FICHEROS", PATH_JF_ABRIR_BC = "PATH_JF_ABRIR_BC",
+    private final static String PATH_JF_ABRIR_FICHEROS = "PATH_JF_ABRIR_FICHEROS";
+    private final static String DEFAULT_LOADER = "Default_Loader";
+    private final static String RECORDAR_PATH_FICHEROS = "Recordar_Path_Ficheros";
+    /*private final static String PAIS = "Pais", IDIOMA = "Idioma", NUMERO_DE_DIGITOS = "Numero_de_digitos_decimales",
+    , PATH_JF_ABRIR_BC = "PATH_JF_ABRIR_BC",
     DIVIDER_LOCATION = "Posicon_del_divisor", X_LOCATION_MAIN_FRAME = "Posicion_x_del_frame",
     Y_LOCATION_MAIN_FRAME = "Posicion_y_del_frame", ALTO_MAIN_FRAME = "Alto_del_frame",
     ANCHO_MAIN_FRAME = "Ancho_del_frame", RECORDAR_TAMANO_MAIN_FRAME = "Recordar_Tamano_MainFrame",
-    RECORDAR_POSICION_MAIN_FRAME = "Recordar_Posicion_Main_Frame", RECORDAR_PATH_FICHEROS = "Recordar_Path_Ficheros",
+    RECORDAR_POSICION_MAIN_FRAME = "Recordar_Posicion_Main_Frame",
     RECORDAR_PATH_BC = "Recordar_Path_BC", RECORDAR_POSICION_SLIDER = "Recordar_Posicion_Slider",
     RECORDAR_VISTA_FICHEROS = "Recordar_Vista_Ficheros", ULTIMO_ARCHIVO_CARGADO = "Ultimo_archivo_cargado",
     RECORDAR_ULTIMO_ARCHIVO_CARGADO = "Recordar_ultimo_archivo_cargado", ANCHO_EDITOR = "Ancho_del_editor",
     RECORDAR_TAMANO_EDITOR = "Recordar_Tamano_Editor", RECORDAR_POSICION_EDITOR = "Recordar_Posicion_Del_EditOR",
     X_LOCATION_EDITOR = "Posicion_x_del_Editor", Y_LOCATION_EDITOR = "Posicion_y_del_Editor",
-    ALTO_EDITOR = "Alto_del_Editor", LOOK_AND_FEEL = "Look_and_Feel", DESPLAZAMENTO = "desplazamiento_temporal",
-    DEFAULT_LOADER = "Default_Loader";
+    ALTO_EDITOR = "Alto_del_Editor", LOOK_AND_FEEL = "Look_and_Feel", DESPLAZAMENTO = "desplazamiento_temporal";
+    */
     private final String rutaDelArchivo;
-    private String desplazamiento;
+    //private String desplazamiento;
     private static EnvironmentConfiguration environmentConfiguration;
 
     private EnvironmentConfiguration() {

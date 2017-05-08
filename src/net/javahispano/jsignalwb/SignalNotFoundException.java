@@ -8,6 +8,11 @@ package net.javahispano.jsignalwb;
  * @author Abraham Otero
  */
 public class SignalNotFoundException extends RuntimeException {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5893109286439727406L;
+
     private String signalName;
     /**
      * SignalNotFoundException
