@@ -2,16 +2,14 @@ package research.beats.asistencia;
 
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.SignalIntervalProperties;
-import net.javahispano.jsignalwb.plugins.Plugin;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.JSWBManager;
-import java.util.Collection;
 import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 import javax.swing.Icon;
 import net.javahispano.jsignalwb.plugins.MarkPlugin;
 import net.javahispano.jsignalwb.SignalManager;
-import java.util.List;
+
 import java.util.*;
 
 /**
@@ -28,11 +26,17 @@ import java.util.*;
  */
 public class CorregirPosicionLatidosCuandoCambiaFecha extends AlgorithmAdapter {
 
-    private boolean transparente = false;
+    //private boolean transparente = false;
+
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
 
-        Date fechaOriginalDeInicioDelRegistro = new Date(2000 - 1900, 1, 1, 0, 0, 0);
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2000 - 1900); //FIXME chapuza
+        cal.set(Calendar.MONTH, Calendar.JANUARY);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date fechaOriginalDeInicioDelRegistro = cal.getTime();
         Collection<Signal> allSignals = sm.getSignals();
         for (Signal signal : allSignals) {
             Collection<MarkPlugin> listaMarcas = signal.getAllMarks();
@@ -46,14 +50,17 @@ public class CorregirPosicionLatidosCuandoCambiaFecha extends AlgorithmAdapter {
         JSWBManager.getJSignalMonitor().repaintChannels();
     }
 
+    @Override
     public boolean hasOwnExecutionGUI() {
         return true;
     }
 
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
-        this.runAlgorithm(jswbManager.getSignalManager(), null, null);
+        this.runAlgorithm(JSWBManager.getSignalManager(), null, null);
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
@@ -63,19 +70,23 @@ public class CorregirPosicionLatidosCuandoCambiaFecha extends AlgorithmAdapter {
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return super.generateImage("CF");
     }
 
+    @Override
     public String getName() {
         return "Corregir la posicion cuando cambia fecha";
     }
 
+    @Override
     public String getDescription() {
         return "Corrige la posicin de los latidos al cambiar la fecha";
     }
 
+    @Override
     public String getShortDescription() {
-        return "Corrige la posición de los latidos al cambiar la fecha";
+        return "Corrige la posiciÃ³n de los latidos al cambiar la fecha";
     }
 }

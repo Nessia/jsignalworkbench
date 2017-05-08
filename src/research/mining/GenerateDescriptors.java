@@ -7,7 +7,6 @@ import java.util.TreeSet;
 import javax.swing.Icon;
 
 import net.javahispano.jsignalwb.*;
-import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.plugins.MarkPlugin;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
@@ -19,10 +18,16 @@ import research.mining.TemporalEvent.DETAILLEVEL;
 
 public class GenerateDescriptors extends AlgorithmAdapter {
 
-    private Signal sato2Signal, fluxSignal, toraxSignal, abdomenSignal;
-    private float[] sato2, flux, thorax, abdomen;
+    private Signal sato2Signal;
+    private Signal fluxSignal;
+    private Signal toraxSignal;
+    private Signal abdomenSignal;
+    private float[] sato2;
+    private float[] flux;
+    private float[] thorax;
+    private float[] abdomen;
     //Frecuencia de muestreo
-    private float sr;
+    //private float sr;
 
 
     /**
@@ -33,6 +38,7 @@ public class GenerateDescriptors extends AlgorithmAdapter {
      * @param signals List
      * @param ar AlgorithmRunner
      */
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
         initialize(sm);
@@ -474,29 +480,31 @@ public class GenerateDescriptors extends AlgorithmAdapter {
         thorax = toraxSignal.getValues();
         abdomen = abdomenSignal.getValues();
         //Frecuencia de muestreo
-        sr = sato2Signal.getSRate();
+        //sr = sato2Signal.getSRate();
     }
 
-
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
-        this.runAlgorithm(jswbManager.getSignalManager(), null, null);
+        this.runAlgorithm(JSWBManager.getSignalManager(), null, null);
     }
 
 //**************Lo que hay aqui abajo no es relevante para ti ******************
-     private TreeSet<DesaturacionAnotacion> getMarksAsTree(Signal sato2) {
-         List<MarkPlugin> listMarkPlugins = sato2.getAllMarks();
-         TreeSet<DesaturacionAnotacion> limTree = new TreeSet<DesaturacionAnotacion>();
-         for (Object elem : listMarkPlugins) {
-             limTree.add((DesaturacionAnotacion) elem);
-         }
-         assert (listMarkPlugins.size() == limTree.size());
-         return limTree;
-     }
+    private TreeSet<DesaturacionAnotacion> getMarksAsTree(Signal sato2) {
+        List<MarkPlugin> listMarkPlugins = sato2.getAllMarks();
+        TreeSet<DesaturacionAnotacion> limTree = new TreeSet<DesaturacionAnotacion>();
+        for (Object elem : listMarkPlugins) {
+            limTree.add((DesaturacionAnotacion) elem);
+        }
+        assert (listMarkPlugins.size() == limTree.size());
+        return limTree;
+    }
 
+    @Override
     public boolean hasOwnExecutionGUI() {
         return true;
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
@@ -506,19 +514,24 @@ public class GenerateDescriptors extends AlgorithmAdapter {
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return super.generateImage("GD");
     }
 
+    @Override
     public String getName() {
         return "Generar descriptores";
     }
 
+    @Override
     public String getDescription() {
         return getName();
     }
 
+    @Override
     public String getShortDescription() {
         return getName();
     }
+
 }

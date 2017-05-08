@@ -4,16 +4,13 @@ import net.javahispano.jsignalwb.SignalManager;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 
 public class SnoreAlgorithm extends AlgorithmAdapter {
-    /**
-     * Proporciona el hombre del plugin.
-     *
-     * @return Nombre del plugin
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
+
+    @Override
     public String getName() {
         return "Snore";
     }
 
+    @Override
     public void runAlgorithm(SignalManager sm,
                              float[] signal) {
 

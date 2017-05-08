@@ -18,19 +18,17 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
   * @version 0.5
   */
 public class FiltroNasal extends AlgorithmAdapter {
+
     public FiltroNasal() {
+        //Vacio
     }
 
-    /**
-     * Proporciona el hombre del plugin.
-     *
-     * @return Nombre del plugin
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
+    @Override
     public String getName() {
         return "Filtro Nasal";
     }
 
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties> signals,
             AlgorithmRunner ar) {
         float[] datos;

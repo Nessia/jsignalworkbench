@@ -49,8 +49,9 @@ public class MarcasTransparentes extends AlgorithmAdapter {
         return true;
     }
 
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
-        this.runAlgorithm(jswbManager.getSignalManager(), null, null);
+        this.runAlgorithm(JSWBManager.getSignalManager(), null, null);
     }
 
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {

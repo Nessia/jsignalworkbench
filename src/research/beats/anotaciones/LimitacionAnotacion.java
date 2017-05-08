@@ -99,11 +99,11 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
         }
         if (this.getSignal().getName().equals("Flujo") ) {
             g2d.setColor(Color.BLACK);
-            Point p = markPaintInfo.getPoint();
-            int maxY = (int) Math.max(markPaintInfo.getPoint().getY(),
-                                  markPaintInfo.getMaxValueY());
-            int x = p.x + markPaintInfo.getWidth()/2 - 2;
-            int y = maxY  -16;
+            //Point p = markPaintInfo.getPoint();
+            //int maxY = (int) Math.max(markPaintInfo.getPoint().getY(),
+            //                      markPaintInfo.getMaxValueY());
+            //int x = p.x + markPaintInfo.getWidth()/2 - 2;
+            //int y = maxY  -16;
             if (this.tipo == APNEA) {
                 //g2d.drawString("A", x, y);
             }

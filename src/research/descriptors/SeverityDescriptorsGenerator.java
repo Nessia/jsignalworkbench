@@ -33,6 +33,7 @@ public class SeverityDescriptorsGenerator extends AlgorithmAdapter {
     private float areaSato2;
     private float deltaSato2;
 
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
         initialize(sm);
@@ -137,7 +138,7 @@ public class SeverityDescriptorsGenerator extends AlgorithmAdapter {
         return media/contador;
     }
 
-  private float calculaArea(float[] sato2WithoutCeros) {
+    private float calculaArea(float[] sato2WithoutCeros) {
         float area=0;
         int contador=0;
         for (int i = 0; i < sato2WithoutCeros.length; i++) {
@@ -172,32 +173,33 @@ public class SeverityDescriptorsGenerator extends AlgorithmAdapter {
         return data;
     }
 
-
     private void initialize(SignalManager sm) {
         sato2Signal = sm.getSignal("Sat02");
         fluxSignal = sm.getSignal("Flujo");
         sato2 = sato2Signal.getValues();
     }
 
+    private TreeSet<LimitacionAnotacion> getMarksAsTree(Signal signal) {
+        List<MarkPlugin> listMarkPlugins = signal.getAllMarks();
+        TreeSet<LimitacionAnotacion> limTree = new TreeSet<LimitacionAnotacion>();
+        for (Object elem : listMarkPlugins) {
+            limTree.add((LimitacionAnotacion) elem);
+        }
+        assert (listMarkPlugins.size() == limTree.size());
+        return limTree;
+    }
 
-     private TreeSet<LimitacionAnotacion> getMarksAsTree(Signal signal) {
-         List<MarkPlugin> listMarkPlugins = signal.getAllMarks();
-         TreeSet<LimitacionAnotacion> limTree = new TreeSet<LimitacionAnotacion>();
-         for (Object elem : listMarkPlugins) {
-             limTree.add((LimitacionAnotacion) elem);
-         }
-         assert (listMarkPlugins.size() == limTree.size());
-         return limTree;
-     }
-
+    @Override
     public boolean hasOwnExecutionGUI() {
         return true;
     }
 
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
-        this.runAlgorithm(jswbManager.getSignalManager(), null, null);
+        this.runAlgorithm(JSWBManager.getSignalManager(), null, null);
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
@@ -207,18 +209,22 @@ public class SeverityDescriptorsGenerator extends AlgorithmAdapter {
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return super.generateImage("PS");
     }
 
+    @Override
     public String getName() {
         return "Caracterizar la gravedad del paciente";
     }
 
+    @Override
     public String getDescription() {
         return getName();
     }
 
+    @Override
     public String getShortDescription() {
         return getName();
     }

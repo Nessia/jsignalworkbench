@@ -26,10 +26,10 @@ import research.beats.anotaciones.LimitacionAnotacion;
  */
 public class AssociateEvents extends AlgorithmAdapter {
 
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
         asociate(sm);
-
     }
 
     public void asociate(SignalManager sm) {
@@ -139,14 +139,17 @@ public class AssociateEvents extends AlgorithmAdapter {
         return d;
     }
 
+    @Override
     public boolean hasOwnExecutionGUI() {
         return true;
     }
 
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
-        this.runAlgorithm(jswbManager.getSignalManager(), null, null);
+        this.runAlgorithm(JSWBManager.getSignalManager(), null, null);
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
@@ -156,18 +159,22 @@ public class AssociateEvents extends AlgorithmAdapter {
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return super.generateImage("AE");
     }
 
+    @Override
     public String getName() {
         return "Asociar Eventos";
     }
 
+    @Override
     public String getDescription() {
         return "Asociar Eventos";
     }
 
+    @Override
     public String getShortDescription() {
         return "Asociar Eventos";
     }

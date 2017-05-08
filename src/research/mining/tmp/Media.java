@@ -2,15 +2,12 @@ package research.mining.tmp;
 
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.SignalIntervalProperties;
-import net.javahispano.jsignalwb.plugins.Plugin;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.JSWBManager;
-import java.util.Collection;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 import javax.swing.Icon;
 import net.javahispano.jsignalwb.SignalManager;
 import java.util.List;
-import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
 import java.util.Arrays;
 
 /**
@@ -27,6 +24,7 @@ import java.util.Arrays;
  */
 public class Media extends AlgorithmAdapter {
 
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
         Signal s  =sm.getSignal("Sat02");
@@ -57,14 +55,17 @@ public class Media extends AlgorithmAdapter {
        System.out.println("Media: "+ media+ " Basal: "+ basal);
     }
 
+    @Override
     public boolean hasOwnExecutionGUI() {
         return true;
     }
 
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
-        this.runAlgorithm(jswbManager.getSignalManager(), null, null);
+        this.runAlgorithm(JSWBManager.getSignalManager(), null, null);
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
@@ -74,10 +75,12 @@ public class Media extends AlgorithmAdapter {
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return super.generateImage("mm");
     }
 
+    @Override
     public String getName() {
         return "Media ";
     }

@@ -24,6 +24,10 @@ import net.javahispano.jsignalwb.Signal;
  * @version 0.5
  */
 public class LimitacionesDialog extends JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1988504268897049275L;
     LimitacionAnotacion limitacionAnotacion;
     boolean apnea = true, desat = false, latido = false;
     private JPanel panel1 = new JPanel();
@@ -34,7 +38,7 @@ public class LimitacionesDialog extends JDialog {
     private JButton jButton3 = new JButton();
     private JPanel jPanel2 = new JPanel();
     private JLabel jLabel1 = new JLabel();
-    private JComboBox jComboBox1 = new JComboBox();
+    private JComboBox<String> jComboBox1 = new JComboBox<String>();
     private JLabel jLabel2 = new JLabel();
     private JLabel abelAutomatico = new JLabel();
     public LimitacionesDialog(Frame owner, String title, boolean modal,

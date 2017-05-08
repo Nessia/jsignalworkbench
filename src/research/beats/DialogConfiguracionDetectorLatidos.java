@@ -1,6 +1,5 @@
 package research.beats;
 
-import java.awt.BorderLayout;
 import java.awt.Frame;
 
 import javax.swing.JDialog;
@@ -25,12 +24,26 @@ import java.awt.event.ActionListener;
  * @version 0.5
  */
 public class DialogConfiguracionDetectorLatidos extends JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4439645106779813730L;
+
+    /*
+     * Atributos
+     */
+
     private JPanel panel1 = new JPanel();
     private JRadioButton jRadioButton1 = new JRadioButton();
     private JRadioButton jRadioRatas = new JRadioButton();
     private ButtonGroup buttonGroup1 = new ButtonGroup();
     private JButton jButtonHumanos = new JButton();
     private JButton jButtonRatas = new JButton();
+
+    /*
+     * Constructores
+     */
+
     public DialogConfiguracionDetectorLatidos(Frame owner, String title, boolean modal) {
         super(owner, title, modal);
         this.setSize(330,220);
@@ -47,6 +60,10 @@ public class DialogConfiguracionDetectorLatidos extends JDialog {
     public DialogConfiguracionDetectorLatidos() {
         this(new Frame(), "DialogConfiguracion", false);
     }
+
+    /*
+     * Métodos
+     */
 
     private void jbInit() throws Exception {
         panel1.setLayout(null);

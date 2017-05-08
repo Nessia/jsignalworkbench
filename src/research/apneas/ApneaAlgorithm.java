@@ -104,15 +104,6 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
     }
 
 
-    /**
-     * runAlgorithm
-     *
-     * @param sm SignalManager
-     * @param signals List
-     * @param ar AlgorithmRunner
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Algorithm
-     *   method
-     */
     @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
@@ -361,22 +352,15 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
 
     }
 
-    /**
-     * canSaveData
-     *
-     * @return boolean
+    /*
      * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
+     * @TODO no implementa nada!!! debería ser hasDataToSave??
      */
     public boolean canSaveData() {
         return true;
     }
 
-    /**
-     * getDataToSave
-     *
-     * @return String
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
+    @Override
     public String getDataToSave() {
         String s = pendienteNormal.toShortString() + "*" +
                    this.pendienteAscenso.toShortString() + "*" +
@@ -415,15 +399,7 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
         return s;
     }
 
-    /**
-     * Este metodo es invocado por el entorno al cargar el plugin para
-     * pasarle una cadena de caracteres con los datos que el plugin le pidio
-     * que almacenarse en la ultima ejecucion.
-     *
-     * @param string datos que el plugin pidio al entorno que almacenarse en
-     *   la ultima ejecucion
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
+    @Override
     public void setSavedData(String string) {
         /* */try {
             if (true) {

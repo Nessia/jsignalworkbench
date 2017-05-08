@@ -22,6 +22,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @version 0.5
  */
 public class DialogKubiosRHRV extends JDialog {
+    /**
+    *
+    */
+    private static final long serialVersionUID = 1684163263388957950L;
+
     private boolean exportRHRV = true;
     private JPanel panel1 = new JPanel();
     private BorderLayout borderLayout1 = new BorderLayout();
@@ -31,6 +36,8 @@ public class DialogKubiosRHRV extends JDialog {
     private FlowLayout flowLayout1 = new FlowLayout();
     private JPanel jPanel2 = new JPanel();
     private JButton jButton1 = new JButton();
+
+
     public DialogKubiosRHRV(Frame owner, String title, boolean modal) {
         super(owner, title, modal);
         try {

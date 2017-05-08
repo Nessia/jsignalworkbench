@@ -14,9 +14,8 @@ import net.javahispano.jsignalwb.plugins.*;
 import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 import net.javahispano.jsignalwb.utilities.TimePositionConverter;
-import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
 
-public class ExportarLatiods extends AlgorithmAdapter {
+public class ExportarLatidos extends AlgorithmAdapter {
 
     private String ultimoDirectorioAbierto = null;
     private JFileChooser jf;
@@ -25,48 +24,60 @@ public class ExportarLatiods extends AlgorithmAdapter {
     private boolean error = true;
     private boolean exportRHRV = true;
 
-    public ExportarLatiods() {
+    public ExportarLatidos() {
         basicSaver = new BasicSaver();
         jf = new JFileChooser(ultimoDirectorioAbierto);
     }
 
+    @Override
     public int numberOfSignalsNeeded() {
         return 0;
     }
 
+    @Override
     public String getDataToSave() {
         return ultimoDirectorioAbierto;
     }
 
+    @Override
     public String getDescription() {
         return "Permite Generar una serie de intervalos RR a partir de anotaciones de latido";
     }
 
+    @Override
     public Icon getIcon() {
         return this.generateImage("RR");
     }
 
+    @Override
     public String getName() {
         return "ExportarLatidos";
     }
 
+    @Override
     public String getPluginVersion() {
         return "0.5";
     }
 
+    @Override
     public String getShortDescription() {
         return "Genera una serie de intervalos RR";
     }
 
+    @Override
     public boolean hasDataToSave() {
         return true;
     }
 
+    @Override
     public boolean hasOwnConfigureGUI() {
         return false;
     }
 
+    @Override
     public void setSavedData(String data) {
+        ultimoDirectorioAbierto = data;
+        jf = new JFileChooser(ultimoDirectorioAbierto);
         jf.setFileFilter(new FileFilter() {
             public boolean accept(File f) {
                 if (f.isDirectory()) {
@@ -85,6 +96,7 @@ public class ExportarLatiods extends AlgorithmAdapter {
         });
     }
 
+    @Override
     public void runAlgorithm(SignalManager sm,
             List<SignalIntervalProperties> signals, AlgorithmRunner ar) {
         Signal signal;
@@ -100,7 +112,7 @@ public class ExportarLatiods extends AlgorithmAdapter {
                 l.addAll(kk);
             }
         }
-        List<DefaultIntervalMark> beatMarks = new LinkedList();
+        List<DefaultIntervalMark> beatMarks = new LinkedList<DefaultIntervalMark>();
         for (MarkPlugin mark : l) {
             if (mark instanceof DefaultIntervalMark && ((DefaultIntervalMark) mark).getComentary().equals("0")) {
                 beatMarks.add((DefaultIntervalMark) mark);
@@ -207,6 +219,7 @@ public class ExportarLatiods extends AlgorithmAdapter {
         return rrInterval;
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
@@ -216,10 +229,12 @@ public class ExportarLatiods extends AlgorithmAdapter {
         return false;
     }
 
+    @Override
     public boolean hasResultsGUI() {
         return true;
     }
 
+    @Override
     public void launchResultsGUI(JSWBManager jswbManager) {
         if (error) {
             return;
@@ -262,10 +277,12 @@ public class ExportarLatiods extends AlgorithmAdapter {
      *
      * @return boolean
      */
+    @Override
     public boolean hasOwnExecutionGUI() {
         return true;
     }
 
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
         DialogKubiosRHRV d = new DialogKubiosRHRV(null, "Seleciona Formato", true);
         d.setVisible(true);
@@ -285,4 +302,5 @@ public class ExportarLatiods extends AlgorithmAdapter {
                 "Error, no pudo generar los RR ?Se han detectado los latidos previamente?",
                 "Error", JOptionPane.ERROR_MESSAGE);
     }
+
 }

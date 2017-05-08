@@ -32,7 +32,7 @@ public class Bdac {
     private int ecgBufferIndex = 0;
     private int[] beatQue = new int[beatQueLength]; //Buffer of detection delays
     private int beatQueCount;
-    private int rrCount = 0;
+//    private int rrCount = 0;
     private int initBeatFlag = 1;
 
     private QRSDetect qrsDetect;
@@ -44,11 +44,12 @@ public class Bdac {
 
     public void resetBdac() {
         qrsDetect.resetQRSDetec(); // Reset the qrs detector
-        rrCount = 0;
+//        rrCount = 0;
         initBeatFlag = 1;
         beatQueCount = 0; // Flush the beat que.
     }
 
+    // TODO CODIGO REPETIDO ??
     /**
      * Calcula el numero de muestra donde aparece un latido
      *
@@ -59,7 +60,7 @@ public class Bdac {
     public int beatDetect(int ecgSample, int t) {
         int detectDelay;
         int i;
-        int rr = 0;
+//        int rr = 0;
         int fidAdj = 0;
 
         // Store new sample in the circular buffer.
@@ -69,7 +70,7 @@ public class Bdac {
         }
 
         // Increment RRInterval count.
-        ++rrCount;
+//        ++rrCount;
 
         // Increment detection delays for any beats in the que.
         for (i = 0; i < beatQueCount; ++i) {
@@ -92,7 +93,8 @@ public class Bdac {
             return 0;
         }
 
-        detectDelay = rrCount = beatQue[0];
+        detectDelay = beatQue[0];
+//        rrCount = beatQue[0];
 
         // Update the QUE.
         for (i = 0; i < beatQueCount - 1; ++i) {
@@ -117,7 +119,7 @@ public class Bdac {
         }
 
         if (detectDelay == 0) {
-            rrCount += rr;
+//            rrCount += rr;
             return 0;
         } else {
             return (detectDelay - fidAdj);

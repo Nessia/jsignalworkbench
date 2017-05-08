@@ -53,14 +53,14 @@ public class SaveInfo {
             pw.close();
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
-            if (pw != null) {
-                pw.close();
-            }
             JOptionPane.showMessageDialog(null,
                                           "Ha sucedido un error",
                                           "Error",
                                           JOptionPane.ERROR_MESSAGE);
-
+        } finally{
+            if (pw != null) {
+                pw.close();
+            }
         }
     }
 

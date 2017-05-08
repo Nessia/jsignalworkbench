@@ -9,14 +9,14 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 
 public class Derivada extends AlgorithmAdapter {
 
+    @Override
     public String getName() {
         return "Derivada";
     }
 
-
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties> signals,
-            AlgorithmRunner ar
-) {
+            AlgorithmRunner ar) {
         float[] derivada = null;
         float[] datos;
         for (SignalIntervalProperties si : signals) {

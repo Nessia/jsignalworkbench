@@ -2,7 +2,7 @@ package research.beats.hrv;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.io.BasicLoader;
@@ -56,7 +56,11 @@ public class MultiTXTLoader extends BasicLoader {
         for (int i = 0; i < 4; i++) {
             Signal newSignal = new Signal(nombres[i], s[i]);
             newSignal.setFrecuency(fs[i]);
-            newSignal.setStart((new Date(100, 1, 1, 0, 0, 0)).getTime());
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, 100);
+            cal.set(Calendar.MONTH, Calendar.JANUARY);
+            cal.set(Calendar.DAY_OF_MONTH, 1);
+            newSignal.setStart(cal.getTime().getTime());
             sm.addSignal(newSignal);
             newSignal.adjustVisibleRange();
         }

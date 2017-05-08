@@ -15,23 +15,23 @@ import research.beats.anotaciones.LimitacionAnotacion;
 import javax.swing.JFrame;
 import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalAnnotation;
 import java.awt.Color;
-import javax.swing.JFileChooser;
-import java.io.File;
 import java.io.PrintWriter;
-import java.io.*;
 import java.awt.*;
 
 
 public class ApneaEpisodeGenerator extends AlgorithmAdapter {
-    private float pesos[];
     static int tamanoVentana = 300;
     static float pesoApnea = 1;
     static float pesoHipoapnea = 0.5f;
     static float limitePorcentaje = 5;
     static float limitePorcentaje2 = 20;
     static StringBuilder stringBuilder;
-    private JFileChooser jf = new JFileChooser();
 
+    //private JFileChooser jf = new JFileChooser();
+    private float pesos[];
+
+
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
         Signal flujo = sm.getSignal("Flujo");
@@ -40,11 +40,13 @@ public class ApneaEpisodeGenerator extends AlgorithmAdapter {
             advertirSenalNoEncontrada();
             return;
         }
+
+        // TODO se modifica un valor estÃ¡tico al instanciar un objeto
         pr(flujo);
-        float tmp=  this.pesoHipoapnea;
-       pesoHipoapnea = 1;
+        float tmp=  pesoHipoapnea;
+        pesoHipoapnea = 1;
         pr(flujo);
-        this.pesoHipoapnea=tmp;
+        pesoHipoapnea = tmp;
     }
 
     private void pr(Signal flujo) throws RuntimeException {
@@ -74,9 +76,9 @@ public class ApneaEpisodeGenerator extends AlgorithmAdapter {
         if (procesadas != apneaTree.size()) {
             advertirMarcaNoEsperada();
         }
-if ( pesoHipoapnea !=1) {
-    clasificarIntervalos(flujo);
-}
+        if ( pesoHipoapnea !=1) {
+            clasificarIntervalos(flujo);
+        }
 
         guardarArchivo();
     }
@@ -163,7 +165,7 @@ if ( pesoHipoapnea !=1) {
 
     private void advertirSenalNoEncontrada() {
         JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
-                                      "No se encontr una señal con nombre \"Flujo\"",
+                                      "No se encontr una seï¿½al con nombre \"Flujo\"",
                                       "Error", JOptionPane.OK_OPTION);
     }
 
@@ -173,12 +175,12 @@ if ( pesoHipoapnea !=1) {
                                       "Error", JOptionPane.OK_OPTION);
     }
 
-
+    @Override
     public boolean hasOwnConfigureGUI() {
         return true;
     }
 
-
+    @Override
     public void launchConfigureGUI(JSWBManager jswbManager) {
         DialogApneaEpisodeGenerator dialog = new DialogApneaEpisodeGenerator(
                 (JFrame) JSWBManager.getParentWindow(), "Configuracion", true);
@@ -195,29 +197,33 @@ if ( pesoHipoapnea !=1) {
         System.out.println(tamanoVentana + " " + pesoApnea + " " + pesoHipoapnea + " " + limitePorcentaje);
     }
 
+    @Override
     public boolean hasOwnExecutionGUI() {
         return true;
     }
 
-
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
         this.runAlgorithm(JSWBManager.getSignalManager(), null, null);
     }
 
-
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
+        }
+        if (gUIPositions == GUIPositions.TOOLBAR) {
             return true;
         }
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return super.generateImage("HR");
     }
 
+    @Override
     public String getName() {
         return "Generador de episodios de apnea";
     }

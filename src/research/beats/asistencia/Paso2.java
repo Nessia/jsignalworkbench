@@ -8,7 +8,6 @@ import javax.swing.Icon;
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
-import net.javahispano.jsignalwb.plugins.Plugin;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 
 /**
@@ -25,6 +24,7 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public class Paso2 extends AlgorithmAdapter {
 
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
         Collection<Signal> l = sm.getSignals();
@@ -56,14 +56,17 @@ public class Paso2 extends AlgorithmAdapter {
         js.setFrecuency(2);
     }
 
+    @Override
     public boolean hasOwnExecutionGUI() {
         return true;
     }
 
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
-        this.runAlgorithm(jswbManager.getSignalManager(), null, null);
+        this.runAlgorithm(JSWBManager.getSignalManager(), null, null);
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
@@ -73,18 +76,22 @@ public class Paso2 extends AlgorithmAdapter {
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return super.generateImage("22");
     }
 
+    @Override
     public String getName() {
         return "Anotando eventos respiratorios";
     }
 
+    @Override
     public String getDescription() {
         return "Anotando eventos respiratorios";
     }
 
+    @Override
     public String getShortDescription() {
         return "Anotando eventos respiratorios";
     }

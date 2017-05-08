@@ -3,11 +3,10 @@ package research.beats;
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.JSWBManager;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import net.javahispano.jsignalwb.plugins.MarkPlugin;
 import java.io.File;
 import net.javahispano.jsignalwb.SignalManager;
-import java.util.List;
 import net.javahispano.jsignalwb.io.BasicLoader;
 
 public class RatasLoader extends BasicLoader {
@@ -40,7 +39,12 @@ public class RatasLoader extends BasicLoader {
             }
             Signal newSignal = new Signal(nombres[i], s.getValues());
             newSignal.setFrecuency(500);
-            Date baseDate = new Date(100, 1, 1, 0, 0, 0);
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, 100);
+            cal.set(Calendar.MONTH, 1);
+            cal.set(Calendar.DAY_OF_MONTH, 1);
+
+            Date baseDate = cal.getTime();
             newSignal.setStart(baseDate.getTime());
             //alinearConECG(sm,newSignal,s);
             sm.removeSignal(s.getName());

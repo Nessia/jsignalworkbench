@@ -8,7 +8,6 @@ import javax.swing.Icon;
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
-import net.javahispano.jsignalwb.plugins.Plugin;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 
 /**
@@ -25,6 +24,7 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public class Paso1 extends AlgorithmAdapter {
 
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
         Collection<Signal> l = sm.getSignals();
@@ -38,14 +38,17 @@ public class Paso1 extends AlgorithmAdapter {
         js.setFrecuency(128);
     }
 
+    @Override
     public boolean hasOwnExecutionGUI() {
         return true;
     }
 
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
-        this.runAlgorithm(jswbManager.getSignalManager(), null, null);
+        this.runAlgorithm(JSWBManager.getSignalManager(), null, null);
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
@@ -55,18 +58,22 @@ public class Paso1 extends AlgorithmAdapter {
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return super.generateImage("11");
     }
 
+    @Override
     public String getName() {
         return "Anotando latidos";
     }
 
+    @Override
     public String getDescription() {
         return "Anotando latidos";
     }
 
+    @Override
     public String getShortDescription() {
         return "Anotando latidos";
     }

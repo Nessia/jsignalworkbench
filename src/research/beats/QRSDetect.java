@@ -34,7 +34,7 @@ public class QRSDetect {
     private static int nmean, qmean, rrmean;
     private static int count, sbpeak = 0, sbloc;
     private int sbcount = SampleRate.getMs1500();
-    private static int maxder, lastmax;
+    //private static int maxder;// lastmax;
     private static int initBlank, initMax;
     private static int preBlankCnt, tempPeak;
     private static int lastDatum;
@@ -43,7 +43,7 @@ public class QRSDetect {
 
     /** Creates a new instance of QRSDetect */
     public QRSDetect() {
-
+        //Vacio
     }
 
     public void resetQRSDetec() {
@@ -54,7 +54,8 @@ public class QRSDetect {
             /* and R-to-R interval buffer. */
         }
         qpkcnt = 0;
-        maxder = lastmax = count = sbpeak = 0;
+        //maxder = lastmax = count = sbpeak = 0;
+        count = sbpeak = 0;
         initBlank = initMax = preBlankCnt = ddPtr = 0;
         sbcount = SampleRate.getMs1500();
 
@@ -203,8 +204,8 @@ public class QRSDetect {
 
                         sbpeak = 0;
 
-                        lastmax = maxder;
-                        maxder = 0;
+                        //lastmax = maxder;
+                        //maxder = 0;
                         qrsDelay = SampleRate.getWindowWidth() + filterDelay;
                         initBlank = initMax = rsetCount = 0;
                     }
@@ -251,8 +252,8 @@ public class QRSDetect {
                 count = count - sbloc;
                 qrsDelay += filterDelay;
                 sbpeak = 0;
-                lastmax = maxder;
-                maxder = 0;
+                //lastmax = maxder;
+                //maxder = 0;
 
                 initBlank = 0;
                 initMax = 0;
@@ -372,7 +373,7 @@ public class QRSDetect {
             }
         }
 
-        maxder = maxb;
+        //maxder = maxb;
         min = -min;
 
         /* Possible beat if a maximum and minimum pair are found

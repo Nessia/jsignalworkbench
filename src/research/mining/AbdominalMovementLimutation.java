@@ -1,7 +1,6 @@
 package research.mining;
 
 import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
-import research.mining.FluxLimitation.Type;
 
 public class AbdominalMovementLimutation extends FluxLimitation {
 

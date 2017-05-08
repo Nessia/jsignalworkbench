@@ -28,7 +28,9 @@ public class FluxLimitation extends TemporalEvent {
     }
 
 
-    public FluxLimitation() {}
+    public FluxLimitation() {
+        // vacio
+    }
 
     public FluxLimitation(long absoluteBeginingTime, long duration) {
         super(absoluteBeginingTime, duration);
@@ -59,11 +61,11 @@ public class FluxLimitation extends TemporalEvent {
      * @param level DETAILLEVEL
      * @return String
      */
-public String genrateDescriptors(DETAILLEVEL level, long beginingRecording) {
+    public String generateDescriptors(DETAILLEVEL level, long beginingRecording) {
         //@Emma que valores hay que poner si no hay ninguna limitacion toracica o abdominal??(duration == 0)
         // ahora mismo no se añade nada a la string que se devuelve
         String descriptors;
-        long duration;
+        //long duration;
         AbdominalMovementLimutation abdLim = new AbdominalMovementLimutation();
         ThoracicMovementLimutation thoraxLim = new ThoracicMovementLimutation();
 
@@ -89,48 +91,54 @@ public String genrateDescriptors(DETAILLEVEL level, long beginingRecording) {
                 descriptors += "\t" + this.getEnergy() + "\t"
                         + this.getBasalEnergyBefore() + "\t"
                         + this.getBasalEnergyAfter();
-                if(false && level == DETAILLEVEL.EVERYTHING){
-                    //info de la limitacion toracica mas larga
-                    for(ThoracicMovementLimutation lim: thoracicLimitations){
-                        if(lim.getDuration()>thoraxLim.getDuration())
-                            thoraxLim = lim;
-                    }
-                    duration = thoraxLim.getDuration();
-                    if(duration!=0){
-                        descriptors += "\t" + thoraxLim.getDuration();
-
-                        if(thoraxLim.getType() == Type.APNEA)
-                            descriptors += "\tA\t";
-                        else
-                            descriptors += "\tH\t";
-
-                        descriptors += thoraxLim.getEnergy() + "\t"
-                                + thoraxLim.getBasalEnergyBefore() + "\t"
-                                + thoraxLim.getBasalEnergyAfter();
-                    }
-
-                    //info de la limitacion abdominal mas larga
-                    for(AbdominalMovementLimutation lim : abdominalLimitations){
-                        if(lim.getDuration()>abdLim.getDuration())
-                            abdLim = lim;
-                    }
-                    duration = abdLim.getDuration();
-                    if(duration!=0){
-                        descriptors += "\t" + abdLim.getDuration();
-
-                        if(abdLim.getType() == Type.APNEA)
-                            descriptors += "\tA\t";
-                        else
-                            descriptors += "\tH\t";
-
-                        descriptors += abdLim.getEnergy() + "\t"
-                                + abdLim.getBasalEnergyBefore() + "\t"
-                                + abdLim.getBasalEnergyAfter();
-                    }
+                if(level == DETAILLEVEL.EVERYTHING){
+                    descriptors = whenEverything(thoraxLim, abdLim, descriptors);
                 }
             }
         }
         return descriptors;
+    }
+
+    private String whenEverything(ThoracicMovementLimutation thoraxLim, AbdominalMovementLimutation abdLim, String descriptors){
+       //info de la limitacion toracica mas larga
+       for(ThoracicMovementLimutation lim: thoracicLimitations){
+           if(lim.getDuration()>thoraxLim.getDuration())
+               thoraxLim = lim;
+       }
+       duration = thoraxLim.getDuration();
+       if(duration!=0){
+           descriptors += "\t" + thoraxLim.getDuration();
+
+           if(thoraxLim.getType() == Type.APNEA)
+               descriptors += "\tA\t";
+           else
+               descriptors += "\tH\t";
+
+           descriptors += thoraxLim.getEnergy() + "\t"
+                   + thoraxLim.getBasalEnergyBefore() + "\t"
+                   + thoraxLim.getBasalEnergyAfter();
+       }
+
+       //info de la limitacion abdominal mas larga
+       for(AbdominalMovementLimutation lim : abdominalLimitations){
+           if(lim.getDuration()>abdLim.getDuration())
+               abdLim = lim;
+       }
+       duration = abdLim.getDuration();
+       if(duration!=0){
+           descriptors += "\t" + abdLim.getDuration();
+
+           if(abdLim.getType() == Type.APNEA)
+               descriptors += "\tA\t";
+           else
+               descriptors += "\tH\t";
+
+           descriptors += abdLim.getEnergy() + "\t"
+                   + abdLim.getBasalEnergyBefore() + "\t"
+                   + abdLim.getBasalEnergyAfter();
+       }
+       return descriptors;
+
     }
 
     public void addAbdomenLimitation(AbdominalMovementLimutation l) {

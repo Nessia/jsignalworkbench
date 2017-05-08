@@ -24,25 +24,29 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public class BorrarMarcasEnIntervalo extends AlgorithmAdapter implements IntervalSelectedListener {
 
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
 
         JSWBManager jsw = JSWBManager.getJSWBManagerInstance();
-        JSMProperties jsm = jsw.getJSignalMonitor().getJSMProperties();
+        JSMProperties jsm = JSWBManager.getJSignalMonitor().getJSMProperties();
         jsm.setMarkCreation(false);
         jsm.setClicked(false);
         jsw.selectInterval(this);
 
     }
 
+    @Override
     public boolean hasOwnExecutionGUI() {
         return true;
     }
 
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
-        this.runAlgorithm(jswbManager.getSignalManager(), null, null);
+        this.runAlgorithm(JSWBManager.getSignalManager(), null, null);
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
@@ -52,22 +56,27 @@ public class BorrarMarcasEnIntervalo extends AlgorithmAdapter implements Interva
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return new javax.swing.ImageIcon(getClass().getResource("erase.gif"));
     }
 
+    @Override
     public String getName() {
         return "Borrar marcas";
     }
 
+    @Override
     public String getDescription() {
         return "Borrar marcas";
     }
 
+    @Override
     public String getShortDescription() {
         return "Borrar marcas";
     }
 
+    @Override
     public void intervalSelectedActionPerformed(IntervalSelectedEvent evt) {
         SignalManager sm = JSWBManager.getSignalManager();
         Signal signal = sm.getSignal(evt.getChannelName());

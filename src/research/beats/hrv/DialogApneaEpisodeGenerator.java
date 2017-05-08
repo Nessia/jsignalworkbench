@@ -21,6 +21,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class DialogApneaEpisodeGenerator extends JDialog {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7338401796062255437L;
+
     private int tamanoVentana = 300;
     private float pesoApnea = 3;
     private float pesoHipoapnea = 1;
@@ -51,9 +56,9 @@ public class DialogApneaEpisodeGenerator extends JDialog {
         jTextFieldVentana.addActionListener(new DialogApneaEpisodeGenerator_jTextField1_actionAdapter(this));
         jLabel3.setText("Peso de hipoapneas");
         jLabel3.setBounds(new Rectangle(53, 157, 148, 16));
-        jLabel4.setText("Porcentaje límite");
+        jLabel4.setText("Porcentaje lï¿½mite");
         jLabel4.setBounds(new Rectangle(53, 202, 124, 16));
-        jLabel5.setText("Tamaño de la ventana");
+        jLabel5.setText("Tamaï¿½o de la ventana");
         jLabel5.setBounds(new Rectangle(53, 74, 176, 16));
         jTextFieldApneas.setColumns(10);
         jTextFieldApneas.setBounds(new Rectangle(258, 109, 69, 22));
@@ -67,7 +72,7 @@ public class DialogApneaEpisodeGenerator extends JDialog {
         jButton2.addActionListener(new DialogApneaEpisodeGenerator_jButton2_actionAdapter(this));
         this.getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
         jButton2.setText("Aceptar");
-        jLabel1.setText("Configuración para generar los intervalos");
+        jLabel1.setText("Configuraciï¿½n para generar los intervalos");
         jPanel1.add(jButton2);
         jPanel1.add(jButton1);
         jButton1.setText("Cancelar");

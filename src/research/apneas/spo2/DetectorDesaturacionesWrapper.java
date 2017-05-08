@@ -21,19 +21,21 @@ import research.apneas.*;
  * @version 0.5
  */
 public class DetectorDesaturacionesWrapper extends AlgorithmAdapter {
+    private static long inicioAbsoluto = 0;
+
     private Signal signal;
 
 
     public DetectorDesaturacionesWrapper() {
-
+        // Vacío
     }
 
     public DetectorDesaturacionesWrapper(Signal signal) {
         this.signal = signal;
     }
 
+    @Override
     public void runAlgorithm(SignalManager sm, float[] datos) {
-
         signal = JSWBManager.getSignalManager().getSignal("SaO2");
         ejecutar(datos);
     }
@@ -117,10 +119,9 @@ public class DetectorDesaturacionesWrapper extends AlgorithmAdapter {
         JSWBManager.getSignalManager().addSignalMark(satO2.getName(), m);
     }
 
+    @Override
     public String getName() {
         return "Test";
     }
-
-    private static long inicioAbsoluto = 0;
 
 }

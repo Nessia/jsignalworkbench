@@ -11,13 +11,16 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  * User: a
  * Date: 03-dic-2008
  * Time: 20:30:07
- * To change this template use File | Settings | File Templates.
+ *
  */
 public class EraseInterval extends AlgorithmAdapter {
+
+    @Override
     public String getName() {
         return "Borrar intervalo";
     }
 
+    @Override
     public void runAlgorithm(SignalManager sm,
                              List<SignalIntervalProperties> signals,
             AlgorithmRunner ar) {
@@ -36,7 +39,7 @@ public class EraseInterval extends AlgorithmAdapter {
 
     }
 
-
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;

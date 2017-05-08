@@ -19,6 +19,8 @@ import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
  */
 public class TestJSWB extends AlgorithmAdapter {
 
+    private static long inicio = 0;
+
     private static void test(float[] test) {
         DetectorDesaturaciones b = new DetectorDesaturaciones();
         b.setTiempoInicial(inicio);
@@ -44,16 +46,15 @@ public class TestJSWB extends AlgorithmAdapter {
         }
     }
 
+    @Override
     public void runAlgorithm(SignalManager sm, float[] signal) {
-
         inicio = JSWBManager.getSignalManager().getSignal("SaO2").getStart();
         test(signal);
     }
 
+    @Override
     public String getName() {
         return "Test";
     }
-
-    private static long inicio = 0;
 
 }

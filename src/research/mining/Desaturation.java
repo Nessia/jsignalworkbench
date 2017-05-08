@@ -90,7 +90,7 @@ public class Desaturation extends TemporalEvent {
             if(level==DETAILLEVEL.MEDIUM || level==DETAILLEVEL.HIGH || level==DETAILLEVEL.EVERYTHING){
                 descriptors += "\t";
                 FluxLimitation fluxLim = generateSurrotageFluxLim ();
-                descriptors += fluxLim.genrateDescriptors(DETAILLEVEL.EVERYTHING, beginingRecording);
+                descriptors += fluxLim.generateDescriptors(DETAILLEVEL.EVERYTHING, beginingRecording);
                 if (limitations.size()>1) {
                     descriptors += "\ttrue";
                 }
@@ -123,7 +123,7 @@ public class Desaturation extends TemporalEvent {
     private FluxLimitation generateSurrotageFluxLim() {
         FluxLimitation fluxLimitation = new FluxLimitation();
         fluxLimitation.setAbsoluteBeginingTime(limitations.get(0).getAbsoluteBeginingTime());
-        int duration=0,apneaCounter=0,hypopneaCounter=0,episodesCounter=0;
+        int duration=0,apneaCounter=0,hypopneaCounter=0;//episodesCounter=0;
         float energy=0,energyBefore=0,energyAfter=0;
 
         for (FluxLimitation fluxLim : limitations) {
@@ -136,7 +136,7 @@ public class Desaturation extends TemporalEvent {
             } else {
                 hypopneaCounter++;
             }
-            episodesCounter++;
+            //episodesCounter++;
         }
         fluxLimitation.setDuration(duration);
         fluxLimitation.setEnergy(energy);
@@ -206,7 +206,7 @@ public class Desaturation extends TemporalEvent {
     }
 
     public List<FluxLimitation> getLimitations(){
-        List<FluxLimitation> listCopy = new LinkedList(limitations);
+        List<FluxLimitation> listCopy = new LinkedList<FluxLimitation>(limitations);
 
         return listCopy;
     }

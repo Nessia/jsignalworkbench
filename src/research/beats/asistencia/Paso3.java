@@ -2,14 +2,19 @@ package research.beats.asistencia;
 
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.SignalIntervalProperties;
-import net.javahispano.jsignalwb.plugins.Plugin;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.JSWBManager;
+
 import java.util.Collection;
+
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
+
 import javax.swing.Icon;
+
 import net.javahispano.jsignalwb.SignalManager;
+
 import java.util.List;
+
 import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
 
 /**
@@ -26,6 +31,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  */
 public class Paso3  extends AlgorithmAdapter {
 
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
         Collection<Signal> l = sm.getSignals();
@@ -49,14 +55,17 @@ public class Paso3  extends AlgorithmAdapter {
         js.setFrecuency(2);
     }
 
+    @Override
     public boolean hasOwnExecutionGUI() {
         return true;
     }
 
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
-        this.runAlgorithm(jswbManager.getSignalManager(), null, null);
+        this.runAlgorithm(JSWBManager.getSignalManager(), null, null);
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
@@ -66,18 +75,22 @@ public class Paso3  extends AlgorithmAdapter {
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return super.generateImage("33");
     }
 
+    @Override
     public String getName() {
         return "As";
     }
 
+    @Override
     public String getDescription() {
         return "As";
     }
 
+    @Override
     public String getShortDescription() {
         return "As";
     }

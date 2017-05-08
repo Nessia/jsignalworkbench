@@ -6,7 +6,7 @@ import java.util.*;
 
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.io.BasicLoader;
-import net.javahispano.jsignalwb.plugins.MarkPlugin;
+//import net.javahispano.jsignalwb.plugins.MarkPlugin;
 
 /**
  * <p>Title: </p>
@@ -22,9 +22,9 @@ import net.javahispano.jsignalwb.plugins.MarkPlugin;
  */
 public class HRVLoader extends BasicLoader {
      private String[] nombres = {"ULF", "VLF", "LF", "HF", "LF/HF", "HRV","FC"};
-    //  private String[] nombres = {"Diuresis","F. ri耋n","F. car髏ida","P. arterial",
-      // "P. pulmonar","F. corteza","F. m閐ula","F. corteza+m閐ula"};
-   //  private String[] nombres = {"Presi髇 arterial", "Flujo car髏ida"};
+    //  private String[] nombres = {"Diuresis","F. ri帽贸n","F. car贸tida","P. arterial",
+      // "P. pulmonar","F. corteza","F. m茅dula","F. corteza+m茅dula"};
+   //  private String[] nombres = {"Presi贸n arterial", "Flujo car贸tida"};
 
     // private String[] nombres = {"I", "II", "III"};
 
@@ -57,7 +57,11 @@ public class HRVLoader extends BasicLoader {
         if (signalArray.length>0) {
             baseDate = new Date(((Signal)signalArray [0]).getStart());
         } else {
-             baseDate = new Date(100, 1, 1, 0, 0, 0);
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, 100);
+            cal.set(Calendar.MONTH, Calendar.JANUARY);
+            cal.set(Calendar.DAY_OF_MONTH, 1);
+            baseDate = cal.getTime();
         }
 
         super.load(f, sm);
@@ -82,46 +86,46 @@ public class HRVLoader extends BasicLoader {
         return flag;
     }
 
-    private void alinearConECG(SignalManager sm, Signal newSignal, Signal oldSignal) {
-        Signal ecg = sm.getSignal("ECG");
-        if (ecg == null) {//no hay ECG; estamos abriendo directamente un registro hrv y no a馻diendo
-            return;
-        }
-        List<MarkPlugin> beats =ecg.getAllMarks();
-        MarkPlugin primerLatido = buscarPrimerLatido(beats);
+//    private void alinearConECG(SignalManager sm, Signal newSignal, Signal oldSignal) {
+//        Signal ecg = sm.getSignal("ECG");
+//        if (ecg == null) {//no hay ECG; estamos abriendo directamente un registro hrv y no a锟絘diendo
+//            return;
+//        }
+//        List<MarkPlugin> beats =ecg.getAllMarks();
+//        MarkPlugin primerLatido = buscarPrimerLatido(beats);
+//
+//        long posicionPrimerLatido = primerLatido.getMarkTime();
+//        posicionPrimerLatido += (primerLatido.getEndTime()-primerLatido.getMarkTime())/2;
+//        long origenOldSignal = oldSignal.getStart();
+//        float desplazamientoEnSegundos = (posicionPrimerLatido-origenOldSignal)/(1000F);
+//        int desplazamientoEnMuestras = Math.round (desplazamientoEnSegundos * newSignal.getSRate());
+//
+//
+//        float[] oldValues = newSignal.getValues();
+//        float[] newValues = new float[oldValues.length+desplazamientoEnMuestras];
+//        int i =0;
+//        for (; i < desplazamientoEnMuestras; i++) {
+//            newValues[i]=0;
+//        }
+//        for (i=0; i < oldValues.length; i++) {
+//            newValues[desplazamientoEnMuestras+i]=oldValues[i];
+//        }
+//        newSignal.setValues(newValues);
+//    }
 
-        long posicionPrimerLatido = primerLatido.getMarkTime();
-        posicionPrimerLatido += (primerLatido.getEndTime()-primerLatido.getMarkTime())/2;
-        long origenOldSignal = oldSignal.getStart();
-        float desplazamientoEnSegundos = (posicionPrimerLatido-origenOldSignal)/(1000F);
-        int desplazamientoEnMuestras = Math.round (desplazamientoEnSegundos * newSignal.getSRate());
-
-
-        float[] oldValues = newSignal.getValues();
-        float[] newValues = new float[oldValues.length+desplazamientoEnMuestras];
-        int i =0;
-        for (; i < desplazamientoEnMuestras; i++) {
-            newValues[i]=0;
-        }
-        for (i=0; i < oldValues.length; i++) {
-            newValues[desplazamientoEnMuestras+i]=oldValues[i];
-        }
-        newSignal.setValues(newValues);
-    }
-
-    private MarkPlugin buscarPrimerLatido(List<MarkPlugin> m) {
-        MarkPlugin primerLatido=m.get(0);
-        for (MarkPlugin markPlugin : m) {
-            if (primerLatido.getMarkTime()>markPlugin.getMarkTime()) {
-                primerLatido=markPlugin;
-            }
-        }
-        return primerLatido;
-    }
+//    private MarkPlugin buscarPrimerLatido(List<MarkPlugin> m) {
+//        MarkPlugin primerLatido=m.get(0);
+//        for (MarkPlugin markPlugin : m) {
+//            if (primerLatido.getMarkTime()>markPlugin.getMarkTime()) {
+//                primerLatido=markPlugin;
+//            }
+//        }
+//        return primerLatido;
+//    }
 
     private float[] corrigeInicioYFin(File f, Signal s, SignalManager sm) {
         Signal ecg = sm.getSignal("ECG");
-        if (ecg == null) {//no hay ECG; estamos abriendo directamente un registro hrv y no a馻diendo
+        if (ecg == null) {//no hay ECG; estamos abriendo directamente un registro hrv y no a帽adiendo
             return s.getValues();
         }
         float ventana = extraerVentanaEnSegundos(f);
