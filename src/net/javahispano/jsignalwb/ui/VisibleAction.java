@@ -31,7 +31,7 @@ public class VisibleAction extends AbstractAction {
     public VisibleAction(JSWBManager jswbManager, String signalName) {
         this.signalName = signalName;
         this.jswbManager = jswbManager;
-        this.putValue(this.NAME, "Visible");
+        this.putValue(NAME, "Visible");
         this.putValue(SHORT_DESCRIPTION, "Make visible(or not) the signal");
         this.putValue(MNEMONIC_KEY, KeyEvent.VK_V);
     }

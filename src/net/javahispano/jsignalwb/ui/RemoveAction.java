@@ -52,7 +52,7 @@ public class RemoveAction extends AbstractAction {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        int option = JOptionPane.showConfirmDialog(jswbManager.getParentWindow(), "Are you sure?",
+        int option = JOptionPane.showConfirmDialog(JSWBManager.getParentWindow(), "Are you sure?",
                 "Remove signal: " + signalName, JOptionPane.YES_NO_OPTION);
         if (option == 0) {
             //boolean flag=jswbManager.getSignalManager().isSignalVisible(signalName);

@@ -15,7 +15,7 @@ import javax.swing.JMenuItem;
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.plugins.Algorithm;
 import net.javahispano.jsignalwb.plugins.framework.PluginManager;
-import java.awt.event.*;
+
 
 /**
  *
@@ -27,13 +27,13 @@ public class JMenuAlgorithm extends JMenu {
      */
     private static final long serialVersionUID = -7899503069823533186L;
 
-    private String algorithmName;
+    //private String algorithmName;
     /** Creates a new instance of JMenuAlgorithm */
     public JMenuAlgorithm(String algorithmName, JSWBManager jswbManager) {
         super(algorithmName);
 
-        this.algorithmName = algorithmName;
-        PluginManager pm = jswbManager.getPluginManager();
+        //this.algorithmName = algorithmName;
+        PluginManager pm = JSWBManager.getPluginManager();
         JMenuItem results = new JMenuItem(new AlgorithmAction(algorithmName, AlgorithmAction.RESULTS_ACTION,
                 jswbManager));
         JMenuItem configure = add(new JMenuItem(new AlgorithmAction(algorithmName, AlgorithmAction.CONFIGURE_ACTION,

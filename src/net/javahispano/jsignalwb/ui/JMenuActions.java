@@ -32,19 +32,19 @@ public class JMenuActions extends JMenu {
         addSeparator();
         add(new EraseAllAction());
         addSeparator();
-        add(new JRadioButtonMenuItemXY(jswbManager.getJSignalMonitor()));
-        add(new JRadioButtonMenuItemAddMarks(jswbManager.getJSignalMonitor()));
+        add(new JRadioButtonMenuItemXY(JSWBManager.getJSignalMonitor()));
+        add(new JRadioButtonMenuItemAddMarks(JSWBManager.getJSignalMonitor()));
         addSeparator();
         add(new JMenuItem(new AdjustSignalVisibleRangeAction(jswbManager)));
         add(new JMenuItem(new AdjustSignalVisibleRangeAction(0.6666f, jswbManager)));
         add(new JMenuItem(new AdjustSignalVisibleRangeAction(0.5f, jswbManager)));
         addSeparator();
         add(new JRadioButtonMenuItemDebugModeOnRestart());
-        add(new JMenuItem(new ShowJSMPropertiesAction(jswbManager, jswbManager.getParentWindow())));
-        if (jswbManager.getParentWindow() != null &&
-            (jswbManager.getParentWindow() instanceof JFrame)) {
+        add(new JMenuItem(new ShowJSMPropertiesAction(jswbManager, JSWBManager.getParentWindow())));
+        if (JSWBManager.getParentWindow() != null &&
+            (JSWBManager.getParentWindow() instanceof JFrame)) {
             addSeparator();
-            add(new LookAndFeelAction((JFrame) jswbManager.getParentWindow()));
+            add(new LookAndFeelAction((JFrame) JSWBManager.getParentWindow()));
         }
     }
 

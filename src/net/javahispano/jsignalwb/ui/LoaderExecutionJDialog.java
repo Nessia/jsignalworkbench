@@ -26,7 +26,7 @@ public class LoaderExecutionJDialog extends javax.swing.JDialog implements Prope
     private static final long serialVersionUID = -6086174004796887828L;
 
     private Loader loader;
-    private SwingWorker sw;
+    private SwingWorker<Boolean, Void> swWorker;
     /**
      * Creates new form LoaderExecutionJDialog
      * @param loader {@link Loader} a utilizar para la carga
@@ -34,7 +34,7 @@ public class LoaderExecutionJDialog extends javax.swing.JDialog implements Prope
      * @param jswbManager {@link JSWBManager} manager general de la aplicacion
      */
     public LoaderExecutionJDialog(Loader loader, File file) {
-        super(JSWBManager.getJSWBManagerInstance().getParentWindow(), "Loader");
+        super(JSWBManager.getParentWindow(), "Loader");
         setModal(true);
         this.loader = loader;
         initComponents();
@@ -42,7 +42,7 @@ public class LoaderExecutionJDialog extends javax.swing.JDialog implements Prope
         LoaderRunner lr = new LoaderRunner(loader, file);
         lr.addPropertyChangeListener(this);
         setLocationRelativeTo(this.getOwner());
-        sw = (SwingWorker) lr;
+        swWorker = (SwingWorker<Boolean, Void>) lr;
         jswbManager.setJSMIgnoreRepaintMode(true);
         lr.execute();
         setVisible(true);
@@ -121,7 +121,7 @@ public class LoaderExecutionJDialog extends javax.swing.JDialog implements Prope
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton1ActionPerformed
         loader.cancelExecution();
-        sw.cancel(false);
+        swWorker.cancel(false);
     } //GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

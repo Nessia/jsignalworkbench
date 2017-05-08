@@ -28,11 +28,11 @@ public class SaverExecutionJDialog extends javax.swing.JDialog implements Proper
      */
     private static final long serialVersionUID = 6768191882310329427L;
     private Saver saver;
-    private SwingWorker swingWorker;
+    private SwingWorker<Boolean, Void> swingWorker;
 
     /** Creates new form SaverRunner */
     public SaverExecutionJDialog(Saver saver, File file) {
-        super(JSWBManager.getJSWBManagerInstance().getParentWindow(), "Saver");
+        super(JSWBManager.getParentWindow(), "Saver");
         JSWBManager jswbManager = JSWBManager.getJSWBManagerInstance();
         setModal(true);
         this.saver = saver;
@@ -41,7 +41,7 @@ public class SaverExecutionJDialog extends javax.swing.JDialog implements Proper
         SaverRunner sr = new SaverRunner(saver, file);
         sr.addPropertyChangeListener(this);
         setLocationRelativeTo(this.getOwner());
-        swingWorker = (SwingWorker) sr;
+        swingWorker = (SwingWorker<Boolean, Void>) sr;
         jswbManager.setJSMIgnoreRepaintMode(true);
         sr.execute();
         setVisible(true);

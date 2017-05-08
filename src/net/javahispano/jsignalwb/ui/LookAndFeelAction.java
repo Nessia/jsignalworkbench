@@ -23,8 +23,13 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman
  */
 public class LookAndFeelAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5436141943766205962L;
+
     private JFrame jFrame;
-    private boolean enabled;
+//    private boolean enabled;
     /** Creates a new instance of LookAndFeelAction */
     public LookAndFeelAction(JFrame jFrame) {
 

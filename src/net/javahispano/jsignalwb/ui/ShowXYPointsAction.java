@@ -11,7 +11,7 @@ package net.javahispano.jsignalwb.ui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
+//import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
@@ -49,18 +49,18 @@ public class ShowXYPointsAction extends AbstractAction {
         }
     }
 
-    private Icon generateIcon() {
-        BufferedImage bufferedImage = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2d = bufferedImage.createGraphics();
-
-        g2d.setBackground(Color.LIGHT_GRAY);
-        g2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
-        g2d.clearRect(0, 0, 20, 20);
-        g2d.setColor(Color.RED);
-        g2d.drawString("X,Y", 2, 14);
-        return new ImageIcon(bufferedImage);
-
-    }
+//    private Icon generateIcon() {
+//        BufferedImage bufferedImage = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
+//        Graphics2D g2d = bufferedImage.createGraphics();
+//
+//        g2d.setBackground(Color.LIGHT_GRAY);
+//        g2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+//        g2d.clearRect(0, 0, 20, 20);
+//        g2d.setColor(Color.RED);
+//        g2d.drawString("X,Y", 2, 14);
+//        return new ImageIcon(bufferedImage);
+//
+//    }
 
 
 }

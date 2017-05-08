@@ -83,7 +83,7 @@ public class JMenuPlugins extends JMenu {
             }
         }
         addSeparator();
-        add(new JMenuItem(new ShowPluginManagerAction(jswbManager, jswbManager.getParentWindow())));
+        add(new JMenuItem(new ShowPluginManagerAction(jswbManager, JSWBManager.getParentWindow())));
     }
 
 }

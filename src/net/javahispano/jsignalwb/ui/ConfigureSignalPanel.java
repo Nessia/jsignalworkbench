@@ -21,6 +21,8 @@ import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
 
 import org.joda.time.DateTime;
 
+import com.michaelbaranov.microba.calendar.CalendarPane;
+
 public class ConfigureSignalPanel extends javax.swing.JPanel implements PropertyChangeListener, DocumentListener {
     /**
      *
@@ -33,7 +35,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
     public ConfigureSignalPanel(String signalName, JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
         this.signalName = signalName;
-        this.sm = jswbManager.getSignalManager();
+        this.sm = JSWBManager.getSignalManager();
         initComponents();
 //        abscissaValueTextField.setEnabled(false);
         minVisibleTextField.setEnabled(false);
@@ -51,7 +53,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         } catch (PropertyVetoException ex) {
             ex.printStackTrace();
         }
-        datePicker1.addPropertyChangeListener(datePicker1.PROPERTY_NAME_DATE, this);
+        datePicker1.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
         applyButton.setEnabled(false);
         initPropertiesListeners();
         abscissaIntervalRadioButton.grabFocus();

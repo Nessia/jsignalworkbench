@@ -15,7 +15,6 @@ import javax.swing.*;
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.JSWBWindowListener;
 import net.javahispano.jsignalwb.jsignalmonitor.MoveScrollPanel;
-import net.javahispano.jsignalwb.plugins.Plugin;
 import net.javahispano.jsignalwb.plugins.Plugin.GUIPositions;
 import net.javahispano.jsignalwb.plugins.framework.PluginManager;
 
@@ -42,7 +41,7 @@ public class JSWBFrame extends javax.swing.JFrame {
         this.setTitle("JSignalWorkBench");
         this.setIconImage(Toolkit.getDefaultToolkit().createImage(
                 JSWBManager.class.getResource("images/jswIcon.jpg")));
-        jswbManager.setParentWindow(this);
+        JSWBManager.setParentWindow(this);
         jswbManager.loadPreviouslyFile();
         centerPanel = jswbManager.getJSWBPanel();
         jswbManager.addJMenuBarItem(new JMenuFile());
@@ -122,7 +121,7 @@ public class JSWBFrame extends javax.swing.JFrame {
      * @param jswbManager JSWBManager
      */
     private void initJToolBar(JSWBManager jswbManager) {
-        PluginManager pluginManager = jswbManager.getPluginManager();
+        PluginManager pluginManager = JSWBManager.getPluginManager();
         jswbManager.addJToolBarButton(new NewAction());
         // jswbManager.addJToolBarComponent(Box.createHorizontalStrut(8));
         jswbManager.addJToolBarButton(new OpenFileAction(jswbManager));
@@ -192,11 +191,11 @@ public class JSWBFrame extends javax.swing.JFrame {
         jswbManager.addJToolBarComponent(Box.createHorizontalStrut(8));
         jswbManager.addJToolBarButton(new AdjustSignalVisibleRangeAction(jswbManager));
         jswbManager.addJToolBarComponent(Box.createHorizontalStrut(8));
-        jswbManager.addJToolBarComponent(new JToggleButtonXY(jswbManager.getJSignalMonitor()));
-        jswbManager.addJToolBarComponent(new JToggleButtonAddMarks(jswbManager.getJSignalMonitor()));
+        jswbManager.addJToolBarComponent(new JToggleButtonXY(JSWBManager.getJSignalMonitor()));
+        jswbManager.addJToolBarComponent(new JToggleButtonAddMarks(JSWBManager.getJSignalMonitor()));
         jswbManager.addJToolBarComponent(Box.createHorizontalStrut(8));
         jswbManager.addJToolBarSeparator();
         jswbManager.addJToolBarComponent(Box.createHorizontalStrut(8));
-        jswbManager.addJToolBarComponent(new MoveScrollPanel(jswbManager.getJSignalMonitor()));
+        jswbManager.addJToolBarComponent(new MoveScrollPanel(JSWBManager.getJSignalMonitor()));
     }
 }

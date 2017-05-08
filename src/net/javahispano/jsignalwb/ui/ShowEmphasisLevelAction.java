@@ -27,7 +27,7 @@ public class ShowEmphasisLevelAction extends AbstractAction {
     private String signalName;
     public ShowEmphasisLevelAction(String signalName) {
         this.signalName = signalName;
-        this.putValue(this.NAME, "Show Emphasis");
+        this.putValue(NAME, "Show Emphasis");
         this.putValue(SHORT_DESCRIPTION, "Make visible(or not) the emphasis level" +
                       " of the signal");
         this.putValue(MNEMONIC_KEY, KeyEvent.VK_H);
@@ -40,8 +40,7 @@ public class ShowEmphasisLevelAction extends AbstractAction {
             if (jSWBManager.setSignalHasEmphasis(signalName, true)) {
                 jSWBManager.refreshJSM(true);
             } else {
-                JOptionPane.showMessageDialog(JSWBManager.getJSWBManagerInstance().getParentWindow(),
-                                              "The signal " + signalName + " hasn't emphasis info");
+                JOptionPane.showMessageDialog(JSWBManager.getParentWindow(), "The signal " + signalName + " hasn't emphasis info");
             }
         } else if (e.getActionCommand().toLowerCase().equals("false")) {
             jSWBManager.setSignalHasEmphasis(signalName, false);

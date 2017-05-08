@@ -38,11 +38,11 @@ public class OpenFileAndAddSignalsAction extends OpenFileAction {
                 JSWBManager.class.getResource("images/load.jpg"));
         Icon icon = new ImageIcon(image.getScaledInstance(20, 20, Image.SCALE_SMOOTH));
         this.putValue(SMALL_ICON, icon);
-        this.jswbManager.setDeleteSignalsInNextLoad(false);
+        JSWBManager.setDeleteSignalsInNextLoad(false);
     }
 
     protected void loadData(File file) {
-        this.jswbManager.setDeleteSignalsInNextLoad(false);
+        JSWBManager.setDeleteSignalsInNextLoad(false);
         jswbManager.loadChannels(chooser.getLoaderSelected().getName(), file);
     }
 

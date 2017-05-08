@@ -27,7 +27,7 @@ public class AlgorithmExecutionJDialog extends javax.swing.JDialog implements Pr
     */
     private static final long serialVersionUID = -1536564663573587629L;
 
-    private SwingWorker sw;
+    private SwingWorker<Boolean, Void> sw;
     private Algorithm alg;
     /**
      * Creates new form AlgorithmExecutionJDialog
@@ -36,10 +36,9 @@ public class AlgorithmExecutionJDialog extends javax.swing.JDialog implements Pr
      * senhales, o senhales completas, sobre las cuales se debe ejecutar el algoritmo.
      * @param jswbManager {@link JSWBManager} Manager general de la aplicacion
      */
-    public AlgorithmExecutionJDialog(Algorithm alg,
-                                     ArrayList<SignalIntervalProperties> signals,
+    public AlgorithmExecutionJDialog(Algorithm alg, ArrayList<SignalIntervalProperties> signals,
             JSWBManager jswbManager) {
-        super(jswbManager.getParentWindow(), "AlgorithmExecution");
+        super(JSWBManager.getParentWindow(), "AlgorithmExecution");
         setModal(true);
         this.alg = alg;
         initComponents();
@@ -51,7 +50,7 @@ public class AlgorithmExecutionJDialog extends javax.swing.JDialog implements Pr
         ar.addPropertyChangeListener(this);
 
         setLocationRelativeTo(this.getOwner());
-        sw = (SwingWorker) ar;
+        sw = (SwingWorker<Boolean, Void>) ar;
         jswbManager.setJSMIgnoreRepaintMode(true);
         ar.execute();
         setVisible(true);
@@ -59,6 +58,7 @@ public class AlgorithmExecutionJDialog extends javax.swing.JDialog implements Pr
     }
 
     public void propertyChange(PropertyChangeEvent evt) {
+        //System.out.println(evt.getPropertyName() + "---->" + evt.getNewValue());
         if ("progress".equals(evt.getPropertyName())) {
 
             jProgressBar1.setIndeterminate(false);

@@ -24,7 +24,7 @@ public class JRadioButtonMenuItemSetSignalImaginary extends JRadioButtonMenuItem
     public JRadioButtonMenuItemSetSignalImaginary(String signalName) {
         super(new SetSignalImaginaryAction(signalName));
 
-        if (JSWBManager.getJSWBManagerInstance().getSignalManager().getSignal(signalName).isImaginary()) {
+        if (JSWBManager.getSignalManager().getSignal(signalName).isImaginary()) {
             setSelected(true);
         } else {
             setSelected(false);

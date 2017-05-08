@@ -38,7 +38,7 @@ public class SaveAsAction extends AbstractAction {
     public SaveAsAction(Component component, JSWBManager jswbManager) {
         this.component = component;
         this.jswbManager = jswbManager;
-        this.chooser = new JSWFileChooser(jswbManager.getPluginManager());
+        this.chooser = new JSWFileChooser(JSWBManager.getPluginManager());
 
         Image image = Toolkit.getDefaultToolkit().createImage(
                 JSWBManager.class.getResource("images/save.jpg"));

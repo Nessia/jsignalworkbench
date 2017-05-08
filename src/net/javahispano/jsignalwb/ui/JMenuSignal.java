@@ -25,7 +25,15 @@ public class JMenuSignal extends JMenu {
     */
     private static final long serialVersionUID = -3247006141954578743L;
 
-    Signal signal;
+    /*
+     * Atributos
+     */
+
+    protected Signal signal;
+
+    /*
+     * Constructores
+     */
 
     /** Creates a new instance of SignalAction */
     public JMenuSignal(JSWBManager jswbManager, String signalName) {
@@ -37,7 +45,7 @@ public class JMenuSignal extends JMenu {
                        boolean position,
                        boolean color, boolean remove, boolean invade, boolean grid, boolean adjust) {
         super(signalName);
-        this.signal = jswbManager.getSignalManager().getSignal(signalName);
+        this.signal = JSWBManager.getSignalManager().getSignal(signalName);
         if (visible) {
             add(new JRadioButtonMenuItemVisible(jswbManager, signalName));
         }
@@ -55,19 +63,19 @@ public class JMenuSignal extends JMenu {
             addSeparator();
         }
         if (zoom) {
-            add(new JMenuZoom(jswbManager.getJSignalMonitor(), signalName));
+            add(new JMenuZoom(JSWBManager.getJSignalMonitor(), signalName));
         }
         if (position) {
-            add(new JMenuChangePosition(jswbManager.getJSignalMonitor(), signalName));
+            add(new JMenuChangePosition(JSWBManager.getJSignalMonitor(), signalName));
         }
         if (invade) {
             add(new JRadioButtonMenuItemInvadeNearChannels(jswbManager, signal.getProperties()));
         }
         if (grid) {
             addSeparator();
-            if (jswbManager.getSignalManager().isSignalVisible(signalName)) {
-                add(new ConfigureGridAction(jswbManager.getJSignalMonitor().getChannelGrid(signalName),
-                                            jswbManager.getParentWindow()));
+            if (JSWBManager.getSignalManager().isSignalVisible(signalName)) {
+                add(new ConfigureGridAction(JSWBManager.getJSignalMonitor().getChannelGrid(signalName),
+                      JSWBManager.getParentWindow()));
                 add(new JMenuGrids(signalName, jswbManager));
             }
         }
@@ -85,7 +93,7 @@ public class JMenuSignal extends JMenu {
 
         if (properties) {
             addSeparator();
-            add(new JMenuItem(new ShowPropertiesAction(signalName, jswbManager, jswbManager.getParentWindow())));
+            add(new JMenuItem(new ShowPropertiesAction(signalName, jswbManager, JSWBManager.getParentWindow())));
         }
     }
 }

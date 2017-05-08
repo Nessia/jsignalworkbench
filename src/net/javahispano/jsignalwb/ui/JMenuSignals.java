@@ -45,7 +45,7 @@ public class JMenuSignals extends JMenu {
 
     public void jMenuSelected(MenuEvent e) {
         List<String>
-                signalNames = new ArrayList<String>(jswbManager.getSignalManager().getSignalsNames());
+                signalNames = new ArrayList<String>(JSWBManager.getSignalManager().getSignalsNames());
         removeAll();
         if (signalNames.size() == 0) {
             JMenuItem jmi = new JMenuItem("No signals Loaded");

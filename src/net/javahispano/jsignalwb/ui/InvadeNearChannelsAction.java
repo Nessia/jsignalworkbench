@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.jsignalmonitor.ChannelProperties;
@@ -29,8 +30,8 @@ public class InvadeNearChannelsAction extends AbstractAction {
     public InvadeNearChannelsAction(JSWBManager jswbManager, ChannelProperties channelProperties) {
         this.channelProperties = channelProperties;
         this.jswbManager = jswbManager;
-        this.putValue(this.NAME, "InvadeNearChannels");
-        this.putValue(this.MNEMONIC_KEY, KeyEvent.VK_I);
+        this.putValue(Action.NAME, "InvadeNearChannels");
+        this.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_I);
     }
 
     public void actionPerformed(ActionEvent e) {

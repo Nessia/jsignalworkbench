@@ -29,7 +29,7 @@ public class JRadioButtonMenuItemVisible extends JRadioButtonMenuItem {
     public JRadioButtonMenuItemVisible(JSWBManager jswbManager, String signalName) {
         super(new VisibleAction(jswbManager, signalName));
 
-        if (jswbManager.getSignalManager().getSignal(signalName).getProperties().
+        if (JSWBManager.getSignalManager().getSignal(signalName).getProperties().
             isVisible()) {
             setSelected(true);
         } else {

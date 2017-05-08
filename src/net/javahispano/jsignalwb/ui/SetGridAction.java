@@ -30,8 +30,8 @@ public class SetGridAction extends AbstractAction {
         this.signalName = signalName;
         this.gridName = gridName;
         this.putValue(NAME, gridName);
-        Icon smallIcon = jswbManager.getPluginManager().getIconDefaultSize("grid", gridName);
-        Icon icon = jswbManager.getPluginManager().getIconDefaultSize("grid", gridName);
+        Icon smallIcon = JSWBManager.getPluginManager().getIconDefaultSize("grid", gridName);
+        Icon icon = JSWBManager.getPluginManager().getIconDefaultSize("grid", gridName);
         this.putValue(SMALL_ICON, smallIcon);
         this.putValue(LARGE_ICON_KEY, icon);
         this.putValue(SHORT_DESCRIPTION, "Set the " + gridName + " grid to signal: " + signalName);

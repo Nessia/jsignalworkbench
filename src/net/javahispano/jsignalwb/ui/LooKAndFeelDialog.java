@@ -88,7 +88,7 @@ public class LooKAndFeelDialog extends JDialog implements ActionListener {
     private JButton jButton1 = new JButton();
     private JRadioButton jRadioButton1 = new JRadioButton();
     private JCheckBox jCheckBox1 = new JCheckBox();
-    private JComboBox jComboBox1 = new JComboBox();
+    private JComboBox<String> jComboBox1 = new JComboBox<String>();
     private JToggleButton jToggleButton1 = new JToggleButton();
     private JTextField jTextField1 = new JTextField();
     private JLabel jLabel4 = new JLabel();

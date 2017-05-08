@@ -30,7 +30,7 @@ public class JRadioButtonMenuItemInvadeNearChannels extends JRadioButtonMenuItem
         } else {
             setSelected(false);
         }
-        if (!jswbManager.getSignalManager().isSignalVisible(channelProperties.getName())) {
+        if (!JSWBManager.getSignalManager().isSignalVisible(channelProperties.getName())) {
             setEnabled(false);
         }
     }

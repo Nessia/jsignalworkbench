@@ -15,7 +15,12 @@ import javax.swing.*;
  * @author Abraham Otero
  * @version 1.0
  */
-public class LookAndFeelCombobox extends JComboBox implements ActionListener, Runnable {
+public class LookAndFeelCombobox extends JComboBox<String> implements ActionListener, Runnable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5066855815389601001L;
+
     private String look_and_feel;
     private String look_and_feel_no_soportado, otro_error;
 
@@ -65,7 +70,7 @@ public class LookAndFeelCombobox extends JComboBox implements ActionListener, Ru
         //Este es el look and feel selecionado
         String nuevo_look_and_feel = look_and_feels_informacion[look_and_feel_selecionado].getClassName();
         //y este es su nombre
-        String nuevo_look_and_feel_nombre = look_and_feels_informacion[look_and_feel_selecionado].getName();
+//        String nuevo_look_and_feel_nombre = look_and_feels_informacion[look_and_feel_selecionado].getName();
         //Intento poner el Look and Feel selcionado
         try {
             UIManager.setLookAndFeel(look_and_feels_informacion[look_and_feel_selecionado].getClassName());

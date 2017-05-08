@@ -38,7 +38,7 @@ public class JMenuFile extends JMenu {
         add(new JMenuItem(new OpenFileAndAddSignalsAction(jswbManager)));
         addSeparator();
         add(new JMenuItem(new SaveAction(jswbManager)));
-        add(new JMenuItem(new SaveAsAction(jswbManager.getParentWindow(), jswbManager)));
+        add(new JMenuItem(new SaveAsAction(JSWBManager.getParentWindow(), jswbManager)));
         addSeparator();
         add(new JMenuItem(new PrintAction()));
         add(new JMenuItem(new ExitAction()));

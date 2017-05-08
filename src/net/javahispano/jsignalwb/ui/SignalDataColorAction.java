@@ -44,8 +44,7 @@ public class SignalDataColorAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JColorChooser jColorChooser = new JColorChooser();
-        Color color = jColorChooser.showDialog(jswbManager.getParentWindow(),
+        Color color = JColorChooser.showDialog(JSWBManager.getParentWindow(),
                                                "Choose color for " + signalName,
                                                jswbManager.getSignalDataColor(signalName));
         if (color != null) {

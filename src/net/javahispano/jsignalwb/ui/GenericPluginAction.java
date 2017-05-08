@@ -45,7 +45,7 @@ public class GenericPluginAction extends AbstractAction {
             this.putValue(NAME, "Configure");
         } else if (action == LAUNCH_ACTION) {
             this.putValue(NAME, "Launch");
-            Icon smallIcon = jswbManager.getPluginManager().getIconDefaultSize("generic", genericPluginName,
+            Icon smallIcon = JSWBManager.getPluginManager().getIconDefaultSize("generic", genericPluginName,
                     iconWidth, iconHeight);
             this.putValue(SMALL_ICON, smallIcon);
         }

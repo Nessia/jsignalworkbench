@@ -30,11 +30,11 @@ public class DebugModeOnRestartAction extends AbstractAction {
         JSWBManager jswbManager = JSWBManager.getJSWBManagerInstance();
         if (e.getActionCommand().toLowerCase().equals("true")) {
             jswbManager.setDebugModeOnRestart(true);
-            JOptionPane.showMessageDialog(jswbManager.getParentWindow(),
+            JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
                                           "Debug mode is ON now");
         } else if (e.getActionCommand().toLowerCase().equals("false")) {
             jswbManager.setDebugModeOnRestart(false);
-            JOptionPane.showMessageDialog(jswbManager.getParentWindow(),
+            JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
                                           "When you restart the application the debug mode will be OFF");
         }
     }

@@ -27,7 +27,7 @@ public class JMenuGenericPlugin extends JMenu {
 
     public JMenuGenericPlugin(String genericPluginName, JSWBManager jswbManager) {
         super(genericPluginName);
-        PluginManager pm = jswbManager.getPluginManager();
+        PluginManager pm = JSWBManager.getPluginManager();
         JMenuItem configure = new JMenuItem(new GenericPluginAction(jswbManager,
                 genericPluginName, GenericPluginAction.CONFIGURE_ACTION));
         if (pm.isPluginLoaded("generic", genericPluginName)) {

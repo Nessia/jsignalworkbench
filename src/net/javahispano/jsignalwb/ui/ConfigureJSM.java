@@ -20,7 +20,10 @@ import javax.swing.event.DocumentListener;
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
+
 import org.joda.time.DateTime;
+
+import com.michaelbaranov.microba.calendar.CalendarPane;
 
 /**
  *
@@ -47,7 +50,7 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
         } catch (PropertyVetoException ex) {
             ex.printStackTrace();
         }
-        datePicker1.addPropertyChangeListener(datePicker1.PROPERTY_NAME_DATE, this);
+        datePicker1.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
         applyButton.setEnabled(false);
         initPropertiesListeners();
         cancelButton.grabFocus();
@@ -59,7 +62,7 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
      * @return long
      */
     private long calcularFechaBase() {
-       Collection <Signal> signals = jswbManager.getSignalManager().getSignals();
+       Collection <Signal> signals = JSWBManager.getSignalManager().getSignals();
        Signal cualquierSignal= (Signal)signals.toArray()[0];
        return cualquierSignal.getStart();
     }
@@ -288,7 +291,7 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
                 try {
                     long newScroll = TimeRepresentation.stringToMillis(dateValue, true, true, true);
                    // if (newScroll >= jswbManager.getJSMScrollBaseTime() && newScroll <= jswbManager.getJSMMaxTime()) {
-                       Collection <Signal> signals = jswbManager.getSignalManager().getSignals();
+                       Collection <Signal> signals = JSWBManager.getSignalManager().getSignals();
                        boolean b []= new boolean[signals.size()];
                        int c=0;
                        for (Signal s : signals) {

@@ -43,8 +43,8 @@ public class AlgorithmAction extends AbstractAction {
             this.putValue(MNEMONIC_KEY, KeyEvent.VK_C);
         } else if (action == RUN_ACTION) {
             this.putValue(NAME, "Run");
-            Icon smallIcon = jswbManager.getPluginManager().getIconDefaultSize("algorithm", algorithmName);
-            Icon icon = jswbManager.getPluginManager().getIconDefaultSize("algorithm", algorithmName);
+            Icon smallIcon = JSWBManager.getPluginManager().getIconDefaultSize("algorithm", algorithmName);
+            Icon icon = JSWBManager.getPluginManager().getIconDefaultSize("algorithm", algorithmName);
             this.putValue(SMALL_ICON, smallIcon);
             this.putValue(LARGE_ICON_KEY, icon);
             this.putValue(MNEMONIC_KEY, KeyEvent.VK_R);
@@ -56,7 +56,7 @@ public class AlgorithmAction extends AbstractAction {
 
 
     public void actionPerformed(ActionEvent e) {
-        if (jswbm.getPluginManager().isPluginRegistered("algorithm", algorithmName)) {
+        if (JSWBManager.getPluginManager().isPluginRegistered("algorithm", algorithmName)) {
             if (action == CONFIGURE_ACTION) {
                 jswbm.showPluginConfiguration("algorithm", algorithmName);
             } else if (action == RUN_ACTION) {
@@ -65,7 +65,7 @@ public class AlgorithmAction extends AbstractAction {
                 jswbm.showAlgorithmResults(algorithmName);
             }
         } else {
-            JOptionPane.showMessageDialog(jswbm.getParentWindow(), "This algorithm is already uninstalled." +
+            JOptionPane.showMessageDialog(JSWBManager.getParentWindow(), "This algorithm is already uninstalled." +
                                           " Should be restart the application");
         }
     }

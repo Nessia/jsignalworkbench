@@ -70,7 +70,7 @@ public class OpenFileAction extends AbstractAction {
     }
 
     protected void loadData(File file) {
-        this.jswbManager.setDeleteSignalsInNextLoad(true);
+        JSWBManager.setDeleteSignalsInNextLoad(true);
         jswbManager.loadChannels(chooser.getLoaderSelected().getName(), file);
     }
 }
