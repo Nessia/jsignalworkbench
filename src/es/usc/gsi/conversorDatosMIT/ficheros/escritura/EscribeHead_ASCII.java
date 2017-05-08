@@ -14,7 +14,7 @@ import es.usc.gsi.conversorDatosMIT.interfaz.ControladorInterfaz;
 
 public class EscribeHead_ASCII extends Thread implements Cancelar {
 
-    private Vector vectorFicherosHead;
+    private Vector<FicheroHead> vectorFicherosHead;
     private File ficheroDestino;
     private LeeFicheroDat[] arrayLectores;
     private ControladorFicheros controlFicheros = ControladorFicheros.
@@ -26,7 +26,7 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
 //*******************************************************************************
 
      // FALTA: CREAR UN CONSTRUCTOR QUE ADMITA UNA FRECUENCIA DE REMUESTREO GLOBAL.
-     public EscribeHead_ASCII(Vector vectorFicherosHead, File ficheroDestino) {
+     public EscribeHead_ASCII(Vector<FicheroHead> vectorFicherosHead, File ficheroDestino) {
          this.vectorFicherosHead = vectorFicherosHead;
 
          // Correccion del nombre de fichero
@@ -60,7 +60,7 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
 
      private void creaLectores() {
          FicheroHead fhTemp;
-         Vector vectorLectores = new Vector();
+         Vector<LeeFicheroDat> vectorLectores = new Vector<LeeFicheroDat>();
 
          for (int i = 0; i < vectorFicherosHead.size(); i++) {
              fhTemp = (FicheroHead) vectorFicherosHead.elementAt(i);
@@ -79,7 +79,7 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
          arrayLectores = new LeeFicheroDat[vectorLectores.size()];
 
          for (int i = 0; i < arrayLectores.length; i++) {
-             arrayLectores[i] = (LeeFicheroDat) vectorLectores.elementAt(i);
+             arrayLectores[i] = vectorLectores.elementAt(i);
          }
 
      }
@@ -87,7 +87,7 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
 //*******************************************************************************
 
      private boolean vuelcaDatos() {
-         LeeFicheroDat lfdTemp = null;
+         //LeeFicheroDat lfdTemp = null;
          String lineaVolcado = "";
          BufferedWriter salida = null;
          FileWriter fw = null;
@@ -121,13 +121,13 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
                  } catch (Exception e) {
                      System.out.println("Error al cerrar fichero de salida");
                  }
-                 boolean res = ficheroDestino.delete();
+                 /*boolean res = */ficheroDestino.delete();
                  String fichName = ficheroDestino.getName();
                  File fichCXP = new File(ficheroDestino.getParent() +
                                          File.separator +
                                          fichName.substring(0,
                          fichName.indexOf(".txt")) + ".cxp");
-                 res = fichCXP.delete();
+                 /*res = */fichCXP.delete();
                  return true;
              }
 //    controlFicheros.notificaProgreso(j);

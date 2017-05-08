@@ -32,11 +32,11 @@ public class LeeFicheroDat {
 
     private long numMuestra; // Numero ordinal de muestra que leeremos en la siguiente invocacion de getSiguiente()
     private long numMuestraFinal; // Ordinal hasta el cual leeremos: es la muestra en la qu acaba la lectura.
-    private long numMuestrasTotal; // Numero que indica que cantidad de muestras existen.
+    //private long numMuestrasTotal; // Numero que indica que cantidad de muestras existen.
 
-    private int valorMuestra; // Valor numerico de la muestra en formato entero.
+    //private int valorMuestra; // Valor numerico de la muestra en formato entero.
 
-    private int formato;
+    //private int formato;
 
     private float stepBytes; // Numero de bytes por muestra <=> Numero de bytes que hay que avanzar para leer la siguiente muestra.
     private int sizeArrayBytes; // Tamanho del array de bytes.
@@ -98,8 +98,8 @@ public class LeeFicheroDat {
             numMuestraFinal = 1;
         }
 
-        this.numMuestrasTotal = (ficheroHead.getNumMuestras()) *
-                                this.factorFrecuencia - 1; // Hay que corregir: la 10 muestra tendra el indice 9, p.ej.
+        //this.numMuestrasTotal = (ficheroHead.getNumMuestras()) *
+        //                        this.factorFrecuencia - 1; // Hay que corregir: la 10 muestra tendra el indice 9, p.ej.
 
         // "Step" de avance dentro del fichero y conversion de formato
 
@@ -138,14 +138,12 @@ public class LeeFicheroDat {
     // para trabajar con las clases Java: dd/mm/yyyy hh:mm:ss
     // CAMBIADO: AHORA LA FECHA SE ALMACENA EN FORMATO HISPANO EN LOS OBJETOS FICHEROHEAD
     // Y POR LO TANTO NO HACE FALTA CONVERTIR.
-    private long convierteASegundos(String fecha) {
-
-        long res = 0;
-        // String fecha=ParseadorFecha.convierteAFormatoHispano(fechaMITDB); -> Si fuese en formato MITDB
-        res = ParseadorFecha.convierteASegundos(fecha);
-        return res;
-
-    }
+//    private long convierteASegundos(String fecha) {
+//        long res = 0;
+//        // String fecha=ParseadorFecha.convierteAFormatoHispano(fechaMITDB); -> Si fuese en formato MITDB
+//        res = ParseadorFecha.convierteASegundos(fecha);
+//        return res;
+//    }
 
     //////////////////
     private int calculaMuestrasTotalesPorMarco() {
@@ -282,7 +280,7 @@ public class LeeFicheroDat {
 
         int[] res = null;
 
-        Vector valoresTemp = new Vector();
+        Vector<String> valoresTemp = new Vector<String>();
         String valorTemp;
 
         this.abreFichero();

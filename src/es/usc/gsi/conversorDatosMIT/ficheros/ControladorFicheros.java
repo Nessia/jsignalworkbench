@@ -22,36 +22,34 @@ public class ControladorFicheros {
         controlInterfaz = ControladorInterfaz.getControlador();
     }
 
-    private Vector ficherosHead = new Vector();
+    private Vector<FicheroHead> ficherosHead = new Vector<FicheroHead>();
 
 
     // Constructor privado
-    private ControladorFicheros() {}
+    private ControladorFicheros() {
+		//Vacio
+    }
 
-    public FicheroHead getNuevoHead(String path) throws
-            FicheroNoValidoException {
+    /*
+     * Metodos
+     */
 
+    public FicheroHead getNuevoHead(String path) throws FicheroNoValidoException {
         FicheroHead res = new FicheroHead(path);
         this.setNuevoHead(res);
         return res;
     }
 
     public void setNuevoHead(FicheroHead fh) {
-
         ficherosHead.add(fh);
-
     }
 
     public void eliminaHead(FicheroHead fh) {
-
         ficherosHead.remove(fh);
-
     }
 
-    public Vector getFicherosHead() {
-
+    public Vector<FicheroHead> getFicherosHead() {
         return ficherosHead;
-
     }
 
     public FicheroHead[] getFicherosHeadArray() {
@@ -145,8 +143,8 @@ public class ControladorFicheros {
 
         FicheroHead[] res;
         File[] listaFicheros;
-        Vector temp1 = new Vector(); // Almacena todos los ficheros .hea menos senal.hea --AHORA SI LOS ALMACENA
-        Vector temp2 = new Vector(); // Almacena todos los ficheros .hea VALIDOS.
+        Vector<File> temp1 = new Vector<File>(); // Almacena todos los ficheros .hea menos senal.hea --AHORA SI LOS ALMACENA
+        Vector<File> temp2 = new Vector<File>(); // Almacena todos los ficheros .hea VALIDOS.
 
         listaFicheros = f.listFiles();
 

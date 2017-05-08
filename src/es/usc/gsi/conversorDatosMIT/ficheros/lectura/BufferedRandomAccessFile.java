@@ -19,7 +19,7 @@ public class BufferedRandomAccessFile {
 
     private int posicionEnBuffer;
 
-    private int numPeticion = 0;
+    //private int numPeticion = 0;
 
     // Contructor con tamanho de buffer por defecto.
     public BufferedRandomAccessFile(RandomAccessFile entrada) {

@@ -9,10 +9,10 @@ import es.usc.gsi.conversorDatosMIT.utilidades.ParseadorCadena;
 
 public class EscribeCabeceraHead_ASCII {
 
-    private Vector vectorFicherosHead;
+    private Vector<FicheroHead> vectorFicherosHead;
     private File ficheroDestinoCabecera;
 
-    public EscribeCabeceraHead_ASCII(Vector vectorFicherosHead,
+    public EscribeCabeceraHead_ASCII(Vector<FicheroHead> vectorFicherosHead,
                                      File ficheroDestino) {
 
         // Preprocesado del nombre de fichero para generar el nombre del .cxp
@@ -51,8 +51,7 @@ public class EscribeCabeceraHead_ASCII {
 
         try {
             // Lectura de los ficheros.
-            for (int i = 0; i < vectorFicherosHead.size(); i++) {
-                FicheroHead fh = (FicheroHead) vectorFicherosHead.elementAt(i);
+            for (FicheroHead fh : vectorFicherosHead) {
                 Parametro[] parG = fh.getParametros();
 
                 for (int j = 0; j < parG.length; j++) {

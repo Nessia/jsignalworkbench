@@ -26,7 +26,7 @@ public class MenuArchivo extends JMenu implements ActionListener {
     private final String CMD_ABRIRFICHERO = "Abrir fichero";
     private final String CMD_CERRAR = "Cerrar";
     private final String CMD_EXPORTAR = "Exportar";
-    private final String CMD_GUARDAR = "Guardar";
+//    private final String CMD_GUARDAR = "Guardar";
 //  private final String CMD_IMPORTAR="Importar";
 
     public MenuArchivo(String nombre) {

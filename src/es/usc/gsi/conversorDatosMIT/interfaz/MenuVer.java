@@ -36,13 +36,14 @@ public class MenuVer extends JMenu implements ActionListener {
     }
 
     // Control de eventos
+    @Override
     public void actionPerformed(ActionEvent e) {
 
         if (e.getActionCommand().equals(CMD_LISTA)) {
-            controlInterfaz.cambiaVista(controlInterfaz.LISTA);
+            controlInterfaz.cambiaVista(ControladorInterfaz.LISTA);
         }
         if (e.getActionCommand().equals(CMD_ETIQUETAS)) {
-            controlInterfaz.cambiaVista(controlInterfaz.ETIQUETAS);
+            controlInterfaz.cambiaVista(ControladorInterfaz.ETIQUETAS);
         }
 
     }

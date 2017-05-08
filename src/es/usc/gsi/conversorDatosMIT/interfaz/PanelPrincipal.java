@@ -143,13 +143,13 @@ public class PanelPrincipal extends JPanel /* implements ComponentListener */ {
 
         switch (modo) {
         case PanelPrincipal.LISTA:
-            controlInterfaz.cambiaVista(controlInterfaz.LISTA);
+            controlInterfaz.cambiaVista(ControladorInterfaz.LISTA);
             break;
         case PanelPrincipal.ETIQUETAS:
-            controlInterfaz.cambiaVista(controlInterfaz.ETIQUETAS);
+            controlInterfaz.cambiaVista(ControladorInterfaz.ETIQUETAS);
             break;
         default:
-            controlInterfaz.cambiaVista(controlInterfaz.ETIQUETAS);
+            controlInterfaz.cambiaVista(ControladorInterfaz.ETIQUETAS);
         }
 
     }

@@ -14,6 +14,15 @@ import es.usc.gsi.conversorDatosMIT.utilidades.ParseadorFecha;
 
 public class FicheroHead extends File {
 
+    /**
+    *
+    */
+    private static final long serialVersionUID = 7298283195191800257L;
+
+    /*
+     * Atributos
+     */
+
     private String nombreFrame;
     private int numSenhales;
     private float frecuenciaMuestreoFrame;
@@ -27,7 +36,10 @@ public class FicheroHead extends File {
     private FileReader fr;
     private BufferedReader br;
 
-    // Constructor
+    /*
+     * Constructores
+     */
+
     public FicheroHead(String nombreFichero) throws FicheroNoValidoException {
         super(nombreFichero);
         try {
@@ -182,7 +194,7 @@ public class FicheroHead extends File {
     private void leeParametros() throws FicheroNoValidoException {
         // Poner codigo que posicione el puntero de lectura
         // en la segunda linea del fichero.
-        Parametro par;
+        //Parametro par;
         String lineaPar;
         String[] camposPar;
         String[] subCamposPar;

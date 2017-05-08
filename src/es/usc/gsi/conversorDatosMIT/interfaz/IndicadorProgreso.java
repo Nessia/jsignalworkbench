@@ -26,17 +26,17 @@ public class IndicadorProgreso extends JDialog implements ActionListener {
 
     private Cancelar hilo;
 
-    private boolean _stop = false;
+    private boolean stop = false;
 
 
 //***********************************************************************************
 
      public IndicadorProgreso(Cancelar h, String titulo, String textoPrincipal,
-                              int max, int min, boolean _stop) {
+                              int max, int min, boolean stop) {
 
          super((Frame)null, titulo, true); // Indicador modal
 
-         this._stop = _stop;
+         this.stop = stop;
          this.hilo = h;
          this.barraProgreso = new JProgressBar(min, max);
          this.barraProgreso.setStringPainted(true);
@@ -56,8 +56,7 @@ public class IndicadorProgreso extends JDialog implements ActionListener {
          JPanel cancelPanel = new JPanel();
          cancelPanel.add(cancelButton);
 
-         JPanel barraPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15,
-                 15));
+         JPanel barraPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));
          barraPanel.add(barraProgreso);
 
          this.getContentPane().add(labelTexto, BorderLayout.NORTH);
@@ -87,7 +86,7 @@ public class IndicadorProgreso extends JDialog implements ActionListener {
 //***********************************************************************************
 
      public void actionPerformed(ActionEvent ev) {
-         if (!_stop) {
+         if (!stop) {
              hilo.cancelar();
          } else {
              ((Thread) hilo).stop();

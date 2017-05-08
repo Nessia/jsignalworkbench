@@ -9,13 +9,13 @@ public class Tarea extends Thread implements Cancelar {
     private ControladorInterfaz controlInterfaz = ControladorInterfaz.
                                                   getControlador();
     private Parametro[] parametros = null;
-    private Vector ficherosHead;
+    private Vector<FicheroHead> ficherosHead;
     private boolean cancel = false;
     private boolean memoryError = false;
 
 //**********************************************************************************************
 
-     public Tarea(Vector fh) {
+     public Tarea(Vector<FicheroHead> fh) {
          this.ficherosHead = fh;
          this.setPriority(Thread.MIN_PRIORITY);
      }
@@ -41,7 +41,7 @@ public class Tarea extends Thread implements Cancelar {
 //**********************************************************************************************
 
      public void run() {
-         Vector copiaParamTemp = new Vector();
+         Vector<Parametro> copiaParamTemp = new Vector<Parametro>();
 
          try {
              int total = 1;

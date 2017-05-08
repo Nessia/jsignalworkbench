@@ -5,7 +5,12 @@ import java.io.File;
 
 public class FicheroDat extends File {
 
-    public FicheroDat(String nombreFichero) {
+    /**
+    *
+    */
+   private static final long serialVersionUID = 7200314004530591915L;
+
+   public FicheroDat(String nombreFichero) {
         super(nombreFichero);
     }
 
