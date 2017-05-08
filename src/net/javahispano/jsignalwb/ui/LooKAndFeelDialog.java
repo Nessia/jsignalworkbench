@@ -56,6 +56,10 @@ import javax.swing.*;
 
 public class LooKAndFeelDialog extends JDialog implements ActionListener {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7605022606762051378L;
     //Valores por defecto de los mensajes de error
     private String look_and_feel_no_soportado = "<html>" +
                                                 "<p><font color=\"#0000FF\"><b><font size=\"4\">Ese Look and Feel no est&aacute; </font></b></font></p>" +

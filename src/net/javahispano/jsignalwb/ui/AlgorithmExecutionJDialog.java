@@ -22,6 +22,11 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  * No forma parte del API.
  */
 public class AlgorithmExecutionJDialog extends javax.swing.JDialog implements PropertyChangeListener {
+    /**
+    *
+    */
+    private static final long serialVersionUID = -1536564663573587629L;
+
     private SwingWorker sw;
     private Algorithm alg;
     /**

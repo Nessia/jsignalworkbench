@@ -20,6 +20,11 @@ import net.javahispano.jsignalwb.plugins.framework.LoaderRunner;
  * No forma parte de la API
  */
 public class LoaderExecutionJDialog extends javax.swing.JDialog implements PropertyChangeListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6086174004796887828L;
+
     private Loader loader;
     private SwingWorker sw;
     /**

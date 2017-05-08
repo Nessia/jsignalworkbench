@@ -16,6 +16,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.*;
  */
 public class JRadioButtonMenuItemAddMarks extends JRadioButtonMenuItem implements JSignalMonitorModeListener {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5113296987373845215L;
+
     public JRadioButtonMenuItemAddMarks(JSignalMonitor jsm) {
         super(new SelectMarksAction(jsm));
         setSelected(jsm.isMarkSelectionMode());

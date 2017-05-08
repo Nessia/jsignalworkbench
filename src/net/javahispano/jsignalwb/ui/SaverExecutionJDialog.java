@@ -15,6 +15,7 @@ import javax.swing.*;
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.plugins.Saver;
 import net.javahispano.jsignalwb.plugins.framework.SaverRunner;
+
 import javax.swing.SwingWorker.StateValue;
 
 /**
@@ -22,8 +23,13 @@ import javax.swing.SwingWorker.StateValue;
  * @author  Compaq_Propietario
  */
 public class SaverExecutionJDialog extends javax.swing.JDialog implements PropertyChangeListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6768191882310329427L;
     private Saver saver;
     private SwingWorker swingWorker;
+
     /** Creates new form SaverRunner */
     public SaverExecutionJDialog(Saver saver, File file) {
         super(JSWBManager.getJSWBManagerInstance().getParentWindow(), "Saver");

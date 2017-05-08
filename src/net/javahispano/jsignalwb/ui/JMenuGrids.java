@@ -19,6 +19,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class JMenuGrids extends JMenu {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5286499359936364174L;
+
     public JMenuGrids(String signalName, JSWBManager jswbManager) {
         super("Change Grid");
         setMnemonic(KeyEvent.VK_G);

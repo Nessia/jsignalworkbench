@@ -27,6 +27,10 @@ import org.joda.time.DateTime;
  * @author  Roman
  */
 public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeListener, DocumentListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3756618805202282113L;
     private JSWBManager jswbManager;
     private boolean zoomH;
     private boolean scroll;

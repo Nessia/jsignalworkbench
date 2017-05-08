@@ -23,6 +23,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman
  */
 public class OpenFileAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4025953028391320907L;
+
     JSWBManager jswbManager;
     JSWFileChooser chooser;
 
@@ -44,6 +49,7 @@ public class OpenFileAction extends AbstractAction {
         chooser.setCurrentDirectory(new File(EnvironmentConfiguration.getInstancia().getPathJFFicheros()));
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
 
         int result = chooser.showOpenDialog(JSWBManager.getParentWindow());

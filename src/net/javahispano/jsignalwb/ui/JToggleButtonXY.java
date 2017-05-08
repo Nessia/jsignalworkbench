@@ -20,6 +20,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.*;
 public class JToggleButtonXY extends JToggleButton implements JSignalMonitorModeListener {
 
     /**
+     *
+     */
+    private static final long serialVersionUID = -6640695470505816580L;
+
+    /**
      * Creates a new instance of JRadioButtonXY
      */
     public JToggleButtonXY(JSignalMonitor jsm) {

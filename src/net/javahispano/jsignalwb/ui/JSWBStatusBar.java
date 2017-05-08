@@ -17,6 +17,11 @@ import net.javahispano.jsignalwb.SessionInfo;
  * @author Roman Segador
  */
 public class JSWBStatusBar extends JPanel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2541826578349004653L;
+
     private JLabel lastFile;
     private JLabel saved;
     private JLabel loader;

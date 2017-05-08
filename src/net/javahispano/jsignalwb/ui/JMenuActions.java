@@ -18,6 +18,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class JMenuActions extends JMenu {
 
+    /**
+    *
+    */
+    private static final long serialVersionUID = -3971434656060094549L;
+
     public JMenuActions(JSWBManager jswbManager) {
         super("Actions");
         setMnemonic(KeyEvent.VK_A);

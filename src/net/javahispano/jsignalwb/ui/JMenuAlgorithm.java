@@ -22,6 +22,11 @@ import java.awt.event.*;
  * @author Roman
  */
 public class JMenuAlgorithm extends JMenu {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7899503069823533186L;
+
     private String algorithmName;
     /** Creates a new instance of JMenuAlgorithm */
     public JMenuAlgorithm(String algorithmName, JSWBManager jswbManager) {

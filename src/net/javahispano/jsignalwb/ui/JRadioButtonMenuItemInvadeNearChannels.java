@@ -17,6 +17,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.ChannelProperties;
  */
 public class JRadioButtonMenuItemInvadeNearChannels extends JRadioButtonMenuItem {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4690496177120502016L;
+
     public JRadioButtonMenuItemInvadeNearChannels(JSWBManager jswbManager, ChannelProperties channelProperties) {
         super(new InvadeNearChannelsAction(jswbManager, channelProperties));
 

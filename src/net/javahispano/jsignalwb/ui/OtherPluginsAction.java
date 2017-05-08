@@ -11,6 +11,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author roman.segador.torre
  */
 public class OtherPluginsAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 9115517509132082982L;
+
     private String pluginName;
     private String pluginType;
     public OtherPluginsAction(String pluginName, String pluginType) {
@@ -20,6 +25,7 @@ public class OtherPluginsAction extends AbstractAction {
         this.putValue(SHORT_DESCRIPTION, "Launch plugin configuration");
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         JSWBManager.getJSWBManagerInstance().showPluginConfiguration(
                 pluginType, pluginName);

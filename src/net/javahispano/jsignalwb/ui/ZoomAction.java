@@ -20,6 +20,10 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  * @author Roman
  */
 public class ZoomAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7713067877307507895L;
     private JSignalMonitor jsm;
     private String signalName;
     private int value;
@@ -33,6 +37,7 @@ public class ZoomAction extends AbstractAction {
 
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         jsm.setVerticalZoom(signalName, value);
         jsm.repaintAll();

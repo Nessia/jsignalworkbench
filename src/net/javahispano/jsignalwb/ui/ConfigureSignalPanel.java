@@ -18,9 +18,14 @@ import javax.swing.event.DocumentListener;
 
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
+
 import org.joda.time.DateTime;
 
 public class ConfigureSignalPanel extends javax.swing.JPanel implements PropertyChangeListener, DocumentListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6071314186108454176L;
     String signalName;
     SignalManager sm;
     JSWBManager jswbManager;

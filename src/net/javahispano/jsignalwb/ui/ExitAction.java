@@ -20,6 +20,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class ExitAction extends AbstractAction {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 963010336970411950L;
+
     public ExitAction() {
         this.putValue(NAME, "Exit");
         this.putValue(SHORT_DESCRIPTION, "Leave the application...");

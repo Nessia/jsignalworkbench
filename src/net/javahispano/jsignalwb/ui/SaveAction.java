@@ -19,6 +19,10 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman Segador
  */
 public class SaveAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3160700651819188367L;
     private JSWBManager jswbManager;
     public SaveAction(JSWBManager jswbManager) {
         this.jswbManager = jswbManager;

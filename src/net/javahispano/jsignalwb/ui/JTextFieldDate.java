@@ -10,6 +10,11 @@ import javax.swing.text.MaskFormatter;
 
 public class JTextFieldDate extends JFormattedTextField {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6690119670280436071L;
+
     private static DateFormat sdf;
     private static Dimension size = new Dimension(60, 20);
     private static MaskFormatter mf;

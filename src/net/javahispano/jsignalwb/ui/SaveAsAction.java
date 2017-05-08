@@ -25,6 +25,10 @@ import net.javahispano.jsignalwb.plugins.framework.PluginLoadException;
  * @author Roman
  */
 public class SaveAsAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1659982835533195065L;
     private Component component;
     private JSWBManager jswbManager;
     private final JSWFileChooser chooser;
@@ -45,6 +49,7 @@ public class SaveAsAction extends AbstractAction {
         this.putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl shift S"));
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         try {
             //chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);

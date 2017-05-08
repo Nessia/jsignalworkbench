@@ -23,6 +23,11 @@ import net.javahispano.jsignalwb.SignalManager;
  * @version 0.5
  */
 public class EraseAllAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1195397884255679824L;
+
     public EraseAllAction() {
         this.putValue(SHORT_DESCRIPTION, "Remove all the signals emphasis levels, marks and annotations. Be careful...");
         this.putValue(NAME, "Remove all");

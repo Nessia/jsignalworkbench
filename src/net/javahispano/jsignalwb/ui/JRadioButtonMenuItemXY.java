@@ -18,6 +18,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.*;
  */
 public class JRadioButtonMenuItemXY extends JRadioButtonMenuItem implements JSignalMonitorModeListener {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6212171549730623183L;
+
     public JRadioButtonMenuItemXY(JSignalMonitor jsm) {
         super(new ShowXYPointsAction(jsm));
         setMnemonic(KeyEvent.VK_X);

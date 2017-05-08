@@ -23,6 +23,10 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class ShowJSMPropertiesAction extends AbstractAction {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2942093042854996258L;
     JSWBManager jswbManager;
     Window owner;
 
@@ -35,6 +39,7 @@ public class ShowJSMPropertiesAction extends AbstractAction {
         this.putValue(MNEMONIC_KEY, KeyEvent.VK_N);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         new ConfigureJSM(jswbManager).showJWindow(owner);
 

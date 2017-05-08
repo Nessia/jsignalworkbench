@@ -10,36 +10,42 @@ import javax.swing.*;
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.io.SessionNotSavedException;
 import net.javahispano.jsignalwb.plugins.GenericPlugin;
-import net.javahispano.jsignalwb.plugins.Plugin;
 
 public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlugin, ActionListener, SessionListener {
+
     private File file = null;
     private ByteArrayOutputStream inMemoryDucyment;
     private JSWTextProcessor jSWTextProcessor = null;
     private Rectangle jSWTextProcessorBounds = null;
     private boolean fileIsInvalid = true;
     private boolean hasSetFileBeenInvokedBeforeThisNewSessionCreatedEvent = false;
+
     //Construct the application
     public JSWTextProcessorPlugin() {
         JSWBManager.getJSWBManagerInstance().addSessionListener(this);
     }
 
+    @Override
     public String getName() {
         return "Text Processor";
     }
 
+    @Override
     public String getShortDescription() {
         return "Basic editor of rtf documents";
     }
 
+    @Override
     public String getDescription() {
         return "Basic editor of rtf documents";
     }
 
+    @Override
     public String getPluginVersion() {
         return "1.0";
     }
 
+    @Override
     public Icon getIcon() {
         return new ImageIcon(Toolkit.getDefaultToolkit().createImage(
                 JSWTextProcessor.class.getResource("comentario.gif")));
@@ -87,6 +93,7 @@ public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlug
         JOptionPane.showMessageDialog(JSWBManager.getParentWindow(), message, "About", JOptionPane.ERROR_MESSAGE);
     }
 
+    @Override
     public void launch(JSWBManager jswbManager) {
         if (this.fileIsInvalid) {
             try {
@@ -124,6 +131,7 @@ public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlug
         jSWTextProcessor.setVisible(true);
     }
 
+    @Override
     public void windowClosing(WindowEvent e) {
         inMemoryDucyment = this.jSWTextProcessor.getInMemoryDucyment();
         jSWTextProcessorBounds = jSWTextProcessor.getBounds();
@@ -131,10 +139,12 @@ public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlug
         System.out.println("Intentar cerrandose");
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         windowClosing(null);
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         return false;
     }
@@ -146,6 +156,7 @@ public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlug
      * Hay que gestionar ese caso.
      * @param event SessionEvent
      */
+    @Override
     public void sessionCreated(SessionEvent event) {
         if (hasSetFileBeenInvokedBeforeThisNewSessionCreatedEvent) {
             hasSetFileBeenInvokedBeforeThisNewSessionCreatedEvent = false;
@@ -153,6 +164,7 @@ public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlug
         this.setFileIsInvalid(true, !event.isSaveAs());
     }
 
+    @Override
     public void sessionDestroyed(SessionEvent event) {
         setFileIsInvalid(true, true);
     }
@@ -166,6 +178,7 @@ public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlug
         file = null;
     }
 
+    @Override
     public void sessionSaved(SessionEvent event) {
         if (this.isFileIsInvalid()) {
             try {

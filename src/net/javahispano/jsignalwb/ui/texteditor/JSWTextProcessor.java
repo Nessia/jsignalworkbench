@@ -14,6 +14,10 @@ import com.borland.dbswing.FontChooser;
 
 public class JSWTextProcessor extends JFrame {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4401263930483576859L;
     private ByteArrayOutputStream inMemoryDucyment;
     private Border normal = BorderFactory.createEtchedBorder();
     private Border selected = BorderFactory.createRaisedBevelBorder();

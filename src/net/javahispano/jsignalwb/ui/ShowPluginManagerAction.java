@@ -19,6 +19,10 @@ import net.javahispano.jsignalwb.plugins.framework.PluginManagerPanel;
  * @author Roman Segador
  */
 public class ShowPluginManagerAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6967299102945028245L;
     private JSWBManager jswbManager;
     private Window owner;
     public ShowPluginManagerAction(JSWBManager jswbManager, Window owner) {
@@ -27,6 +31,7 @@ public class ShowPluginManagerAction extends AbstractAction {
         this.putValue(NAME, String.valueOf("Plugin Manager"));
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         new PluginManagerPanel(jswbManager).showJWindow(owner);
     }

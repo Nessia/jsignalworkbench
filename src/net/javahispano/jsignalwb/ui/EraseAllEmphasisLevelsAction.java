@@ -22,6 +22,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @version 0.5
  */
 public class EraseAllEmphasisLevelsAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3056975004877745611L;
+
     public EraseAllEmphasisLevelsAction() {
         this.putValue(SHORT_DESCRIPTION, "Remove all the signals emphasis levels. Be careful...");
         this.putValue(NAME, "Remove emphasis levels");

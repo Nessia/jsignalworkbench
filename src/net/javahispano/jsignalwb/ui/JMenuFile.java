@@ -22,7 +22,12 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class JMenuFile extends JMenu {
 
-    /** Creates a new instance of JMenuFile */
+    /**
+    *
+    */
+   private static final long serialVersionUID = 3717536259677324245L;
+
+   /** Creates a new instance of JMenuFile */
     public JMenuFile() {
         super("File");
         JSWBManager jswbManager = JSWBManager.getJSWBManagerInstance();

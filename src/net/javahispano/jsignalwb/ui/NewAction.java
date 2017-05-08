@@ -24,6 +24,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class NewAction extends AbstractAction {
     /**
+     *
+     */
+    private static final long serialVersionUID = -5251703290581448580L;
+
+    /**
      * Creates a new instance of SaveAsAction
      */
     public NewAction() {
@@ -35,6 +40,7 @@ public class NewAction extends AbstractAction {
         this.putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl shift N"));
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (JSWBManager.getJSWBManagerInstance().prepareClose(true)) {
             JSWBManager.getSignalManager().removeAllSignals();

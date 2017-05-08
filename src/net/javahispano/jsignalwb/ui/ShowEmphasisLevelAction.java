@@ -19,6 +19,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman Segador
  */
 public class ShowEmphasisLevelAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8662020846407245634L;
+
     private String signalName;
     public ShowEmphasisLevelAction(String signalName) {
         this.signalName = signalName;
@@ -28,6 +33,7 @@ public class ShowEmphasisLevelAction extends AbstractAction {
         this.putValue(MNEMONIC_KEY, KeyEvent.VK_H);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         JSWBManager jSWBManager = JSWBManager.getJSWBManagerInstance();
         if (e.getActionCommand().toLowerCase().equals("true")) {

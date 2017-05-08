@@ -23,6 +23,10 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  * @author Roman
  */
 public class ShowXYPointsAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5149096829732056924L;
     JSignalMonitor jsm;
     /** Creates a new instance of ShowXYPointsAction */
     public ShowXYPointsAction(JSignalMonitor jsm) {
@@ -34,6 +38,7 @@ public class ShowXYPointsAction extends AbstractAction {
         this.jsm = jsm;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if ("true".equals(e.getActionCommand())) {
             jsm.setRepresentingXYValues(true);

@@ -20,6 +20,10 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @version 1.0
  */
 public class GenericPluginAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6005424833739530627L;
     public final static int CONFIGURE_ACTION = 1;
     public final static int LAUNCH_ACTION = 2;
     private int action;

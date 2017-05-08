@@ -21,6 +21,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  */
 public class JMenuZoom extends JMenu {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5575170228129057259L;
+
     /** Creates a new instance of JMenuZoom */
     public JMenuZoom(JSignalMonitor jsm, String signalName) {
         super("Zoom");

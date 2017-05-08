@@ -13,13 +13,19 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class DebugModeOnRestartAction extends AbstractAction {
 
-    public DebugModeOnRestartAction() {
+    /**
+    *
+    */
+   private static final long serialVersionUID = -5048969473756061769L;
+
+
+   public DebugModeOnRestartAction() {
         this.putValue(NAME, "Debug mode");
         this.putValue(SHORT_DESCRIPTION, "Debug mode when restart the " +
                       "applicattion turn ON/OFF");
     }
 
-
+    @Override
     public void actionPerformed(ActionEvent e) {
         JSWBManager jswbManager = JSWBManager.getJSWBManagerInstance();
         if (e.getActionCommand().toLowerCase().equals("true")) {

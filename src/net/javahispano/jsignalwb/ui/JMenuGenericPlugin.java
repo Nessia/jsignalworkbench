@@ -20,6 +20,11 @@ import net.javahispano.jsignalwb.plugins.framework.PluginManager;
  * @version 1.0
  */
 public class JMenuGenericPlugin extends JMenu {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4751625944193702692L;
+
     public JMenuGenericPlugin(String genericPluginName, JSWBManager jswbManager) {
         super(genericPluginName);
         PluginManager pm = jswbManager.getPluginManager();

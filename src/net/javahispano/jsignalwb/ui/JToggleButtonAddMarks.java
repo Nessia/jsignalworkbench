@@ -16,6 +16,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.*;
  */
 public class JToggleButtonAddMarks extends JToggleButton implements JSignalMonitorModeListener {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5128032825995871143L;
+
     public JToggleButtonAddMarks(JSignalMonitor jsm) {
         super(new SelectMarksAction(jsm));
         setFocusable(false);

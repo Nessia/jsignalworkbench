@@ -25,6 +25,10 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman
  */
 public class JMenuSignals extends JMenu {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8798508394056148852L;
     JSWBManager jswbManager;
     /** Creates a new instance of JMenuSignals */
     public JMenuSignals(JSWBManager jswbManager) {

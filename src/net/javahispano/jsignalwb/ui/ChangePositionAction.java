@@ -21,6 +21,10 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  * @author Roman
  */
 public class ChangePositionAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4010413336088330332L;
     public static final String UP = "up";
     public static final String DOWN = "down";
     private JSignalMonitor jsm;

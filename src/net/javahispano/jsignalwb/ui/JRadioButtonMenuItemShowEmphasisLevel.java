@@ -16,6 +16,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class JRadioButtonMenuItemShowEmphasisLevel extends JRadioButtonMenuItem {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -111040378654277061L;
+
     public JRadioButtonMenuItemShowEmphasisLevel(String signalName) {
         super(new ShowEmphasisLevelAction(signalName));
 

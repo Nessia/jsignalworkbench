@@ -19,8 +19,15 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman Segador
  */
 public class SignalDataColorAction extends AbstractAction {
+
+    /**
+    *
+    */
+    private static final long serialVersionUID = 6863343529602641026L;
+
     private JSWBManager jswbManager;
     private String signalName;
+
     public SignalDataColorAction(JSWBManager jswbManager, String signalName) {
         this.jswbManager = jswbManager;
         this.signalName = signalName;
@@ -35,6 +42,7 @@ public class SignalDataColorAction extends AbstractAction {
         this.putValue(MNEMONIC_KEY, KeyEvent.VK_C);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         JColorChooser jColorChooser = new JColorChooser();
         Color color = jColorChooser.showDialog(jswbManager.getParentWindow(),

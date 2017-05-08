@@ -20,6 +20,10 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitorGrid;
  * @author Roman Segador
  */
 public class ConfigureGridAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6816856686887660804L;
     private JSignalMonitorGrid grid;
     private Window owner;
     public ConfigureGridAction(JSignalMonitorGrid grid, Window owner) {

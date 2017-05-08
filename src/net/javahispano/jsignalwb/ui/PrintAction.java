@@ -28,6 +28,13 @@ import net.javahispano.jsignalwb.jsignalmonitor.printsupport.PrintDialog;
  * @author Roman Segador
  */
 public class PrintAction extends AbstractAction {
+
+
+    /**
+    *
+    */
+    private static final long serialVersionUID = -2029788638360987048L;
+
     public PrintAction() {
         Image image = Toolkit.getDefaultToolkit().createImage(
                 JSWBManager.class.getResource("images/print.gif"));
@@ -38,9 +45,9 @@ public class PrintAction extends AbstractAction {
         this.putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl P"));
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
-
-        (new PrintDialog(JSWBManager.getParentWindow(), "PrintDialog", JSWBManager.getJSignalMonitor())).setVisible(true);
+        new PrintDialog(JSWBManager.getParentWindow(), "PrintDialog", JSWBManager.getJSignalMonitor()).setVisible(true);
     }
 
 }

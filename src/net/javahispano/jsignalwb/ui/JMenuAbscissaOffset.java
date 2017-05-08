@@ -19,6 +19,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  */
 public class JMenuAbscissaOffset extends JMenu {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2622609147842028852L;
+
     /** Creates a new instance of JMenuAbscissaOffset */
     public JMenuAbscissaOffset(JSignalMonitor jsm, String signalName) {
         super("Abscissa offset");

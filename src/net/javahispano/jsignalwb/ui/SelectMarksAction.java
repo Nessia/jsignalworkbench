@@ -22,6 +22,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  * @author Roman Segador
  */
 public class SelectMarksAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7195118194261190443L;
+
     JSignalMonitor jsm;
 
     public SelectMarksAction(JSignalMonitor jsm) {
@@ -34,6 +39,7 @@ public class SelectMarksAction extends AbstractAction {
         this.jsm = jsm;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if ("true".equals(e.getActionCommand())) {
             jsm.setMarksSelectionMode(true);

@@ -22,9 +22,15 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman
  */
 public class ShowPropertiesAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1986385710540327614L;
+
     String signalName;
     JSWBManager jswbManager;
     Window owner;
+
     /** Creates a new instance of ShowPropertiesAction */
     public ShowPropertiesAction(String signalName, JSWBManager jswbManager, Window owner) {
         this.signalName = signalName;
@@ -35,6 +41,7 @@ public class ShowPropertiesAction extends AbstractAction {
         this.putValue(MNEMONIC_KEY, KeyEvent.VK_T);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         new ConfigureSignalPanel(signalName, jswbManager).showJWindow(owner);
 

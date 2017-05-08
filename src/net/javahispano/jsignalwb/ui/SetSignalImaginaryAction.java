@@ -18,6 +18,10 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman Segador
  */
 public class SetSignalImaginaryAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1815094345499692409L;
     private String signalName;
     public SetSignalImaginaryAction(String signalName) {
         this.signalName = signalName;
@@ -26,6 +30,7 @@ public class SetSignalImaginaryAction extends AbstractAction {
         this.putValue(MNEMONIC_KEY, KeyEvent.VK_I);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         JSWBManager jSWBManager = JSWBManager.getJSWBManagerInstance();
         if (e.getActionCommand().toLowerCase().equals("true")) {

@@ -19,6 +19,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @version 0.5
  */
 public class JMenuAbout extends JMenu {
+    /**
+    *
+    */
+    private static final long serialVersionUID = 5295524392408671211L;
+
     public JMenuAbout() {
         super("About");
 
@@ -34,8 +39,7 @@ public class JMenuAbout extends JMenu {
                                               "Developed by Roman Segador and Abraham Otero.</font></p></body></html>",
                                               "About", JOptionPane.INFORMATION_MESSAGE);
             }
-        }
-        );
+        });
 
         this.add(i);
 

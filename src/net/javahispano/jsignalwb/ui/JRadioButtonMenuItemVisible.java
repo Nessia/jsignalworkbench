@@ -20,6 +20,11 @@ import net.javahispano.jsignalwb.JSWBManager;
 
 public class JRadioButtonMenuItemVisible extends JRadioButtonMenuItem {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6270914735608425887L;
+
     /** Creates a new instance of JMenuVisible */
     public JRadioButtonMenuItemVisible(JSWBManager jswbManager, String signalName) {
         super(new VisibleAction(jswbManager, signalName));

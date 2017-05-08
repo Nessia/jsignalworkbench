@@ -25,6 +25,11 @@ import net.javahispano.jsignalwb.plugins.framework.PluginManager;
  * @author Roman
  */
 public class JSWBFrame extends javax.swing.JFrame {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5743991136335527513L;
+
     private javax.swing.JMenuBar jMenuBar;
     private JToolBar jToolBar;
     private JPanel centerPanel;

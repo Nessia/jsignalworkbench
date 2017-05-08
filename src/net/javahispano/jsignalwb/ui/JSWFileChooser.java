@@ -25,6 +25,11 @@ import net.javahispano.jsignalwb.plugins.framework.PluginManager;
  * @author Roman Segador
  */
 public class JSWFileChooser extends JFileChooser implements PropertyChangeListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1291898517531230423L;
+
     PluginManager pm;
     // ArrayList<FileChooserFileFilter> filters;
     boolean isDefaultFilter;

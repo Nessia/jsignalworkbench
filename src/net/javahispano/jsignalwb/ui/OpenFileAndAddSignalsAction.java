@@ -22,6 +22,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class OpenFileAndAddSignalsAction extends OpenFileAction {
     /**
+     *
+     */
+    private static final long serialVersionUID = -3249835335078049229L;
+
+    /**
      * Creates a new instance of OpenFileAction
      * @param jswbManager JSWBManager
      */

@@ -21,6 +21,10 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman
  */
 public class VisibleAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8543839304574737318L;
     private JSWBManager jswbManager;
     private String signalName;
     /** Creates a new instance of VisibleAction */
@@ -32,6 +36,7 @@ public class VisibleAction extends AbstractAction {
         this.putValue(MNEMONIC_KEY, KeyEvent.VK_V);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().toLowerCase().equals("true")) {
             jswbManager.setChannelVisible(signalName, true);

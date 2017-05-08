@@ -20,6 +20,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman Segador
  */
 public class RemoveAllMarksAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3126018088165409901L;
+
     JSWBManager jswbManager;
     public RemoveAllMarksAction(JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
@@ -34,6 +39,7 @@ public class RemoveAllMarksAction extends AbstractAction {
         this.putValue(MNEMONIC_KEY, KeyEvent.VK_M);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         jswbManager.removeAllMarks();
         jswbManager.refreshJSM(true);

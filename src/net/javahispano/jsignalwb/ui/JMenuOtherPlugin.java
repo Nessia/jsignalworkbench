@@ -13,6 +13,11 @@ import net.javahispano.jsignalwb.plugins.framework.PluginManager;
  */
 public class JMenuOtherPlugin extends JMenu {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7325303076840710636L;
+
     public JMenuOtherPlugin(String pluginType, String pluginName) {
         super(pluginName);
         JMenuItem jmi;

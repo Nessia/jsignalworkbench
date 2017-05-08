@@ -10,6 +10,12 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class JRadioButtonMenuItemDebugModeOnRestart extends JRadioButtonMenuItem {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -9078963111596308637L;
+
+
     public JRadioButtonMenuItemDebugModeOnRestart() {
         super(new DebugModeOnRestartAction());
         if (JSWBManager.getJSWBManagerInstance().isDebugModeOnRestart()) {

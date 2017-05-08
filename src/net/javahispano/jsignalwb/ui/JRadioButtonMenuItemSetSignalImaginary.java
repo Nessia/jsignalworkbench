@@ -16,6 +16,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class JRadioButtonMenuItemSetSignalImaginary extends JRadioButtonMenuItem {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4585519818125960699L;
+
     public JRadioButtonMenuItemSetSignalImaginary(String signalName) {
         super(new SetSignalImaginaryAction(signalName));
 

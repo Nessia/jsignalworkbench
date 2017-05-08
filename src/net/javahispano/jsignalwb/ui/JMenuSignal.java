@@ -20,7 +20,13 @@ import net.javahispano.jsignalwb.Signal;
  * @author Roman
  */
 public class JMenuSignal extends JMenu {
+    /**
+    *
+    */
+    private static final long serialVersionUID = -3247006141954578743L;
+
     Signal signal;
+
     /** Creates a new instance of SignalAction */
     public JMenuSignal(JSWBManager jswbManager, String signalName) {
         this(jswbManager, signalName, true, true, true, true, true, true, true, true, true, true, true);

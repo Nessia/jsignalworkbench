@@ -20,6 +20,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman Segador
  */
 public class RemoveAllAnnotationsAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6496607921185343707L;
+
     JSWBManager jswbManager;
     public RemoveAllAnnotationsAction(JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
@@ -34,6 +39,7 @@ public class RemoveAllAnnotationsAction extends AbstractAction {
         this.putValue(MNEMONIC_KEY, KeyEvent.VK_V);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         jswbManager.removeAllAnnotations();
         jswbManager.refreshJSM(false);

@@ -27,7 +27,14 @@ import net.javahispano.jsignalwb.plugins.framework.PluginManager;
  * @author Roman
  */
 public class JMenuPlugins extends JMenu {
+
+    /**
+    *
+    */
+    private static final long serialVersionUID = 8853864295113984067L;
+
     private JSWBManager jswbManager;
+
     /** Creates a new instance of JMenuAlgorithms */
     public JMenuPlugins(JSWBManager jswbManager) {
         super("Plugins");

@@ -22,6 +22,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  */
 public class JMenuChangePosition extends JMenu {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2452050015473524911L;
+
     /** Creates a new instance of JMenuChangePosition */
     public JMenuChangePosition(JSignalMonitor jsm, String signalName) {
         super("Position");

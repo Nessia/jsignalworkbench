@@ -19,6 +19,10 @@ import net.javahispano.jsignalwb.jsignalmonitor.ChannelProperties;
  * @author Roman Segador
  */
 public class InvadeNearChannelsAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5873611732554851593L;
     private JSWBManager jswbManager;
     private ChannelProperties channelProperties;
 

@@ -18,6 +18,10 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman Segador
  */
 public class SetGridAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2846680920810661619L;
     private JSWBManager jswbManager;
     private String signalName;
     private String gridName;
@@ -33,6 +37,7 @@ public class SetGridAction extends AbstractAction {
         this.putValue(SHORT_DESCRIPTION, "Set the " + gridName + " grid to signal: " + signalName);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         jswbManager.setSignalGrid(signalName, gridName);
     }
