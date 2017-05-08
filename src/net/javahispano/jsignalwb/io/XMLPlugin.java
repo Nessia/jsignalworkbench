@@ -8,6 +8,11 @@ import org.jdom.Element;
  * @author Roman
  */
 class XMLPlugin extends Element {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -282571861538591354L;
+
     /** Creates a new instance of XMLPlugin */
     public XMLPlugin(String key, Plugin plugin) {
         super("Plugin");

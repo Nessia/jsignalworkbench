@@ -22,6 +22,10 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman
  */
 public class AdjustSignalVisibleRangeAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8222003825469524367L;
     private JSWBManager jswbManager;
     private String channelName;
     private float range;

@@ -15,6 +15,11 @@ import javax.swing.*;
  * @author  Compaq_Propietario
  */
 class ChannelInfoConfigPanel extends javax.swing.JPanel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8895306506813565316L;
+
     private LeftPanelConfiguration configuration;
     private JSignalMonitorPanel jsmp;
     /** Creates new form ChannelInfoConfigPanel */

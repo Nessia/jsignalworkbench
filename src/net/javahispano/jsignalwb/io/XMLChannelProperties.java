@@ -9,6 +9,11 @@ import org.jdom.Element;
  */
 class XMLChannelProperties extends Element {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5494487323651441687L;
+
     /** Creates a new instance of XMLChannelPorperties */
     public XMLChannelProperties(ChannelProperties cp) {
         super("ChannelProperties");

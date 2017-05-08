@@ -20,14 +20,19 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  * @author Roman
  */
 public class AbscissaOffsetAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8193189582707763718L;
     private JSignalMonitor jsm;
-    private String signalName;
-    private int value;
+    //private String signalName;
+    //private int value;
+
     /** Creates a new instance of AbscissaOffsetAction */
     public AbscissaOffsetAction(JSignalMonitor jsm, String signalName, int value) {
         this.jsm = jsm;
-        this.signalName = signalName;
-        this.value = value;
+        //this.signalName = signalName;
+        //this.value = value;
         this.putValue(NAME, String.valueOf(value) + "%");
     }
 

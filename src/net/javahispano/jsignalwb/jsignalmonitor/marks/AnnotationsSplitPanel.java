@@ -17,6 +17,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSMProperties;
  * @author Roman Segador
  */
 public class AnnotationsSplitPanel extends JSplitPane {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8047493538780655644L;
+
     private AnnotationCategoriesPanel acp;
     private AnnotationsPanel ap;
     private JSMProperties jsmProperties;

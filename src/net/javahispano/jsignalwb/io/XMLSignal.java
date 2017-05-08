@@ -19,6 +19,11 @@ import org.jdom.Element;
  */
 class XMLSignal extends Element {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -9180260258177431024L;
+
     /** Crea un elemento Signal del fichero XML con la informacion
      * del objeto signal que recibe
      */

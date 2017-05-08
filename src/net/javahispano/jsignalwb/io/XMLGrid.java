@@ -15,6 +15,11 @@ import org.jdom.Element;
  */
 class XMLGrid extends Element {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -474651008901787332L;
+
     public XMLGrid(GridPlugin grid) {
         super("Grid");
         String gridData = "";

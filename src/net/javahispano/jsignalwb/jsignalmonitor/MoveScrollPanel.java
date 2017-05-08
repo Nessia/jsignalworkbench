@@ -16,6 +16,11 @@ import javax.swing.LayoutStyle;
  * @author  Compaq_Propietario
  */
 public class MoveScrollPanel extends javax.swing.JPanel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -458399409807671860L;
+
     private JSignalMonitor jsm;
     private long milisec = 1000;
     private String value = "1";

@@ -18,6 +18,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitorDataSource;
  */
 public class AddAnnotationAction extends AbstractAction {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1504372249246875012L;
+
     private String annotationName;
     private JSignalMonitorDataSource dataSource;
     private long startTime;

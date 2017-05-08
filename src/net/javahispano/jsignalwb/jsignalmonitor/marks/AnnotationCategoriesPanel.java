@@ -16,6 +16,11 @@ import javax.swing.JPanel;
  * @author Roman Segador
  */
 public class AnnotationCategoriesPanel extends JPanel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4030911138345887129L;
+
     ArrayList<String> categories;
     public AnnotationCategoriesPanel() {
         categories = null;

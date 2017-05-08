@@ -8,6 +8,11 @@ import org.jdom.Element;
  */
 class XMLJSignalMonitor extends Element {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5052457133638309055L;
+
     /** Creates a new instance of XMLJSignalMonitor */
     public XMLJSignalMonitor(float frecuency, long scrollPosition,
                              String leftPanelConfig) {

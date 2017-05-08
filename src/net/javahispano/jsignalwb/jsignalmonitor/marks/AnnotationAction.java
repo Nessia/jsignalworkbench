@@ -19,10 +19,17 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSMProperties;
  * @author Roman Segador
  */
 public class AnnotationAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7054523569274283532L;
+
     private AnnotationsPanel annotationsPanel;
     private JSMProperties jsmp;
     private Point p;
     private boolean interval;
+
+
     public AnnotationAction(AnnotationsPanel annotationsPanel, JSMProperties jsmp, Point p, boolean interval) {
         this.annotationsPanel = annotationsPanel;
         this.jsmp = jsmp;

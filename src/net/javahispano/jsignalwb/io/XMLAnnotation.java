@@ -15,6 +15,11 @@ import org.jdom.Element;
  */
 public class XMLAnnotation extends Element {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2954733607011967248L;
+
     public XMLAnnotation(AnnotationPlugin ap) {
         super("Annotation");
         setAttribute("Name", ap.getName());

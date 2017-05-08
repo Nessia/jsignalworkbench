@@ -18,6 +18,11 @@ import org.jdom.Element;
  */
 public class XMLProperty extends Element {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1397812999063199822L;
+
     public XMLProperty(String name, Object bean) {
         super("Property");
         setAttribute("Name", name);

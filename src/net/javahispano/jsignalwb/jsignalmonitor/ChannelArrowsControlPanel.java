@@ -16,6 +16,11 @@ import javax.swing.*;
  * @author  Roman
  */
 class ChannelArrowsControlPanel extends javax.swing.JPanel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5824051340316414894L;
+
     private Cursor cursor;
     private String channelName;
     private JSignalMonitorPanel jsmPanel;

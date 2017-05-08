@@ -15,6 +15,11 @@ import org.jdom.Element;
  */
 public class XMLMark extends Element {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1973298005379314860L;
+
     public XMLMark(MarkPlugin mp) {
         super("Mark");
         setAttribute("Name", mp.getName());

@@ -16,6 +16,11 @@ import javax.swing.*;
  * @author  roman.segador.torre
  */
 public class DefaultGridConfigPanel extends javax.swing.JPanel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6170769569351033992L;
+
     private String originalConfig;
     private DefaultGrid grid;
     private JWindow jw;

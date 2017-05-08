@@ -21,6 +21,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSMProperties;
  * @author Roman Segador
  */
 public class AnnotationsPanel extends JPanel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7565073888086793850L;
+
     private ArrayList<String> categories;
     private JSMProperties jsmProperties;
     private HashMap<JSignalMonitorAnnotation, Rectangle> annotations;

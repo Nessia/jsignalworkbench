@@ -13,6 +13,11 @@ package net.javahispano.jsignalwb.io;
  * @version 0.5
  */
 public class SessionNotSavedException extends RuntimeException {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7674722707092830927L;
+
     public SessionNotSavedException() {
         super();
     }

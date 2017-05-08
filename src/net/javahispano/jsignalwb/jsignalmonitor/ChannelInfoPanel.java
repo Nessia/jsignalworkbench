@@ -22,6 +22,11 @@ import net.javahispano.jsignalwb.*;
  * @author Roman
  */
 class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3148375794925039069L;
+
     public ChannelInfoPanel() {
         try {
             jbInit();

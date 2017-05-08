@@ -14,6 +14,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  * @version 0.5
  */
 public class PrintDialog extends JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5244218000610598054L;
+
     private JPanel panel1 = new JPanel();
     private BorderLayout borderLayout1 = new BorderLayout();
     private JPanel jPanel1 = new JPanel();

@@ -21,6 +21,10 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman
  */
 public class AlgorithmAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8470576805945116528L;
     public final static int CONFIGURE_ACTION = 1;
     public final static int RUN_ACTION = 2;
     public final static int RESULTS_ACTION = 3;

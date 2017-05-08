@@ -17,6 +17,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitorDataSource;
 public class AnnotationsPopupMenu extends JPopupMenu {
 
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7218514945679160009L;
+
     public AnnotationsPopupMenu(JSignalMonitorDataSource dataSource, long time) {
         super();
         for (String annotationName : dataSource.getAvailableKindsOfInstantAnnotations()) {

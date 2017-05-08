@@ -28,6 +28,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.printsupport.PrintUtilities;
  */
 class JSignalMonitorPanel extends JPanel implements AdjustmentListener, JSignalMonitorScrollListener,
         PropertyChangeListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5850639163174578160L;
+
     public JScrollBar jScrollBar;
     private Channels channels;
     private JPanel leftPanel;

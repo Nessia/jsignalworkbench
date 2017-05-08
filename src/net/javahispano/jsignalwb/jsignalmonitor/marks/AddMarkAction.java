@@ -17,6 +17,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitorDataSource;
  * @author Roman Segador
  */
 public class AddMarkAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3118721346862166527L;
+
     private String markName;
     private String signalName;
     private JSignalMonitorDataSource dataSource;

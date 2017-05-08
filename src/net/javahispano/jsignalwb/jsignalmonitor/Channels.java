@@ -23,6 +23,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.marks.*;
  * @author  Roman
  */
 public class Channels extends javax.swing.JPanel {
+/**
+     *
+     */
+    private static final long serialVersionUID = 3575205544731267522L;
+
 //    private List<String> positions; //Almacena el nombre de los canales en el orden que se mostraran
 //    private Map<String, Channel> channels; //Almacena los canales identificandolos mediante su nombre
 //    private Map<JSignalMonitorMark,Rectangle> marks;

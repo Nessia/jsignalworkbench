@@ -20,6 +20,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSMProperties;
  * @author Roman Segador
  */
 public class MarkAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 9074573568789651839L;
+
     private Channels channels;
     private JSMProperties jsmp;
     private Point p;
