@@ -10,11 +10,16 @@ package es.usc.gsi.trace.importer.estadisticos;
  */
 
 public class NotPercentilException extends Exception {
-    private int percentil_pedido;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7184112469595184667L;
 
-    public NotPercentilException(String mensaje, int percetil_pedido) {
+    private int percentilPedido;
+
+    public NotPercentilException(String mensaje, int percentilPedido) {
         super(mensaje);
-        this.percentil_pedido = percentil_pedido;
+        this.percentilPedido = percentilPedido;
     }
 
     /**
@@ -22,7 +27,7 @@ public class NotPercentilException extends Exception {
      * @return
      */
     public int getPercentilPedido() {
-        return percentil_pedido;
+        return percentilPedido;
     }
 
 }

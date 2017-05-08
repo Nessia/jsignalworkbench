@@ -19,11 +19,11 @@ public class PtoSig implements PtoSigInterface, Serializable {
 
     private String D;
     private String L;
-    private int numeroRestricciones;
+    //private int numeroRestricciones;
     private int ptb;
     private int numeroDePtoSig = 0;
     public RestriccionInterface theRestriccionInterface[];
-    private Vector vectorRestricciones = new Vector();
+    private Vector<Restriccion> vectorRestricciones = new Vector<Restriccion>();
     private boolean es_flotante = true;
 
 
@@ -69,7 +69,7 @@ public class PtoSig implements PtoSigInterface, Serializable {
         this.ptb = ptb;
         this.numeroDePtoSig = ptosig;
         vectorRestricciones.addElement(restriccion);
-        numeroRestricciones++;
+        //numeroRestricciones++;
     }
 
     /**
@@ -116,7 +116,7 @@ public class PtoSig implements PtoSigInterface, Serializable {
      * @roseuid 37870819003B
      */
     public void DecrementaNumeroRestricciones() {
-        numeroRestricciones--;
+        //numeroRestricciones--;
     }
 
     /**

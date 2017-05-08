@@ -3,89 +3,101 @@ package es.usc.gsi.trace.importer.estadisticos;
 import java.io.Serializable;
 
 public class ResultadoCorrelacion implements Serializable {
-    private String senal1, senal2, fechaInicio1, fechaInicio2, fechaFin1,
-    fechaFin2, comentario, nombre;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -38110179814087979L;
+
+    private String senal1;
+    private String senal2;
+    private String fechaInicio1;
+    private String fechaInicio2;
+    private String fechaFin1;
+    private String fechaFin2;
+    private String comentario;
+    private String nombre;
     private float nivelDeSignificacion;
     private int nivelDeSignificacionDiscreto;
+
+
     public String getSenal1() {
         return senal1;
     }
 
-    public void setSenal1(String _senal1) {
-        senal1 = _senal1;
+    public void setSenal1(String senal1) {
+        this.senal1 = senal1;
     }
 
     public String getSenal2() {
         return senal2;
     }
 
-    public void setSenal2(String _senal2) {
-        senal2 = _senal2;
+    public void setSenal2(String senal2) {
+        this.senal2 = senal2;
     }
 
     public String getFechaInicio1() {
         return fechaInicio1;
     }
 
-    public void setFechaInicio1(String _fechaInicio1) {
-        fechaInicio1 = _fechaInicio1;
+    public void setFechaInicio1(String fechaInicio1) {
+        this.fechaInicio1 = fechaInicio1;
     }
 
     public String getFechaInicio2() {
         return fechaInicio2;
     }
 
-    public void setFechaInicio2(String _fechaInicio2) {
-        fechaInicio2 = _fechaInicio2;
+    public void setFechaInicio2(String fechaInicio2) {
+        this.fechaInicio2 = fechaInicio2;
     }
 
     public String getFechaFin1() {
         return fechaFin1;
     }
 
-    public void setFechaFin1(String _fechaFin1) {
-        fechaFin1 = _fechaFin1;
+    public void setFechaFin1(String fechaFin1) {
+        this.fechaFin1 = fechaFin1;
     }
 
     public String getFechaFin2() {
         return fechaFin2;
     }
 
-    public void setFechaFin2(String _fechaFin2) {
-        fechaFin2 = _fechaFin2;
+    public void setFechaFin2(String fechaFin2) {
+        this.fechaFin2 = fechaFin2;
     }
 
     public float getNivelDeSignificacion() {
         return nivelDeSignificacion;
     }
 
-    public void setNivelDeSignificacion(float _nivelDeSignificacion) {
-        nivelDeSignificacion = _nivelDeSignificacion;
+    public void setNivelDeSignificacion(float nivelDeSignificacion) {
+        this.nivelDeSignificacion = nivelDeSignificacion;
     }
 
     public int getNivelDeSignificacionDiscreto() {
         return nivelDeSignificacionDiscreto;
     }
 
-    public void setNivelDeSignificacionDiscreto(int
-                                                _nivelDeSignificacionDiscreto) {
-        nivelDeSignificacionDiscreto = _nivelDeSignificacionDiscreto;
+    public void setNivelDeSignificacionDiscreto(int nivelDeSignificacionDiscreto) {
+        this.nivelDeSignificacionDiscreto = nivelDeSignificacionDiscreto;
     }
 
     public String getComentario() {
         return comentario;
     }
 
-    public void setComentario(String _comentario) {
-        comentario = _comentario;
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String _comentario) {
-        nombre = _comentario;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     /**

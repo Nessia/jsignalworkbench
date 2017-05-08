@@ -9,7 +9,21 @@ package es.usc.gsi.trace.importer.jsignalmonold.annotations;
  */
 public class Annotation extends ClinicalEvent {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7075014003144943068L;
+
     private int tiempoFin;
+
+
+    public Annotation(){
+        // Empty
+    }
+
+    public Annotation(int i){
+        super(i);
+    }
 
     /**
      * @return int

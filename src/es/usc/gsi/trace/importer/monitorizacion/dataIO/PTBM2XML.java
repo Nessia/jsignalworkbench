@@ -5,8 +5,9 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 import es.usc.gsi.trace.importer.Perfil.*;
+//import es.usc.gsi.trace.importer.Perfil.auxiliares.Serializador;
+
 import org.jdom.*;
-import org.jdom.Attribute;
 import org.jdom.filter.ContentFilter;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
@@ -15,8 +16,8 @@ class MyFloat {
     private static boolean hay_parser = false;
     private static DecimalFormat decimal_format;
     private static int numero_decimales_actuales = 1;
-    public final static int MAS_INFINITO = Integer.MAX_VALUE / 1000,
-    MENOS_INFINITO = Integer.MIN_VALUE / 1000;
+    public final static int MAS_INFINITO = Integer.MAX_VALUE / 1000;
+    public final static int MENOS_INFINITO = Integer.MIN_VALUE / 1000;
     /**
      *
      */
@@ -116,15 +117,15 @@ class MyFloat {
      * @param M
      * @return
      */
-    private static String convierteAString(float M) {
-        if (M < MAS_INFINITO && M > MENOS_INFINITO) {
-            return Float.toString(M);
-        } else if (M == MENOS_INFINITO) {
-            return "-&";
-        } else {
-            return "&";
-        }
-    }
+//    private static String convierteAString(float M) {
+//        if (M < MAS_INFINITO && M > MENOS_INFINITO) {
+//            return Float.toString(M);
+//        } else if (M == MENOS_INFINITO) {
+//            return "-&";
+//        } else {
+//            return "&";
+//        }
+//    }
 
     /**
      * Emplear para cambiar el numero de digitos decimales del patron
@@ -392,8 +393,8 @@ public class PTBM2XML {
         ContentFilter filtro = new ContentFilter(false);
         filtro.setElementVisible(true);
 
-        List lista_ptb = root.getContent(filtro);
-        Iterator it = lista_ptb.iterator();
+        @SuppressWarnings("unchecked")
+        Iterator<Element> it = root.getContent(filtro).iterator();
         //Empleamos un floag para marcar el primer PTB, que se le pasara en el constructor
         //Al PTBM, de los demas que se le anhadiran
         PTBM ptbm = null;
@@ -442,9 +443,9 @@ public class PTBM2XML {
             }
 
             //Comenzamos a RECOPILAR PUNTOS SIGNIFICATIVOS:
-            List lista_PtoSig = ptb_xml.getContent(filtro);
+            @SuppressWarnings("unchecked")
+            Iterator<Element> it2 = ptb_xml.getContent(filtro).iterator();
             int num_PtoSig = -1;
-            Iterator it2 = lista_PtoSig.iterator();
             while (it2.hasNext()) {
                 num_PtoSig++;
                 Element PtoSig_xml = (Element) it2.next();
@@ -542,26 +543,22 @@ public class PTBM2XML {
         //Empleamos un filtro para deshacernos de los nodos de texto
         ContentFilter filtro = new ContentFilter(false);
         filtro.setElementVisible(true);
-        List lista_restriciones = PtoSig_xml.getContent(filtro);
-        Iterator it = lista_restriciones.iterator();
-        Restriccion[] restriccion_array = new Restriccion[lista_restriciones.
-                                          size()];
+        @SuppressWarnings("unchecked")
+        List<Element> lista_restriciones = PtoSig_xml.getContent(filtro);
+        Iterator<Element> it = lista_restriciones.iterator();
+        Restriccion[] restriccion_array = new Restriccion[lista_restriciones.size()];
         int num_restriciones = -1;
         while (it.hasNext()) {
             num_restriciones++;
             Element restriccion_xml = (Element) it.next();
             //Obtenemos los atributos de la restriccion
-            int ptb_origen, PtoSig_origen, ptb_destino, Ptosig_destino;
+            int ptb_origen, PtoSig_origen;
             boolean relativaAlBasal = false;
             try {
-                ptb_origen = restriccion_xml.getAttribute("PTBOrigen").
-                             getIntValue();
-                PtoSig_origen = restriccion_xml.getAttribute("PtoSigOrigen").
-                                getIntValue();
-                ptb_destino = restriccion_xml.getAttribute("PTBDestino").
-                              getIntValue();
-                Ptosig_destino = restriccion_xml.getAttribute("PtoSigDestino").
-                                 getIntValue();
+                ptb_origen = restriccion_xml.getAttribute("PTBOrigen").getIntValue();
+                PtoSig_origen = restriccion_xml.getAttribute("PtoSigOrigen").getIntValue();
+                //ptb_destino = restriccion_xml.getAttribute("PTBDestino").getIntValue();
+                //Ptosig_destino = restriccion_xml.getAttribute("PtoSigDestino").getIntValue();
                 Attribute atributoBoolean = restriccion_xml.getAttribute(
                         "RelativaAlBasal");
                 if (atributoBoolean != null) {
@@ -666,10 +663,9 @@ public class PTBM2XML {
 
         javax.swing.JFileChooser fch = new javax.swing.JFileChooser();
         fch.showOpenDialog(null);
-        es.usc.gsi.trace.importer.Perfil.auxiliares.Serializador serial = new
-                es.usc.gsi.trace.importer.Perfil.auxiliares.Serializador();
 
         /*
+         Serializador serial = new Serializador();
          PTBMInterface ptbm = serial.cargaPTBM(fch.getSelectedFile().toString());
 
              PTBM2XML1.GuardaPTBM(ptbm, "C:/ptbm");

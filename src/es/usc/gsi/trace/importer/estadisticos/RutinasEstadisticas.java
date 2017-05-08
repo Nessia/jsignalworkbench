@@ -13,9 +13,9 @@ import java.util.TreeSet;
  */
 
 public class RutinasEstadisticas {
-    public static final int MAYOR_QUE_90 = 1, MAYOR_QUE_95 = 2, MAYOR_QUE_975 =
-            3, MAYOR_QUE_99 = 4,
-    MAYOR_QUE_995 = 5, MENOR_QUE_90 = 0;
+    //public static final int MAYOR_QUE_90 = 1, MAYOR_QUE_95 = 2, MAYOR_QUE_975 =
+    //        3, MAYOR_QUE_99 = 4, MAYOR_QUE_995 = 5, MENOR_QUE_90 = 0;
+     public enum MAYORES {MENOR_QUE_90, MAYOR_QUE_90, MAYOR_QUE_95, MAYOR_QUE_975, MAYOR_QUE_99, MAYOR_QUE_995}
 
     /**
      * Simple calculo de una media artimetica.
@@ -38,33 +38,33 @@ public class RutinasEstadisticas {
      */
     public final static float[] calculaMediana(float[] datos, int[] percentiles) {
         percentiles = (int[]) percentiles.clone();
-        TreeSet num_ordenados = new TreeSet();
+        TreeSet<Float> numOrdenados = new TreeSet<Float>();
         float mediana = 0;
         percentiles = ordenaPercentiles(percentiles);
 
         for (int i = 0; i < datos.length; i++) {
-            Float dato_Float = new Float(datos[i]);
-            while (num_ordenados.contains(dato_Float)) {
+            Float dato = new Float(datos[i]);
+            while (numOrdenados.contains(dato)) {
                 //Megachapuza, como si hay dos iguales => los fund een uno => los hago diferentes
-                float dato_actual = dato_Float.floatValue();
+                float datoActual = dato.floatValue();
                 //Si no el truquillo me da = + 0/10000000 = 0, y asi hasta el infinito
-                if (dato_actual == 0) {
-                    dato_actual = Float.MIN_VALUE;
+                if (datoActual == 0) {
+                    datoActual = Float.MIN_VALUE;
                 }
                 //Mas chapuzas. Supongo que nunca pasara. si lo de abajo no actualiza el numero =>
-                if (Math.abs(dato_actual) < Float.MIN_VALUE * 10000000) {
-                    dato_actual = dato_actual + Float.MIN_VALUE;
-                    dato_Float = new Float(dato_actual);
+                if (Math.abs(datoActual) < Float.MIN_VALUE * 10000000) {
+                    datoActual = datoActual + Float.MIN_VALUE;
+                    dato = new Float(datoActual);
                 } else {
-                    dato_Float = new Float(dato_actual + dato_actual / 10000000);
+                    dato = new Float(datoActual + datoActual / 10000000);
                 }
             }
-            num_ordenados.add(dato_Float);
+            numOrdenados.add(dato);
         }
 
         int cuantos_van = 0;
         int num_datos = datos.length;
-        Iterator it = num_ordenados.iterator();
+        Iterator<Float> it = numOrdenados.iterator();
         boolean numero_datos_par;
         int mitad_de_los_datos;
         //Miro si el numero de datos es par
@@ -348,29 +348,29 @@ public class RutinasEstadisticas {
      * @param NUM_DATOS EL MINIMO NUMERO DE DATOS DE LOS DOS NUMEROS DE DATOS CON LOS QUE SE CALCULO LA CORRELACION
      * @return
      */
-    public static int caclulaNivelesDeSignificacion(float correlacion,
+    public static MAYORES caclulaNivelesDeSignificacion(float correlacion,
             int num_datos) {
         float logaritmo = (float) Math.log((1 + correlacion) / (1 - correlacion));
         double coef = Math.sqrt(num_datos - 3) / 2 * logaritmo;
         float coeficiente = (float) Math.abs(coef);
 
         if (coeficiente > 2.58) {
-            return MAYOR_QUE_995;
+            return MAYORES.MAYOR_QUE_995;
         } else if (coeficiente > 2.33) {
-            return MAYOR_QUE_99;
+            return MAYORES.MAYOR_QUE_99;
         } else if (coeficiente > 1.96) {
-            return MAYOR_QUE_975;
+            return MAYORES.MAYOR_QUE_975;
         } else if (coeficiente > 1.64) {
-            return MAYOR_QUE_95;
+            return MAYORES.MAYOR_QUE_95;
         } else if (coeficiente > 1.28) {
-            return MAYOR_QUE_90;
+            return MAYORES.MAYOR_QUE_90;
         } else {
-            return MENOR_QUE_90;
+            return MAYORES.MENOR_QUE_90;
         }
 
     }
 
-    public static String getTextoDeSignificacion(int significacion) {
+    public static String getTextoDeSignificacion(MAYORES significacion) {
         switch (significacion) {
         case MENOR_QUE_90:
             return "no es significativo";

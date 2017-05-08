@@ -10,7 +10,12 @@ import java.util.LinkedList;
  */
 public class Manifestacion extends Annotation {
 
-    private LinkedList atributos;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1269831574909541649L;
+
+    private LinkedList<Attribute> atributos;
     private int tipoManifestacion;
     public static final int SINTOMA = 1;
     public static final int SIGNO = 2;
@@ -20,7 +25,7 @@ public class Manifestacion extends Annotation {
 
     public Manifestacion(String nombre, String comentario,
                          int tipo_manifestacion,
-                         LinkedList atributos) {
+                         LinkedList<Attribute> atributos) {
         this.texto = nombre;
         this.tipoManifestacion = tipo_manifestacion;
         this.atributos = atributos;
@@ -31,7 +36,7 @@ public class Manifestacion extends Annotation {
     /**
      * @return java.util.LinkedList
      */
-    public LinkedList getAtributos() {
+    public LinkedList<Attribute> getAtributos() {
         return this.atributos;
     }
 

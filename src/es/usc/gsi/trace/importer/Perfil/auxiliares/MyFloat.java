@@ -96,15 +96,15 @@ public class MyFloat {
      * @param M
      * @return
      */
-    private static String convierteAString(float M) {
-        if (M != Float.NEGATIVE_INFINITY && M != Float.POSITIVE_INFINITY) {
-            return Float.toString(M);
-        } else if (M == Float.NEGATIVE_INFINITY) {
-            return "-&";
-        } else {
-            return "&";
-        }
-    }
+//    private static String convierteAString(float M) {
+//        if (M != Float.NEGATIVE_INFINITY && M != Float.POSITIVE_INFINITY) {
+//            return Float.toString(M);
+//        } else if (M == Float.NEGATIVE_INFINITY) {
+//            return "-&";
+//        } else {
+//            return "&";
+//        }
+//    }
 
     /**
      * Emplear para cambiar el numero de digitos decimales del patron

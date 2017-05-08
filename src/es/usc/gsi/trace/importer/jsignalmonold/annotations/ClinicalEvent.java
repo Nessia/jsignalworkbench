@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @version 	0.6
  * @author 	Abraham Otero Quintana
  */
-public class ClinicalEvent implements Comparable, Serializable {
+public class ClinicalEvent implements Comparable<ClinicalEvent>, Serializable {
     /**
      * Esto nos hara a nosotros responsables del versionamiento de los ficheros Serializados.
      * Siempre podemos volver a leerlos, pero depende de nosotros que se haga de un modo correcto.
@@ -42,7 +42,7 @@ public class ClinicalEvent implements Comparable, Serializable {
     }
 
     public ClinicalEvent() {
-
+        //
     }
 
     /**
@@ -116,9 +116,7 @@ public class ClinicalEvent implements Comparable, Serializable {
         this.tiempo_inicio++;
     }
 
-    public int compareTo(Object o) {
-        ClinicalEvent evento = (ClinicalEvent) o;
-
+    public int compareTo(ClinicalEvent evento) {
         if (this.tiempo_inicio > evento.getStartTime()) {
             return 1;
         } else if (this.tiempo_inicio == evento.getStartTime()) {
@@ -126,7 +124,6 @@ public class ClinicalEvent implements Comparable, Serializable {
         } else {
             return -1;
         }
-
     }
 
     public void setTipo(int _tipo) {

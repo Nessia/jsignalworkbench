@@ -4,6 +4,8 @@ package es.usc.gsi.trace.importer.monitorizacion.dataIO;
 
 import java.util.TreeSet;
 
+import es.usc.gsi.trace.importer.jsignalmonold.annotations.Annotation;
+import es.usc.gsi.trace.importer.jsignalmonold.annotations.Mark;
 import es.usc.gsi.trace.importer.monitorizacion.data.AlmacenDatos;
 
 /**
@@ -13,23 +15,23 @@ import es.usc.gsi.trace.importer.monitorizacion.data.AlmacenDatos;
  * monitorizacion ya realizada) creara uno u otro objeto para leer el archivo y
  * los devolvera a Fuente de datos como un objeto CargarDatos.
  */
-abstract class CargarDatos {
-    int numero_senales;
-    float[][] datos;
-    byte pos[][];
-    String archivo;
-    TreeSet[] marcas;
-    java.util.TreeSet anotaciones;
-    AlmacenDatos almacen;
+public abstract class CargarDatos {
+    protected int numero_senales;
+    protected float[][] datos;
+    protected byte pos[][];
+    protected String archivo;
+    protected TreeSet<Mark>[] marcas;
+    protected TreeSet<Annotation> anotaciones;
+    protected AlmacenDatos almacen;
 
-    CargarDatos() {
+    protected CargarDatos() {
 
     }
 
     /**
      * @param fichero
      */
-    CargarDatos(String fichero) {
+    protected CargarDatos(String fichero) {
         this.datos = null;
         this.marcas = null;
         this.anotaciones = null;
@@ -43,7 +45,7 @@ abstract class CargarDatos {
      * @todo Que devuelva null en la superclase
      * Devuelve las marcas de una determinada senal.
      */
-    java.util.TreeSet[] getMarcas() {
+    protected TreeSet<Mark>[] getMarcas() {
         return marcas;
     }
 
@@ -53,14 +55,14 @@ abstract class CargarDatos {
      * @todo Que devuelva null en la superclase
      * Devuelve las anotaciones de una determinada senhal.
      */
-    java.util.TreeSet getAnotaciones() {
+    protected TreeSet<Annotation> getAnotaciones() {
         return anotaciones;
     }
 
     /**
      * @return float[][]
      */
-    float[][] getDatos() {
+    protected float[][] getDatos() {
         return datos;
     }
 
@@ -68,33 +70,33 @@ abstract class CargarDatos {
      * @return int[][]
      * @todo Que devuelva null en la superclase
      */
-    byte[][] getPos() {
+    protected byte[][] getPos() {
         return pos;
     }
 
     /**Este metodo debe ser sobre escrito por todos los descendientes
      * @param fichero
      */
-    private void cargaDatos() {
-        this.datos = null;
-        this.marcas = null;
-        this.anotaciones = null;
-        this.pos = null;
-    }
+//    private void cargaDatos() {
+//        this.datos = null;
+//        this.marcas = null;
+//        this.anotaciones = null;
+//        this.pos = null;
+//    }
 
-    int getNumeroSenales() {
+    protected int getNumeroSenales() {
         return numero_senales;
     }
 
-    void setNumeroSenales(int _numero_senales) {
+    protected void setNumeroSenales(int _numero_senales) {
         numero_senales = _numero_senales;
     }
 
-    AlmacenDatos getAlmacen() {
+    protected AlmacenDatos getAlmacen() {
         return almacen;
     }
 
-    public void setAlmacen(TreeSet tmp) {
-        anotaciones = tmp;
+    public void setAlmacen(TreeSet<Annotation> anotaciones) {
+        this.anotaciones = anotaciones;
     }
 }

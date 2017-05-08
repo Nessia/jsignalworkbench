@@ -8,8 +8,10 @@ import es.usc.gsi.trace.importer.Perfil.PTBMInterface;
 import es.usc.gsi.trace.importer.estadisticos.*;
 import es.usc.gsi.trace.importer.jsignalmonold.SamplesToDate;
 import es.usc.gsi.trace.importer.jsignalmonold.annotations.*;
+import es.usc.gsi.trace.importer.jsignalmonold.annotations.Attribute;
 import es.usc.gsi.trace.importer.monitorizacion.data.AlmacenDatosFloat;
 import es.usc.gsi.trace.importer.monitorizacion.data.GestorDatos;
+
 import org.jdom.*;
 import org.jdom.filter.ContentFilter;
 import org.jdom.input.SAXBuilder;
@@ -24,6 +26,11 @@ import org.jdom.input.SAXBuilder;
  */
 
 public class CargarDatosXML extends CargarDatos {
+    private static final String ATTR_MIN = "Minimo";
+    private static final String ATTR_MAX = "Maximo";
+    private static final String ATTR_NOMBRE_SENAL = "NombreSenal";
+    private static final String ATTR_FECHA_BASE = "FechaBase";
+    private static final String EL_SENAL = "Senal";
 
     private byte[] pos_gloabal;
 
@@ -33,6 +40,7 @@ public class CargarDatosXML extends CargarDatos {
 
     }
 
+    @SuppressWarnings("unchecked")
     private void cargaDatos() throws JDOMException {
         //Generamos el path de este archivo, lo necesitaremos para mas tarde:
         String arcivo_monitorizacion_path = (new File(archivo)).getParent() +
@@ -49,7 +57,7 @@ public class CargarDatosXML extends CargarDatos {
         }
         //Obtenemos el elemento raiz, el PTBM, y cojemos sus atributos.
         Element root = documento.getRootElement();
-        String fecha_base = root.getAttributeValue("FechaBase");
+        String fecha_base = root.getAttributeValue(ATTR_FECHA_BASE);
         String tiene_pos_glogal_string = root.getAttributeValue(
                 "TienePosAsociada");
         boolean tiene_pos_gloga = false;
@@ -61,8 +69,8 @@ public class CargarDatosXML extends CargarDatos {
         //Empleamos un filtro para deshacernos de los nodos de texto
         ContentFilter filtro = new ContentFilter(false);
         filtro.setElementVisible(true);
-        List lista_senales = root.getChildren("Senal");
-        Iterator it = lista_senales.iterator();
+        List<Element> lista_senales = root.getChildren(EL_SENAL);
+        Iterator<Element> it = lista_senales.iterator();
         //Defino las extructuras que voy a emplear para almacenar la informacion
         int num_senales = lista_senales.size();
         float[][] datos = new float[num_senales][];
@@ -80,9 +88,9 @@ public class CargarDatosXML extends CargarDatos {
         String[] nombre_senales = new String[num_senales];
         String[] leyenda_temporal = new String[num_senales];
         String[] leyendas = new String[num_senales];
-        TreeSet[] marcas = new TreeSet[num_senales];
+        TreeSet<Mark>[] marcas = new TreeSet[num_senales];
         for (int i = 0; i < marcas.length; i++) {
-            marcas[i] = new TreeSet();
+            marcas[i] = new TreeSet<Mark>();
         }
 
         boolean[] tien_pos_asociada = new boolean[num_senales];
@@ -93,16 +101,13 @@ public class CargarDatosXML extends CargarDatos {
         while (it.hasNext()) {
             cont_senal++;
             Element senal_xml = (Element) it.next();
-            nombre_senales[cont_senal] = senal_xml.getAttribute("NombreSenal").
-                                         getValue();
-            leyenda_temporal[cont_senal] = senal_xml.getAttribute(
-                    "LeyendaTemporal").getValue();
+            nombre_senales[cont_senal] = senal_xml.getAttribute(ATTR_NOMBRE_SENAL).getValue();
+            leyenda_temporal[cont_senal] = senal_xml.getAttribute("LeyendaTemporal").getValue();
             leyendas[cont_senal] = senal_xml.getAttribute("Leyenda").getValue();
 
             try {
-                rango[cont_senal][0] = senal_xml.getAttribute("Minimo").
-                                       getFloatValue();
-                rango[cont_senal][1] = senal_xml.getAttribute("Maximo").
+                rango[cont_senal][0] = senal_xml.getAttribute(ATTR_MIN).getFloatValue();
+                rango[cont_senal][1] = senal_xml.getAttribute(ATTR_MAX).
                                        getFloatValue();
                 fs[cont_senal] = senal_xml.getAttribute("Fs").getFloatValue();
             } catch (DataConversionException ex) {
@@ -117,8 +122,8 @@ public class CargarDatosXML extends CargarDatos {
                 tien_pos_asociada[cont_senal] = false;
             }
             //Ahora leemos las marcas de esta senhal
-            List lista_marcas = senal_xml.getChildren("Marca");
-            Iterator it2 = lista_marcas.iterator();
+            List<Element> lista_marcas = senal_xml.getChildren("Marca");
+            Iterator<Element> it2 = lista_marcas.iterator();
             while (it2.hasNext()) {
                 Element marca_xml = (Element) it2.next();
                 String texto_marca = marca_xml.getAttributeValue("Texto");
@@ -158,15 +163,13 @@ public class CargarDatosXML extends CargarDatos {
             ptbm = null;
         }
         //Ahora nos quedan las anotaciones
-        TreeSet tree_set = new TreeSet();
-        List lista_terapia_xml = root.getChildren("Terapia");
-        LinkedList lista_terapia = genraAnotacionesTerapia(lista_terapia_xml);
-        List lista_diagnostico_xml = root.getChildren("Diagnostico");
-        LinkedList lista_diagnostico = genraAnotacionesDiagnostico(
-                lista_diagnostico_xml);
-        List lista_manifestacion_xml = root.getChildren("Manifestacion");
-        LinkedList lista_manifestacion = genraAnotacionesManifestacion(
-                lista_manifestacion_xml);
+        TreeSet<Annotation> tree_set = new TreeSet<Annotation>();
+        List<Element> lista_terapia_xml = root.getChildren("Terapia");
+        LinkedList<Therapy> lista_terapia = genraAnotacionesTerapia(lista_terapia_xml);
+        List<Element> lista_diagnostico_xml = root.getChildren("Diagnostico");
+        LinkedList<Diagnostic> lista_diagnostico = genraAnotacionesDiagnostico(lista_diagnostico_xml);
+        List<Element> lista_manifestacion_xml = root.getChildren("Manifestacion");
+        LinkedList<Manifestacion> lista_manifestacion = genraAnotacionesManifestacion(lista_manifestacion_xml);
         tree_set.addAll(lista_diagnostico);
         tree_set.addAll(lista_manifestacion);
         tree_set.addAll(lista_terapia);
@@ -185,19 +188,18 @@ public class CargarDatosXML extends CargarDatos {
         gestor_datos.setAlmacen(almacen);
 
         //Y  los estadisticos
-        LinkedList estadisticos_list = this.cargaEstadisticos(root);
+        LinkedList<ResultadosEstadisticos> estadisticos_list = this.cargaEstadisticos(root);
         //Anhadimos al alamcen todos los estadisticos
-        Iterator it2 = estadisticos_list.iterator();
+        Iterator<ResultadosEstadisticos> it2 = estadisticos_list.iterator();
         while (it2.hasNext()) {
-            ResultadosEstadisticos estadsitico = (ResultadosEstadisticos) it2.
-                                                 next();
+            ResultadosEstadisticos estadsitico = (ResultadosEstadisticos) it2.next();
             gestor_datos.anadeEstadistico(estadsitico);
         }
 
         //Las correlaciones
-        LinkedList correlaciones_list = this.cargaCorrelaciones(root);
+        LinkedList<ResultadoCorrelacion> correlaciones_list = this.cargaCorrelaciones(root);
         //Anhadimos al alamcen todos los estadisticos
-        Iterator it3 = correlaciones_list.iterator();
+        Iterator<ResultadoCorrelacion> it3 = correlaciones_list.iterator();
         while (it3.hasNext()) {
             ResultadoCorrelacion correlacion = (ResultadoCorrelacion) it3.next();
             gestor_datos.anadeCorrelacion(correlacion);
@@ -228,27 +230,27 @@ public class CargarDatosXML extends CargarDatos {
      * @param todas_las_leyendas
      * @return
      */
-    private Object[] procesaLeyenda(String todas_las_leyendas) {
-        StringTokenizer tk = new StringTokenizer(todas_las_leyendas.trim());
-        int num_leyendas = tk.countTokens();
-        Object[] leyendas = new Object[num_leyendas];
-        int count = 0;
-        while (tk.hasMoreTokens()) {
-            leyendas[count] = tk.nextToken();
-            count++;
-        }
-        return leyendas;
-    }
+//    private String[] procesaLeyenda(String todas_las_leyendas) {
+//        StringTokenizer tk = new StringTokenizer(todas_las_leyendas.trim());
+//        int num_leyendas = tk.countTokens();
+//        String[] leyendas = new String[num_leyendas];
+//        int count = 0;
+//        while (tk.hasMoreTokens()) {
+//            leyendas[count] = tk.nextToken();
+//            count++;
+//        }
+//        return leyendas;
+//    }
 
     /**
      * Dada una lista con los nodos XML de terapia devuelve una LinkedList con los
      * objetos de tipo terapia crados a partir de esta.
-     * @param lista_terapia
+     * @param lista_terapia_xml
      * @return
      */
-    private LinkedList genraAnotacionesTerapia(List lista_terapia) {
-        LinkedList resultado = new LinkedList();
-        Iterator it = lista_terapia.iterator();
+    private LinkedList<Therapy> genraAnotacionesTerapia(List<Element> lista_terapia_xml) {
+        LinkedList<Therapy> resultado = new LinkedList<Therapy>();
+        Iterator<Element> it = lista_terapia_xml.iterator();
         //Para todas las anotaciones
         while (it.hasNext()) {
             //Obtenemos del nodo XML los componentes de la terapia
@@ -300,13 +302,13 @@ public class CargarDatosXML extends CargarDatos {
      * @param lista_terapia
      * @return
      */
-    private LinkedList genraAnotacionesDiagnostico(List lista_diagnostico) {
-        LinkedList resultado = new LinkedList();
-        Iterator it = lista_diagnostico.iterator();
+    private LinkedList<Diagnostic> genraAnotacionesDiagnostico(List<Element> lista_diagnostico_xml) {
+        LinkedList<Diagnostic> resultado = new LinkedList<Diagnostic>();
+        Iterator<Element> it = lista_diagnostico_xml.iterator();
         //Para todas las anotaciones
         while (it.hasNext()) {
             //Obtenemos del nodo XML los componentes de la terapia
-            Element diagnostico_xml = (Element) it.next();
+            Element diagnostico_xml = it.next();
             String texto = diagnostico_xml.getAttribute("Texto").getValue();
             int tiempo_inicio, tipo_evento, offset, tiempo_fin;
             try {
@@ -354,13 +356,13 @@ public class CargarDatosXML extends CargarDatos {
      * @param lista_terapia
      * @return
      */
-    private LinkedList genraAnotacionesManifestacion(List lista_manifestacion) {
-        LinkedList resultado = new LinkedList();
-        Iterator it = lista_manifestacion.iterator();
+    private LinkedList<Manifestacion> genraAnotacionesManifestacion(List<Element> lista_manifestacion) {
+        LinkedList<Manifestacion> resultado = new LinkedList<Manifestacion>();
+        Iterator<Element> it = lista_manifestacion.iterator();
         //Para todas las anotaciones
         while (it.hasNext()) {
             //Obtenemos del nodo XML los componentes de la terapia
-            Element manifestacion_xml = (Element) it.next();
+            Element manifestacion_xml = it.next();
             String texto = manifestacion_xml.getAttribute("Texto").getValue();
             int tiempo_inicio, tipo_evento, offset, tiempo_fin,
                     tipo_manifestacion;
@@ -384,19 +386,16 @@ public class CargarDatosXML extends CargarDatos {
             String comentario = manifestacion_xml.getAttribute("Comentario").
                                 getValue();
             //Pedimos la lsita de elementos de tipo atributo
-            List lista_atributo_xml = manifestacion_xml.getChildren("Atributo");
-            Iterator it2 = lista_atributo_xml.iterator();
-            LinkedList lista_atributo = new LinkedList();
+            @SuppressWarnings("unchecked")
+                List<Element> lista_atributo_xml = manifestacion_xml.getChildren("Atributo");
+            Iterator<Element> it2 = lista_atributo_xml.iterator();
+            LinkedList<Attribute> lista_atributo = new LinkedList<Attribute>();
             while (it2.hasNext()) {
-                Element atributo_xml = (Element) it2.next();
+                Element atributo_xml = it2.next();
                 String nobre_atributo = atributo_xml.getAttributeValue(
                         "Atributo");
                 String valor_atributo = atributo_xml.getAttributeValue("Valor");
-                es.usc.gsi.trace.importer.jsignalmonold.annotations.Attribute
-                        atributo = new
-                                   es.usc.gsi.trace.importer.jsignalmonold.
-                                   annotations.Attribute(
-                                           nobre_atributo, valor_atributo);
+                Attribute atributo = new Attribute(nobre_atributo, valor_atributo);
                 lista_atributo.add(atributo);
             }
 
@@ -420,6 +419,7 @@ public class CargarDatosXML extends CargarDatos {
      * @param datos
      * @param pos
      */
+    @SuppressWarnings("unchecked")
     private void cargaDatos(String file, int num_senales,
                             boolean[] tien_pos_asociada,
                             float[][] datos, byte[][] pos,
@@ -457,9 +457,9 @@ public class CargarDatosXML extends CargarDatos {
                 pos_gloabal = new byte[filas];
             }
             marcas = new TreeSet[num_senales];
-            anotaciones = new TreeSet();
+            anotaciones = new TreeSet<Annotation>();
             for (int i = 0; i < num_senales; i++) {
-                marcas[i] = new TreeSet();
+                marcas[i] = new TreeSet<Mark>();
             }
             //reseteamos el buffer
             bf.reset();
@@ -536,13 +536,14 @@ public class CargarDatosXML extends CargarDatos {
         }
     }
 
-    private LinkedList cargaEstadisticos(Element root) {
-        LinkedList resultado = new LinkedList();
-        List list_estadisticos = root.getChildren("Estadistico");
-        Iterator it = list_estadisticos.iterator();
+    private LinkedList<ResultadosEstadisticos> cargaEstadisticos(Element root) {
+        LinkedList<ResultadosEstadisticos> resultado = new LinkedList<ResultadosEstadisticos>();
+        @SuppressWarnings("unchecked")
+        List<Element> list_estadisticos = (List<Element>)root.getChildren("Estadistico");
+        Iterator<Element> it = list_estadisticos.iterator();
         while (it.hasNext()) {
             try {
-                Element estadistico_xml = (Element) it.next();
+                Element estadistico_xml = it.next();
                 float media = estadistico_xml.getAttribute("Media").
                               getFloatValue();
                 float mediana = estadistico_xml.getAttribute("Mediana").
@@ -569,15 +570,15 @@ public class CargarDatosXML extends CargarDatos {
                                     getText();
 
                 //Cojemos la lista de percentiles
-                List list_percentiles = estadistico_xml.getChildren(
-                        "Percentiles");
-                Iterator it2 = list_percentiles.iterator();
+                @SuppressWarnings("unchecked")
+                List<Element> list_percentiles = estadistico_xml.getChildren("Percentiles");
+                Iterator<Element> it2 = list_percentiles.iterator();
                 int num_percentiles = list_percentiles.size();
                 int[] percentiles_float = new int[num_percentiles];
                 float[] valores_percentiles = new float[num_percentiles];
                 int cuantos_van = 0;
                 while (it2.hasNext()) {
-                    Element percentil_xml = (Element) it2.next();
+                    Element percentil_xml = it2.next();
                     percentiles_float[cuantos_van] = percentil_xml.getAttribute(
                             "Percentil").getIntValue();
                     valores_percentiles[cuantos_van] = percentil_xml.
@@ -609,9 +610,10 @@ public class CargarDatosXML extends CargarDatos {
         GestorDatos gestor_datos = GestorDatos.getInstancia();
         Element configuracion = root.getChild("Configuracion");
         if (configuracion != null) {
-            List lista_senales = configuracion.getChildren("CanalMonitorizado");
+            @SuppressWarnings("unchecked")
+            List<Element> lista_senales = configuracion.getChildren("CanalMonitorizado");
+            Iterator<Element> it = lista_senales.iterator();
             int[] senesles_monitorizadas = new int[lista_senales.size()];
-            Iterator it = lista_senales.iterator();
             int count = 0;
             while (it.hasNext()) {
                 try {
@@ -632,13 +634,14 @@ public class CargarDatosXML extends CargarDatos {
      * @param root
      * @return
      */
-    private LinkedList cargaCorrelaciones(Element root) {
-        LinkedList resultado = new LinkedList();
-        List list_correlaciones = root.getChildren("Correlacion");
-        Iterator it = list_correlaciones.iterator();
+    private LinkedList<ResultadoCorrelacion> cargaCorrelaciones(Element root) {
+        LinkedList<ResultadoCorrelacion> resultado = new LinkedList<ResultadoCorrelacion>();
+        @SuppressWarnings("unchecked")
+        List<Element> list_correlaciones = root.getChildren("Correlacion");
+        Iterator<Element> it = list_correlaciones.iterator();
         while (it.hasNext()) {
             try {
-                Element correlacion_xml = (Element) it.next();
+                Element correlacion_xml = it.next();
                 float coef_correlacion = correlacion_xml.getAttribute(
                         "Correlacion").getFloatValue();
                 int significacion = correlacion_xml.getAttribute(

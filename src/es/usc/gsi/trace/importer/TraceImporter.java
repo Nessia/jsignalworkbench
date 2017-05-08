@@ -26,8 +26,8 @@ import net.javahispano.jsignalwb.plugins.LoaderAdapter;
 public class TraceImporter extends LoaderAdapter {
 
 
-    public ArrayList getAvalaibleExtensions() {
-        ArrayList l = new ArrayList();
+    public ArrayList<String> getAvalaibleExtensions() {
+        ArrayList<String> l = new ArrayList<String>();
         l.add("mon");
         return l;
     }
@@ -89,7 +89,7 @@ public class TraceImporter extends LoaderAdapter {
         GestorIO gestor_io = GestorIO.getGestorIO();
         String name = file.getPath();
         boolean hubo_exito = gestor_io.cargarDatos(name, true);
-        int num_datos = gestor_io.getNumDatos();
+        //int num_datos = gestor_io.getNumDatos();
         if (name.endsWith(".mon") && hubo_exito) {
             GestorDatos gestorDatos = GestorDatos.getInstancia();
             gestorDatos.setArchivo(name);

@@ -26,28 +26,28 @@ public abstract class AlmacenDatos implements Serializable {
      */
     int i;
     protected int numero_senales;
-    protected boolean tienePosAsociada[];
+    protected boolean[] tienePosAsociada;
     public static final int FLOAT = 4;
     public static final int INT = 3;
     public static final int SHORT = 2;
     public static final int BYTE = 1;
-    protected float rangos_senales[][];
-    protected String leyendas[];
+    protected float[][] rangos_senales;
+    protected String[] leyendas;
     protected PTBMInterface ptbm;
-    protected String nombre_senales[];
-    protected String leyenda_temporal[];
+    protected String[] nombreSenales;
+    protected String[] leyendaTemporal;
     protected AlmacenDatosByte almacen_pos;
-    protected TreeSet marcas[];
-    protected TreeSet anotaciones;
+    protected TreeSet<Mark>[] marcas;
+    protected TreeSet<Annotation> anotaciones;
     protected byte[] pos_total;
     protected String fecha_base;
 
     /**
      * para meter lo que sea en el futuro....
      */
-    protected LinkedList olvidado;
+    //protected LinkedList olvidado;
 
-    protected float fs[];
+    protected float[] fs;
     protected String nombre_paciente;
     protected int edad_paciente;
 
@@ -65,8 +65,8 @@ public abstract class AlmacenDatos implements Serializable {
     /**
      * Para los estadisticos
      */
-    protected HashMap estadisticos;
-    protected HashMap correlaciones;
+    protected HashMap<String,ResultadosEstadisticos> estadisticos;
+    protected HashMap<String,ResultadoCorrelacion> correlaciones;
 
     public AlmacenDatos() {
 
@@ -75,7 +75,8 @@ public abstract class AlmacenDatos implements Serializable {
 
     /**
      * @param datos
-     * @param pos@param marcas
+     * @param pos
+     * @param marcas
      * @param anotaciones
      */
     public AlmacenDatos(float[][] datos, byte[][] pos, TreeSet[] marcas,
@@ -185,20 +186,20 @@ public abstract class AlmacenDatos implements Serializable {
     /**
      * @return LinkedList[]
      */
-    public TreeSet[] getMarcas() {
+    public TreeSet<Mark>[] getMarcas() {
         return marcas;
     }
 
 
-    public void setMarcas(TreeSet[] marcas) {
+    public void setMarcas(TreeSet<Mark>[] marcas) {
         this.marcas = marcas;
     }
 
 
     /**
-     * @return LinkedList[]
+     * @return TreeSet<Annotation>
      */
-    public TreeSet getAnotaciones() {
+    public TreeSet<Annotation> getAnotaciones() {
         return anotaciones;
     }
 
@@ -268,7 +269,7 @@ public abstract class AlmacenDatos implements Serializable {
               return "Posibilidad";
             }*/
 
-        return this.nombre_senales[senal];
+        return this.nombreSenales[senal];
     }
 
 
@@ -277,7 +278,7 @@ public abstract class AlmacenDatos implements Serializable {
      * @param nombre
      */
     public void setNombreSenal(int senal, String nombre) {
-        this.nombre_senales[senal] = nombre;
+        this.nombreSenales[senal] = nombre;
 
     }
 
@@ -291,7 +292,7 @@ public abstract class AlmacenDatos implements Serializable {
         /*       if (this.numero_senales == senal) {
              return "Posibilidad";
            }*/
-        return this.leyenda_temporal[senal];
+        return this.leyendaTemporal[senal];
     }
 
 
@@ -300,7 +301,7 @@ public abstract class AlmacenDatos implements Serializable {
      * @param leyenda_temporal
      */
     protected void setLeyendaTemporal(String[] leyenda_temporal) {
-        this.leyenda_temporal = leyenda_temporal;
+        this.leyendaTemporal = leyenda_temporal;
     }
 
 
@@ -395,7 +396,7 @@ public abstract class AlmacenDatos implements Serializable {
 
 
     protected void setNombreSenales(String[] _nombre_senales) {
-        nombre_senales = _nombre_senales;
+        nombreSenales = _nombre_senales;
     }
 
 
@@ -494,7 +495,8 @@ public abstract class AlmacenDatos implements Serializable {
         float[] fs_tmp = new float[nueva_num_senales];
         float[][] rango_tmp = new float[nueva_num_senales /*+ 1*/][2];
         String[] leyendas_tmp = new String[nueva_num_senales];
-        TreeSet[] marcas_tmp = new TreeSet[nueva_num_senales];
+        @SuppressWarnings("unchecked")
+        TreeSet<Mark>[] marcas_tmp = new TreeSet[nueva_num_senales];
         boolean[] tienePosAsociada_tmp = null;
         if (pos_total == null) {
             tienePosAsociada_tmp = new boolean[nueva_num_senales];
@@ -510,7 +512,7 @@ public abstract class AlmacenDatos implements Serializable {
         }
 
         for (int i = 0; i < nueva_num_senales - 1; i++) {
-            nombre_senales_tmp[i] = this.nombre_senales[i];
+            nombre_senales_tmp[i] = this.nombreSenales[i];
             fs_tmp[i] = this.fs[i];
             leyendas_tmp[i] = this.leyendas[i];
             rango_tmp[i][0] = this.rangos_senales[i][0];
@@ -520,7 +522,7 @@ public abstract class AlmacenDatos implements Serializable {
             if ( /*pos_total ==  null || */i != nueva_num_senales - 1) {
                 tienePosAsociada_tmp[i] = this.tienePosAsociada[i];
             }
-            leyenda_temporal_tmp[i] = this.leyenda_temporal[i];
+            leyenda_temporal_tmp[i] = this.leyendaTemporal[i];
         }
         //if (pos_total == null) {
         nueva_num_senales--;
@@ -530,14 +532,14 @@ public abstract class AlmacenDatos implements Serializable {
 //      leyendas_tmp[nueva_num_senales] = tmp;
         rango_tmp[nueva_num_senales][0] = rango[0];
         rango_tmp[nueva_num_senales][1] = rango[1];
-        marcas_tmp[nueva_num_senales] = new TreeSet();
+        marcas_tmp[nueva_num_senales] = new TreeSet<Mark>();
         tienePosAsociada_tmp[nueva_num_senales - 1] = true;
         leyendas_tmp[nueva_num_senales] = leyenda;
         leyenda_temporal_tmp[nueva_num_senales] = Leyenda_temporal;
         //La posibilidad siempre debe ser la ultima en almacenar su rango
         if (pos_total != null) {
             nueva_num_senales++;
-            nombre_senales_tmp[nueva_num_senales] = this.nombre_senales[
+            nombre_senales_tmp[nueva_num_senales] = this.nombreSenales[
                     numero_senales];
             fs_tmp[nueva_num_senales] = this.fs[numero_senales];
             leyendas_tmp[nueva_num_senales] = this.leyendas[numero_senales];
@@ -548,17 +550,17 @@ public abstract class AlmacenDatos implements Serializable {
             marcas_tmp[nueva_num_senales] = this.marcas[numero_senales];
             tienePosAsociada_tmp[nueva_num_senales - 1] = true;
             //leyendas_tmp[nueva_num_senales] = this.leyenda_temporal[numero_senales];
-            leyenda_temporal_tmp[nueva_num_senales] = this.leyenda_temporal[
+            leyenda_temporal_tmp[nueva_num_senales] = this.leyendaTemporal[
                     numero_senales];
         }
 
-        nombre_senales = nombre_senales_tmp;
+        nombreSenales = nombre_senales_tmp;
         this.fs = fs_tmp;
         leyendas = leyendas_tmp;
         this.rangos_senales = rango_tmp;
         marcas = marcas_tmp;
         tienePosAsociada = tienePosAsociada_tmp;
-        this.leyenda_temporal = leyenda_temporal_tmp;
+        this.leyendaTemporal = leyenda_temporal_tmp;
         this.leyendas = leyendas_tmp;
         numero_senales++;
         this.almacen_pos.anhadeSenhal(new byte[numero_datos]);
@@ -570,11 +572,12 @@ public abstract class AlmacenDatos implements Serializable {
 
         float[][] rangos_tmp = new float[rangos_senales.length - 1][];
         float[] fs_tmp = new float[fs.length - 1];
-        String[] nombres_tmp = new String[nombre_senales.length - 1];
-        String[] leyendas_temporales_tmp = new String[leyenda_temporal.length -
+        String[] nombres_tmp = new String[nombreSenales.length - 1];
+        String[] leyendas_temporales_tmp = new String[leyendaTemporal.length -
                                            1];
         String[] leyendsd_tmp = new String[leyendas.length - 1];
-        TreeSet[] marcas_tmp = new TreeSet[marcas.length - 1];
+        @SuppressWarnings("unchecked")
+        TreeSet<Mark>[] marcas_tmp = new TreeSet[marcas.length - 1];
         boolean[] pos_tmp = new boolean[tienePosAsociada.length - 1];
         int cout = 0;
         int num_senales = rangos_senales.length;
@@ -587,8 +590,8 @@ public abstract class AlmacenDatos implements Serializable {
             if (i != numero_senhal) {
                 rangos_tmp[cout] = rangos_senales[i];
                 fs_tmp[cout] = fs[i];
-                nombres_tmp[cout] = nombre_senales[i];
-                leyendas_temporales_tmp[cout] = leyenda_temporal[i];
+                nombres_tmp[cout] = nombreSenales[i];
+                leyendas_temporales_tmp[cout] = leyendaTemporal[i];
                 leyendsd_tmp[cout] = leyendas[i];
                 marcas_tmp[cout] = marcas[i];
                 if (pos_total == null || i != num_senales - 1) {
@@ -601,9 +604,9 @@ public abstract class AlmacenDatos implements Serializable {
         //El segundo chequeo siempre deberiera ser true, pero es para curarse en salud
         if (getPosibilidadTotal() != null && marcas_tmp.length == num_senales) {
             fs_tmp[num_senales - 1] = fs[num_senales];
-            nombres_tmp[num_senales - 1] = nombre_senales[num_senales];
+            nombres_tmp[num_senales - 1] = nombreSenales[num_senales];
             leyendas_temporales_tmp[num_senales -
-                    1] = leyenda_temporal[num_senales];
+                    1] = leyendaTemporal[num_senales];
             leyendsd_tmp[num_senales - 1] = leyendas[num_senales];
             marcas_tmp[num_senales - 1] = marcas[num_senales];
         }
@@ -612,23 +615,20 @@ public abstract class AlmacenDatos implements Serializable {
 
         rangos_senales = rangos_tmp;
         fs = fs_tmp;
-        nombre_senales = nombres_tmp;
-        leyenda_temporal = leyendas_temporales_tmp;
+        nombreSenales = nombres_tmp;
+        leyendaTemporal = leyendas_temporales_tmp;
         leyendas = leyendsd_tmp;
         marcas = marcas_tmp;
         tienePosAsociada = pos_tmp;
-
     }
-
 
     /**
      *
      * @param tmp
      */
-    public void setAnotaciones(TreeSet tmp) {
-        anotaciones = tmp;
+    public void setAnotaciones(TreeSet<Annotation> anotaciones) {
+        this.anotaciones = anotaciones;
     }
-
 
     /**
      *
@@ -688,28 +688,25 @@ public abstract class AlmacenDatos implements Serializable {
         return false;
     }
 
-
     /**
      *
      */
     void eliminaTodosLosEstadisticos() {
-        estadisticos = new HashMap();
+        estadisticos = new HashMap<String, ResultadosEstadisticos>();
     }
-
 
     /**
      *
      */
     void eliminaTodasLasCorrelaciones() {
-        correlaciones = new HashMap();
+        correlaciones = new HashMap<String, ResultadoCorrelacion>();
     }
-
 
     /**
      *
      * @return
      */
-    Collection getEstadisticos() {
+    protected Collection<ResultadosEstadisticos> getEstadisticos() {
         return estadisticos.values();
     }
 
@@ -718,7 +715,7 @@ public abstract class AlmacenDatos implements Serializable {
      *
      * @return
      */
-    Collection getCorrelaciones() {
+    protected Collection<ResultadoCorrelacion> getCorrelaciones() {
         return correlaciones.values();
     }
 
@@ -728,13 +725,13 @@ public abstract class AlmacenDatos implements Serializable {
      * @param estadistico
      * @return
      */
-    ResultadosEstadisticos getEstadistico(String estadistico) {
+    protected ResultadosEstadisticos getEstadistico(String estadistico) {
         return ((ResultadosEstadisticos) estadisticos.get(estadistico));
     }
 
 
-    ResultadoCorrelacion getCorrelacion(String correlacion) {
-        return ((ResultadoCorrelacion) estadisticos.get(correlacion));
+    protected ResultadoCorrelacion getCorrelacion(String correlacion) {
+        return ((ResultadoCorrelacion) correlaciones.get(correlacion));
     }
 
 
@@ -743,7 +740,7 @@ public abstract class AlmacenDatos implements Serializable {
      */
 
     public void inicializaPartesNoSerializadas() {
-        estadisticos = new HashMap();
-        correlaciones = new HashMap();
+        eliminaTodosLosEstadisticos();
+        eliminaTodasLasCorrelaciones();
     }
 }

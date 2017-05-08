@@ -5,26 +5,24 @@ package es.usc.gsi.trace.importer.monitorizacion.data;
 import java.util.LinkedList;
 
 
-abstract class Referencia
-
-{
+abstract class Referencia {
     static final long serialVersionUID = 382145L;
     /**
      * Array de punteros que apunta a un vector de datos contenido en el almacen,
      * estos datos se estan monitorizando.
      */
-    protected LinkedList referencia_datos;
+    protected LinkedList<Object> referenciaDatos;
     protected AlmacenDatos almacen;
 
     /**
      * @param almacen
      */
-    Referencia(AlmacenDatos almacen) {
-        referencia_datos = new LinkedList();
+    protected Referencia(AlmacenDatos almacen) {
+        referenciaDatos = new LinkedList<Object>();
         //Generamos 20 posiciones en la lista.
         //@todo: esot es un pocoo trapalleiro.
         for (int i = 0; i < 20; i++) {
-            referencia_datos.add(null);
+            referenciaDatos.add(null);
         }
 
         this.almacen = almacen;
@@ -37,8 +35,8 @@ abstract class Referencia
     /**
      * @return LinkedList
      */
-    LinkedList getReferencias() {
-        return referencia_datos;
+    protected LinkedList<Object> getReferencias() {
+        return referenciaDatos;
     }
 
     /**
@@ -47,7 +45,7 @@ abstract class Referencia
      * posiciones superiores o iguales a esta se desplazan hacia arriba.@param canal
      */
     void anadeReferencia(int canal, int posicion) {
-        referencia_datos.add(posicion, almacen.getDatos(canal));
+        referenciaDatos.add(posicion, almacen.getDatos(canal));
         // System.out.println("Anade a " + (posicion-1));
     }
 
@@ -55,15 +53,15 @@ abstract class Referencia
      * @param posicion
      */
     void eliminaReferencia(int posicion) {
-        referencia_datos.remove(posicion);
+        referenciaDatos.remove(posicion);
     }
 
     /**
      * @param referencia
      * @return Object
      */
-    Object getReferencias(int referencia) {
-        return referencia_datos.get(referencia);
+    protected Object getReferencias(int referencia) {
+        return referenciaDatos.get(referencia);
     }
 
     /**

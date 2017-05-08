@@ -9,30 +9,32 @@ import java.util.LinkedList;
  * monitorizando.
  */
 public class ReferenciaDatos extends Referencia {
+
     static final long serialVersionUID = 326145L;
-    boolean pos_asociada[];
-    private ReferenciaPosibilidades almacen_posibilidades;
+
+    boolean posAsociada[];
+    private ReferenciaPosibilidades almacenPosibilidades;
 
     /**
      * @param almacen
      */
-    ReferenciaDatos(AlmacenDatos almacen) {
+    protected ReferenciaDatos(AlmacenDatos almacen) {
         super(almacen);
-        almacen_posibilidades = new ReferenciaPosibilidades();
+        almacenPosibilidades = new ReferenciaPosibilidades();
     }
 
     /**
      * @return LinkedList
      */
-    LinkedList getReferenciaPos() {
-        return almacen_posibilidades.getReferencias();
+    protected LinkedList<Object> getReferenciaPos() {
+        return almacenPosibilidades.getReferencias();
     }
 
     /**
      * @param pos
      * @return Object
      */
-    Object getReferenciaPos(int pos) {
-        return almacen_posibilidades.getReferencias(pos);
+    protected Object getReferenciaPos(int pos) {
+        return almacenPosibilidades.getReferencias(pos);
     }
 }

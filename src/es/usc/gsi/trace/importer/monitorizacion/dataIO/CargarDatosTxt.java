@@ -6,6 +6,9 @@ import java.io.*;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 
+import es.usc.gsi.trace.importer.jsignalmonold.annotations.Annotation;
+import es.usc.gsi.trace.importer.jsignalmonold.annotations.Mark;
+
 /**
  * Carga los todos de un archivo .txt, en el cual los datos se almacenan como
  * Strings organizados en columnas y seprados por tabulaciones.
@@ -22,10 +25,12 @@ public class CargarDatosTxt extends CargarDatos {
      * @todo: Javier Salas cambio el formato de almacenamiento de salida de la herramienta de Vila.
      * Cambi t por " ". Hice cambios con ese fin. Validarlo, no fijo que funcion siempre.
      */
+    @SuppressWarnings("unchecked")
     private void cargaDatos() {
+        BufferedReader bf = null;
         try {
             FileReader f = new FileReader(archivo);
-            BufferedReader bf = new BufferedReader(f);
+            bf = new BufferedReader(f);
             File fich = new File(archivo);
             //Marcasmos el Buffer para poder resetearlo una vez averiguado el numero
             //de filas y columnas que hay en el
@@ -49,9 +54,9 @@ public class CargarDatosTxt extends CargarDatos {
             datos = new float[columnas][filas];
             pos = new byte[columnas][filas];
             marcas = new TreeSet[columnas];
-            anotaciones = new TreeSet();
+            anotaciones = new TreeSet<Annotation>();
             for (int i = 0; i < columnas; i++) {
-                marcas[i] = new TreeSet();
+                marcas[i] = new TreeSet<Mark>();
             }
             //reseteamos el buffer
             bf.reset();
@@ -102,6 +107,12 @@ public class CargarDatosTxt extends CargarDatos {
             pos = null;
             marcas = null;
             anotaciones = null;
+        } finally {
+            if(bf != null){
+                try {
+                    bf.close();
+                } catch (IOException e) {}
+            }
         }
 
     }

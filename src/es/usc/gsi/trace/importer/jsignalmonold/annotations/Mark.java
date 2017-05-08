@@ -7,10 +7,20 @@ package es.usc.gsi.trace.importer.jsignalmonold.annotations;
  */
 public class Mark extends ClinicalEvent {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4087419635725536796L;
+
     protected boolean isMit;
     protected byte codigoMit;
 
     public Mark() {
+        this.tipo = ClinicalEvent.MARCA;
+    }
+
+    public Mark(int i){
+        super(i);
         this.tipo = ClinicalEvent.MARCA;
     }
 

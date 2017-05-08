@@ -6,8 +6,13 @@ package es.usc.gsi.trace.importer.jsignalmonold.annotations;
  */
 public class Therapy extends Annotation {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -440114416139741065L;
+
     private String nombreFarmaco;
-    private String fase_terapeutica;
+    private String faseTerapeutica;
     private String dosificacion;
     private String tipo;
 
@@ -15,17 +20,16 @@ public class Therapy extends Annotation {
                    String dosificacion, String tipo) {
         this.nombreFarmaco = nombre_farmaco;
         this.texto = nombre_farmaco;
-        this.fase_terapeutica = fase_terapeutico;
+        this.faseTerapeutica = fase_terapeutico;
         this.dosificacion = dosificacion;
         this.tipo = tipo;
-
     }
 
     /**
      * @return String
      */
     public String getFaseTerapeutica() {
-        return this.fase_terapeutica;
+        return this.faseTerapeutica;
     }
 
     /**
@@ -46,7 +50,7 @@ public class Therapy extends Annotation {
      * @param fase
      */
     public void setFaseTerapeutica(String fase) {
-        this.fase_terapeutica = fase;
+        this.faseTerapeutica = fase;
     }
 
     /**

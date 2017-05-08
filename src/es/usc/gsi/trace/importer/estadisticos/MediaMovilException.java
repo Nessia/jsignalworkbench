@@ -10,11 +10,17 @@ package es.usc.gsi.trace.importer.estadisticos;
  */
 
 public class MediaMovilException extends RuntimeException {
-    private int ventana_temporal;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7653785216136652411L;
 
-    public MediaMovilException(String mensaje, int percetil_pedido) {
+
+    private int ventanaTemporal;
+
+    public MediaMovilException(String mensaje, int ventanaTemporal) {
         super(mensaje);
-        this.ventana_temporal = ventana_temporal;
+        this.ventanaTemporal = ventanaTemporal;
     }
 
     /**
@@ -22,7 +28,7 @@ public class MediaMovilException extends RuntimeException {
      * @return
      */
     public int getVentanaTemporal() {
-        return ventana_temporal;
+        return ventanaTemporal;
     }
 
 }

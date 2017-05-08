@@ -29,15 +29,15 @@ public class PTB implements PTBInterface, Serializable {
     private String unidades, unidades_temporales;
     private String comentario;
     private int numPTB;
-    private int numeroPtoSig = 0;
+    //private int numeroPtoSig = 0;
     private final String primerD = "0.0";
     private final String primerT2 = "20.0";
     private final String primerT = "0.0";
-    private Vector parametros;
-    private Vector vectorPtoSig = new Vector();
+    //private Vector parametros;
+    private Vector<PtoSig> vectorPtoSig = new Vector<PtoSig>();
     private PTBMInterface ptbm;
     private boolean es_flotante = true;
-    private HashMap almacen_offset = new HashMap();
+    private HashMap<String,AuxiliarOffset> almacen_offset = new HashMap<String,AuxiliarOffset>();
     private boolean buscarEnValorAbsoluto = false;
 
     /**
@@ -57,8 +57,8 @@ public class PTB implements PTBInterface, Serializable {
         this.comentario = comentario;
         this.numPTB = numPTB;
         this.unidades_temporales = unidades_temporales;
-        numeroPtoSig++;
-        numeroPtoSig++;
+        //numeroPtoSig++;
+        //numeroPtoSig++;
         vectorPtoSig.addElement(new PtoSig(primerD, primerT, numPTB, true));
         vectorPtoSig.addElement(new PtoSig(primerD, primerT2, numPTB));
 
@@ -78,7 +78,7 @@ public class PTB implements PTBInterface, Serializable {
      */
     public void anhadePtoSig(PtoSig ptosig) {
         vectorPtoSig.addElement(ptosig);
-        numeroPtoSig++;
+        //numeroPtoSig++;
     }
 
     /**
@@ -93,7 +93,7 @@ public class PTB implements PTBInterface, Serializable {
      * @roseuid 37870819006D
      */
     public void DecrementaNumeroDePtoSig() {
-        numeroPtoSig--;
+        //numeroPtoSig--;
     }
 
     /**
@@ -249,7 +249,7 @@ public class PTB implements PTBInterface, Serializable {
                     ptbm.revisaRestricciones(pto);
                 }
                 vectorPtoSig.remove(i);
-                this.numeroPtoSig--;
+                //this.numeroPtoSig--;
 
             }
         } else if (seleccion == PTBM.MODIFICAR) {
@@ -357,7 +357,6 @@ public class PTB implements PTBInterface, Serializable {
 
 
     public void delOffset(String has) {
-        float[] tmp = {0, 0};
         almacen_offset.remove(has);
         if (almacen_offset.isEmpty()) {
             this.es_flotante = true;
@@ -368,9 +367,9 @@ public class PTB implements PTBInterface, Serializable {
 
     public float[] getOffset() {
         if (!almacen_offset.isEmpty()) {
-            Collection c = almacen_offset.values();
-            Iterator it = c.iterator();
-            float[] f = ((AuxiliarOffset) it.next()).getOffset();
+            Collection<AuxiliarOffset> c = almacen_offset.values();
+            Iterator<AuxiliarOffset> it = c.iterator();
+            float[] f = it.next().getOffset();
             return f;
         } else {
             float[] tmp = {0, 0};

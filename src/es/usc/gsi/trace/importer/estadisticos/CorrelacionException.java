@@ -10,13 +10,18 @@ package es.usc.gsi.trace.importer.estadisticos;
  */
 
 public class CorrelacionException extends Exception {
-    private int longitutud1, longitud2;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2113136261875312388L;
 
-    public CorrelacionException(String mensaje, int longitutud1,
-                                int longitutud2) {
+    private int longitud1, longitud2;
+
+    public CorrelacionException(String mensaje, int longitud1,
+                                int longitud2) {
         super(mensaje);
         this.longitud2 = longitud2;
-        this.longitutud1 = longitutud1;
+        this.longitud1 = longitud1;
     }
 
     /**
@@ -24,7 +29,7 @@ public class CorrelacionException extends Exception {
      * @return
      */
     public int getLongitud1() {
-        return longitutud1;
+        return longitud1;
     }
 
     /**

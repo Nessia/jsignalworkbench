@@ -42,8 +42,8 @@ public class PTBM implements PTBMInterface, Serializable {
     public static final int BORRAR = -1;
     public static final int ANHADIR = 1;
     public static final int CREAR = 2;
-    private Vector parametros;
-    private Vector vectorPTB = new Vector();
+    //private Vector parametros;
+    private Vector<PTB> vectorPTB = new Vector<PTB>();
     public PTBInterface thePTBInterface[];
 
 
@@ -86,7 +86,7 @@ public class PTBM implements PTBMInterface, Serializable {
                 ((PTB) vectorPTB.elementAt(i)).setNumeroDePTB(i, numeroPTB);
             }
 
-            for (int i = (numeroPTB); i < this.getNumeroPTB(); i++) {
+            for (int i = (numeroPTB); i < getNumeroPTB(); i++) {
                 int num = ((PTB) vectorPTB.elementAt(i)).getNumeroDePTB();
                 ((PTB) vectorPTB.elementAt(i)).setNumeroDePTB(num - 1,
                         numeroPTB);
@@ -179,7 +179,7 @@ public class PTBM implements PTBMInterface, Serializable {
         for (int i = 0; i < nptb; i++) {
             vectorPTB.addElement(vptb[i]);
         }
-        this.numeroPTB = nptb;
+        numeroPTB = nptb;
         this.numeroPTBnoEstatico = nptb;
     }
 

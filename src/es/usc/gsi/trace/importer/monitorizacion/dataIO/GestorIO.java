@@ -6,7 +6,10 @@ import java.util.TreeSet;
 
 import javax.swing.JOptionPane;
 
+import es.usc.gsi.trace.importer.jsignalmonold.annotations.Annotation;
+import es.usc.gsi.trace.importer.jsignalmonold.annotations.Mark;
 import es.usc.gsi.trace.importer.monitorizacion.data.*;
+
 import org.jdom.JDOMException;
 
 public class GestorIO {
@@ -16,7 +19,7 @@ public class GestorIO {
      */
     private static boolean instance_flag_for_GestorIO;
     private static GestorIO instancia;
-    private static String fichero;
+    //private static String fichero;
     private CargarDatos cargador;
     private static int num_datos;
     private static int num_senales;
@@ -49,8 +52,8 @@ public class GestorIO {
             this.cargador = new CargarDatosTxt(archivo);
             float datos[][] = cargador.getDatos();
             byte[][] pos = cargador.getPos();
-            TreeSet[] marcas = cargador.getMarcas();
-            TreeSet anotaciones = cargador.getAnotaciones();
+            TreeSet<Mark>[] marcas = cargador.getMarcas();
+            TreeSet<Annotation> anotaciones = cargador.getAnotaciones();
 
             num_datos = datos[0].length;
             num_senales = datos.length;

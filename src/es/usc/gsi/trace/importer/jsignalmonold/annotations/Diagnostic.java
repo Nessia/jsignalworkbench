@@ -7,6 +7,11 @@ package es.usc.gsi.trace.importer.jsignalmonold.annotations;
  */
 public class Diagnostic extends Annotation {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5769222345970481773L;
+
     private Attribute atributo;
     public Attribute theAtributo;
 

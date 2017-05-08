@@ -87,12 +87,16 @@ public class SamplesToDate {
                 fallo = true;
             }
             Calendar calendario_fech_base = parser_fecha_completa.getCalendar();
-            date_fecha_hasta = new Date(calendario_fech_base.get(Calendar.YEAR) -
-                                        1900,
-                                        calendario_fech_base.get(Calendar.MONTH),
-                                        calendario_fech_base.get(Calendar.
-                    DAY_OF_MONTH), hora, minutos,
-                                        segundos);
+
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, calendario_fech_base.get(Calendar.YEAR) - 1900);
+            cal.set(Calendar.MONTH, calendario_fech_base.get(Calendar.MONTH));
+            cal.set(Calendar.DAY_OF_MONTH, calendario_fech_base.get(Calendar.DAY_OF_MONTH));
+            cal.set(Calendar.HOUR, hora);
+            cal.set(Calendar.MINUTE, minutos);
+            cal.set(Calendar.SECOND, segundos);
+
+            date_fecha_hasta = cal.getTime();
         }
         //Si se cumple esto => llevava milisegundos
         else if (fecha_hasta.length() < 14) {
@@ -108,12 +112,17 @@ public class SamplesToDate {
                 fallo = true;
             }
             Calendar calendario_fech_base = parser_fecha_completa.getCalendar();
-            date_fecha_hasta = new Date(calendario_fech_base.get(Calendar.YEAR) -
-                                        1900,
-                                        calendario_fech_base.get(Calendar.MONTH),
-                                        calendario_fech_base.get(Calendar.
-                    DAY_OF_MONTH), hora, minutos,
-                                        segundos);
+
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, calendario_fech_base.get(Calendar.YEAR) - 1900);
+            cal.set(Calendar.MONTH, calendario_fech_base.get(Calendar.MONTH));
+            cal.set(Calendar.DAY_OF_MONTH, calendario_fech_base.get(Calendar.DAY_OF_MONTH));
+            cal.set(Calendar.HOUR, hora);
+            cal.set(Calendar.MINUTE, minutos);
+            cal.set(Calendar.SECOND, segundos);
+
+            date_fecha_hasta = cal.getTime();
+
             date_fecha_hasta.setTime(date_fecha_hasta.getTime() + milisegundos);
         }
         //Si no es que la fecha era completa

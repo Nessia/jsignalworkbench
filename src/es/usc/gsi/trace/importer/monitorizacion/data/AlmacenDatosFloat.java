@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.TreeSet;
 
 import es.usc.gsi.trace.importer.Perfil.PTBMInterface;
+import es.usc.gsi.trace.importer.estadisticos.ResultadoCorrelacion;
+import es.usc.gsi.trace.importer.estadisticos.ResultadosEstadisticos;
+import es.usc.gsi.trace.importer.jsignalmonold.annotations.Annotation;
+import es.usc.gsi.trace.importer.jsignalmonold.annotations.Mark;
 
 public class AlmacenDatosFloat extends AlmacenDatos {
     private float datos[][];
@@ -22,8 +26,9 @@ public class AlmacenDatosFloat extends AlmacenDatos {
      * @todo inicializar las listas
      * @todo eliminar el for de inicializacion
      */
-    public AlmacenDatosFloat(float[][] datos, byte[][] pos, TreeSet anotaciones,
-                             TreeSet[] marcas) {
+    @SuppressWarnings("unchecked")
+    public AlmacenDatosFloat(float[][] datos, byte[][] pos, TreeSet<Annotation> anotaciones,
+                             TreeSet<Mark>[] marcas) {
         this.datos = datos;
         this.marcas = marcas;
         this.anotaciones = anotaciones;
@@ -33,26 +38,27 @@ public class AlmacenDatosFloat extends AlmacenDatos {
         }
 
         this.almacen_pos = new AlmacenDatosByte(pos, null, null, null);
-        this.nombre_senales = new String[datos.length];
-        this.olvidado = new java.util.LinkedList();
+        this.nombreSenales = new String[datos.length];
+        //this.olvidado = new java.util.LinkedList();
         this.fs = new float[datos.length];
         java.util.Arrays.fill(fs, 1);
         this.rangos_senales = new float[datos.length][2];
         this.leyendas = new String[datos.length];
         this.tienePosAsociada = new boolean[datos.length];
-        this.leyenda_temporal = new String[datos.length];
+        this.leyendaTemporal = new String[datos.length];
+        //@SuppressWarnings("unchecked")
         this.marcas = new TreeSet[datos.length];
-        this.anotaciones = new TreeSet();
+        this.anotaciones = new TreeSet<Annotation>();
         for (int i = 0; i < datos.length; i++) {
-            this.nombre_senales[i] = "parametro " + (i + 1);
-            this.leyenda_temporal[i] = "leyenda temporal";
+            this.nombreSenales[i] = "parametro " + (i + 1);
+            this.leyendaTemporal[i] = "leyenda temporal";
             String tmp = "";
             this.leyendas[i] = tmp;
-            this.marcas[i] = new TreeSet();
+            this.marcas[i] = new TreeSet<Mark>();
 
         }
-        this.estadisticos = new HashMap();
-        this.correlaciones = new HashMap();
+        this.estadisticos = new HashMap<String,ResultadosEstadisticos>();
+        this.correlaciones = new HashMap<String,ResultadoCorrelacion>();
     }
 
     /**
@@ -63,8 +69,8 @@ public class AlmacenDatosFloat extends AlmacenDatos {
      * @todo inicializar las listas
      * @todo eliminar el for de inicializacion
      */
-    public AlmacenDatosFloat(float[][] datos, byte[][] pos, TreeSet anotaciones,
-                             TreeSet[] marcas, PTBMInterface ptbm) {
+    public AlmacenDatosFloat(float[][] datos, byte[][] pos, TreeSet<Annotation> anotaciones,
+                             TreeSet<Mark>[] marcas, PTBMInterface ptbm) {
         this(datos, pos, anotaciones, marcas);
         this.ptbm = ptbm;
     }

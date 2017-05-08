@@ -4,10 +4,23 @@ package es.usc.gsi.trace.importer.monitorizacion.data;
 
 import java.util.TreeSet;
 
+import es.usc.gsi.trace.importer.jsignalmonold.annotations.Annotation;
+import es.usc.gsi.trace.importer.jsignalmonold.annotations.Mark;
+
 public class AlmacenDatosByte extends AlmacenDatos {
+    private static final long serialVersionUID = 3212L;
+
+    /*
+     * Atributos
+     */
+
     private byte datos[][];
     public AlmacenDatos theAlmacenDatos;
-    static final long serialVersionUID = 3212L;
+
+    /*
+     * Constructores
+     */
+
     public AlmacenDatosByte() {
 
     }
@@ -19,7 +32,7 @@ public class AlmacenDatosByte extends AlmacenDatos {
      * @param anotaciones
      */
     public AlmacenDatosByte(byte[][] datos, byte[][] pos,
-                            java.util.TreeSet anotaciones, TreeSet[] marcas) {
+                            TreeSet<Annotation> anotaciones, TreeSet<Mark>[] marcas) {
         this.datos = datos;
         this.anotaciones = anotaciones;
         this.marcas = marcas;
