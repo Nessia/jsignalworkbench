@@ -16,15 +16,19 @@ import net.javahispano.jsignalwb.plugins.defaults.AxesGridPlugin;
  *
  * @author Roman Segador
  */
+//TODO deberia extender a TemporalSeriesAlgorithm ?? @vanesa
 public class AddSinPlugin extends AlgorithmAdapter {
 
     public AddSinPlugin() {
+        // Vacio
     }
 
+    @Override
     public String getName() {
         return "addSinPlugin";
     }
 
+    @Override
     public void runAlgorithm(SignalManager sm,
                              List<SignalIntervalProperties> signals) {
         float[] data = new float[5000];

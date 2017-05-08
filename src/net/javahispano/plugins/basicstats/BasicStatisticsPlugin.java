@@ -49,63 +49,42 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
         statisticsCollection = new HashMap<String, ResultadosEstadisticos>();
     }
 
-    /**
-     *
-     * @return String
-     */
+    @Override
     public String getDescription() {
         return "Calcula un conjunto de estadisticos basicos";
     }
 
-    /**
-     *
-     * @return Icon
-     */
+    @Override
     public Icon getIcon() {
         return new ImageIcon(net.javahispano.plugins.basicstats.
                              BasicStatisticsPlugin.class.getResource(
                                      "estadisticos.jpg"));
     }
 
-    /**
-     *
-     * @return String
-     *   method
-     */
+    @Override
     public String getName() {
         return "Estadistico Basico";
     }
 
-    /**
-     *
-     * @return String
-     */
+    @Override
     public String getPluginVersion() {
         return "0.5";
     }
 
-    /**
-     *
-     * @return String
-     */
+    @Override
     public String getShortDescription() {
-        return
-                "Calcula un conjunto de estadisticos basicos de un modo aproximado.";
+        return "Calcula un conjunto de estadisticos basicos de un modo aproximado.";
     }
 
-    /**
-     *
-     * @return int
-     */
+    @Override
     public int numberOfSignalsNeeded() {
         return 1;
     }
 
-    /**
-     *@todo averiguar por que no se puede usar un cuadro de dialogo modal
-     * @param sm SignalManager
-     * @param signals Enumeration
+    /*
+     * @TODO averiguar por que no se puede usar un cuadro de dialogo modal
      */
+    @Override
     public void runAlgorithm(SignalManager sm,
                              List<SignalIntervalProperties> signals,
             AlgorithmRunner ar) {
@@ -128,18 +107,22 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
                                      inicio, fin);
     }
 
+    @Override
     public boolean hasOwnConfigureGUI() {
         return false;
     }
 
+    @Override
     public void launchConfigureGUI(JSWBManager jswbManager) {
     }
 
+    @Override
     public String getDataToSave() {
         XMLOutputter r = new XMLOutputter();
         return r.outputString(this.guardaEstadisticos());
     }
 
+    @Override
     public void setSavedData(String data) {
         SAXBuilder db = new SAXBuilder();
         StringReader sr = new StringReader(data);
@@ -166,13 +149,12 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
             ResultadosEstadisticos r = it.next();
             statisticsCollection.put(r.getKey() + "a", r);
         }
-
     }
 
+    @Override
     public boolean hasDataToSave() {
         return true;
     }
-
 
     /**
      * Almacena los estadisticos, si los hay.
@@ -297,18 +279,22 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
         return resultado;
     }
 
+    @Override
     public boolean hasOwnExecutionGUI() {
         return false;
     }
 
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
         super.launchExecutionGUI(jswbManager);
     }
 
+    @Override
     public boolean hasResultsGUI() {
         return true;
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;

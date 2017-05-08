@@ -71,7 +71,9 @@ public interface Plugin {
      */
     public boolean hasOwnConfigureGUI();
 
-    /** Lanza la interfaz de configuracion del plugin*/
+    /**
+     * Lanza la interfaz de configuracion del plugin
+     */
     public void launchConfigureGUI(JSWBManager jswbManager);
 
     /**
@@ -89,7 +91,7 @@ public interface Plugin {
      * una cadena de caracteres con los datos que el plugin le pidio que
      * almacenarse en la ultima ejecucion.
      *
-     * @param data datos que el plugin  pidio al entorno que almacenarse en la
+     * @param data datos que el plugin pidio al entorno que almacenarse en la
      *   ultima ejecucion
      */
     public void setSavedData(String data);

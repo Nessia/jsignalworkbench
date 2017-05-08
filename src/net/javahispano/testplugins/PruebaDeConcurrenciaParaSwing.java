@@ -7,14 +7,10 @@ import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 
 public class PruebaDeConcurrenciaParaSwing extends AlgorithmAdapter {
     public PruebaDeConcurrenciaParaSwing() {
+        // Vacio
     }
 
-    /**
-     * Proporciona el hombre del plugin.
-     *
-     * @return Nombre del plugin
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
+    @Override
     public String getName() {
         return "Concurrencia";
     }

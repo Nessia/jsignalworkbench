@@ -30,11 +30,16 @@ public class MobileMeanPlugin extends AlgorithmAdapter {
     private boolean eliminarHuecos = true;
     private float valorHuecos = 50;
 
+    int deslizamientoParaCadaMediana = 500;
+    boolean resample = false; // TODO está a true en el otro codigo @vanesa
+    int ventanaResampleEnSegundos = 300;
 
+    @Override
     public String getDataToSave() {
         return window + " " + mediana + " " + eliminarHuecos + " " + valorHuecos;
     }
 
+    @Override
     public void setSavedData(String data) {
         StringTokenizer t = new StringTokenizer(data);
         try {
@@ -47,15 +52,15 @@ public class MobileMeanPlugin extends AlgorithmAdapter {
         }
     }
 
+    @Override
     public int numberOfSignalsNeeded() {
         return 9;
     }
 
-    /**
-     *@todo parece que no anhade la nueva senhal
-     * @param sm SignalManager
-     * @param signals Enumeration
+    /*
+     * @TODO parece que no anhade la nueva senhal
      */
+    @Override
     public void runAlgorithm(SignalManager sm,  List<SignalIntervalProperties> signals,
             AlgorithmRunner ar) {
         sm.hideAllSignals();
@@ -64,12 +69,7 @@ public class MobileMeanPlugin extends AlgorithmAdapter {
             Signal newSignal = generateSmoothSignal(sm, s);
             sm.addSignal(newSignal);
         }
-
     }
-
-    int deslizamientoParaCadaMediana = 500;
-    boolean resample = false; // TODO está a true en el otro codigo @vanesa
-    int ventanaResampleEnSegundos = 300;
 
     private Signal generateSmoothSignal(SignalManager sm, Signal signal) {
         float[] data = signal.getValues();
@@ -144,40 +144,48 @@ public class MobileMeanPlugin extends AlgorithmAdapter {
         return newSignal;
     }
 
+    @Override
     public boolean hasDataToSave() {
         return false;
     }
 
-
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
+        }
+        if (gUIPositions == GUIPositions.TOOLBAR) {
             return false;
         }
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return super.generateImageSimple("AV", Color.blue);
     }
 
+    @Override
     public String getName() {
         return "Media movil";
     }
 
+    @Override
     public String getShortDescription() {
         return "Calcula la media movil de una senhal";
     }
 
+    @Override
     public String getDescription() {
         return "Calcula la media movil de una senhal";
     }
 
+    @Override
     public String getPluginVersion() {
         return "1.0";
     }
 
+    @Override
     public boolean hasOwnConfigureGUI() {
         return true;
     }
@@ -195,6 +203,5 @@ public class MobileMeanPlugin extends AlgorithmAdapter {
         this.valorHuecos = c.getValorRelleno();
         this.eliminarHuecos = c.isRellenar();
     }
-
 
 }

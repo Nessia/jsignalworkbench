@@ -12,22 +12,17 @@ import net.javahispano.jsignalwb.io.BasicLoader;
 import net.javahispano.jsignalwb.plugins.Plugin.PluginTypes;
 import net.javahispano.jsignalwb.plugins.framework.PluginManager;
 import research.apneas.EraseInterval;
-import research.beats.ExportarLatiods;
+import research.beats.ExportarLatidos;
 import research.beats.TestDeteccion;
 import research.beats.anotaciones.*;
 import research.beats.asistencia.*;
 import research.beats.hrv.HRVLoader;
 import research.beats.hrv.MultiTXTLoader;
-import research.mining.AssociateEvents;
-import research.mining.GenerateDescriptors;
 import tmp.*;
-import research.mining.tmp.CalcularValorBasalSpO2;
 import net.javahispano.jsignalwb.plugins.calculator.CalculatorAlgorithm;
-import research.descriptors.SeverityDescriptorsGenerator;
 import tmp.AdjustSignalsSartsAndEnds;
 import research.beats.hrv.ApneaEpisodeGenerator;
-import research.mining.*;
-import net.javahispano.plugins.signalgeneration.*;
+//import net.javahispano.plugins.signalgeneration.*;
 import net.javahispano.testplugins.*;
 import net.javahispano.plugins.basicstats.*;
 import cerdos.DiuresisAnalisisError;
@@ -60,10 +55,10 @@ public class DebugPluginsManager {
          * {@code plugins.add(new DebugPluginInfo(pluginType,pluginName,Plugin));}
          */
 
-        
+
         SimpleAlgorithm.registerSimpleAlgorithms();
-        
-        
+
+
         //NO  TOCAR ESTE CODIGO
         drivers(plugins);
         analisisGenericoDeSeriesTemporales(plugins);
@@ -116,7 +111,7 @@ public class DebugPluginsManager {
             plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Detector de latidos",
                                             new TestDeteccion()));
             plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "ExportarLatidos",
-                                            new ExportarLatiods()));
+                                            new ExportarLatidos()));
             plugins.add(new DebugPluginInfo(PluginTypes.MARK, "Latido normal",
                                             new LatidoAnotacion()));
         }
@@ -146,7 +141,7 @@ public class DebugPluginsManager {
 //                                            new research.apneas.FiltroNasal()));
             plugins.add(new DebugPluginInfo(PluginTypes.MARK, "Limitacion de flujo",
                                             new LimitacionAnotacion()));
-            plugins.add(new DebugPluginInfo(PluginTypes.MARK, "Desaturación",
+            plugins.add(new DebugPluginInfo(PluginTypes.MARK, "Desaturaciï¿½n",
                                             new DesaturacionAnotacion()));
 //            plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Caracterizar la gravedad del paciente",
 //                                            new SeverityDescriptorsGenerator()));
@@ -213,10 +208,10 @@ public class DebugPluginsManager {
         }
     }
 
-    private static void generarSenhalesArtificiales(ArrayList<DebugPluginInfo> plugins) {
-        plugins.add(new DebugPluginInfo(PluginTypes.GENERIC, "Signal Generation",
-                                        new SignalGenerationPlugin()));
-    }
+//    private static void generarSenhalesArtificiales(ArrayList<DebugPluginInfo> plugins) {
+//        plugins.add(new DebugPluginInfo(PluginTypes.GENERIC, "Signal Generation",
+//                                        new SignalGenerationPlugin()));
+//    }
 
     private static void diversosPluginsDeTest(ArrayList<DebugPluginInfo> plugins) {
         if (diversosPluginsDeTest) {

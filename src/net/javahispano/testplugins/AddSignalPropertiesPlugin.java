@@ -16,15 +16,26 @@ import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
  *
  * @author Roman Segador
  */
+
+//TODO deberia extender a TemporalSeriesAlgorithm ?? @vanesa
 public class AddSignalPropertiesPlugin extends AlgorithmAdapter {
-    int i = 0;
+
+    int i = 0; //TODO un atributo debería tener un nombre más descriptivo @vanesa
+
+    /*
+     * Constructores
+     */
+
     public AddSignalPropertiesPlugin() {
+        //Vacio
     }
 
+    @Override
     public String getName() {
         return "AddSignalPropertiesPlugin";
     }
 
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties> signals) {
 
         for (SignalIntervalProperties sip : signals) {

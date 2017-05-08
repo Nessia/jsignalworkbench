@@ -19,6 +19,7 @@ public abstract class TemporalSeriesAlgorithm extends AlgorithmAdapter {
                                                List<TemporalSeries> signals);
 
 
+
     public void runAlgorithm(SignalManager sm,
                              List<SignalIntervalProperties> signals) {
         TemporalSeries.convertSignalsToTemporalSeries(sm);
@@ -34,14 +35,14 @@ public abstract class TemporalSeriesAlgorithm extends AlgorithmAdapter {
         this.processTemporalSeries(sm, listaTemporalSeries);
     }
 
-
+    @Override
     public boolean hasOwnConfigureGUI() {
         return true;
     }
 
-
+    @Override
     public void launchConfigureGUI(JSWBManager jswbManager) {
-
+        //Vacio
     }
 
     private List<TemporalSeries> convertir(SignalManager sm,

@@ -17,21 +17,19 @@ import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
  * @author Abraham Otero
  * @version 0.5
  */
+// TODO deberia extender a TemporalSeriesAlgorithm ?? @vanesa
 public class Untitled3 extends AlgorithmAdapter {
+
     public Untitled3() {
         super();
     }
 
-    /**
-     * Proporciona el hombre del plugin.
-     *
-     * @return Nombre del plugin
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
+    @Override
     public String getName() {
         return "aa";
     }
 
+    @Override
     public void runAlgorithm(SignalManager sm,
                              List<SignalIntervalProperties> signals) {
         Signal s = signals.get(0).getSignal();

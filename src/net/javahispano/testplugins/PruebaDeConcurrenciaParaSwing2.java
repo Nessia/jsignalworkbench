@@ -6,15 +6,13 @@ import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 
 public class PruebaDeConcurrenciaParaSwing2 extends AlgorithmAdapter {
+    int i;
+
     public PruebaDeConcurrenciaParaSwing2() {
+        // Vacio
     }
 
-    /**
-     * Proporciona el hombre del plugin.
-     *
-     * @return Nombre del plugin
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
+    @Override
     public String getName() {
         return "Concurrencia2";
     }
@@ -23,7 +21,8 @@ public class PruebaDeConcurrenciaParaSwing2 extends AlgorithmAdapter {
                        "12", "13", "14", "15", "16", "17", "18", "19", "20",
                        "21", "22", "23", "24", "25", "26", "27", "28", "29",
                        "30"};
-    int i;
+
+    @Override
     public void runAlgorithm(final SignalManager sm,
                              List<SignalIntervalProperties> signals) {
         final Signal s = signals.get(0).getSignal();
