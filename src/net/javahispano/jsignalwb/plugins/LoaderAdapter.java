@@ -5,7 +5,6 @@ import java.io.File;
 import net.javahispano.jsignalwb.*;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * clase que implementa {@link Loader} proporcionando una implementacion por

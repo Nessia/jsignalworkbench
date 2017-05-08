@@ -11,6 +11,7 @@ public class Configure extends javax.swing.JDialog {
      *
      */
     private static final long serialVersionUID = 4451763633903213420L;
+
     /**
      * Creates new form Configure
      */

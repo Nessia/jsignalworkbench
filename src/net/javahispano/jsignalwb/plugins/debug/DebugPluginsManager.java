@@ -43,6 +43,7 @@ public class DebugPluginsManager {
     private static boolean diversosPluginsDeTest = false;
 
     private DebugPluginsManager() {
+        //Vacio
     }
 
     public static void registerDebugPlugins(PluginManager pluginManager) {
@@ -141,7 +142,7 @@ public class DebugPluginsManager {
 //                                            new research.apneas.FiltroNasal()));
             plugins.add(new DebugPluginInfo(PluginTypes.MARK, "Limitacion de flujo",
                                             new LimitacionAnotacion()));
-            plugins.add(new DebugPluginInfo(PluginTypes.MARK, "Desaturaci�n",
+            plugins.add(new DebugPluginInfo(PluginTypes.MARK, "Desaturación",
                                             new DesaturacionAnotacion()));
 //            plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Caracterizar la gravedad del paciente",
 //                                            new SeverityDescriptorsGenerator()));

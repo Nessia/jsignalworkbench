@@ -10,7 +10,7 @@ import es.usc.gsi.trace.importer.monitorizacion.data.AlmacenDatos;
 
 /**
  * Esta clase se encargara de cargar los datos de un archivo, que se le pasara en
- * su contructor. En funcion dle tipo de archivo (.txt o .mon, segun sean un
+ * su contructor. En funcion del tipo de archivo (.txt o .mon, segun sean un
  * archivo de texto cuyos datos estan organizadas en columnas, o una
  * monitorizacion ya realizada) creara uno u otro objeto para leer el archivo y
  * los devolvera a Fuente de datos como un objeto CargarDatos.

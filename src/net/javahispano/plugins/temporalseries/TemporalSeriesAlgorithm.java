@@ -19,7 +19,6 @@ public abstract class TemporalSeriesAlgorithm extends AlgorithmAdapter {
                                                List<TemporalSeries> signals);
 
 
-
     public void runAlgorithm(SignalManager sm,
                              List<SignalIntervalProperties> signals) {
         TemporalSeries.convertSignalsToTemporalSeries(sm);

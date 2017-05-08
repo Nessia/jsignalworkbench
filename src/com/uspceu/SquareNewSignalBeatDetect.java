@@ -39,6 +39,6 @@ public class SquareNewSignalBeatDetect extends SimpleAlgorithm {
     }
 
     public String getName() {
-        return "Cuadrado nueva se�al y detectar";
+        return "Cuadrado nueva señal y detectar";
     }
 }

@@ -101,6 +101,7 @@ public abstract class SimpleAlgorithm extends AlgorithmAdapter {
         return mark;
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         return true;
     }
