@@ -6,7 +6,12 @@ import javax.swing.JFileChooser;
 
 public class DialogoAbrir extends JFileChooser {
 
-    public DialogoAbrir() {
+    /**
+    *
+    */
+   private static final long serialVersionUID = 7333203824248030690L;
+
+   public DialogoAbrir() {
         super(); // Se crea tal cual.
     }
 

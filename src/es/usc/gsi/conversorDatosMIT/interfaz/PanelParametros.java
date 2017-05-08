@@ -8,6 +8,11 @@ import es.usc.gsi.conversorDatosMIT.ficheros.FicheroHead;
 public class PanelParametros extends JPanel {
 
 
+    /**
+    *
+    */
+    private static final long serialVersionUID = -2864241673451213419L;
+
     private PanelFichero[] panelesFichero;
     private BoxLayout layoutPanel;
 

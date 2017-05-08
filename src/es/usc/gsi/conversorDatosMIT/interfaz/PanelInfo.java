@@ -10,6 +10,11 @@ import es.usc.gsi.conversorDatosMIT.ficheros.FicheroHead;
 
 public class PanelInfo extends JPanel {
 
+    /**
+    *
+    */
+    private static final long serialVersionUID = 3310265314087578520L;
+
     public static final int DIRECTORIO = 0;
     public static final int ARCHIVO = 1;
     private TitledBorder bordePanel;

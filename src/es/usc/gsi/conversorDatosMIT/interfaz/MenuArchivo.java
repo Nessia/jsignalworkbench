@@ -8,7 +8,12 @@ import javax.swing.JMenuItem;
 public class MenuArchivo extends JMenu implements ActionListener {
 
 
-    private ControladorInterfaz controlInterfaz = ControladorInterfaz.
+    /**
+    *
+    */
+   private static final long serialVersionUID = 3596737894964668987L;
+
+   private ControladorInterfaz controlInterfaz = ControladorInterfaz.
                                                   getControlador();
 
     private JMenuItem abrirPaciente = new JMenuItem("Abrir paciente");

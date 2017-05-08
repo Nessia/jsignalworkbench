@@ -5,6 +5,10 @@ import es.usc.gsi.conversorDatosMIT.ficheros.FicheroHead;
 
 public class PanelEtiquetadoSimple extends PanelEtiquetadoGeneral {
 
+    /**
+    *
+    */
+    private static final long serialVersionUID = 3773213104297711059L;
     private ScrollPanelParametros scrollPanel;
 
 

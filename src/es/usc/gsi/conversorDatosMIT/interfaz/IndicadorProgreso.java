@@ -16,6 +16,11 @@ import es.usc.gsi.conversorDatosMIT.ficheros.Cancelar;
 public class IndicadorProgreso extends JDialog implements ActionListener {
 
 
+    /**
+    *
+    */
+    private static final long serialVersionUID = 1204535728266675863L;
+
     private JLabel labelTexto = new JLabel();
     private JProgressBar barraProgreso;
 

@@ -6,6 +6,11 @@ import javax.swing.JDialog;
 
 public class DialogoInformativo extends JDialog {
 
-    public DialogoInformativo(Frame propietario, String titulo, boolean modal) {
-    }
+    /**
+    *
+    */
+   private static final long serialVersionUID = -3631695228574195979L;
+
+   public DialogoInformativo(Frame propietario, String titulo, boolean modal) {
+   }
 }

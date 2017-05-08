@@ -5,7 +5,12 @@ import es.usc.gsi.conversorDatosMIT.ficheros.FicheroHead;
 
 public class PanelEtiquetado extends PanelEtiquetadoGeneral {
 
-    private ScrollPanelFichero[] scrollesPaneles;
+    /**
+    *
+    */
+   private static final long serialVersionUID = -4865324331412750141L;
+
+   private ScrollPanelFichero[] scrollesPaneles;
     //  private JScrollPane[] scrollesPaneles;
 
     public PanelEtiquetado(FicheroHead[] ficherosHead) {

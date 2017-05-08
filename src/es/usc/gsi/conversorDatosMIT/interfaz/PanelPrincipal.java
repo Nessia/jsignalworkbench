@@ -14,10 +14,12 @@ import es.usc.gsi.conversorDatosMIT.ficheros.*;
 
 public class PanelPrincipal extends JPanel /* implements ComponentListener */ {
 
-    private ControladorInterfaz controlInterfaz = ControladorInterfaz.
-                                                  getControlador();
-    private ControladorFicheros controlFicheros = ControladorFicheros.
-                                                  getControlador();
+    /**
+    *
+    */
+    private static final long serialVersionUID = -3583724361204279359L;
+    private ControladorInterfaz controlInterfaz = ControladorInterfaz.getControlador();
+    //private ControladorFicheros controlFicheros = ControladorFicheros.getControlador();
 
     public static final int LISTA = 0;
     public static final int ETIQUETAS = 1;

@@ -9,8 +9,12 @@ import javax.swing.JFrame;
 
 public class VentanaPrincipal extends JFrame {
 
-    private ControladorInterfaz controlInterfaz = ControladorInterfaz.
-                                                  getControlador();
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5357930700642598451L;
+
+    private ControladorInterfaz controlInterfaz = ControladorInterfaz.getControlador();
     private BarraMenuPrincipal barraMenu = new BarraMenuPrincipal();
     private PanelPrincipal panelPrincipal; // Contenedor de todos los demas paneles.
     private final int ANCHOVENTANA = 670;

@@ -8,7 +8,12 @@ import javax.swing.JMenuItem;
 
 public class MenuVer extends JMenu implements ActionListener {
 
-    private ControladorInterfaz controlInterfaz = ControladorInterfaz.
+    /**
+    *
+    */
+   private static final long serialVersionUID = 1828847339301712032L;
+
+   private ControladorInterfaz controlInterfaz = ControladorInterfaz.
                                                   getControlador();
 
     private JMenuItem verLista = new JMenuItem("Ver como lista");

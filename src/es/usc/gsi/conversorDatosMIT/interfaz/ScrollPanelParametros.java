@@ -6,6 +6,11 @@ import es.usc.gsi.conversorDatosMIT.ficheros.FicheroHead;
 
 public class ScrollPanelParametros extends JScrollPane {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4663156974036621689L;
+
     private PanelParametros panelParametros;
 
 //*********************************************************************************

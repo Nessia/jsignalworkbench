@@ -10,6 +10,11 @@ import es.usc.gsi.conversorDatosMIT.ficheros.FicheroHead;
 
 public class Paciente extends JPanel {
 
+    /**
+    *
+    */
+    private static final long serialVersionUID = -2639492810876012195L;
+
     public static final int LISTA = 0;
     public static final int ETIQUETAS = 1;
 

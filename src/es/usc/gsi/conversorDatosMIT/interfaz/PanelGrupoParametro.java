@@ -11,6 +11,11 @@ import es.usc.gsi.conversorDatosMIT.ficheros.Parametro;
 public class PanelGrupoParametro extends JPanel implements ActionListener,
         ItemListener {
 
+    /**
+    *
+    */
+    private static final long serialVersionUID = 6046224818816261216L;
+
     private JCheckBox checkboxExportar = new JCheckBox();
     private JTextField textfieldFrecuencia = new JTextField(6);
     private JLabel labelNombre = new JLabel("Frec. (Hz)");

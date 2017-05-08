@@ -14,6 +14,10 @@ import es.usc.gsi.conversorDatosMIT.utilidades.ParseadorFecha;
 
 public class PanelFecha extends JPanel implements ActionListener {
 
+    /**
+    *
+    */
+    private static final long serialVersionUID = -3750954474803338557L;
     private String fechaInicio;
     private String fechaFin;
 
