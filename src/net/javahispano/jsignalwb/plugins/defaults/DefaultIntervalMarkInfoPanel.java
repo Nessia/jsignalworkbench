@@ -16,7 +16,10 @@ import javax.swing.*;
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
+
 import org.joda.time.DateTime;
+
+import com.michaelbaranov.microba.calendar.CalendarPane;
 
 /**
  *
@@ -30,7 +33,8 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
 
     private Signal signal;
     private DefaultIntervalMark dim;
-    private JColorChooser jcc;
+//    private JColorChooser jcc;
+
     /** Creates new form DefaultIntervalMarkInfoPanel */
     public DefaultIntervalMarkInfoPanel(Signal signal, DefaultIntervalMark dim) {
         this.signal = signal;
@@ -55,8 +59,8 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
         } catch (PropertyVetoException ex) {
             ex.printStackTrace();
         }
-        datePicker1.addPropertyChangeListener(datePicker1.PROPERTY_NAME_DATE, this);
-        datePicker2.addPropertyChangeListener(datePicker2.PROPERTY_NAME_DATE, this);
+        datePicker1.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
+        datePicker2.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
         comentaryTextArea.setText(dim.getComentary());
         kindLabel.setText("Kind of mark: " + dim.getName());
         colorTextField.setBackground(dim.getColor());
@@ -347,7 +351,7 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton3ActionPerformed
 
-        Color newColor = jcc.showDialog(this, "SelectColor", dim.getColor());
+        Color newColor = JColorChooser.showDialog(this, "SelectColor", dim.getColor());
         if (newColor != null) {
             dim.setColor(newColor);
             colorTextField.setBackground(newColor);

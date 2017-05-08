@@ -19,6 +19,11 @@ import net.javahispano.jsignalwb.plugins.defaults.DetailPluginInfoPanel;
  * @author Roman Segador
  */
 public class PluginDetailAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5425329319505537010L;
+
     private String pluginKey;
     private PluginManagerPanel pmPanel;
     public PluginDetailAction(String pluginKey, PluginManagerPanel pmPanel) {
@@ -32,20 +37,22 @@ public class PluginDetailAction extends AbstractAction {
 
     public void actionPerformed(ActionEvent e) {
         int option = JOptionPane.YES_OPTION;
-        PluginManager pm = JSWBManager.getJSWBManagerInstance().getPluginManager();
+        JSWBManager.getJSWBManagerInstance();
+        PluginManager pm = JSWBManager.getPluginManager();
         if (!pm.isPluginLoaded(pluginKey)) {
             option = JOptionPane.showConfirmDialog(
-                    JSWBManager.getJSWBManagerInstance().getParentWindow(),
+                    JSWBManager.getParentWindow(),
                     "Do you want to load the plugin?", "The plugin isn't loaded",
                     JOptionPane.YES_NO_OPTION);
         }
 
         if (option == JOptionPane.YES_OPTION) {
-            Plugin plug =
-                    JSWBManager.getJSWBManagerInstance().getPluginManager().getPlugin(pluginKey);
+            JSWBManager.getJSWBManagerInstance();
+                Plugin plug =
+                    JSWBManager.getPluginManager().getPlugin(pluginKey);
             pmPanel.refreshJTable();
             new DetailPluginInfoPanel(JSWBManager.getJSWBManagerInstance(),
-                    plug).showJWindow(JSWBManager.getJSWBManagerInstance().getParentWindow());
+                    plug).showJWindow(JSWBManager.getParentWindow());
         }
     }
 

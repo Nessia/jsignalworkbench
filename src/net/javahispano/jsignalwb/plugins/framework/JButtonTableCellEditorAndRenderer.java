@@ -18,8 +18,13 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author Roman Segador
  */
-public class JButtonTableCellEditorAndRenderer extends AbstractCellEditor implements TableCellEditor, TableCellRenderer,
-        ActionListener {
+public class JButtonTableCellEditorAndRenderer extends AbstractCellEditor
+            implements TableCellEditor, TableCellRenderer, ActionListener {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3651849394491748179L;
 
     private JButton button;
     public JButtonTableCellEditorAndRenderer() {

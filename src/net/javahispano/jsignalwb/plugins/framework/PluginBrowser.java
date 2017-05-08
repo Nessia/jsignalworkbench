@@ -28,6 +28,7 @@ public class PluginBrowser {
 
     /** Creates a new instance of PluginBrowser */
     public PluginBrowser() {
+        // Empty
     }
 
     static public File[] search(File f) {
@@ -154,10 +155,14 @@ public class PluginBrowser {
     }
 
     static public void copy(File source, File dest) throws IOException {
-        FileChannel in = null, out = null;
+        FileInputStream fIn = null;
+        FileOutputStream fOut = null;
         try {
-            in = new FileInputStream(source).getChannel();
-            out = new FileOutputStream(dest).getChannel();
+            FileChannel in = null, out = null;
+            fIn = new FileInputStream(source);
+            in = fIn.getChannel();
+            fOut = new FileOutputStream(dest);
+            out = fOut.getChannel();
 
             long size = in.size();
             MappedByteBuffer buf = in.map(FileChannel.MapMode.READ_ONLY, 0, size);
@@ -169,11 +174,11 @@ public class PluginBrowser {
             ex.printStackTrace();
 
         } finally {
-            if (in != null) {
-                in.close();
+            if (fIn != null) {
+                fIn.close();
             }
-            if (out != null) {
-                out.close();
+            if (fOut != null) {
+                fOut.close();
             }
         }
     }

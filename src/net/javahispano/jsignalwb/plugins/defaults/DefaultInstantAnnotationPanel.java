@@ -17,7 +17,10 @@ import javax.swing.filechooser.FileFilter;
 
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
+
 import org.joda.time.DateTime;
+
+import com.michaelbaranov.microba.calendar.CalendarPane;
 
 /**
  *
@@ -58,7 +61,7 @@ public class DefaultInstantAnnotationPanel extends javax.swing.JPanel implements
         } catch (PropertyVetoException ex) {
             ex.printStackTrace();
         }
-        datePicker1.addPropertyChangeListener(datePicker1.PROPERTY_NAME_DATE, this);
+        datePicker1.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
         comentaryTextArea.setText(dim.getComentary());
         kindLabel.setText("Kind of Annotation: " + dim.getName());
         jColorChooser1 = new JColorChooser();
@@ -406,7 +409,7 @@ public class DefaultInstantAnnotationPanel extends javax.swing.JPanel implements
     } //GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton3ActionPerformed
-        Color c = jColorChooser1.showDialog(this, "SelectColor", dim.getColor());
+        Color c = JColorChooser.showDialog(this, "SelectColor", dim.getColor());
         if (c != null) {
             colorTextField.setBackground(c);
         }
@@ -462,7 +465,7 @@ public class DefaultInstantAnnotationPanel extends javax.swing.JPanel implements
             };
             jfc.setFileFilter(ff);
         }
-        if (jfc.showOpenDialog(this) == jfc.APPROVE_OPTION) {
+        if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             ;
         }
         {

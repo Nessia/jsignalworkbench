@@ -8,6 +8,11 @@ package net.javahispano.jsignalwb.plugins.framework;
  *   Abraham Otero
  */
 public class PluginLoadException extends RuntimeException {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8941749408110820530L;
+
     public PluginLoadException(String error, Exception excp) {
         super(error, excp);
     }

@@ -7,6 +7,7 @@
 package net.javahispano.jsignalwb.plugins.defaults;
 
 import java.awt.*;
+import java.util.Calendar;
 import java.util.Date;
 
 import net.javahispano.jsignalwb.JSWBManager;
@@ -27,7 +28,14 @@ public class AxesGridPlugin extends GridPluginAdapter {
 
     public AxesGridPlugin() {
         stroke = new BasicStroke(2);
-        this.setYAxePosition((new Date(2008 - 1900, 1, 1)).getTime());
+        // XXX que chapuza es esta?
+        //this.setYAxePosition((new Date(2008 - 1900, 1, 1)).getTime());
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2008 - 1900);
+        cal.set(Calendar.MONTH, Calendar.JANUARY);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date date = cal.getTime();
+        this.setYAxePosition(date.getTime());
     }
 
     public AxesGridPlugin(Signal s) {
@@ -52,14 +60,12 @@ public class AxesGridPlugin extends GridPluginAdapter {
     }
 
     public void launchConfigureGridGUI(Window owner) {
-        new AxesGridPluginConfigureForm(this).showJWindow(
-                JSWBManager.getJSWBManagerInstance().getParentWindow());
+        new AxesGridPluginConfigureForm(this).showJWindow(JSWBManager.getParentWindow());
     }
 
     public void paintGrid(Graphics2D g2d, Point p, int height, int width,
                           GridConfiguration gridconfig) {
-        long scrollValue = JSWBManager.getJSWBManagerInstance().
-                           getJSMScrollValue();
+        long scrollValue = JSWBManager.getJSWBManagerInstance().getJSMScrollValue();
         if (yAxePosition < 0) {
             yAxePosition = scrollValue;
         }
@@ -165,7 +171,7 @@ public class AxesGridPlugin extends GridPluginAdapter {
         this.yAxePosition = yAxe;
         //si hace falta, y se inicializa la senhal
         if (signal == null) {
-            signal = JSWBManager.getJSWBManagerInstance().getSignalManager().getSignal(signalName);
+            signal = JSWBManager.getSignalManager().getSignal(signalName);
         }
     }
 

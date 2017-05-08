@@ -32,23 +32,24 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
     private JSWBManager jswbManager;
     private final Algorithm alg;
     private Window owner;
-    private DefaultListModel dlmNo;
-    private DefaultListModel dlmYes;
+    private DefaultListModel<String> dlmNo;
+    private DefaultListModel<String> dlmYes;
     private int numberSignals;
     private int intervalsNeeded;
     private ArrayList<IntervalSelectedEvent> intervals;
+
     /** Creates new form DefaultAlgorithmConfiguration */
     public DefaultAlgorithmConfiguration(Algorithm al, JSWBManager jswbManager, Window owner) {
         this.jswbManager = jswbManager;
         this.owner = owner;
         intervals = new ArrayList<IntervalSelectedEvent>();
         List<String>
-                signalNames = jswbManager.getSignalManager().getSignalsNames();
+                signalNames = JSWBManager.getSignalManager().getSignalsNames();
         initComponents();
         selectSignals.setSelected(true);
         jSpinner1.setEnabled(false);
-        dlmNo = new DefaultListModel();
-        dlmYes = new DefaultListModel();
+        dlmNo = new DefaultListModel<String>();
+        dlmYes = new DefaultListModel<String>();
         jList1.setModel(dlmNo);
         jList2.setModel(dlmYes);
         for (String s : signalNames) {
@@ -84,7 +85,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
     public void intervalSelectedActionPerformed(IntervalSelectedEvent evt) {
 
         intervalsNeeded--;
-         if (intervalsNeeded < 0) return;
+        if (intervalsNeeded < 0) return; // TODO añadido en github
         if (intervalsNeeded > 0) {
             System.out.println("quedan " + intervalsNeeded + " intervalos por seleccionar");
             intervals.add(evt);
@@ -118,13 +119,13 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         jPanel2 = new javax.swing.JPanel();
         selectSignals = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jList1 = new javax.swing.JList<String>();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
+        jList2 = new javax.swing.JList<String>();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -404,10 +405,11 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton5ActionPerformed
         if (!jList2.isSelectionEmpty()) {
-            Object[] selected = jList2.getSelectedValues();
-            for (int index = 0; index < selected.length; index++) {
-                dlmNo.addElement(selected[index]);
-                dlmYes.removeElement(selected[index]);
+            //Line Object[] allSelected = jList2.getSelectedValues(); changed because the method is deprected
+            List<String> allSelected = jList2.getSelectedValuesList();
+            for (String selected : allSelected) {
+                dlmNo.addElement(selected);
+                dlmYes.removeElement(selected);
             }
         }
         if (dlmYes.size() < numberSignals || numberSignals <= 0) {
@@ -425,13 +427,14 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton4ActionPerformed
         if (!jList1.isSelectionEmpty()) {
-            Object[] selected = jList1.getSelectedValues();
-            if (numberSignals > 0 && dlmYes.size() + selected.length > numberSignals) {
+            //Line Object[] allSelected = jList1.getSelectedValues(); changed because the method is deprected
+            List<String> allSelected = jList1.getSelectedValuesList();
+            if (numberSignals > 0 && dlmYes.size() + allSelected.size() > numberSignals) {
                 JOptionPane.showMessageDialog(owner, "Maximum " + numberSignals + " signals selected");
             } else {
-                for (int index = 0; index < selected.length; index++) {
-                    dlmYes.addElement(selected[index]);
-                    dlmNo.removeElement(selected[index]);
+                for (String selected : allSelected) {
+                    dlmYes.addElement(selected);
+                    dlmNo.removeElement(selected);
                 }
                 if (numberSignals > 0 && dlmYes.size() >= numberSignals) {
                     jButton4.setEnabled(false);
@@ -466,7 +469,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         if (numberSignals == 0 ||
             (numberSignals > 0 && totalSelected <= numberSignals) ||
             (numberSignals < 0 && totalSelected >= (numberSignals * ( -1)))) {
-            Enumeration elemen = dlmYes.elements();
+            Enumeration<String> elemen = dlmYes.elements();
             owner.setVisible(false);
             try {
                 if (selectInterval.isSelected()) {
@@ -500,7 +503,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
 
         Object[] elements = dlmYes.toArray();
         for (int index = 0; index < elements.length; index++) {
-            dlmNo.addElement(elements[index]);
+            dlmNo.addElement((String)elements[index]);
             dlmYes.removeElement(elements[index]);
         }
 
@@ -518,7 +521,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         if ((numberSignals > 0 && dlmYes.size() + dlmNo.size() <= numberSignals) || numberSignals <= 0) {
             Object[] elements = dlmNo.toArray();
             for (int index = 0; index < elements.length; index++) {
-                dlmYes.addElement(elements[index]);
+                dlmYes.addElement((String)elements[index]);
                 dlmNo.removeElement(elements[index]);
             }
         } else {
@@ -548,8 +551,8 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList jList1;
-    private javax.swing.JList jList2;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

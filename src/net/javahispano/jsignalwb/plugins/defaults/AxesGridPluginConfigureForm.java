@@ -51,7 +51,7 @@ public class AxesGridPluginConfigureForm extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jTextFieldDate2 = new net.javahispano.jsignalwb.ui.JTextFieldDate();
         jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -68,7 +68,7 @@ public class AxesGridPluginConfigureForm extends javax.swing.JPanel {
         jTextField1.setText("0");
 
         jComboBox1.setForeground(java.awt.Color.blue);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"h", "m", "s", "ms"}));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] {"h", "m", "s", "ms"}));
 
         jLabel1.setForeground(java.awt.Color.blue);
         jLabel1.setText("Leyend Separation");
@@ -215,7 +215,7 @@ public class AxesGridPluginConfigureForm extends javax.swing.JPanel {
     // Declaracion de varibales -no modificar//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField jTextField1;

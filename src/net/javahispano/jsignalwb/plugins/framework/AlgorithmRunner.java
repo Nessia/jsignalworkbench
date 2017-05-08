@@ -18,7 +18,7 @@ import net.javahispano.jsignalwb.plugins.Algorithm;
  *   (http://www.apache.org/licenses/).
  */
 public class AlgorithmRunner extends SwingWorker<Boolean, Void> {
-    private Algorithm algorithm; 
+    private Algorithm algorithm;
     private JSWBManager jswbManager;
     private ArrayList<SignalIntervalProperties> signals;
     private String task;
@@ -41,8 +41,7 @@ public class AlgorithmRunner extends SwingWorker<Boolean, Void> {
     }
 
     protected Boolean doInBackground() throws Exception {
-        algorithm.runAlgorithm(jswbManager.getSignalManager(), signals, this);
-      
+        algorithm.runAlgorithm(JSWBManager.getSignalManager(), signals, this);
         return Boolean.valueOf(true);
     }
 

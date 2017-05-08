@@ -15,7 +15,10 @@ import javax.swing.*;
 
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
+
 import org.joda.time.DateTime;
+
+import com.michaelbaranov.microba.calendar.CalendarPane;
 
 /**
  *
@@ -28,7 +31,7 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
      */
     private static final long serialVersionUID = -3659043260894141967L;
     private DefaultIntervalAnnotation dim;
-    private JColorChooser jcc;
+//    private JColorChooser jcc;
     private JWindow jw;
     /** Creates new form DefaultIntervalAnnotationInfoPanel */
     public DefaultIntervalAnnotationInfoPanel(DefaultIntervalAnnotation dia) {
@@ -49,8 +52,8 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
         } catch (PropertyVetoException ex) {
             ex.printStackTrace();
         }
-        datePicker1.addPropertyChangeListener(datePicker1.PROPERTY_NAME_DATE, this);
-        datePicker2.addPropertyChangeListener(datePicker2.PROPERTY_NAME_DATE, this);
+        datePicker1.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
+        datePicker2.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
         comentaryTextArea.setText(dim.getComentary());
         kindLabel.setText("Kind of Annotation: " + dim.getName());
         colorTextField.setBackground(dim.getColor());
@@ -367,7 +370,7 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
     } //GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton3ActionPerformed
-        Color c = jcc.showDialog(this, "SelectColor", dim.getColor());
+        Color c = JColorChooser.showDialog(this, "SelectColor", dim.getColor());
         if (c != null) {
             colorTextField.setBackground(c);
         }

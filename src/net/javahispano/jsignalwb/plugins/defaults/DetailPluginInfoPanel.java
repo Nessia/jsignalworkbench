@@ -60,7 +60,7 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
             Loader loader = (Loader) plugin;
             jLabel18.setText("No");
             ArrayList<String> ext = loader.getAvalaibleExtensions();
-            DefaultListModel dlm = new DefaultListModel();
+            DefaultListModel<String> dlm = new DefaultListModel<String>();
             jList1.setModel(dlm);
 
             for (String temp : ext) {
@@ -135,7 +135,7 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jList1 = new javax.swing.JList<String>();
         saverPane = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -318,13 +318,14 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
 
         jLabel18.setText("jLabel18");
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            private static final long serialVersionUID = 1L;
             String[] strings = {"No Items"};
             public int getSize() {
                 return strings.length;
             }
 
-            public Object getElementAt(int i) {
+            public String getElementAt(int i) {
                 return strings[i];
             }
         });
@@ -508,7 +509,7 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList jList1;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

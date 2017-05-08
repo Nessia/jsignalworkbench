@@ -19,13 +19,16 @@ import net.javahispano.jsignalwb.plugins.Loader;
  * @author Roman Segador
  */
 public class LoaderRunner extends SwingWorker<Boolean, Void> {
+
     private Loader loader;
     private File file;
+
     public LoaderRunner(Loader loader, File file) {
         this.loader = loader;
         this.file = file;
     }
 
+    @Override
     protected Boolean doInBackground() throws Exception {
         try {
             loader.load(file);
@@ -38,6 +41,7 @@ public class LoaderRunner extends SwingWorker<Boolean, Void> {
         return Boolean.valueOf(true);
     }
 
+    @Override
     protected void done() {
         //super.done();
         Boolean end = Boolean.valueOf(false);

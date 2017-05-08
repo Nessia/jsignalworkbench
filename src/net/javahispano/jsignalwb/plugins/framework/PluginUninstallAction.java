@@ -20,6 +20,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman Segador
  */
 public class PluginUninstallAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -402215093337979168L;
+
     private File file;
     private String pluginKey;
     private PluginManagerPanel pmPanel;
@@ -38,19 +43,14 @@ public class PluginUninstallAction extends AbstractAction {
 
     public void actionPerformed(ActionEvent e) {
         if (JOptionPane.showConfirmDialog(
-                JSWBManager.getJSWBManagerInstance().getParentWindow(),
-                "Are you sure?",
-                "Uninstall plugin",
+                JSWBManager.getParentWindow(), "Are you sure?", "Uninstall plugin",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            if (JSWBManager.getJSWBManagerInstance().getPluginManager().unregisterPlugin(
-                    pluginKey)) {
+            if (JSWBManager.getPluginManager().unregisterPlugin(pluginKey)) {
                 JSWBManager.getJSWBManagerInstance().deletePluginFile(file);
                 pmPanel.refreshJTable();
 
             } else {
-                JOptionPane.showMessageDialog(
-                        JSWBManager.getJSWBManagerInstance().getParentWindow(),
-                        "Unable to delete plugin");
+                JOptionPane.showMessageDialog(JSWBManager.getParentWindow(), "Unable to delete plugin");
             }
         }
     }

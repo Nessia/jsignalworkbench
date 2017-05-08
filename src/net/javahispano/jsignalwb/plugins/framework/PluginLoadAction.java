@@ -19,6 +19,10 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman Segador
  */
 public class PluginLoadAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3120985332176652511L;
     private String pluginKey;
     private PluginManagerPanel pmPanel;
     public PluginLoadAction(String pluginKey, PluginManagerPanel pmPanel) {
@@ -34,10 +38,10 @@ public class PluginLoadAction extends AbstractAction {
     }
 
     public void actionPerformed(ActionEvent e) {
-        JSWBManager.getJSWBManagerInstance().getPluginManager().getPlugin(pluginKey);
-        if (!JSWBManager.getJSWBManagerInstance().getPluginManager().isPluginLoaded(pluginKey)) {
-            JOptionPane.showMessageDialog(JSWBManager.getJSWBManagerInstance().getParentWindow(),
-                                          "Ploblems loading the plugin");
+        System.out.println("loading.....");
+        JSWBManager.getPluginManager().getPlugin(pluginKey);
+        if (!JSWBManager.getPluginManager().isPluginLoaded(pluginKey)) {
+            JOptionPane.showMessageDialog(JSWBManager.getParentWindow(), "Ploblems loading the plugin");
         } else {
             pmPanel.refreshJTable();
         }

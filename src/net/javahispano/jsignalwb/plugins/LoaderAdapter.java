@@ -3,6 +3,8 @@ package net.javahispano.jsignalwb.plugins;
 import java.io.File;
 
 import net.javahispano.jsignalwb.*;
+
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -64,17 +66,18 @@ public abstract class LoaderAdapter extends PluginAdapter implements Loader {
             int i = 0;
             for (float[] val : values) {
                 Signal s = new Signal("Signal" + i, val);
+                //s.setFrecuency(1); // TODO por que está comentado? @vanesa
 
                 i++;
                 if (sr != null) {
                     s.setStart(sr.getStart());
                     s.setFrecuency(sr.getSRate());
                 } else {
-                    Date d = new Date();
-                    d.setHours(0);
-                    d.setMinutes(0);
-                    d.setSeconds(0);
-                    s.setStart(d.getTime());
+                    Calendar cal = Calendar.getInstance();
+                    cal.set(Calendar.YEAR, 1988);
+                    cal.set(Calendar.MONTH, Calendar.JANUARY);
+                    cal.set(Calendar.DAY_OF_MONTH, 1);
+                    s.setStart(cal.getTime().getTime());
 
                 }
                 if (!sm.addSignal(s)) {

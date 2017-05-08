@@ -24,8 +24,13 @@ import net.javahispano.jsignalwb.plugins.Plugin;
  * @author  Compaq_Propietario
  */
 public class PluginManagerPanel extends javax.swing.JPanel {
-    private JSWBManager jswbManager;
-    private DefaultListModel dlm;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5798449466901514533L;
+
+    //private JSWBManager jswbManager;
+    //private DefaultListModel dlm;
     private HashMap<String, JarFile> pluginJarAssociation;
     private HashMap<JarFile, File> jarFileFileAssociation;
     private JFileChooser jfc;
@@ -35,7 +40,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
 
     /** Creates new form PluginManagerPanel */
     public PluginManagerPanel(JSWBManager jswbManager) {
-        this.jswbManager = jswbManager;
+        //this.jswbManager = jswbManager;
 //        dlm=new DefaultListModel();
         pluginJarAssociation = new HashMap<String, JarFile>();
         jarFileFileAssociation = new HashMap<JarFile, File>();
@@ -85,7 +90,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
         //dtm.clear();
 
-        File[] plugins = jswbManager.getPluginManager().getInstalledPlugins();
+        File[] plugins = JSWBManager.getPluginManager().getInstalledPlugins();
         if (plugins != null) {
             JarFile jarFile;
             String name;
@@ -95,7 +100,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
                     jarFile = new JarFile(plugins[index]);
                     name = jarFile.getManifest().getMainAttributes().getValue("PluginName");
                     type = jarFile.getManifest().getMainAttributes().getValue("PluginType");
-                    if (jswbManager.getPluginManager().isPluginRegistered(type, name)) {
+                    if (JSWBManager.getPluginManager().isPluginRegistered(type, name)) {
                         //dlm.addElement(name);
                         pluginJarAssociation.put(type + ":" + name, jarFile);
                         jarFileFileAssociation.put(jarFile, plugins[index]);
@@ -105,8 +110,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
                     ex.printStackTrace();
                 }
             }
-            HashMap<String, ArrayList<String>> registeredPlugins =
-                    jswbManager.getPluginManager().getRegisteredPlugins();
+            HashMap<String, ArrayList<String>> registeredPlugins = JSWBManager.getPluginManager().getRegisteredPlugins();
             Iterator<String> it = registeredPlugins.keySet().iterator();
             ArrayList<String> temp;
             String kind;
@@ -123,10 +127,10 @@ public class PluginManagerPanel extends javax.swing.JPanel {
                     temp = registeredPlugins.get(kind);
                     for (String pluginName : temp) {
                         if (mode != 8 || pluginJarAssociation.containsKey(kind + ":" + pluginName)) {
-                            if (jswbManager.getPluginManager().isPluginLoaded(kind + ":" + pluginName)) {
+                            if (JSWBManager.getPluginManager().isPluginLoaded(kind + ":" + pluginName)) {
                                 //loadButton.setEnabled(false);
                                 //detailsButton.setEnabled(true);
-                                Plugin plug = jswbManager.getPluginManager().getPlugin(kind + ":" + pluginName);
+                                Plugin plug = JSWBManager.getPluginManager().getPlugin(kind + ":" + pluginName);
                                 JButton bt = new JButton(new PluginDetailAction(kind + ":" + pluginName, this));
                                 JButton uninstall = null;
                                 if (pluginJarAssociation.containsKey(kind + ":" + pluginName)) {
@@ -350,28 +354,25 @@ public class PluginManagerPanel extends javax.swing.JPanel {
         });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
-
-        },
-                new String[] {
-                "Name", "Kind", "Version", "ShortDescription", "Load", "Info", ""
-        }
+                new Object[][] { },
+                new String[] { "Name", "Kind", "Version", "ShortDescription", "Load", "Info", "" }
                 ) {
-            Class[] types = new Class[] {
+                     private static final long serialVersionUID = -57287540408265881L;
+                     Class<?>[] types = new Class[] {
                             java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
                             java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean[] {
-                                false, false, false, false, true, true, true
-            };
+                     };
+                     boolean[] canEdit = new boolean[] {
+                                         false, false, false, false, true, true, true
+                     };
 
-            public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
-            }
+                     public Class<?> getColumnClass(int columnIndex) {
+                         return types[columnIndex];
+                     }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
+                     public boolean isCellEditable(int rowIndex, int columnIndex) {
+                         return canEdit[columnIndex];
+                     }
         });
         jScrollPane2.setViewportView(jTable1);
 
@@ -586,7 +587,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
         if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = jfc.getSelectedFile();
             if (file.isDirectory()) {
-                jswbManager.getPluginManager().searchPlugins(file.getAbsolutePath());
+                JSWBManager.getPluginManager().searchPlugins(file.getAbsolutePath());
                 JOptionPane.showMessageDialog(this, "Valid plugins from " + file.getAbsolutePath() + " installed");
             }
         }

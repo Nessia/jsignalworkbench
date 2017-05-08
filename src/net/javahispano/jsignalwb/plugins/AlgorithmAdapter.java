@@ -24,13 +24,14 @@ public abstract class AlgorithmAdapter extends PluginAdapter implements
      *
      * @return boolean
      */
+    @Override
     public boolean hasOwnExecutionGUI() {
         return false;
     }
 
-
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
-        JDialog conf = new JDialog(jswbManager.getParentWindow(), "Execution GUI");
+        JDialog conf = new JDialog(JSWBManager.getParentWindow(), "Execution GUI");
 
         conf.setModal(true);
         JPanel jPane = new DefaultAlgorithmConfiguration(this,
@@ -47,10 +48,12 @@ public abstract class AlgorithmAdapter extends PluginAdapter implements
      *
      * @return boolean
      */
+    @Override
     public boolean hasResultsGUI() {
         return false;
     }
 
+    @Override
     public void launchResultsGUI(JSWBManager jswbManager) {
         throw new UnsupportedOperationException("No results GUI defined");
     }
@@ -67,6 +70,7 @@ public abstract class AlgorithmAdapter extends PluginAdapter implements
                              float[] signal) {
     }
 
+    @Override
     public void runAlgorithm(SignalManager sm,
                              List<SignalIntervalProperties> signals,
             AlgorithmRunner ar) {
@@ -82,10 +86,12 @@ public abstract class AlgorithmAdapter extends PluginAdapter implements
      *
      * @return int
      */
+    @Override
     public int numberOfSignalsNeeded() {
         return 0;
     }
 
+    @Override
     public void cancelExecution() {
         executionCanceled = true;
     }
@@ -107,6 +113,7 @@ public abstract class AlgorithmAdapter extends PluginAdapter implements
      * @param gUIPositions GUIPositions
      * @return boolean
      */
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;

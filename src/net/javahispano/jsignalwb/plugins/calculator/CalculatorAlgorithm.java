@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
-import net.javahispano.jsignalwb.plugins.Plugin;
+//import net.javahispano.jsignalwb.plugins.Plugin;
 import net.javahispano.jsignalwb.plugins.calculator.CalculatorGUI.Operation;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 import net.javahispano.jsignalwb.utilities.TimePositionConverter;
@@ -28,12 +28,14 @@ import net.javahispano.jsignalwb.jsignalmonitor.Resample;
  */
 public class CalculatorAlgorithm extends AlgorithmAdapter {
 
+    protected String firstSignalName;
+    protected String secondSignalName;
+    protected String newSignalName;
+    protected Operation operation = Operation.ADD;
+    protected float[] firstSignalValues;
+    protected float[] secondSignalValues;
 
-    String firstSignalName, secondSignalName, newSignalName;
-    Operation operation = Operation.ADD;
-    float[] firstSignalValues, secondSignalValues;
-
-
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
         Signal firstSignal = sm.getSignal(this.firstSignalName);
@@ -111,21 +113,22 @@ public class CalculatorAlgorithm extends AlgorithmAdapter {
          return firstSignal.getSRate();
     }
 
-
+    @Override
     public boolean hasOwnExecutionGUI() {
         return true;
     }
 
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
-        Collection<Signal> allSignals = jswbManager.getSignalManager().getSignals();
+        Collection<Signal> allSignals = JSWBManager.getSignalManager().getSignals();
         String[] names = new String[allSignals.size()];
         int i = 0;
         for (Signal signal : allSignals) {
             names[i] = signal.getName();
             i++;
         }
-        CalculatorGUI calculatorGUI = new CalculatorGUI((JFrame) jswbManager.getParentWindow(),
-                "Calculadora de señales",
+        CalculatorGUI calculatorGUI = new CalculatorGUI((JFrame) JSWBManager.getParentWindow(),
+                "Calculadora de senales",
                 true, names);
         calculatorGUI.setVisible(true);
         if (calculatorGUI.cancelar) {
@@ -135,10 +138,11 @@ public class CalculatorAlgorithm extends AlgorithmAdapter {
         this.secondSignalName = calculatorGUI.secondSignalName;
         this.newSignalName = calculatorGUI.newSignalName;
         this.operation = calculatorGUI.operation;
-        this.runAlgorithm(jswbManager.getSignalManager(), null, null);
+        this.runAlgorithm(JSWBManager.getSignalManager(), null, null);
 
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
@@ -148,18 +152,22 @@ public class CalculatorAlgorithm extends AlgorithmAdapter {
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return new javax.swing.ImageIcon(getClass().getResource("calc.gif"));
     }
 
+    @Override
     public String getName() {
         return "Calculadora de parametros";
     }
 
+    @Override
     public String getDescription() {
         return "Calculadora de parametros";
     }
 
+    @Override
     public String getShortDescription() {
         return "Calculadora de parametros";
     }

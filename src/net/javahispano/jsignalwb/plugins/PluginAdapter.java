@@ -35,6 +35,7 @@ public abstract class PluginAdapter implements Plugin {
      *
      * @return Emplea el propio nombre del club y como descripcion
      */
+    @Override
     public String getShortDescription() {
         return getName();
     }
@@ -44,6 +45,7 @@ public abstract class PluginAdapter implements Plugin {
      *
      * @return Emplea el propio nombre del club y como descripcion
      */
+    @Override
     public String getDescription() {
         return getName();
     }
@@ -54,6 +56,7 @@ public abstract class PluginAdapter implements Plugin {
      *
      * @return Icon
      */
+    @Override
     public Icon getIcon() {
         return generateImage(getName());
     }
@@ -63,11 +66,13 @@ public abstract class PluginAdapter implements Plugin {
      *
      * @return false
      */
+    @Override
     public boolean hasOwnConfigureGUI() {
         return false;
     }
 
 
+    @Override
     public void launchConfigureGUI(JSWBManager jswbManager) {
         throw new UnsupportedOperationException();
     }
@@ -77,6 +82,7 @@ public abstract class PluginAdapter implements Plugin {
      *
      * @return 1.0
      */
+    @Override
     public String getPluginVersion() {
         return "1.0";
     }
@@ -86,23 +92,36 @@ public abstract class PluginAdapter implements Plugin {
      *
      * @return False
      */
+    @Override
     public boolean hasDataToSave() {
         return false;
     }
 
 
+    /**
+     * Proporciona datos de configuracion del algoritmo que deben de ser
+     * guardados por el entorno.
+     *
+     * @return cadena de caracteres con los datos que debe guardar el
+     *   entorno. Si el entorno no debe de guardar ninguna informacion sobre
+     *   el plugin el valor de retorno sera null.
+     */
+    @Override
     public String getDataToSave() {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void setSavedData(String data) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public boolean createFile() {
         return false;
     }
 
+    @Override
     public void setFile(File file) {
         throw new UnsupportedOperationException();
     }
@@ -133,29 +152,29 @@ public abstract class PluginAdapter implements Plugin {
         return new ImageIcon(bufferedImage);
     }
     /**
- * Genera un icono con la primera y ultima letra de la cadena de texto que
- * se le pasa.
- *
- * @param name String
- * @return Icon
- */
-protected Icon generateImageSimple(String name,Color color) {
-    if (name.equals("")) {
-        name = "No icon";
+     * Genera un icono con la primera y ultima letra de la cadena de texto que
+     * se le pasa.
+     *
+     * @param name String
+     * @return Icon
+     */
+    protected Icon generateImageSimple(String name,Color color) {
+        if (name.equals("")) {
+            name = "No icon";
+        }
+        name = name.toUpperCase();
+        BufferedImage bufferedImage = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
+        char first = name.charAt(0);
+        //char last = name.charAt(name.length() - 1);
+        Graphics2D g2d = bufferedImage.createGraphics();
+        Font font = new Font(Font.SANS_SERIF, Font.BOLD, 20);
+        g2d.setBackground(Color.LIGHT_GRAY);
+        g2d.clearRect(0, 0, 20, 20);
+        g2d.setColor(color);
+        g2d.setFont(font);
+        g2d.drawString(String.valueOf(first), 3, 18);
+        return new ImageIcon(bufferedImage);
     }
-    name = name.toUpperCase();
-    BufferedImage bufferedImage = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
-    char first = name.charAt(0);
-    char last = name.charAt(name.length() - 1);
-    Graphics2D g2d = bufferedImage.createGraphics();
-    Font font = new Font(Font.SANS_SERIF, Font.BOLD, 20);
-    g2d.setBackground(Color.LIGHT_GRAY);
-    g2d.clearRect(0, 0, 20, 20);
-    g2d.setColor(color);
-    g2d.setFont(font);
-    g2d.drawString(String.valueOf(first), 3, 18);
-    return new ImageIcon(bufferedImage);
-}
 
 
 }

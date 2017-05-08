@@ -7,7 +7,7 @@
 package net.javahispano.jsignalwb.plugins.defaults;
 
 import java.awt.*;
-import java.awt.geom.RoundRectangle2D;
+//import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 
 import net.javahispano.jsignalwb.JSWBManager;
@@ -20,7 +20,7 @@ import net.javahispano.jsignalwb.plugins.MarkPlugin;
  *
  * @author Roman Segador
  */
-public class DefaultIntervalMark extends MarkPluginAdapter implements Comparable {
+public class DefaultIntervalMark extends MarkPluginAdapter implements Comparable<MarkPlugin> {
     private long markTime;
     private long endTime;
     private String title;
@@ -29,7 +29,7 @@ public class DefaultIntervalMark extends MarkPluginAdapter implements Comparable
     private BufferedImage im;
     private JSWBManager jswbManager;
     private int extraheightPixels = 10;
-    private MarkPaintInfo markPaintInfo;
+    //private MarkPaintInfo markPaintInfo;
     private int innerTransparencyLevel = 50;
     private int borderTransparencyLevel = 150;
     public DefaultIntervalMark() {
@@ -100,7 +100,7 @@ public class DefaultIntervalMark extends MarkPluginAdapter implements Comparable
 
     public void paint(Graphics2D g2d, MarkPaintInfo markPaintInfo) {
         //if(this.markPaintInfo==null || !this.markPaintInfo.equals(markPaintInfo)){
-        this.markPaintInfo = markPaintInfo;
+        //this.markPaintInfo = markPaintInfo;
         Stroke oldStroke = g2d.getStroke();
         Color color2 = new Color(color.getRed(), color.getGreen(),
                                  color.getBlue(), innerTransparencyLevel);
@@ -244,8 +244,7 @@ public class DefaultIntervalMark extends MarkPluginAdapter implements Comparable
      *   object is less than, equal to, or greater than the specified object.
      * @todo Implement this java.lang.Comparable method
      */
-    public int compareTo(Object o) {
-        MarkPlugin i = (MarkPlugin) o;
+    public int compareTo(MarkPlugin i) {
         if (i.getMarkTime() < this.getMarkTime()) {
             return 1;
         } else if (i.getMarkTime() > this.getMarkTime()) {

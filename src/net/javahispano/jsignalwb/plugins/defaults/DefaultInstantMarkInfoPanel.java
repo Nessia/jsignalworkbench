@@ -18,7 +18,10 @@ import javax.swing.filechooser.FileFilter;
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
+
 import org.joda.time.DateTime;
+
+import com.michaelbaranov.microba.calendar.CalendarPane;
 
 /**
  *
@@ -61,7 +64,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
         } catch (PropertyVetoException ex) {
             ex.printStackTrace();
         }
-        datePicker1.addPropertyChangeListener(datePicker1.PROPERTY_NAME_DATE, this);
+        datePicker1.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
         comentaryTextArea.setText(dim.getComentary());
         kindLabel.setText("Kind of markhh: " + dim.getName());
 
@@ -423,7 +426,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
             };
             jfc.setFileFilter(ff);
         }
-        if (jfc.showOpenDialog(this) == jfc.APPROVE_OPTION) {
+        if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
                 dim.setImageToShow(new ImageIcon(jfc.getSelectedFile().getCanonicalPath()).getImage());
                 dim.setImagePath(jfc.getSelectedFile().getAbsolutePath());
@@ -435,7 +438,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
     } //GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton3ActionPerformed
-        Color c = jColorChooser1.showDialog(this, "SelectColor", dim.getColor());
+        Color c = JColorChooser.showDialog(this, "SelectColor", dim.getColor());
         if (c != null) {
             colorTextField.setBackground(c);
         }
@@ -499,7 +502,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private static javax.swing.JColorChooser jColorChooser1 = new javax.swing.JColorChooser();
+    //private static javax.swing.JColorChooser jColorChooser1 = new javax.swing.JColorChooser();
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -14,7 +14,6 @@ import net.javahispano.jsignalwb.framework.ExceptionsCollector;
 import net.javahispano.jsignalwb.plugins.*;
 import net.javahispano.jsignalwb.plugins.debug.DebugPluginInfo;
 import net.javahispano.jsignalwb.plugins.defaults.*;
-import net.javahispano.jsignalwb.ui.signalorganizer.SignalOrganizerPlugin;
 
 
 /**
