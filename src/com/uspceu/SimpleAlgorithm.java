@@ -8,7 +8,6 @@ import com.uspceu.sergio.ValorAbsolutoHoras;
 import com.uspceu.sergio.ValorAbsolutoMinutos;
 import com.uspceu.victoria.DeteccionOndaP;
 import com.uspceu.victoria.ExportarOndaP;
-import com.uspceu.victoria.MarcasP;
 import java.util.ArrayList;
 import java.util.List;
 import net.javahispano.jsignalwb.JSWBManager;
@@ -59,7 +58,7 @@ public abstract class SimpleAlgorithm extends AlgorithmAdapter {
                 new Sequencing() {
 
         }));
-        
+
 
         plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "EMG",
                 new com.uspceu.matesanz.EMGAlgorithm()));

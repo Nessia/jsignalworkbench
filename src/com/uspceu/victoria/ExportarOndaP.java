@@ -25,32 +25,32 @@ import research.beats.DialogKubiosRHRV;
 
 
 public class ExportarOndaP extends SimpleAlgorithm{
-    
+
     private String ultimoDirectorio = null;
     private JFileChooser jf;
     private BasicSaver basicSaver;
     private float pp[];
     private boolean error = true;
     private boolean exportRHRV = true;
-    
-    
+
+
     public ExportarOndaP(){
         basicSaver = new BasicSaver();
         jf = new JFileChooser(ultimoDirectorio);
     }
-    
+
      public int numberOfSignalsNeeded() {
         return 0;
     }
-     
+
     public String getDataToSave() {
         return ultimoDirectorio;
-    } 
-    
+    }
+
     public String getDescription() {
         return "Obtencion de intervalos PP de los latidos";
     }
-    
+
      public String getName() {
         return "ExporOndaP";
     }
@@ -62,7 +62,7 @@ public class ExportarOndaP extends SimpleAlgorithm{
     public boolean hasOwnConfigureGUI() {
         return false;
     }
-    
+
     public void setSavedData(String data) {
         jf.setFileFilter(new FileFilter() {
             public boolean accept(File f) {
@@ -81,26 +81,26 @@ public class ExportarOndaP extends SimpleAlgorithm{
             }
         });
     }
-    
+
     public List<DefaultIntervalMark> marcasP (SignalManager signalManager, Signal signal){
         List<MarkPlugin> latidos = signal.getAllMarks();
         List<DefaultIntervalMark> ondasP = new LinkedList<DefaultIntervalMark>();
-        
-        for(MarkPlugin beat: latidos){ 
+
+        for(MarkPlugin beat: latidos){
             DefaultIntervalMark beatInterval =(DefaultIntervalMark)beat;
             if(beatInterval.getTitle().contains("P")){
                 ondasP.add(beatInterval);
             }
         }
-        
+
         return ondasP;
     }
-    
+
     private void generatePP(Signal signal, List<DefaultIntervalMark> ondasP) {
         pp = new float[ondasP.size()];
         int i = 0;
         for (DefaultIntervalMark m : ondasP) {
-            
+
             long refinedPP = Long.parseLong(m.getComentary());
             pp[i] = refinedPP - signal.getStart();
             if (Math.random()>0.98) pp[i]+=60;
@@ -119,21 +119,21 @@ public class ExportarOndaP extends SimpleAlgorithm{
         }
 
     }
-    
 
-    
+
+
     /*public void runAlgorithm(SignalManager signalManager, Signal signal, float[] datos, float fs) {
-        
+
     }*/
     public void runAlgorithm(SignalManager sm, Signal signal, float[]datos, float fs) {
-        
+
         List<DefaultIntervalMark> marcasP = marcasP(sm, signal);
 
         Collections.sort(marcasP);
         generatePP(signal, marcasP);
         error = false;
     }
-    
+
      public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
@@ -201,13 +201,13 @@ public class ExportarOndaP extends SimpleAlgorithm{
                 "Error, no se pudo exportar los latidos",
                 "Error", JOptionPane.ERROR_MESSAGE);
     }
+//
+//    private void errorMensaje() throws HeadlessException {
+//        JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
+//                "Error, no pudo generar los RR ?Se han detectado los latidos previamente?",
+//                "Error", JOptionPane.ERROR_MESSAGE);
+//    }
 
-    private void errorMensaje() throws HeadlessException {
-        JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
-                "Error, no pudo generar los RR ?Se han detectado los latidos previamente?",
-                "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    
-    
-    
+
+
 }
