@@ -4,12 +4,10 @@ import com.sequencing.GUI.Configure;
 import com.uspceu.SimpleAlgorithm;
 import java.awt.Color;
 import static java.awt.Color.blue;
-import static java.awt.Color.red;
 import java.util.ArrayList;
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.SignalManager;
-import net.javahispano.jsignalwb.plugins.defaults.DefaultInstantAnnotation;
 import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalAnnotation;
 import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
 import net.javahispano.jsignalwb.utilities.TimePositionConverter;
@@ -310,7 +308,7 @@ public class Sequencing extends SimpleAlgorithm {
         for (int j = 0; j < finalSequence.size(); j++) {
             System.out.print(finalSequence.get(j));
         }
-        
+
         int dummies = 0;
         // DELETE DUMMY PEAKS
         for (int i = 0; i < finalSequence.size(); i++){
@@ -327,7 +325,7 @@ public class Sequencing extends SimpleAlgorithm {
         for (int j = 0; j < finalCleanSequence.size(); j++) {
             System.out.print(finalCleanSequence.get(j));
         }
-        
+
 
         int k = 0;
         // ADD ANNOTATIONS
@@ -370,7 +368,7 @@ public class Sequencing extends SimpleAlgorithm {
         float[] data = signalManager.getSignal(name).getValues();
 
         int maxPosition = 0; // POSITION OF THE PEAK
-        float maxValue = 0; // HIGHEST VALUE OF THE PEAK
+        //float maxValue = 0; // HIGHEST VALUE OF THE PEAK
         boolean aux = false; // AUXILLIARY VARIABLE
         float[] dataClean = new float[data.length]; // CLEAN SIGNAL
         float[] derivative = new float[dataClean.length]; // DERIVATIVE OF THE SIGNAL
@@ -399,7 +397,7 @@ public class Sequencing extends SimpleAlgorithm {
         for (int i = 0; i < derivative.length; i++) {
             aux = false;
             while (derivative[i] > 0) {
-                maxValue = data[i];
+                //maxValue = data[i];
                 maxPosition = i;
                 aux = true;
 
@@ -451,7 +449,7 @@ public class Sequencing extends SimpleAlgorithm {
 
     public void launchConfigureGUI(JSWBManager jswbManager) {
         Configure c = new Configure();
-        c.show();
+        c.setVisible(true);//c.show(); // TODO funciona así? @vanesa
     }
 
     public String getName() {

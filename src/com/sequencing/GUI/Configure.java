@@ -1,16 +1,16 @@
 package com.sequencing.GUI;
 
-
-
-
 import com.sequencing.Sequencing;
 import java.awt.Color;
 import static java.lang.Boolean.FALSE;
-import javax.swing.JColorChooser;
 import net.javahispano.jsignalwb.JSWBManager;
 
 public class Configure extends javax.swing.JDialog {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4451763633903213420L;
     /**
      * Creates new form Configure
      */
@@ -22,8 +22,6 @@ public class Configure extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -128,10 +126,10 @@ public class Configure extends javax.swing.JDialog {
 
     private void modifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyButtonActionPerformed
         Sequencing.setHEIGHT(Integer.parseInt(heightText.getText()));
-        
+
         Color colour = colourPanel.getBackground();
         Sequencing.setCOLOUR(colour);
-        
+
         this.setVisible(FALSE);
     }//GEN-LAST:event_modifyButtonActionPerformed
 
@@ -140,19 +138,19 @@ public class Configure extends javax.swing.JDialog {
     }//GEN-LAST:event_chooseButtonActionPerformed
 
     private void colourWindowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colourWindowMouseClicked
-        
+
     }//GEN-LAST:event_colourWindowMouseClicked
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         colourPanel.setBackground(colourWindow.getColor());
         colourDialog.update(null);
-        
+
         this.colourDialog.setVisible(FALSE);
     }//GEN-LAST:event_confirmButtonActionPerformed
 
-   
+
     public static void main(String args[]) {
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Configure().setVisible(true);
