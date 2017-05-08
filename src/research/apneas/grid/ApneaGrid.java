@@ -25,7 +25,7 @@ import research.apneas.ReduccionFlujo;
  */
 public class ApneaGrid extends GridPluginAdapter {
     private float[] valorBasal;
-    private float[] delta;
+//    private float[] delta;
     private final int pasoX = 20;
     private final int pasoX_1 = pasoX - 1;
     private DefaultGrid defaultGrid = new DefaultGrid();
@@ -47,7 +47,7 @@ public class ApneaGrid extends GridPluginAdapter {
 
     public ApneaGrid() {
         valorBasal = ReduccionFlujo.getValorBasal();
-        delta = ReduccionFlujo.getDelta();
+//        delta = ReduccionFlujo.getDelta();
     }
 
     public void setSignal(Signal s) {

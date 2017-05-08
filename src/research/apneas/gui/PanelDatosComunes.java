@@ -9,8 +9,6 @@ package research.apneas.gui;
 import java.beans.*;
 import java.util.Date;
 
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle;
 
 import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
 import org.joda.time.DateTime;
@@ -24,11 +22,11 @@ public class PanelDatosComunes extends javax.swing.JPanel implements PropertyCha
 
 
     private LimitacionFlujo dim;
-    private long principio, fin;
+//    private long principio, fin;
     private float duracion;
-    private boolean usarEnEstadisticas;
-    private byte posibilidad;
-    private String evento;
+//    private boolean usarEnEstadisticas;
+//    private byte posibilidad;
+//    private String evento;
 
     /** Creates new form PanelDatosComunes */
     public PanelDatosComunes(LimitacionFlujo dim) {

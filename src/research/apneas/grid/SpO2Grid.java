@@ -27,7 +27,7 @@ public class SpO2Grid extends GridPluginAdapter {
 
     private static float[] valorBasal;
     private final int pasoX = 5;
-    private final int pasoX_1 = pasoX - 1;
+//    private final int pasoX_1 = pasoX - 1;
     private DefaultGrid defaultGrid = new DefaultGrid();
     private TrapezoidalDistribution dropSpO2 =
             new TrapezoidalDistribution(3, 30, 100, 100);

@@ -1,7 +1,6 @@
 package research.apneas.gui;
 
 import java.awt.*;
-import java.awt.geom.RoundRectangle2D;
 
 import net.javahispano.jsignalwb.jsignalmonitor.marks.MarkPaintInfo;
 import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
