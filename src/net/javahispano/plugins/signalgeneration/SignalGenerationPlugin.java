@@ -8,7 +8,6 @@ import javax.swing.ImageIcon;
 
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.plugins.GenericPluginAdapter;
-import net.javahispano.jsignalwb.plugins.Plugin;
 import net.javahispano.plugins.temporalseries.TemporalSeries;
 
 public class SignalGenerationPlugin extends GenericPluginAdapter {
@@ -24,10 +23,10 @@ public class SignalGenerationPlugin extends GenericPluginAdapter {
     public void launch(JSWBManager jswbManager) {
         //antes de lanzar la interfaz gr\u2663fica debemos asegurarnos que
         //todas las senhales son series temporales
-        TemporalSeries.convertSignalsToTemporalSeries(jswbManager.getSignalManager());
+        TemporalSeries.convertSignalsToTemporalSeries(JSWBManager.getSignalManager());
         SignalGeneration d = new SignalGeneration();
         d.setSize(680, 420);
-        d.setLocationRelativeTo(jswbManager.getParentWindow());
+        d.setLocationRelativeTo(JSWBManager.getParentWindow());
         d.setVisible(true);
     }
 

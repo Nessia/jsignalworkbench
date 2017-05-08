@@ -50,8 +50,8 @@ public class AllStatisticsDialog extends JDialog {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Collection coleccion = statisticsPlugin.getStatisticsCollection();
-        Iterator it = coleccion.iterator();
+        Collection<ResultadosEstadisticos> coleccion = statisticsPlugin.getStatisticsCollection();
+        Iterator<ResultadosEstadisticos> it = coleccion.iterator();
         while (it.hasNext()) {
             ResultadosEstadisticos resultado_estdaitico = (
                     ResultadosEstadisticos) it.next();

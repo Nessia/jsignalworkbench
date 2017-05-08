@@ -25,7 +25,7 @@ public class ResultadosEstadisticos implements Serializable {
     private float mediaAritmetica, mediana, varianza, desviacionTipica,
     errorEstandar, cocienteVariacion;
     private float[] intervaloConfianza = new float[2];
-    private HashMap percentiles = new HashMap();
+    private HashMap<String,String> percentiles = new HashMap<String,String>();
     private String comentario, fechaInicio, fechaFin, nombreSenhal;
     private boolean tienePercentiles = true;
 
@@ -72,7 +72,7 @@ public class ResultadosEstadisticos implements Serializable {
                         percentiles.length + " != " +
                         valores_percentiles.length, 0);
             }
-            this.percentiles = new HashMap();
+            this.percentiles = new HashMap<String,String>();
             for (int i = 0; i < percentiles.length; i++) {
                 this.percentiles.put(Integer.toString(percentiles[i]),
                                      Float.toString(valores_percentiles[i]));
@@ -114,40 +114,40 @@ public class ResultadosEstadisticos implements Serializable {
         return Arrays.copyOf(intervaloConfianza, intervaloConfianza.length);
     }
 
-    public HashMap getPercentiles() {
+    public HashMap<String,String> getPercentiles() {
         return percentiles;
     }
 
-    protected void setMediaAritmetica(float _media_aritmetica) {
-        mediaAritmetica = _media_aritmetica;
+    protected void setMediaAritmetica(float mediaAritmetica) {
+        this.mediaAritmetica = mediaAritmetica;
     }
 
-    protected void setMediana(float _mediana) {
-        mediana = _mediana;
+    protected void setMediana(float mediana) {
+        this.mediana = mediana;
     }
 
-    protected void setVarianza(float _varianza) {
-        varianza = _varianza;
+    protected void setVarianza(float varianza) {
+        this.varianza = varianza;
     }
 
-    protected void setDesviacion_tipica(float _desviacion_tipica) {
-        desviacionTipica = _desviacion_tipica;
+    protected void setDesviacion_tipica(float desviacionTipica) {
+        this.desviacionTipica = desviacionTipica;
     }
 
-    protected void setErrorEstandar(float _error_estandar) {
-        errorEstandar = _error_estandar;
+    protected void setErrorEstandar(float errorEstandar) {
+        this.errorEstandar = errorEstandar;
     }
 
-    protected void setCocienteDeVariacion(float _cociente_de_variacion) {
-        cocienteVariacion = _cociente_de_variacion;
+    protected void setCocienteDeVariacion(float cocienteVariacion) {
+        this.cocienteVariacion = cocienteVariacion;
     }
 
-    protected void setIntervaloDeConfianza(float[] _intervalo_de_confianza) {
-        intervaloConfianza = _intervalo_de_confianza;
+    protected void setIntervaloDeConfianza(float[] intervaloConfianza) {
+        this.intervaloConfianza = intervaloConfianza;
     }
 
-    protected void setPercentiles(HashMap _percentiles) {
-        percentiles = _percentiles;
+    protected void setPercentiles(HashMap<String,String> percentiles) {
+        this.percentiles = percentiles;
     }
 
     protected void setPercentil(int percentil, float valor) throws
@@ -182,28 +182,28 @@ public class ResultadosEstadisticos implements Serializable {
         return nombreSenhal;
     }
 
-    protected void setFechaInicio(String _fecha_inicio) {
-        fechaInicio = _fecha_inicio;
+    protected void setFechaInicio(String fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
-    protected void setFechaFin(String _fecha_fin) {
-        fechaFin = _fecha_fin;
+    protected void setFechaFin(String fechaFin) {
+        this.fechaFin = fechaFin;
     }
 
     /**
      * Permite modificar el nombnre de este estdistico.
      * @param _nombre_senhal
      */
-    public void setNombreSenhal(String _nombre_senhal) {
-        nombreSenhal = _nombre_senhal;
+    public void setNombreSenhal(String nombreSenhal) {
+        this.nombreSenhal = nombreSenhal;
     }
 
     /**
      * Permite modificar el comentario de este Estadistico.
      * @param _comentario
      */
-    public void setComentario(String _comentario) {
-        comentario = _comentario;
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
     /**

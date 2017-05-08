@@ -143,7 +143,7 @@ public class DialogMobileMeanPlugin extends JDialog {
 
     public static void main(String[] args) {
         DialogMobileMeanPlugin configura = new DialogMobileMeanPlugin();
-        configura.show();
+        configura.setVisible(true);//instead of show
         configura.repaint();
     }
 

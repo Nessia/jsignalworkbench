@@ -48,8 +48,7 @@ public class SignalGeneration extends JDialog {
     }
 
     public SignalGeneration() {
-        this((JFrame) JSWBManager.getJSWBManagerInstance().getParentWindow(),
-             "SignalGeneration", false);
+        this((JFrame) JSWBManager.getParentWindow(), "SignalGeneration", false);
     }
 
     private void jbInit() throws Exception {
@@ -273,8 +272,8 @@ public class SignalGeneration extends JDialog {
 
     public void jButton2_actionPerformed(ActionEvent e) {
         double muestreo, longitud;
-        double amplitudRuido, offset, inicio, ceros;
-        long origen;
+        double amplitudRuido, offset, inicio;// ceros;
+//        long origen;
         String nombre;
 
         float datos[];
@@ -292,8 +291,7 @@ public class SignalGeneration extends JDialog {
         }
 
         nombre = tNnombre.getText();
-        SignalManager signalManager = JSWBManager.getJSWBManagerInstance().
-                                      getSignalManager();
+        SignalManager signalManager = JSWBManager.getSignalManager();
         if (nombre.equals("")) {
             mostrarError("Es necesario introducir un nombre para la senhal");
 
@@ -370,31 +368,31 @@ public class SignalGeneration extends JDialog {
         this.dispose();
     }
 
-    private long calcularPrincipio(SignalManager signalManager) {
-        long principio;
-//si vamos a borrar todas las senhales tomamos el instante actual
-        if (this.jCheckBorrar.isSelected()) {
-            signalManager.removeAllSignals();
-            principio = (new Date()).getTime();
-
-        }
-//en caso contrario el minimo de los principios de las senhales anhadidas
-        else {
-            Collection<Signal> s = signalManager.getSignals();
-            principio = Long.MAX_VALUE;
-            for (Signal elem : s) {
-                if (elem instanceof TemporalSeries) {
-                    // principio = Math.min(principio,
-                    //                    ((TemporalSeries) elem).getTimeOrigin());
-                    //todas tienen el mismo principio, no hay que buscar m\u2663s
-                    return principio;
-                }
-            }
-            principio = (new Date()).getTime();
-
-        }
-        return principio;
-    }
+//    private long calcularPrincipio(SignalManager signalManager) {
+//        long principio;
+////si vamos a borrar todas las senhales tomamos el instante actual
+//        if (this.jCheckBorrar.isSelected()) {
+//            signalManager.removeAllSignals();
+//            principio = (new Date()).getTime();
+//
+//        }
+////en caso contrario el minimo de los principios de las senhales anhadidas
+//        else {
+//            Collection<Signal> s = signalManager.getSignals();
+//            principio = Long.MAX_VALUE;
+//            for (Signal elem : s) {
+//                if (elem instanceof TemporalSeries) {
+//                    // principio = Math.min(principio,
+//                    //                    ((TemporalSeries) elem).getTimeOrigin());
+//                    //todas tienen el mismo principio, no hay que buscar m\u2663s
+//                    return principio;
+//                }
+//            }
+//            principio = (new Date()).getTime();
+//
+//        }
+//        return principio;
+//    }
 
     private static double leerYValidarJTextFiel(JTextField textField,
                                                 String textoError) {
@@ -477,8 +475,7 @@ public class SignalGeneration extends JDialog {
     }
 
     private static void mostrarError(String mensaje) throws HeadlessException {
-        JOptionPane.showMessageDialog(JSWBManager.getJSWBManagerInstance().
-                                      getParentWindow(),
+        JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
                                       mensaje,
                                       "Error", JOptionPane.ERROR_MESSAGE);
     }

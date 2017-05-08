@@ -43,7 +43,7 @@ public class Untitled2 extends TemporalSeriesAlgorithm {
      *   method
      */
     @Override
-    public void processTemporalSeries(SignalManager sm, List signals) {
+    public void processTemporalSeries(SignalManager sm, List<TemporalSeries> signals) {
         Iterator<TemporalSeries> it = signals.iterator();
         if (signals.size() != 1) {
             System.out.println("Error en el numero de senhales seleccionadas");

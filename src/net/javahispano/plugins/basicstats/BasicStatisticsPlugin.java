@@ -160,10 +160,10 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
             return;
         }
 
-        List estadisticos = recuperaEstadisticos(doc.getRootElement());
-        Iterator it = estadisticos.iterator();
+        List<ResultadosEstadisticos> estadisticos = recuperaEstadisticos(doc.getRootElement());
+        Iterator<ResultadosEstadisticos> it = estadisticos.iterator();
         while (it.hasNext()) {
-            ResultadosEstadisticos r = (ResultadosEstadisticos) it.next();
+            ResultadosEstadisticos r = it.next();
             statisticsCollection.put(r.getKey() + "a", r);
         }
 
@@ -185,10 +185,9 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
             return root;
         }
 
-        Iterator it = statisticsCollection.values().iterator();
+        Iterator<ResultadosEstadisticos> it = statisticsCollection.values().iterator();
         while (it.hasNext()) {
-            ResultadosEstadisticos estadistico = (ResultadosEstadisticos) it.
-                                                 next();
+            ResultadosEstadisticos estadistico = it.next();
             //Sacamos la informaicion del estadistico
             float media = estadistico.getMediaAritmetica();
             float mediana = estadistico.getMediana();
@@ -200,7 +199,7 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
             float cociente_de_variacion = estadistico.getCocienteDeVariacion();
             String fecha_inicio = estadistico.getFechaInicio();
             String fecha_fin = estadistico.getFechaFin();
-            HashMap percentiles_map = estadistico.getPercentiles();
+            HashMap<String, String> percentiles_map = estadistico.getPercentiles();
             String comentario = estadistico.getComentario();
             //Creamos el elemeto estaditico y le ponemos sus atributos
             Element estadistico_xml = new Element("Estadistico");
@@ -225,8 +224,7 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
 
             //CReamos los elementos Percentil, que seran hijos del elemento estadistico
             if (percentiles_map != null) {
-                Set key_set = percentiles_map.keySet();
-                Iterator it2 = key_set.iterator();
+                Iterator<String> it2 = percentiles_map.keySet().iterator();
                 while (it2.hasNext()) {
                     String percentil_str = (String) it2.next();
                     String valor_percentil = (String) percentiles_map.get(
@@ -249,30 +247,31 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
         return root;
     }
 
-    private List recuperaEstadisticos(Element root) {
-        LinkedList resultado = new LinkedList();
-        List list_estadisticos = root.getChildren("Estadistico");
-        Iterator it = list_estadisticos.iterator();
+    private List<ResultadosEstadisticos> recuperaEstadisticos(Element root) {
+        LinkedList<ResultadosEstadisticos> resultado = new LinkedList<ResultadosEstadisticos>();
+        @SuppressWarnings("unchecked")
+        Iterator<Element> it = root.getChildren("Estadistico").iterator();
         while (it.hasNext()) {
             try {
-                Element estadistico_xml = (Element) it.next();
-                float media = estadistico_xml.getAttribute("Media").getFloatValue();
-                float mediana = estadistico_xml.getAttribute("Mediana").getFloatValue();
-                float varianza = estadistico_xml.getAttribute("Varianza").getFloatValue();
-                float desviacion_tipica = estadistico_xml.getAttribute("DesviacionTipica").getFloatValue();
-                float error_estandar = estadistico_xml.getAttribute("ErrorEstandar").getFloatValue();
-                float cociente_de_variacion = estadistico_xml.getAttribute("CocienteDeVariacion").getFloatValue();
-                String fecha_inicio = estadistico_xml.getAttribute("FechaInicio").getValue();
-                String fecha_fin = estadistico_xml.getAttribute("FechaFin").getValue();
-                String nombre = estadistico_xml.getAttribute("Nombre").getValue();
+                Element estadisticoXml = it.next();
+                float media = estadisticoXml.getAttribute("Media").getFloatValue();
+                float mediana = estadisticoXml.getAttribute("Mediana").getFloatValue();
+                float varianza = estadisticoXml.getAttribute("Varianza").getFloatValue();
+                float desviacion_tipica = estadisticoXml.getAttribute("DesviacionTipica").getFloatValue();
+                float error_estandar = estadisticoXml.getAttribute("ErrorEstandar").getFloatValue();
+                float cociente_de_variacion = estadisticoXml.getAttribute("CocienteDeVariacion").getFloatValue();
+                String fecha_inicio = estadisticoXml.getAttribute("FechaInicio").getValue();
+                String fecha_fin = estadisticoXml.getAttribute("FechaFin").getValue();
+                String nombre = estadisticoXml.getAttribute("Nombre").getValue();
                 float[] intervalo_de_confianza = new float[2];
-                intervalo_de_confianza[0] = estadistico_xml.getAttribute("IntervaloDeConfianzaInicio").getFloatValue();
-                intervalo_de_confianza[1] = estadistico_xml.getAttribute("IntervaloDeConfianzaFin").getFloatValue();
-                String comentario = estadistico_xml.getChild("Comentario").getText();
+                intervalo_de_confianza[0] = estadisticoXml.getAttribute("IntervaloDeConfianzaInicio").getFloatValue();
+                intervalo_de_confianza[1] = estadisticoXml.getAttribute("IntervaloDeConfianzaFin").getFloatValue();
+                String comentario = estadisticoXml.getChild("Comentario").getText();
 
                 //Cojemos la lista de percentiles
-                List list_percentiles = estadistico_xml.getChildren("Percentiles");
-                Iterator it2 = list_percentiles.iterator();
+                @SuppressWarnings("unchecked")
+                List<Element> list_percentiles = estadisticoXml.getChildren("Percentiles");
+                Iterator<Element> it2 = list_percentiles.iterator();
                 int num_percentiles = list_percentiles.size();
                 int[] percentiles_float = new int[num_percentiles];
                 float[] valores_percentiles = new float[num_percentiles];
@@ -318,14 +317,16 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
         }
         return false;
     }
+
+    @Override
     public void launchResultsGUI(JSWBManager jswbManager) {
         NewStatisticsDialog d = new NewStatisticsDialog(this,
-                statistics.getResultados(), jswbManager.getParentWindow(), true);
+                statistics.getResultados(), JSWBManager.getParentWindow(), true);
         d.setVisible(true);
     }
 
     public List<ResultadosEstadisticos> getStatisticsCollection() {
-        List resultado = new ArrayList(this.statisticsCollection.values());
+        List<ResultadosEstadisticos> resultado = new ArrayList<ResultadosEstadisticos>(this.statisticsCollection.values());
         return resultado;
     }
 

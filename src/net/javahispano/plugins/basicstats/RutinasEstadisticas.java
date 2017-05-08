@@ -38,7 +38,7 @@ public class RutinasEstadisticas {
      */
     public final static float[] calculaMediana(float[] datos, int[] percentiles) {
         percentiles = (int[]) percentiles.clone();
-        TreeSet num_ordenados = new TreeSet();
+        TreeSet<Float> num_ordenados = new TreeSet<Float>();
         float mediana = 0;
         percentiles = ordenaPercentiles(percentiles);
 
@@ -64,7 +64,7 @@ public class RutinasEstadisticas {
 
         int cuantos_van = 0;
         int num_datos = datos.length;
-        Iterator it = num_ordenados.iterator();
+        Iterator<Float> it = num_ordenados.iterator();
         boolean numero_datos_par;
         int mitad_de_los_datos;
         //Miro si el numero de datos es par

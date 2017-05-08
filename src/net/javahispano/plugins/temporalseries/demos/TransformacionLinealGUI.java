@@ -6,8 +6,6 @@
 
 package net.javahispano.plugins.temporalseries.demos;
 
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle;
 
 import net.javahispano.jsignalwb.JSWBManager;
 
@@ -27,7 +25,7 @@ public class TransformacionLinealGUI extends javax.swing.JDialog {
     public TransformacionLinealGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.setLocationRelativeTo(JSWBManager.getJSWBManagerInstance().getParentWindow());
+        this.setLocationRelativeTo(JSWBManager.getParentWindow());
     }
 
     /** This method is called from within the constructor to

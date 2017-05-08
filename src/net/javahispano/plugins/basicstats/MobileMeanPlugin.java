@@ -7,9 +7,10 @@ import javax.swing.JFrame;
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
+
 import javax.swing.Icon;
+
 import java.awt.Color;
-import net.javahispano.jsignalwb.plugins.Plugin;
 
 /**
  * <p>Title: </p>
@@ -67,7 +68,7 @@ public class MobileMeanPlugin extends AlgorithmAdapter {
     }
 
     int deslizamientoParaCadaMediana = 500;
-    boolean resample = false;
+    boolean resample = false; // TODO está a true en el otro codigo @vanesa
     int ventanaResampleEnSegundos = 300;
 
     private Signal generateSmoothSignal(SignalManager sm, Signal signal) {
@@ -183,7 +184,7 @@ public class MobileMeanPlugin extends AlgorithmAdapter {
 
     @Override
     public void launchConfigureGUI(JSWBManager jswbManager) {
-        DialogMobileMeanPlugin c = new DialogMobileMeanPlugin((JFrame) jswbManager.getParentWindow(), "Mobile Mean", true,
+        DialogMobileMeanPlugin c = new DialogMobileMeanPlugin((JFrame) JSWBManager.getParentWindow(), "Mobile Mean", true,
                 window);
         c.setRellenar(this.eliminarHuecos);
         c.setValorRelleno(this.valorHuecos);

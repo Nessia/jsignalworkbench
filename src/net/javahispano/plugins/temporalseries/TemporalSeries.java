@@ -1,7 +1,7 @@
 package net.javahispano.plugins.temporalseries;
 
+import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -13,7 +13,14 @@ import net.javahispano.jsignalwb.plugins.defaults.AxesGridPlugin;
  * utilidad para el procesado de series temporales.
  */
 public class TemporalSeries extends Signal {
-    private static final long startAllSeries = (new Date(2008 - 1900, 1, 1)).getTime();
+    private static final long startAllSeries;
+    static {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2008 - 1900); //TODO corregir
+        cal.set(Calendar.MONTH, 1);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        startAllSeries = cal.getTime().getTime();
+    }
 
     private int offset = 0;
 
@@ -181,9 +188,7 @@ public class TemporalSeries extends Signal {
                     convertSignalsToTemporalSeries(sm, signal);
                     continue;
                 }
-                JOptionPane.showMessageDialog(JSWBManager.
-                                              getJSWBManagerInstance().
-                                              getParentWindow(),
+                JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
                                               "Alguna de las senhales del entorno no es una serie temporal",
                                               "Error",
                                               JOptionPane.ERROR_MESSAGE);

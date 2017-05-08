@@ -58,9 +58,7 @@ public abstract class TemporalSeriesAlgorithm extends AlgorithmAdapter {
                     //se acaba el trabajo
                     continue;
                 }
-                JOptionPane.showMessageDialog(JSWBManager.
-                                              getJSWBManagerInstance().
-                                              getParentWindow(),
+                JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
                                               "Alguna de las senhales seleccionadas no es una serie temporal",
                                               "Error",
                                               JOptionPane.ERROR_MESSAGE);

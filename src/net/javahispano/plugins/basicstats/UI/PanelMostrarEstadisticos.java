@@ -2,6 +2,7 @@ package net.javahispano.plugins.basicstats.UI;
 
 import java.awt.*;
 import java.util.*;
+import java.util.Map.Entry;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -126,14 +127,13 @@ public class PanelMostrarEstadisticos extends JPanel {
         tmp[1] = resultados_estadisticos.getIntervaloDeConfianza()[1];
         this.setIntervaloDeConfianza(tmp);
         if (resultados_estadisticos.getPercentiles() != null) {
-            HashMap percentiles_has_map = resultados_estadisticos.
-                                          getPercentiles();
-            Set percentiles_set = percentiles_has_map.entrySet();
-            Iterator it = percentiles_set.iterator();
+            HashMap<String,String> percentiles_has_map = resultados_estadisticos.getPercentiles();
+            Set<Entry<String, String>> percentiles_set = percentiles_has_map.entrySet();
+            Iterator<Entry<String, String>> it = percentiles_set.iterator();
             int num_percentiles = 0;
             //Ponemos todos los percentiles
             while (it.hasNext()) {
-                Map.Entry percentil_map_entry = ((Map.Entry) (it.next()));
+                Map.Entry<String, String> percentil_map_entry = it.next();
                 Object percentil = percentil_map_entry.getKey();
                 Object percentil_valor = percentil_map_entry.getValue();
                 percentil_valor = MyFloat.formateaNumero((String)
