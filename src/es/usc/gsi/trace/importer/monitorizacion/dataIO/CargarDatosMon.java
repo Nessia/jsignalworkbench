@@ -21,10 +21,9 @@ public class CargarDatosMon extends CargarDatos {
     }
 
     private void cargaDatos() {
-
+        ObjectInputStream in = null;
         try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(
-                    archivo));
+            in = new ObjectInputStream(new FileInputStream(archivo));
             almacen = (AlmacenDatos) in.readObject();
             almacen.inicializaPartesNoSerializadas();
             float[][] tmp = (float[][]) almacen.getDatos();
@@ -38,6 +37,12 @@ public class CargarDatosMon extends CargarDatos {
         } catch (Exception e) {
             e.printStackTrace();
             almacen = null;
+        } finally {
+            if(in != null){
+                try {
+                    in.close();
+                } catch (Exception e) {}
+            }
         }
 
     }
