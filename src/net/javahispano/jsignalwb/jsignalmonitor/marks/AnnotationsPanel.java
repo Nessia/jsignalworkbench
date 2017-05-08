@@ -53,7 +53,7 @@ public class AnnotationsPanel extends JPanel {
     }
 
     private void annotationsMouseClicked(MouseEvent evt) {
-        if (evt.getButton() == evt.BUTTON1) {
+        if (evt.getButton() == MouseEvent.BUTTON1) {
             boolean existentAnnotation = false;
             Iterator<Rectangle> it = annotations.values().iterator();
             while (it.hasNext()) {

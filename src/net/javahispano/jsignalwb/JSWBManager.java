@@ -98,7 +98,7 @@ public class JSWBManager implements JSignalMonitorDataSource,
         signalManager = new SignalManager(jSignalMonitor);
         signalManager.addListener(this);
         pluginManager = new PluginManager();
-        iOManager = new IOManager(this);
+        iOManager = new IOManager();
         //jswbFrameMode=false;
         parentWindow = null;
         jToolBarItems = null;

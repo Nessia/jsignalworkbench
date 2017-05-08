@@ -8,8 +8,8 @@ package net.javahispano.jsignalwb.jsignalmonitor;
 
 import java.awt.Color;
 
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle;
+import javax.swing.DefaultComboBoxModel;
+
 
 /**
  *
@@ -44,7 +44,7 @@ public class MoveScrollPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         jButton2 = new javax.swing.JButton();
         infoLabel = new javax.swing.JLabel();
         okButton = new javax.swing.JButton();
@@ -90,7 +90,7 @@ public class MoveScrollPanel extends javax.swing.JPanel {
         });
 
         jTextField1.setText("0");
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"h", "m", "s", "ms"}));
+        jComboBox1.setModel(new DefaultComboBoxModel<String>(new String[] {"h", "m", "s", "ms"}));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -298,7 +298,7 @@ public class MoveScrollPanel extends javax.swing.JPanel {
     private javax.swing.JLabel infoLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton okButton;

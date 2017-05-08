@@ -4,12 +4,12 @@ import java.awt.Color;
 import java.beans.XMLDecoder;
 import java.io.*;
 import java.util.*;
-import java.util.List;
 
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.framework.ExceptionsCollector;
 import net.javahispano.jsignalwb.plugins.*;
 import net.javahispano.jsignalwb.plugins.framework.PluginManager;
+
 import org.jdom.*;
 import org.jdom.input.SAXBuilder;
 
@@ -39,14 +39,17 @@ public class DefaultLoader extends LoaderAdapter {
         scrollValue = -1;
     }
 
+    @Override
     public String getName() {
         return "defaultLoader";
     }
 
+    @Override
     public String getShortDescription() {
         return "Proyectos JSignalWorkBench";
     }
 
+    @Override
     public String getDescription() {
         return "Loader destinado a cargar todos aquellos proyectos que hayan sido " +
                 "guardados previamente mediante el plugin por defecto.\nCargara carpetas " +
@@ -72,6 +75,7 @@ public class DefaultLoader extends LoaderAdapter {
      * @return true si la carga se realiza correctamente, fase en caso
      *   contrario.
      */
+    @Override
     public boolean load(File file) throws Exception {
         //PluginManager pm=jswbManager.getPluginManager();
         SignalManager sm = JSWBManager.getSignalManager();
@@ -123,7 +127,7 @@ public class DefaultLoader extends LoaderAdapter {
         }
     }
 
-
+    @Override
     public ArrayList<String> getAvalaibleExtensions() {
         return extensions;
     }
@@ -147,7 +151,8 @@ public class DefaultLoader extends LoaderAdapter {
      * @throws Exception
      * @return archivo que contiene los datos.
      */
-    protected File loadXml(File f, ArrayList<Signal> signals) throws Exception {
+   @SuppressWarnings("unchecked")
+   protected File loadXml(File f, ArrayList<Signal> signals) throws Exception {
         try {
             ExceptionsCollector ec = new ExceptionsCollector(JSWBManager.getParentWindow());
             PluginManager pm = JSWBManager.getPluginManager();
@@ -156,9 +161,9 @@ public class DefaultLoader extends LoaderAdapter {
             Element root = doc.getRootElement();
 
             File fileValues = new File(f.getParent() + "/" + root.getAttribute("path").getValue());
-            List signalsXML = root.getChildren("Signal");
+            List<Element> signalsXML = (List<Element>) root.getChildren("Signal");
 
-            Iterator i = signalsXML.iterator();
+            Iterator<Element> i = signalsXML.iterator();
             while (i.hasNext()) {
                 Element signal = (Element) i.next();
                 Signal s;
@@ -209,8 +214,7 @@ public class DefaultLoader extends LoaderAdapter {
                     }
                 }
 
-                Iterator propertiesList = signal.getChildren("ChannelProperties").
-                                          iterator();
+                Iterator<Element> propertiesList = ((List<Element>) signal.getChildren("ChannelProperties")).iterator();
                 Element properties;
                 if (propertiesList.hasNext()) {
                     properties = (Element) propertiesList.next();
@@ -231,8 +235,7 @@ public class DefaultLoader extends LoaderAdapter {
                     float max = Float.valueOf(properties.getAttribute("MaxValue").getValue());
                     s.getProperties().setVisibleRange(min, max);
                 }
-                Iterator marksList = signal.getChildren("Mark").
-                                     iterator();
+                Iterator<Element> marksList = ((List<Element>)signal.getChildren("Mark")).iterator();
                 Element mark;
                 while (marksList.hasNext()) {
                     mark = (Element) marksList.next();
@@ -258,8 +261,7 @@ public class DefaultLoader extends LoaderAdapter {
                         ec.addException(new Exception("The mark plugin " + pluginName + " is not registered"));
                     }
                 }
-                Iterator propertyList = signal.getChildren("Property").
-                                        iterator();
+                Iterator<Element> propertyList = ((List<Element>) signal.getChildren("Property")).iterator();
                 Element property;
                 while (propertyList.hasNext()) {
                     property = (Element) propertyList.next();
@@ -275,11 +277,10 @@ public class DefaultLoader extends LoaderAdapter {
             }
             Element annotations = root.getChild("Annotations");
             if (annotations != null) {
-                Iterator annotationsList = annotations.getChildren("Annotation").
-                                           iterator();
+                Iterator<Element> annotationsList = ((List<Element>) annotations.getChildren("Annotation")).iterator();
                 Element annotation;
                 while (annotationsList.hasNext()) {
-                    annotation = (Element) annotationsList.next();
+                    annotation = annotationsList.next();
                     String pluginName = annotation.getAttribute("Name").getValue();
                     if (pm.isPluginRegistered("annotation", pluginName)) {
                         AnnotationPlugin mp = pm.createAnnotationPlugin(pluginName);
@@ -304,9 +305,9 @@ public class DefaultLoader extends LoaderAdapter {
                     }
                 }
             }
-            Iterator jsmList = root.getChildren("JSignalMonitor").iterator();
+            Iterator<Element> jsmList = ((List<Element>) root.getChildren("JSignalMonitor")).iterator();
             if (jsmList.hasNext()) {
-                Element jsm = (Element) jsmList.next();
+                Element jsm = jsmList.next();
                 frecuency = Float.valueOf(jsm.getAttribute("Frecuency").getValue());
                 scrollValue = Long.valueOf(jsm.getAttribute("ScrollPosition").getValue());
 //                leftPanelConfig=jsm.getAttribute("LeftPanelConfig").getValue();
@@ -316,9 +317,9 @@ public class DefaultLoader extends LoaderAdapter {
                 //JSWBManager.getJSWBManagerInstance().getJSM().repaintAll();
             }
 
-            Iterator plugins = root.getChildren("Plugin").iterator();
+            Iterator<Element> plugins = ((List<Element>) root.getChildren("Plugin")).iterator();
             while (plugins.hasNext()) {
-                Element plugin = (Element) plugins.next();
+                Element plugin = plugins.next();
                 String pluginKey = plugin.getAttribute("Key").getValue();
                 if (pm.isPluginRegistered(pluginKey)) {
                     Plugin p = pm.getPlugin(pluginKey);

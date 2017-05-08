@@ -11,11 +11,9 @@ package net.javahispano.jsignalwb.io;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.StringTokenizer;
-import net.javahispano.jsignalwb.Signal;
-import net.javahispano.jsignalwb.SignalManager;
 
+import net.javahispano.jsignalwb.SignalManager;
 import net.javahispano.jsignalwb.plugins.LoaderAdapter;
 
 /**

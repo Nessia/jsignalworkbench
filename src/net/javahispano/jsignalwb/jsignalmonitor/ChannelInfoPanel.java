@@ -27,13 +27,6 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
      */
     private static final long serialVersionUID = 3148375794925039069L;
 
-    public ChannelInfoPanel() {
-        try {
-            jbInit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
     private Channel channel;
     private JSignalMonitorPanel jsmp;
@@ -50,10 +43,20 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
     private ImageIcon icon, iconH;
     private JPanel p = new JPanel();
     private Font font;
-    private JList jList1 = new JList();
+    //private JList jList1 = new JList();
     private JPanel jPanel1 = new JPanel();
     private BorderLayout borderLayout1 = new BorderLayout();
+
     /** Creates a new instance of ChannelInfoPanel */
+
+     public ChannelInfoPanel() {
+      try {
+          jbInit();
+      } catch (Exception ex) {
+          ex.printStackTrace();
+      }
+   }
+
     public ChannelInfoPanel(Channel channel, JSignalMonitorPanel jsmp) {
         this.channel = channel;
         this.jsmp = jsmp;
@@ -61,8 +64,8 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
         try {
             this.jbInit();
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
         //setPointVisible(true);
     }
 
@@ -330,7 +333,7 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
 
     private void desplazaSignal(boolean arriba) throws SignalNotFoundException {
         String signalName = channel.getChannelProperties().getName();
-        SignalManager signalManager = JSWBManager.getJSWBManagerInstance().getSignalManager();
+        SignalManager signalManager = JSWBManager.getSignalManager();
         float abscissaValue = signalManager.getAbscissaValue(signalName);
         float maxValue = signalManager.getMaxValue(signalName);
         float desplazamiento = (abscissaValue - maxValue) / 4;

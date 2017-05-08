@@ -42,7 +42,8 @@ class JSignalMonitorPanel extends JPanel implements AdjustmentListener, JSignalM
     private JSMProperties jsmProperties;
     private HashMap<String, JPanel> configPanels;
     private GridLayout gl;
-    private JScrollBar JScrollBar;
+    //private JScrollBar JScrollBar;
+
     /** Creates a new instance of JSignalMonitorScrollBar */
     public JSignalMonitorPanel(JSMProperties jsmProperties) {
         this.jsmProperties = jsmProperties;
@@ -87,7 +88,7 @@ class JSignalMonitorPanel extends JPanel implements AdjustmentListener, JSignalM
         PrintUtilities printUtilities = new PrintUtilities(this);
         printUtilities.setOrientation(orientation);
         try {
-            printUtilities.printComponent(this.channels);
+            PrintUtilities.printComponent(this.channels);
         } catch (PrinterException ex) {
             ex.printStackTrace();
             JOptionPane.showConfirmDialog(this, "Error attempting to print", "Error",
@@ -100,7 +101,7 @@ class JSignalMonitorPanel extends JPanel implements AdjustmentListener, JSignalM
         PrintUtilities printUtilities = new PrintUtilities(this);
         printUtilities.setOrientation(orientation);
         try {
-            printUtilities.printComponent(this);
+            PrintUtilities.printComponent(this);
         } catch (PrinterException ex) {
             ex.printStackTrace();
             JOptionPane.showConfirmDialog(this, "Error attempting to print", "Error", JOptionPane.ERROR_MESSAGE);

@@ -200,9 +200,9 @@ class ChannelInfoConfigPanel extends javax.swing.JPanel {
         jw.setVisible(true);
     }
 
-    private void hideJWindow() {
-        jw.dispose();
-    }
+//    private void hideJWindow() {
+//        jw.dispose();
+//    }
 
     private void checkFields() {
         arrowsCheckBox.setSelected(configuration.isArrowsVisible());

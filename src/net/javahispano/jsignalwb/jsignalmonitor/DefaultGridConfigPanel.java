@@ -366,7 +366,7 @@ public class DefaultGridConfigPanel extends javax.swing.JPanel {
     } //GEN-LAST:event_SHSpinnerStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton1ActionPerformed
-        Color c = new JColorChooser().showDialog(this, "SelectColor", grid.getColor());
+        Color c = JColorChooser.showDialog(this, "SelectColor", grid.getColor());
         if (c != null) {
             grid.setColor(c);
             jButton1.setForeground(c);

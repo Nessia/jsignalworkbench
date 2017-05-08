@@ -28,9 +28,9 @@ public class IOManager {
      * @param pm {@link PluginManager}.
      * @todo  arreglar dependencia
      */
-    public IOManager(JSWBManager jswbManager) {
-        pm = jswbManager.getPluginManager();
-        sm = jswbManager.getSignalManager();
+    public IOManager() {
+        pm = JSWBManager.getPluginManager();
+        sm = JSWBManager.getSignalManager();
     }
 
 

@@ -9,7 +9,7 @@ package net.javahispano.jsignalwb.jsignalmonitor;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
+//import java.awt.geom.Rectangle2D;
 import java.util.*;
 import java.util.Iterator;
 import java.util.List;
@@ -40,7 +40,7 @@ public class Channels extends javax.swing.JPanel {
     private Color separatorsColor;
     private Stroke separatorsStroke;
     private Line2D l2d;
-    private Rectangle2D r2d;
+    //private Rectangle2D r2d;
     private JSMProperties jsmProperties;
     private Point mousePosition;
     private Color g2dColor;
@@ -62,7 +62,7 @@ public class Channels extends javax.swing.JPanel {
         this.setBackground(getBackgroundColor());
         mousePosition = new Point();
         setL2d(new Line2D.Float());
-        setR2d(new Rectangle2D.Float());
+        //setR2d(new Rectangle2D.Float());
         this.setLayout(null);
 
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -285,7 +285,7 @@ public class Channels extends javax.swing.JPanel {
     }
 
     private void channels1Clicked(MouseEvent evt) {
-        if (evt.getButton() == evt.BUTTON1) {
+        if (evt.getButton() == MouseEvent.BUTTON1) {
             boolean existentMark = false;
             synchronized (syncElements) {
                 Map<JSignalMonitorMark, Rectangle> marks = syncElements.getMarks();
@@ -354,7 +354,7 @@ public class Channels extends javax.swing.JPanel {
         boolean flag = false;
         synchronized (syncElements) {
             Map<JSignalMonitorMark, Rectangle> marks = syncElements.getMarks();
-            Map<String, Channel> channels = syncElements.getChannels();
+            //Map<String, Channel> channels = syncElements.getChannels();
             List<String> positions = syncElements.getPositions();
             Iterator<Rectangle> it = marks.values().iterator();
             while (it.hasNext()) {
@@ -699,21 +699,21 @@ public class Channels extends javax.swing.JPanel {
     }
 
 
-    private Line2D getL2d() {
-        return l2d;
-    }
+//    private Line2D getL2d() {
+//        return l2d;
+//    }
 
     private void setL2d(Line2D l2d) {
         this.l2d = l2d;
     }
 
-    private Rectangle2D getR2d() {
-        return r2d;
-    }
+//    private Rectangle2D getR2d() {
+//        return r2d;
+//    }
 
-    private void setR2d(Rectangle2D r2d) {
-        this.r2d = r2d;
-    }
+//    private void setR2d(Rectangle2D r2d) {
+//        this.r2d = r2d;
+//    }
 
 
     /** Establece el zoom de la senhal en tanto por ciento */

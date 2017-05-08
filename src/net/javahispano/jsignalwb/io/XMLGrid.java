@@ -22,9 +22,9 @@ class XMLGrid extends Element {
 
     public XMLGrid(GridPlugin grid) {
         super("Grid");
-        String gridData = "";
+        //String gridData = "";
         if (grid.hasDataToSave()) {
-            gridData = grid.getDataToSave();
+            /*gridData = */grid.getDataToSave();
         }
         addContent(new XMLPlugin("grid:" + grid.getName(), grid));
     }

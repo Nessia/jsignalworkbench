@@ -8,8 +8,6 @@ import javax.swing.ImageIcon;
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
 import net.javahispano.jsignalwb.plugins.GenericPluginAdapter;
-import net.javahispano.jsignalwb.plugins.Plugin;
-import net.javahispano.jsignalwb.ui.texteditor.JSWTextProcessor;
 
 public class SignalOrganizerPlugin extends GenericPluginAdapter implements SignalSizeListener {
     private SignalManager signalManager = JSWBManager.getSignalManager();
@@ -47,14 +45,14 @@ public class SignalOrganizerPlugin extends GenericPluginAdapter implements Signa
     }
 
     public void signalSizeActionPerformed(SignalSizeEvent event) {
-      /*  if (event.isSignalsReset()) {
+        if (event.isSignalsReset()) {
             return;
         }
        if (event.isSignalAdded()) {
             System.out.println("Anhadiendo senhal con nombre: " + event.getSignal().getName());
         } else {
             System.out.println("Eliminando senhal con nombre: " + event.getSignal().getName());
-        }*/
+        }
 
     }
 
