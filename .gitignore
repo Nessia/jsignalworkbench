@@ -1,5 +1,3 @@
-/trunk/build/
-
 .classpath
 
 # Netbeans files and folders
@@ -8,4 +6,10 @@
 # Eclipse
 .project
 build.xml
+.settings/
 manifest.mf
+/bin/
+
+
+# Mac OS files
+.DS_Store
