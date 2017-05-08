@@ -23,7 +23,13 @@ import net.javahispano.jsignalwb.JSWBManager;
 
 public class FrameConversorMIT extends JDialog {
 
-    private PanelPrincipal conversor;
+    /**
+    *
+    */
+   private static final long serialVersionUID = -2550378812820799768L;
+
+
+   private PanelPrincipal conversor;
 
 
     private BorderLayout borderLayout1 = new BorderLayout();

@@ -19,7 +19,7 @@ public class Principal {
     }
 
     public static void main(String[] args) {
-        Principal p = new Principal();
+        new Principal();
     } // Fin main
 
 } // Fin clase Principal
