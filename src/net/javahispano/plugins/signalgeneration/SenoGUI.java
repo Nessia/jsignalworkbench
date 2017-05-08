@@ -5,6 +5,11 @@ import java.awt.*;
 import javax.swing.*;
 
 public class SenoGUI extends JPanel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8037025425590285217L;
+
     FlowLayout flowLayout1 = new FlowLayout();
     JLabel amplitudEtiqueta = new JLabel();
     JLabel jLabel1 = new JLabel();

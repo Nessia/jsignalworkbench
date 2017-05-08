@@ -10,6 +10,10 @@ package net.javahispano.plugins.basicstats;
  */
 
 public class CorrelacionException extends Exception {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5030201611028529763L;
     private int longitutud1, longitud2;
 
     public CorrelacionException(String mensaje, int longitutud1,

@@ -20,6 +20,11 @@ import javax.swing.event.ChangeListener;
  * @version 0.5
  */
 public class DialogMobileMeanPlugin extends JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 991651277729704027L;
+
     private int window;
     private int oldWindow;
     private boolean mediana = false;

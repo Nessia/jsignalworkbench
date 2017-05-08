@@ -10,6 +10,11 @@ package net.javahispano.plugins.basicstats;
  */
 
 public class MediaMovilException extends Exception {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -427355725306823580L;
+
     private int ventanaTemporal;
 
     public MediaMovilException(String mensaje, int ventanaTemporal) {

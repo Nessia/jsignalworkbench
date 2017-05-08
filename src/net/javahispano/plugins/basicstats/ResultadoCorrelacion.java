@@ -3,10 +3,22 @@ package net.javahispano.plugins.basicstats;
 import java.io.Serializable;
 
 public class ResultadoCorrelacion implements Serializable {
-    private String senal1, senal2, fechaInicio1, fechaInicio2, fechaFin1,
-    fechaFin2, comentario, nombre;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8888827963227427840L;
+
+    private String senal1;
+    private String senal2;
+    private String fechaInicio1;
+    private String fechaInicio2;
+    private String fechaFin1;
+    private String fechaFin2;
+    private String comentario;
+    private String nombre;
     private float nivelDeSignificacion;
     private int nivelDeSignificacionDiscreto;
+
     public String getSenal1() {
         return senal1;
     }

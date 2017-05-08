@@ -42,6 +42,7 @@ public class Untitled2 extends TemporalSeriesAlgorithm {
      *   net.javahispano.jsignalwb.temporalseries.TemporalSeriesAlgorithm
      *   method
      */
+    @Override
     public void processTemporalSeries(SignalManager sm, List signals) {
         Iterator<TemporalSeries> it = signals.iterator();
         if (signals.size() != 1) {

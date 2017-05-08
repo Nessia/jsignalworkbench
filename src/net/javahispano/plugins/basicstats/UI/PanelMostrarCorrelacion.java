@@ -8,6 +8,11 @@ import net.javahispano.plugins.basicstats.ResultadoCorrelacion;
 import net.javahispano.plugins.basicstats.RutinasEstadisticas;
 
 public class PanelMostrarCorrelacion extends JPanel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4628862384381244583L;
+
     private ResultadoCorrelacion correlacion;
     private JPanel jPanel1 = new JPanel();
     private BorderLayout borderLayout2 = new BorderLayout();

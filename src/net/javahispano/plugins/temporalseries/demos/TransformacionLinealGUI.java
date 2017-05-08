@@ -16,6 +16,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author  b
  */
 public class TransformacionLinealGUI extends javax.swing.JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2053024350591345377L;
+
     private int b;
     private float a;
     /** Creates new form TransformacionLinealGUI */

@@ -19,6 +19,10 @@ import net.javahispano.plugins.basicstats.ResultadosEstadisticos;
 
 public class NewStatisticsDialog extends JDialog {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8479952279015870258L;
     private static boolean quiere_ver_todos = true;
     private ResultadosEstadisticos estadistico;
     private PanelMostrarEstadisticos panelEstadicticos;

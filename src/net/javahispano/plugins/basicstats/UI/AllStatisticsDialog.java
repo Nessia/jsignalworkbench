@@ -22,6 +22,10 @@ import net.javahispano.plugins.basicstats.ResultadosEstadisticos;
 
 public class AllStatisticsDialog extends JDialog {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8492079877394370428L;
     private JPanel jPanel1 = new JPanel();
     private BorderLayout borderLayout1 = new BorderLayout();
     private JPanel jPanel3 = new JPanel();

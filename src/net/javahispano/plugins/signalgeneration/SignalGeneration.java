@@ -12,6 +12,11 @@ import net.javahispano.plugins.temporalseries.TemporalSeries;
 
 public class SignalGeneration extends JDialog {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6731700403162837718L;
+
     private java.util.List<Seno> listaSenos = new LinkedList<Seno>();
 
     private Image image = Toolkit.getDefaultToolkit().createImage(

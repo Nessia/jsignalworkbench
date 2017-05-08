@@ -181,6 +181,7 @@ public class MobileMeanPlugin extends AlgorithmAdapter {
         return true;
     }
 
+    @Override
     public void launchConfigureGUI(JSWBManager jswbManager) {
         DialogMobileMeanPlugin c = new DialogMobileMeanPlugin((JFrame) jswbManager.getParentWindow(), "Mobile Mean", true,
                 window);

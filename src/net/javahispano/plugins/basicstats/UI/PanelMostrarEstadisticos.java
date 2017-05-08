@@ -19,6 +19,11 @@ import net.javahispano.plugins.basicstats.ResultadosEstadisticos;
  */
 
 public class PanelMostrarEstadisticos extends JPanel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5354805954330260351L;
+
     private ResultadosEstadisticos resultados_estadisticos;
 
     private BorderLayout borderLayout1 = new BorderLayout();

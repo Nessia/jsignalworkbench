@@ -17,6 +17,11 @@ import java.util.HashMap;
  */
 
 public class ResultadosEstadisticos implements Serializable {
+    /**
+    *
+    */
+    private static final long serialVersionUID = 8134252750037637806L;
+
     private float mediaAritmetica, mediana, varianza, desviacionTipica,
     errorEstandar, cocienteVariacion;
     private float[] intervaloConfianza = new float[2];
