@@ -3,7 +3,12 @@ package es.usc.gsi.conversorDatosMIT.excepciones;
 
 public class FechaFinalMayorOriginalException extends Exception {
 
-    public FechaFinalMayorOriginalException() {
+    /**
+    *
+    */
+   private static final long serialVersionUID = 899902820273399709L;
+
+   public FechaFinalMayorOriginalException() {
         super("La fecha final es mayor que la original");
     }
 }

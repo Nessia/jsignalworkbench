@@ -3,7 +3,12 @@ package es.usc.gsi.conversorDatosMIT.excepciones;
 
 public class ParametroNoValidoException extends Exception {
 
-    public ParametroNoValidoException() {
+    /**
+    *
+    */
+   private static final long serialVersionUID = -1387127575791147126L;
+
+   public ParametroNoValidoException() {
         super("Parametro incorrecto");
     }
 }

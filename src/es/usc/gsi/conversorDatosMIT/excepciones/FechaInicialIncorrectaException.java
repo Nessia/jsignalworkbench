@@ -3,7 +3,12 @@ package es.usc.gsi.conversorDatosMIT.excepciones;
 
 public class FechaInicialIncorrectaException extends Exception {
 
-    public FechaInicialIncorrectaException() {
+    /**
+    *
+    */
+   private static final long serialVersionUID = 4400268190698879391L;
+
+   public FechaInicialIncorrectaException() {
         super("Fecha inicial con formato incorrecto");
     }
 }
