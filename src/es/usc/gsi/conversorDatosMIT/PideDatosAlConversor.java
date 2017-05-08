@@ -24,7 +24,7 @@ public class PideDatosAlConversor extends Thread {
     private float[][] rangos;
     private int max_numero_datos;
     private PanelPrincipal conversor;
-    private JSWBManager j;
+    //private JSWBManager j;
     public static final String error_quedarse_sin_memoria = "<html>" +
             "<body text=\"#000000\">" +
             "<p align=\"center\"><font color=\"#FF0000\" size=\"5\">Error al exportar los datos </font></p></p>" +
@@ -43,7 +43,7 @@ public class PideDatosAlConversor extends Thread {
     public PideDatosAlConversor(PanelPrincipal conversor
                                 , JSWBManager jswbManager) {
         this.conversor = conversor;
-        this.j = jswbManager;
+        //this.j = jswbManager;
     }
 
     /**
@@ -91,7 +91,7 @@ public class PideDatosAlConversor extends Thread {
             long fecha = obtenerFecha(fechaBaseConversor);
             long duracionMaxima = 0;
 
-            SignalManager s = j.getSignalManager();
+            SignalManager s = JSWBManager.getSignalManager();
             s.removeAllSignals();
             for (int i = 0; i < parametros.length; i++) {
 

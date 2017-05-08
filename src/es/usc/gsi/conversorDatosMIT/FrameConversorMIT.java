@@ -181,7 +181,7 @@ public class FrameConversorMIT extends JDialog {
 
 
     void aceptar_actionPerformed(ActionEvent e) {
-        int opcion = Integer.MIN_VALUE;
+        //int opcion = Integer.MIN_VALUE;
 
         PideDatosAlConversor pide_datos = new PideDatosAlConversor(conversor, jswbManager);
 

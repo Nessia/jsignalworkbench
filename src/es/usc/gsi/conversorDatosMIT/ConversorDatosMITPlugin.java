@@ -20,41 +20,31 @@ import net.javahispano.jsignalwb.plugins.*;
  * @version 0.5
  */
 public class ConversorDatosMITPlugin extends PluginAdapter implements GenericPlugin {
+
+
+    /*
+     * Atributos
+     */
+
     String ultimoDirectorioAbierto = null;
 
     public ConversorDatosMITPlugin() {
+       //Empty
     }
 
 
-    /**
-     * Proporciona datos de configuracion del algoritmo que deben de ser
-     * guardados por el entorno.
-     *
-     * @return cadena de caracteres con los datos que debe guardar el
-     *   entorno. Si el entorno no debe de guardar ninguna informacion sobre
-     *   el plugin el valor de retorno sera null.
-     */
+    @Override
     public String getDataToSave() {
         return ultimoDirectorioAbierto;
     }
 
-    /**
-     * Devuelve una decision textual mas amplia de la funcionalidad del
-     * plugin.
-     *
-     * @return descripcion textual larga
-     */
+    @Override
     public String getDescription() {
         return "Permite importar senhales de registros MIT-BIH. Importa nombre de senhales, frecuencias de muestreo, fecha de comienzo del registro, etc.";
     }
 
-    /**
-     * Devuelve un icono que sera empleado en varios sitios de la interfaz de
-     * usuario para representar al plugin.
-     *
-     * @return icono que representa al plugin
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
+    //@todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
+    @Override
     public Icon getIcon() {
         return new javax.swing.ImageIcon(getClass().getResource("MIT.gif"));
     }
@@ -64,6 +54,7 @@ public class ConversorDatosMITPlugin extends PluginAdapter implements GenericPlu
      *
      * @return Nombre del plugin
      */
+    @Override
     public String getName() {
         return "Conversor datos MIT-BIH";
     }
@@ -73,6 +64,7 @@ public class ConversorDatosMITPlugin extends PluginAdapter implements GenericPlu
      *
      * @return Version del plugin
      */
+    @Override
     public String getPluginVersion() {
         return "0.5";
     }
@@ -83,6 +75,7 @@ public class ConversorDatosMITPlugin extends PluginAdapter implements GenericPlu
      *
      * @return descripcion textual corta
      */
+    @Override
     public String getShortDescription() {
         return "Importa registros MIT-BIH";
     }
@@ -94,6 +87,7 @@ public class ConversorDatosMITPlugin extends PluginAdapter implements GenericPlu
      * @return ciertos y el entorno debe guardar de datos, falso en caso
      *   contrario.
      */
+    @Override
     public boolean hasDataToSave() {
         return true;
     }
@@ -104,6 +98,7 @@ public class ConversorDatosMITPlugin extends PluginAdapter implements GenericPlu
      *
      * @return devuelve cierto si tiene interfaz y falso en caso contrario
      */
+    @Override
     public boolean hasOwnConfigureGUI() {
         return false;
     }
@@ -117,13 +112,14 @@ public class ConversorDatosMITPlugin extends PluginAdapter implements GenericPlu
      * @param data datos que el plugin pidio al entorno que almacenarse en
      *   la ultima ejecucion
      */
+    @Override
     public void setSavedData(String data) {
         ultimoDirectorioAbierto = data;
     }
 
-
+    @Override
     public void launch(JSWBManager jswbManager) {
-        FrameConversorMIT f = new FrameConversorMIT(jswbManager.getParentWindow(), jswbManager);
+        FrameConversorMIT f = new FrameConversorMIT(JSWBManager.getParentWindow(), jswbManager);
         if (this.ultimoDirectorioAbierto != null) {
 
             File directorioViejo = new File(this.ultimoDirectorioAbierto);
@@ -140,6 +136,7 @@ public class ConversorDatosMITPlugin extends PluginAdapter implements GenericPlu
 
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
