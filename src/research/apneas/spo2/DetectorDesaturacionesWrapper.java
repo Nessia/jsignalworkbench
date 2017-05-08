@@ -114,8 +114,7 @@ public class DetectorDesaturacionesWrapper extends AlgorithmAdapter {
                        "Tiempo de subida: " + e.getTiempoSubida();
         m.setComentary(texto);
         m.setTitle("Episodio de desaturacion");
-        JSWBManager.getJSWBManagerInstance().getSignalManager().addSignalMark(
-                satO2.getName(), m);
+        JSWBManager.getSignalManager().addSignalMark(satO2.getName(), m);
     }
 
     public String getName() {

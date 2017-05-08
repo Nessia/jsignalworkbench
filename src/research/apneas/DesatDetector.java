@@ -105,7 +105,7 @@ public class DesatDetector {
     }
 
     private void eliminarEpisodiosConPosibilidadNula() {
-        List episodiosABorrar = new LinkedList();
+        List<Intervalo> episodiosABorrar = new LinkedList<Intervalo>();
         for (Intervalo i : episodios) {
             if (i.getPosibilidad() == 0) {
                 episodiosABorrar.add(i);
@@ -406,8 +406,7 @@ public class DesatDetector {
         m.setTipo(LimitacionAnotacion.DESATURACION);
         m.setAutomatica(true);
         m.setColor(Color.CYAN);
-        JSWBManager.getJSWBManagerInstance().getSignalManager().addSignalMark(
-                satO2.getName(), m);
+        JSWBManager.getSignalManager().addSignalMark(satO2.getName(), m);
     }
 
     /**

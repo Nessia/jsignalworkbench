@@ -248,7 +248,7 @@ public class ReduccionFlujo {
             marca.setColor(Color.YELLOW);
         }
         marca.setAutomatica(true);
-        JSWBManager.getJSWBManagerInstance().getSignalManager().addSignalMark(nombreSenal, marca);
+        JSWBManager.getSignalManager().addSignalMark(nombreSenal, marca);
     }
 
     private float[] calcularValorBasal(float[] delta, float[] indicadorIndices) {

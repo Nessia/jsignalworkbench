@@ -2,7 +2,7 @@ package research.apneas;
 
 import static java.lang.Math.*;
 
-public class Intervalo implements Comparable {
+public class Intervalo implements Comparable<Intervalo> {
     protected int principio;
     protected int fin;
     protected int posibilidad;
@@ -49,8 +49,7 @@ public class Intervalo implements Comparable {
      *   object is less than, equal to, or greater than the specified object.
      * @todo Implement this java.lang.Comparable method
      */
-    public int compareTo(Object o) {
-        Intervalo i = (Intervalo) o;
+    public int compareTo(Intervalo i) {
         if (i.getPrincipio() < principio) {
             return 1;
         } else if (i.getPrincipio() > principio) {

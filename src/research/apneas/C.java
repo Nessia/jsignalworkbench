@@ -21,29 +21,34 @@ import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalAnnotation;
  * @version 0.5
  */
 public class C {
-    private TreeSet<Intervalo> hipoapneas, apneas, desaturaciones;
-    private TreeSet<Intervalo> desaturacionesSinLigar = new TreeSet<Intervalo>(),
-    apneasSinLigar = new TreeSet<Intervalo>(), hipoapneasSinLigar = new TreeSet<Intervalo>();
-    private TreeSet<Intervalo> hipoapneasYDesaturaciones = new TreeSet<Intervalo>(),
-    apneasYDesaturaciones = new TreeSet<Intervalo>();
-
     private static Signal nasal, satO2;
-    //considerar disminuir oficialmente el principio del soporte de la relaci\u2665n temporal para tener en cuenta
+
+    private TreeSet<Intervalo> hipoapneas;
+    private TreeSet<Intervalo> apneas;
+    private TreeSet<Intervalo> desaturaciones;
+    private TreeSet<Intervalo> desaturacionesSinLigar = new TreeSet<Intervalo>();
+    private TreeSet<Intervalo> apneasSinLigar = new TreeSet<Intervalo>();
+    private TreeSet<Intervalo> hipoapneasSinLigar = new TreeSet<Intervalo>();
+    private TreeSet<Intervalo> hipoapneasYDesaturaciones = new TreeSet<Intervalo>();
+    private TreeSet<Intervalo> apneasYDesaturaciones = new TreeSet<Intervalo>();
+
+
+    //considerar disminuir oficialmente el principio del soporte de la relacion temporal para tener en cuenta
     //que a veces metemos la pata al determinar el principio de los eventos que relaciona
     private TrapezoidalDistribution relacionTemporal = new TrapezoidalDistribution(2, 10, 20, 35);
     private float porcentageCovertura = 0.8F; //@todo hacerlo configurable
 
     private SignalManager sm = JSWBManager.getSignalManager();
-    private float frecuencia;
+//    private float frecuencia;
 
     public C(TreeSet<Intervalo> hipoapneasIntervalos, TreeSet<Intervalo> apneasIntervalos,
-            TreeSet<EpisodioDesaturacion> desaturaciones, Signal nasal, Signal satO2) {
-        this.nasal = nasal;
-        this.satO2 = satO2;
-        hipoapneas = new TreeSet(hipoapneasIntervalos);
-        apneas = new TreeSet(apneasIntervalos);
-        this.desaturaciones = new TreeSet(desaturaciones);
-        this.frecuencia = nasal.getSRate();
+            TreeSet<Intervalo> desaturaciones, Signal nasal, Signal satO2) {
+        C.nasal = nasal; // TODO variables estáticas modificadas en un constructor
+        C.satO2 = satO2;
+        this.hipoapneas = new TreeSet<Intervalo>(hipoapneasIntervalos);
+        this.apneas = new TreeSet<Intervalo>(apneasIntervalos);
+        this.desaturaciones = new TreeSet<Intervalo>(desaturaciones);
+//        this.frecuencia = nasal.getSRate();
         detectar();
     }
 
@@ -125,78 +130,78 @@ public class C {
      * hacer refactoring para evitar
      * el codigo duplicado.
      */
-    private void fundirEpisodiosDesaturacionPartidos() {
-        TreeSet<Intervalo> desaturacionesSinLigarCopia = new TreeSet<Intervalo>(desaturacionesSinLigar);
-        TreeSet<Intervalo> limitacionesAsociadas = new TreeSet<Intervalo>(apneasYDesaturaciones);
-        limitacionesAsociadas.addAll(hipoapneasYDesaturaciones);
-        for (Intervalo e : limitacionesAsociadas) {
-            ApneaYDesaturacion apneaYDesaturacion = (ApneaYDesaturacion) e;
-            EpisodioDesaturacion desaturacionDeApnea = apneaYDesaturacion.getEpisodioDesaturacion();
-            EpisodioDesaturacion desaturacionSinLigar =
-                    (EpisodioDesaturacion) desaturacionesSinLigarCopia.ceiling(desaturacionDeApnea);
-            if (desaturacionSinLigar == null) {
-                break;
-            }
-            if (desaturacionDeApnea.distanciaCon(desaturacionSinLigar) < 15) {
-                if (!esRecuperacionExcesiva(desaturacionDeApnea, desaturacionSinLigar)) {
-                    desaturacionesSinLigarCopia.remove(desaturacionSinLigar);
-                    EpisodioDesaturacion nuevaDesaturacion = new EpisodioDesaturacion(
-                            desaturacionDeApnea.getIntervaloPrincipio(), desaturacionSinLigar.getIntervaloFin(),
-                            desaturacionDeApnea);
-                    DesatDetector.generarEpisodioDesaturacion(nuevaDesaturacion, Color.yellow, satO2);
-                    apneaYDesaturacion.reemplazaEpisodioDesaturacion(nuevaDesaturacion);
-                }
-            }
-        }
-        //ahora hacemos lo mismo para las desaturaciones sueltas
-        desaturacionesSinLigar = desaturacionesSinLigarCopia;
-        desaturacionesSinLigarCopia = new TreeSet<Intervalo>(desaturacionesSinLigar);
-        boolean ligado = false;
-        for (Intervalo d : desaturacionesSinLigar) {
-            //si agrupamos dos hay que saltarse el segundo de la lista porque ya est\u2193 procesado
-            if (ligado) {
-                ligado = false;
-                continue;
-            }
-            EpisodioDesaturacion desaturacionDeApnea = (EpisodioDesaturacion) d;
-            EpisodioDesaturacion desaturacionSinLigar =
-                    (EpisodioDesaturacion) desaturacionesSinLigarCopia.ceiling(
-                            desaturacionDeApnea.desplazaEnTiempo(1));
-            if (desaturacionSinLigar == null) {
-                break;
-            }
-            if (desaturacionDeApnea.distanciaCon(desaturacionSinLigar) < 15) {
-                if (!esRecuperacionExcesiva((EpisodioDesaturacion) desaturacionDeApnea, desaturacionSinLigar)) {
-                    desaturacionesSinLigarCopia.remove(desaturacionDeApnea);
-                    desaturacionesSinLigarCopia.remove(desaturacionSinLigar);
-                    EpisodioDesaturacion nuevaDesaturacion = new EpisodioDesaturacion(
-                            desaturacionDeApnea.getIntervaloPrincipio(), desaturacionSinLigar.getIntervaloFin(),
-                            desaturacionDeApnea);
-                    DesatDetector.generarEpisodioDesaturacion(nuevaDesaturacion, Color.red, satO2);
-                    ligado = true;
-                }
-            }
-        }
-        desaturacionesSinLigar = desaturacionesSinLigarCopia;
-    }
+//    private void fundirEpisodiosDesaturacionPartidos() {
+//        TreeSet<Intervalo> desaturacionesSinLigarCopia = new TreeSet<Intervalo>(desaturacionesSinLigar);
+//        TreeSet<Intervalo> limitacionesAsociadas = new TreeSet<Intervalo>(apneasYDesaturaciones);
+//        limitacionesAsociadas.addAll(hipoapneasYDesaturaciones);
+//        for (Intervalo e : limitacionesAsociadas) {
+//            ApneaYDesaturacion apneaYDesaturacion = (ApneaYDesaturacion) e;
+//            EpisodioDesaturacion desaturacionDeApnea = apneaYDesaturacion.getEpisodioDesaturacion();
+//            EpisodioDesaturacion desaturacionSinLigar =
+//                    (EpisodioDesaturacion) desaturacionesSinLigarCopia.ceiling(desaturacionDeApnea);
+//            if (desaturacionSinLigar == null) {
+//                break;
+//            }
+//            if (desaturacionDeApnea.distanciaCon(desaturacionSinLigar) < 15) {
+//                if (!esRecuperacionExcesiva(desaturacionDeApnea, desaturacionSinLigar)) {
+//                    desaturacionesSinLigarCopia.remove(desaturacionSinLigar);
+//                    EpisodioDesaturacion nuevaDesaturacion = new EpisodioDesaturacion(
+//                            desaturacionDeApnea.getIntervaloPrincipio(), desaturacionSinLigar.getIntervaloFin(),
+//                            desaturacionDeApnea);
+//                    DesatDetector.generarEpisodioDesaturacion(nuevaDesaturacion, Color.yellow, satO2);
+//                    apneaYDesaturacion.reemplazaEpisodioDesaturacion(nuevaDesaturacion);
+//                }
+//            }
+//        }
+//        //ahora hacemos lo mismo para las desaturaciones sueltas
+//        desaturacionesSinLigar = desaturacionesSinLigarCopia;
+//        desaturacionesSinLigarCopia = new TreeSet<Intervalo>(desaturacionesSinLigar);
+//        boolean ligado = false;
+//        for (Intervalo d : desaturacionesSinLigar) {
+//            //si agrupamos dos hay que saltarse el segundo de la lista porque ya est\u2193 procesado
+//            if (ligado) {
+//                ligado = false;
+//                continue;
+//            }
+//            EpisodioDesaturacion desaturacionDeApnea = (EpisodioDesaturacion) d;
+//            EpisodioDesaturacion desaturacionSinLigar =
+//                    (EpisodioDesaturacion) desaturacionesSinLigarCopia.ceiling(
+//                            desaturacionDeApnea.desplazaEnTiempo(1));
+//            if (desaturacionSinLigar == null) {
+//                break;
+//            }
+//            if (desaturacionDeApnea.distanciaCon(desaturacionSinLigar) < 15) {
+//                if (!esRecuperacionExcesiva((EpisodioDesaturacion) desaturacionDeApnea, desaturacionSinLigar)) {
+//                    desaturacionesSinLigarCopia.remove(desaturacionDeApnea);
+//                    desaturacionesSinLigarCopia.remove(desaturacionSinLigar);
+//                    EpisodioDesaturacion nuevaDesaturacion = new EpisodioDesaturacion(
+//                            desaturacionDeApnea.getIntervaloPrincipio(), desaturacionSinLigar.getIntervaloFin(),
+//                            desaturacionDeApnea);
+//                    DesatDetector.generarEpisodioDesaturacion(nuevaDesaturacion, Color.red, satO2);
+//                    ligado = true;
+//                }
+//            }
+//        }
+//        desaturacionesSinLigar = desaturacionesSinLigarCopia;
+//    }
 
-    private boolean esRecuperacionExcesiva(EpisodioDesaturacion d, Intervalo d2) {
-        float limite = 0;
-        if (d.getCaidaSatO2() < 10) {
-            limite = d.getDatos()[d.getIntervaloPrincipio().getFin()] + d.getCaidaSatO2() / 2;
-        } else if (d.getCaidaSatO2() < 20) {
-            limite = d.getDatos()[d.getIntervaloPrincipio().getFin()] + d.getCaidaSatO2() / 3;
-        } else {
-            limite = d.getDatos()[d.getIntervaloPrincipio().getFin()] + d.getCaidaSatO2() / 4;
-        }
-        limite = Math.max(85, limite);
-        for (int i = d.getFin(); i < d2.getPrincipio(); i++) {
-            if (d.getDatos()[i] > limite) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    private boolean esRecuperacionExcesiva(EpisodioDesaturacion d, Intervalo d2) {
+//        float limite = 0;
+//        if (d.getCaidaSatO2() < 10) {
+//            limite = d.getDatos()[d.getIntervaloPrincipio().getFin()] + d.getCaidaSatO2() / 2;
+//        } else if (d.getCaidaSatO2() < 20) {
+//            limite = d.getDatos()[d.getIntervaloPrincipio().getFin()] + d.getCaidaSatO2() / 3;
+//        } else {
+//            limite = d.getDatos()[d.getIntervaloPrincipio().getFin()] + d.getCaidaSatO2() / 4;
+//        }
+//        limite = Math.max(85, limite);
+//        for (int i = d.getFin(); i < d2.getPrincipio(); i++) {
+//            if (d.getDatos()[i] > limite) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     /**
      * Elimina aquellas desaturaciones que son dudosas. Ya no vamos a asociar desaturaciones con nada. El proposito de
@@ -277,9 +282,9 @@ public class C {
     private void buscaHipoapneasQueContenganUnaApnea() {
         TreeSet<Intervalo> copiaHipoapneas = new TreeSet<Intervalo>(hipoapneas);
         for (Intervalo hipoapnea : hipoapneas) {
-            Intervalo apnea;
+//            Intervalo apnea;
             //obtenemos la apnea detectada Que comience justo despues de la hipoapnea que estamos analizando
-            apnea = apneasYDesaturaciones.ceiling(hipoapnea);
+//            apnea = apneasYDesaturaciones.ceiling(hipoapnea);
             //si la apnea esta contenida
             SortedSet<Intervalo> apneasContenidas =
                     apneasYDesaturaciones.subSet(hipoapnea, hipoapnea.desplazaEnTiempo(hipoapnea.getDuracion() + 1));
@@ -307,7 +312,7 @@ public class C {
      */
     private void asociarApneasADesaturaciones() {
         //trabajamos sobre una copia de las desaturaciones porque no debemos de alterarlas
-        TreeSet<Intervalo> copiaDesaturaciones = new TreeSet(desaturaciones);
+        TreeSet<Intervalo> copiaDesaturaciones = new TreeSet<Intervalo>(desaturaciones);
         if (apneas.size() == 0 || desaturaciones.size() == 0) {
             return;
         }
@@ -414,7 +419,7 @@ public class C {
      * tener que considerar las acciones diferentes a realizar cuando se trabaja sobre apneas e hipoapneas.
      */
     private void asociarHipoapneasADesaturaciones() {
-        TreeSet<Intervalo> copiaDesaturaciones = new TreeSet(desaturaciones);
+//        TreeSet<Intervalo> copiaDesaturaciones = new TreeSet<Intervalo>(desaturaciones);
         if (hipoapneas.size() == 0 || desaturaciones.size() == 0) {
             return;
         }
@@ -606,15 +611,15 @@ public class C {
      *
      * @param hipoapneas TreeSet
      */
-    private void andirMarcas(TreeSet<Intervalo> lista, boolean apnea) {
-        for (Intervalo elem : lista) {
-            if (apnea) {
-                ReduccionFlujo.generarMarca(elem, nasal.getName(), "Hipoapnea", Color.BLACK);
-            } else {
-                DesatDetector.generarEpisodioDesaturacion((EpisodioDesaturacion) elem, Color.BLACK, this.satO2);
-            }
-        }
-    }
+//    private void andirMarcas(TreeSet<Intervalo> lista, boolean apnea) {
+//        for (Intervalo elem : lista) {
+//            if (apnea) {
+//                ReduccionFlujo.generarMarca(elem, nasal.getName(), "Hipoapnea", Color.BLACK);
+//            } else {
+//                DesatDetector.generarEpisodioDesaturacion((EpisodioDesaturacion) elem, Color.BLACK, this.satO2);
+//            }
+//        }
+//    }
 
     public void setRelacionTemporal(TrapezoidalDistribution relacionTemporal) {
         this.relacionTemporal = relacionTemporal;

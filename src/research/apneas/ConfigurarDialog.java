@@ -100,11 +100,11 @@ public class ConfigurarDialog extends JDialog {
     JLabel jLabel12 = new JLabel();
     JSlider jSlideranchoVentanaValorMedioHipoapnea = new JSlider();
     JTextField jTextFieldanchoVentanaValorMedioHipoapnea = new JTextField();
-    private int duracion;
-    private TrapezoidalDistribution restriccionFin;
-    private TrapezoidalDistribution restriccionPendiente;
-    private TrapezoidalDistribution restriccionPrincipio;
-    private TrapezoidalDistribution restriccionPersistencia;
+//    private int duracion;
+//    private TrapezoidalDistribution restriccionFin;
+//    private TrapezoidalDistribution restriccionPendiente;
+//    private TrapezoidalDistribution restriccionPrincipio;
+//    private TrapezoidalDistribution restriccionPersistencia;
     FlowLayout flowLayout1 = new FlowLayout();
     FlowLayout flowLayout2 = new FlowLayout();
     private boolean aceptar;
@@ -156,7 +156,7 @@ public class ConfigurarDialog extends JDialog {
         this.setSize(800, 550);
         this.setLocationRelativeTo(padre);
 
-        this.validate();
+        this.validate(); // TODO o this.validateTree();
     }
 
 
@@ -545,7 +545,7 @@ public class ConfigurarDialog extends JDialog {
                 new TrapezoidalDistribution(0.1F, .4F, 2F, 3F),
                 new TrapezoidalDistribution(0.1F, .4F, 2F, 3F),
                 new TrapezoidalDistribution(0.1F, .4F, 2F, 3F));
-        configura.show();
+        configura.setVisible(true); //instead of show
         configura.repaint();
     }
 
@@ -705,8 +705,8 @@ public class ConfigurarDialog extends JDialog {
     public void jTextFieldprincipioVentanaBasalFlujoHipoapnea_actionPerformed(
             ActionEvent e) {
         try {
-            int valor = Integer.parseInt(
-                    jTextFieldanchoVentanaValorMedioHipoapnea.getText());
+            //TODO no se hace nada con este valor?
+//            int valor = Integer.parseInt(jTextFieldanchoVentanaValorMedioHipoapnea.getText());
         } catch (NumberFormatException ex) {
             jTextFieldanchoVentanaValorMedioHipoapnea.requestFocus();
             jTextFieldanchoVentanaValorMedioHipoapnea.selectAll();
@@ -937,9 +937,9 @@ public class ConfigurarDialog extends JDialog {
 
     }
 
-    public void setDuracion(int duracion) {
-        this.duracion = duracion;
-    }
+//    public void setDuracion(int duracion) {
+//        this.duracion = duracion;
+//    }
 
     public void setFinVentanaBasalFlujoApnea(int finVentanaBasalFlujo) {
         jSliderfinVentanaBasalFlujoApnea.setValue(finVentanaBasalFlujo);
@@ -977,24 +977,24 @@ public class ConfigurarDialog extends JDialog {
     }
 
 
-    public void setRestriccionFin(TrapezoidalDistribution restriccionFin) {
-        this.restriccionFin = restriccionFin;
-    }
-
-    public void setRestriccionPendiente(TrapezoidalDistribution
-                                        restriccionPendiente) {
-        this.restriccionPendiente = restriccionPendiente;
-    }
-
-    public void setRestriccionPrincipio(TrapezoidalDistribution
-                                        restriccionPrincipio) {
-        this.restriccionPrincipio = restriccionPrincipio;
-    }
-
-    public void setRestriccionPersistencia(TrapezoidalDistribution
-                                           restriccionPersistencia) {
-        this.restriccionPersistencia = restriccionPersistencia;
-    }
+//    public void setRestriccionFin(TrapezoidalDistribution restriccionFin) {
+//        this.restriccionFin = restriccionFin;
+//    }
+//
+//    public void setRestriccionPendiente(TrapezoidalDistribution
+//                                        restriccionPendiente) {
+//        this.restriccionPendiente = restriccionPendiente;
+//    }
+//
+//    public void setRestriccionPrincipio(TrapezoidalDistribution
+//                                        restriccionPrincipio) {
+//        this.restriccionPrincipio = restriccionPrincipio;
+//    }
+//
+//    public void setRestriccionPersistencia(TrapezoidalDistribution
+//                                           restriccionPersistencia) {
+//        this.restriccionPersistencia = restriccionPersistencia;
+//    }
 
     public void setPersistenciaFlujo(int persistenciaFlujo) {
         sliderPersistenciaFlujo.setValor(persistenciaFlujo);

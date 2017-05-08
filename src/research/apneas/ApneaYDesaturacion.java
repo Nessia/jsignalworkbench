@@ -36,7 +36,7 @@ public class ApneaYDesaturacion extends Intervalo {
         return limitacionFlujo;
     }
 
-    public TreeSet getListaEpisodiosDesaturacion() {
+    public TreeSet<EpisodioDesaturacion> getListaEpisodiosDesaturacion() {
         return listaEpisodiosDesaturacion;
     }
 

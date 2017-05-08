@@ -23,7 +23,7 @@ public class Loggeer {
 //    private Signal senalReferencia;
 
     public Loggeer(Signal senalReferencia) {
-        sm = JSWBManager.getJSWBManagerInstance().getSignalManager();
+        sm = JSWBManager.getSignalManager();
 //        this.senalReferencia = senalReferencia;
         fechaBase = senalReferencia.getStart();
         frecuencia = senalReferencia.getSRate();

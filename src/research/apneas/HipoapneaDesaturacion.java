@@ -1,7 +1,6 @@
 package research.apneas;
 
 import java.awt.Color;
-import static java.lang.Math.*;
 import java.util.TreeSet;
 
 import net.javahispano.jsignalwb.JSWBManager;
@@ -21,7 +20,7 @@ public class HipoapneaDesaturacion extends ApneaYDesaturacion {
         super(limitacionFlujo, episodioDesaturacion, posRelacionTemporal);
     }
 
-    public TreeSet getListaApneas() {
+    public TreeSet<ApneaYDesaturacion> getListaApneas() {
         return listaApneas;
     }
 

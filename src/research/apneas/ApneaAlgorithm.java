@@ -247,7 +247,7 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
         d.setFinVentanaBasalApnea(this.finVentanaBasalFlujoApnea);
         d.setPrincipioVentanaBasalApnea(this.principioVentanaBasalFlujoApnea);
         d.setAnchoVentanaValorMedioHipoApnea(anchoVentanaValorMedioHipoApnea);
-        d.setDuracionApnea(this.duracionApnea);
+//        d.setDuracionApnea(this.duracionApnea);
         d.setDuracionHipoapnea(this.duracionHipoapnea);
         d.setPrincipioIntervaloFiltroEnerigia(this.
                                               principioIntervaloFiltroEnergia);
@@ -270,7 +270,7 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
 
     @Override
     public void launchConfigureGUI(JSWBManager jswbManager) {
-        ConfigurarDialog c = new ConfigurarDialog(jswbManager.getParentWindow(),
+        ConfigurarDialog c = new ConfigurarDialog(JSWBManager.getParentWindow(),
                                                   "configurar", pendienteNormal,
                                                   ventanaPendientesSaO2,
                                                   this.valorNormal,
@@ -429,7 +429,7 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
             if (true) {
                 return;
             }
-            StringTokenizer t = new StringTokenizer(string, "*");
+            /*StringTokenizer t = new StringTokenizer(string, "*");
             pendienteNormal = new TrapezoidalDistribution(t.nextToken());
 
             //  this.pendienteAscenso = new TrapezoidalDistribution(t.nextToken());
@@ -481,8 +481,9 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
             considerarSoloOndasNegativas = Boolean.parseBoolean(t.nextToken());
             this.ventanaCalculoDeltas = Float.parseFloat(t.nextToken());
 //la relacion temporal
-            /*  persistenciaFlujo = Integer.parseInt(t.nextToken());
-             relacionTemporal = new TrapezoidalDistribution(t.nextToken());/* */
+            //  persistenciaFlujo = Integer.parseInt(t.nextToken());
+            // relacionTemporal = new TrapezoidalDistribution(t.nextToken());
+             * */
         } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
