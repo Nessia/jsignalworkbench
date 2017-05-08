@@ -18,6 +18,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
  * @author  Compaq_Propietario
  */
 public class AxesGridPluginConfigureForm extends javax.swing.JPanel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6855596227413769996L;
+
     private String value = "1";
     private String unit = "s";
     private long time;

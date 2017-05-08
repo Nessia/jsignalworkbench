@@ -23,6 +23,10 @@ import org.joda.time.DateTime;
  */
 public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel implements PropertyChangeListener {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3659043260894141967L;
     private DefaultIntervalAnnotation dim;
     private JColorChooser jcc;
     private JWindow jw;

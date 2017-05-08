@@ -25,6 +25,10 @@ import org.joda.time.DateTime;
  * @author  Compaq_Propietario
  */
 public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements PropertyChangeListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6038183406671451579L;
     DefaultInstantMark dim;
     Signal s;
     JFileChooser jfc;

@@ -24,6 +24,11 @@ import org.joda.time.DateTime;
  * @author  Compaq_Propietario
  */
 public class DefaultInstantAnnotationPanel extends javax.swing.JPanel implements PropertyChangeListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3082154615256147716L;
+
     DefaultInstantAnnotation dim;
     JFileChooser jfc;
     JColorChooser jColorChooser1;

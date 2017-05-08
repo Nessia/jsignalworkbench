@@ -24,6 +24,11 @@ import net.javahispano.jsignalwb.plugins.Algorithm;
  */
 public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         PropertyChangeListener, IntervalSelectedListener {
+    /**
+    *
+    */
+    private static final long serialVersionUID = -6435930053175111757L;
+
     private JSWBManager jswbManager;
     private final Algorithm alg;
     private Window owner;

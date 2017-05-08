@@ -23,6 +23,11 @@ import org.joda.time.DateTime;
  * @author  Compaq_Propietario
  */
 public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements PropertyChangeListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6634476406106375360L;
+
     private Signal signal;
     private DefaultIntervalMark dim;
     private JColorChooser jcc;

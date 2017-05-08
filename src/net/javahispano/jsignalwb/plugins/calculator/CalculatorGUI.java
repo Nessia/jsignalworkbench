@@ -37,6 +37,11 @@ import java.awt.event.ActionListener;
  * @version 0.5
  */
 public class CalculatorGUI extends JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6449258311894040022L;
+
     public enum Operation {
         ADD, SUBSTRACT, MULTIPLY, DIVIDE
     }

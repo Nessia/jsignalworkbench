@@ -16,6 +16,10 @@ import net.javahispano.jsignalwb.plugins.*;
 
 
 public class DetailPluginInfoPanel extends javax.swing.JPanel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3935489149726730726L;
     private JSWBManager jswbManager;
     private String pluginType;
     private Plugin plugin;
