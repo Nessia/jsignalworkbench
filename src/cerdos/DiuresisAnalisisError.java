@@ -33,6 +33,7 @@ public class DiuresisAnalisisError extends AlgorithmAdapter {
     //private static int indiceParametro = 0;
     MedidaDroga medidaActual;
 
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
 
@@ -132,73 +133,52 @@ public class DiuresisAnalisisError extends AlgorithmAdapter {
     }
 
     void calculaError2(float[] diuresisAcumulada, float[] diuresisAcumuladaIdeal) {
-    StringBuilder stringBuilder = new StringBuilder();
-    for (int i = 0; i < diuresisAcumulada.length; ) {
-        //int hora = 0;
-        int contador = 0;
-        double rmse = 0;
-        for (int j = 0; j < 60 && i < diuresisAcumulada.length; j++, i++) {
-            rmse += Math.pow(diuresisAcumulada[i] - diuresisAcumuladaIdeal[i], 2);
-            contador++;
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < diuresisAcumulada.length; ) {
+            //int hora = 0;
+            int contador = 0;
+            double rmse = 0;
+            for (int j = 0; j < 60 && i < diuresisAcumulada.length; j++, i++) {
+                rmse += Math.pow(diuresisAcumulada[i] - diuresisAcumuladaIdeal[i], 2);
+                contador++;
+            }
+            rmse = Math.sqrt(rmse / contador);
+            assert (diuresisAcumulada[i - 1] == diuresisAcumuladaIdeal[i - 1]);
+            double cvrmse =  rmse / (diuresisAcumuladaIdeal[i - 1]);
+            stringBuilder.append((float)cvrmse + "; ");// + rmse + ", ");
+            //hora ++;
         }
-        rmse = Math.sqrt(rmse / contador);
-        assert (diuresisAcumulada[i - 1] == diuresisAcumuladaIdeal[i - 1]);
-        double cvrmse =  rmse / (diuresisAcumuladaIdeal[i - 1]);
-        stringBuilder.append((float)cvrmse + "; ");// + rmse + ", ");
-        //hora ++;
+        System.out.println(stringBuilder);
     }
-    System.out.println(stringBuilder);
-}
 
 
 
-    /**
-     * getName
-     *
-     * @return String
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
+    @Override
     public String getName() {
         return "Calculo Errores";
     }
 
-    /**
-     * Devuelve la version del plugin.
-     *
-     * @return Version del plugin
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
+    @Override
     public String getPluginVersion() {
         return "0";
     }
 
-    /**
-     * Devuelve una de extincion textual corta sobre la funcionalidad del
-     * plugin.
-     *
-     * @return descripcion textual corta
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
+    @Override
     public String getShortDescription() {
         return "Cálculo de Errores";
     }
 
-    /**
-     * numberOfSignalsNeeded
-     *
-     * @return int
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Algorithm
-     *   method
-     */
+    @Override
     public int numberOfSignalsNeeded() {
         return 1;
     }
 
-
+    @Override
     public Icon getIcon() {
         return super.generateImageSimple("E", Color.blue);
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
@@ -208,9 +188,9 @@ public class DiuresisAnalisisError extends AlgorithmAdapter {
         return false;
     }
 
+    @Override
     public boolean hasOwnExecutionGUI() {
         return true;
     }
-
 
 }
