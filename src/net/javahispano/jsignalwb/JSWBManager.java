@@ -38,8 +38,7 @@ import java.awt.event.*;
  *    Copyright 2006-2007. This software is under the Apache License Version 2.0
  *   (http://www.apache.org/licenses/).
  */
-public class JSWBManager implements JSignalMonitorDataSource,
-        SignalSizeListener {
+public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener {
     private static JSWBManager jswbManagerInstance;
     //private static JSWBManager jswbmanager = null;
     private static JSignalMonitor jSignalMonitor = null;
@@ -69,9 +68,6 @@ public class JSWBManager implements JSignalMonitorDataSource,
     private List<SessionListener> sessionListenetList = new LinkedList<SessionListener>();
     //Si true borra las senhales actualmente cargadas al cargar las siguientes.
     private static boolean deleteSignalsInNextLoad = true;
-    static {
-
-    }
 
     private JSWBManager() {
         this(true);
@@ -108,6 +104,7 @@ public class JSWBManager implements JSignalMonitorDataSource,
         //font=new Font(Font.DIALOG,Font.BOLD,12);
         if (develop || sessionInfo.isDebugMode() || true) {
             DebugPluginsManager.registerDebugPlugins(pluginManager);
+            //System.out.println("Cargados plugins debug");
         }
 
     }
@@ -162,8 +159,8 @@ public class JSWBManager implements JSignalMonitorDataSource,
 
          }*/
 
-    public void setParentWindow(Window parentWindow) {
-        this.parentWindow = parentWindow;
+    public static void setParentWindow(Window parentWindow) {
+        JSWBManager.parentWindow = parentWindow;
     }
 
     public static void setBigFont(Font bigFont) {
@@ -178,8 +175,8 @@ public class JSWBManager implements JSignalMonitorDataSource,
         JSWBManager.normalFont = normalFont;
     }
 
-    public void setDeleteSignalsInNextLoad(boolean deleteSignalsInNextLoad) {
-        this.deleteSignalsInNextLoad = deleteSignalsInNextLoad;
+    public static void setDeleteSignalsInNextLoad(boolean deleteSignalsInNextLoad) {
+        JSWBManager.deleteSignalsInNextLoad = deleteSignalsInNextLoad;
     }
 
     public JPanel getStatusBarPanel() {
@@ -777,7 +774,7 @@ public class JSWBManager implements JSignalMonitorDataSource,
      *       a confusion y que la gente los utilice directamente sin pasar por el
      *       showPluginExecution. Aunque creo que con documentarlo bien serviria.
      */
-    public boolean runAlgorithm(Algorithm alg, Enumeration signals) {
+    public boolean runAlgorithm(Algorithm alg, Enumeration<?> signals) {
         ArrayList<SignalIntervalProperties> intervals =
                 new ArrayList<SignalIntervalProperties>();
         while (signals.hasMoreElements()) {
