@@ -1,8 +1,10 @@
-package es.usc.gsi.trace.importer.monitorizacion.dataIO;
+package es.usc.gsi.trace.importer.monitorizacion.dataio;
 
 import java.io.*;
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import es.usc.gsi.trace.importer.Perfil.*;
 //import es.usc.gsi.trace.importer.Perfil.auxiliares.Serializador;
@@ -13,23 +15,29 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
 class MyFloat {
-    private static boolean hay_parser = false;
-    private static DecimalFormat decimal_format;
-    private static int numero_decimales_actuales = 1;
     public final static int MAS_INFINITO = Integer.MAX_VALUE / 1000;
     public final static int MENOS_INFINITO = Integer.MIN_VALUE / 1000;
-    /**
-     *
-     */
+
+
+
+    private static boolean hayParser = false;
+    private static DecimalFormat decimalFormat;
+    private static int numeroDecimalesActuales = 1;
+
+
+    private MyFloat(){
+       // Hide constructor
+    }
+
     private static void contruyePraser() {
-        if (!hay_parser) {
+        if (!hayParser) {
             Locale default_locale = Locale.getDefault();
             //Ponemos como localidad la inglesa, pa que pille . en vez de ,
             Locale.setDefault(new Locale("en", "GB"));
-            decimal_format = new DecimalFormat("###.#");
+            decimalFormat = new DecimalFormat("###.#");
             //Ahora que ya tengo un parseador "A la inglesa" volvemos pa espananha:
             Locale.setDefault(default_locale);
-            hay_parser = true;
+            hayParser = true;
         }
 
     }
@@ -41,12 +49,12 @@ class MyFloat {
      * @return
      */
     public static float parseFloatSeguro(String numero) {
-        if (!(numero.equals("&")) && !(numero.equals("-&"))) {
+        if (!("&".equals(numero)) && !("-&".equals(numero))) {
             return Float.parseFloat(numero);
-        } else if (numero.equals("&")) {
-            return Integer.MAX_VALUE / 1000;
+        } else if ("&".equals(numero)) {
+            return Integer.MAX_VALUE / 1000F;
         } else {
-            return Integer.MIN_VALUE / 1000; //Por que si no en validar dan overflow
+            return Integer.MIN_VALUE / 1000F; //Por que si no en validar dan overflow
         }
     }
 
@@ -58,9 +66,9 @@ class MyFloat {
      */
     public static float parseFloat(String numero) throws Exception {
         try {
-            if (!(numero.equals("&")) && !(numero.equals("-&"))) {
+            if (!("&".equals(numero)) && !("-&".equals(numero))) {
                 return Float.parseFloat(numero);
-            } else if (numero.equals("&")) {
+            } else if ("&".equals(numero)) {
                 return MAS_INFINITO;
             } else {
                 return MENOS_INFINITO; //Por que si no en validar dan overflow
@@ -92,17 +100,16 @@ class MyFloat {
      * @return
      */
     public static String formateaNumero(String numero) {
-        if (!hay_parser) {
+        if (!hayParser) {
             contruyePraser();
         }
-        numero = numero.trim();
-        if (numero.equals("&") || numero.equals("-&")) {
-            return numero;
+        String valor = numero.trim();
+        if ("&".equals(valor) || "-&".equals(valor)) {
+            return valor;
         }
 
         try {
-            String resultado = decimal_format.format(parseFloat(numero));
-            return resultado;
+            return decimalFormat.format(parseFloat(valor));
         } catch (Exception ex) {
             return null;
         }
@@ -131,20 +138,20 @@ class MyFloat {
      * Emplear para cambiar el numero de digitos decimales del patron
      * @param numero_decimaales
      */
-    public static void setNumeroDecimales(int numero_decimales) {
-        if (!hay_parser) {
+    public static void setNumeroDecimales(int numeroDecimales) {
+        if (!hayParser) {
             contruyePraser();
         }
-        String pattern = "###";
-        if (numero_decimales > 0) {
-            pattern = pattern + ".";
-            for (int i = 0; i < numero_decimales; i++) {
-                pattern = pattern + "#";
+        StringBuilder pattern = new StringBuilder("###");
+        if (numeroDecimales > 0) {
+            pattern.append(".");//pattern = pattern + ".";
+            for (int i = 0; i < numeroDecimales; i++) {
+                pattern.append("."); //pattern = pattern + "#";
             }
 
         }
-        numero_decimales_actuales = numero_decimales;
-        decimal_format.applyPattern(pattern);
+        numeroDecimalesActuales = numeroDecimales;
+        decimalFormat.applyPattern(pattern.toString());
     }
 
     /**
@@ -152,7 +159,7 @@ class MyFloat {
      * @return
      */
     public static int getNumeroDecimalesActuales() {
-        return numero_decimales_actuales;
+        return numeroDecimalesActuales;
     }
 }
 
@@ -167,15 +174,22 @@ class MyFloat {
  */
 
 public class PTBM2XML {
+    private final static Logger LOGGER = Logger.getLogger(PTBM2XML.class.getName());
 
-    private static PTBM2XML ptbm_2_XML = null;
+    public final static String EL_UNIDADES_TEMPORALES = "UnidadesTemporales";
+    public final static String EL_INICIO_SOPORTE = "InicioSoporte";
+    public final static String EL_INICIO_CORE = "InicioCore";
+    public final static String EL_FIN_CORE = "FinCore";
+    public final static String EL_FIN_SOPORTE = "FinSoporte";
+    public final static String EL_LONGITUD_VENTANA_TEMPORAL = "LongitudVentanaTemporal";
+
+    private static PTBM2XML ptbm2XML = null;
 
     private PTBM2XML() {
-
-        if (ptbm_2_XML != null) {
-            System.out.println("ERROR, intanciado dos veces un singleton");
+        if (ptbm2XML != null) {
+            //System.out.println("ERROR, intanciado dos veces un singleton");
+           LOGGER.log(Level.SEVERE, "ERROR, intanciado dos veces un singleton");
         }
-
     }
 
     /**
@@ -194,7 +208,7 @@ public class PTBM2XML {
         Element root = new Element("PTBM");
         //  DocType doc_type = new DocType("PTBM","file:///C:/ptbm.dtd");
         Document documento = new Document(root /*,doc_type*/);
-        root.setAttribute("NumeroPTB", ptbm.getPTB().length + "");
+        root.setAttribute("NumeroPTB", Integer.toString(ptbm.getPTB().length));
         root.setAttribute("ComentarioPTBM", ptbm.getComentario());
         root.setAttribute("NombrePTBM", ptbm.getTitulo());
         //Bucle que ira anhadiendo los nodos PTB
@@ -204,14 +218,13 @@ public class PTBM2XML {
             Element ptb = new Element("PTB");
             ptb.setAttribute("NombrePTB", ptb_array[i].getNombre());
             ptb.setAttribute("NumeroPtoSig",
-                             ptb_array[i].getNumeroDePtoSig() + "");
+                  Integer.toString(ptb_array[i].getNumeroDePtoSig()));
             ptb.setAttribute("ComentarioPTB", ptb_array[i].getComentario());
             ptb.setAttribute("Unidades", ptb_array[i].getUnidades());
             ptb.setAttribute("Parametro", ptb_array[i].getParametro());
-            ptb.setAttribute("UnidadesTemporales",
-                             ptb_array[i].getUnidadesTemporales());
+            ptb.setAttribute(EL_UNIDADES_TEMPORALES, ptb_array[i].getUnidadesTemporales());
             ptb.setAttribute("BuscarEnValorAbsoluto",
-                             ptb_array[i].isBuscarEnValorAbsoluto() + "");
+                             Boolean.toString(ptb_array[i].isBuscarEnValorAbsoluto()));
             //Anhado el nodo creado a la raiz del documebnto
             root.addContent(ptb);
             //Continuo Anhadiendo los hijos al nodo PTB
@@ -221,27 +234,19 @@ public class PTBM2XML {
                 Element pto_sig = new Element("PtoSig");
                 Restriccion[] restricciones_array = pto_sig_array[j].
                         getRestricciones();
-                pto_sig.setAttribute("NumeroDePtoSig", j + "");
-                pto_sig.setAttribute("NumeroDeRestricciones",
-                                     restricciones_array.length + "");
+                pto_sig.setAttribute("NumeroDePtoSig", Integer.toString(j));
+                pto_sig.setAttribute("NumeroDeRestricciones", Integer.toString(restricciones_array.length));
                 //Anhado el nodo creado al nodo del cual culega
                 ptb.addContent(pto_sig);
                 //Continuo anhadiendo los nodos hijos
                 for (int k = 0; k < restricciones_array.length; k++) {
                     //Creo el nodo restriicon con sus atributos
                     Element restriccion = new Element("Restriccion");
-                    restriccion.setAttribute("PTBOrigen",
-                                             restricciones_array[k].
-                                             getNumeroDePTB() +
-                                             "");
-                    restriccion.setAttribute("PtoSigOrigen",
-                                             restricciones_array[k].
-                                             getNumeroDePtoSig() + "");
-                    restriccion.setAttribute("PTBDestino", i + "");
-                    restriccion.setAttribute("PtoSigDestino", j + "");
-                    restriccion.setAttribute("RelativaAlBasal",
-                                             restricciones_array[k].
-                                             isRelativaAlNivelBasal() + "");
+                    restriccion.setAttribute("PTBOrigen", Integer.toString(restricciones_array[k].getNumeroDePTB()));
+                    restriccion.setAttribute("PtoSigOrigen", Integer.toString(restricciones_array[k].getNumeroDePtoSig()));
+                    restriccion.setAttribute("PTBDestino", Integer.toString(i));
+                    restriccion.setAttribute("PtoSigDestino", Integer.toString(j));
+                    restriccion.setAttribute("RelativaAlBasal", Boolean.toString(restricciones_array[k].isRelativaAlNivelBasal()));
                     //Anhado el nod ala padre
                     pto_sig.addContent(restriccion);
                     //Continuo anhadiendole los hijos al nodo
@@ -262,105 +267,86 @@ public class PTBM2XML {
 
                     //Elemento restricion magnitud:
                     Element restriccon_magnitud = new Element("Magnitud");
-                    restriccon_magnitud.setAttribute("InicioSoporte", D[0]);
-                    restriccon_magnitud.setAttribute("InicioCore", D[1]);
-                    restriccon_magnitud.setAttribute("FinCore", D[2]);
-                    restriccon_magnitud.setAttribute("FinSoporte", D[3]);
+                    restriccon_magnitud.setAttribute(EL_INICIO_SOPORTE, D[0]);
+                    restriccon_magnitud.setAttribute(EL_INICIO_CORE, D[1]);
+                    restriccon_magnitud.setAttribute(EL_FIN_CORE, D[2]);
+                    restriccon_magnitud.setAttribute(EL_FIN_SOPORTE, D[3]);
                     //Anhadimos este elemnto al padre:
                     restriccion.addContent(restriccon_magnitud);
 
                     //Elemento restricion Temporal:
                     Element restriccon_temporal = new Element("Temporal");
-                    restriccon_temporal.setAttribute("InicioSoporte", L[0]);
-                    restriccon_temporal.setAttribute("InicioCore", L[1]);
-                    restriccon_temporal.setAttribute("FinCore", L[2]);
-                    restriccon_temporal.setAttribute("FinSoporte", L[3]);
+                    restriccon_temporal.setAttribute(EL_INICIO_SOPORTE, L[0]);
+                    restriccon_temporal.setAttribute(EL_INICIO_CORE, L[1]);
+                    restriccon_temporal.setAttribute(EL_FIN_CORE, L[2]);
+                    restriccon_temporal.setAttribute(EL_FIN_SOPORTE, L[3]);
                     //Anhadimos este elemnto al padre:
                     restriccion.addContent(restriccon_temporal);
 
                     //Elemento unidades temporales:
-                    Element unidadesTemporales = new Element(
-                            "UnidadesTemporales");
-                    unidadesTemporales.setAttribute("Tipo",
-                            "" + unidadesTemporalesInt);
+                    Element unidadesTemporales = new Element(EL_UNIDADES_TEMPORALES);
+                    unidadesTemporales.setAttribute("Tipo", Integer.toString(unidadesTemporalesInt));
                     restriccion.addContent(unidadesTemporales);
                     //Elemento restricion Pendiente:
                     Element restriccon_pendiente = new Element("Pendiente");
-                    restriccon_pendiente.setAttribute("InicioSoporte", M[0]);
-                    restriccon_pendiente.setAttribute("InicioCore", M[1]);
-                    restriccon_pendiente.setAttribute("FinCore", M[2]);
-                    restriccon_pendiente.setAttribute("FinSoporte", M[3]);
+                    restriccon_pendiente.setAttribute(EL_INICIO_SOPORTE, M[0]);
+                    restriccon_pendiente.setAttribute(EL_INICIO_CORE, M[1]);
+                    restriccon_pendiente.setAttribute(EL_FIN_CORE, M[2]);
+                    restriccon_pendiente.setAttribute(EL_FIN_SOPORTE, M[3]);
                     //Anhadimos este elemnto al padre:
                     restriccion.addContent(restriccon_pendiente);
 
                     //Semantica
                     Element semantica = new Element("Semantica");
-                    semantica.setAttribute("Tipo", sintaxis_int + "");
-                    semantica.setAttribute("Cuantificador",
-                                           cunatificadorInt + "");
+                    semantica.setAttribute("Tipo", Integer.toString(sintaxis_int));
+                    semantica.setAttribute("Cuantificador", Integer.toString(cunatificadorInt));
                     restriccion.addContent(semantica);
 
                     //Informacion para ayudar al usuario
                     Element infoUsuario = new Element("InformacionUsuario");
-                    infoUsuario.setAttribute("MagnitudPrimerPtoSig",
-                                             "" + magnitudPrimerPtoSigFloat);
-                    infoUsuario.setAttribute("MagnitudSegundoPtoSig",
-                                             "" + magnitudSegundoPtoSigFloat);
-                    infoUsuario.setAttribute("DistanciaTemporal",
-                                             distanciaTemporalEntrePtoSig + "");
+                    infoUsuario.setAttribute("MagnitudPrimerPtoSig", Float.toString(magnitudPrimerPtoSigFloat));
+                    infoUsuario.setAttribute("MagnitudSegundoPtoSig", Float.toString(magnitudSegundoPtoSigFloat));
+                    infoUsuario.setAttribute("DistanciaTemporal", Float.toString(distanciaTemporalEntrePtoSig));
                     restriccion.addContent(infoUsuario);
                 }
 
             }
             //Distancia de separacion entre PTB y longitud de la ventana temporal
             Element distanciaEntrePTB = new Element("DistanciaEntrePTB");
-            distanciaEntrePTB.setAttribute("InicioSoporte",
-                                           "" +
-                                           ptb_array[i].
-                                           getIntInicioSoporteSeparacion());
-            distanciaEntrePTB.setAttribute("InicioCore",
-                                           "" +
-                                           ptb_array[i].
-                                           getIntInicioCoreSeparacion());
-            distanciaEntrePTB.setAttribute("FinCore",
-                                           "" +
-                                           ptb_array[i].getIntFinCoreSeparacion());
-            distanciaEntrePTB.setAttribute("FinSoporte",
-                                           "" +
-                                           ptb_array[i].
-                                           getIntFinSoporteSeparacion());
+            distanciaEntrePTB.setAttribute(EL_INICIO_SOPORTE,
+                  Float.toString(ptb_array[i].getIntInicioSoporteSeparacion()));
+            distanciaEntrePTB.setAttribute(EL_INICIO_CORE,
+                  Float.toString(ptb_array[i].getIntInicioCoreSeparacion()));
+            distanciaEntrePTB.setAttribute(EL_FIN_CORE, Float.toString(ptb_array[i].getIntFinCoreSeparacion()));
+            distanciaEntrePTB.setAttribute(EL_FIN_SOPORTE, Float.toString(ptb_array[i].getIntFinSoporteSeparacion()));
             ptb.addContent(distanciaEntrePTB);
-            Element longitudVentanaTemporal = new Element(
-                    "LongitudVentanaTemporal");
-            longitudVentanaTemporal.setAttribute("LongitudVentanaTemporal",
-                                                 "" +
-                                                 ptb_array[i].
-                                                 getLongitudVentana());
+            Element longitudVentanaTemporal = new Element(EL_LONGITUD_VENTANA_TEMPORAL);
+            longitudVentanaTemporal.setAttribute(EL_LONGITUD_VENTANA_TEMPORAL,
+                  Float.toString(ptb_array[i].getLongitudVentana()));
             ptb.addContent(longitudVentanaTemporal);
         }
         Element distanciaEntrePTBM = new Element("DistanciaEntrePTBM");
-        distanciaEntrePTBM.setAttribute("InicioSoporte",
-                                        "" + ptbm.getInicioSoporteSeparacion());
-        distanciaEntrePTBM.setAttribute("InicioCore",
-                                        "" + ptbm.getInicioCoreSeparacion());
-        distanciaEntrePTBM.setAttribute("FinCore",
-                                        "" + ptbm.getFinCoreSeparacion());
-        distanciaEntrePTBM.setAttribute("FinSoporte",
-                                        "" + ptbm.getFinSoporteSeparacion());
+        distanciaEntrePTBM.setAttribute(EL_INICIO_SOPORTE, Float.toString(ptbm.getInicioSoporteSeparacion()));
+        distanciaEntrePTBM.setAttribute(EL_INICIO_CORE,
+              Float.toString(ptbm.getInicioCoreSeparacion()));
+        distanciaEntrePTBM.setAttribute(EL_FIN_CORE,
+              Float.toString(ptbm.getFinCoreSeparacion()));
+        distanciaEntrePTBM.setAttribute(EL_FIN_SOPORTE,
+              Float.toString(ptbm.getFinSoporteSeparacion()));
         root.addContent(distanciaEntrePTBM);
-        //Todo el documento deberia estar creado, asi que vamos a Almacenarlo:
+        // El documento entero deberia estar creado, asi que vamos a Almacenarlo:
         XMLOutputter xml_outputter = new XMLOutputter();
         File file = new File(archivo);
         FileOutputStream out;
         try {
             out = new FileOutputStream(file);
-        } catch (FileNotFoundException ex) {
-            return false;
-        }
-        try {
             xml_outputter.output(documento, out);
             return true;
+        } catch (FileNotFoundException ex) {
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
+            return false;
         } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             return false;
         }
 
@@ -380,9 +366,9 @@ public class PTBM2XML {
         try {
             documento = bulder.build(archivo);
         } catch (IOException ex3) {
-            ex3.printStackTrace();
+           LOGGER.log(Level.SEVERE, ex3.getMessage(), ex3);
         } catch (JDOMException ex3) {
-            ex3.printStackTrace();
+           LOGGER.log(Level.SEVERE, ex3.getMessage(), ex3);
         }
 
         //Obtenemos el elemento raiz, el PTBM, y cojemos sus atributos.
@@ -405,7 +391,7 @@ public class PTBM2XML {
             //Contador de PTB
             num_PTB++;
             //Cojo el primer elemento ptb y extraigo sus atributos
-            Element ptb_xml = (Element) it.next();
+            Element ptb_xml = it.next();
             Attribute comentario = ptb_xml.getAttribute("ComentarioPTB");
             //Si no hay comentario => es ya la separacion entre PTB
             if (comentario == null) {
@@ -416,8 +402,7 @@ public class PTBM2XML {
             String comentario_PTB = comentario.getValue();
             String parametro = ptb_xml.getAttribute("Parametro").getValue();
             String unidades = ptb_xml.getAttribute("Unidades").getValue();
-            String unidades_temporales = ptb_xml.getAttribute(
-                    "UnidadesTemporales").getValue();
+            String unidades_temporales = ptb_xml.getAttribute(EL_UNIDADES_TEMPORALES).getValue();
             String nombre_PTB = ptb_xml.getAttribute("NombrePTB").getValue();
             //Miro si hay atributo de usar en valor absoluto
             Attribute atrUsarEnValorAbsoluto = ptb_xml.getAttribute(
@@ -425,10 +410,9 @@ public class PTBM2XML {
             boolean usarEnValorAbsoluto = false;
             if (atrUsarEnValorAbsoluto != null) {
                 try {
-                    usarEnValorAbsoluto = atrUsarEnValorAbsoluto.
-                                          getBooleanValue();
+                    usarEnValorAbsoluto = atrUsarEnValorAbsoluto.getBooleanValue();
                 } catch (DataConversionException ex2) {
-                    ex2.printStackTrace();
+                   LOGGER.log(Level.WARNING, ex2.getMessage(), ex2);
                 }
             }
             //Creo el PTB
@@ -448,17 +432,13 @@ public class PTBM2XML {
             int num_PtoSig = -1;
             while (it2.hasNext()) {
                 num_PtoSig++;
-                Element PtoSig_xml = (Element) it2.next();
+                Element PtoSig_xml = it2.next();
                 //Los puntos significativos = y ! se anhaden automaticamente al PTB, solo tendremos
                 //que anhadir las restricciones que tengan
-                if (num_PtoSig < 2) {
-                    if (PtoSig_xml.getChildren().size() == 0) {
-                        continue;
-                    }
-
+                if (num_PtoSig < 2 && PtoSig_xml.getChildren().isEmpty()) {
+                    continue;
                 }
-                Restriccion[] restriciones_de_un_PToSig = generaRestricciones(
-                        PtoSig_xml);
+                Restriccion[] restriciones_de_un_PToSig = generaRestricciones(PtoSig_xml);
                 for (int i = 0; i < restriciones_de_un_PToSig.length; i++) {
                     //Si es el primer o segundo Pto Sig ya esta anhadido al PTB
                     if (num_PtoSig < 2) {
@@ -468,8 +448,7 @@ public class PTBM2XML {
                     }
                     //Si no lo era y si es la primera restriccion => preimero anhadir el PtoSig al PTB:
                     else if (i == 0) {
-                        PtoSig pto_sig = new PtoSig(restriciones_de_un_PToSig[0],
-                                num_PTB, num_PtoSig);
+                        PtoSig pto_sig = new PtoSig(restriciones_de_un_PToSig[0], num_PTB, num_PtoSig);
                         ptb.anhadePtoSig(pto_sig);
                     }
                     //Si no es que ya esta anhadido el PtoSig => anhadimos solo la restricion
@@ -481,10 +460,8 @@ public class PTBM2XML {
                 }
             }
             //Leemos la distancia entre PTB y la ventana temporal
-            Element distanciaEntrePTB_XML = ptb_xml.getChild(
-                    "DistanciaEntrePTB");
-            Element ventanaTemporal_XML = ptb_xml.getChild(
-                    "LongitudVentanaTemporal");
+            Element distanciaEntrePTB_XML = ptb_xml.getChild("DistanciaEntrePTB");
+            Element ventanaTemporal_XML = ptb_xml.getChild(EL_LONGITUD_VENTANA_TEMPORAL);
 
             //Por motivos de compatibilidad hacia atas chequeamos si este PYB
             //No tiene asociada esta informacion
@@ -493,20 +470,19 @@ public class PTBM2XML {
             }
             try {
                 ptb.setIntInicioSoporteSeparacion(distanciaEntrePTB_XML.
-                                                  getAttribute("InicioSoporte").
+                                                  getAttribute(EL_INICIO_SOPORTE).
                                                   getFloatValue());
                 ptb.setIntInicioCoreSeparacion(distanciaEntrePTB_XML.
-                                               getAttribute("InicioCore").
+                                               getAttribute(EL_INICIO_CORE).
                                                getFloatValue());
                 ptb.setIntFinCoreSeparacion(distanciaEntrePTB_XML.getAttribute(
-                        "FinCore").getFloatValue());
+                        EL_FIN_CORE).getFloatValue());
                 ptb.setIntFinSoporteSeparacion(distanciaEntrePTB_XML.
-                                               getAttribute("FinSoporte").
+                                               getAttribute(EL_FIN_SOPORTE).
                                                getFloatValue());
-                ptb.setLongitudVentana(ventanaTemporal_XML.getAttribute(
-                        "LongitudVentanaTemporal").getFloatValue());
+                ptb.setLongitudVentana(ventanaTemporal_XML.getAttribute(EL_LONGITUD_VENTANA_TEMPORAL).getFloatValue());
             } catch (DataConversionException ex1) {
-                ex1.printStackTrace();
+               LOGGER.log(Level.WARNING, ex1.getMessage(), ex1);
             }
         }
         //Leemos la distancia entre PTB y la ventana temporal
@@ -519,15 +495,15 @@ public class PTBM2XML {
 
         try {
             ptbm.setInicioSoporteSeparacion(distanciaEntrePTBM_XML.getAttribute(
-                    "InicioSoporte").getFloatValue());
+                    EL_INICIO_SOPORTE).getFloatValue());
             ptbm.setInicioCoreSeparacion(distanciaEntrePTBM_XML.getAttribute(
-                    "InicioCore").getFloatValue());
+                    EL_INICIO_CORE).getFloatValue());
             ptbm.setFinCoreSeparacion(distanciaEntrePTBM_XML.getAttribute(
-                    "FinCore").getFloatValue());
+                    EL_FIN_CORE).getFloatValue());
             ptbm.setFinSoporteSeparacion(distanciaEntrePTBM_XML.getAttribute(
-                    "FinSoporte").getFloatValue());
+                    EL_FIN_SOPORTE).getFloatValue());
         } catch (DataConversionException ex1) {
-            ex1.printStackTrace();
+            LOGGER.log(Level.WARNING, ex1.getMessage(), ex1);
         }
 
         return ptbm;
@@ -550,9 +526,10 @@ public class PTBM2XML {
         int num_restriciones = -1;
         while (it.hasNext()) {
             num_restriciones++;
-            Element restriccion_xml = (Element) it.next();
+            Element restriccion_xml = it.next();
             //Obtenemos los atributos de la restriccion
-            int ptb_origen, PtoSig_origen;
+            int ptb_origen;
+            int PtoSig_origen;
             boolean relativaAlBasal = false;
             try {
                 ptb_origen = restriccion_xml.getAttribute("PTBOrigen").getIntValue();
@@ -565,92 +542,85 @@ public class PTBM2XML {
                     relativaAlBasal = atributoBoolean.getBooleanValue();
                 }
             } catch (DataConversionException ex) {
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                 return null;
             }
 
             //Empzamos a procesar las restricciones
-            String[] D = new String[4], L = new String[4], M = new String[4];
-            int sintaxis_int, unidadesTemporales, cunatificadoSemantica,
-                    distanciaEntrePtoSig;
-            float magnitudPrimerPtoSig, magnitudSegundoPtoSig;
+            String[] D = new String[4];
+            String[] L = new String[4];
+            String[] M = new String[4];
+            int sintaxis_int;
+            int unidadesTemporales;
+            int cunatificadoSemantica;
+            int distanciaEntrePtoSig;
+            float magnitudPrimerPtoSig;
+            float magnitudSegundoPtoSig;
             Element magnitud = restriccion_xml.getChild("Magnitud");
             Element temporal = restriccion_xml.getChild("Temporal");
-            Element unidadesTemporalesElemento = restriccion_xml.getChild(
-                    "UnidadesTemporales");
+            Element unidadesTemporalesElemento = restriccion_xml.getChild(EL_UNIDADES_TEMPORALES);
             Element pendiente = restriccion_xml.getChild("Pendiente");
             Element sintaxis = restriccion_xml.getChild("Semantica");
             Element infoUsuario = restriccion_xml.getChild("InformacionUsuario");
             try {
-                D[0] = magnitud.getAttribute("InicioSoporte").getValue();
-                D[1] = magnitud.getAttribute("InicioCore").getValue();
-                D[2] = magnitud.getAttribute("FinCore").getValue();
-                D[3] = magnitud.getAttribute("FinSoporte").getValue();
+                D[0] = magnitud.getAttribute(EL_INICIO_SOPORTE).getValue();
+                D[1] = magnitud.getAttribute(EL_INICIO_CORE).getValue();
+                D[2] = magnitud.getAttribute(EL_FIN_CORE).getValue();
+                D[3] = magnitud.getAttribute(EL_FIN_SOPORTE).getValue();
 
-                L[0] = temporal.getAttribute("InicioSoporte").getValue();
-                L[1] = temporal.getAttribute("InicioCore").getValue();
-                L[2] = temporal.getAttribute("FinCore").getValue();
-                L[3] = temporal.getAttribute("FinSoporte").getValue();
+                L[0] = temporal.getAttribute(EL_INICIO_SOPORTE).getValue();
+                L[1] = temporal.getAttribute(EL_INICIO_CORE).getValue();
+                L[2] = temporal.getAttribute(EL_FIN_CORE).getValue();
+                L[3] = temporal.getAttribute(EL_FIN_SOPORTE).getValue();
 
-                M[0] = pendiente.getAttribute("InicioSoporte").getValue();
-                M[1] = pendiente.getAttribute("InicioCore").getValue();
-                M[2] = pendiente.getAttribute("FinCore").getValue();
-                M[3] = pendiente.getAttribute("FinSoporte").getValue();
+                M[0] = pendiente.getAttribute(EL_INICIO_SOPORTE).getValue();
+                M[1] = pendiente.getAttribute(EL_INICIO_CORE).getValue();
+                M[2] = pendiente.getAttribute(EL_FIN_CORE).getValue();
+                M[3] = pendiente.getAttribute(EL_FIN_SOPORTE).getValue();
 
                 sintaxis_int = sintaxis.getAttribute("Tipo").getIntValue();
-                Attribute cunatificadoSemanticaAtr = sintaxis.getAttribute(
-                        "Cuantificador");
+                Attribute cunatificadoSemanticaAtr = sintaxis.getAttribute("Cuantificador");
                 //Chequeo introduciodo para mantener la compatibilidad hacia atras
                 if (cunatificadoSemanticaAtr != null) {
-                    cunatificadoSemantica = cunatificadoSemanticaAtr.
-                                            getIntValue();
+                    cunatificadoSemantica = cunatificadoSemanticaAtr.getIntValue();
                 } else {
                     cunatificadoSemantica = Restriccion.CUANTIFICADOR_TODO;
                 }
                 if (unidadesTemporalesElemento != null) {
-                    unidadesTemporales = unidadesTemporalesElemento.
-                                         getAttribute("Tipo").getIntValue();
+                    unidadesTemporales = unidadesTemporalesElemento.getAttribute("Tipo").getIntValue();
                 } else {
                     //Asumimos que es un fichero antiguo y que estab en segundos
                     unidadesTemporales = Restriccion.UNIDADES_SEGUNDOS;
                     //Pasamos a milisegundos la restriccion
                     for (int i = 0; i < L.length; i++) {
-                        L[i] = MyFloat.parseFloatSeguro(L[i]) * 1000 + "";
-                        M[i] = MyFloat.parseFloatSeguro(M[i]) / 1000 + "";
+                        L[i] = Float.toString(MyFloat.parseFloatSeguro(L[i]) * 1000);
+                        M[i] = Float.toString(MyFloat.parseFloatSeguro(M[i]) / 1000);
                     }
 
                 }
                 //Infomacion del usuario
                 if (infoUsuario != null) {
-                    magnitudPrimerPtoSig = infoUsuario.getAttribute(
-                            "MagnitudPrimerPtoSig").getFloatValue();
-                    magnitudSegundoPtoSig = infoUsuario.getAttribute(
-                            "MagnitudSegundoPtoSig").getFloatValue();
-                    distanciaEntrePtoSig = infoUsuario.getAttribute(
-                            "DistanciaTemporal").
-                                           getIntValue();
+                    magnitudPrimerPtoSig = infoUsuario.getAttribute("MagnitudPrimerPtoSig").getFloatValue();
+                    magnitudSegundoPtoSig = infoUsuario.getAttribute("MagnitudSegundoPtoSig").getFloatValue();
+                    distanciaEntrePtoSig = infoUsuario.getAttribute("DistanciaTemporal").getIntValue();
                 } else {
                     magnitudPrimerPtoSig = 0;
                     magnitudSegundoPtoSig = 0;
                     distanciaEntrePtoSig = 0;
-
                 }
 
             } catch (DataConversionException ex) {
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                 return null;
             }
             //Creamos la restriccion con la informacion
             restriccion_array[num_restriciones] = new Restriccion(ptb_origen,
-                    PtoSig_origen,
-                    D, L, M, sintaxis_int, cunatificadoSemantica,
+                    PtoSig_origen, D, L, M, sintaxis_int, cunatificadoSemantica,
                     unidadesTemporales);
-            restriccion_array[num_restriciones].setMagnitudPrimerPtoSig(
-                    magnitudPrimerPtoSig);
-            restriccion_array[num_restriciones].setMagnitudSegundoPtoSig(
-                    magnitudSegundoPtoSig);
-            restriccion_array[num_restriciones].setDistanciaTemporalEntrePtoSig(
-                    distanciaEntrePtoSig);
-            restriccion_array[num_restriciones].setRelativaAlNivelBasal(
-                    relativaAlBasal);
+            restriccion_array[num_restriciones].setMagnitudPrimerPtoSig(magnitudPrimerPtoSig);
+            restriccion_array[num_restriciones].setMagnitudSegundoPtoSig(magnitudSegundoPtoSig);
+            restriccion_array[num_restriciones].setDistanciaTemporalEntrePtoSig(distanciaEntrePtoSig);
+            restriccion_array[num_restriciones].setRelativaAlNivelBasal(relativaAlBasal);
         }
 
         return restriccion_array;
@@ -675,11 +645,10 @@ public class PTBM2XML {
         /**/
     }
 
-    public static PTBM2XML getIntsancia() {
-        if (ptbm_2_XML == null) {
-            ptbm_2_XML = new PTBM2XML();
-            return ptbm_2_XML;
+    public static PTBM2XML getInstancia() {
+        if (ptbm2XML == null) {
+            ptbm2XML = new PTBM2XML();
         }
-        return ptbm_2_XML;
+        return ptbm2XML;
     }
 }

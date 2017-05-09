@@ -1,6 +1,6 @@
 //Source file: E:\\JAVA2\\MonitorizacionAlgoritmo\\src\\monitorizacion\\DataIO\\CargarDatos.java
 
-package es.usc.gsi.trace.importer.monitorizacion.dataIO;
+package es.usc.gsi.trace.importer.monitorizacion.dataio;
 
 import java.util.TreeSet;
 

@@ -1,6 +1,6 @@
 //Source file: E:\\JAVA2\\MonitorizacionAlgoritmo\\src\\monitorizacion\\DataIO\\CargarDatosMon.java
 
-package es.usc.gsi.trace.importer.monitorizacion.dataIO;
+package es.usc.gsi.trace.importer.monitorizacion.dataio;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;

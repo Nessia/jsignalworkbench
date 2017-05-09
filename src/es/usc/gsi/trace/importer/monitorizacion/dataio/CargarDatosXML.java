@@ -1,4 +1,4 @@
-package es.usc.gsi.trace.importer.monitorizacion.dataIO;
+package es.usc.gsi.trace.importer.monitorizacion.dataio;
 
 
 import java.io.*;
@@ -158,7 +158,7 @@ public class CargarDatosXML extends CargarDatos {
             //Para cargar empleo path relativo, aunque para almacenar no
             fichero_PTBM = (new File(fichero_PTBM)).getName();
             fichero_PTBM = arcivo_monitorizacion_path + fichero_PTBM;
-            ptbm = PTBM2XML.getIntsancia().cargaPTBM(fichero_PTBM);
+            ptbm = PTBM2XML.getInstancia().cargaPTBM(fichero_PTBM);
         } else {
             ptbm = null;
         }
