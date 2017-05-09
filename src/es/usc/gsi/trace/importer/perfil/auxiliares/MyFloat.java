@@ -1,4 +1,4 @@
-package es.usc.gsi.trace.importer.Perfil.auxiliares;
+package es.usc.gsi.trace.importer.perfil.auxiliares;
 
 import java.text.DecimalFormat;
 import java.util.Locale;

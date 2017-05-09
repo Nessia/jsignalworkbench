@@ -1,10 +1,10 @@
 //Source file: E:\\Perfil\\Perfil\\Restriccion.java
 
-package es.usc.gsi.trace.importer.Perfil;
+package es.usc.gsi.trace.importer.perfil;
 
 import java.io.Serializable;
 
-import es.usc.gsi.trace.importer.Perfil.auxiliares.MyFloat;
+import es.usc.gsi.trace.importer.perfil.auxiliares.MyFloat;
 
 /**
  * @author Abraham Otero Quintana

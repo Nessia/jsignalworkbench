@@ -5,11 +5,11 @@ package es.usc.gsi.trace.importer.monitorizacion.data;
 import java.util.HashMap;
 import java.util.TreeSet;
 
-import es.usc.gsi.trace.importer.Perfil.PTBMInterface;
 import es.usc.gsi.trace.importer.estadisticos.ResultadoCorrelacion;
 import es.usc.gsi.trace.importer.estadisticos.ResultadosEstadisticos;
 import es.usc.gsi.trace.importer.jsignalmonold.annotations.Annotation;
 import es.usc.gsi.trace.importer.jsignalmonold.annotations.Mark;
+import es.usc.gsi.trace.importer.perfil.PTBMInterface;
 
 public class AlmacenDatosFloat extends AlmacenDatos {
     private float datos[][];

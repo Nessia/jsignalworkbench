@@ -1,6 +1,6 @@
 //Source file: E:\\Perfil\\Perfil\\PTBM.java
 
-package es.usc.gsi.trace.importer.Perfil;
+package es.usc.gsi.trace.importer.perfil;
 
 import java.io.Serializable;
 import java.util.Vector;

@@ -6,13 +6,12 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import es.usc.gsi.trace.importer.Perfil.*;
-//import es.usc.gsi.trace.importer.Perfil.auxiliares.Serializador;
-
 import org.jdom.*;
 import org.jdom.filter.ContentFilter;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
+
+import es.usc.gsi.trace.importer.perfil.*;
 
 class MyFloat {
     public final static int MAS_INFINITO = Integer.MAX_VALUE / 1000;
