@@ -466,72 +466,32 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
         /**/
     }
 
-    /**
-     * getDescription
-     *
-     * @return String
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
     @Override
     public String getDescription() {
         return "";
     }
 
-    /**
-     * getIcon
-     *
-     * @return Icon
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-
-         public Icon getIcon() {
-        return null;
-         }     */
-
-    /**
-     * getName
-     *
-     * @return String
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
     @Override
     public String getName() {
         return "apnea";
     }
 
-    /**
-     * Devuelve la version del plugin.
-     *
-     * @return Version del plugin
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
     @Override
     public String getPluginVersion() {
         return "0";
     }
 
-    /**
-     * Devuelve una de extincion textual corta sobre la funcionalidad del
-     * plugin.
-     *
-     * @return descripcion textual corta
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
     @Override
     public String getShortDescription() {
         return "";
     }
 
-    /**
-     * numberOfSignalsNeeded
-     *
-     * @return int
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Algorithm
-     *   method
-     */
+    @Override
     public int numberOfSignalsNeeded() {
         return 3;
     }
 
+    @Override
     public boolean hasDataToSave() {
         return true;
     }

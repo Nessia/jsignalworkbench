@@ -13,23 +13,25 @@ public class RatasLoader extends BasicLoader {
 
     private String[] nombres = {"I", "II", "III"};
 
-
+    @Override
     public String getName() {
         return "RataLoader";
     }
 
+    @Override
     public String getShortDescription() {
         return "Rata Loader";
     }
 
+    @Override
     public ArrayList<String> getAvalaibleExtensions() {
         ArrayList<String> ext = new ArrayList<String>();
         ext.add("txt");
         return ext;
     }
 
+    @Override
     protected boolean load(File f, SignalManager sm) throws Exception {
-
         super.load(f, sm);
         int numberOfSignals = sm.getSignalsSize();
         for (int i = 0; i < numberOfSignals; i++) {

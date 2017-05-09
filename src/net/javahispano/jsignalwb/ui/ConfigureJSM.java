@@ -34,9 +34,24 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
      *
      */
     private static final long serialVersionUID = 3756618805202282113L;
+
+ // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton applyButton;
+    private javax.swing.JButton cancelButton;
+    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JSlider jSlider1;
+    private javax.swing.JTextField jTextField1;
+    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
+    private javax.swing.JButton okButton;
+    // End of variables declaration//GEN-END:variables
+    private JWindow jw;
+
     private JSWBManager jswbManager;
     private boolean zoomH;
     private boolean scroll;
+
     /** Creates new form ConfigureJSM */
     public ConfigureJSM(JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
@@ -75,14 +90,17 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
         }
     }
 
+    @Override
     public void changedUpdate(DocumentEvent evt) {
         documentEvent(evt);
     }
 
+    @Override
     public void removeUpdate(DocumentEvent evt) {
         documentEvent(evt);
     }
 
+    @Override
     public void insertUpdate(DocumentEvent evt) {
         documentEvent(evt);
     }
@@ -149,6 +167,7 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
 
         okButton.setText("OK");
         okButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
             }
@@ -156,6 +175,7 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
 
         applyButton.setText("Apply");
         applyButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 applyButtonActionPerformed(evt);
             }
@@ -163,13 +183,13 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
 
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
 
         jLabel1.setText("Frecuency:");
-
         jLabel2.setText("Scroll Value:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -352,16 +372,5 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
         return newDateTime.getMillis();
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton applyButton;
-    private javax.swing.JButton cancelButton;
-    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JSlider jSlider1;
-    private javax.swing.JTextField jTextField1;
-    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
-    private javax.swing.JButton okButton;
-    // End of variables declaration//GEN-END:variables
-    private JWindow jw;
+
 }

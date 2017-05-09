@@ -23,6 +23,7 @@ public class SetSignalImaginaryAction extends AbstractAction {
      */
     private static final long serialVersionUID = -1815094345499692409L;
     private String signalName;
+    
     public SetSignalImaginaryAction(String signalName) {
         this.signalName = signalName;
         this.putValue(NAME, "Imaginary signal");

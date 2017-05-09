@@ -31,6 +31,7 @@ public abstract class LoaderAdapter extends PluginAdapter implements Loader {
      * @return boolean
      * @throws Exception
      */
+    @Override
     public boolean load(File f) throws
             Exception {
         return load(f, JSWBManager.getSignalManager());
@@ -103,6 +104,7 @@ public abstract class LoaderAdapter extends PluginAdapter implements Loader {
         return null;
     }
 
+    @Override
     public void cancelExecution() {
         executionCanceled = true;
     }
@@ -116,6 +118,7 @@ public abstract class LoaderAdapter extends PluginAdapter implements Loader {
         return executionCanceled;
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         return false;
     }

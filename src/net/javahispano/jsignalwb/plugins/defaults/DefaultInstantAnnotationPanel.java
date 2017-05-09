@@ -26,16 +26,47 @@ import com.michaelbaranov.microba.calendar.CalendarPane;
  *
  * @author  Compaq_Propietario
  */
-public class DefaultInstantAnnotationPanel extends javax.swing.JPanel implements PropertyChangeListener {
+public class DefaultInstantAnnotationPanel extends javax.swing.JPanel
+        implements PropertyChangeListener {
+
     /**
      *
      */
     private static final long serialVersionUID = 3082154615256147716L;
 
+ // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField colorTextField;
+    private javax.swing.JTextArea comentaryTextArea;
+    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
+    private javax.swing.JLabel iconLabel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
+    private javax.swing.JLabel kindLabel;
+    private javax.swing.JTextField markTitleTextField;
+    // End of variables declaration//GEN-END:variables
+
     DefaultInstantAnnotation dim;
     JFileChooser jfc;
     JColorChooser jColorChooser1;
     JWindow jw;
+
     /** Creates new form DefaultInstantAnnotationPanel */
     public DefaultInstantAnnotationPanel(DefaultInstantAnnotation dia) {
         this.dim = dia;
@@ -67,6 +98,7 @@ public class DefaultInstantAnnotationPanel extends javax.swing.JPanel implements
         jColorChooser1 = new JColorChooser();
     }
 
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("date".equals(evt.getPropertyName())) {
             Date date = datePicker1.getDate();
@@ -265,6 +297,7 @@ public class DefaultInstantAnnotationPanel extends javax.swing.JPanel implements
         jRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton1radioButtons(evt);
             }
@@ -277,6 +310,7 @@ public class DefaultInstantAnnotationPanel extends javax.swing.JPanel implements
 
         jButton3.setText("Choose color");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
@@ -338,6 +372,7 @@ public class DefaultInstantAnnotationPanel extends javax.swing.JPanel implements
 
         jButton5.setText("Cancel");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
@@ -435,6 +470,7 @@ public class DefaultInstantAnnotationPanel extends javax.swing.JPanel implements
             jfc = new JFileChooser();
 
             FileFilter ff = new FileFilter() {
+                @Override
                 public boolean accept(File f) {
                     if (f.isDirectory()) {
                         return true;
@@ -459,6 +495,7 @@ public class DefaultInstantAnnotationPanel extends javax.swing.JPanel implements
                 }
 
                 // return a description of files
+                @Override
                 public String getDescription() {
                     return "Image file (*.gif,*.jpg,*.jpeg,*.bmp,*.png)";
                 }
@@ -545,32 +582,6 @@ public class DefaultInstantAnnotationPanel extends javax.swing.JPanel implements
         return newDateTime.getMillis();
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JTextField colorTextField;
-    private javax.swing.JTextArea comentaryTextArea;
-    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
-    private javax.swing.JLabel iconLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
-    private javax.swing.JLabel kindLabel;
-    private javax.swing.JTextField markTitleTextField;
-    // End of variables declaration//GEN-END:variables
+
 
 }

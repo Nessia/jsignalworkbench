@@ -24,25 +24,30 @@ public class MultiTXTLoader extends BasicLoader {
     private String[] nombres = {"Flujo", "Sat02", "Movimiento abdominal", "Movimiento toracico"};
 
     //float[][] s ={ecg,flujo,sp02,a,t};
+
+    @Override
     public String getName() {
         return "MultiTXTLoader";
     }
 
+    @Override
     public String getShortDescription() {
         return "Cargador inicial";
     }
 
     /**
-     * La extension que soporta es "txt".
+     * La extension que soporta es "txt". // TODO ??? @vanesa
      *
      * @return ArrayList
      */
+    @Override
     public ArrayList<String> getAvalaibleExtensions() {
         ArrayList<String> ext = new ArrayList<String>();
         ext.add("Carpetas");
         return ext;
     }
 
+    @Override
     protected boolean load(File f, SignalManager sm) throws Exception {
         float[] flujo = super.loadSignals(new File(f.getAbsoluteFile() + "\\Flow.txt"))[0];
         float[] a = super.loadSignals(new File(f.getAbsoluteFile() + "\\Abdom.txt"))[0];

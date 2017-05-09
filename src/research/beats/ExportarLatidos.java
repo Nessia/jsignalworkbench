@@ -89,6 +89,7 @@ public class ExportarLatidos extends AlgorithmAdapter {
                 return false;
             }
 
+            @Override
             public String getDescription() {
                 String desc = "Archivos RR";
                 return desc;

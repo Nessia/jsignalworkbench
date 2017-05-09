@@ -36,6 +36,7 @@ public class AbscissaOffsetAction extends AbstractAction {
         this.putValue(NAME, String.valueOf(value) + "%");
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         //jsm.getChannelProperties(signalName).setAbscissaOffset(value/(float)100);
         jsm.repaintAll();

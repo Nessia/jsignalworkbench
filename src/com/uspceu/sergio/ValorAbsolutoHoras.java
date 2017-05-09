@@ -14,33 +14,33 @@ import net.javahispano.jsignalwb.SignalManager;
  * @author Sergio
  */
 public class ValorAbsolutoHoras extends SimpleAlgorithm {
-       
+
+    @Override
     public String getName() {
         return "Calculo del valor absoluto hora a hora";
     }
-    
+
     @Override
     public void runAlgorithm(SignalManager signalManager, Signal signal, float[] datos, float fs) {
-    
-    Signal biometrix = signalManager.getSignal("Hora a hora de Acumulado de Biometrix");
-    Signal bascula = signalManager.getSignal("Hora a hora de Bascula");
-    
-    float arrayBiometrix[];
-    float arrayBascula[];
-    
-    arrayBiometrix = biometrix.getValues();
-    arrayBascula = bascula.getValues();
-    float newData[] = new float[arrayBascula.length];
-    
-    for (int i = 0; i < arrayBascula.length; i++) {
-       newData[i] = Math.abs(arrayBiometrix[i] - arrayBascula[i]);
-    }
-    
-    Signal square = new Signal("Error absoluto hora a hora",
-                              newData, biometrix.getSRate() , signal.getStart(), "Unidades");
-    square.adjustVisibleRange();
-    signalManager.addSignal(square);
+
+        Signal biometrix = signalManager.getSignal("Hora a hora de Acumulado de Biometrix");
+        Signal bascula = signalManager.getSignal("Hora a hora de Bascula");
+
+        float arrayBiometrix[];
+        float arrayBascula[];
+
+        arrayBiometrix = biometrix.getValues();
+        arrayBascula = bascula.getValues();
+        float newData[] = new float[arrayBascula.length];
+
+        for (int i = 0; i < arrayBascula.length; i++) {
+           newData[i] = Math.abs(arrayBiometrix[i] - arrayBascula[i]);
+        }
+
+        Signal square = new Signal("Error absoluto hora a hora",
+                                  newData, biometrix.getSRate() , signal.getStart(), "Unidades");
+        square.adjustVisibleRange();
+        signalManager.addSignal(square);
     }
 
-    
 }

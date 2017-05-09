@@ -12,6 +12,21 @@ public class Configure extends javax.swing.JDialog {
      */
     private static final long serialVersionUID = 4451763633903213420L;
 
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton chooseButton;
+    private javax.swing.JDialog colourDialog;
+    private javax.swing.JPanel colourPanel;
+    private javax.swing.JColorChooser colourWindow;
+    private javax.swing.JButton confirmButton;
+    private javax.swing.JSlider heightSlider;
+    private javax.swing.JTextField heightText;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton modifyButton;
+    // End of variables declaration//GEN-END:variables
+
     /**
      * Creates new form Configure
      */
@@ -25,7 +40,6 @@ public class Configure extends javax.swing.JDialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         colourDialog = new javax.swing.JDialog();
         colourWindow = new javax.swing.JColorChooser();
         confirmButton = new javax.swing.JButton();
@@ -50,6 +64,7 @@ public class Configure extends javax.swing.JDialog {
 
         confirmButton.setText("Confirm");
         confirmButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmButtonActionPerformed(evt);
             }
@@ -66,6 +81,7 @@ public class Configure extends javax.swing.JDialog {
 
         heightSlider.setMaximum(1000);
         heightSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 heightSliderStateChanged(evt);
             }
@@ -75,6 +91,7 @@ public class Configure extends javax.swing.JDialog {
         heightText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         heightText.setMaximumSize(new java.awt.Dimension(200, 60));
         heightText.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 heightTextActionPerformed(evt);
             }
@@ -94,6 +111,7 @@ public class Configure extends javax.swing.JDialog {
 
         chooseButton.setText("Choose");
         chooseButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chooseButtonActionPerformed(evt);
             }
@@ -109,6 +127,7 @@ public class Configure extends javax.swing.JDialog {
         modifyButton.setPreferredSize(new java.awt.Dimension(50, 15));
         modifyButton.setRequestFocusEnabled(false);
         modifyButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modifyButtonActionPerformed(evt);
             }
@@ -151,26 +170,13 @@ public class Configure extends javax.swing.JDialog {
 
 
     public static void main(String args[]) {
-
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Configure().setVisible(true);
             }
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton chooseButton;
-    private javax.swing.JDialog colourDialog;
-    private javax.swing.JPanel colourPanel;
-    private javax.swing.JColorChooser colourWindow;
-    private javax.swing.JButton confirmButton;
-    private javax.swing.JSlider heightSlider;
-    private javax.swing.JTextField heightText;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton modifyButton;
-    // End of variables declaration//GEN-END:variables
+
 }

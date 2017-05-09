@@ -20,7 +20,9 @@ import net.javahispano.plugins.temporalseries.TemporalSeriesAlgorithm;
  * @version 0.5
  */
 public class Untitled2 extends TemporalSeriesAlgorithm {
+
     public Untitled2() {
+        // Vacio
     }
 
     /**
@@ -33,14 +35,9 @@ public class Untitled2 extends TemporalSeriesAlgorithm {
         return "aaaaaaaa";
     }
 
-    /**
-     * processTemporalSeries
-     *
-     * @param sm SignalManager
-     * @param signals List
-     * @todo Implement this
-     *   net.javahispano.jsignalwb.temporalseries.TemporalSeriesAlgorithm
-     *   method
+    /*
+     * (non-Javadoc)
+     * @see net.javahispano.plugins.temporalseries.TemporalSeriesAlgorithm#processTemporalSeries(net.javahispano.jsignalwb.SignalManager, java.util.List)
      */
     @Override
     public void processTemporalSeries(SignalManager sm, List<TemporalSeries> signals) {

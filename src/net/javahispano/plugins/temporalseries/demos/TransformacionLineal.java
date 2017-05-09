@@ -20,6 +20,7 @@ public class TransformacionLineal extends TemporalSeriesAlgorithm {
 
     private int b;
     private float a;
+
     @Override
     public void processTemporalSeries(SignalManager sm, List<TemporalSeries> signals) {
         if (signals.size() != 1) {
@@ -33,10 +34,12 @@ public class TransformacionLineal extends TemporalSeriesAlgorithm {
         }
     }
 
+    @Override
     public String getName() {
         return "Transformacion Lineal";
     }
 
+    @Override
     public void launchConfigureGUI(JSWBManager jswbManager) {
         TransformacionLinealGUI gui = new TransformacionLinealGUI(null, true);
         gui.setVisible(true);

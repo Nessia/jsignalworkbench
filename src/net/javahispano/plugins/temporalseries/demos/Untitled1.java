@@ -20,28 +20,21 @@ import net.javahispano.plugins.temporalseries.TemporalSeriesAlgorithm;
  * @version 0.5
  */
 public class Untitled1 extends TemporalSeriesAlgorithm {
+
     public Untitled1() {
+        // Vacio
     }
 
-    /**
-     * Proporciona el hombre del plugin.
-     *
-     * @return Nombre del plugin
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     */
+    @Override
     public String getName() {
         return "Ejemplo";
     }
 
-    /**
-     * processTemporalSeries
-     *
-     * @param sm SignalManager
-     * @param signals List
-     * @todo Implement this
-     *   net.javahispano.jsignalwb.temporalseries.TemporalSeriesAlgorithm
-     *   method
+    /*
+     * (non-Javadoc)
+     * @see net.javahispano.plugins.temporalseries.TemporalSeriesAlgorithm#processTemporalSeries(net.javahispano.jsignalwb.SignalManager, java.util.List)
      */
+    @Override
     public void processTemporalSeries(SignalManager sm, List<TemporalSeries> signals) {
         Iterator<TemporalSeries> it = signals.iterator();
         TemporalSeries s = it.next();

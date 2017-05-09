@@ -22,6 +22,7 @@ public class Tarea extends Thread implements Cancelar {
 
 //**********************************************************************************************
 
+     @Override
      public void cancelar() {
          cancel = true;
      }
@@ -40,6 +41,7 @@ public class Tarea extends Thread implements Cancelar {
 
 //**********************************************************************************************
 
+     @Override
      public void run() {
          Vector<Parametro> copiaParamTemp = new Vector<Parametro>();
 

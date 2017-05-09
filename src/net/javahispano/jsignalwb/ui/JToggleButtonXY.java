@@ -35,6 +35,7 @@ public class JToggleButtonXY extends JToggleButton implements JSignalMonitorMode
         jsm.addModeListener(this);
     }
 
+    @Override
     public String getActionCommand() {
         if (isSelected()) {
             return "true";
@@ -43,6 +44,7 @@ public class JToggleButtonXY extends JToggleButton implements JSignalMonitorMode
         }
     }
 
+    @Override
     public void jSignalMonitorModeActionPerformed(JSignalMonitorModeEvent e) {
         if (e.getMode() == JSignalMonitorModeEvent.REPRESENT_XY_VALUES) {
             setSelected(e.getValue());

@@ -64,6 +64,7 @@ public class JSWBStatusBar extends JPanel {
         }
         loader.setText("   " + sessionInfo.getLastLoaderUsed() + "   ||");
         Runnable uiUpdateRunnable = new Runnable() {
+            @Override
             public void run() {
                 validate();
             }

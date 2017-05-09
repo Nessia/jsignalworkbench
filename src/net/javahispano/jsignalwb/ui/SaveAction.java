@@ -23,7 +23,9 @@ public class SaveAction extends AbstractAction {
      *
      */
     private static final long serialVersionUID = -3160700651819188367L;
+
     private JSWBManager jswbManager;
+
     public SaveAction(JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
         Image image = Toolkit.getDefaultToolkit().createImage(
@@ -35,6 +37,7 @@ public class SaveAction extends AbstractAction {
         this.putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl S"));
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         jswbManager.saveChannels();
     }

@@ -184,6 +184,7 @@ public class PideDatosAlConversor extends Thread {
         return datos;
     }
 
+    @Override
     public void run() {
         setPriority(Thread.MIN_PRIORITY);
         this.cargarDatos();

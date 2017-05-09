@@ -94,11 +94,13 @@ public class PanelGrupoParametro extends JPanel implements ActionListener,
      // Metodos para gestionar eventos
 
      // Eventos de boton
+     @Override
      public void actionPerformed(ActionEvent e) {
          this.reset();
      }
 
     // Eventos de checkbox
+     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.DESELECTED) {
             this.parametro.setActivado(false);

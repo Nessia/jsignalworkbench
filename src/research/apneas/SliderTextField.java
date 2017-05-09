@@ -147,6 +147,7 @@ class SliderTextField_jTextField1_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jTextField1_actionPerformed(e);
     }
@@ -159,6 +160,7 @@ class SliderTextField_jTextField_focusAdapter extends FocusAdapter {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void focusLost(FocusEvent e) {
         adaptee.jTextField_focusLost(e);
     }
@@ -171,6 +173,7 @@ class SliderTextField_jSlider1_changeAdapter implements ChangeListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void stateChanged(ChangeEvent e) {
         adaptee.jSlider1_stateChanged(e);
     }

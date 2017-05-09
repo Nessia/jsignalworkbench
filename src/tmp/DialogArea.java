@@ -43,14 +43,14 @@ public class DialogArea extends JDialog {
     protected JCheckBox jCheckBoxPico = new JCheckBox();
     protected boolean cancelado = false;
 
-    private String[] parametro = {"Presi髇 arterial sist髄ica",
-                                 "Presi髇 arterial media",
-                                 "Presi髇 arterial diast髄ica",
-                                 "Presi髇 pulmonar sist髄ica",
-                                 "Presi髇 pulmonar media",
-                                 "Presi髇 pulmonar diast髄ica",
-                                 "Flujo car髏ida", "Flujo ri耋n",
-                                 "Flujo corteza", "Flujo m閐ula"
+    private String[] parametro = {"Presi贸n arterial sist贸lica",
+                                 "Presi贸n arterial media",
+                                 "Presi贸n arterial diast贸lica",
+                                 "Presi贸n pulmonar sist贸lica",
+                                 "Presi贸n pulmonar media",
+                                 "Presi贸n pulmonar diast贸lica",
+                                 "Flujo car贸tida", "Flujo ri帽贸n",
+                                 "Flujo corteza", "Flujo m茅dula"
     };
 
 
@@ -111,7 +111,7 @@ public class DialogArea extends JDialog {
         jCheckBoxPico.setText("Pico");
         jCheckBoxPico.setBounds(new Rectangle(236, 247, 91, 25));
         jLabel4.setForeground(Color.blue);
-        jLabel4.setText("Par醡etro");
+        jLabel4.setText("Par锟絤etro");
         jLabel4.setBounds(new Rectangle(60, 203, 118, 16));
         jComboBoxParametro.setBounds(new Rectangle(215, 195, 312, 24));
         panel1.add(jLabel1, null);
@@ -139,12 +139,12 @@ public class DialogArea extends JDialog {
     }
 
     public void jTextFieldPeso_focusLost(FocusEvent e) {
-try {
-    Float.parseFloat(this.jTextFieldPeso.getText());
-} catch (NumberFormatException ex) {
-    JOptionPane.showMessageDialog(this,"Error, formato inadecuado para el peso", "Error",
-            JOptionPane.ERROR_MESSAGE);
-}
+        try {
+            Float.parseFloat(this.jTextFieldPeso.getText());
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,"Error, formato inadecuado para el peso", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void jButton1_actionPerformed(ActionEvent e) {
@@ -164,6 +164,7 @@ class DialogArea_jButton2_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton2_actionPerformed(e);
     }
@@ -176,6 +177,7 @@ class DialogArea_jButton1_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton1_actionPerformed(e);
     }
@@ -188,6 +190,7 @@ class DialogArea_jTextFieldPeso_focusAdapter extends FocusAdapter {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void focusLost(FocusEvent e) {
         adaptee.jTextFieldPeso_focusLost(e);
     }
@@ -200,6 +203,7 @@ class DialogArea_jCheckBoxPico_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jCheckBoxPico_actionPerformed(e);
     }
@@ -212,6 +216,7 @@ class DialogArea_jCheckBoxValle_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jCheckBoxValle_actionPerformed(e);
     }

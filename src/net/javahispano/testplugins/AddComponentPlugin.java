@@ -17,15 +17,19 @@ import net.javahispano.jsignalwb.plugins.GenericPluginAdapter;
  * @author Roman Segador
  */
 public class AddComponentPlugin extends GenericPluginAdapter {
-    private int count = -1;
-    public AddComponentPlugin() {
 
+    private int count = -1;
+
+    public AddComponentPlugin() {
+        // Vacio
     }
 
+    @Override
     public String getName() {
         return "AddComponentPlugin";
     }
 
+    @Override
     public void launch(JSWBManager jswbManager) {
         JSWBManager jswb = JSWBManager.getJSWBManagerInstance();
         count++;

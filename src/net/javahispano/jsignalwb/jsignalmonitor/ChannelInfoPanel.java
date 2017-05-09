@@ -49,12 +49,12 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
 
     /** Creates a new instance of ChannelInfoPanel */
 
-     public ChannelInfoPanel() {
-      try {
-          jbInit();
-      } catch (Exception ex) {
-          ex.printStackTrace();
-      }
+    public ChannelInfoPanel() {
+        try {
+            jbInit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
    }
 
     public ChannelInfoPanel(Channel channel, JSignalMonitorPanel jsmp) {
@@ -215,7 +215,7 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
         }
     }
 
-
+    @Override
     public void MouseTimeChangeActionPerformed(long time) {
         if (point != null) {
             point.setText("X: " + TimeRepresentation.timeToString(time, false, true, true));
@@ -379,7 +379,5 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
     /* public boolean isInvadeNearChannels(){
          return channel.isInvadeNearChannels();
      }*/
-
-
 
 }

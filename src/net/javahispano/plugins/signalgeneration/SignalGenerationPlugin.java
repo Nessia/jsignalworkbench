@@ -12,14 +12,15 @@ import net.javahispano.plugins.temporalseries.TemporalSeries;
 
 public class SignalGenerationPlugin extends GenericPluginAdapter {
     public SignalGenerationPlugin() {
+        // Empty
     }
 
-
+    @Override
     public String getName() {
         return "Signal Generation";
     }
 
-
+    @Override
     public void launch(JSWBManager jswbManager) {
         //antes de lanzar la interfaz gr\u2663fica debemos asegurarnos que
         //todas las senhales son series temporales
@@ -30,15 +31,17 @@ public class SignalGenerationPlugin extends GenericPluginAdapter {
         d.setVisible(true);
     }
 
+    @Override
     public String getShortDescription() {
         return "Permite generar senhales artificiales para testeo";
     }
 
-
+    @Override
     public String getDescription() {
         return "Plugin que permite generar una senhal artificial a partir de la suma de un conjunto de senos de amplitud, frecuencia y desfase configurable. Tambien permite anhadir ruido blanco de amplitud configurable a la senhal final.";
     }
 
+    @Override
     public Icon getIcon() {
         Image logo = Toolkit.getDefaultToolkit().createImage(
                 SignalGeneration.class.getResource("logo.gif"));
@@ -46,10 +49,12 @@ public class SignalGenerationPlugin extends GenericPluginAdapter {
         return pulso;
     }
 
+    @Override
     public String getPluginVersion() {
         return "0.5";
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;

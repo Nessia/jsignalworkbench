@@ -40,6 +40,7 @@ public class ExportarParametros extends AlgorithmAdapter {
 //    private boolean presionesPSuavizadas = false;
 //    private boolean flujosSuavizados = false;
 
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
 

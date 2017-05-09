@@ -213,11 +213,13 @@ public class EpisodioDesaturacion extends Intervalo {
         return intervaloFin;
     }
 
+    @Override
     public void setPrincipio(int principio) {
         this.intervaloPrincipio.setPrincipio(principio);
         super.setPrincipio(principio);
     }
 
+    @Override
     public void setFin(int fin) {
         this.intervaloFin.setFin(fin);
         super.setFin(fin);

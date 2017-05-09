@@ -41,6 +41,7 @@ public class OpenFileAndAddSignalsAction extends OpenFileAction {
         JSWBManager.setDeleteSignalsInNextLoad(false);
     }
 
+    @Override
     protected void loadData(File file) {
         JSWBManager.setDeleteSignalsInNextLoad(false);
         jswbManager.loadChannels(chooser.getLoaderSelected().getName(), file);

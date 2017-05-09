@@ -22,8 +22,6 @@ import research.beats.DialogKubiosRHRV;
  *
  * @author Victoria
  */
-
-
 public class ExportarOndaP extends SimpleAlgorithm{
 
     private String ultimoDirectorio = null;
@@ -39,30 +37,37 @@ public class ExportarOndaP extends SimpleAlgorithm{
         jf = new JFileChooser(ultimoDirectorio);
     }
 
-     public int numberOfSignalsNeeded() {
+    @Override
+    public int numberOfSignalsNeeded() {
         return 0;
     }
 
+    @Override
     public String getDataToSave() {
         return ultimoDirectorio;
     }
 
+    @Override
     public String getDescription() {
         return "Obtencion de intervalos PP de los latidos";
     }
 
-     public String getName() {
+    @Override
+    public String getName() {
         return "ExporOndaP";
     }
 
+    @Override
     public boolean hasDataToSave() {
         return true;
     }
 
+    @Override
     public boolean hasOwnConfigureGUI() {
         return false;
     }
 
+    @Override
     public void setSavedData(String data) {
         jf.setFileFilter(new FileFilter() {
             public boolean accept(File f) {
@@ -120,12 +125,8 @@ public class ExportarOndaP extends SimpleAlgorithm{
 
     }
 
-
-
-    /*public void runAlgorithm(SignalManager signalManager, Signal signal, float[] datos, float fs) {
-
-    }*/
-    public void runAlgorithm(SignalManager sm, Signal signal, float[]datos, float fs) {
+    @Override
+    public void runAlgorithm(SignalManager sm, Signal signal, float[] datos, float fs) {
 
         List<DefaultIntervalMark> marcasP = marcasP(sm, signal);
 
@@ -134,19 +135,23 @@ public class ExportarOndaP extends SimpleAlgorithm{
         error = false;
     }
 
-     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
+    @Override
+    public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
+        }
+        if (gUIPositions == GUIPositions.TOOLBAR) {
             return true;
         }
         return false;
     }
 
+    @Override
     public boolean hasResultsGUI() {
         return true;
     }
 
+    @Override
     public void launchResultsGUI(JSWBManager jswbManager) {
         if (error) {
             return;
@@ -184,10 +189,12 @@ public class ExportarOndaP extends SimpleAlgorithm{
         }
     }
 
+    @Override
     public boolean hasOwnExecutionGUI() {
         return true;
     }
 
+    @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
         DialogKubiosRHRV d = new DialogKubiosRHRV(null, "Seleciona Formato", true);
         d.setVisible(true);

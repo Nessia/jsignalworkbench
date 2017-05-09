@@ -4,8 +4,13 @@ import java.util.List;
 
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
+import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 
 public class PruebaDeConcurrenciaParaSwing2 extends AlgorithmAdapter {
+    String[] nombres = {"1", "2", "3", "4*", "5", "6", "7", "8", "9", "10", "11",
+            "12", "13", "14", "15", "16", "17", "18", "19", "20",
+            "21", "22", "23", "24", "25", "26", "27", "28", "29",
+            "30"};
     int i;
 
     public PruebaDeConcurrenciaParaSwing2() {
@@ -17,14 +22,10 @@ public class PruebaDeConcurrenciaParaSwing2 extends AlgorithmAdapter {
         return "Concurrencia2";
     }
 
-    String[] nombres = {"1", "2", "3", "4*", "5", "6", "7", "8", "9", "10", "11",
-                       "12", "13", "14", "15", "16", "17", "18", "19", "20",
-                       "21", "22", "23", "24", "25", "26", "27", "28", "29",
-                       "30"};
-
     @Override
     public void runAlgorithm(final SignalManager sm,
-                             List<SignalIntervalProperties> signals) {
+                             List<SignalIntervalProperties> signals,
+                             AlgorithmRunner ar) {
         final Signal s = signals.get(0).getSignal();
         final float[] datos = s.getValues();
 

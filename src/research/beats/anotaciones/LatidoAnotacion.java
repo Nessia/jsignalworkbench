@@ -20,6 +20,7 @@ public class LatidoAnotacion extends LimitacionAnotacion {
         this.setTipo(LimitacionAnotacion.N);
     }
 
+    @Override
     public String getName() {
         return "Latido normal";
     }

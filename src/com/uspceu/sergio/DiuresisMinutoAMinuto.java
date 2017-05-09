@@ -10,6 +10,7 @@ import net.javahispano.jsignalwb.SignalManager;
  */
 public class DiuresisMinutoAMinuto extends SimpleAlgorithm  {
 
+    @Override
     public String getName() {
            return "Calculo de la diuresis minuto a minuto";
     }

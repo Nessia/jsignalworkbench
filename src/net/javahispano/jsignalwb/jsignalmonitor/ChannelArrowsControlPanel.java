@@ -21,6 +21,13 @@ class ChannelArrowsControlPanel extends javax.swing.JPanel {
      */
     private static final long serialVersionUID = -5824051340316414894L;
 
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel labelDown;
+    private javax.swing.JLabel labelLeft;
+    private javax.swing.JLabel labelRight;
+    private javax.swing.JLabel labelUp;
+    // End of variables declaration//GEN-END:variables
+
     private Cursor cursor;
     private String channelName;
     private JSignalMonitorPanel jsmPanel;
@@ -32,15 +39,18 @@ class ChannelArrowsControlPanel extends javax.swing.JPanel {
         this.jsmPanel = jsmPanel;
         initComponents();
         MouseListener mlRight = new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ChannelArrowsControlPanel.this.mouseClicked(evt);
             }
 
+            @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 JLabel c = (JLabel) evt.getSource();
                 c.setIcon(iconRightH);
             }
 
+            @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 JLabel c = (JLabel) evt.getSource();
                 c.setIcon(iconRight);
@@ -48,15 +58,18 @@ class ChannelArrowsControlPanel extends javax.swing.JPanel {
 
         };
         MouseListener mlUp = new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ChannelArrowsControlPanel.this.mouseClicked(evt);
             }
 
+            @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 JLabel c = (JLabel) evt.getSource();
                 c.setIcon(iconUpH);
             }
 
+            @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 JLabel c = (JLabel) evt.getSource();
                 c.setIcon(iconUp);
@@ -64,15 +77,18 @@ class ChannelArrowsControlPanel extends javax.swing.JPanel {
 
         };
         MouseListener mlDown = new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ChannelArrowsControlPanel.this.mouseClicked(evt);
             }
 
+            @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 JLabel c = (JLabel) evt.getSource();
                 c.setIcon(iconDownH);
             }
 
+            @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 JLabel c = (JLabel) evt.getSource();
                 c.setIcon(iconDown);
@@ -80,15 +96,18 @@ class ChannelArrowsControlPanel extends javax.swing.JPanel {
 
         };
         MouseListener mlLeft = new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ChannelArrowsControlPanel.this.mouseClicked(evt);
             }
 
+            @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 JLabel c = (JLabel) evt.getSource();
                 c.setIcon(iconLeftH);
             }
 
+            @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 JLabel c = (JLabel) evt.getSource();
                 c.setIcon(iconLeft);
@@ -203,11 +222,6 @@ class ChannelArrowsControlPanel extends javax.swing.JPanel {
 
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel labelDown;
-    private javax.swing.JLabel labelLeft;
-    private javax.swing.JLabel labelRight;
-    private javax.swing.JLabel labelUp;
-    // End of variables declaration//GEN-END:variables
+
 
 }

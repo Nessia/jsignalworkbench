@@ -31,6 +31,7 @@ public class JRadioButtonMenuItemSetSignalImaginary extends JRadioButtonMenuItem
         }
     }
 
+    @Override
     public String getActionCommand() {
         if (isSelected()) {
             return "true";

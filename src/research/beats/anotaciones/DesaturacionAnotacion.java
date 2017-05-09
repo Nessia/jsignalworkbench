@@ -38,10 +38,12 @@ public class DesaturacionAnotacion extends LimitacionAnotacion {
         this.setTipo(LimitacionAnotacion.DESATURACION);
     }
 
+    @Override
     public String getName() {
-        return "Desaturación";
+        return "DesaturaciÃ³n";
     }
 
+    @Override
     public void showMarkInfo(Window owner) {
         for (LimitacionAnotacion limitation : limitationsList) {
             Color c = limitation.getColor();

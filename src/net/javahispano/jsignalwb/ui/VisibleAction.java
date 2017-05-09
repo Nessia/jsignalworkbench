@@ -25,8 +25,10 @@ public class VisibleAction extends AbstractAction {
      *
      */
     private static final long serialVersionUID = -8543839304574737318L;
+
     private JSWBManager jswbManager;
     private String signalName;
+
     /** Creates a new instance of VisibleAction */
     public VisibleAction(JSWBManager jswbManager, String signalName) {
         this.signalName = signalName;
@@ -39,10 +41,10 @@ public class VisibleAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().toLowerCase().equals("true")) {
-            jswbManager.setChannelVisible(signalName, true);
+            JSWBManager.setChannelVisible(signalName, true);
             jswbManager.refreshJSM(false);
         } else if (e.getActionCommand().toLowerCase().equals("false")) {
-            jswbManager.setChannelVisible(signalName, false);
+            JSWBManager.setChannelVisible(signalName, false);
             jswbManager.refreshJSM(false);
         }
     }

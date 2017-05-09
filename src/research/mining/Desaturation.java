@@ -44,6 +44,7 @@ public class Desaturation extends TemporalEvent {
     private float basalEnergyAfter;
 
     public Desaturation() {
+        // vacio
     }
 
     public Desaturation(long absoluteBeginingTime, long duration) {

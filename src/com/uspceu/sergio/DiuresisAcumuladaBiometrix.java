@@ -10,8 +10,9 @@ import net.javahispano.jsignalwb.SignalManager;
  */
 public class DiuresisAcumuladaBiometrix  extends SimpleAlgorithm {
 
+    @Override
     public String getName() {
-           return "Calculo de la diuresis acunulada";
+           return "Cálculo de la diuresis acumulada";
     }
 
     @Override

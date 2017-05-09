@@ -37,6 +37,7 @@ public class JRadioButtonMenuItemVisible extends JRadioButtonMenuItem {
         }
     }
 
+    @Override
     public String getActionCommand() {
         if (isSelected()) {
             return "true";

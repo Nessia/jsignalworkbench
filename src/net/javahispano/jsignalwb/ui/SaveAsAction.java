@@ -29,9 +29,11 @@ public class SaveAsAction extends AbstractAction {
      *
      */
     private static final long serialVersionUID = -1659982835533195065L;
+
     private Component component;
     private JSWBManager jswbManager;
     private final JSWFileChooser chooser;
+
     /**
      * Creates a new instance of SaveAsAction
      */
@@ -66,6 +68,5 @@ public class SaveAsAction extends AbstractAction {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
     }
 }

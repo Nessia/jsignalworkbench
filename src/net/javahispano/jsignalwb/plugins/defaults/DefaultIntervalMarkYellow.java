@@ -19,10 +19,12 @@ public class DefaultIntervalMarkYellow extends DefaultIntervalMark {
         super();
     }
 
+    @Override
     public String getName() {
         return "Default Interval Mark Yellow";
     }
 
+    @Override
     public Image getImage() {
         BufferedImage im = new BufferedImage(5, 15, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = im.createGraphics();

@@ -35,6 +35,7 @@ public class JRadioButtonMenuItemInvadeNearChannels extends JRadioButtonMenuItem
         }
     }
 
+    @Override
     public String getActionCommand() {
         if (isSelected()) {
             return "true";

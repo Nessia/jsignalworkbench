@@ -76,6 +76,7 @@ public class AllStatisticsDialog extends JDialog {
         aceptar.setText("Aceptar");
 
         aceptar.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
             public void actionPerformed(ActionEvent e) {
                 aceptar_actionPerformed(e);
             }
@@ -83,12 +84,14 @@ public class AllStatisticsDialog extends JDialog {
         borrar.setText("Borrar");
 
         borrar.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
             public void actionPerformed(ActionEvent e) {
                 borrar_actionPerformed(e);
             }
         });
         borrar_todo.setText("Borrar Todos");
         borrar_todo.addActionListener(new java.awt.event.ActionListener() {
+        	@Override
             public void actionPerformed(ActionEvent e) {
                 borrar_todo_actionPerformed(e);
             }

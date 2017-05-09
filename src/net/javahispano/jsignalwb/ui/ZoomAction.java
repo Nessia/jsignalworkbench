@@ -27,6 +27,7 @@ public class ZoomAction extends AbstractAction {
     private JSignalMonitor jsm;
     private String signalName;
     private int value;
+
     /** Creates a new instance of VisibleAction */
     public ZoomAction(JSignalMonitor jsm, String signalName, int value) {
         this.jsm = jsm;

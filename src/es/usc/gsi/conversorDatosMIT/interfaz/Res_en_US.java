@@ -9,6 +9,8 @@ public class Res_en_US extends java.util.ListResourceBundle {
                                                "Ending date: "}, {"Valor_original",
                                                "Original value"}
     };
+
+    @Override
     public Object[][] getContents() {
         return contents;
     }

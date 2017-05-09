@@ -37,41 +37,44 @@ public class ApneaGrid extends GridPluginAdapter {
     private int bigSpace;
     private int bigSpaceY;
 
-    public int getLeyendWidth() {
-        return bigSpace;
-    }
-
-    public int getLeyendHeight() {
-        return bigSpaceY;
-    }
-
     public ApneaGrid() {
         valorBasal = ReduccionFlujo.getValorBasal();
 //        delta = ReduccionFlujo.getDelta();
     }
 
+    @Override
+    public int getLeyendWidth() {
+        return bigSpace;
+    }
+
+    @Override
+    public int getLeyendHeight() {
+        return bigSpaceY;
+    }
+
+    @Override
     public void setSignal(Signal s) {
         signal = s;
-        apnea =
-                new TrapezoidalDistribution(0, 0, 0.1F, 0.25F);
+        apnea = new TrapezoidalDistribution(0, 0, 0.1F, 0.25F);
         if (s.getName().equals("R. Airflow")) {
-            ha =
-                    new TrapezoidalDistribution(0, 0, 0.25F, 0.8F);
+            ha = new TrapezoidalDistribution(0, 0, 0.25F, 0.8F);
         } else {
-            ha =
-                    new TrapezoidalDistribution(0, 0, 0.25F, 0.6F);
+            ha = new TrapezoidalDistribution(0, 0, 0.25F, 0.6F);
         }
 
     }
 
+    @Override
     public String getName() {
         return "Grid Apnea";
     }
 
+    @Override
     public void launchConfigureGridGUI(Window owner) {
-
+        // Vacio
     }
 
+    @Override
     public void paintGrid(Graphics2D g2d, Point p, int height, int width,
                           GridConfiguration gridconfig) {
         bigSpace = Math.round((width - 5) / (float) 10);
@@ -125,6 +128,7 @@ public class ApneaGrid extends GridPluginAdapter {
 
     }
 
+    @Override
     public boolean hasDataToSave() {
         if (signal != null) {
             return true;
@@ -132,8 +136,9 @@ public class ApneaGrid extends GridPluginAdapter {
         return false;
     }
 
+    @Override
     public void setSavedData(String data) {
-
+        // Vacio
     }
 
     public String getDataToSave() {

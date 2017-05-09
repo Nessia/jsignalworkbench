@@ -9,9 +9,9 @@ public class DialogoAbrir extends JFileChooser {
     /**
     *
     */
-   private static final long serialVersionUID = 7333203824248030690L;
+    private static final long serialVersionUID = 7333203824248030690L;
 
-   public DialogoAbrir() {
+    public DialogoAbrir() {
         super(); // Se crea tal cual.
     }
 
@@ -24,12 +24,13 @@ public class DialogoAbrir extends JFileChooser {
     // lo unico que tenemos que hacer es asegurarnos de que existe algun fichero .hea en ese directorio
     // y si este es el caso, retrocedemos al directorio inmediatamente superior.
 
-
+    @Override
     public boolean isTraversable(File f) {
         boolean res = super.isTraversable(f);
         if (f.getName().indexOf(".hea") != -1) {
 
             Runnable uiUpdateRunnable = new Runnable() {
+                @Override
                 public void run() {
                     changeToParentDirectory(); // Si es un directorio, el valor de res podria cambiar.
                 }

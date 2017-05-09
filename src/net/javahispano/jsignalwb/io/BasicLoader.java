@@ -29,27 +29,27 @@ public class BasicLoader extends LoaderAdapter {
 
     /** Creates a new instance of basicLoader */
     public BasicLoader() {
+        // Vacio
     }
 
+    @Override
     public String getName() {
         return "basicLoader";
     }
 
+    @Override
     public String getShortDescription() {
         return "Basic Loader";
     }
 
-    /**
-     * La extension que soporta es "txt".
-     *
-     * @return ArrayList
-     */
+    @Override
     public ArrayList<String> getAvalaibleExtensions() {
         ArrayList<String> ext = new ArrayList<String>();
         ext.add("txt");
         return ext;
     }
 
+    @Override
     protected float[][] loadSignals(File f) throws Exception {
         float[][] values = null;
         FileReader fr = new FileReader(f);
@@ -105,7 +105,8 @@ public class BasicLoader extends LoaderAdapter {
 
     }
     //@CNIC
-        protected boolean load(File f, SignalManager sm) throws Exception {
+    @Override
+    protected boolean load(File f, SignalManager sm) throws Exception {
         boolean flag = true;
              super.load(f, sm);/*
         ((Signal)sm.getSignals().toArray()[0]).setFrecuency(500);

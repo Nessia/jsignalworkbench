@@ -25,6 +25,12 @@ public class LoaderExecutionJDialog extends javax.swing.JDialog implements Prope
      */
     private static final long serialVersionUID = -6086174004796887828L;
 
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JProgressBar jProgressBar1;
+    // End of variables declaration//GEN-END:variables
+
     private Loader loader;
     private SwingWorker<Boolean, Void> swWorker;
     /**
@@ -53,6 +59,7 @@ public class LoaderExecutionJDialog extends javax.swing.JDialog implements Prope
      * Detecta cuando ha finalizado la ejecucion del {@link Loader }
      * @param evt {@link PropertyChangeEvent} informa del estado de ejecucion
      */
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("state".equals(evt.getPropertyName())) {
             if (evt.getNewValue().equals(LoaderRunner.StateValue.DONE)) {
@@ -81,6 +88,7 @@ public class LoaderExecutionJDialog extends javax.swing.JDialog implements Prope
 
         jButton1.setText("Stop");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
@@ -124,10 +132,6 @@ public class LoaderExecutionJDialog extends javax.swing.JDialog implements Prope
         swWorker.cancel(false);
     } //GEN-LAST:event_jButton1ActionPerformed
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JProgressBar jProgressBar1;
-    // End of variables declaration//GEN-END:variables
+
 
 }

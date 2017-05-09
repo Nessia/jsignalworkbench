@@ -19,12 +19,15 @@ import net.javahispano.jsignalwb.plugins.GenericPluginAdapter;
 public class AddJMenuPlugin extends GenericPluginAdapter {
 
     public AddJMenuPlugin() {
+        // Vacio
     }
 
+    @Override
     public String getName() {
         return "AddJMenuPlugin";
     }
 
+    @Override
     public void launch(JSWBManager jswbManager) {
         JMenu menu = new JMenu("Menu de prueba");
         menu.add(new JMenuItem("menu de prueba"));

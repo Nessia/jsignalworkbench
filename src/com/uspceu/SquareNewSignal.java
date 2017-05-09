@@ -6,10 +6,10 @@ import net.javahispano.jsignalwb.SignalManager;
 public class SquareNewSignal extends SimpleAlgorithm {
 
     @Override
-    public void runAlgorithm(SignalManager signalManager, Signal signal, 
+    public void runAlgorithm(SignalManager signalManager, Signal signal,
                 float[] datos, float samplingFrquency) {
 
-           float newData[] = new float[datos.length];
+        float newData[] = new float[datos.length];
         for (int i = 1; i < datos.length; i++) {
             newData[i] = datos[i]*datos[i];
         }
@@ -20,7 +20,8 @@ public class SquareNewSignal extends SimpleAlgorithm {
         signalManager.addSignal(square);
     }
 
+    @Override
     public String getName() {
-        return "Cuadrado nueva señal";
+        return "Cuadrado nueva seÃ±al";
     }
 }

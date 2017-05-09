@@ -62,6 +62,7 @@ public class JSWBFrame extends javax.swing.JFrame {
 
         this.addWindowListener(new JSWBWindowListener(jswbManager));
         Runnable uiUpdateRunnable = new Runnable() {
+            @Override
             public void run() {
                 setVisible(true);
             }
@@ -70,7 +71,6 @@ public class JSWBFrame extends javax.swing.JFrame {
     }
 
     private void initComponents() {
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setJMenuBar(jMenuBar);
         setLayout(new BorderLayout());
@@ -90,6 +90,7 @@ public class JSWBFrame extends javax.swing.JFrame {
      */
     public static void main(final String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 UIManager.installLookAndFeel("NimROD", "com.nilo.plaf.nimrod.NimRODLookAndFeel");
                 try {
@@ -129,7 +130,7 @@ public class JSWBFrame extends javax.swing.JFrame {
         // jswbManager.addJToolBarComponent(Box.createHorizontalStrut(8));
         jswbManager.addJToolBarButton(new GenericPluginAction(jswbManager,
                 "JSWTextProcessorPlugin",
-                GenericPluginAction.LAUNCH_ACTION));
+                GenericPluginAction.ACTIONS.LAUNCH));
 
         //jswbManager.addJToolBarComponent(Box.createHorizontalStrut(8));
         jswbManager.addJToolBarButton(new PrintAction());
@@ -138,7 +139,7 @@ public class JSWBFrame extends javax.swing.JFrame {
 
         jswbManager.addJToolBarButton(new GenericPluginAction(jswbManager,
                 "SignalOrganizerPlugin",
-                GenericPluginAction.LAUNCH_ACTION));
+                GenericPluginAction.ACTIONS.LAUNCH));
 
         jswbManager.addJToolBarComponent(Box.createHorizontalStrut(8));
         jswbManager.addJToolBarSeparator();
@@ -157,7 +158,7 @@ public class JSWBFrame extends javax.swing.JFrame {
                         labelAded = true;
                     }
                     jswbManager.addJToolBarButton(new AlgorithmAction(algorithm,
-                            AlgorithmAction.RUN_ACTION, jswbManager));
+                            AlgorithmAction.ACTIONS.RUN_ACTION, jswbManager));
                 }
             }
             if (labelAded) {
@@ -180,7 +181,7 @@ public class JSWBFrame extends javax.swing.JFrame {
                         labelAded = true;
                     }
                     jswbManager.addJToolBarButton(new GenericPluginAction(jswbManager, genericPlugin,
-                            GenericPluginAction.LAUNCH_ACTION));
+                            GenericPluginAction.ACTIONS.LAUNCH));
                 }
             }
             if (labelAded) {

@@ -44,6 +44,7 @@ public class ChangePositionAction extends AbstractAction {
         }
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         String signalName2;
         if ("up".equals(value.toLowerCase())) {

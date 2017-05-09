@@ -158,6 +158,7 @@ public class SeverityDescriptorsGenerator extends AlgorithmAdapter {
         StringSelection stringSelection = new StringSelection(data);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, new ClipboardOwner() {
+            @Override
             public void lostOwnership(Clipboard aClipboard,
                                       Transferable aContents) {
 

@@ -11,7 +11,6 @@ public interface PTBInterface extends Serializable {
      */
 
     static final long serialVersionUID = 1232L;
-    ;
 
     /**
      * Asigna un objeto de tipo PTBM a este PTB. Le indica a que PTBM pertenece.

@@ -27,6 +27,13 @@ public class SaverExecutionJDialog extends javax.swing.JDialog implements Proper
      *
      */
     private static final long serialVersionUID = 6768191882310329427L;
+
+    // Declaracion de varibales -no modificar//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JProgressBar jProgressBar1;
+    // Fin de declaracion de variables//GEN-END:variables
+
     private Saver saver;
     private SwingWorker<Boolean, Void> swingWorker;
 
@@ -52,6 +59,7 @@ public class SaverExecutionJDialog extends javax.swing.JDialog implements Proper
      * Detecta cuando ha finalizado la ejecucion del {@link Saver }
      * @param evt {@link PropertyChangeEvent} informa del estado de ejecucion
      */
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("state".equals(evt.getPropertyName())) {
             if (evt.getNewValue().equals(StateValue.DONE)) {
@@ -79,6 +87,7 @@ public class SaverExecutionJDialog extends javax.swing.JDialog implements Proper
 
         jButton1.setText("Stop");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
@@ -122,10 +131,6 @@ public class SaverExecutionJDialog extends javax.swing.JDialog implements Proper
     } //GEN-LAST:event_jButton1ActionPerformed
 
 
-    // Declaracion de varibales -no modificar//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JProgressBar jProgressBar1;
-    // Fin de declaracion de variables//GEN-END:variables
+
 
 }

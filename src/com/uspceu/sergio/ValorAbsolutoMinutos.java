@@ -15,6 +15,7 @@ import net.javahispano.jsignalwb.SignalManager;
  */
 public class ValorAbsolutoMinutos extends SimpleAlgorithm {
 
+    @Override
     public String getName() {
         return "Calculo del valor absoluto minuto a minuto";
     }

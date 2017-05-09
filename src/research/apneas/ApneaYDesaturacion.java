@@ -12,6 +12,7 @@ import java.util.TreeSet;
  * @version 0.5
  */
 public class ApneaYDesaturacion extends Intervalo {
+	
     private TreeSet<EpisodioDesaturacion> listaEpisodiosDesaturacion = new TreeSet<EpisodioDesaturacion>();
     private EpisodioDesaturacion episodioDesaturacion;
     private Intervalo limitacionFlujo;

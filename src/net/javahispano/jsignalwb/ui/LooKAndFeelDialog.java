@@ -181,6 +181,7 @@ public class LooKAndFeelDialog extends JDialog implements ActionListener {
         panel_look_and_feel.add(aceptar);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         this.dispose();
     }

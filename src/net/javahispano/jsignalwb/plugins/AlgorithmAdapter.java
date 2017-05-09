@@ -73,7 +73,7 @@ public abstract class AlgorithmAdapter extends PluginAdapter implements
     @Override
     public void runAlgorithm(SignalManager sm,
                              List<SignalIntervalProperties> signals,
-            AlgorithmRunner ar) {
+                             AlgorithmRunner ar) {
         if (signals.size() == 1) {
             this.runAlgorithm(sm, signals.get(0).getSignal().getValues());
         }

@@ -23,7 +23,10 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  * @version 0.5
  */
 public class MarcasTransparentes extends AlgorithmAdapter {
+
     private boolean transparente = false;
+
+    @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
        Collection<Signal> allSignals = sm.getSignals();
@@ -45,6 +48,7 @@ public class MarcasTransparentes extends AlgorithmAdapter {
         JSWBManager.getJSignalMonitor().repaintChannels();
     }
 
+    @Override
     public boolean hasOwnExecutionGUI() {
         return true;
     }
@@ -54,6 +58,7 @@ public class MarcasTransparentes extends AlgorithmAdapter {
         this.runAlgorithm(JSWBManager.getSignalManager(), null, null);
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         if (gUIPositions == GUIPositions.MENU) {
             return true;
@@ -63,18 +68,22 @@ public class MarcasTransparentes extends AlgorithmAdapter {
         return false;
     }
 
+    @Override
     public Icon getIcon() {
         return super.generateImage("IN");
     }
 
+    @Override
     public String getName() {
         return "MarcasTransparentes";
     }
 
+    @Override
     public String getDescription() {
         return "MarcasTransparentes";
     }
 
+    @Override
     public String getShortDescription() {
         return "MarcasTransparentes";
     }

@@ -105,8 +105,9 @@ public class DialogApneaEpisodeGenerator extends JDialog {
     private JTextField jTextFieldApneas = new JTextField();
     private JTextField jTextFieldHipoapneas = new JTextField();
     private JTextField jTextFieelPorcentaje = new JTextField();
-    public void jTextField1_actionPerformed(ActionEvent e) {
 
+    public void jTextField1_actionPerformed(ActionEvent e) {
+        // vacio
     }
 
     public void jButton1_actionPerformed(ActionEvent e) {
@@ -179,6 +180,7 @@ class DialogApneaEpisodeGenerator_jButton2_actionAdapter implements ActionListen
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton2_actionPerformed(e);
     }
@@ -191,6 +193,7 @@ class DialogApneaEpisodeGenerator_jButton1_actionAdapter implements ActionListen
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton1_actionPerformed(e);
     }
@@ -203,6 +206,7 @@ class DialogApneaEpisodeGenerator_jTextField1_actionAdapter implements ActionLis
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jTextField1_actionPerformed(e);
     }

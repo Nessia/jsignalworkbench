@@ -18,6 +18,7 @@ public class InstantIconMark extends DefaultInstantMark {
         setIsImage(true);
     }
 
+    @Override
     public String getName() {
         return "Instant Icon Mark";
     }

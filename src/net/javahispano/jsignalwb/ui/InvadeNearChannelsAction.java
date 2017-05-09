@@ -34,6 +34,7 @@ public class InvadeNearChannelsAction extends AbstractAction {
         this.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_I);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().toLowerCase().equals("true")) {
             channelProperties.setInvadeNearChannels(true);

@@ -28,6 +28,46 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
      *
      */
     private static final long serialVersionUID = -6071314186108454176L;
+
+ // Declaracion de varibales -no modificar//GEN-BEGIN:variables
+    private javax.swing.JRadioButton abscissaIntervalRadioButton;
+    private javax.swing.JRadioButton abscissaZoomRadioButton;
+    private javax.swing.JButton applyButton;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton cancelButton;
+    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
+    private javax.swing.JLabel frecuencyLabel;
+    private javax.swing.JTextField frecuencyTextField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
+    private javax.swing.JLabel magnitudeLabel;
+    private javax.swing.JTextField magnitudeTextField;
+    private javax.swing.JTextField maxVisibleTextField;
+    private javax.swing.JPanel minMaxPanel;
+    private javax.swing.JTextField minVisibleTextField;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JTextField nameTextField;
+    private javax.swing.JButton okButton;
+    private javax.swing.JLabel startTimeLabel;
+    private javax.swing.JCheckBox visibleCheckBox;
+    private javax.swing.JLabel zoomLabel;
+    private javax.swing.JSlider zoomSlider;
+    private javax.swing.JTextField zoomTextField;
+    // Fin de declaracion de variables//GEN-END:variables
+    private JWindow jw;
+    private boolean name;
+    private boolean visible;
+    private boolean magnitude;
+    private boolean start;
+    private boolean frec;
+    private boolean abscissa;
+    //private boolean abscissaValue;
+    private boolean zoom;
+    private boolean interval;
+
     String signalName;
     SignalManager sm;
     JSWBManager jswbManager;
@@ -59,14 +99,17 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         abscissaIntervalRadioButton.grabFocus();
     }
 
+    @Override
     public void changedUpdate(DocumentEvent evt) {
         documentEvent(evt);
     }
 
+    @Override
     public void removeUpdate(DocumentEvent evt) {
         documentEvent(evt);
     }
 
+    @Override
     public void insertUpdate(DocumentEvent evt) {
         documentEvent(evt);
     }
@@ -126,6 +169,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         }
     }
 
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("date".equals(evt.getPropertyName())) {
             Date date = datePicker1.getDate();
@@ -190,6 +234,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         visibleCheckBox.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         visibleCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
         visibleCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            @Override
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 visibleCheckBoxItemStateChanged(evt);
             }
@@ -197,6 +242,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
 
         okButton.setText("Ok");
         okButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
             }
@@ -204,6 +250,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
 
         applyButton.setText("Apply");
         applyButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 applyButtonActionPerformed(evt);
             }
@@ -211,6 +258,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
 
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
@@ -222,6 +270,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         abscissaZoomRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         abscissaZoomRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         abscissaZoomRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtons(evt);
             }
@@ -232,6 +281,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         abscissaIntervalRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         abscissaIntervalRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         abscissaIntervalRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtons(evt);
             }
@@ -291,6 +341,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         zoomSlider.setSnapToTicks(true);
         zoomSlider.setValue((int) (sm.getSignal(signalName).getProperties().getZoom() * 100));
         zoomSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 zoomSliderStateChanged(evt);
             }
@@ -688,43 +739,6 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         return newDateTime.getMillis();
     }
 
-    // Declaracion de varibales -no modificar//GEN-BEGIN:variables
-    private javax.swing.JRadioButton abscissaIntervalRadioButton;
-    private javax.swing.JRadioButton abscissaZoomRadioButton;
-    private javax.swing.JButton applyButton;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton cancelButton;
-    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
-    private javax.swing.JLabel frecuencyLabel;
-    private javax.swing.JTextField frecuencyTextField;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
-    private javax.swing.JLabel magnitudeLabel;
-    private javax.swing.JTextField magnitudeTextField;
-    private javax.swing.JTextField maxVisibleTextField;
-    private javax.swing.JPanel minMaxPanel;
-    private javax.swing.JTextField minVisibleTextField;
-    private javax.swing.JLabel nameLabel;
-    private javax.swing.JTextField nameTextField;
-    private javax.swing.JButton okButton;
-    private javax.swing.JLabel startTimeLabel;
-    private javax.swing.JCheckBox visibleCheckBox;
-    private javax.swing.JLabel zoomLabel;
-    private javax.swing.JSlider zoomSlider;
-    private javax.swing.JTextField zoomTextField;
-    // Fin de declaracion de variables//GEN-END:variables
-    private JWindow jw;
-    private boolean name;
-    private boolean visible;
-    private boolean magnitude;
-    private boolean start;
-    private boolean frec;
-    private boolean abscissa;
-    //private boolean abscissaValue;
-    private boolean zoom;
-    private boolean interval;
+
 
 }

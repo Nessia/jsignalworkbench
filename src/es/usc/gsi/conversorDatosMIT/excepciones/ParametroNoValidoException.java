@@ -10,5 +10,5 @@ public class ParametroNoValidoException extends Exception {
 
    public ParametroNoValidoException() {
         super("Parametro incorrecto");
-    }
+   }
 }

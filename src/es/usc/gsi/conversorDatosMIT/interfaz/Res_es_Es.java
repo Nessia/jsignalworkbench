@@ -10,6 +10,8 @@ public class Res_es_Es extends java.util.ListResourceBundle {
                                                "Fecha fin remuestreo: "}, {"Valor_original",
                                                "Valor original"}
     };
+
+    @Override
     public Object[][] getContents() {
         return contents;
     }

@@ -32,17 +32,17 @@ public class AlmacenDatosFloat extends AlmacenDatos {
         this.datos = datos;
         this.marcas = marcas;
         this.anotaciones = anotaciones;
-        this.numero_senales = datos.length;
+        this.numeroSenales = datos.length;
         if (pos == null) {
             pos = new byte[datos.length][];
         }
 
-        this.almacen_pos = new AlmacenDatosByte(pos, null, null, null);
+        this.almacenPos = new AlmacenDatosByte(pos, null, null, null);
         this.nombreSenales = new String[datos.length];
         //this.olvidado = new java.util.LinkedList();
         this.fs = new float[datos.length];
         java.util.Arrays.fill(fs, 1);
-        this.rangos_senales = new float[datos.length][2];
+        this.rangosSenales = new float[datos.length][2];
         this.leyendas = new String[datos.length];
         this.tienePosAsociada = new boolean[datos.length];
         this.leyendaTemporal = new String[datos.length];
@@ -75,38 +75,25 @@ public class AlmacenDatosFloat extends AlmacenDatos {
         this.ptbm = ptbm;
     }
 
-    /**
-     * @param senal
-     * @return Object
-     */
+    @Override
     public Object getArray(int senal) {
         return datos[senal];
     }
 
-    /**
-     * @param senal
-     * @return Object
-     */
+    @Override
     public Object getDatos(int senal) {
-        if (this.numero_senales <= senal) {
-            return this.pos_total;
+        if (this.numeroSenales <= senal) {
+            return this.posTotal;
         }
-
         return datos[senal];
     }
 
-    /**
-     *
-     * @param numSenal
-     * @param datos
-     */
+    @Override
     public void setDatos(int numSenal, Object nuevosDatos) {
         datos[numSenal] = (float[]) nuevosDatos;
     }
 
-    /**
-     * @return Object
-     */
+    @Override
     public Object getDatos() {
         return datos;
     }
@@ -124,6 +111,7 @@ public class AlmacenDatosFloat extends AlmacenDatos {
         datos = datos_tmp;
     }
 
+    @Override
     void eliminaSenhal(int numero_senhal) {
         super.eliminaSenhal(numero_senhal);
         float[][] datos_tmp = new float[datos.length - 1][];
@@ -137,29 +125,20 @@ public class AlmacenDatosFloat extends AlmacenDatos {
         datos = datos_tmp;
     }
 
-    /**
-     * Devuelve la longitud maxima de la senhal mas grande.
-     * @return
-     */
+    @Override
     public int getMaximoNumeroDeDatos() {
         int max = Integer.MIN_VALUE;
         for (int i = 0; i < datos.length; i++) {
             if (datos[i].length > max) {
                 max = datos[i].length;
             }
-
         }
         return max;
-
     }
 
+    @Override
     public void setDatos(Object datos) {
         this.datos = (float[][]) datos;
     }
 
 }
-/**
- *
- * AlmacenDatosFloat.
- *
- */

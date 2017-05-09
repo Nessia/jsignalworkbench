@@ -46,10 +46,9 @@ public class LookAndFeelAction extends AbstractAction {
 
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
-
         LooKAndFeelDialog lfd = new LooKAndFeelDialog(jFrame);
         lfd.setVisible(true);
-
     }
 }

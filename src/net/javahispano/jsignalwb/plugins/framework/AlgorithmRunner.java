@@ -18,11 +18,13 @@ import net.javahispano.jsignalwb.plugins.Algorithm;
  *   (http://www.apache.org/licenses/).
  */
 public class AlgorithmRunner extends SwingWorker<Boolean, Void> {
+
     private Algorithm algorithm;
     private JSWBManager jswbManager;
     private ArrayList<SignalIntervalProperties> signals;
     private String task;
     private String signalName;
+
     /**
      * Creates a new instance of AlgorithmRunner.
      * No forma parte de la API.
@@ -40,12 +42,13 @@ public class AlgorithmRunner extends SwingWorker<Boolean, Void> {
         signalName = "unknown";
     }
 
+    @Override
     protected Boolean doInBackground() throws Exception {
         algorithm.runAlgorithm(JSWBManager.getSignalManager(), signals, this);
         return Boolean.valueOf(true);
     }
 
-
+    @Override
     protected void done() {
         //super.done();
         Boolean end = Boolean.valueOf(false);

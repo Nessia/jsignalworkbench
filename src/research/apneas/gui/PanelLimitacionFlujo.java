@@ -22,6 +22,17 @@ public class PanelLimitacionFlujo extends javax.swing.JPanel {
      */
     private static final long serialVersionUID = 2832977794177141800L;
 
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel4;
+    private research.apneas.gui.PanelDatosComunes panelDatosComunes1;
+    private javax.swing.JTextField textFieldReduction;
+    // End of variables declaration//GEN-END:variables
+
+    private Window jw;
+    private LimitacionFlujo limitacionFlujo;
+
     /** Creates new form PanelLimitacionFlujo */
     public PanelLimitacionFlujo(LimitacionFlujo limitacionFlujo) {
 
@@ -66,6 +77,7 @@ public class PanelLimitacionFlujo extends javax.swing.JPanel {
         jButton1.setForeground(java.awt.Color.blue);
         jButton1.setText("Acept changes");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
@@ -74,6 +86,7 @@ public class PanelLimitacionFlujo extends javax.swing.JPanel {
         jButton2.setForeground(java.awt.Color.blue);
         jButton2.setText("Discard changes");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
@@ -200,16 +213,7 @@ public class PanelLimitacionFlujo extends javax.swing.JPanel {
         jw.setVisible(true);
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel4;
-    private research.apneas.gui.PanelDatosComunes panelDatosComunes1;
-    private javax.swing.JTextField textFieldReduction;
-    // End of variables declaration//GEN-END:variables
 
-    private Window jw;
-    private LimitacionFlujo limitacionFlujo;
 
 
 }

@@ -36,6 +36,7 @@ public class JMenuSignals extends JMenu {
         setMnemonic(KeyEvent.VK_S);
         this.jswbManager = jswbManager;
         MenuListener ml = new MenuListenerAdapter() {
+            @Override
             public void menuSelected(javax.swing.event.MenuEvent evt) {
                 jMenuSelected(evt);
             }

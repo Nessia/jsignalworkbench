@@ -17,6 +17,7 @@ public class SignalOrganizerPlugin extends GenericPluginAdapter implements Signa
     }
 
     //se ejecuta en el EDT
+    @Override
     public void launch(JSWBManager jswbManager) {
         JSignalMonitor jSignalMonitor = JSWBManager.getJSignalMonitor();
         for (String signalName : signalManager.getSignalsNames()) {
@@ -32,18 +33,22 @@ public class SignalOrganizerPlugin extends GenericPluginAdapter implements Signa
         }
     }
 
+    @Override
     public String getDataToSave() {
         return "Datos que quiero guardar en la sesion de trabajo";
     }
 
+    @Override
     public void setSavedData(String dataSavedOnTheWorkingSession) {
         System.out.println(dataSavedOnTheWorkingSession);
     }
 
+    @Override
     public boolean hasDataToSave() {
         return true;
     }
 
+    @Override
     public void signalSizeActionPerformed(SignalSizeEvent event) {
         if (event.isSignalsReset()) {
             return;
@@ -57,27 +62,33 @@ public class SignalOrganizerPlugin extends GenericPluginAdapter implements Signa
     }
 
 //no debera ser necesario tocarlo de aqui abajo
+    @Override
     public String getName() {
         return "Signal Organizer";
     }
 
+    @Override
     public String getShortDescription() {
         return "Configures the display order of sigals";
     }
 
+    @Override
     public String getDescription() {
         return this.getShortDescription();
     }
 
+    @Override
     public String getPluginVersion() {
         return "1.0";
     }
 
+    @Override
     public Icon getIcon() {
         return new ImageIcon(Toolkit.getDefaultToolkit().createImage(
                 SignalOrganizerPlugin.class.getResource("organize.gif")));
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         return false;
     }

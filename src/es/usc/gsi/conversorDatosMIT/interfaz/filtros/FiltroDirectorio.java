@@ -19,6 +19,7 @@ public class FiltroDirectorio extends FileFilter {
     // esto es necesario para que podamos analizar los contenidos del directorio
     // mediante el metodo isTraversable(File f) de la clase DialogoAbrir, que extiende a
     // JDialog
+    @Override
     public boolean accept(File f) {
 
         if (f.isDirectory() || (f.getName().indexOf(".hea") != -1)) {
@@ -29,6 +30,7 @@ public class FiltroDirectorio extends FileFilter {
 
     }
 
+    @Override
     public String getDescription() {
         return "Pacientes";
     }

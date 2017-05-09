@@ -21,10 +21,23 @@ public class MoveScrollPanel extends javax.swing.JPanel {
      */
     private static final long serialVersionUID = -458399409807671860L;
 
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton configButton;
+    private javax.swing.JButton defaultButton;
+    private javax.swing.JLabel infoLabel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton okButton;
+    // End of variables declaration//GEN-END:variables
+
     private JSignalMonitor jsm;
     private long milisec = 1000;
     private String value = "1";
     private String unit = "s";
+
     /** Creates new form MoveScrollPanel */
     public MoveScrollPanel(JSignalMonitor jsm) {
         this.jsm = jsm;
@@ -292,16 +305,6 @@ public class MoveScrollPanel extends javax.swing.JPanel {
         }
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton configButton;
-    private javax.swing.JButton defaultButton;
-    private javax.swing.JLabel infoLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JButton okButton;
-    // End of variables declaration//GEN-END:variables
+
 
 }

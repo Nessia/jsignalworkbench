@@ -26,6 +26,7 @@ public class RemoveAllMarksAction extends AbstractAction {
     private static final long serialVersionUID = 3126018088165409901L;
 
     JSWBManager jswbManager;
+
     public RemoveAllMarksAction(JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
         this.putValue(SHORT_DESCRIPTION, "Remove all the marks on all the signals. Be careful...");

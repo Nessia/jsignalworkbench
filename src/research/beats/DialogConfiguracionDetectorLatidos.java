@@ -105,6 +105,7 @@ class DialogConfiguracion_jButton1_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton1_actionPerformed(e);
     }
@@ -117,6 +118,7 @@ class DialogConfiguracion_jButton2_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton2_actionPerformed(e);
     }

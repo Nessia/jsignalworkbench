@@ -35,35 +35,42 @@ public class LimitacionFlujoMark extends DefaultIntervalMark {
         this.limitacionFlujo = limitacionFlujo;
     }
 
+    @Override
     public String getName() {
         return "Respiratory airflow limitation " + limitacionFlujo.getDuracion() + " seg.";
     }
 
+    @Override
     public void showMarkInfo(Window owner) {
         PanelLimitacionFlujo w = new PanelLimitacionFlujo(limitacionFlujo);
         w.showJWindow(owner);
     }
 
-    public boolean hasDataToSave() {
-        return true;
-    }
+//    @Override
+//    public boolean hasDataToSave() {
+//        return true;
+//    }
 
-    public String getDataToSave() {
-        return super.getDataToSave();
-    }
+//    @Override
+//    public String getDataToSave() {
+//        return super.getDataToSave();
+//    }
+//
+//    @Override
+//    public void setSavedData(String data) {
+//        super.setSavedData(data);
+//    }
 
-    public void setSavedData(String data) {
-        super.setSavedData(data);
-    }
-
+    @Override
     public String getToolTipText() {
         return title;
     }
 
-    public boolean isOwnPainted() {
-        return true;
-    }
+//    public boolean isOwnPainted() {
+//        return true;
+//    }
 
+    @Override
     public void paint(Graphics2D g2d, MarkPaintInfo markPaintInfo) {
         Stroke oldStroke = g2d.getStroke();
         Color color2 = new Color(color.getRed(), color.getGreen(),

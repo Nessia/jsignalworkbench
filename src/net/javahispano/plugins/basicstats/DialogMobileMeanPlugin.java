@@ -219,6 +219,7 @@ class DialogMobileMeanPlugin_jCheckBox2_itemAdapter implements ItemListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void itemStateChanged(ItemEvent e) {
         adaptee.jCheckBox2_itemStateChanged(e);
     }
@@ -232,6 +233,7 @@ class DialogMobileMeanPlugin_jButton1_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent actionEvent) {
         adaptee.jButton1_actionPerformed(actionEvent);
     }
@@ -246,6 +248,7 @@ class DialogMobileMeanPlugin_textDuration_actionAdapter implements
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.textDuration_actionPerformed(e);
     }
@@ -259,6 +262,7 @@ class DialogMobileMeanPlugin_jSlider1_changeAdapter implements ChangeListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void stateChanged(ChangeEvent changeEvent) {
         adaptee.jSlider1_stateChanged(changeEvent);
     }
@@ -272,6 +276,7 @@ class DialogMobileMeanPlugin_jButton2_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent actionEvent) {
         adaptee.jButton2_actionPerformed(actionEvent);
     }
@@ -285,6 +290,7 @@ class DialogMobileMeanPlugin_textDuration_focusAdapter extends FocusAdapter {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void focusLost(FocusEvent focusEvent) {
         adaptee.textDuration_focusLost(focusEvent);
     }

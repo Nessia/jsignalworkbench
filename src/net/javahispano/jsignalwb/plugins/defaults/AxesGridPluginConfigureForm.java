@@ -29,6 +29,7 @@ public class AxesGridPluginConfigureForm extends javax.swing.JPanel {
     private long distance;
     private AxesGridPlugin grid;
     private JWindow jw;
+
     /** Creates new form AxesGridPluginConfigureForm */
     public AxesGridPluginConfigureForm(AxesGridPlugin grid) {
         this.grid = grid;
@@ -75,6 +76,7 @@ public class AxesGridPluginConfigureForm extends javax.swing.JPanel {
 
         jButton1.setText("Ok");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
@@ -82,6 +84,7 @@ public class AxesGridPluginConfigureForm extends javax.swing.JPanel {
 
         jButton2.setText("Cancel");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }

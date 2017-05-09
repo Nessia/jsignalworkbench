@@ -305,14 +305,14 @@ public class GestorDatos {
      * Float, int Shorth o byte.
      */
     public void setAlmacen(Object datos, byte[][] pos, TreeSet<Annotation> anotaciones,
-                           TreeSet<Mark>[] marcas, int tipo_almacen, PTBMInterface ptbm) {
+                           TreeSet<Mark>[] marcas, AlmacenDatos.TIPOS tipo_almacen, PTBMInterface ptbm) {
         switch (tipo_almacen) {
-        case AlmacenDatos.BYTE: {
+        case BYTE: {
             almacen = new AlmacenDatosByte((byte[][]) datos, pos, anotaciones, marcas);
             //GestorDatos.TIPO_ALMACEN = AlmacenDatos.BYTE;
             break;
         }
-        case AlmacenDatos.FLOAT: {
+        case FLOAT: {
             almacen = new AlmacenDatosFloat((float[][]) datos, pos, anotaciones,
                                             marcas, ptbm);
             //GestorDatos.TIPO_ALMACEN = AlmacenDatos.FLOAT;

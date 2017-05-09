@@ -71,6 +71,7 @@ public class NewStatisticsDialog extends JDialog {
         descartar.setText("Descartar");
 
         descartar.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 descartar_actionPerformed(e);
             }
@@ -78,6 +79,7 @@ public class NewStatisticsDialog extends JDialog {
         anhadir.setText("Anhadir");
 
         anhadir.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 anhadir_actionPerformed(e);
             }

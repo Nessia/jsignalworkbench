@@ -43,26 +43,32 @@ public class AxesGridPlugin extends GridPluginAdapter {
         setSignal(s);
     }
 
+    @Override
     public void setSignal(Signal s) {
         signal = s;
     }
 
+    @Override
     public String getName() {
         return "Temporal Axis Grid";
     }
 
+    @Override
     public int getLeyendHeight() {
         return 0;
     }
 
+    @Override
     public int getLeyendWidth() {
         return 0;
     }
 
+    @Override
     public void launchConfigureGridGUI(Window owner) {
         new AxesGridPluginConfigureForm(this).showJWindow(JSWBManager.getParentWindow());
     }
 
+    @Override
     public void paintGrid(Graphics2D g2d, Point p, int height, int width,
                           GridConfiguration gridconfig) {
         long scrollValue = JSWBManager.getJSWBManagerInstance().getJSMScrollValue();
@@ -142,22 +148,21 @@ public class AxesGridPlugin extends GridPluginAdapter {
         g2d.setColor(oldColor);
     }
 
+    @Override
     public boolean hasDataToSave() {
-        if (signal != null) {
-            return true;
-        }
-        return false;
+        return signal != null;
     }
 
+    @Override
     public void setSavedData(String data) {
         yAxePosition = Long.parseLong(data.substring(0, data.indexOf("|")));
         data = data.substring(data.indexOf("|"), data.length());
         distance = Long.parseLong(data.substring(1, data.indexOf("|", 1)));
         data = data.substring(data.indexOf("|", 1), data.length());
         this.signalName = data.substring(1, data.length());
-
     }
 
+    @Override
     public String getDataToSave() {
         return "" + yAxePosition + "|" + distance + "|" + signal.getName();
     }

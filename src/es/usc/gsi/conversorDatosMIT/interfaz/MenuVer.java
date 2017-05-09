@@ -11,16 +11,18 @@ public class MenuVer extends JMenu implements ActionListener {
     /**
     *
     */
-   private static final long serialVersionUID = 1828847339301712032L;
+    private static final long serialVersionUID = 1828847339301712032L;
+    private static final String CMD_LISTA = "Lista";
+    private static final String CMD_ETIQUETAS = "Etiquetas";
 
-   private ControladorInterfaz controlInterfaz = ControladorInterfaz.
-                                                  getControlador();
+    private ControladorInterfaz controlInterfaz = ControladorInterfaz.getControlador();
 
     private JMenuItem verLista = new JMenuItem("Ver como lista");
     private JMenuItem verEtiquetas = new JMenuItem("Ver como etiquetas");
 
-    private final String CMD_LISTA = "Lista";
-    private final String CMD_ETIQUETAS = "Etiquetas";
+    /*
+     * Constructor
+     */
 
     public MenuVer(String nombre) {
 

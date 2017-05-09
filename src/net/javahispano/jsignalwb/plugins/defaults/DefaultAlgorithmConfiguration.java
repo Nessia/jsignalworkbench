@@ -29,6 +29,28 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
     */
     private static final long serialVersionUID = -6435930053175111757L;
 
+ // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JCheckBox selectInterval;
+    private javax.swing.JCheckBox selectSignals;
+    // End of variables declaration//GEN-END:variables
+
     private JSWBManager jswbManager;
     private final Algorithm alg;
     private Window owner;
@@ -75,6 +97,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         jSpinner1.setValue(1);
     }
 
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("progress".equals(evt.getPropertyName())) {
             //jProgressBar1.setIndeterminate(false);
@@ -82,6 +105,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         }
     }
 
+    @Override
     public void intervalSelectedActionPerformed(IntervalSelectedEvent evt) {
 
         intervalsNeeded--;
@@ -138,6 +162,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         jButton3.setForeground(java.awt.Color.blue);
         jButton3.setText("Run Algorithm");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
@@ -151,6 +176,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         selectSignals.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         selectSignals.setMargin(new java.awt.Insets(0, 0, 0, 0));
         selectSignals.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectionModeActionPerformed(evt);
             }
@@ -162,6 +188,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
 
         jButton1.setText(">>");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
@@ -169,6 +196,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
 
         jButton4.setText(">");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
@@ -176,6 +204,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
 
         jButton5.setText("<");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
@@ -183,6 +212,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
 
         jButton2.setText("<<");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
@@ -295,6 +325,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         selectInterval.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         selectInterval.setMargin(new java.awt.Insets(0, 0, 0, 0));
         selectInterval.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectionModeActionPerformed(evt);
             }
@@ -330,6 +361,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         jButton6.setForeground(java.awt.Color.blue);
         jButton6.setText("Cancel");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
@@ -541,26 +573,6 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         this.selectInterval.setSelected(activate);
         this.selectSignals.setSelected(!activate);
     }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JCheckBox selectInterval;
-    private javax.swing.JCheckBox selectSignals;
-    // End of variables declaration//GEN-END:variables
+
 
 }

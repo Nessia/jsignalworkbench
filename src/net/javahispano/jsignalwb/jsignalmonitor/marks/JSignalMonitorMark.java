@@ -30,6 +30,8 @@ public interface JSignalMonitorMark {
     /**
      * Indica el tiempo en el que se situa la marca. En caso de ser un intervalo
      * devuelve el instante de inicio del mismo.
+     * Devuelve el numero de milisegundos que han transcurrido desde el 1 de
+     * enero de 1970 hasta el principio de la marca.
      * @return long Intante de tiempo de la marca o inicio de intervalo.
      */
     public long getMarkTime();

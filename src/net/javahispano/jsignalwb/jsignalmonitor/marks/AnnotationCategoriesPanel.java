@@ -27,6 +27,7 @@ public class AnnotationCategoriesPanel extends JPanel {
         setBackground(Color.WHITE);
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
@@ -42,6 +43,7 @@ public class AnnotationCategoriesPanel extends JPanel {
     public void refreshCategories(ArrayList<String> categories) {
         this.categories = categories;
         Runnable uiUpdateRunnable = new Runnable() {
+            @Override
             public void run() {
                 repaint();
             }

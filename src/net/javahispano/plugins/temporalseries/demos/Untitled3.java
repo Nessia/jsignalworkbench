@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
+import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 
 /**
  * <p>Title: </p>
@@ -17,7 +18,6 @@ import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
  * @author Abraham Otero
  * @version 0.5
  */
-// TODO deberia extender a TemporalSeriesAlgorithm ?? @vanesa
 public class Untitled3 extends AlgorithmAdapter {
 
     public Untitled3() {
@@ -31,7 +31,8 @@ public class Untitled3 extends AlgorithmAdapter {
 
     @Override
     public void runAlgorithm(SignalManager sm,
-                             List<SignalIntervalProperties> signals) {
+                             List<SignalIntervalProperties> signals,
+                             AlgorithmRunner ar) {
         Signal s = signals.get(0).getSignal();
         float[] f = s.getValues();
         for (int i = 0; i < f.length; i++) {

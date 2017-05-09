@@ -38,7 +38,10 @@ import java.awt.event.*;
  *    Copyright 2006-2007. This software is under the Apache License Version 2.0
  *   (http://www.apache.org/licenses/).
  */
+ // TODO siendo un singleton deberían ser los campos estáticos? @vanesa
 public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener {
+    // Parte estática
+
     private static JSWBManager jswbManagerInstance;
     //private static JSWBManager jswbmanager = null;
     private static JSignalMonitor jSignalMonitor = null;
@@ -49,6 +52,15 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
     private static SignalManager signalManager;
     private static IOManager iOManager;
     private static PluginManager pluginManager;
+
+    private static Font normalFont = new java.awt.Font("Tahoma", Font.BOLD, 12);
+    private static Font smallFont = new java.awt.Font("Tahoma", Font.BOLD, 11);
+    private static Font bigFont = new java.awt.Font("Tahoma", Font.BOLD, 13);
+    private static Color fontColor = Color.BLUE;
+    private static boolean deleteSignalsInNextLoad = true;
+
+    // Atributos
+
     private ArrayList<IntervalSelectedListener> intervalSelectedListeners;
     private ArrayList<Component> jToolBarItems;
     private ArrayList<JMenu> jMenuBarItems;
@@ -60,14 +72,12 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
     //private Font font;
     private JSWBStatusBar statusBar;
 
-
-    private static Font normalFont = new java.awt.Font("Tahoma", Font.BOLD, 12);
-    private static Font smallFont = new java.awt.Font("Tahoma", Font.BOLD, 11);
-    private static Font bigFont = new java.awt.Font("Tahoma", Font.BOLD, 13);
-    private static Color fontColor = Color.BLUE;
     private List<SessionListener> sessionListenetList = new LinkedList<SessionListener>();
     //Si true borra las senhales actualmente cargadas al cargar las siguientes.
-    private static boolean deleteSignalsInNextLoad = true;
+
+    /*
+     * Constructores
+     */
 
     private JSWBManager() {
         this(true);
@@ -109,6 +119,10 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
 
     }
 
+    /*
+     * Instanciadores del singleton
+     */
+
     public static JSWBManager getJSWBManagerInstance() {
         if (jswbManagerInstance == null) {
             jswbManagerInstance = new JSWBManager();
@@ -124,6 +138,10 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         jswbManagerInstance = new JSWBManager(develop);
         return jswbManagerInstance;
     }
+
+    /*
+     * Métodos
+     */
 
     public void printSignals(boolean everything, int orientation) {
         if (everything) {
@@ -148,16 +166,6 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
             }
         }
     }
-
-    /*public void setJSWBFrame(JSWBFrame jswbFrame){
-        this.jswbFrame=jswbFrame;
-        this.jswbFrameMode=true;
-        jToolBarItems=new ArrayList();
-        initJFrame();
-        initJToolBar();
-        refreshJToolBar();
-
-         }*/
 
     public static void setParentWindow(Window parentWindow) {
         JSWBManager.parentWindow = parentWindow;
@@ -419,7 +427,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
      *
      * @return HashMap
      */
-    public HashMap<String, ArrayList<String>> getPluginNames() {
+    public static HashMap<String, ArrayList<String>> getPluginNames() {
         return pluginManager.getRegisteredPlugins();
     }
 
@@ -431,7 +439,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
      * @return true si la accion se realizo correctamente, false en caso
      *   contrario.
      */
-    public boolean setChannelVisible(String signalName, boolean visible) {
+    public static boolean setChannelVisible(String signalName, boolean visible) {
         Signal s = getSignalManager().getSignal(signalName);
         if (s != null) {
             s.getProperties().setVisible(visible);
@@ -496,19 +504,21 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         setSaved(false);
     }
 
-    public List<MarkPlugin> getAllSignalMarks(String signalName) throws SignalNotFoundException {
+    public static List<MarkPlugin> getAllSignalMarks(String signalName)
+            throws SignalNotFoundException {
         return signalManager.getAllSignalMarks(signalName);
     }
 
-    public List<AnnotationPlugin> getAllAnnotations() {
+    public static List<AnnotationPlugin> getAllAnnotations() {
         return signalManager.getAllAnnotations();
     }
 
+    @Override
     public float getChannelValueAtTime(String signalName, long time) {
         Signal signal = signalManager.getSignal(signalName);
         if (signal != null) {
-            int pos = TimePositionConverter.timeToPosition(signal.getProperties().
-                    getStartTime(), time, signal.getProperties().getDataRate());
+            int pos = TimePositionConverter.timeToPosition(signal.getProperties().getStartTime(),
+                    time, signal.getProperties().getDataRate());
             if (pos >= 0 && pos < signal.getValues().length) {
                 return signal.getValues()[pos];
             }
@@ -518,6 +528,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         throw new SignalNotFoundException(signalName, "Attempt of obtaining the value of a non existent signal");
     }
 
+    @Override
     public List<JSignalMonitorMark> getChannelMark(String signalName, long firstValue,
             long lastValue) {
         ArrayList<JSignalMonitorMark> temp = new ArrayList<JSignalMonitorMark>();
@@ -527,6 +538,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         return temp;
     }
 
+    @Override
     public List<JSignalMonitorAnnotation> getAnnotations(long firstValue, long lastValue) {
         ArrayList<JSignalMonitorAnnotation> temp = new ArrayList<JSignalMonitorAnnotation>();
         for (AnnotationPlugin mp : signalManager.getAnnotations(firstValue, lastValue)) {
@@ -535,6 +547,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         return temp;
     }
 
+    @Override
     public void notifyMarkAdded(String kindOfMark, String signalName, long time) {
         /*JPopupMenu popup =new MarksPopupMenu(this,signalName,time);
                  Point p=MouseInfo.getPointerInfo().getLocation();
@@ -547,6 +560,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         setSaved(false);
     }
 
+    @Override
     public void notifyMarkAdded(String kindOfMark, String signalName, long startTime, long endTime) {
         /*JPopupMenu popup =new MarksPopupMenu(this,signalName,startTime,endTime);
                  Point p=MouseInfo.getPointerInfo().getLocation();
@@ -560,6 +574,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         setSaved(false);
     }
 
+    @Override
     public void notifyAnnotationAdded(String kindOfAnnotation, long time) {
         /*JPopupMenu popup =new MarksPopupMenu(this,signalName,time);
                  Point p=MouseInfo.getPointerInfo().getLocation();
@@ -573,6 +588,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         setSaved(false);
     }
 
+    @Override
     public void notifyAnnotationAdded(String kindOfAnnotation, long startTime, long endTime) {
         /*JPopupMenu popup =new MarksPopupMenu(this,signalName,startTime,endTime);
                  Point p=MouseInfo.getPointerInfo().getLocation();
@@ -588,6 +604,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         setSaved(false);
     }
 
+    @Override
     public List<String> getAvailableKindsOfInstantMarks() {
         ArrayList<String> temp = new ArrayList<String>();
         for (String mark : pluginManager.getRegisteredMarks()) {
@@ -598,6 +615,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         return temp;
     }
 
+    @Override
     public List<String> getAvailableKindsOfIntervalMarks() {
         ArrayList<String> temp = new ArrayList<String>();
         for (String mark : pluginManager.getRegisteredMarks()) {
@@ -608,6 +626,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         return temp;
     }
 
+    @Override
     public List<String> getAvailableKindsOfInstantAnnotations() {
         ArrayList<String> temp = new ArrayList<String>();
         for (String annotation : pluginManager.getRegisteredAnnotations()) {
@@ -618,6 +637,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         return temp;
     }
 
+    @Override
     public List<String> getAvailableKindsOfIntervalAnnotations() {
         ArrayList<String> temp = new ArrayList<String>();
         for (String annotation : pluginManager.getRegisteredAnnotations()) {
@@ -628,7 +648,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         return temp;
     }
 
-
+    @Override
     public ArrayList<String> getAvailableCategoriesOfAnnotations() {
         if (signalManager != null) {
             return signalManager.getAnnotationsCategories();
@@ -637,6 +657,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         }
     }
 
+    @Override
     public float[] getChannelData(String signalName, long firstValue,
                                   long lastValue) {
         Signal signal = signalManager.getSignal(signalName);
@@ -654,6 +675,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
 
     }
 
+    @Override
     public short[] getSignalEmphasisLevels(String signalName, long firstValue,
                                            long lastValue) {
 
@@ -669,12 +691,12 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         return getChannelColors(signal.getEmphasisLevel(), pos1, pos2);
     }
 
+    @Override
     public void notifyIntervalSelection(String channelName, long startTime,
                                         long endTime) {
         fireIntervalSelectedEvent(new IntervalSelectedEvent(channelName,
                 startTime,
                 endTime));
-
     }
 
 
@@ -691,9 +713,9 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
     }
 
 
-    /**
+    /*
      * No disenhado como parte del API.
-     * @todo (Abraham) Si lo considero una parte del API. Este metodo es el que
+     * @TODO (@Abraham) Si lo considero una parte del API. Este metodo es el que
      * se encarga de mostrar la interfaz de seleccion de senhales previa a la ejecucion
      * de un algorithm. Si alguien desea crearse un acceso directo en, por ejemplo,
      * un panel nuevo anhadido a la aplicacion, para ejecutar determinado plugin,
@@ -939,9 +961,10 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         return signalManager;
     }
 
-    /**
-     * No disenhado como parte del API.
+    /*
+     * TODO No disenhado como parte del API.
      */
+    @Override
     public void signalSizeActionPerformed(SignalSizeEvent evt) {
         Signal s = evt.getSignal();
 
@@ -1311,6 +1334,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
                   jToolBar.add(component);
               }
               Runnable uiUpdateRunnable = new Runnable() {
+                  @Override
                   public void run() {
                       jToolBar.validate();
                       jToolBar.repaint();
@@ -1327,6 +1351,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
                 jMenuBar.add(component);
             }
             Runnable uiUpdateRunnable = new Runnable() {
+                @Override
                 public void run() {
                     jMenuBar.validate();
                 }
@@ -1484,7 +1509,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         return null;
     }
 
-    public void setSignalGrid(String signalName, String gridName) {
+    public static void setSignalGrid(String signalName, String gridName) {
 
         try {
             if (pluginManager.isPluginRegistered("grid", gridName)) {
@@ -1498,7 +1523,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         }
     }
 
-    public List<String> getAvailableKindsOfGrids() {
+    public static List<String> getAvailableKindsOfGrids() {
         return pluginManager.getRegisteredGrids();
     }
 
@@ -1566,6 +1591,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
 
     private void launchJSWBPanelValidate() {
         Runnable uiUpdateRunnable = new Runnable() {
+            @Override
             public void run() {
                 jswbPanel.validate();
             }

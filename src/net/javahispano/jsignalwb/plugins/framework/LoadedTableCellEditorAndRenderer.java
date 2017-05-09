@@ -28,6 +28,7 @@ public class LoadedTableCellEditorAndRenderer extends AbstractCellEditor
     private JButton button;
     private JLabel label;
     private boolean loaded;
+
     public LoadedTableCellEditorAndRenderer() {
         Image image = Toolkit.getDefaultToolkit().createImage(
                 LoadedTableCellEditorAndRenderer.class.getResource(
@@ -50,6 +51,7 @@ public class LoadedTableCellEditorAndRenderer extends AbstractCellEditor
         loaded = false;
     }
 
+    @Override
     public Object getCellEditorValue() {
         if (loaded) {
             return label;
@@ -57,6 +59,7 @@ public class LoadedTableCellEditorAndRenderer extends AbstractCellEditor
         return button;
     }
 
+    @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
         if (value instanceof JButton) {
             button = (JButton) value;
@@ -69,6 +72,7 @@ public class LoadedTableCellEditorAndRenderer extends AbstractCellEditor
         }
     }
 
+    @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
             int row, int column) {
         if (value instanceof JButton) {
@@ -78,6 +82,7 @@ public class LoadedTableCellEditorAndRenderer extends AbstractCellEditor
         }
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         fireEditingStopped();
     }

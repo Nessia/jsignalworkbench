@@ -21,20 +21,24 @@ import net.javahispano.jsignalwb.plugins.GenericPluginAdapter;
 public class AddToolBarElementsPlugin extends GenericPluginAdapter implements ActionListener {
 
     JButton button;
-    public AddToolBarElementsPlugin() {
 
+    public AddToolBarElementsPlugin() {
+        // Vacio
     }
 
+    @Override
     public String getName() {
         return "AddToolBarElmentsPlugin";
     }
 
+    @Override
     public void launch(JSWBManager jswbManager) {
         button = new JButton("Borrame");
         button.addActionListener(this);
         jswbManager.addJToolBarComponent(button);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         JSWBManager.getJSWBManagerInstance().removeJToolBarComponent(button);
     }

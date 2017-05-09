@@ -29,6 +29,25 @@ public class PluginManagerPanel extends javax.swing.JPanel {
      */
     private static final long serialVersionUID = 5798449466901514533L;
 
+ // Declaracion de varibales -no modificar//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JRadioButton rbAlgorithms;
+    private javax.swing.JRadioButton rbAll;
+    private javax.swing.JRadioButton rbAnnotations;
+    private javax.swing.JRadioButton rbFromJarFile;
+    private javax.swing.JRadioButton rbGenerics;
+    private javax.swing.JRadioButton rbGrids;
+    private javax.swing.JRadioButton rbLoaders;
+    private javax.swing.JRadioButton rbMarks;
+    private javax.swing.JRadioButton rbSavers;
+    // Fin de declaracion de variables//GEN-END:variables
+    private JWindow jw;
+
     //private JSWBManager jswbManager;
     //private DefaultListModel dlm;
     private HashMap<String, JarFile> pluginJarAssociation;
@@ -195,7 +214,6 @@ public class PluginManagerPanel extends javax.swing.JPanel {
         }
     }
 
-
     private void setColumnsWidth() {
         jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jScrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -341,6 +359,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
                 153, 0), 5, true), "Plugin Manager"));
         jButton2.setText("Search new plugins");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
@@ -348,6 +367,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
 
         jButton3.setText("Close");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
@@ -366,10 +386,12 @@ public class PluginManagerPanel extends javax.swing.JPanel {
                                          false, false, false, false, true, true, true
                      };
 
+                     @Override
                      public Class<?> getColumnClass(int columnIndex) {
                          return types[columnIndex];
                      }
 
+                     @Override
                      public boolean isCellEditable(int rowIndex, int columnIndex) {
                          return canEdit[columnIndex];
                      }
@@ -382,6 +404,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
         rbAll.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         rbAll.setMargin(new java.awt.Insets(0, 0, 0, 0));
         rbAll.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonsActionPerformed(evt);
             }
@@ -392,6 +415,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
         rbLoaders.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         rbLoaders.setMargin(new java.awt.Insets(0, 0, 0, 0));
         rbLoaders.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonsActionPerformed(evt);
             }
@@ -402,6 +426,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
         rbSavers.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         rbSavers.setMargin(new java.awt.Insets(0, 0, 0, 0));
         rbSavers.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonsActionPerformed(evt);
             }
@@ -412,6 +437,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
         rbAlgorithms.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         rbAlgorithms.setMargin(new java.awt.Insets(0, 0, 0, 0));
         rbAlgorithms.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonsActionPerformed(evt);
             }
@@ -422,6 +448,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
         rbGrids.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         rbGrids.setMargin(new java.awt.Insets(0, 0, 0, 0));
         rbGrids.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonsActionPerformed(evt);
             }
@@ -432,6 +459,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
         rbGenerics.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         rbGenerics.setMargin(new java.awt.Insets(0, 0, 0, 0));
         rbGenerics.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonsActionPerformed(evt);
             }
@@ -442,6 +470,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
         rbMarks.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         rbMarks.setMargin(new java.awt.Insets(0, 0, 0, 0));
         rbMarks.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonsActionPerformed(evt);
             }
@@ -452,6 +481,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
         rbAnnotations.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         rbAnnotations.setMargin(new java.awt.Insets(0, 0, 0, 0));
         rbAnnotations.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonsActionPerformed(evt);
             }
@@ -462,6 +492,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
         rbFromJarFile.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         rbFromJarFile.setMargin(new java.awt.Insets(0, 0, 0, 0));
         rbFromJarFile.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonsActionPerformed(evt);
             }
@@ -613,22 +644,5 @@ public class PluginManagerPanel extends javax.swing.JPanel {
         jw.dispose();
     }
 
-    // Declaracion de varibales -no modificar//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JRadioButton rbAlgorithms;
-    private javax.swing.JRadioButton rbAll;
-    private javax.swing.JRadioButton rbAnnotations;
-    private javax.swing.JRadioButton rbFromJarFile;
-    private javax.swing.JRadioButton rbGenerics;
-    private javax.swing.JRadioButton rbGrids;
-    private javax.swing.JRadioButton rbLoaders;
-    private javax.swing.JRadioButton rbMarks;
-    private javax.swing.JRadioButton rbSavers;
-    // Fin de declaracion de variables//GEN-END:variables
-    private JWindow jw;
+
 }

@@ -79,6 +79,11 @@ public class CalculatorGUI extends JDialog {
     private FlowLayout flowLayout3 = new FlowLayout();
     private JScrollPane jScrollPane1 = new JScrollPane();
     private JScrollPane jScrollPane2 = new JScrollPane();
+
+    /*
+     * Constructor
+     */
+
     public CalculatorGUI(Frame owner, String title, boolean modal, String[] signalNames) {
         super(owner, title, modal);
         try {
@@ -102,7 +107,7 @@ public class CalculatorGUI extends JDialog {
         panel1.setLayout(borderLayout1);
         jLabel1.setFont(new java.awt.Font("Tahoma", Font.BOLD, 15));
         jLabel1.setForeground(Color.blue);
-        jLabel1.setText("Calculadora de señales");
+        jLabel1.setText("Calculadora de seÃ±ales");
         jPanel4.setPreferredSize(new Dimension(200, 200));
         jPanel4.setLayout(borderLayout2);
         jPanel3.setPreferredSize(new Dimension(200, 10));
@@ -130,7 +135,7 @@ public class CalculatorGUI extends JDialog {
         jButton2.addActionListener(new CalculatorGUI_jButton2_actionAdapter(this));
         jPanel6.setLayout(flowLayout2);
         flowLayout2.setHgap(15);
-        jLabel2.setText("Nombre de la señal:");
+        jLabel2.setText("Nombre de la seï¿½al:");
         jTextFieldNweSignal.setColumns(25);
         jPanel7.setLayout(flowLayout3);
         flowLayout3.setHgap(15);
@@ -253,6 +258,7 @@ class CalculatorGUI_jRadioButtonDivide_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jRadioButtonDivide_actionPerformed(e);
     }
@@ -265,6 +271,7 @@ class CalculatorGUI_jRadioButtonMultiply_actionAdapter implements ActionListener
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jRadioButtonMultiply_actionPerformed(e);
     }
@@ -277,6 +284,7 @@ class CalculatorGUI_jRadioButtonSubstract_actionAdapter implements ActionListene
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jRadioButtonSubstract_actionPerformed(e);
     }
@@ -289,6 +297,7 @@ class CalculatorGUI_jRadioButtonAdd_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jRadioButtonAdd_actionPerformed(e);
     }
@@ -301,6 +310,7 @@ class CalculatorGUI_jButton1_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton1_actionPerformed(e);
     }
@@ -313,6 +323,7 @@ class CalculatorGUI_signalListFirst_mouseAdapter extends MouseAdapter {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void mouseClicked(MouseEvent e) {
         adaptee.signalListFirst_mouseClicked(e);
     }
@@ -325,6 +336,7 @@ class CalculatorGUI_signalListSecond_mouseAdapter extends MouseAdapter {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void mouseClicked(MouseEvent e) {
         adaptee.signalListSecond_mouseClicked(e);
     }
@@ -337,6 +349,7 @@ class CalculatorGUI_jButton2_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton2_actionPerformed(e);
     }

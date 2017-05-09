@@ -28,10 +28,17 @@ public class ConversorDatosMITPlugin extends PluginAdapter implements GenericPlu
 
     String ultimoDirectorioAbierto = null;
 
+    /*
+     * Constructor
+     */
+
     public ConversorDatosMITPlugin() {
        //Empty
     }
 
+    /*
+     * Métodos
+     */
 
     @Override
     public String getDataToSave() {

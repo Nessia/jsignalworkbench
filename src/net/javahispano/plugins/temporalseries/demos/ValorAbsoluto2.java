@@ -12,6 +12,7 @@ import net.javahispano.plugins.temporalseries.TemporalSeriesAlgorithm;
  */
 public class ValorAbsoluto2 extends TemporalSeriesAlgorithm {
 
+    @Override
     public void processTemporalSeries(SignalManager sm, List<TemporalSeries> signals) {
         if (signals.size() != 1) {
             System.out.println(" Error en el numero de senhales seleccionadas");
@@ -22,9 +23,9 @@ public class ValorAbsoluto2 extends TemporalSeriesAlgorithm {
         for (int i = 0; i < datos.length; i++) {
             datos[i] = Math.abs(datos[i]);
         }
-
     }
 
+    @Override
     public String getName() {
         return "Valor absoluto";
     }

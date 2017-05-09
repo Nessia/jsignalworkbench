@@ -30,6 +30,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public abstract class PluginAdapter implements Plugin {
 
+
     /**
      * Proporciona una descripcion corta del plugin
      *

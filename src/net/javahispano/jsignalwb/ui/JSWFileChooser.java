@@ -46,6 +46,7 @@ public class JSWFileChooser extends JFileChooser implements PropertyChangeListen
         setAcceptAllFileFilterUsed(false);
     }
 
+    @Override
     public boolean isTraversable(File f) {
         boolean res = super.isTraversable(f);
         if (isDefaultFilter) {
@@ -58,9 +59,11 @@ public class JSWFileChooser extends JFileChooser implements PropertyChangeListen
         return res;
     }
 
+    @Override
     public Icon getIcon(File f) {
         if (isDefaultFilter) {
             FileFilter ff = new FileFilter() {
+                @Override
                 public boolean accept(File f) {
 
                     if (f.getName().toLowerCase().endsWith(".jsw")) {
@@ -81,6 +84,7 @@ public class JSWFileChooser extends JFileChooser implements PropertyChangeListen
         return super.getIcon(f);
     }
 
+    @Override
     public int showOpenDialog(Component parent) throws HeadlessException {
         this.resetChoosableFileFilters();
 
@@ -98,6 +102,7 @@ public class JSWFileChooser extends JFileChooser implements PropertyChangeListen
         return super.showOpenDialog(parent);
     }
 
+    @Override
     public int showSaveDialog(Component parent) throws HeadlessException {
         this.resetChoosableFileFilters();
 
@@ -169,6 +174,7 @@ public class JSWFileChooser extends JFileChooser implements PropertyChangeListen
         return null;
     }
 
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         Object newValue = evt.getNewValue();
         if (defaultFilter != null && newValue != null && newValue.equals(defaultFilter)) {

@@ -31,6 +31,7 @@ public class ExitAction extends AbstractAction {
         this.putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl E"));
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (JSWBManager.getJSWBManagerInstance().prepareClose(false)) {
             EnvironmentConfiguration.getInstancia().almacenaADisco();

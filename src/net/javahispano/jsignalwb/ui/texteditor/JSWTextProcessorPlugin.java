@@ -51,13 +51,17 @@ public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlug
                 JSWTextProcessor.class.getResource("comentario.gif")));
     }
 
+    @Override
     public boolean hasOwnConfigureGUI() {
         return false;
     }
 
+    @Override
     public void launchConfigureGUI(JSWBManager jswbManager) {
+        // vacio
     }
 
+    @Override
     public String getDataToSave() {
         if (jSWTextProcessorBounds == null) {
             return "";
@@ -66,6 +70,7 @@ public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlug
                 ((int) jSWTextProcessorBounds.getWidth()) + "*" + ((int) jSWTextProcessorBounds.getHeight());
     }
 
+    @Override
     public void setSavedData(String data) {
         if (!data.equals("")) {
             StringTokenizer st = new StringTokenizer(data, "*");
@@ -74,14 +79,17 @@ public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlug
         }
     }
 
+    @Override
     public boolean hasDataToSave() {
         return true;
     }
 
+    @Override
     public boolean createFile() {
         return true;
     }
 
+    @Override
     public void setFile(File file) {
         this.file = file;
         jSWTextProcessor = new JSWTextProcessor(file, this, this);

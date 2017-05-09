@@ -17,13 +17,16 @@ public abstract class GenericPluginAdapter extends PluginAdapter implements
      * @param gUIPositions GUIPositions
      * @return boolean
      */
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return false;
-        }
-        return false;
+//        if (gUIPositions == GUIPositions.MENU) {
+//            return true;
+//        }
+//        if (gUIPositions == GUIPositions.TOOLBAR) {
+//            return false;
+//        }
+//        return false;
+        return gUIPositions == GUIPositions.MENU;
     }
 
 }

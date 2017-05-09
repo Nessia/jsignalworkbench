@@ -25,65 +25,39 @@ import net.javahispano.jsignalwb.plugins.LoaderAdapter;
  */
 public class TraceImporter extends LoaderAdapter {
 
-
+    @Override
     public ArrayList<String> getAvalaibleExtensions() {
         ArrayList<String> l = new ArrayList<String>();
         l.add("mon");
         return l;
     }
 
-    /**
-     * Devuelve una decision textual mas amplia de la funcionalidad del
-     * plugin.
-     *
-     * @return descripcion textual larga
-     */
+    @Override
     public String getDescription() {
         return "permite importar las senhales, junto con sus nombres, frecuencias de muestreo, etc. y las anotaciones contenidas en archivos de TRACE";
     }
 
+    @Override
     public Icon getIcon() {
-
         return new javax.swing.ImageIcon(getClass().getResource("trace.gif"));
     }
 
-    /**
-     * Proporciona el hombre del plugin.
-     *
-     * @return Nombre del plugin
-     */
+    @Override
     public String getName() {
         return "TRACE importer";
     }
 
-    /**
-     * Devuelve la version del plugin.
-     *
-     * @return Version del plugin
-     */
+    @Override
     public String getPluginVersion() {
         return "0.5";
     }
 
-    /**
-     * Devuelve una de extincion textual corta sobre la funcionalidad del
-     * plugin.
-     *
-     * @return descripcion textual corta
-     */
+    @Override
     public String getShortDescription() {
         return "TRACE importer";
     }
 
-    /**
-     * load
-     *
-     * @param file File
-     * @param sm SignalManager
-     * @param pm PluginManager
-     * @return boolean
-     * @throws Exception
-     */
+    @Override
     public boolean load(File file) throws
             Exception {
         GestorIO gestor_io = GestorIO.getGestorIO();

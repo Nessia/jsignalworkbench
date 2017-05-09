@@ -38,6 +38,7 @@ public class SquareNewSignalBeatDetect extends SimpleAlgorithm {
         }
     }
 
+    @Override
     public String getName() {
         return "Cuadrado nueva señal y detectar";
     }

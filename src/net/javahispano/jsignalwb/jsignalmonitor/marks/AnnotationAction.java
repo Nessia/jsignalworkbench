@@ -42,6 +42,7 @@ public class AnnotationAction extends AbstractAction {
         }
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (!interval) {
             JPopupMenu popup = new AnnotationsPopupMenu(jsmp.getDataSource(),

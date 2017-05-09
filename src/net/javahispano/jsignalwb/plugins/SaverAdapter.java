@@ -68,6 +68,7 @@ public abstract class SaverAdapter extends PluginAdapter implements Saver {
         return false;
     }
 
+    @Override
     public void cancelExecution() {
         executionCanceled = true;
     }
@@ -76,6 +77,7 @@ public abstract class SaverAdapter extends PluginAdapter implements Saver {
         return executionCanceled;
     }
 
+    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         return false;
     }

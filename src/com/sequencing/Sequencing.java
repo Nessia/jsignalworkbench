@@ -443,15 +443,18 @@ public class Sequencing extends SimpleAlgorithm {
     }
 
     // CONFIGURATION
+    @Override
     public boolean hasOwnConfigureGUI() {
         return true;
     }
 
+    @Override
     public void launchConfigureGUI(JSWBManager jswbManager) {
         Configure c = new Configure();
         c.setVisible(true);//c.show(); // TODO funciona así? @vanesa
     }
 
+    @Override
     public String getName() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return "PeakDetector";

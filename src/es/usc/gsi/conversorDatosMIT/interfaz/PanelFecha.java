@@ -32,7 +32,7 @@ public class PanelFecha extends JPanel implements ActionListener {
 
 //*******************************************************************************
 
-     public PanelFecha(String fechaInicio, String fechaFin) {
+    public PanelFecha(String fechaInicio, String fechaFin) {
          this.setLayout(new GridLayout(2, 1));
 
          this.fechaInicio = fechaInicio;
@@ -143,6 +143,7 @@ public class PanelFecha extends JPanel implements ActionListener {
 
      // Eventos de los botones
 
+     @Override
      public void actionPerformed(ActionEvent e) {
          System.out.println(e.getActionCommand());
          if (e.getActionCommand().equals("RESET_INICIO")) {

@@ -27,15 +27,17 @@ import net.javahispano.jsignalwb.plugins.SaverAdapter;
  */
 public class BasicSaver extends SaverAdapter {
 
-
+    @Override
     public String getName() {
         return "Basic Saver";
     }
 
+    @Override
     public String getShortDescription() {
         return "Basic Saver";
     }
 
+    @Override
     public ArrayList<String> getAvalaibleExtension() {
         ArrayList<String> ext = new ArrayList<String>();
         ext.add("txt");
@@ -49,6 +51,7 @@ public class BasicSaver extends SaverAdapter {
         return this.save(f, data);
     }
 
+    @Override
     public boolean save(File f, float[][] data) throws Exception {
         if (f.exists()) {
             if (JOptionPane.showConfirmDialog(null,

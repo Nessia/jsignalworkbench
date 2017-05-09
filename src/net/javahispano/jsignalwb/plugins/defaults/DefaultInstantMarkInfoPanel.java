@@ -32,9 +32,38 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
      *
      */
     private static final long serialVersionUID = -6038183406671451579L;
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup;
+    private javax.swing.JTextField colorTextField;
+    private javax.swing.JTextArea comentaryTextArea;
+    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
+    private javax.swing.JLabel iconLabel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    //private static javax.swing.JColorChooser jColorChooser1 = new javax.swing.JColorChooser();
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
+    private javax.swing.JLabel kindLabel;
+    private javax.swing.JTextField markTitleTextField;
+    private javax.swing.JLabel signalNameLabel;
+    // End of variables declaration//GEN-END:variables
+    private JWindow jw;
+
     DefaultInstantMark dim;
     Signal s;
     JFileChooser jfc;
+
     /** Creates new form DefaultInstantMarkInfoPanel */
     public DefaultInstantMarkInfoPanel(Signal s, DefaultInstantMark dim) {
         this.dim = dim;
@@ -67,9 +96,9 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
         datePicker1.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
         comentaryTextArea.setText(dim.getComentary());
         kindLabel.setText("Kind of markhh: " + dim.getName());
-
     }
 
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("date".equals(evt.getPropertyName())) {
             Date date = datePicker1.getDate();
@@ -208,6 +237,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hideJWindow(evt);
             }
@@ -220,6 +250,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
 
         jButton2.setText("Delete");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
@@ -231,6 +262,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
         jRadioButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jRadioButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtons(evt);
             }
@@ -242,6 +274,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
         jButton4.setText("Choose Icon");
         jButton4.setEnabled(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
@@ -253,6 +286,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
         jRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtons(evt);
             }
@@ -265,6 +299,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
 
         jButton3.setText("Choose color");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
@@ -396,6 +431,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
             jfc = new JFileChooser();
 
             FileFilter ff = new FileFilter() {
+                @Override
                 public boolean accept(File f) {
                     if (f.isDirectory()) {
                         return true;
@@ -420,6 +456,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
                 }
 
                 // return a description of files
+                @Override
                 public String getDescription() {
                     return "Image file (*.gif,*.jpg,*.jpeg,*.bmp,*.png)";
                 }
@@ -492,30 +529,5 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
         return newDateTime.getMillis();
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup;
-    private javax.swing.JTextField colorTextField;
-    private javax.swing.JTextArea comentaryTextArea;
-    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
-    private javax.swing.JLabel iconLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    //private static javax.swing.JColorChooser jColorChooser1 = new javax.swing.JColorChooser();
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
-    private javax.swing.JLabel kindLabel;
-    private javax.swing.JTextField markTitleTextField;
-    private javax.swing.JLabel signalNameLabel;
-    // End of variables declaration//GEN-END:variables
-    private JWindow jw;
+
 }

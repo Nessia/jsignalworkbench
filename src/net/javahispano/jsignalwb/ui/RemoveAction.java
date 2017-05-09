@@ -58,6 +58,5 @@ public class RemoveAction extends AbstractAction {
             //boolean flag=jswbManager.getSignalManager().isSignalVisible(signalName);
             jswbManager.removeSignal(signalName);
         }
-
     }
 }

@@ -65,6 +65,7 @@ public class AdjustSignalVisibleRangeAction extends AbstractAction {
         this.putValue(LARGE_ICON_KEY, icon);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (channelName == null) {
             jswbManager.adjustVisibleRange(range);

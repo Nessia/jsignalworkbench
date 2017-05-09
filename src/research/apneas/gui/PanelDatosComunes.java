@@ -80,6 +80,7 @@ public class PanelDatosComunes extends javax.swing.JPanel implements PropertyCha
         jTextFieldDate1.setForeground(java.awt.Color.blue);
         jTextFieldDate1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldDate1.addFocusListener(new java.awt.event.FocusAdapter() {
+        	@Override
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextFieldDate1FocusLost(evt);
             }
@@ -88,6 +89,7 @@ public class PanelDatosComunes extends javax.swing.JPanel implements PropertyCha
         jTextFieldDate2.setForeground(java.awt.Color.blue);
         jTextFieldDate2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldDate2.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextFieldDate2FocusLost(evt);
             }

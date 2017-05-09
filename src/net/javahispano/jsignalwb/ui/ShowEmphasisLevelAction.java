@@ -25,6 +25,7 @@ public class ShowEmphasisLevelAction extends AbstractAction {
     private static final long serialVersionUID = 8662020846407245634L;
 
     private String signalName;
+    
     public ShowEmphasisLevelAction(String signalName) {
         this.signalName = signalName;
         this.putValue(NAME, "Show Emphasis");

@@ -20,24 +20,17 @@ import net.javahispano.plugins.temporalseries.TemporalSeriesAlgorithm;
  * @version 0.5
  */
 public class SumaSenoCuadrado extends TemporalSeriesAlgorithm {
+
     public SumaSenoCuadrado() {
+        // Vacio
     }
 
-    /**
-     * Proporciona el hombre del plugin.
-     *
-     * @return Nombre del plugin
-     */
+    @Override
     public String getName() {
         return "Suma de seno y cuadrado";
     }
 
-    /**
-     * processTemporalSeries
-     *
-     * @param sm SignalManager
-     * @param signals List
-     */
+    @Override
     public void processTemporalSeries(SignalManager sm, List<TemporalSeries> signals) {
         Iterator<TemporalSeries> it = signals.iterator();
         if (signals.size() != 2) {

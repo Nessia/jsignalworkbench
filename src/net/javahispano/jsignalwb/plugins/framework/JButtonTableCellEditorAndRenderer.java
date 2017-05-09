@@ -61,10 +61,12 @@ public class JButtonTableCellEditorAndRenderer extends AbstractCellEditor
         button.addActionListener(this);
     }
 
+    @Override
     public Object getCellEditorValue() {
         return button;
     }
 
+    @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
         if (value != null) {
             String toolTip = button.getToolTipText();
@@ -76,6 +78,7 @@ public class JButtonTableCellEditorAndRenderer extends AbstractCellEditor
         return null;
     }
 
+    @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
             int row, int column) {
         if (value != null) {
@@ -84,6 +87,7 @@ public class JButtonTableCellEditorAndRenderer extends AbstractCellEditor
         return null;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         fireEditingStopped();
     }

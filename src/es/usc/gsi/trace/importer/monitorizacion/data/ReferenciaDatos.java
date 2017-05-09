@@ -10,8 +10,6 @@ import java.util.LinkedList;
  */
 public class ReferenciaDatos extends Referencia {
 
-    static final long serialVersionUID = 326145L;
-
     boolean posAsociada[];
     private ReferenciaPosibilidades almacenPosibilidades;
 

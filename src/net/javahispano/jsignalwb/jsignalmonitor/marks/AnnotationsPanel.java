@@ -89,6 +89,7 @@ public class AnnotationsPanel extends JPanel {
                             popup.show(this, evt.getX(), evt.getY());
                         }
                         Runnable uiUpdateRunnable = new Runnable() {
+                            @Override
                             public void run() {
                                 repaint();
                             }
@@ -133,6 +134,7 @@ public class AnnotationsPanel extends JPanel {
         }
         if (flag) {
             Runnable uiUpdateRunnable = new Runnable() {
+                @Override
                 public void run() {
                     repaint();
                 }
@@ -142,6 +144,7 @@ public class AnnotationsPanel extends JPanel {
         }
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
@@ -180,6 +183,7 @@ public class AnnotationsPanel extends JPanel {
     public void refreshCategories(ArrayList<String> categories) {
         this.categories = categories;
         Runnable uiUpdateRunnable = new Runnable() {
+            @Override
             public void run() {
                 repaint();
             }

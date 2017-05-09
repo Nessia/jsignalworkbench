@@ -28,6 +28,7 @@ public class LimitacionesDialog extends JDialog {
      *
      */
     private static final long serialVersionUID = -1988504268897049275L;
+
     LimitacionAnotacion limitacionAnotacion;
     boolean apnea = true, desat = false, latido = false;
     private JPanel panel1 = new JPanel();
@@ -41,6 +42,8 @@ public class LimitacionesDialog extends JDialog {
     private JComboBox<String> jComboBox1 = new JComboBox<String>();
     private JLabel jLabel2 = new JLabel();
     private JLabel abelAutomatico = new JLabel();
+
+
     public LimitacionesDialog(Frame owner, String title, boolean modal,
                               LimitacionAnotacion limitacionesAnotaciones) {
         super(owner, title, modal);
@@ -230,6 +233,7 @@ class LimitacionesDialog_jButton3_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton3_actionPerformed(e);
     }
@@ -242,6 +246,7 @@ class LimitacionesDialog_jButton2_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton2_actionPerformed(e);
     }
@@ -254,6 +259,7 @@ class LimitacionesDialog_jButton1_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton1_actionPerformed(e);
     }

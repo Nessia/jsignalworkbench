@@ -34,9 +34,9 @@ public class JMenuAlgorithm extends JMenu {
 
         //this.algorithmName = algorithmName;
         PluginManager pm = JSWBManager.getPluginManager();
-        JMenuItem results = new JMenuItem(new AlgorithmAction(algorithmName, AlgorithmAction.RESULTS_ACTION,
+        JMenuItem results = new JMenuItem(new AlgorithmAction(algorithmName, AlgorithmAction.ACTIONS.RESULTS_ACTION,
                 jswbManager));
-        JMenuItem configure = add(new JMenuItem(new AlgorithmAction(algorithmName, AlgorithmAction.CONFIGURE_ACTION,
+        JMenuItem configure = add(new JMenuItem(new AlgorithmAction(algorithmName, AlgorithmAction.ACTIONS.CONFIGURE_ACTION,
                 jswbManager)));
         if (pm.isPluginLoaded("algorithm", algorithmName)) {
             Algorithm alg = pm.getAlgorithm(algorithmName);
@@ -49,7 +49,7 @@ public class JMenuAlgorithm extends JMenu {
         }
         //Icon icon=jswbManager.getPluginManager().getIcon("algorithm",algorithmName,15,15);
         add(configure);
-        add(new JMenuItem(new AlgorithmAction(algorithmName, AlgorithmAction.RUN_ACTION, jswbManager)));
+        add(new JMenuItem(new AlgorithmAction(algorithmName, AlgorithmAction.ACTIONS.RUN_ACTION, jswbManager)));
         add(results);
         //setIcon(icon);
     }

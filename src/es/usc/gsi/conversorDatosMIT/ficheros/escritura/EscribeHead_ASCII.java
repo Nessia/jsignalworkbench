@@ -25,8 +25,8 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
 
 //*******************************************************************************
 
-     // FALTA: CREAR UN CONSTRUCTOR QUE ADMITA UNA FRECUENCIA DE REMUESTREO GLOBAL.
-     public EscribeHead_ASCII(Vector<FicheroHead> vectorFicherosHead, File ficheroDestino) {
+    // FALTA: CREAR UN CONSTRUCTOR QUE ADMITA UNA FRECUENCIA DE REMUESTREO GLOBAL.
+    public EscribeHead_ASCII(Vector<FicheroHead> vectorFicherosHead, File ficheroDestino) {
          this.vectorFicherosHead = vectorFicherosHead;
 
          // Correccion del nombre de fichero
@@ -40,21 +40,23 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
 
 //*******************************************************************************
 
-     public void cancelar() {
-         cancel = true;
-     }
+    @Override
+    public void cancelar() {
+        cancel = true;
+    }
 
 //*******************************************************************************
 
-     public void run() {
-         new EscribeCabeceraHead_ASCII(vectorFicherosHead, ficheroDestino);
-         this.creaLectores();
-         if (this.vuelcaDatos()) {
-             return;
-         }
-         this.cierraFicheros();
-         controlFicheros.cierraIndicadorProgreso();
-     }
+    @Override
+    public void run() {
+        new EscribeCabeceraHead_ASCII(vectorFicherosHead, ficheroDestino);
+        this.creaLectores();
+        if (this.vuelcaDatos()) {
+            return;
+        }
+        this.cierraFicheros();
+        controlFicheros.cierraIndicadorProgreso();
+    }
 
 //*******************************************************************************
 
@@ -186,12 +188,10 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
 //*******************************************************************************
 
 // INCLUIR METODO PARA CERRAR TODOS LOS FICHEROS ABIERTOS
-     public void cierraFicheros() {
-
-         for (int i = 0; i < arrayLectores.length; i++) {
+    public void cierraFicheros() {
+        for (int i = 0; i < arrayLectores.length; i++) {
              arrayLectores[i].cierraFichero();
-         }
-
-     }
+        }
+    }
 
 } // Fin clase EscribeHead_ASCII

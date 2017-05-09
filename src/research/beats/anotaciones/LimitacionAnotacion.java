@@ -29,10 +29,13 @@ import javax.swing.ToolTipManager;
  * @version 0.5
  */
 public class LimitacionAnotacion extends DefaultIntervalMark {
+
     public static final int APNEA = 1, HIPOAPNEA = 2, DESATURACION = 3, N = 0,
     A = -1, V = -2, P = -3, TV = -4, Vrt = -5, Prt = -6;
+
     private int tipo = 1;
     private boolean automatica = false;
+
     public LimitacionAnotacion() {
         super();
     }
@@ -58,11 +61,12 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
         return toraxList;
     }
 
-
+    @Override
     public String getName() {
         return "Limitacion de flujo";
     }
 
+    @Override
     public void showMarkInfo(Window owner) {
         new LimitacionesDialog((JFrame) JSWBManager.getParentWindow(), "Marca:", true, this);
     }
@@ -75,6 +79,7 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
         return automatica;
     }
 
+    @Override
     public String getToolTipText() {
         UIManager.put("ToolTip.foreground", new ColorUIResource(Color.black));
             UIManager.put("ToolTip.background", new ColorUIResource(Color.CYAN ));
@@ -87,6 +92,7 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
                 "<li>Minimum value: 80</li><li>Mean value: 89</li></ul></html>";
     }
 
+    @Override
   /* */ public void paint(Graphics2D g2d, MarkPaintInfo markPaintInfo) {
         super.paint(g2d, markPaintInfo);
         if (!isAutomatica()) {
@@ -132,10 +138,12 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
         this.automatica = automatica;
     }
 
+    @Override
     public String getDataToSave() {
         return this.automatica + "*" + super.getDataToSave();
     }
 
+    @Override
     public void setSavedData(String data) {
         String a = data.substring(0, data.indexOf('*'));
         this.automatica = Boolean.parseBoolean(a);

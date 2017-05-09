@@ -34,30 +34,37 @@ public class SpO2Grid extends GridPluginAdapter {
     private int bigSpace;
     private int bigSpaceY;
 
+    @Override
     public int getLeyendWidth() {
         return bigSpace;
     }
 
+    @Override
     public int getLeyendHeight() {
         return bigSpaceY;
     }
 
     public SpO2Grid() {
+        // Vacio
     }
 
+    @Override
     public void setSignal(Signal s) {
         signal = s;
         valorBasal = DesatDetector.getValorBasal();
     }
 
+    @Override
     public String getName() {
         return "Grid SpO2";
     }
 
+    @Override
     public void launchConfigureGridGUI(Window owner) {
-
+        // Vacio
     }
 
+    @Override
     public void paintGrid(Graphics2D g2d, Point p, int height, int width,
                           GridConfiguration gridconfig) {
         bigSpace = Math.round((width - 5) / (float) 10);
@@ -95,17 +102,17 @@ public class SpO2Grid extends GridPluginAdapter {
 //        g2d.drawLine(p.x + van, altura, p.x + van + pasoX_1, altura+4);
     }
 
+    @Override
     public boolean hasDataToSave() {
-        if (signal != null) {
-            return true;
-        }
-        return false;
+        return signal != null;
     }
 
+    @Override
     public void setSavedData(String data) {
-
+        // Vacio
     }
 
+    @Override
     public String getDataToSave() {
         return "";
     }

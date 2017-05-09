@@ -26,11 +26,10 @@ public class FrameConversorMIT extends JDialog {
     /**
     *
     */
-   private static final long serialVersionUID = -2550378812820799768L;
+    private static final long serialVersionUID = -2550378812820799768L;
 
 
-   private PanelPrincipal conversor;
-
+    private PanelPrincipal conversor;
 
     private BorderLayout borderLayout1 = new BorderLayout();
     private JPanel jPanel1 = new JPanel();

@@ -10,8 +10,8 @@ import net.javahispano.jsignalwb.SignalManager;
  */
 public class EMGAlgorithm extends SimpleAlgorithm {
 
-    float anchoVentanaSeg = 0.3F;
-    float desplazamientoVentanaSeg = 0.1F;
+    protected float anchoVentanaSeg = 0.3F;
+    protected float desplazamientoVentanaSeg = 0.1F;
 
     @Override
     public void runAlgorithm(SignalManager signalManager, Signal signal, float[] datos, float fs) {
@@ -85,6 +85,7 @@ public class EMGAlgorithm extends SimpleAlgorithm {
         signalManager.addSignal(activacion);
     }
 
+    @Override
     public String getName() {
         return "EMG";
     }

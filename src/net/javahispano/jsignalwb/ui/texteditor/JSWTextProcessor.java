@@ -91,10 +91,12 @@ public class JSWTextProcessor extends JFrame {
         menuFileExit.addActionListener(new TextEditFrameMenuFileExitActionAdapter(this));
         jButton1.setIcon(gifAbrir);
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseEntered(MouseEvent e) {
                 jButton1MouseEntered(e);
             }
 
+            @Override
             public void mouseExited(MouseEvent e) {
                 jButton1MouseExited(e);
             }
@@ -104,15 +106,18 @@ public class JSWTextProcessor extends JFrame {
         jButton1.setToolTipText("Opens an rtf document");
         jButton2.setIcon(gifGuardar);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 jButton2ActionPerformed(e);
             }
         });
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseEntered(MouseEvent e) {
                 jButton2MouseEntered(e);
             }
 
+            @Override
             public void mouseExited(MouseEvent e) {
                 jButton2MouseExited(e);
             }
@@ -154,15 +159,18 @@ public class JSWTextProcessor extends JFrame {
         jButton3.setToolTipText("Creates a new document");
         jButton3.setIcon(gifNuevo);
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseEntered(MouseEvent e) {
                 jButton3MouseEntered(e);
             }
 
+            @Override
             public void mouseExited(MouseEvent e) {
                 jButton3MouseExited(e);
             }
         });
         jButton3.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 jButton3ActionPerformed(e);
             }
@@ -194,11 +202,13 @@ public class JSWTextProcessor extends JFrame {
         jMenu2.add(jMenuItem5);
         //Codigo mio
         jFileChooser1.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            @Override
             public boolean accept(File f) {
                 return (f.getName().toLowerCase().endsWith(".rtf") ||
                         f.getName().toLowerCase().endsWith(".rtf") || f.isDirectory());
             }
 
+            @Override
             public String getDescription() {
                 return "rtf documents";
             }
@@ -319,7 +329,7 @@ public class JSWTextProcessor extends JFrame {
         this.setVisible(false);
     }
 
-
+    @Override
     protected void processWindowEvent(WindowEvent e) {
         super.processWindowEvent(e);
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
@@ -448,6 +458,7 @@ public class JSWTextProcessor extends JFrame {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             adaptee.fileExit_actionPerformed(e);
         }
@@ -461,6 +472,7 @@ public class JSWTextProcessor extends JFrame {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             adaptee.jMenuItem7ActionPerformed(e);
         }
@@ -474,6 +486,7 @@ public class JSWTextProcessor extends JFrame {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             adaptee.jMenuItem1ActionPerformed(e);
         }
@@ -487,6 +500,7 @@ public class JSWTextProcessor extends JFrame {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             adaptee.jMenuItem2ActionPerformed(e);
         }
@@ -500,6 +514,7 @@ public class JSWTextProcessor extends JFrame {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             adaptee.jMenuItem3ActionPerformed(e);
         }
@@ -513,6 +528,7 @@ public class JSWTextProcessor extends JFrame {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             adaptee.jMenuItem4ActionPerformed(e);
         }
@@ -526,6 +542,7 @@ public class JSWTextProcessor extends JFrame {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             adaptee.jButton1ActionPerformed(e);
         }
@@ -539,6 +556,7 @@ public class JSWTextProcessor extends JFrame {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             adaptee.jButton2ActionPerformed(e);
         }
@@ -553,14 +571,17 @@ public class JSWTextProcessor extends JFrame {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void changedUpdate(DocumentEvent e) {
             adaptee.document1ChangedUpdate(e);
         }
 
+        @Override
         public void insertUpdate(DocumentEvent e) {
             adaptee.document1InsertUpdate(e);
         }
 
+        @Override
         public void removeUpdate(DocumentEvent e) {
             adaptee.document1RemoveUpdate(e);
         }
@@ -576,6 +597,7 @@ class JSWTextProcessor_jMenuItem5_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jMenuItem5_actionPerformed(e);
     }

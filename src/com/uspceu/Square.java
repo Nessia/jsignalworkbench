@@ -21,6 +21,7 @@ public class Square extends SimpleAlgorithm{
         }
     }
 
+    @Override
     public String getName() {
         return "Cuadrado";
     }

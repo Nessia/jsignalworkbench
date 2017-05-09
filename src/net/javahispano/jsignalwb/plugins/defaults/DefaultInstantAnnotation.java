@@ -18,6 +18,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman Segador
  */
 public class DefaultInstantAnnotation extends AnnotationPluginAdapter {
+
     private long annotationTime;
     private String title;
     private String comentary;
@@ -28,6 +29,7 @@ public class DefaultInstantAnnotation extends AnnotationPluginAdapter {
     private boolean isImage;
     private String imagePath;
     private JSWBManager jswbManager;
+
     public DefaultInstantAnnotation() {
         annotationTime = 0;
         title = "Write here the annotation title...";
@@ -40,27 +42,32 @@ public class DefaultInstantAnnotation extends AnnotationPluginAdapter {
         setIsImage(false);
     }
 
+    @Override
     public String getName() {
         return "Default Instant Annotation";
     }
 
+    @Override
     public long getAnnotationTime() {
         return annotationTime;
     }
 
+    @Override
     public Image getImage() {
         return bufferedImage;
     }
 
+    @Override
     public void setAnnotationTime(long annotationTime) {
         this.annotationTime = annotationTime;
     }
 
-
+    @Override
     public void setJSWBManager(JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
     }
 
+    @Override
     public String getCategory() {
         return category;
     }
@@ -69,6 +76,7 @@ public class DefaultInstantAnnotation extends AnnotationPluginAdapter {
         this.category = category;
     }
 
+    @Override
     public void showMarkInfo(Window owner) {
         new DefaultInstantAnnotationPanel(this).showJWindow(owner);
     }
@@ -93,17 +101,19 @@ public class DefaultInstantAnnotation extends AnnotationPluginAdapter {
         return title;
     }
 
+    @Override
     public boolean hasDataToSave() {
         return true;
     }
 
+    @Override
     public String getDataToSave() {
         return "title:" + title + "|| comentary:" + comentary + " || icon:" +
                 imagePath + " || isImage:" + isImage + "|| color:" +
                 color.getRGB() + "|| category: " + category;
     }
 
-
+    @Override
     public void setSavedData(String data) {
         data = data.substring(data.indexOf("title:") + 6);
         title = data.substring(0, data.indexOf("||"));
@@ -126,6 +136,7 @@ public class DefaultInstantAnnotation extends AnnotationPluginAdapter {
         refreshBufferedImage();
     }
 
+    @Override
     public String getToolTipText() {
         return title;
     }

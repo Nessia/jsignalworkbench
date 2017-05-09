@@ -612,6 +612,7 @@ class SignalGeneration_jButton2_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton2_actionPerformed(e);
     }
@@ -624,6 +625,7 @@ class SignalGeneration_jButton4_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton4_actionPerformed(e);
     }
@@ -636,6 +638,7 @@ class SignalGeneration_jButton1_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton1_actionPerformed(e);
     }
@@ -648,6 +651,7 @@ class SignalGeneration_ruido_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.ruido_actionPerformed(e);
     }
@@ -660,6 +664,7 @@ class SignalGeneration_jButton3_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton3_actionPerformed(e);
     }

@@ -85,6 +85,7 @@ public class IndicadorProgreso extends JDialog implements ActionListener {
 
 //***********************************************************************************
 
+     @Override
      public void actionPerformed(ActionEvent ev) {
          if (!stop) {
              hilo.cancelar();

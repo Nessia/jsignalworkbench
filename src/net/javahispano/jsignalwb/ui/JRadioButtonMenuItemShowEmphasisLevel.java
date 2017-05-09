@@ -31,6 +31,7 @@ public class JRadioButtonMenuItemShowEmphasisLevel extends JRadioButtonMenuItem 
         }
     }
 
+    @Override
     public String getActionCommand() {
         if (isSelected()) {
             return "true";

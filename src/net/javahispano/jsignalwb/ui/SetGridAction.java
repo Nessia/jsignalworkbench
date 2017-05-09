@@ -22,11 +22,13 @@ public class SetGridAction extends AbstractAction {
      *
      */
     private static final long serialVersionUID = 2846680920810661619L;
-    private JSWBManager jswbManager;
+
+    //private JSWBManager jswbManager;
     private String signalName;
     private String gridName;
-    public SetGridAction(String signalName, String gridName, JSWBManager jswbManager) {
-        this.jswbManager = jswbManager;
+
+    public SetGridAction(String signalName, String gridName) {
+        //this.jswbManager = jswbManager;
         this.signalName = signalName;
         this.gridName = gridName;
         this.putValue(NAME, gridName);
@@ -39,7 +41,7 @@ public class SetGridAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        jswbManager.setSignalGrid(signalName, gridName);
+        JSWBManager.setSignalGrid(signalName, gridName);
     }
 
 }

@@ -30,9 +30,37 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
      *
      */
     private static final long serialVersionUID = -3659043260894141967L;
+
+ // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField colorTextField;
+    private javax.swing.JTextArea comentaryTextArea;
+    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
+    private com.michaelbaranov.microba.calendar.DatePicker datePicker2;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
+    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate2;
+    private javax.swing.JLabel kindLabel;
+    private javax.swing.JTextField markTitleTextField;
+    // End of variables declaration//GEN-END:variables
+
     private DefaultIntervalAnnotation dim;
 //    private JColorChooser jcc;
     private JWindow jw;
+
     /** Creates new form DefaultIntervalAnnotationInfoPanel */
     public DefaultIntervalAnnotationInfoPanel(DefaultIntervalAnnotation dia) {
         this.dim = dia;
@@ -59,6 +87,7 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
         colorTextField.setBackground(dim.getColor());
     }
 
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("date".equals(evt.getPropertyName())) {
             if (evt.getSource().equals(datePicker1)) {
@@ -241,6 +270,7 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1hideJWindow(evt);
             }
@@ -253,6 +283,7 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
 
         jButton2.setText("Delete");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
@@ -266,6 +297,7 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
 
         jButton3.setText("Choose color");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
@@ -296,6 +328,7 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
 
         jButton4.setText("Cancel");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
@@ -427,30 +460,6 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
         return newDateTime.getMillis();
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField colorTextField;
-    private javax.swing.JTextArea comentaryTextArea;
-    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
-    private com.michaelbaranov.microba.calendar.DatePicker datePicker2;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
-    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate2;
-    private javax.swing.JLabel kindLabel;
-    private javax.swing.JTextField markTitleTextField;
-    // End of variables declaration//GEN-END:variables
+
 
 }

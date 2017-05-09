@@ -40,6 +40,7 @@ public class EraseAllAction extends AbstractAction {
         this.putValue(MNEMONIC_KEY, KeyEvent.VK_M);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         SignalManager sm = JSWBManager.getSignalManager();
         sm.eraseAllEmphasisLevels();

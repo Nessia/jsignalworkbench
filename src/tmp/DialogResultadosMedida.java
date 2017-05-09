@@ -77,6 +77,7 @@ public class DialogResultadosMedida extends JDialog {
         StringSelection stringSelection =  new StringSelection(this.jTextAreaMedida.getText());
                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                clipboard.setContents(stringSelection, new ClipboardOwner() {
+                   @Override
                    public void lostOwnership(Clipboard aClipboard,
                                              Transferable aContents) {
 
@@ -101,6 +102,7 @@ class DialogResultadosMedida_jButton2_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton2_actionPerformed(e);
     }
@@ -113,6 +115,7 @@ class DialogResultadosMedida_jButton1_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton1_actionPerformed(e);
     }
@@ -125,6 +128,7 @@ class DialogResultadosMedida_jButton3_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton3_actionPerformed(e);
     }

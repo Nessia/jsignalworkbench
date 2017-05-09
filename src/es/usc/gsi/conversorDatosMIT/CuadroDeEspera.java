@@ -22,8 +22,9 @@ public class CuadroDeEspera extends JDialog {
     /**
     *
     */
-   private static final long serialVersionUID = -7719770104772154018L;
-   private Border normal = BorderFactory.createLoweredBevelBorder();
+    private static final long serialVersionUID = -7719770104772154018L;
+
+    private Border normal = BorderFactory.createLoweredBevelBorder();
     private Border selecionado = BorderFactory.createRaisedBevelBorder();
     private Window frame;
     private boolean cancelado = true;

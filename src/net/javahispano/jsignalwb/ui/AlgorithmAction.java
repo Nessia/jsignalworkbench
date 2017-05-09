@@ -25,44 +25,55 @@ public class AlgorithmAction extends AbstractAction {
      *
      */
     private static final long serialVersionUID = 8470576805945116528L;
-    public final static int CONFIGURE_ACTION = 1;
-    public final static int RUN_ACTION = 2;
-    public final static int RESULTS_ACTION = 3;
-    private int action;
+//    public final static int CONFIGURE_ACTION = 1;
+//    public final static int RUN_ACTION = 2;
+//    public final static int RESULTS_ACTION = 3;
+    public enum ACTIONS { CONFIGURE_ACTION, RUN_ACTION, RESULTS_ACTION }
+
+    private ACTIONS action;
     private String algorithmName;
     private JSWBManager jswbm;
+
     /** Creates a new instance of AlgorithmAction */
-    public AlgorithmAction(String algorithmName, int algorithmAction,
+    public AlgorithmAction(String algorithmName, ACTIONS algorithmAction,
                            JSWBManager jswbManager) {
         this.action = algorithmAction;
         this.algorithmName = algorithmName;
         this.jswbm = jswbManager;
         this.putValue(SHORT_DESCRIPTION, algorithmName);
-        if (action == CONFIGURE_ACTION) {
+        switch(action){
+        case CONFIGURE_ACTION:
             this.putValue(NAME, "Configure");
             this.putValue(MNEMONIC_KEY, KeyEvent.VK_C);
-        } else if (action == RUN_ACTION) {
+            break;
+        case RUN_ACTION:
             this.putValue(NAME, "Run");
             Icon smallIcon = JSWBManager.getPluginManager().getIconDefaultSize("algorithm", algorithmName);
             Icon icon = JSWBManager.getPluginManager().getIconDefaultSize("algorithm", algorithmName);
             this.putValue(SMALL_ICON, smallIcon);
             this.putValue(LARGE_ICON_KEY, icon);
             this.putValue(MNEMONIC_KEY, KeyEvent.VK_R);
-        } else if (action == RESULTS_ACTION) {
+            break;
+        case RESULTS_ACTION:
             this.putValue(NAME, "Show results");
             this.putValue(MNEMONIC_KEY, KeyEvent.VK_E);
+            break;
         }
     }
 
-
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (JSWBManager.getPluginManager().isPluginRegistered("algorithm", algorithmName)) {
-            if (action == CONFIGURE_ACTION) {
+            switch(action){
+            case CONFIGURE_ACTION:
                 jswbm.showPluginConfiguration("algorithm", algorithmName);
-            } else if (action == RUN_ACTION) {
+                break;
+            case RUN_ACTION:
                 jswbm.showPluginExecution("algorithm", algorithmName);
-            } else if (action == RESULTS_ACTION) {
+                break;
+            case RESULTS_ACTION:
                 jswbm.showAlgorithmResults(algorithmName);
+                break;
             }
         } else {
             JOptionPane.showMessageDialog(JSWBManager.getParentWindow(), "This algorithm is already uninstalled." +

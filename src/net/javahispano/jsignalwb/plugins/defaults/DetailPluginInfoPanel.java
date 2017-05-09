@@ -20,10 +20,48 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
      *
      */
     private static final long serialVersionUID = 3935489149726730726L;
+
+ // Declaracion de varibales -no modificar//GEN-BEGIN:variables
+    private javax.swing.JPanel algorithmPane;
+    private javax.swing.JButton configureButton;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JPanel loaderPane;
+    private javax.swing.JPanel saverPane;
+    // Fin de declaracion de variables//GEN-END:variables
+
     private JSWBManager jswbManager;
     private String pluginType;
     private Plugin plugin;
     private JWindow jw;
+
     /** Creates new form DetailPluginInfoPanel */
     public DetailPluginInfoPanel(JSWBManager jswbManager, Plugin plugin) {
         this.jswbManager = jswbManager;
@@ -44,11 +82,8 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
             } else if (plugin instanceof GenericPlugin) {
                 pluginType = "Generic";
             }
-
             initComponents();
-
             initPluginTypeInfo();
-
         }
     }
 
@@ -321,10 +356,12 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             private static final long serialVersionUID = 1L;
             String[] strings = {"No Items"};
+            @Override
             public int getSize() {
                 return strings.length;
             }
 
+            @Override
             public String getElementAt(int i) {
                 return strings[i];
             }
@@ -482,40 +519,6 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
     } //GEN-LAST:event_jButton1ActionPerformed
 
 
-    // Declaracion de varibales -no modificar//GEN-BEGIN:variables
-    private javax.swing.JPanel algorithmPane;
-    private javax.swing.JButton configureButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JPanel loaderPane;
-    private javax.swing.JPanel saverPane;
-    // Fin de declaracion de variables//GEN-END:variables
+
 
 }

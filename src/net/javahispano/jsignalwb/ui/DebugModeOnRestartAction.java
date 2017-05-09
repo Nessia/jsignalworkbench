@@ -19,7 +19,7 @@ public class DebugModeOnRestartAction extends AbstractAction {
    private static final long serialVersionUID = -5048969473756061769L;
 
 
-   public DebugModeOnRestartAction() {
+    public DebugModeOnRestartAction() {
         this.putValue(NAME, "Debug mode");
         this.putValue(SHORT_DESCRIPTION, "Debug mode when restart the " +
                       "applicattion turn ON/OFF");

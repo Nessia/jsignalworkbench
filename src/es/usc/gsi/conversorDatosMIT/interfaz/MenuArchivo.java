@@ -56,6 +56,7 @@ public class MenuArchivo extends JMenu implements ActionListener {
 
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
 
         if (e.getActionCommand().equals(CMD_ABRIRPACIENTE)) {

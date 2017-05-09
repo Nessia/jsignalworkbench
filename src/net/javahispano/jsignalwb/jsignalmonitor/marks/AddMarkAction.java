@@ -49,6 +49,7 @@ public class AddMarkAction extends AbstractAction {
         putValue(NAME, markName);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (interval) {
             dataSource.notifyMarkAdded(markName, signalName, startTime, endTime);

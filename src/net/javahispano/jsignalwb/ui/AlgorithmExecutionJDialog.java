@@ -27,6 +27,15 @@ public class AlgorithmExecutionJDialog extends javax.swing.JDialog implements Pr
     */
     private static final long serialVersionUID = -1536564663573587629L;
 
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JProgressBar jProgressBar1;
+    // End of variables declaration//GEN-END:variables
+
     private SwingWorker<Boolean, Void> sw;
     private Algorithm alg;
     /**
@@ -57,6 +66,7 @@ public class AlgorithmExecutionJDialog extends javax.swing.JDialog implements Pr
         jswbManager.setJSMIgnoreRepaintMode(false);
     }
 
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         //System.out.println(evt.getPropertyName() + "---->" + evt.getNewValue());
         if ("progress".equals(evt.getPropertyName())) {
@@ -104,6 +114,7 @@ public class AlgorithmExecutionJDialog extends javax.swing.JDialog implements Pr
 
         jButton1.setText("Stop");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
@@ -162,12 +173,5 @@ public class AlgorithmExecutionJDialog extends javax.swing.JDialog implements Pr
     } //GEN-LAST:event_jButton1ActionPerformed
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JProgressBar jProgressBar1;
-    // End of variables declaration//GEN-END:variables
 
 }

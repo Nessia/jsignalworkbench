@@ -31,10 +31,12 @@ public class DefaultSaver extends SaverAdapter {
         extensions.add("jsw");
     }
 
+    @Override
     public String getName() {
         return "defaultSaver";
     }
 
+    @Override
     public String getShortDescription() {
         return "Proyecto JSignalWorkBench";
     }
@@ -58,6 +60,7 @@ public class DefaultSaver extends SaverAdapter {
      * @throws IOException
      * @return boolean
      */
+    @Override
     public boolean save(File f) throws
             IOException {
         SignalManager sm = JSWBManager.getSignalManager();
@@ -75,6 +78,7 @@ public class DefaultSaver extends SaverAdapter {
         return false;
     }
 
+    @Override
     public ArrayList<String> getAvalaibleExtension() {
         return extensions;
     }
@@ -196,10 +200,12 @@ public class DefaultSaver extends SaverAdapter {
 
     }
 
+    @Override
     public String getDescription() {
         return "Save the default work session on JSignalWorkBench";
     }
 
+    @Override
     public String getPluginVersion() {
         return "0.5";
     }

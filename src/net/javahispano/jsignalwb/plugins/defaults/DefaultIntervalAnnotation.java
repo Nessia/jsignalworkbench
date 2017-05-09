@@ -47,34 +47,42 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
         this.refreshBufferedImage();
     }
 
+    @Override
     public String getName() {
         return "Default Interval Annotation";
     }
 
+    @Override
     public long getAnnotationTime() {
         return annotationTime;
     }
 
+    @Override
     public Image getImage() {
         return bufferedImage;
     }
 
+    @Override
     public void setAnnotationTime(long annotationTime) {
         this.annotationTime = annotationTime;
     }
 
+    @Override
     public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 
+    @Override
     public long getEndTime() {
         return endTime;
     }
 
+    @Override
     public void setJSWBManager(JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
     }
 
+    @Override
     public String getCategory() {
         return category;
     }
@@ -83,10 +91,12 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
         this.category = category;
     }
 
+    @Override
     public boolean isInterval() {
         return true;
     }
 
+    @Override
     public void showMarkInfo(Window owner) {
         new DefaultIntervalAnnotationInfoPanel(this).showJWindow(owner);
     }
@@ -111,17 +121,19 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
         return title;
     }
 
+    @Override
     public boolean hasDataToSave() {
         return true;
     }
 
+    @Override
     public String getDataToSave() {
         return "title:" + title + "|| comentary:" + comentary + " || icon:" +
                 imagePath + " || isImage:" + isImage + "|| color:" +
                 color.getRGB() + "|| category: " + category;
     }
 
-
+    @Override
     public void setSavedData(String data) {
         data = data.substring(data.indexOf("title:") + 6);
         title = data.substring(0, data.indexOf("||"));
@@ -144,6 +156,7 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
         refreshBufferedImage();
     }
 
+    @Override
     public String getToolTipText() {
         return title;
     }
@@ -239,10 +252,12 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
         }
     }
 
+    @Override
     public boolean isOwnPainted() {
         return true;
     }
 
+    @Override
     public void paint(Graphics2D g2d, Point p, int height, int width) {
         if (height > 0 && width > 0 && (this.height != height || this.width != width)) {
             this.height = height;

@@ -57,6 +57,7 @@ public class JTextFieldDate extends JFormattedTextField {
         DefaultFormatterFactory dff = new DefaultFormatterFactory(mf, mf, mf);
         setFormatterFactory(dff);
         addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
             public void focusLost(java.awt.event.FocusEvent fe) {
                 try {
                     sdf.parse(JTextFieldDate.super.getText());

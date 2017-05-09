@@ -106,6 +106,7 @@ class DialogKubiosRHRV_jButton1_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton1_actionPerformed(e);
     }
@@ -118,6 +119,7 @@ class DialogKubiosRHRV_jCheckBox2_changeAdapter implements ChangeListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void stateChanged(ChangeEvent e) {
         adaptee.jCheckBox2_stateChanged(e);
     }
@@ -130,6 +132,7 @@ class DialogKubiosRHRV_jCheckBox1_changeAdapter implements ChangeListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void stateChanged(ChangeEvent e) {
         adaptee.jCheckBox1_stateChanged(e);
     }

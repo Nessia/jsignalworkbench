@@ -16,6 +16,22 @@ public class PanelDesaturacion extends javax.swing.JPanel {
      */
     private static final long serialVersionUID = -5399655716490816797L;
 
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private research.apneas.gui.PanelDatosComunes panelDatosComunes1;
+    private javax.swing.JTextField textFieldFall;
+    private javax.swing.JTextField textFieldFallDuration;
+    private javax.swing.JTextField textFieldFallSlope;
+    private javax.swing.JTextField textFieldMinimum;
+    private javax.swing.JTextField textFieldRiseDuration;
+    private javax.swing.JTextField textFieldRiseSlope;
+    // End of variables declaration//GEN-END:variables
+
     /** Creates new form PanelDesaturacion */
     public PanelDesaturacion() {
         initComponents();
@@ -225,22 +241,6 @@ public class PanelDesaturacion extends javax.swing.JPanel {
     public void setUsarEnEstadisticas(boolean usarEnEstadisticas) {
         panelDatosComunes1.setUsarEnEstadisticas(usarEnEstadisticas);
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private research.apneas.gui.PanelDatosComunes panelDatosComunes1;
-    private javax.swing.JTextField textFieldFall;
-    private javax.swing.JTextField textFieldFallDuration;
-    private javax.swing.JTextField textFieldFallSlope;
-    private javax.swing.JTextField textFieldMinimum;
-    private javax.swing.JTextField textFieldRiseDuration;
-    private javax.swing.JTextField textFieldRiseSlope;
-    // End of variables declaration//GEN-END:variables
 
     public boolean validateData() {
         try {

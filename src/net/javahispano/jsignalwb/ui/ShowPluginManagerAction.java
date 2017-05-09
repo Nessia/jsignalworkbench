@@ -25,6 +25,7 @@ public class ShowPluginManagerAction extends AbstractAction {
     private static final long serialVersionUID = 6967299102945028245L;
     private JSWBManager jswbManager;
     private Window owner;
+
     public ShowPluginManagerAction(JSWBManager jswbManager, Window owner) {
         this.jswbManager = jswbManager;
         this.owner = owner;

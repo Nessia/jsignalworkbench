@@ -21,32 +21,35 @@ public abstract class AlmacenDatos implements Serializable {
 
     static final long serialVersionUID = 3211L;
 
+//    public static final int FLOAT = 4;
+//    public static final int INT = 3;
+//    public static final int SHORT = 2;
+//    public static final int BYTE = 1;
+
+    public enum TIPOS { BYTE, SHORT, INT, FLOAT }
+
     /**
      * Numero de senhales contenidas en este almacen.
      */
-    int i;
-    protected int numero_senales;
+    //int i;
+    protected int numeroSenales;
     protected boolean[] tienePosAsociada;
-    public static final int FLOAT = 4;
-    public static final int INT = 3;
-    public static final int SHORT = 2;
-    public static final int BYTE = 1;
-    protected float[][] rangos_senales;
+
+    protected float[][] rangosSenales;
     protected String[] leyendas;
     protected PTBMInterface ptbm;
     protected String[] nombreSenales;
     protected String[] leyendaTemporal;
-    protected AlmacenDatosByte almacen_pos;
+    protected AlmacenDatosByte almacenPos;
     protected TreeSet<Mark>[] marcas;
     protected TreeSet<Annotation> anotaciones;
-    protected byte[] pos_total;
-    protected String fecha_base;
+    protected byte[] posTotal;
+    protected String fechaBase;
 
     /**
      * para meter lo que sea en el futuro....
      */
     //protected LinkedList olvidado;
-
     protected float[] fs;
     protected String nombre_paciente;
     protected int edad_paciente;
@@ -68,8 +71,13 @@ public abstract class AlmacenDatos implements Serializable {
     protected HashMap<String,ResultadosEstadisticos> estadisticos;
     protected HashMap<String,ResultadoCorrelacion> correlaciones;
 
-    public AlmacenDatos() {
 
+    /*
+     * Constructores
+     */
+
+    public AlmacenDatos() {
+        // Vacio
     }
 
 
@@ -79,9 +87,15 @@ public abstract class AlmacenDatos implements Serializable {
      * @param marcas
      * @param anotaciones
      */
-    public AlmacenDatos(float[][] datos, byte[][] pos, TreeSet[] marcas,
-                        TreeSet[] anotaciones) {
+//    public AlmacenDatos(float[][] datos, byte[][] pos,
+//            TreeSet<Mark>[] marcas,
+//            TreeSet<Annotation> anotaciones) {
+//    }
 
+    public AlmacenDatos(TreeSet<Mark>[] marcas,
+            TreeSet<Annotation> anotaciones) {
+        this.anotaciones = anotaciones;
+        this.marcas = marcas;
     }
 
 
@@ -98,8 +112,7 @@ public abstract class AlmacenDatos implements Serializable {
      * @return int
      */
     public int getNumeroSenales() {
-
-        return this.numero_senales;
+        return numeroSenales;
     }
 
 
@@ -107,7 +120,7 @@ public abstract class AlmacenDatos implements Serializable {
      * @return Object
      */
     public Object getPos() {
-        return almacen_pos.getDatos();
+        return almacenPos.getDatos();
     }
 
 
@@ -117,13 +130,13 @@ public abstract class AlmacenDatos implements Serializable {
      */
     public boolean isPosAsociada(int canal) {
         //En este caso es la posibilidad total
-        if (this.numero_senales == canal) {
+        if (this.numeroSenales == canal) {
             return true;
         }
 
-        if (almacen_pos.getDatos() != null &&
-            ((byte[][]) almacen_pos.getDatos())[canal] != null) {
-            byte[] pos = ((byte[]) almacen_pos.getDatos(canal));
+        if (almacenPos.getDatos() != null &&
+            ((byte[][]) almacenPos.getDatos())[canal] != null) {
+            byte[] pos = ((byte[]) almacenPos.getDatos(canal));
             for (int i = 0; i < pos.length; i++) {
                 if (pos[i] != 0) {
                     return true;
@@ -143,10 +156,10 @@ public abstract class AlmacenDatos implements Serializable {
      * @return Object
      */
     public Object getPos(int senal) {
-        if (almacen_pos.getDatos() == null) {
+        if (almacenPos.getDatos() == null) {
             return null; //(new int[1]);
         }
-        Object tmp = almacen_pos.getDatos();
+        Object tmp = almacenPos.getDatos();
         return ((byte[][]) (tmp))[senal];
     }
 
@@ -157,7 +170,7 @@ public abstract class AlmacenDatos implements Serializable {
      * @todo cerciorarse de que funciona
      */
     public void setPos(int senal, byte[] pos) {
-        almacen_pos.setPos(senal, pos);
+        almacenPos.setPos(senal, pos);
     }
 
 
@@ -209,12 +222,12 @@ public abstract class AlmacenDatos implements Serializable {
      * @return float[]
      */
     public float[] getRango(int senal) {
-        if (rangos_senales.length <= senal) {
+        if (rangosSenales.length <= senal) {
             float[] f = {
                         0, 100};
             return f;
         }
-        return rangos_senales[senal];
+        return rangosSenales[senal];
     }
 
 
@@ -223,7 +236,7 @@ public abstract class AlmacenDatos implements Serializable {
      * @param rango
      */
     public void setRango(int senal, float[] rango) {
-        rangos_senales[senal] = rango;
+        rangosSenales[senal] = rango;
     }
 
 
@@ -232,7 +245,7 @@ public abstract class AlmacenDatos implements Serializable {
      * @param rango
      */
     public void setRango(float[][] rango) {
-        rangos_senales = rango;
+        rangosSenales = rango;
     }
 
 
@@ -381,12 +394,12 @@ public abstract class AlmacenDatos implements Serializable {
 
 
     public byte[] getPosibilidadTotal() {
-        return pos_total;
+        return posTotal;
     }
 
 
     public void setPosibilidadTotal(byte[] _pos_total) {
-        pos_total = _pos_total;
+        posTotal = _pos_total;
     }
 
 
@@ -406,12 +419,12 @@ public abstract class AlmacenDatos implements Serializable {
 
 
     public String getFechaBase() {
-        return fecha_base;
+        return fechaBase;
     }
 
 
     public void setFechaBase(String _fecha_base) {
-        fecha_base = _fecha_base;
+        fechaBase = _fecha_base;
     }
 
 
@@ -486,8 +499,8 @@ public abstract class AlmacenDatos implements Serializable {
     void anhadeSenhal(String nombre, String leyenda, String Leyenda_temporal,
                       float fs,
                       float[] rango, int numero_datos) {
-        int nueva_num_senales = numero_senales + 1; //this.marcas.length+1;
-        if (pos_total != null) {
+        int nueva_num_senales = numeroSenales + 1; //this.marcas.length+1;
+        if (posTotal != null) {
             nueva_num_senales++;
         }
 
@@ -498,7 +511,7 @@ public abstract class AlmacenDatos implements Serializable {
         @SuppressWarnings("unchecked")
         TreeSet<Mark>[] marcas_tmp = new TreeSet[nueva_num_senales];
         boolean[] tienePosAsociada_tmp = null;
-        if (pos_total == null) {
+        if (posTotal == null) {
             tienePosAsociada_tmp = new boolean[nueva_num_senales];
         } else {
             tienePosAsociada_tmp = new boolean[nueva_num_senales];
@@ -507,7 +520,7 @@ public abstract class AlmacenDatos implements Serializable {
         String[] leyenda_temporal_tmp = new String[nueva_num_senales];
         //Si hay posibilida total
 
-        if (pos_total != null) {
+        if (posTotal != null) {
             nueva_num_senales--;
         }
 
@@ -515,8 +528,8 @@ public abstract class AlmacenDatos implements Serializable {
             nombre_senales_tmp[i] = this.nombreSenales[i];
             fs_tmp[i] = this.fs[i];
             leyendas_tmp[i] = this.leyendas[i];
-            rango_tmp[i][0] = this.rangos_senales[i][0];
-            rango_tmp[i][1] = this.rangos_senales[i][1];
+            rango_tmp[i][0] = this.rangosSenales[i][0];
+            rango_tmp[i][1] = this.rangosSenales[i][1];
             marcas_tmp[i] = this.marcas[i];
             //TienePosibilidadAsociadano no incluye a la posibilidad
             if ( /*pos_total ==  null || */i != nueva_num_senales - 1) {
@@ -537,40 +550,40 @@ public abstract class AlmacenDatos implements Serializable {
         leyendas_tmp[nueva_num_senales] = leyenda;
         leyenda_temporal_tmp[nueva_num_senales] = Leyenda_temporal;
         //La posibilidad siempre debe ser la ultima en almacenar su rango
-        if (pos_total != null) {
+        if (posTotal != null) {
             nueva_num_senales++;
             nombre_senales_tmp[nueva_num_senales] = this.nombreSenales[
-                    numero_senales];
-            fs_tmp[nueva_num_senales] = this.fs[numero_senales];
-            leyendas_tmp[nueva_num_senales] = this.leyendas[numero_senales];
-            rango_tmp[nueva_num_senales][0] = this.rangos_senales[
-                                              numero_senales][0];
-            rango_tmp[nueva_num_senales][1] = this.rangos_senales[
-                                              numero_senales][1];
-            marcas_tmp[nueva_num_senales] = this.marcas[numero_senales];
+                    numeroSenales];
+            fs_tmp[nueva_num_senales] = this.fs[numeroSenales];
+            leyendas_tmp[nueva_num_senales] = this.leyendas[numeroSenales];
+            rango_tmp[nueva_num_senales][0] = this.rangosSenales[
+                                              numeroSenales][0];
+            rango_tmp[nueva_num_senales][1] = this.rangosSenales[
+                                              numeroSenales][1];
+            marcas_tmp[nueva_num_senales] = this.marcas[numeroSenales];
             tienePosAsociada_tmp[nueva_num_senales - 1] = true;
             //leyendas_tmp[nueva_num_senales] = this.leyenda_temporal[numero_senales];
             leyenda_temporal_tmp[nueva_num_senales] = this.leyendaTemporal[
-                    numero_senales];
+                    numeroSenales];
         }
 
         nombreSenales = nombre_senales_tmp;
         this.fs = fs_tmp;
         leyendas = leyendas_tmp;
-        this.rangos_senales = rango_tmp;
+        this.rangosSenales = rango_tmp;
         marcas = marcas_tmp;
         tienePosAsociada = tienePosAsociada_tmp;
         this.leyendaTemporal = leyenda_temporal_tmp;
         this.leyendas = leyendas_tmp;
-        numero_senales++;
-        this.almacen_pos.anhadeSenhal(new byte[numero_datos]);
+        numeroSenales++;
+        this.almacenPos.anhadeSenhal(new byte[numero_datos]);
 
     }
 
 
     void eliminaSenhal(int numero_senhal) {
 
-        float[][] rangos_tmp = new float[rangos_senales.length - 1][];
+        float[][] rangos_tmp = new float[rangosSenales.length - 1][];
         float[] fs_tmp = new float[fs.length - 1];
         String[] nombres_tmp = new String[nombreSenales.length - 1];
         String[] leyendas_temporales_tmp = new String[leyendaTemporal.length -
@@ -580,7 +593,7 @@ public abstract class AlmacenDatos implements Serializable {
         TreeSet<Mark>[] marcas_tmp = new TreeSet[marcas.length - 1];
         boolean[] pos_tmp = new boolean[tienePosAsociada.length - 1];
         int cout = 0;
-        int num_senales = rangos_senales.length;
+        int num_senales = rangosSenales.length;
         /*   if ( pos_total != null) {
              num_senales++;
            }*/
@@ -588,13 +601,13 @@ public abstract class AlmacenDatos implements Serializable {
         //Si hay posibilidad => esa no cuenta
         for (int i = 0; i < num_senales; i++) {
             if (i != numero_senhal) {
-                rangos_tmp[cout] = rangos_senales[i];
+                rangos_tmp[cout] = rangosSenales[i];
                 fs_tmp[cout] = fs[i];
                 nombres_tmp[cout] = nombreSenales[i];
                 leyendas_temporales_tmp[cout] = leyendaTemporal[i];
                 leyendsd_tmp[cout] = leyendas[i];
                 marcas_tmp[cout] = marcas[i];
-                if (pos_total == null || i != num_senales - 1) {
+                if (posTotal == null || i != num_senales - 1) {
                     pos_tmp[cout] = tienePosAsociada[i];
                 }
                 cout++;
@@ -611,9 +624,9 @@ public abstract class AlmacenDatos implements Serializable {
             marcas_tmp[num_senales - 1] = marcas[num_senales];
         }
 
-        numero_senales--;
+        numeroSenales--;
 
-        rangos_senales = rangos_tmp;
+        rangosSenales = rangos_tmp;
         fs = fs_tmp;
         nombreSenales = nombres_tmp;
         leyendaTemporal = leyendas_temporales_tmp;

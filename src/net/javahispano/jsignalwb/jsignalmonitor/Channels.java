@@ -23,7 +23,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.marks.*;
  * @author  Roman
  */
 public class Channels extends javax.swing.JPanel {
-/**
+    /**
      *
      */
     private static final long serialVersionUID = 3575205544731267522L;
@@ -100,6 +100,7 @@ public class Channels extends javax.swing.JPanel {
         }
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (true) {

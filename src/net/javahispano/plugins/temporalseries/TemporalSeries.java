@@ -233,6 +233,7 @@ public class TemporalSeries extends Signal {
      *
      * @param frecuency frecuencia de la senhal medida en hercios.
      */
+    @Override
     public void setFrecuency(float frecuency) {
         super.setFrecuency(frecuency);
         this.setMinIndex(this.getMinIndex());

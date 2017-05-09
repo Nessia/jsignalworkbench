@@ -19,8 +19,17 @@ public class TransformacionLinealGUI extends javax.swing.JDialog {
      */
     private static final long serialVersionUID = -2053024350591345377L;
 
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    // End of variables declaration//GEN-END:variables
+
     private int b;
     private float a;
+
     /** Creates new form TransformacionLinealGUI */
     public TransformacionLinealGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -54,6 +63,7 @@ public class TransformacionLinealGUI extends javax.swing.JDialog {
 
         jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
@@ -116,9 +126,11 @@ public class TransformacionLinealGUI extends javax.swing.JDialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 TransformacionLinealGUI dialog = new TransformacionLinealGUI(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
@@ -127,14 +139,6 @@ public class TransformacionLinealGUI extends javax.swing.JDialog {
             }
         });
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    // End of variables declaration//GEN-END:variables
 
     public int getB() {
         return b;

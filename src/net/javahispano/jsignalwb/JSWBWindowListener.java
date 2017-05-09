@@ -15,10 +15,12 @@ import java.awt.event.WindowEvent;
  */
 public class JSWBWindowListener extends WindowAdapter {
     private JSWBManager jswbManager;
+    
     public JSWBWindowListener(JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
     }
 
+    @Override
     public void windowClosing(WindowEvent e) {
         if (jswbManager.prepareClose(false)) {
             System.exit(0);

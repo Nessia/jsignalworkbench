@@ -18,6 +18,7 @@ public class OtherPluginsAction extends AbstractAction {
 
     private String pluginName;
     private String pluginType;
+
     public OtherPluginsAction(String pluginName, String pluginType) {
         this.pluginName = pluginName;
         this.pluginType = pluginType;

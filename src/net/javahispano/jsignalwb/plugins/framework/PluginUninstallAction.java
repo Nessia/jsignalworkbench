@@ -28,6 +28,7 @@ public class PluginUninstallAction extends AbstractAction {
     private File file;
     private String pluginKey;
     private PluginManagerPanel pmPanel;
+
     public PluginUninstallAction(File file, String pluginKey, PluginManagerPanel pmPanel) {
         this.file = file;
         this.pluginKey = pluginKey;
@@ -41,6 +42,7 @@ public class PluginUninstallAction extends AbstractAction {
         this.putValue(SHORT_DESCRIPTION, "Uninstall plugin");
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (JOptionPane.showConfirmDialog(
                 JSWBManager.getParentWindow(), "Are you sure?", "Uninstall plugin",

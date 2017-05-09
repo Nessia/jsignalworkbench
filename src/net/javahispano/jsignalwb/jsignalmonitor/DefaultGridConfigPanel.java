@@ -21,6 +21,29 @@ public class DefaultGridConfigPanel extends javax.swing.JPanel {
      */
     private static final long serialVersionUID = 6170769569351033992L;
 
+ // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox LHCheckBox;
+    private javax.swing.JSpinner LHSpinner;
+    private javax.swing.JCheckBox LVCheckBox;
+    private javax.swing.JSpinner LVSpinner;
+    private javax.swing.JCheckBox SHCheckBox;
+    private javax.swing.JSpinner SHSpinner;
+    private javax.swing.JCheckBox SVCheckBox;
+    private javax.swing.JSpinner SVSpinner;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel2;
+    // End of variables declaration//GEN-END:variables
+
     private String originalConfig;
     private DefaultGrid grid;
     private JWindow jw;
@@ -374,27 +397,6 @@ public class DefaultGridConfigPanel extends javax.swing.JPanel {
     } //GEN-LAST:event_jButton1ActionPerformed
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox LHCheckBox;
-    private javax.swing.JSpinner LHSpinner;
-    private javax.swing.JCheckBox LVCheckBox;
-    private javax.swing.JSpinner LVSpinner;
-    private javax.swing.JCheckBox SHCheckBox;
-    private javax.swing.JSpinner SHSpinner;
-    private javax.swing.JCheckBox SVCheckBox;
-    private javax.swing.JSpinner SVSpinner;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel2;
-    // End of variables declaration//GEN-END:variables
+
 
 }

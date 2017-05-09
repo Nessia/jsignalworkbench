@@ -24,13 +24,13 @@ public class JMenuGrids extends JMenu {
      */
     private static final long serialVersionUID = 5286499359936364174L;
 
-    public JMenuGrids(String signalName, JSWBManager jswbManager) {
+    public JMenuGrids(String signalName) {
         super("Change Grid");
         setMnemonic(KeyEvent.VK_G);
-        List<String> grids = jswbManager.getAvailableKindsOfGrids();
+        List<String> grids = JSWBManager.getAvailableKindsOfGrids();
         if (grids != null) {
             for (String grid : grids) {
-                add(new SetGridAction(signalName, grid, jswbManager));
+                add(new SetGridAction(signalName, grid));
             }
         } else {
             setEnabled(false);

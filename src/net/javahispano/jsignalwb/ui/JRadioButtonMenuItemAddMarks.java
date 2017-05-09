@@ -27,6 +27,7 @@ public class JRadioButtonMenuItemAddMarks extends JRadioButtonMenuItem implement
         jsm.addModeListener(this);
     }
 
+    @Override
     public String getActionCommand() {
         if (isSelected()) {
             return "true";
@@ -35,6 +36,7 @@ public class JRadioButtonMenuItemAddMarks extends JRadioButtonMenuItem implement
         }
     }
 
+    @Override
     public void jSignalMonitorModeActionPerformed(JSignalMonitorModeEvent e) {
         if (e.getMode() == JSignalMonitorModeEvent.MARK_CREATION) {
             setSelected(e.getValue());

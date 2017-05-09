@@ -76,7 +76,7 @@ public class JMenuSignal extends JMenu {
             if (JSWBManager.getSignalManager().isSignalVisible(signalName)) {
                 add(new ConfigureGridAction(JSWBManager.getJSignalMonitor().getChannelGrid(signalName),
                       JSWBManager.getParentWindow()));
-                add(new JMenuGrids(signalName, jswbManager));
+                add(new JMenuGrids(signalName));
             }
         }
 

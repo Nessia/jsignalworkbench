@@ -11,13 +11,12 @@ import java.util.List;
 import net.javahispano.jsignalwb.SignalIntervalProperties;
 import net.javahispano.jsignalwb.SignalManager;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
+import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 
 /**
  *
  * @author Roman Segador
  */
-
-//TODO deberia extender a TemporalSeriesAlgorithm ?? @vanesa
 public class AddSignalPropertiesPlugin extends AlgorithmAdapter {
 
     int i = 0; //TODO un atributo debería tener un nombre más descriptivo @vanesa
@@ -36,7 +35,7 @@ public class AddSignalPropertiesPlugin extends AlgorithmAdapter {
     }
 
     @Override
-    public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties> signals) {
+    public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties> signals, AlgorithmRunner ar) {
 
         for (SignalIntervalProperties sip : signals) {
             if (sip.isFullSignal()) {

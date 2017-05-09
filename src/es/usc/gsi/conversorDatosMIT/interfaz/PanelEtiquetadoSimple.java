@@ -21,18 +21,21 @@ public class PanelEtiquetadoSimple extends PanelEtiquetadoGeneral {
         this.add(ficherosHead[0].getParentFile().getName(), scrollPanel);
     }
 
+    @Override
     public void actualizaFrecuencias() {
         scrollPanel.actualizaFrecuencias();
     }
 
 /////////////////
 
+    @Override
     public void actualizaFechas(String fechaInicio, String fechaFin) {
         scrollPanel.actualizaFechas(fechaInicio, fechaFin);
     }
 
 ////////////////
 
+    @Override
     public void cerrarTodosFicheros() {
         this.removeAll();
         this.validate();

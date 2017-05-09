@@ -21,6 +21,8 @@ public class LookAndFeelCombobox extends JComboBox<String> implements ActionList
      */
     private static final long serialVersionUID = -5066855815389601001L;
 
+    private JFrame frame;
+
     private String look_and_feel;
     private String look_and_feel_no_soportado, otro_error;
 
@@ -59,10 +61,7 @@ public class LookAndFeelCombobox extends JComboBox<String> implements ActionList
         }
     }
 
-    /**
-     * Este es el metodo que hace todo el trabajo.
-     * @param actionEvent
-     */
+    @Override
     public void actionPerformed(ActionEvent actionEvent) {
         //Miramos que indice se ha selcccionado
         int look_and_feel_selecionado = getSelectedIndex();
@@ -106,6 +105,7 @@ public class LookAndFeelCombobox extends JComboBox<String> implements ActionList
     /** Determiana la raiz del contenedor al que este componente pertenece,
          una vez determianda actualizad su Look and Feel.
      */
+    @Override
     public void run() {
         //Encontrar el panel raiz de la ventana en la 2que esta este combobox
         JRootPane raiz_del_esta_ventana = SwingUtilities.getRootPane(this);
@@ -177,5 +177,5 @@ public class LookAndFeelCombobox extends JComboBox<String> implements ActionList
         look_and_feel_no_soportado = _look_and_feel_no_soportado;
     }
 
-    private JFrame frame;
+
 }

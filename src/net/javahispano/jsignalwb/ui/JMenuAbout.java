@@ -30,6 +30,7 @@ public class JMenuAbout extends JMenu {
         setMnemonic(KeyEvent.VK_U);
         JMenuItem i = new JMenuItem("About");
         i.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
                                               "<html></head><body><p><font color=\"#FF0000\" size=\"5\">About</font>" +
@@ -40,9 +41,7 @@ public class JMenuAbout extends JMenu {
                                               "About", JOptionPane.INFORMATION_MESSAGE);
             }
         });
-
         this.add(i);
-
     }
 
 }

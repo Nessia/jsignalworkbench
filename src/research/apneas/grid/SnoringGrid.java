@@ -21,24 +21,28 @@ public class SnoringGrid extends GridPluginAdapter {
     private int bigSpace;
     private int bigSpaceY;
 
+    @Override
     public int getLeyendWidth() {
         return bigSpace;
     }
 
+    @Override
     public int getLeyendHeight() {
         return bigSpaceY;
     }
 
-
+    @Override
     public void setSignal(Signal s) {
         signal = s;
         valorBasal = 163;
     }
 
+    @Override
     public String getName() {
         return "Snoring Grid";
     }
 
+    @Override
     public void paintGrid(Graphics2D g2d, Point p, int height, int width,
                           GridConfiguration gridconfig) {
 

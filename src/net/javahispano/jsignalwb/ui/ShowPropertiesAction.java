@@ -44,7 +44,6 @@ public class ShowPropertiesAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         new ConfigureSignalPanel(signalName, jswbManager).showJWindow(owner);
-
     }
 
 }

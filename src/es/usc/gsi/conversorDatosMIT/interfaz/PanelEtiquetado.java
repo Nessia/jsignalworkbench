@@ -8,9 +8,9 @@ public class PanelEtiquetado extends PanelEtiquetadoGeneral {
     /**
     *
     */
-   private static final long serialVersionUID = -4865324331412750141L;
+    private static final long serialVersionUID = -4865324331412750141L;
 
-   private ScrollPanelFichero[] scrollesPaneles;
+    private ScrollPanelFichero[] scrollesPaneles;
     //  private JScrollPane[] scrollesPaneles;
 
     public PanelEtiquetado(FicheroHead[] ficherosHead) {
@@ -41,6 +41,7 @@ public class PanelEtiquetado extends PanelEtiquetadoGeneral {
     }
 
 /////////////////
+    @Override
     public void actualizaFrecuencias() {
         for (int i = 0; i < scrollesPaneles.length; i++) {
             scrollesPaneles[i].actualizaFrecuencia();

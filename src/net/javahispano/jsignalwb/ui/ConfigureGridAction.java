@@ -26,6 +26,7 @@ public class ConfigureGridAction extends AbstractAction {
     private static final long serialVersionUID = -6816856686887660804L;
     private JSignalMonitorGrid grid;
     private Window owner;
+    
     public ConfigureGridAction(JSignalMonitorGrid grid, Window owner) {
         this.grid = grid;
         this.owner = owner;
@@ -40,6 +41,7 @@ public class ConfigureGridAction extends AbstractAction {
         this.putValue(MNEMONIC_KEY, KeyEvent.VK_N);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         grid.launchConfigureGridGUI(owner);
     }

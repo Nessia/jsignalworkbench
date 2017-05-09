@@ -8,9 +8,9 @@ public class FicheroDat extends File {
     /**
     *
     */
-   private static final long serialVersionUID = 7200314004530591915L;
+    private static final long serialVersionUID = 7200314004530591915L;
 
-   public FicheroDat(String nombreFichero) {
+    public FicheroDat(String nombreFichero) {
         super(nombreFichero);
     }
 

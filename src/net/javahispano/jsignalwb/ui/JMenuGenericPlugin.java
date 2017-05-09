@@ -29,7 +29,7 @@ public class JMenuGenericPlugin extends JMenu {
         super(genericPluginName);
         PluginManager pm = JSWBManager.getPluginManager();
         JMenuItem configure = new JMenuItem(new GenericPluginAction(jswbManager,
-                genericPluginName, GenericPluginAction.CONFIGURE_ACTION));
+                genericPluginName, GenericPluginAction.ACTIONS.CONFIGURE));
         if (pm.isPluginLoaded("generic", genericPluginName)) {
             GenericPlugin gp = pm.getGeneric(genericPluginName);
             if (!gp.hasOwnConfigureGUI()) {
@@ -37,7 +37,7 @@ public class JMenuGenericPlugin extends JMenu {
             }
         }
         add(configure);
-        add(new JMenuItem(new GenericPluginAction(jswbManager,
-                                                  genericPluginName, GenericPluginAction.LAUNCH_ACTION)));
+        add(new JMenuItem(new GenericPluginAction(jswbManager, genericPluginName,
+                GenericPluginAction.ACTIONS.LAUNCH)));
     }
 }

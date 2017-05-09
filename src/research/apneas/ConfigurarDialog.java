@@ -29,14 +29,6 @@ public class ConfigurarDialog extends JDialog {
      */
     private static final long serialVersionUID = 4772156014945415167L;
 
-    public ConfigurarDialog() {
-        try {
-            jbInit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
     private BorderLayout borderLayout1 = new BorderLayout();
     private JPanel jPanel1 = new JPanel();
     private JPanel panelPendiente = new JPanel();
@@ -139,13 +131,21 @@ public class ConfigurarDialog extends JDialog {
             FuzzyAcquisitionPanel();
     SliderTextField sliderPersistenciaFlujo = new SliderTextField();
     SliderTextField sliderTextField2 = new SliderTextField();
+
+    public ConfigurarDialog() {
+        try {
+            jbInit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public ConfigurarDialog(Window padre, String texto,
                             TrapezoidalDistribution pendiente,
                             int ventanaNormal,
                             TrapezoidalDistribution persistencia,
                             TrapezoidalDistribution principio,
-                            TrapezoidalDistribution fin
-            ) {
+                            TrapezoidalDistribution fin) {
         super(padre, texto);
 
         try {
@@ -705,7 +705,7 @@ public class ConfigurarDialog extends JDialog {
     public void jTextFieldprincipioVentanaBasalFlujoHipoapnea_actionPerformed(
             ActionEvent e) {
         try {
-            //TODO no se hace nada con este valor?
+            //TODO no se hace nada con este valor? @vanesa
 //            int valor = Integer.parseInt(jTextFieldanchoVentanaValorMedioHipoapnea.getText());
         } catch (NumberFormatException ex) {
             jTextFieldanchoVentanaValorMedioHipoapnea.requestFocus();
@@ -1173,6 +1173,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void focusLost(FocusEvent e) {
             adaptee.textventanaCalculoDeltas_focusLost(e);
         }
@@ -1187,6 +1188,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             adaptee.jTextFieldanchoVentanaValorMedioHipoapnea_actionPerformed(e);
         }
@@ -1201,6 +1203,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void stateChanged(ChangeEvent e) {
             adaptee.jSlideranchoVentanaValorMedioHipoapnea_stateChanged(e);
         }
@@ -1215,6 +1218,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void focusLost(FocusEvent e) {
             adaptee.jTextFieldanchoVentanaValorMedioHipoapnea_focusLost(e);
         }
@@ -1229,6 +1233,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void focusLost(FocusEvent e) {
             adaptee.jTextFieldanchoVentanaValorMedioApnea_focusLost(e);
         }
@@ -1243,6 +1248,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void focusLost(FocusEvent e) {
             adaptee.jTextFieldfinVentanaBasalFlujoApnea_focusLost(e);
         }
@@ -1257,6 +1263,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             adaptee.jTextFieldfinVentanaBasalFlujoApnea_actionPerformed(e);
         }
@@ -1271,6 +1278,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void stateChanged(ChangeEvent e) {
             adaptee.jSlideranchoVentanaValorMedioApnea_stateChanged(e);
         }
@@ -1285,6 +1293,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             adaptee.jTextFieldanchoVentanaValorMedioApnea_actionPerformed(e);
         }
@@ -1299,6 +1308,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void focusLost(FocusEvent e) {
             adaptee.jTextFieldprincipioVentanaBasalFlujoApnea_focusLost(e);
         }
@@ -1313,6 +1323,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             adaptee.jTextFieldprincipioVentanaBasalFlujoApnea_actionPerformed(e);
         }
@@ -1327,6 +1338,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void stateChanged(ChangeEvent e) {
             adaptee.jSliderfinVentanaBasalFlujoApnea_stateChanged(e);
         }
@@ -1341,6 +1353,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void stateChanged(ChangeEvent e) {
             adaptee.jSliderprincipioVentanaBasalFlujoApnea_stateChanged(e);
         }
@@ -1355,6 +1368,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void focusLost(FocusEvent e) {
             adaptee.jTextFieldfinVentanaBasalSatO2_focusLost(e);
         }
@@ -1369,6 +1383,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void stateChanged(ChangeEvent e) {
             adaptee.jSliderfinVentanaBasalSatO2_stateChanged(e);
         }
@@ -1383,6 +1398,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             adaptee.jTextFieldfinVentanaBasalSatO2_actionPerformed(e);
         }
@@ -1397,6 +1413,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void focusLost(FocusEvent e) {
             adaptee.jTextDuracionVentanaDescenso_focusLost(e);
         }

@@ -15,14 +15,14 @@ public class AlmacenDatosByte extends AlmacenDatos {
      */
 
     private byte datos[][];
-    public AlmacenDatos theAlmacenDatos;
+    //public AlmacenDatos theAlmacenDatos; // nadie estaba utilizando este atributo
 
     /*
      * Constructores
      */
 
     public AlmacenDatosByte() {
-
+        super();
     }
 
     /**
@@ -33,53 +33,45 @@ public class AlmacenDatosByte extends AlmacenDatos {
      */
     public AlmacenDatosByte(byte[][] datos, byte[][] pos,
                             TreeSet<Annotation> anotaciones, TreeSet<Mark>[] marcas) {
+        super(marcas, anotaciones);
         this.datos = datos;
-        this.anotaciones = anotaciones;
-        this.marcas = marcas;
     }
 
-    /**
-     * @param senal
-     * @return Object
+    /*
+     * Métodos
      */
+
+    @Override
     public Object getArray(int senal) {
         return datos[senal];
     }
 
-    /**
-     * @param senal
-     * @return Object
-     */
+    @Override
     public Object getDatos(int senal) {
         return datos[senal];
     }
 
-    /**
-     *
-     * @param numSenal
-     * @param nuevoDatos
-     */
+    @Override
     public void setDatos(int numSenal, Object nuevoDatos) {
         datos[numSenal] = (byte[]) nuevoDatos;
     }
 
-    /**
-     * @return Object
-     */
-
+    @Override
     public Object getDatos() {
         return datos;
     }
 
+    @Override
     public void setDatos(Object nuevosDatos) {
         datos = (byte[][]) nuevosDatos;
     }
 
     /**
-     * Emplear solo cuado sea un almacen de posibilidad.
+     * Emplear solo cuando sea un almacen de posibilidad.
      * @param senal
      * @param pos
      */
+    @Override
     public void setPos(int senal, byte[] pos) {
         this.datos[senal] = pos;
     }
@@ -102,27 +94,26 @@ public class AlmacenDatosByte extends AlmacenDatos {
      *  tamanho que la senhal situada en la posicion 0 del arayy datos[].
      */
     public void anhadeSenhal() {
-        byte[][] datos_tmp = new byte[datos.length + 1][];
+        byte[][] datosTmp = new byte[datos.length + 1][];
         for (int i = 0; i < datos.length; i++) {
-            datos_tmp[i] = datos[i];
+            datosTmp[i] = datos[i];
         }
-        datos_tmp[datos.length] = new byte[datos[0].length];
-        datos = datos_tmp;
+        datosTmp[datos.length] = new byte[datos[0].length];
+        datos = datosTmp;
     }
 
     /**
      * Devuelve la longitud maxima de la senhal mas grande.
      * @return
      */
+    @Override
     public int getMaximoNumeroDeDatos() {
         int max = Integer.MIN_VALUE;
         for (int i = 0; i < datos.length; i++) {
             if (datos[i].length > max) {
                 max = datos[i].length;
             }
-
         }
         return max;
-
     }
 }

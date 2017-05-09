@@ -25,6 +25,7 @@ public class PluginLoadAction extends AbstractAction {
     private static final long serialVersionUID = 3120985332176652511L;
     private String pluginKey;
     private PluginManagerPanel pmPanel;
+
     public PluginLoadAction(String pluginKey, PluginManagerPanel pmPanel) {
         this.pluginKey = pluginKey;
         this.pmPanel = pmPanel;
@@ -37,6 +38,7 @@ public class PluginLoadAction extends AbstractAction {
         this.putValue(SHORT_DESCRIPTION, "Load plugin");
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("loading.....");
         JSWBManager.getPluginManager().getPlugin(pluginKey);

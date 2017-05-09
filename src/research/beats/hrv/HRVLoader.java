@@ -24,31 +24,34 @@ public class HRVLoader extends BasicLoader {
      private String[] nombres = {"ULF", "VLF", "LF", "HF", "LF/HF", "HRV","FC"};
     //  private String[] nombres = {"Diuresis","F. riñón","F. carótida","P. arterial",
       // "P. pulmonar","F. corteza","F. médula","F. corteza+médula"};
-   //  private String[] nombres = {"Presión arterial", "Flujo carótida"};
+    //  private String[] nombres = {"Presión arterial", "Flujo carótida"};
 
     // private String[] nombres = {"I", "II", "III"};
 
 
-
+    @Override
     public String getName() {
         return "HRVLoader";
     }
 
+    @Override
     public String getShortDescription() {
         return "HRV Loader";
     }
 
     /**
-     * La extension que soporta es "txt".
+     * La extension que soporta es "txt". / TODO seguro? @vanesa
      *
      * @return ArrayList
      */
+    @Override
     public ArrayList<String> getAvalaibleExtensions() {
         ArrayList<String> ext = new ArrayList<String>();
         ext.add("hrv");
         return ext;
     }
 
+    @Override
     protected boolean load(File f, SignalManager sm) throws Exception {
         boolean flag = true;
         float fs = 250;//obtenerFS(f);

@@ -46,6 +46,7 @@ public class AddAnnotationAction extends AbstractAction {
         putValue(NAME, annotationName);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (interval) {
             dataSource.notifyAnnotationAdded(annotationName, startTime, endTime);

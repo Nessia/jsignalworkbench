@@ -20,8 +20,24 @@ class ChannelInfoConfigPanel extends javax.swing.JPanel {
      */
     private static final long serialVersionUID = 8895306506813565316L;
 
+    // Declaracion de varibales -no modificar//GEN-BEGIN:variables
+    private javax.swing.JCheckBox arrowsCheckBox;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JCheckBox magnitudeCheckBox;
+    private javax.swing.JCheckBox nameCheckBox;
+    private javax.swing.JButton okButton;
+    private javax.swing.JCheckBox pointCheckBox;
+    private javax.swing.JCheckBox zoomHCheckBox;
+    private javax.swing.JCheckBox zoomVCheckBox;
+    // Fin de declaracion de variables//GEN-END:variables
+    JWindow jw;
+
     private LeftPanelConfiguration configuration;
     private JSignalMonitorPanel jsmp;
+
+
     /** Creates new form ChannelInfoConfigPanel */
     public ChannelInfoConfigPanel(JSignalMonitorPanel jsmp) {
         this.jsmp = jsmp;
@@ -214,17 +230,5 @@ class ChannelInfoConfigPanel extends javax.swing.JPanel {
         //invadeNearChannelsCheckBox.setSelected(channelInfoPanel.isInvadeNearChannels());
     }
 
-    // Declaracion de varibales -no modificar//GEN-BEGIN:variables
-    private javax.swing.JCheckBox arrowsCheckBox;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JCheckBox magnitudeCheckBox;
-    private javax.swing.JCheckBox nameCheckBox;
-    private javax.swing.JButton okButton;
-    private javax.swing.JCheckBox pointCheckBox;
-    private javax.swing.JCheckBox zoomHCheckBox;
-    private javax.swing.JCheckBox zoomVCheckBox;
-    // Fin de declaracion de variables//GEN-END:variables
-    JWindow jw;
+
 }

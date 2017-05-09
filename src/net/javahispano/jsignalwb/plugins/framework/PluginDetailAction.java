@@ -26,6 +26,7 @@ public class PluginDetailAction extends AbstractAction {
 
     private String pluginKey;
     private PluginManagerPanel pmPanel;
+
     public PluginDetailAction(String pluginKey, PluginManagerPanel pmPanel) {
         this.pluginKey = pluginKey;
         this.pmPanel = pmPanel;
@@ -35,6 +36,7 @@ public class PluginDetailAction extends AbstractAction {
         this.putValue(SMALL_ICON, icon);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         int option = JOptionPane.YES_OPTION;
         JSWBManager.getJSWBManagerInstance();

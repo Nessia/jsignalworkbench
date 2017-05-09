@@ -9,5 +9,5 @@ public class FicheroNoEncontradoException extends Exception {
 
    public FicheroNoEncontradoException() {
         super("Error: no se encuentra el fichero");
-    }
+   }
 }

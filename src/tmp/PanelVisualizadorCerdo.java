@@ -55,20 +55,20 @@ public class PanelVisualizadorCerdo extends JPanel {
 
     private void jbInit() throws Exception {
         this.setLayout(null);
-        jLabel1.setText("¿Qué parámetros desea visualizar?");
+        jLabel1.setText("ï¿½Quï¿½ parï¿½metros desea visualizar?");
         jLabel1.setBounds(new Rectangle(135, 33, 370, 30));
         jCheckBoxDiuresis.setForeground(Color.blue);
         jCheckBoxDiuresis.setText("Diuresis");
         jCheckBoxDiuresis.setBounds(new Rectangle(93, 100, 91, 25));
         jCheckBoxPresiones.setForeground(Color.blue);
         jCheckBoxPresiones.setToolTipText("");
-        jCheckBoxPresiones.setText("Presión arterial");
+        jCheckBoxPresiones.setText("Presiï¿½n arterial");
         jCheckBoxPresiones.setBounds(new Rectangle(93, 143, 120, 25));
         jCheckBoxPresionesSuavizadas.setForeground(Color.blue);
         jCheckBoxPresionesSuavizadas.setText("Presiones Sist. y Diast.");
         jCheckBoxPresionesSuavizadas.setBounds(new Rectangle(94, 195, 162, 25));
         jCheckBoxFlujos.setForeground(Color.blue);
-        jCheckBoxFlujos.setText("Flujos carot. y riñon");
+        jCheckBoxFlujos.setText("Flujos carot. y riï¿½on");
         jCheckBoxFlujos.setBounds(new Rectangle(94, 288, 148, 25));
         jCheckBoxFlujosPromedio.setForeground(Color.blue);
         jCheckBoxFlujosPromedio.setText("Promedio de los flujos");
@@ -102,7 +102,7 @@ public class PanelVisualizadorCerdo extends JPanel {
         this.setPreferredSize(new Dimension(560, 460));
         jButton1.setBounds(new Rectangle(253, 405, 81, 25));
         jCheckBoxPresionPulmonar.setForeground(Color.blue);
-        jCheckBoxPresionPulmonar.setText("Presión pulmonar");
+        jCheckBoxPresionPulmonar.setText("Presiï¿½n pulmonar");
         jCheckBoxPresionPulmonar.setBounds(new Rectangle(321, 143, 145, 25));
         jCheckBoxPresionPulmonarDiasTySist.setForeground(Color.blue);
         jCheckBoxPresionPulmonarDiasTySist.setText("Presiones Sist. y Diast.");
@@ -227,6 +227,7 @@ class PanelVisualizadorCerdo_jButton1_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton1_actionPerformed(e);
     }
