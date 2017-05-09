@@ -159,7 +159,7 @@ public class DebugPluginsManager {
         plugins.add(new DebugPluginInfo(PluginTypes.LOADER, "HRVLoader",
                                         new HRVLoader()));
         plugins.add(new DebugPluginInfo(PluginTypes.GENERIC, "Converor datos MIT-BIH",
-                                        new es.usc.gsi.conversorDatosMIT.ConversorDatosMITPlugin()));
+                                        new es.usc.gsi.conversordatosmit.ConversorDatosMITPlugin()));
 
         plugins.add(new DebugPluginInfo(PluginTypes.LOADER, "RataLoader",
                                         new RatasLoader()));
