@@ -1,6 +1,6 @@
 package com.sequencing;
 
-import com.sequencing.GUI.Configure;
+import com.sequencing.gui.Configure;
 import com.uspceu.SimpleAlgorithm;
 import java.awt.Color;
 import static java.awt.Color.blue;

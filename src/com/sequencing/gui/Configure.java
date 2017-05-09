@@ -1,4 +1,4 @@
-package com.sequencing.GUI;
+package com.sequencing.gui;
 
 import com.sequencing.Sequencing;
 import java.awt.Color;
