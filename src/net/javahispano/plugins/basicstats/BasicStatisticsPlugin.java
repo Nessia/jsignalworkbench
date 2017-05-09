@@ -10,7 +10,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.plugins.Plugin;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
-import net.javahispano.plugins.basicstats.UI.NewStatisticsDialog;
+import net.javahispano.plugins.basicstats.ui.NewStatisticsDialog;
 
 import org.jdom.*;
 import org.jdom.input.SAXBuilder;

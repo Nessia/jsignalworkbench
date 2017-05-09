@@ -1,4 +1,4 @@
-package net.javahispano.plugins.basicstats.UI;
+package net.javahispano.plugins.basicstats.ui;
 
 import java.awt.*;
 
