@@ -262,13 +262,14 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
     @Override
     public void launchConfigureGUI(JSWBManager jswbManager) {
         ConfigurarDialog c = new ConfigurarDialog(JSWBManager.getParentWindow(),
-                                                  "configurar", pendienteNormal,
-                                                  ventanaPendientesSaO2,
-                                                  this.valorNormal,
-                                                  this.
-                                                  descensoAdmisibleRespectoBasal,
-                                                  this.
-                                                  valorAdmisibleDesaturacionRespectoBasal);
+                                                  "configurar", //pendienteNormal,
+                                                  ventanaPendientesSaO2//,
+//                                                  this.valorNormal,
+//                                                  this.
+//                                                  descensoAdmisibleRespectoBasal,
+//                                                  this.
+//                                                  valorAdmisibleDesaturacionRespectoBasal
+                                                  );
 
         c.setPendienteNormal(this.pendienteNormal);
         c.setPendienteAscenso(this.pendienteAscenso);

@@ -2,6 +2,10 @@ package research.apneas;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -24,10 +28,12 @@ import net.javahispano.fuzzyutilities.representation.TrapezoidalDistribution;
  */
 public class ConfigurarDialog extends JDialog {
 
+    private static final Logger LOGGER = Logger.getLogger(ConfigurarDialog.class.getName());
     /**
      *
      */
     private static final long serialVersionUID = 4772156014945415167L;
+
 
     private BorderLayout borderLayout1 = new BorderLayout();
     private JPanel jPanel1 = new JPanel();
@@ -136,21 +142,18 @@ public class ConfigurarDialog extends JDialog {
         try {
             jbInit();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 
     public ConfigurarDialog(Window padre, String texto,
-                            TrapezoidalDistribution pendiente,
-                            int ventanaNormal,
-                            TrapezoidalDistribution persistencia,
-                            TrapezoidalDistribution principio,
-                            TrapezoidalDistribution fin) {
+                            int ventanaNormal) {
         super(padre, texto);
 
         try {
             jbInit();
         } catch (Exception ex) {
+           LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
         }
         jSliderVentanaEstadoNormal.setValue(ventanaNormal);
         this.setSize(800, 550);
@@ -468,22 +471,22 @@ public class ConfigurarDialog extends JDialog {
         jTabbedPane1.setSelectedIndex(1);
     }
 
-    public void jButton2_actionPerformed(ActionEvent e) {
+    public void jButton2_actionPerformed() {
         aceptar = false;
         this.dispose();
     }
 
-    public void jSlider1_stateChanged(ChangeEvent changeEvent) {
+    public void jSlider1_stateChanged() {
         int valor = jSliderVentanaEstadoNormal.getValue();
         textVentanaEstadoNormal.setText(Integer.toString(valor));
 
     }
 
-    public void tv_focusLost(FocusEvent focusEvent) {
-        tv_actionPerformed(null);
+    public void tv_focusLost() {
+        tv_actionPerformed();
     }
 
-    public void tv_actionPerformed(ActionEvent e) {
+    public void tv_actionPerformed() {
         try {
             int valor = Integer.parseInt(textVentanaEstadoNormal.getText());
             jSliderVentanaEstadoNormal.setValue(valor);
@@ -522,7 +525,7 @@ public class ConfigurarDialog extends JDialog {
 
 
     public void jButton1_ancestorMoved(HierarchyEvent hierarchyEvent) {
-
+       // Vacio
     }
 
     public void jButton1_actionPerformed(ActionEvent e) {
@@ -541,10 +544,12 @@ public class ConfigurarDialog extends JDialog {
 
     public static void main(String[] args) {
         ConfigurarDialog configura = new ConfigurarDialog(null, "sola",
-                new TrapezoidalDistribution(0.1F, .4F, 2F, 3F), 10,
-                new TrapezoidalDistribution(0.1F, .4F, 2F, 3F),
-                new TrapezoidalDistribution(0.1F, .4F, 2F, 3F),
-                new TrapezoidalDistribution(0.1F, .4F, 2F, 3F));
+//                new TrapezoidalDistribution(0.1F, .4F, 2F, 3F),
+              10//,
+//                new TrapezoidalDistribution(0.1F, .4F, 2F, 3F),
+//                new TrapezoidalDistribution(0.1F, .4F, 2F, 3F),
+//                new TrapezoidalDistribution(0.1F, .4F, 2F, 3F)
+              );
         configura.setVisible(true); //instead of show
         configura.repaint();
     }
@@ -565,16 +570,16 @@ public class ConfigurarDialog extends JDialog {
         }
     }
 
-    public void jTextDuracionVentanaAscenso_focusLost(FocusEvent e) {
+    public void jTextDuracionVentanaAscenso_focusLost() {
         this.jTextDuracionVentanaAscenso_actionPerformed(null);
     }
 
-    public void jSliderVentanaDescenso_stateChanged(ChangeEvent e) {
+    public void jSliderVentanaDescenso_stateChanged() {
         int valor = this.jSliderVentanaDescenso.getValue();
         this.jTextDuracionVentanaDescenso.setText(Integer.toString(valor));
     }
 
-    public void jTextDuracionVentanaDescenso_actionPerformed(ActionEvent e) {
+    public void jTextDuracionVentanaDescenso_actionPerformed() {
         try {
             int valor = Integer.parseInt(jTextDuracionVentanaDescenso.getText());
             jSliderVentanaDescenso.setValue(valor);
@@ -584,18 +589,14 @@ public class ConfigurarDialog extends JDialog {
         }
     }
 
-    public void jSliderprincipioVentanaBasalSatO2_stateChanged(ChangeEvent e) {
-
+    public void jSliderprincipioVentanaBasalSatO2_stateChanged() {
         int valor = this.jSliderprincipioVentanaBasalSatO2.getValue();
-        this.jTextFieldprincipioVentanaBasalSatO2.setText(Integer.toString(
-                valor));
+        this.jTextFieldprincipioVentanaBasalSatO2.setText(Integer.toString(valor));
     }
 
-    public void jTextFieldprincipioVentanaBasalSatO2_actionPerformed(
-            ActionEvent e) {
+    public void jTextFieldprincipioVentanaBasalSatO2_actionPerformed() {
         try {
-            int valor = Integer.parseInt(jTextFieldprincipioVentanaBasalSatO2.
-                                         getText());
+            int valor = Integer.parseInt(jTextFieldprincipioVentanaBasalSatO2.getText());
             jSliderprincipioVentanaBasalSatO2.setValue(valor);
         } catch (NumberFormatException ex) {
             jTextFieldprincipioVentanaBasalSatO2.requestFocus();
@@ -603,17 +604,16 @@ public class ConfigurarDialog extends JDialog {
         }
     }
 
-    public void jTextFieldprincipioVentanaBasalSatO2_focusLost(FocusEvent e) {
-        this.jTextFieldprincipioVentanaBasalSatO2_actionPerformed(null);
+    public void jTextFieldprincipioVentanaBasalSatO2_focusLost() {
+        this.jTextFieldprincipioVentanaBasalSatO2_actionPerformed();
     }
 
-    public void jSliderfinVentanaBasalSatO2_stateChanged(ChangeEvent e) {
-
+    public void jSliderfinVentanaBasalSatO2_stateChanged() {
         int valor = this.jSliderfinVentanaBasalSatO2.getValue();
         this.jTextFieldfinVentanaBasalSatO2.setText(Integer.toString(valor));
     }
 
-    public void jTextFieldfinVentanaBasalSatO2_actionPerformed(ActionEvent e) {
+    public void jTextFieldfinVentanaBasalSatO2_actionPerformed() {
         try {
             int valor = Integer.parseInt(jTextFieldfinVentanaBasalSatO2.getText());
             jSliderfinVentanaBasalSatO2.setValue(valor);
@@ -623,24 +623,20 @@ public class ConfigurarDialog extends JDialog {
         }
     }
 
-    public void jTextFieldfinVentanaBasalSatO2_focusLost(FocusEvent e) {
-        this.jTextFieldfinVentanaBasalSatO2_actionPerformed(null);
+    public void jTextFieldfinVentanaBasalSatO2_focusLost() {
+        this.jTextFieldfinVentanaBasalSatO2_actionPerformed();
     }
 
-    public void jTextDuracionVentanaDescenso_focusLost(FocusEvent e) {
-        jTextDuracionVentanaDescenso_actionPerformed(null);
+    public void jTextDuracionVentanaDescenso_focusLost() {
+        jTextDuracionVentanaDescenso_actionPerformed();
     }
 
-    public void jSliderprincipioVentanaBasalFlujoApnea_stateChanged(ChangeEvent
-            e) {
-
+    public void jSliderprincipioVentanaBasalFlujoApnea_stateChanged() {
         int valor = this.jSliderprincipioVentanaBasalFlujoApnea.getValue();
-        this.jTextFieldprincipioVentanaBasalFlujoApnea.setText(Integer.toString(
-                valor));
+        this.jTextFieldprincipioVentanaBasalFlujoApnea.setText(Integer.toString(valor));
     }
 
-    public void jTextFieldprincipioVentanaBasalFlujoApnea_actionPerformed(
-            ActionEvent e) {
+    public void jTextFieldprincipioVentanaBasalFlujoApnea_actionPerformed() {
         try {
             int valor = Integer.parseInt(
                     jTextFieldprincipioVentanaBasalFlujoApnea.getText());
@@ -651,22 +647,18 @@ public class ConfigurarDialog extends JDialog {
         }
     }
 
-    public void jTextFieldprincipioVentanaBasalFlujoApnea_focusLost(FocusEvent
-            e) {
-        jTextFieldprincipioVentanaBasalFlujoApnea_actionPerformed(null);
+    public void jTextFieldprincipioVentanaBasalFlujoApnea_focusLost() {
+        jTextFieldprincipioVentanaBasalFlujoApnea_actionPerformed();
     }
 
-    public void jSliderfinVentanaBasalFlujoApnea_stateChanged(ChangeEvent e) {
-
+    public void jSliderfinVentanaBasalFlujoApnea_stateChanged() {
         int valor = this.jSliderfinVentanaBasalFlujoApnea.getValue();
         this.jTextFieldfinVentanaBasalFlujoApnea.setText(Integer.toString(valor));
     }
 
-    public void jTextFieldfinVentanaBasalFlujoApnea_actionPerformed(ActionEvent
-            e) {
+    public void jTextFieldfinVentanaBasalFlujoApnea_actionPerformed() {
         try {
-            int valor = Integer.parseInt(jTextFieldfinVentanaBasalFlujoApnea.
-                                         getText());
+            int valor = Integer.parseInt(jTextFieldfinVentanaBasalFlujoApnea.getText());
             jSliderfinVentanaBasalFlujoApnea.setValue(valor);
         } catch (NumberFormatException ex) {
             jTextFieldfinVentanaBasalFlujoApnea.requestFocus();
@@ -674,22 +666,18 @@ public class ConfigurarDialog extends JDialog {
         }
     }
 
-    public void jTextFieldfinVentanaBasalFlujoApnea_focusLost(FocusEvent e) {
-        jTextFieldfinVentanaBasalFlujoApnea_actionPerformed(null);
+    public void jTextFieldfinVentanaBasalFlujoApnea_focusLost() {
+        jTextFieldfinVentanaBasalFlujoApnea_actionPerformed();
     }
 
-    public void jSlideranchoVentanaValorMedioApnea_stateChanged(ChangeEvent e) {
-
+    public void jSlideranchoVentanaValorMedioApnea_stateChanged() {
         int valor = this.jSlideranchoVentanaValorMedioApnea.getValue();
-        this.jTextFieldanchoVentanaValorMedioApnea.setText(Integer.toString(
-                valor));
+        this.jTextFieldanchoVentanaValorMedioApnea.setText(Integer.toString(valor));
     }
 
-    public void jTextFieldanchoVentanaValorMedioApnea_actionPerformed(
-            ActionEvent e) {
+    public void jTextFieldanchoVentanaValorMedioApnea_actionPerformed() {
         try {
-            int valor = Integer.parseInt(jTextFieldanchoVentanaValorMedioApnea.
-                                         getText());
+            int valor = Integer.parseInt(jTextFieldanchoVentanaValorMedioApnea.getText());
             jSlideranchoVentanaValorMedioApnea.setValue(valor);
         } catch (NumberFormatException ex) {
             jTextFieldanchoVentanaValorMedioApnea.requestFocus();
@@ -697,13 +685,12 @@ public class ConfigurarDialog extends JDialog {
         }
     }
 
-    public void jTextFieldanchoVentanaValorMedioApnea_focusLost(FocusEvent e) {
-        jTextFieldanchoVentanaValorMedioApnea_actionPerformed(null);
+    public void jTextFieldanchoVentanaValorMedioApnea_focusLost() {
+        jTextFieldanchoVentanaValorMedioApnea_actionPerformed();
     }
 
 
-    public void jTextFieldprincipioVentanaBasalFlujoHipoapnea_actionPerformed(
-            ActionEvent e) {
+    public void jTextFieldprincipioVentanaBasalFlujoHipoapnea_actionPerformed() {
         try {
             //TODO no se hace nada con este valor? @vanesa
 //            int valor = Integer.parseInt(jTextFieldanchoVentanaValorMedioHipoapnea.getText());
@@ -713,24 +700,18 @@ public class ConfigurarDialog extends JDialog {
         }
     }
 
-    public void jTextFieldprincipioVentanaBasalFlujoHipoapnea_focusLost(
-            FocusEvent e) {
-        jTextFieldprincipioVentanaBasalFlujoHipoapnea_actionPerformed(null);
+    public void jTextFieldprincipioVentanaBasalFlujoHipoapnea_focusLost() {
+        jTextFieldprincipioVentanaBasalFlujoHipoapnea_actionPerformed();
     }
 
-    public void jSlideranchoVentanaValorMedioHipoapnea_stateChanged(ChangeEvent
-            e) {
-
+    public void jSlideranchoVentanaValorMedioHipoapnea_stateChanged() {
         int valor = this.jSlideranchoVentanaValorMedioHipoapnea.getValue();
-        this.jTextFieldanchoVentanaValorMedioHipoapnea.setText(Integer.toString(
-                valor));
+        this.jTextFieldanchoVentanaValorMedioHipoapnea.setText(Integer.toString(valor));
     }
 
-    public void jTextFieldanchoVentanaValorMedioHipoapnea_actionPerformed(
-            ActionEvent e) {
+    public void jTextFieldanchoVentanaValorMedioHipoapnea_actionPerformed() {
         try {
-            int valor = Integer.parseInt(
-                    jTextFieldanchoVentanaValorMedioHipoapnea.getText());
+            int valor = Integer.parseInt(jTextFieldanchoVentanaValorMedioHipoapnea.getText());
             jSlideranchoVentanaValorMedioHipoapnea.setValue(valor);
         } catch (NumberFormatException ex) {
             jTextFieldanchoVentanaValorMedioHipoapnea.requestFocus();
@@ -738,9 +719,8 @@ public class ConfigurarDialog extends JDialog {
         }
     }
 
-    public void jTextFieldanchoVentanaValorMedioHipoapnea_focusLost(FocusEvent
-            e) {
-        jTextFieldanchoVentanaValorMedioHipoapnea_actionPerformed(null);
+    public void jTextFieldanchoVentanaValorMedioHipoapnea_focusLost() {
+        jTextFieldanchoVentanaValorMedioHipoapnea_actionPerformed();
     }
 
     public int getAnchoVentanaValorMedioApnea() {
@@ -894,8 +874,7 @@ public class ConfigurarDialog extends JDialog {
     }
 
     public TrapezoidalDistribution getPendienteAscenso() {
-        return this.panelAdquisicionBorrososPersistencia.
-                getTrapezoidalDistribution();
+        return this.panelAdquisicionBorrososPersistencia.getTrapezoidalDistribution();
     }
 
 
@@ -904,15 +883,13 @@ public class ConfigurarDialog extends JDialog {
     }
 
     public TrapezoidalDistribution getValorAdmisibleDesaturacionRespectoBasal() {
-        return panelValorAdmisibleDesaturacionRespectoBasal.
-                getTrapezoidalDistribution();
+        return panelValorAdmisibleDesaturacionRespectoBasal.getTrapezoidalDistribution();
     }
 
     public void setApnea(TrapezoidalDistribution apnea) {
         panelAdquisicionBorrososApnea = new FuzzyAcquisitionPanel(apnea);
         panelAdquisicionBorrososApnea.setNumeroDecimales(3);
-        panelMagnitudApnea.add(panelAdquisicionBorrososApnea,
-                               java.awt.BorderLayout.CENTER);
+        panelMagnitudApnea.add(panelAdquisicionBorrososApnea, BorderLayout.CENTER);
 
     }
 
@@ -922,24 +899,16 @@ public class ConfigurarDialog extends JDialog {
                 anchoVentanaValorMedioHipoApnea);
     }
 
-    public void setAnchoVentanaValorMedioApnea(int
-                                               anchoVentanaValorMedioApnea) {
+    public void setAnchoVentanaValorMedioApnea(int anchoVentanaValorMedioApnea) {
         jSlideranchoVentanaValorMedioApnea.setValue(anchoVentanaValorMedioApnea);
     }
 
-    public void setDescensoAdmisibleRespectoBasal(TrapezoidalDistribution
-                                                  descensoAdmisibleRespectoBasal) {
-        panelDescensoAdmisibleRespectoBasal = new FuzzyAcquisitionPanel(
-                descensoAdmisibleRespectoBasal);
+    public void setDescensoAdmisibleRespectoBasal(TrapezoidalDistribution descensoAdmisibleRespectoBasal) {
+        panelDescensoAdmisibleRespectoBasal = new FuzzyAcquisitionPanel(descensoAdmisibleRespectoBasal);
         panelDescensoAdmisibleRespectoBasal.setNumeroDecimales(3);
-        tabbedPaneSatO2.add(panelDescensoAdmisibleRespectoBasal,
-                            "Desviacion admisible respecto al basal");
+        tabbedPaneSatO2.add(panelDescensoAdmisibleRespectoBasal, "Desviacion admisible respecto al basal");
 
     }
-
-//    public void setDuracion(int duracion) {
-//        this.duracion = duracion;
-//    }
 
     public void setFinVentanaBasalFlujoApnea(int finVentanaBasalFlujo) {
         jSliderfinVentanaBasalFlujoApnea.setValue(finVentanaBasalFlujo);
@@ -958,22 +927,16 @@ public class ConfigurarDialog extends JDialog {
                                    java.awt.BorderLayout.CENTER);
     }
 
-    public void setPanelAdquisicionBorrososPrincipio(FuzzyAcquisitionPanel
-            panelAdquisicionBorrososPrincipio) {
-        this.panelAdquisicionBorrososPrincipio =
-                panelAdquisicionBorrososPrincipio;
+    public void setPanelAdquisicionBorrososPrincipio(FuzzyAcquisitionPanel panelAdquisicionBorrososPrincipio) {
+        this.panelAdquisicionBorrososPrincipio = panelAdquisicionBorrososPrincipio;
     }
 
-    public void setPanelAdquisicionBorrososPersistencia(
-            FuzzyAcquisitionPanel panelAdquisicionBorrososPersistencia) {
-        this.panelAdquisicionBorrososPersistencia =
-                panelAdquisicionBorrososPersistencia;
+    public void setPanelAdquisicionBorrososPersistencia(FuzzyAcquisitionPanel panelAdquisicionBorrososPersistencia) {
+        this.panelAdquisicionBorrososPersistencia = panelAdquisicionBorrososPersistencia;
     }
 
-    public void setPanelAdquisicionBorrososPendiente(FuzzyAcquisitionPanel
-            panelAdquisicionBorrososPendiente) {
-        this.panelAdquisicionBorrososPendiente =
-                panelAdquisicionBorrososPendiente;
+    public void setPanelAdquisicionBorrososPendiente(FuzzyAcquisitionPanel panelAdquisicionBorrososPendiente) {
+        this.panelAdquisicionBorrososPendiente = panelAdquisicionBorrososPendiente;
     }
 
 
@@ -1006,62 +969,44 @@ public class ConfigurarDialog extends JDialog {
     }
 
     public void setVentanaCalculoDeltas(float ventanaCalculoDeltas) {
-        this.textventanaCalculoDeltas.setText("" + ventanaCalculoDeltas);
+        this.textventanaCalculoDeltas.setText(Float.toString(ventanaCalculoDeltas));
     }
 
-    public void setConsiderarSoloOndasNegativas(boolean
-                                                considerarSoloOndasNegativas) {
-        checkBoxConsiderarSoloOndasNegativas.setSelected(
-                considerarSoloOndasNegativas);
+    public void setConsiderarSoloOndasNegativas(boolean considerarSoloOndasNegativas) {
+        checkBoxConsiderarSoloOndasNegativas.setSelected(considerarSoloOndasNegativas);
     }
 
-    public void setFinIntervaloFiltroEnergia(int
-                                             finIntervaloFiltroEnergia) {
-        this.slideFinIntervaloFiltroEnergia.setValor(
-                finIntervaloFiltroEnergia);
+    public void setFinIntervaloFiltroEnergia(int finIntervaloFiltroEnergia) {
+        this.slideFinIntervaloFiltroEnergia.setValor(finIntervaloFiltroEnergia);
     }
 
-    public void setFinIntervaloSegundoFiltroEnergia(int
-            finIntervaloSegundoFiltroEnergia) {
-        this.sliderprincipioIntervaloSegundoFiltroDerivada.setValor(
-                finIntervaloSegundoFiltroEnergia);
+    public void setFinIntervaloSegundoFiltroEnergia(int finIntervaloSegundoFiltroEnergia) {
+        this.sliderprincipioIntervaloSegundoFiltroDerivada.setValor(finIntervaloSegundoFiltroEnergia);
     }
 
-    public void setPrincipioIntervaloFiltroEnergia(int
-            principioIntervaloFiltroEnergia) {
-        this.sliderprincipioIntervaloFiltroEnergia.setValor(
-                principioIntervaloFiltroEnergia);
+    public void setPrincipioIntervaloFiltroEnergia(int principioIntervaloFiltroEnergia) {
+        this.sliderprincipioIntervaloFiltroEnergia.setValor(principioIntervaloFiltroEnergia);
     }
 
-    public void setRelacionPrimerFiltroDerivada(int
-                                                relacionPrimerFiltroDerivada) {
-        this.sliderrelacionPrimerFiltroDerivada.setValor(
-                relacionPrimerFiltroDerivada);
+    public void setRelacionPrimerFiltroDerivada(int relacionPrimerFiltroDerivada) {
+        this.sliderrelacionPrimerFiltroDerivada.setValor(relacionPrimerFiltroDerivada);
     }
 
     public void setLimiteEnergia(int limiteEnergia) {
         this.sliderlimiteEnergia.setValor(limiteEnergia);
         System.out.println("mierda por decir algo");
-
     }
 
     public void setDuracionApnea(TrapezoidalDistribution duracionApnea) {
-        this.restriccionTemporalApnea = new FuzzyAcquisitionPanel(
-                duracionApnea);
+        this.restriccionTemporalApnea = new FuzzyAcquisitionPanel(duracionApnea);
         restriccionTemporalApnea.setNumeroDecimales(3);
-
-        panelTemporalApnea.add(restriccionTemporalApnea,
-                               java.awt.BorderLayout.CENTER);
+        panelTemporalApnea.add(restriccionTemporalApnea, BorderLayout.CENTER);
     }
 
     public void setDuracionHipoapnea(TrapezoidalDistribution duracionHipoapnea) {
-        this.restriccionTemporalHipoapnea = new FuzzyAcquisitionPanel(
-                duracionHipoapnea);
+        this.restriccionTemporalHipoapnea = new FuzzyAcquisitionPanel(duracionHipoapnea);
         restriccionTemporalHipoapnea.setNumeroDecimales(3);
-
-        panelTemporalHipoapnea.add(restriccionTemporalHipoapnea,
-                                   java.awt.BorderLayout.CENTER);
-
+        panelTemporalHipoapnea.add(restriccionTemporalHipoapnea, java.awt.BorderLayout.CENTER);
     }
 
     public void setPersistencia(int persistencia) {
@@ -1076,16 +1021,15 @@ public class ConfigurarDialog extends JDialog {
             duracionMaximaEpisodiosDesaturacion) {
         this.duracionMaximaDesaturacion.setValor(
                 duracionMaximaEpisodiosDesaturacion);
-        tabbedPaneSatO2.add(this.panelOtrosSatO2,
-                            "Otros parametros");
+        tabbedPaneSatO2.add(this.panelOtrosSatO2, "Otros parametros");
     }
 
-    public void setFinVentanaBasalFlujoHipoApnea(int
-                                                 finVentanaBasalFlujoHipoApnea) {
+    public void setFinVentanaBasalFlujoHipoApnea(int finVentanaBasalFlujoHipoApnea) {
+       // Vacio
     }
 
-    public void setPrincipioVentanaBasalFlujoHipoApnea(int
-            principioVentanaBasalFlujoHipoApnea) {
+    public void setPrincipioVentanaBasalFlujoHipoApnea(int principioVentanaBasalFlujoHipoApnea) {
+       // Vacio
     }
 
     public void setVentanaAscenso(int ventanaAscenso) {
@@ -1104,15 +1048,12 @@ public class ConfigurarDialog extends JDialog {
         jSliderprincipioVentanaBasalSatO2.setValue(principioVentanaBasalSatO2);
     }
 
-    public void setPrincipioVentanaBasalFlujoApnea(int
-            principioVentanaBasalFlujo) {
-        jSliderprincipioVentanaBasalFlujoApnea.setValue(
-                principioVentanaBasalFlujo);
+    public void setPrincipioVentanaBasalFlujoApnea(int principioVentanaBasalFlujo) {
+        jSliderprincipioVentanaBasalFlujoApnea.setValue(principioVentanaBasalFlujo);
     }
 
     public void setValorNormal(TrapezoidalDistribution valorNormal) {
-        this.panelAdquisicionBorrososFinal = new FuzzyAcquisitionPanel(
-                valorNormal);
+        this.panelAdquisicionBorrososFinal = new FuzzyAcquisitionPanel(valorNormal);
         this.panelAdquisicionBorrososFinal.setNumeroDecimales(3);
         jPanel5.add(panelAdquisicionBorrososFinal, java.awt.BorderLayout.CENTER);
     }
@@ -1120,8 +1061,7 @@ public class ConfigurarDialog extends JDialog {
     public void setValorAdmisibleDesaturacionRespectoBasal(
             TrapezoidalDistribution valorAdmisibleDesaturacionRespectoBasal) {
         panelValorAdmisibleDesaturacionRespectoBasal = new
-                FuzzyAcquisitionPanel(
-                        valorAdmisibleDesaturacionRespectoBasal);
+                FuzzyAcquisitionPanel(valorAdmisibleDesaturacionRespectoBasal);
         panelValorAdmisibleDesaturacionRespectoBasal.setNumeroDecimales(3);
         tabbedPaneSatO2.add(
                 panelValorAdmisibleDesaturacionRespectoBasal,
@@ -1155,9 +1095,10 @@ public class ConfigurarDialog extends JDialog {
                            java.awt.BorderLayout.CENTER);
     }
 
-    public void textventanaCalculoDeltas_focusLost(FocusEvent e) {
+    public void textventanaCalculoDeltas_focusLost() {
         try {
-            Float.parseFloat(textventanaCalculoDeltas.getText());
+           // TODO no se hace nada con el valor
+            //Float.parseFloat(textventanaCalculoDeltas.getText());
         } catch (NumberFormatException ex) {
             textventanaCalculoDeltas.requestFocus();
             textventanaCalculoDeltas.selectAll();
@@ -1175,7 +1116,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void focusLost(FocusEvent e) {
-            adaptee.textventanaCalculoDeltas_focusLost(e);
+            adaptee.textventanaCalculoDeltas_focusLost();
         }
     }
 
@@ -1190,7 +1131,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.jTextFieldanchoVentanaValorMedioHipoapnea_actionPerformed(e);
+            adaptee.jTextFieldanchoVentanaValorMedioHipoapnea_actionPerformed();
         }
     }
 
@@ -1205,7 +1146,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void stateChanged(ChangeEvent e) {
-            adaptee.jSlideranchoVentanaValorMedioHipoapnea_stateChanged(e);
+            adaptee.jSlideranchoVentanaValorMedioHipoapnea_stateChanged();
         }
     }
 
@@ -1220,7 +1161,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void focusLost(FocusEvent e) {
-            adaptee.jTextFieldanchoVentanaValorMedioHipoapnea_focusLost(e);
+            adaptee.jTextFieldanchoVentanaValorMedioHipoapnea_focusLost();
         }
     }
 
@@ -1235,7 +1176,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void focusLost(FocusEvent e) {
-            adaptee.jTextFieldanchoVentanaValorMedioApnea_focusLost(e);
+            adaptee.jTextFieldanchoVentanaValorMedioApnea_focusLost();
         }
     }
 
@@ -1250,7 +1191,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void focusLost(FocusEvent e) {
-            adaptee.jTextFieldfinVentanaBasalFlujoApnea_focusLost(e);
+            adaptee.jTextFieldfinVentanaBasalFlujoApnea_focusLost();
         }
     }
 
@@ -1265,7 +1206,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.jTextFieldfinVentanaBasalFlujoApnea_actionPerformed(e);
+            adaptee.jTextFieldfinVentanaBasalFlujoApnea_actionPerformed();
         }
     }
 
@@ -1280,7 +1221,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void stateChanged(ChangeEvent e) {
-            adaptee.jSlideranchoVentanaValorMedioApnea_stateChanged(e);
+            adaptee.jSlideranchoVentanaValorMedioApnea_stateChanged();
         }
     }
 
@@ -1295,7 +1236,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.jTextFieldanchoVentanaValorMedioApnea_actionPerformed(e);
+            adaptee.jTextFieldanchoVentanaValorMedioApnea_actionPerformed();
         }
     }
 
@@ -1310,7 +1251,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void focusLost(FocusEvent e) {
-            adaptee.jTextFieldprincipioVentanaBasalFlujoApnea_focusLost(e);
+            adaptee.jTextFieldprincipioVentanaBasalFlujoApnea_focusLost();
         }
     }
 
@@ -1325,7 +1266,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.jTextFieldprincipioVentanaBasalFlujoApnea_actionPerformed(e);
+            adaptee.jTextFieldprincipioVentanaBasalFlujoApnea_actionPerformed();
         }
     }
 
@@ -1340,7 +1281,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void stateChanged(ChangeEvent e) {
-            adaptee.jSliderfinVentanaBasalFlujoApnea_stateChanged(e);
+            adaptee.jSliderfinVentanaBasalFlujoApnea_stateChanged();
         }
     }
 
@@ -1355,7 +1296,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void stateChanged(ChangeEvent e) {
-            adaptee.jSliderprincipioVentanaBasalFlujoApnea_stateChanged(e);
+            adaptee.jSliderprincipioVentanaBasalFlujoApnea_stateChanged();
         }
     }
 
@@ -1370,7 +1311,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void focusLost(FocusEvent e) {
-            adaptee.jTextFieldfinVentanaBasalSatO2_focusLost(e);
+            adaptee.jTextFieldfinVentanaBasalSatO2_focusLost();
         }
     }
 
@@ -1385,7 +1326,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void stateChanged(ChangeEvent e) {
-            adaptee.jSliderfinVentanaBasalSatO2_stateChanged(e);
+            adaptee.jSliderfinVentanaBasalSatO2_stateChanged();
         }
     }
 
@@ -1400,7 +1341,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.jTextFieldfinVentanaBasalSatO2_actionPerformed(e);
+            adaptee.jTextFieldfinVentanaBasalSatO2_actionPerformed();
         }
     }
 
@@ -1415,7 +1356,7 @@ public class ConfigurarDialog extends JDialog {
 
         @Override
         public void focusLost(FocusEvent e) {
-            adaptee.jTextDuracionVentanaDescenso_focusLost(e);
+            adaptee.jTextDuracionVentanaDescenso_focusLost();
         }
     }
 
@@ -1428,8 +1369,9 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void focusLost(FocusEvent e) {
-            adaptee.jTextFieldprincipioVentanaBasalSatO2_focusLost(e);
+            adaptee.jTextFieldprincipioVentanaBasalSatO2_focusLost();
         }
     }
 
@@ -1442,22 +1384,23 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.jTextFieldprincipioVentanaBasalSatO2_actionPerformed(e);
+            adaptee.jTextFieldprincipioVentanaBasalSatO2_actionPerformed();
         }
     }
 
 
-    class ConfigurarDialog_jSliderprincipioVentanaBasalSatO2_changeAdapter implements
-            ChangeListener {
+    class ConfigurarDialog_jSliderprincipioVentanaBasalSatO2_changeAdapter implements ChangeListener {
         private ConfigurarDialog adaptee;
         ConfigurarDialog_jSliderprincipioVentanaBasalSatO2_changeAdapter(
                 ConfigurarDialog adaptee) {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void stateChanged(ChangeEvent e) {
-            adaptee.jSliderprincipioVentanaBasalSatO2_stateChanged(e);
+            adaptee.jSliderprincipioVentanaBasalSatO2_stateChanged();
         }
     }
 
@@ -1470,8 +1413,9 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.jTextDuracionVentanaDescenso_actionPerformed(e);
+            adaptee.jTextDuracionVentanaDescenso_actionPerformed();
         }
     }
 
@@ -1484,8 +1428,9 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void stateChanged(ChangeEvent e) {
-            adaptee.jSliderVentanaDescenso_stateChanged(e);
+            adaptee.jSliderVentanaDescenso_stateChanged();
         }
     }
 
@@ -1498,8 +1443,9 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void focusLost(FocusEvent e) {
-            adaptee.jTextDuracionVentanaAscenso_focusLost(e);
+            adaptee.jTextDuracionVentanaAscenso_focusLost();
         }
     }
 
@@ -1510,6 +1456,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent actionEvent) {
             adaptee.jButton1_actionPerformed(actionEvent);
         }
@@ -1523,6 +1470,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void ancestorMoved(HierarchyEvent hierarchyEvent) {
             adaptee.jButton1_ancestorMoved(hierarchyEvent);
         }
@@ -1535,8 +1483,9 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.tv_actionPerformed(e);
+            adaptee.tv_actionPerformed();
         }
     }
 
@@ -1547,8 +1496,9 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void stateChanged(ChangeEvent changeEvent) {
-            adaptee.jSlider1_stateChanged(changeEvent);
+            adaptee.jSlider1_stateChanged();
         }
     }
 
@@ -1561,6 +1511,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void stateChanged(ChangeEvent e) {
             adaptee.jSliderVentanaAscenso_stateChanged(e);
         }
@@ -1573,8 +1524,9 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void focusLost(FocusEvent focusEvent) {
-            adaptee.tv_focusLost(focusEvent);
+            adaptee.tv_focusLost();
         }
     }
 
@@ -1587,6 +1539,7 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             adaptee.jTextDuracionVentanaAscenso_actionPerformed(e);
         }
@@ -1599,8 +1552,9 @@ public class ConfigurarDialog extends JDialog {
             this.adaptee = adaptee;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.jButton2_actionPerformed(e);
+            adaptee.jButton2_actionPerformed();
         }
 
 
