@@ -7,7 +7,7 @@ import javax.swing.Icon;
 
 import es.usc.gsi.trace.importer.jsignalmonold.SamplesToDate;
 import es.usc.gsi.trace.importer.monitorizacion.data.GestorDatos;
-import es.usc.gsi.trace.importer.monitorizacion.dataIO.GestorIO;
+import es.usc.gsi.trace.importer.monitorizacion.dataio.GestorIO;
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.plugins.LoaderAdapter;
 
