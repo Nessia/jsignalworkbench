@@ -13,3 +13,7 @@ manifest.mf
 
 # Mac OS files
 .DS_Store
+
+# Sonar
+.sonar
+sonar-project.properties
