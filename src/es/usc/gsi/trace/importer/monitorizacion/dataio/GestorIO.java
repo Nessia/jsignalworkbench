@@ -3,6 +3,8 @@
 package es.usc.gsi.trace.importer.monitorizacion.dataio;
 
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -14,30 +16,25 @@ import org.jdom.JDOMException;
 
 public class GestorIO {
 
-    /**
-     * instance flag attribute
-     */
-    private static boolean instance_flag_for_GestorIO;
+
+    private static final Logger LOGGER = Logger.getLogger(GestorIO.class.getName());
+
     private static GestorIO instancia;
     //private static String fichero;
-    private CargarDatos cargador;
-    private static int num_datos;
-    private static int num_senales;
+    private static int numDatos;
+    private static int numSenales;
+
+    //private CargarDatos cargador;
 
     /**
      * private default constructor
      * @throws SingletonException
      */
     private GestorIO() throws Exception {
-        if (instance_flag_for_GestorIO) {
-
-            throw new Exception("Only one instance allowed");
-        }
-
-        else {
-
-            instance_flag_for_GestorIO = true;
-        }
+//        if (instanceFlagForGestorIO) {
+//            throw new Exception("Only one instance allowed");
+//        }
+//        instanceFlagForGestorIO = true;
     }
 
     /**
@@ -46,37 +43,39 @@ public class GestorIO {
      * @param macacar_datos_antiguos si es true machaca los datos antiguos, si no los anhade.
      * @return
      */
-    public boolean cargarDatos(String archivo, boolean machacar_datos_antiguos) {
+    public static boolean cargarDatos(String archivo, boolean machacar_datos_antiguos) {
         AlmacenDatos almacen = null;
+        CargarDatos cargador = null;
         if (archivo.endsWith(".txt") || archivo.endsWith(".picos")) {
-            this.cargador = new CargarDatosTxt(archivo);
-            float datos[][] = cargador.getDatos();
+            cargador = new CargarDatosTxt(archivo);
+            float[][] datos = cargador.getDatos();
             byte[][] pos = cargador.getPos();
             TreeSet<Mark>[] marcas = cargador.getMarcas();
             TreeSet<Annotation> anotaciones = cargador.getAnotaciones();
 
-            num_datos = datos[0].length;
-            num_senales = datos.length;
+            numDatos = datos[0].length;
+            numSenales = datos.length;
             //+1 para la posibilidad global
-            float rango[][] = new float[num_senales + 1][2];
-            for (int i = 0; i < num_senales + 1; i++) {
+            float[][] rango = new float[numSenales + 1][2];
+            for (int i = 0; i < numSenales + 1; i++) {
                 rango[i][0] = 0;
                 rango[i][1] = 100;
             }
 
-            if (datos != null) {
+            //if (datos != null) {
                 almacen = new AlmacenDatosFloat(datos, pos, anotaciones, marcas);
                 almacen.setRango(rango);
-            }
+            //}
         } else {
             //Por defecto intentamos cargar XML
             try {
-                this.cargador = new CargarDatosXML(archivo);
+                cargador = new CargarDatosXML(archivo);
             }
             //Pero si no va nos volvemos al serialismo
             catch (JDOMException ex) {
-                System.out.println("Exception " + ex.getMessage());
-                this.cargador = new CargarDatosMon(archivo);
+                //System.out.println("Exception " + ex.getMessage());
+                LOGGER.log(Level.WARNING, ex.getMessage(), ex);
+                cargador = new CargarDatosMon(archivo);
             }
             almacen = cargador.getAlmacen();
         }
@@ -134,35 +133,31 @@ public class GestorIO {
      * @return GestorIO
      */
     public synchronized static GestorIO getGestorIO() {
-        if (instance_flag_for_GestorIO) {
-            return instancia;
-        } else {
-            try {
-                GestorIO.instancia = new GestorIO();
-                return instancia;
-            } catch (Exception ex) {
-                System.out.println("Exception " + ex.getMessage());
-                ex.printStackTrace();
-                return null;
-            }
-
-        }
+       if(GestorIO.instancia == null){
+          try {
+             GestorIO.instancia = new GestorIO();
+         } catch (Exception ex) {
+             LOGGER.log(Level.WARNING, ex.getMessage(), ex);
+             return null;
+         }
+       }
+       return instancia;
     }
 
-    public int getNumDatos() {
-        return num_datos;
+    public static int getNumDatos() {
+        return numDatos;
     }
 
-    public void setNumDatos(int _num_datos) {
-        num_datos = _num_datos;
+    public static void setNumDatos(int _num_datos) {
+        numDatos = _num_datos;
     }
 
-    public int getNumSenales() {
-        return num_senales;
+    public static int getNumSenales() {
+        return numSenales;
     }
 
-    public void setNumSenales(int _num_senales) {
-        num_senales = _num_senales;
+    public static void setNumSenales(int _num_senales) {
+        numSenales = _num_senales;
     }
 
 
