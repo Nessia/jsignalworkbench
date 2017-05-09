@@ -20,7 +20,7 @@ public class JTextFieldDate extends JFormattedTextField {
     private static MaskFormatter mf;
 
     // Inicializador estatico
-    {
+    static {
         try {
             mf = new MaskFormatter("##:##:##.### || ##/##/####");
             mf.setPlaceholderCharacter('_');
