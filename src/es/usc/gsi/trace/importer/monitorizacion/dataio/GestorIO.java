@@ -2,7 +2,7 @@
 
 package es.usc.gsi.trace.importer.monitorizacion.dataio;
 
-import java.util.TreeSet;
+import java.util.SortedSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,7 +30,7 @@ public class GestorIO {
      * private default constructor
      * @throws SingletonException
      */
-    private GestorIO() throws Exception {
+    private GestorIO() /*throws Exception*/ {
 //        if (instanceFlagForGestorIO) {
 //            throw new Exception("Only one instance allowed");
 //        }
@@ -50,8 +50,8 @@ public class GestorIO {
             cargador = new CargarDatosTxt(archivo);
             float[][] datos = cargador.getDatos();
             byte[][] pos = cargador.getPos();
-            TreeSet<Mark>[] marcas = cargador.getMarcas();
-            TreeSet<Annotation> anotaciones = cargador.getAnotaciones();
+            SortedSet<Mark>[] marcas = cargador.getMarcas();
+            SortedSet<Annotation> anotaciones = cargador.getAnotaciones();
 
             numDatos = datos[0].length;
             numSenales = datos.length;

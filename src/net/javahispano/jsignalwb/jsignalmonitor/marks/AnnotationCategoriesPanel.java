@@ -7,7 +7,6 @@
 package net.javahispano.jsignalwb.jsignalmonitor.marks;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -21,7 +20,8 @@ public class AnnotationCategoriesPanel extends JPanel {
      */
     private static final long serialVersionUID = -4030911138345887129L;
 
-    ArrayList<String> categories;
+    private java.util.List<String> categories;
+
     public AnnotationCategoriesPanel() {
         categories = null;
         setBackground(Color.WHITE);
@@ -40,7 +40,7 @@ public class AnnotationCategoriesPanel extends JPanel {
         }
     }
 
-    public void refreshCategories(ArrayList<String> categories) {
+    public void refreshCategories(java.util.List<String> categories) {
         this.categories = categories;
         Runnable uiUpdateRunnable = new Runnable() {
             @Override

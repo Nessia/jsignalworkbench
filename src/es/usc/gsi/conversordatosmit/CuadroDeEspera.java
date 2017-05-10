@@ -3,6 +3,8 @@ package es.usc.gsi.conversordatosmit;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -18,7 +20,7 @@ import javax.swing.border.Border;
  */
 
 public class CuadroDeEspera extends JDialog {
-
+    private static final Logger LOGGER = Logger.getLogger(CuadroDeEspera.class.getName());
     /**
     *
     */
@@ -50,18 +52,18 @@ public class CuadroDeEspera extends JDialog {
 
     }
 
-    public CuadroDeEspera(JDialog frame, String title, boolean modal) {
-        super(frame, title, true);
-        this.frame = frame;
-        construyeUI();
-    }
+//    public CuadroDeEspera(JDialog frame, String title/*, boolean modal*/) {
+//        super(frame, title, true);
+//        this.frame = frame;
+//        construyeUI();
+//    }
 
     private void construyeUI() {
         try {
             jbInit();
             pack();
         } catch (Exception ex) {
-            ex.printStackTrace();
+           LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
         }
         this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
         this.setSize(400, 200);
@@ -81,34 +83,38 @@ public class CuadroDeEspera extends JDialog {
                 "Volver a la Herramienta de ayuda al descubrimiento de patrones.");
         aceptar.setText("Aceptar");
         aceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseEntered(MouseEvent e) {
-                aceptar_mouseEntered(e);
+                aceptar_mouseEntered();
             }
 
+            @Override
             public void mouseExited(MouseEvent e) {
-                aceptar_mouseExited(e);
+                aceptar_mouseExited();
             }
         });
         aceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                aceptar_actionPerformed(e);
+                aceptar_actionPerformed();
             }
         });
         cancelar.setBorder(normal);
         cancelar.setToolTipText("Canclar el proceso de adquisicion de datos");
         cancelar.setText("Cancelar");
         cancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseEntered(MouseEvent e) {
-                cancelar_mouseEntered(e);
+                cancelar_mouseEntered();
             }
 
+            @Override
             public void mouseExited(MouseEvent e) {
-                cancelar_mouseExited(e);
+                cancelar_mouseExited();
             }
         });
         cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cancelar_actionPerformed(e);
+                cancelar_actionPerformed();
             }
         });
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18));
@@ -148,12 +154,12 @@ public class CuadroDeEspera extends JDialog {
         jProgressBar1.setValue(i);
     }
 
-    void aceptar_actionPerformed(ActionEvent e) {
+    void aceptar_actionPerformed() {
         dispose();
         cancelado = false;
     }
 
-    void cancelar_actionPerformed(ActionEvent e) {
+    void cancelar_actionPerformed() {
         cancelado = true;
         this.dispose();
     }
@@ -162,19 +168,19 @@ public class CuadroDeEspera extends JDialog {
         return cancelado;
     }
 
-    void aceptar_mouseEntered(MouseEvent e) {
+    void aceptar_mouseEntered() {
         aceptar.setBorder(selecionado);
     }
 
-    void aceptar_mouseExited(MouseEvent e) {
+    void aceptar_mouseExited() {
         aceptar.setBorder(normal);
     }
 
-    void cancelar_mouseEntered(MouseEvent e) {
+    void cancelar_mouseEntered() {
         aceptar.setBorder(selecionado);
     }
 
-    void cancelar_mouseExited(MouseEvent e) {
+    void cancelar_mouseExited() {
         aceptar.setBorder(normal);
     }
 }

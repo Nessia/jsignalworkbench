@@ -16,17 +16,17 @@ import java.awt.image.ImageObserver;
  */
 class Channel implements ImageObserver {
     //private boolean visible;
-    private int points[];
+    private int[] points;
     //private int xPoints[];
-    private Color colors[] = null;
+    private Color[] colors = null;
     private InfoLabel infoLabel;
     private JSignalMonitorGrid grid;
     private int abscissaPosition;
     private ChannelProperties channelProperties;
     private GridConfiguration gridConfig;
 
-    public Channel(String name, ChannelProperties properties) {
-        this(properties, new InfoLabel(), new DefaultGrid());
+    public Channel(/*String name,*/ ChannelProperties properties) {
+        this(properties, new InfoLabel(/*name*/), new DefaultGrid());
     }
 
     /**
@@ -54,9 +54,10 @@ class Channel implements ImageObserver {
     }
 
     private int[] getXPositions(int nPoints, int firstValue) {
-        int xPoints[] = new int[nPoints];
-        for (int index = 0; index < nPoints; index++, firstValue++) {
-            xPoints[index] = firstValue;
+        int[] xPoints = new int[nPoints];
+        int value = firstValue;
+        for (int index = 0; index < nPoints; index++, value++) {
+            xPoints[index] = value;
         }
         return xPoints;
     }
@@ -94,6 +95,9 @@ class Channel implements ImageObserver {
     }
 
     public void paintData(Graphics2D g2d, Point p, int startOffset, int endOffset) {
+        if(colors == null){
+           throw new NullPointerException("No se ha llamado a setColors");
+        }
         //float[] data = this.getPoints();
         g2d.setColor(getChannelProperties().getDataColor());
         g2d.setStroke(getChannelProperties().getDataStroke());
@@ -127,6 +131,7 @@ class Channel implements ImageObserver {
         }
          }*/
 
+    @Override
     public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
         return false;
     }
@@ -182,16 +187,14 @@ class Channel implements ImageObserver {
     }
 
     public boolean setColors(short[] colors) {
-
-        if (this.points.length == colors.length) {
-            this.colors = new Color[colors.length];
-            for (int index = 0; index < colors.length; index++) {
-                this.colors[index] = getColor(colors[index]);
-            }
-            return true;
-        } else {
-            return false;
+        if (this.points.length != colors.length) {
+           return false;
         }
+        this.colors = new Color[colors.length];
+        for (int index = 0; index < colors.length; index++) {
+            this.colors[index] = getColor(colors[index]);
+        }
+        return true;
     }
 
     public void refreshGridConfig(float frec) {

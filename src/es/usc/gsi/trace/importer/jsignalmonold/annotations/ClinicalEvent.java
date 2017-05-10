@@ -98,7 +98,7 @@ public class ClinicalEvent implements Comparable<ClinicalEvent>, Serializable {
      * @param boolean@param b
      */
     public void setModoFecha(boolean b) {
-
+       //
     }
 
     /**
@@ -116,6 +116,7 @@ public class ClinicalEvent implements Comparable<ClinicalEvent>, Serializable {
         this.tiempo_inicio++;
     }
 
+    @Override
     public int compareTo(ClinicalEvent evento) {
         if (this.tiempo_inicio > evento.getStartTime()) {
             return 1;

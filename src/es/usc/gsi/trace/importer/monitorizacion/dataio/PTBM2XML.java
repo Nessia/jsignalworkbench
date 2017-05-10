@@ -14,9 +14,11 @@ import org.jdom.output.XMLOutputter;
 import es.usc.gsi.trace.importer.perfil.*;
 
 class MyFloat {
+
+    private static final Logger LOGGER = Logger.getLogger(MyFloat.class.getName());
+
     public final static int MAS_INFINITO = Integer.MAX_VALUE / 1000;
     public final static int MENOS_INFINITO = Integer.MIN_VALUE / 1000;
-
 
 
     private static boolean hayParser = false;
@@ -63,8 +65,8 @@ class MyFloat {
      * @return
      * @throws Exception
      */
-    public static float parseFloat(String numero) throws Exception {
-        try {
+    public static float parseFloat(String numero) throws NumberFormatException {
+//        try {
             if (!("&".equals(numero)) && !("-&".equals(numero))) {
                 return Float.parseFloat(numero);
             } else if ("&".equals(numero)) {
@@ -72,9 +74,9 @@ class MyFloat {
             } else {
                 return MENOS_INFINITO; //Por que si no en validar dan overflow
             }
-        } catch (NumberFormatException ex) {
-            throw (new Exception("Numero Mal formado"));
-        }
+//        } catch (NumberFormatException ex) {
+//            throw ex;
+//        }
     }
 
     /**
@@ -110,6 +112,7 @@ class MyFloat {
         try {
             return decimalFormat.format(parseFloat(valor));
         } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             return null;
         }
     }
@@ -185,10 +188,10 @@ public class PTBM2XML {
     private static PTBM2XML ptbm2XML = null;
 
     private PTBM2XML() {
-        if (ptbm2XML != null) {
-            //System.out.println("ERROR, intanciado dos veces un singleton");
-           LOGGER.log(Level.SEVERE, "ERROR, intanciado dos veces un singleton");
-        }
+//        if (ptbm2XML != null) {
+//            //System.out.println("ERROR, intanciado dos veces un singleton");
+//           LOGGER.log(Level.SEVERE, "ERROR, intanciado dos veces un singleton");
+//        }
     }
 
     /**
@@ -252,7 +255,7 @@ public class PTBM2XML {
                     String[] D = restricciones_array[k].getD();
                     String[] L = restricciones_array[k].getL();
                     String[] M = restricciones_array[k].getM();
-                    int sintaxis_int = restricciones_array[k].getSemantica();
+                    int sintaxis_int = restricciones_array[k].getSemantica().ordinal();
                     int cunatificadorInt = restricciones_array[k].
                                            getCuantificadorSemantica();
                     int unidadesTemporalesInt = restricciones_array[k].
@@ -422,7 +425,7 @@ public class PTBM2XML {
                 ptbm = new PTBM(nombrePTBM, comentarioPTBM, ptb);
                 primer_ptb = false;
             } else {
-                ptbm.anhadePTB(ptb, num_PTB, PTBM.ANHADIR);
+                ptbm.anhadePTB(ptb, num_PTB, PTBInterface.Acciones.ANHADIR);
             }
 
             //Comenzamos a RECOPILAR PUNTOS SIGNIFICATIVOS:
@@ -443,7 +446,7 @@ public class PTBM2XML {
                     if (num_PtoSig < 2) {
                         ptb.anhadeRestriccion(0, num_PtoSig,
                                               restriciones_de_un_PToSig[i], null,
-                                              PTBM.ANHADIR);
+                                              PTBInterface.Acciones.ANHADIR);
                     }
                     //Si no lo era y si es la primera restriccion => preimero anhadir el PtoSig al PTB:
                     else if (i == 0) {
@@ -454,7 +457,7 @@ public class PTBM2XML {
                     else {
                         ptb.anhadeRestriccion(num_PTB, num_PtoSig,
                                               restriciones_de_un_PToSig[i], null,
-                                              PTBM.ANHADIR);
+                                              PTBInterface.Acciones.ANHADIR);
                     }
                 }
             }
@@ -535,8 +538,7 @@ public class PTBM2XML {
                 PtoSig_origen = restriccion_xml.getAttribute("PtoSigOrigen").getIntValue();
                 //ptb_destino = restriccion_xml.getAttribute("PTBDestino").getIntValue();
                 //Ptosig_destino = restriccion_xml.getAttribute("PtoSigDestino").getIntValue();
-                Attribute atributoBoolean = restriccion_xml.getAttribute(
-                        "RelativaAlBasal");
+                Attribute atributoBoolean = restriccion_xml.getAttribute("RelativaAlBasal");
                 if (atributoBoolean != null) {
                     relativaAlBasal = atributoBoolean.getBooleanValue();
                 }
@@ -549,7 +551,7 @@ public class PTBM2XML {
             String[] D = new String[4];
             String[] L = new String[4];
             String[] M = new String[4];
-            int sintaxis_int;
+            Restriccion.Semantica sintaxis_int;
             int unidadesTemporales;
             int cunatificadoSemantica;
             int distanciaEntrePtoSig;
@@ -577,19 +579,19 @@ public class PTBM2XML {
                 M[2] = pendiente.getAttribute(EL_FIN_CORE).getValue();
                 M[3] = pendiente.getAttribute(EL_FIN_SOPORTE).getValue();
 
-                sintaxis_int = sintaxis.getAttribute("Tipo").getIntValue();
+                sintaxis_int = Restriccion.Semantica.values()[sintaxis.getAttribute("Tipo").getIntValue()];
                 Attribute cunatificadoSemanticaAtr = sintaxis.getAttribute("Cuantificador");
                 //Chequeo introduciodo para mantener la compatibilidad hacia atras
                 if (cunatificadoSemanticaAtr != null) {
                     cunatificadoSemantica = cunatificadoSemanticaAtr.getIntValue();
                 } else {
-                    cunatificadoSemantica = Restriccion.CUANTIFICADOR_TODO;
+                    cunatificadoSemantica = Restriccion.Cuantificador.TODO.ordinal();
                 }
                 if (unidadesTemporalesElemento != null) {
                     unidadesTemporales = unidadesTemporalesElemento.getAttribute("Tipo").getIntValue();
                 } else {
                     //Asumimos que es un fichero antiguo y que estab en segundos
-                    unidadesTemporales = Restriccion.UNIDADES_SEGUNDOS;
+                    unidadesTemporales = Restriccion.UNIDADES.SEGUNDOS.ordinal();
                     //Pasamos a milisegundos la restriccion
                     for (int i = 0; i < L.length; i++) {
                         L[i] = Float.toString(MyFloat.parseFloatSeguro(L[i]) * 1000);
@@ -626,9 +628,7 @@ public class PTBM2XML {
     }
 
     public static void main(String[] args) {
-        PTBM2XML PTBM2XML1 = null;
-
-        PTBM2XML1 = new PTBM2XML();
+        PTBM2XML PTBM2XML1 = new PTBM2XML();
 
         javax.swing.JFileChooser fch = new javax.swing.JFileChooser();
         fch.showOpenDialog(null);

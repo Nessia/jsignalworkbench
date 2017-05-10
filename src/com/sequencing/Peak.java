@@ -16,11 +16,4 @@ public class Peak {
         this.maxValue = maxValue;
     }
 
-    
-    
-    
-    
-    
-    
-    
 }

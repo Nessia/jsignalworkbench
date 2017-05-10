@@ -18,23 +18,35 @@ public class Restriccion implements RestriccionInterface, Serializable {
 
     static final long serialVersionUID = 1237L;
 
-    public static final int SEMANTICA_PENDIENTE = 0,
-    SEMANTICA_PERSISTENCIA_EN_PENDIENTE =
-            1, SEMANTICA_RECTA_BORROSA = 2, SEMANTICA_TUBO_BORROSO = 4,
-    SEMANTICA_SIN_SEMANTICA = 3,
-    CUANTIFICADOR_TODO = 1, CUANTIFICADOR_CASI_TODO = 2, CUANTIFICADOR_MUCHO =
-            4,
-    CUANTIFICADOR_MITAD = 5, CUANTIFICADOR_POCO = 6, UNIDADES_MILISEGUNDOS = 1,
-    UNIDADES_SEGUNDOS = 2, UNIDADES_MINUTOS = 3, UNIDADES_HORAS = 4,
-    CUANTIFICADOR_MAYOR_PARTE = 3;
+//    public static final int SEMANTICA_PENDIENTE = 0;
+//    public static final int SEMANTICA_PERSISTENCIA_EN_PENDIENTE = 1;
+//    public static final int SEMANTICA_RECTA_BORROSA = 2;
+//    public static final int SEMANTICA_TUBO_BORROSO = 4;
+//    public static final int SEMANTICA_SIN_SEMANTICA = 3;
+//    public static final int CUANTIFICADOR_TODO = 1;
+//    public static final int CUANTIFICADOR_CASI_TODO = 2;
+//    public static final int CUANTIFICADOR_MUCHO = 4;
+//    public static final int CUANTIFICADOR_MITAD = 5;
+//    public static final int CUANTIFICADOR_POCO = 6;
+//    public static final int UNIDADES_MILISEGUNDOS = 1;
+//    public static final int UNIDADES_SEGUNDOS = 2;
+//    public static final int UNIDADES_MINUTOS = 3;
+//    public static final int UNIDADES_HORAS = 4;
+//    public static final int CUANTIFICADOR_MAYOR_PARTE = 3;
 
 
-    private String D[];
-    private String L[];
-    private String M[];
+    public enum Semantica { PENDIENTE, PERSISTENCIA_EN_PENDIENTE,
+                  RECTA_BORROSA, TUBO_BORROSO, SIN_SEMANTICA};
+    public enum Cuantificador { TODO, CASI_TODO, MAYOR_PARTE, MUCHO, MITAD, POCO };
+    public enum UNIDADES { MILISEGUNDOS, SEGUNDOS, MINUTOS, HORAS }
+
+
+    private String[] D;
+    private String[] L;
+    private String[] M;
     private int ptb;
     private int ptosig;
-    private int semantica;
+    private Semantica semantica;
     private boolean es_referencia = false;
     private int cuantificadorSemantica;
     private int unidadesTemporales = 2;
@@ -55,7 +67,7 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @roseuid 378708190005
      */
     public Restriccion(int ptb, int ptosig, String[] D, String[] L, String[] M,
-                       int sintaxis) {
+          Semantica sintaxis) {
         this.D = D;
         this.L = L;
         this.M = M;
@@ -65,8 +77,7 @@ public class Restriccion implements RestriccionInterface, Serializable {
     }
 
     public Restriccion(int ptb, int ptosig, String[] D, String[] L, String[] M,
-                       int sintaxis,
-                       int cunatificadorSemantica, int unidadesTemporales) {
+          Semantica sintaxis, int cunatificadorSemantica, int unidadesTemporales) {
         this(ptb, ptosig, D, L, M, sintaxis);
         this.cuantificadorSemantica = cunatificadorSemantica;
         this.unidadesTemporales = unidadesTemporales;
@@ -92,7 +103,7 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @return int
      * @roseuid 37870819000F
      */
-    public int getSemantica() {
+    public Semantica getSemantica() {
         return semantica;
     }
 
@@ -100,7 +111,7 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @param i
      * @roseuid 378708190010
      */
-    public void setSintaxis(int i) {
+    public void setSintaxis(Semantica i) {
         semantica = i;
     }
 
@@ -176,6 +187,7 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @return int[]
      * @roseuid 3789C925033F
      */
+    @Override
     public int[] getSintaxisGeneralizada() {
         return null;
     }
@@ -184,14 +196,16 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @param i
      * @roseuid 3789C9250368
      */
+    @Override
     public void setSintaxisGeneralizada(int[] i) {
-
+       // Empty
     }
 
     /**
      * @return String[][]
      * @roseuid 3789C92503AE
      */
+    @Override
     public String[][] getDs() {
         return null;
     }
@@ -200,6 +214,7 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @return String[][]
      * @roseuid 3789C92503CC
      */
+    @Override
     public String[][] getLs() {
         return null;
     }
@@ -208,6 +223,7 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @return String[][]
      * @roseuid 3789C926000C
      */
+    @Override
     public String[][] getMs() {
         return null;
     }
@@ -216,30 +232,34 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @param D
      * @roseuid 3789C926002A
      */
+    @Override
     public void setDs(String[][] D) {
-
+       // Vacio
     }
 
     /**
      * @param L
      * @roseuid 3789C926007A
      */
+    @Override
     public void setLs(String[][] L) {
-
+       // Vacio
     }
 
     /**
      * @param M
      * @roseuid 3789C92600CA
      */
+    @Override
     public void setMs(String[][] M) {
-
+          // Vacio
     }
 
     /**
      * @return int[]
      * @roseuid 3789C9260124
      */
+    @Override
     public int[] getNumerosDePTB() {
         return null;
     }
@@ -249,6 +269,7 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @return Void
      * @roseuid 3789C9260142
      */
+    @Override
     public Void setNumerosDePTB(int[] v_PTB) {
         return null;
     }
@@ -257,6 +278,7 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @return int[]
      * @roseuid 3789C9260192
      */
+    @Override
     public int[] getNumerosDePtoSig() {
         return null;
     }
@@ -266,6 +288,7 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @return Void
      * @roseuid 3789C92601BA
      */
+    @Override
     public Void setNumerosDePtoSig(int[] v_PtoSig) {
         return null;
     }
@@ -274,6 +297,7 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @return float
      * @roseuid 3789C926021F
      */
+    @Override
     public float resolver() {
         return 0;
     }
@@ -282,6 +306,7 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @return Void
      * @roseuid 3789C926023D
      */
+    @Override
     public Void resetCauce() {
         return null;
     }
@@ -326,8 +351,7 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * Se mide en milisegundos
      * @param distanciaTemporalEntrePtoSig
      */
-    public void setDistanciaTemporalEntrePtoSig(int
-                                                distanciaTemporalEntrePtoSig) {
+    public void setDistanciaTemporalEntrePtoSig(int distanciaTemporalEntrePtoSig) {
         this.distanciaTemporalEntrePtoSig = distanciaTemporalEntrePtoSig;
     }
 
@@ -353,10 +377,11 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @param fs
      * @return
      */
-    public String[] getMParaFs(float fs) {
+    public String[] getMParaFs(float fss) {
         //Si es semantica de tubo la multiplicamos por 1000 y putno, no tiene unidades temporales
         //pero para procesrla de modo estandar se divide por 1000 al cargarla
-        if (semantica == Restriccion.SEMANTICA_TUBO_BORROSO) {
+        float fs = fss;
+        if (semantica == Semantica.TUBO_BORROSO) {
             fs = 1;
         }
 
@@ -369,10 +394,12 @@ public class Restriccion implements RestriccionInterface, Serializable {
         return Mfs;
     }
 
+    @Override
     public boolean isRelativaAlNivelBasal() {
         return relativaAlNivelBasal;
     }
 
+    @Override
     public void setRelativaAlNivelBasal(boolean relativaAlNivelBasal) {
         this.relativaAlNivelBasal = relativaAlNivelBasal;
     }

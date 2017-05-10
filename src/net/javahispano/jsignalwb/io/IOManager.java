@@ -17,6 +17,7 @@ import net.javahispano.jsignalwb.ui.SaverExecutionJDialog;
  * modificar las senhales y el resto de la informacion de la sesion de trabajo.
  */
 public class IOManager {
+
     private PluginManager pm;
     private SignalManager sm;
     private File currentFile = null;
@@ -112,14 +113,12 @@ public class IOManager {
      */
     public void saveSignals(File f, String saverName) throws Exception {
         Saver saver;
-        if (sm.getSignalsSize() > 0) {
-            if (pm.isPluginRegistered("saver", saverName)) {
-                saver = pm.getSaver(saverName);
-                if (saver != null) {
-                    // saver.save(f, jswbManager);
-                    new SaverExecutionJDialog(saver, f);
-                }
-            }
+        if (sm.getSignalsSize() > 0 && pm.isPluginRegistered("saver", saverName)) {
+             saver = pm.getSaver(saverName);
+             if (saver != null) {
+                 // saver.save(f, jswbManager);
+                 new SaverExecutionJDialog(saver, f);
+             }
         }
         currentFile = f;
     }
@@ -152,7 +151,9 @@ public class IOManager {
             throw new SessionNotSavedException("Session not saved");
         }
         File f = new File(currentFile.getAbsolutePath(), (p.getName() + ".jpc").trim());
-        f.createNewFile();
+        if(!f.createNewFile()){
+           throw new IOException("No se ha podido crear el fichero");
+        }
         return f;
     }
 

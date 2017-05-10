@@ -3,6 +3,8 @@ package es.usc.gsi.trace.importer.monitorizacion.dataio;
 
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import es.usc.gsi.trace.importer.estadisticos.*;
 import es.usc.gsi.trace.importer.jsignalmonold.SamplesToDate;
@@ -26,13 +28,25 @@ import org.jdom.input.SAXBuilder;
  */
 
 public class CargarDatosXML extends CargarDatos {
+
+    private static final Logger LOGGER = Logger.getLogger(CargarDatosXML.class.getName());
+
     private static final String ATTR_MIN = "Minimo";
     private static final String ATTR_MAX = "Maximo";
+    private static final String ATTR_TIEMPO_INICIO = "TiempoInicio";
+    private static final String ATTR_TIEMPO_FIN = "TiempoFin";
+    private static final String ATTR_TIPO_EVENTO = "TipoEvento";
+    private static final String ATTR_OFFSET = "Offset";
     private static final String ATTR_NOMBRE_SENAL = "NombreSenal";
     private static final String ATTR_FECHA_BASE = "FechaBase";
+    private static final String ATTR_TEXTO = "Texto";
+    private static final String ATTR_COMENTARIO = "Comentario";
+    private static final String ATTR_ATRIBUTO = "Atributo";
     private static final String EL_SENAL = "Senal";
+    private static final String EL_ATRIBUTO = "Atributo";
+//    private static final String ATTR_VALUE_TRUE = "true";
 
-    private byte[] pos_gloabal;
+    private byte[] posGlobal;
 
     public CargarDatosXML(String archivo) throws JDOMException {
         super(archivo);
@@ -51,19 +65,19 @@ public class CargarDatosXML extends CargarDatos {
         try {
             documento = bulder.build(archivo);
         } catch (IOException ex1) {
-            ex1.printStackTrace();
+            LOGGER.log(Level.WARNING, ex1.getMessage(), ex1);
         } catch (JDOMException ex) {
             throw (ex);
         }
         //Obtenemos el elemento raiz, el PTBM, y cojemos sus atributos.
         Element root = documento.getRootElement();
         String fecha_base = root.getAttributeValue(ATTR_FECHA_BASE);
-        String tiene_pos_glogal_string = root.getAttributeValue(
-                "TienePosAsociada");
-        boolean tiene_pos_gloga = false;
-        if (tiene_pos_glogal_string.equals("true")) {
-            tiene_pos_gloga = true;
-        }
+        String tiene_pos_glogal_string = root.getAttributeValue("TienePosAsociada");
+        boolean tiene_pos_glogal = Boolean.parseBoolean(tiene_pos_glogal_string);
+//        boolean tiene_pos_gloga = false;
+//        if ("true".equals(tiene_pos_glogal_string)) {
+//            tiene_pos_gloga = true;
+//        }
 
         String fichero_PTBM = root.getChildText("PTBM");
         //Empleamos un filtro para deshacernos de los nodos de texto
@@ -76,7 +90,7 @@ public class CargarDatosXML extends CargarDatos {
         float[][] datos = new float[num_senales][];
         byte[][] pos = new byte[num_senales][];
         float[][] rango;
-        if (tiene_pos_gloga) {
+        if (tiene_pos_glogal) {
             rango = new float[num_senales + 1][2];
             rango[num_senales][0] = 0;
             rango[num_senales][1] = 100;
@@ -100,7 +114,7 @@ public class CargarDatosXML extends CargarDatos {
         int cont_senal = -1;
         while (it.hasNext()) {
             cont_senal++;
-            Element senal_xml = (Element) it.next();
+            Element senal_xml = it.next();
             nombre_senales[cont_senal] = senal_xml.getAttribute(ATTR_NOMBRE_SENAL).getValue();
             leyenda_temporal[cont_senal] = senal_xml.getAttribute("LeyendaTemporal").getValue();
             leyendas[cont_senal] = senal_xml.getAttribute("Leyenda").getValue();
@@ -111,31 +125,26 @@ public class CargarDatosXML extends CargarDatos {
                                        getFloatValue();
                 fs[cont_senal] = senal_xml.getAttribute("Fs").getFloatValue();
             } catch (DataConversionException ex) {
-                System.out.println(
-                        "Exception de converision en JDOM sin procesar");
+                LOGGER.log(Level.WARNING, "Exception de conversion en JDOM sin procesar", ex);
             }
-            String tien_pos_string = senal_xml.getAttribute(
-                    "TienePosibilidadAsociada").getValue().trim();
-            if (tien_pos_string.equals("true")) {
-                tien_pos_asociada[cont_senal] = true;
-            } else {
-                tien_pos_asociada[cont_senal] = false;
-            }
+            tien_pos_asociada[cont_senal] = senal_xml.getAttribute("TienePosibilidadAsociada").getBooleanValue();
+//            if (tien_pos_string.equals("true")) {
+//                tien_pos_asociada[cont_senal] = true;
+//            } else {
+//                tien_pos_asociada[cont_senal] = false;
+//            }
             //Ahora leemos las marcas de esta senhal
             List<Element> lista_marcas = senal_xml.getChildren("Marca");
             Iterator<Element> it2 = lista_marcas.iterator();
             while (it2.hasNext()) {
-                Element marca_xml = (Element) it2.next();
-                String texto_marca = marca_xml.getAttributeValue("Texto");
-                String comentaio_marca = marca_xml.getAttributeValue(
-                        "Comentario");
+                Element marca_xml = it2.next();
+                String texto_marca = marca_xml.getAttributeValue(ATTR_TEXTO);
+                String comentaio_marca = marca_xml.getAttributeValue(ATTR_COMENTARIO);
                 int timepo_marca = 0;
                 try {
-                    timepo_marca = marca_xml.getAttribute("InstanteInicio").
-                                   getIntValue();
+                    timepo_marca = marca_xml.getAttribute("InstanteInicio").getIntValue();
                 } catch (DataConversionException ex) {
-                    System.out.println(
-                            "Exception de converision en JDOM sin procesar");
+                   LOGGER.log(Level.SEVERE, "Excepcion de conversion de JDOM sin procesar", ex);
                 }
                 Mark marca = new Mark();
                 marca.setTexto(texto_marca);
@@ -150,7 +159,7 @@ public class CargarDatosXML extends CargarDatos {
         nombre_archivo_senal = arcivo_monitorizacion_path +
                                (new File(nombre_archivo_senal)).getName();
         cargaDatos(nombre_archivo_senal, num_senales, tien_pos_asociada, datos,
-                   pos, tiene_pos_gloga);
+                   pos, tiene_pos_glogal);
 
         //Crgamos el PTBM. si no habia ptbm lo ponemos a  null
         PTBMInterface ptbm;
@@ -192,7 +201,7 @@ public class CargarDatosXML extends CargarDatos {
         //Anhadimos al alamcen todos los estadisticos
         Iterator<ResultadosEstadisticos> it2 = estadisticos_list.iterator();
         while (it2.hasNext()) {
-            ResultadosEstadisticos estadsitico = (ResultadosEstadisticos) it2.next();
+            ResultadosEstadisticos estadsitico = it2.next();
             gestor_datos.anadeEstadistico(estadsitico);
         }
 
@@ -201,15 +210,15 @@ public class CargarDatosXML extends CargarDatos {
         //Anhadimos al alamcen todos los estadisticos
         Iterator<ResultadoCorrelacion> it3 = correlaciones_list.iterator();
         while (it3.hasNext()) {
-            ResultadoCorrelacion correlacion = (ResultadoCorrelacion) it3.next();
+            ResultadoCorrelacion correlacion = it3.next();
             gestor_datos.anadeCorrelacion(correlacion);
         }
-        if (pos_gloabal != null) {
+        if (posGlobal != null) {
             //Esto es una chapuza, lo hago para preparar el almacen ara contener una
             //Posibilidad mas
             GestorDatos.getInstancia().setPosibilidadTotal(0,
-                    pos_gloabal.length - 1, (byte) 0);
-            almacen.setPosibilidadTotal(pos_gloabal);
+                    posGlobal.length - 1, (byte) 0);
+            almacen.setPosibilidadTotal(posGlobal);
         }
         almacen.setFechaBase(fecha_base);
         SamplesToDate.getInstancia().setFechaBase(fecha_base);
@@ -217,7 +226,7 @@ public class CargarDatosXML extends CargarDatos {
         //Leemos las senales monitorizadas y las "monitorizamos"
         this.cargaConfiguracion(root);
         //cargamos el cometario:
-        Element cometario_xml = root.getChild("Comentario");
+        Element cometario_xml = root.getChild(ATTR_COMENTARIO);
         if (cometario_xml != null) {
             gestor_datos.setComentario(cometario_xml.getText());
         }
@@ -254,24 +263,23 @@ public class CargarDatosXML extends CargarDatos {
         //Para todas las anotaciones
         while (it.hasNext()) {
             //Obtenemos del nodo XML los componentes de la terapia
-            Element terapia_xml = (Element) it.next();
-            String texto = terapia_xml.getAttribute("Texto").getValue();
-            int tiempo_inicio, tipo_evento, offset, tiempo_fin;
+            Element terapia_xml = it.next();
+            String texto = terapia_xml.getAttribute(ATTR_TEXTO).getValue();
+            int tiempo_inicio;
+            int tipo_evento;
+            int offset;
+            int tiempo_fin;
             try {
-                tiempo_inicio = terapia_xml.getAttribute("TiempoInicio").
-                                getIntValue();
-                tipo_evento = terapia_xml.getAttribute("TipoEvento").
-                              getIntValue();
-                offset = terapia_xml.getAttribute("Offset").getIntValue();
-                tiempo_fin = terapia_xml.getAttribute("TiempoFin").getIntValue();
+                tiempo_inicio = terapia_xml.getAttribute(ATTR_TIEMPO_INICIO).getIntValue();
+                tipo_evento = terapia_xml.getAttribute(ATTR_TIPO_EVENTO).getIntValue();
+                offset = terapia_xml.getAttribute(ATTR_OFFSET).getIntValue();
+                tiempo_fin = terapia_xml.getAttribute(ATTR_TIEMPO_FIN).getIntValue();
             } catch (DataConversionException ex) {
-                System.out.println(
-                        "Excepion de converios numerica de JDOM no procesada");
-                ex.printStackTrace();
+                LOGGER.log(Level.SEVERE, "Excepcion de conversion numerica de JDOM no procesada", ex);
                 //Devolvemos lo que tengamos
                 return resultado;
             }
-            String comentario = terapia_xml.getAttribute("Comentario").getValue();
+            String comentario = terapia_xml.getAttribute(ATTR_COMENTARIO).getValue();
             String nombre_farmaco = terapia_xml.getAttribute("NombreFarmaco").
                                     getValue();
             String fase_terapeutica = terapia_xml.getAttribute(
@@ -309,34 +317,28 @@ public class CargarDatosXML extends CargarDatos {
         while (it.hasNext()) {
             //Obtenemos del nodo XML los componentes de la terapia
             Element diagnostico_xml = it.next();
-            String texto = diagnostico_xml.getAttribute("Texto").getValue();
-            int tiempo_inicio, tipo_evento, offset, tiempo_fin;
+            String texto = diagnostico_xml.getAttribute(ATTR_TEXTO).getValue();
+            int tiempo_inicio;
+            int tipo_evento;
+            int offset;
+            int tiempo_fin;
             try {
-                tiempo_inicio = diagnostico_xml.getAttribute("TiempoInicio").
-                                getIntValue();
-                tipo_evento = diagnostico_xml.getAttribute("TipoEvento").
-                              getIntValue();
-                offset = diagnostico_xml.getAttribute("Offset").getIntValue();
-                tiempo_fin = diagnostico_xml.getAttribute("TiempoFin").
-                             getIntValue();
+                tiempo_inicio = diagnostico_xml.getAttribute(ATTR_TIEMPO_INICIO).getIntValue();
+                tipo_evento = diagnostico_xml.getAttribute(ATTR_TIPO_EVENTO).getIntValue();
+                offset = diagnostico_xml.getAttribute(ATTR_OFFSET).getIntValue();
+                tiempo_fin = diagnostico_xml.getAttribute(ATTR_TIEMPO_FIN).getIntValue();
             } catch (DataConversionException ex) {
-                System.out.println(
-                        "Excepion de converios numerica de JDOM no procesada");
-                ex.printStackTrace();
+                LOGGER.log(Level.SEVERE, "Excepcion de conversion numerica de JDOM no procesada", ex);
                 //Devolvemos lo que tengamos
                 return resultado;
             }
-            String comentario = diagnostico_xml.getAttribute("Comentario").
+            String comentario = diagnostico_xml.getAttribute(ATTR_COMENTARIO).
                                 getValue();
             //Pedimos el elemento de tipo atributo
-            Element atributo_xml = diagnostico_xml.getChild("Atributo");
-            String nobre_atributo = atributo_xml.getAttributeValue("Atributo");
+            Element atributo_xml = diagnostico_xml.getChild(EL_ATRIBUTO);
+            String nombre_atributo = atributo_xml.getAttributeValue(ATTR_ATRIBUTO);
             String valor_atributo = atributo_xml.getAttributeValue("Valor");
-            es.usc.gsi.trace.importer.jsignalmonold.annotations.Attribute
-                    atributo = new
-                               es.usc.gsi.trace.importer.jsignalmonold.
-                               annotations.Attribute(
-                                       nobre_atributo, valor_atributo);
+            Attribute atributo = new Attribute(nombre_atributo, valor_atributo);
             //Creamos el objeto de tipo terapia
             Diagnostic diagnostico = new Diagnostic(texto, atributo);
             diagnostico.setOffset(offset);
@@ -363,37 +365,32 @@ public class CargarDatosXML extends CargarDatos {
         while (it.hasNext()) {
             //Obtenemos del nodo XML los componentes de la terapia
             Element manifestacion_xml = it.next();
-            String texto = manifestacion_xml.getAttribute("Texto").getValue();
-            int tiempo_inicio, tipo_evento, offset, tiempo_fin,
-                    tipo_manifestacion;
+            String texto = manifestacion_xml.getAttribute(ATTR_TEXTO).getValue();
+            int tiempo_inicio;
+            int tipo_evento;
+            int offset;
+            int tiempo_fin;
+            int tipo_manifestacion;
             try {
-                tiempo_inicio = manifestacion_xml.getAttribute("TiempoInicio").
-                                getIntValue();
-                tipo_evento = manifestacion_xml.getAttribute("TipoEvento").
-                              getIntValue();
-                offset = manifestacion_xml.getAttribute("Offset").getIntValue();
-                tiempo_fin = manifestacion_xml.getAttribute("TiempoFin").
-                             getIntValue();
-                tipo_manifestacion = manifestacion_xml.getAttribute(
-                        "TipoManifestacion").getIntValue();
-            } catch (DataConversionException ex) {
-                System.out.println(
-                        "Excepion de converios numerica de JDOM no procesada");
-                ex.printStackTrace();
+                tiempo_inicio = manifestacion_xml.getAttribute(ATTR_TIEMPO_INICIO).getIntValue();
+                tipo_evento = manifestacion_xml.getAttribute(ATTR_TIPO_EVENTO).getIntValue();
+                offset = manifestacion_xml.getAttribute(ATTR_OFFSET).getIntValue();
+                tiempo_fin = manifestacion_xml.getAttribute(ATTR_TIEMPO_FIN).getIntValue();
+                tipo_manifestacion = manifestacion_xml.getAttribute("TipoManifestacion").getIntValue();
+            } catch (DataConversionException e) {
+                LOGGER.log(Level.SEVERE, "Excepcion de conversion numerica de JDOM no procesada", e);
                 //Devolvemos lo que tengamos
                 return resultado;
             }
-            String comentario = manifestacion_xml.getAttribute("Comentario").
-                                getValue();
+            String comentario = manifestacion_xml.getAttribute(ATTR_COMENTARIO).getValue();
             //Pedimos la lsita de elementos de tipo atributo
             @SuppressWarnings("unchecked")
-                List<Element> lista_atributo_xml = manifestacion_xml.getChildren("Atributo");
+                List<Element> lista_atributo_xml = manifestacion_xml.getChildren(EL_ATRIBUTO);
             Iterator<Element> it2 = lista_atributo_xml.iterator();
             LinkedList<Attribute> lista_atributo = new LinkedList<Attribute>();
             while (it2.hasNext()) {
                 Element atributo_xml = it2.next();
-                String nobre_atributo = atributo_xml.getAttributeValue(
-                        "Atributo");
+                String nobre_atributo = atributo_xml.getAttributeValue(ATTR_ATRIBUTO);
                 String valor_atributo = atributo_xml.getAttributeValue("Valor");
                 Attribute atributo = new Attribute(nobre_atributo, valor_atributo);
                 lista_atributo.add(atributo);
@@ -425,8 +422,9 @@ public class CargarDatosXML extends CargarDatos {
                             float[][] datos, byte[][] pos,
                             boolean tiene_pos_gloabal) {
         BufferedReader bf = null;
+        FileReader f = null;
         try {
-            FileReader f = new FileReader(file);
+            f = new FileReader(file);
             bf = new BufferedReader(f);
             File fich = new File(file);
             //Marcasmos el Buffer para poder resetearlo una vez averiguado el numero
@@ -454,7 +452,7 @@ public class CargarDatosXML extends CargarDatos {
             }
             //Y la pos gloablal, si es necesaria
             if (tiene_pos_gloabal) {
-                pos_gloabal = new byte[filas];
+                posGlobal = new byte[filas];
             }
             marcas = new TreeSet[num_senales];
             anotaciones = new TreeSet<Annotation>();
@@ -464,31 +462,28 @@ public class CargarDatosXML extends CargarDatos {
             //reseteamos el buffer
             bf.reset();
             //Contadores de linea y columna
-            int columna = 0, linea = 0;
+            int columna = 0;
+            int linea = 0;
             do {
                 line = bf.readLine();
                 if (line != null) {
                     StringTokenizer tk2 = new StringTokenizer(line, "\t", true);
                     columna = 0;
-                    while (tk2.hasMoreTokens() && !(columna == num_senales)) {
+                    while (tk2.hasMoreTokens() && columna != num_senales) {
                         String dato_fichero = tk2.nextToken();
                         //Si columna es mayor que numero de senhales => estamos leyendo la posibilidad global
                         if (columna == num_senales) {
-                            pos_gloabal[linea] = Byte.parseByte(dato_fichero);
+                            posGlobal[linea] = Byte.parseByte(dato_fichero);
                         }
 
-                        else if (dato_fichero.equals("\t")) {
+                        else if ("\t".equals(dato_fichero)) {
                             datos[columna][linea] = 0;
                         } else {
                             datos[columna][linea] = Float.parseFloat(
                                     dato_fichero);
-                            //Si no estamos en la ultima columna
-                            if (tk2.hasMoreElements()) {
-                                //consuminos el \t adicional
-                                if (!(tk2.nextElement().equals("\t"))) {
-                                    System.out.println(
-                                            "Se esta leyneod mal el fichero de entrada");
-                                }
+                            //Si no estamos en la ultima columna //consuminos el \t adicional
+                            if (tk2.hasMoreElements() && !("\t".equals(tk2.nextElement()))) {
+                               LOGGER.log(Level.WARNING, "Se esta leyendo mal el fichero de entrada");
                             }
                             columna++;
                         }
@@ -496,18 +491,14 @@ public class CargarDatosXML extends CargarDatos {
                         //El primer condicional es porque hemos incrementado columna y puede que ya hallmos acabado.
                         if (tien_pos_asociada[columna - 1]) {
                             dato_fichero = tk2.nextToken();
-                            if (dato_fichero.equals("\t")) {
+                            if ("\t".equals(dato_fichero)) {
                                 //pos[lin][col] = 0;
                             } else {
-                                pos[columna -
-                                        1][linea] = Byte.parseByte(dato_fichero);
+                                pos[columna - 1][linea] = Byte.parseByte(dato_fichero);
                             }
-                            if (tk2.hasMoreElements()) {
-                                //consuminos el \t adicional
-                                if (!(tk2.nextElement().equals("\t"))) {
-                                    System.out.println(
-                                            "Se esta leyneod mal el fichero de entrada");
-                                }
+                            if (tk2.hasMoreElements() && !("\t".equals(tk2.nextElement()))) {
+                                //consumimos el \t adicional
+                               LOGGER.log(Level.WARNING, "Se esta leyendo mal el fichero de entrada");
                             }
                         }
                     }
@@ -515,7 +506,7 @@ public class CargarDatosXML extends CargarDatos {
                     //Si columna es mayor que numero de senhales => estamos leyendo la posibilidad global
                     if (columna == num_senales && tk2.hasMoreTokens()) {
                         String dato_fichero = tk2.nextToken();
-                        pos_gloabal[linea] = Byte.parseByte(dato_fichero);
+                        posGlobal[linea] = Byte.parseByte(dato_fichero);
                     }
                     linea++;
                 }
@@ -523,16 +514,22 @@ public class CargarDatosXML extends CargarDatos {
             } while (line != null);
             bf.close();
 
-            GestorIO gestor_io = GestorIO.getGestorIO();
-            gestor_io.setNumDatos(filas);
-            gestor_io.setNumSenales(columnas);
+            //GestorIO gestor_io = GestorIO.getGestorIO();
+            GestorIO.setNumDatos(filas);
+            GestorIO.setNumSenales(columnas);
 
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            datos = null;
-            pos = null;
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
             marcas = null;
             anotaciones = null;
+        } finally {
+           if (f !=null){
+              try{
+                 f.close();
+              }catch(Exception e){
+                 LOGGER.log(Level.FINER, e.getMessage(), e);
+              }
+           }
         }
     }
 
@@ -544,12 +541,9 @@ public class CargarDatosXML extends CargarDatos {
         while (it.hasNext()) {
             try {
                 Element estadistico_xml = it.next();
-                float media = estadistico_xml.getAttribute("Media").
-                              getFloatValue();
-                float mediana = estadistico_xml.getAttribute("Mediana").
-                                getFloatValue();
-                float varianza = estadistico_xml.getAttribute("Varianza").
-                                 getFloatValue();
+                float media = estadistico_xml.getAttribute("Media").getFloatValue();
+                float mediana = estadistico_xml.getAttribute("Mediana").getFloatValue();
+                float varianza = estadistico_xml.getAttribute("Varianza").getFloatValue();
                 float desviacion_tipica = estadistico_xml.getAttribute(
                         "DesviacionTipica").getFloatValue();
                 float error_estandar = estadistico_xml.getAttribute(
@@ -558,16 +552,14 @@ public class CargarDatosXML extends CargarDatos {
                         "CocienteDeVariacion").getFloatValue();
                 String fecha_inicio = estadistico_xml.getAttribute(
                         "FechaInicio").getValue();
-                String fecha_fin = estadistico_xml.getAttribute("FechaFin").
-                                   getValue();
+                String fecha_fin = estadistico_xml.getAttribute("FechaFin").getValue();
                 String nombre = estadistico_xml.getAttribute("Nombre").getValue();
                 float[] intervalo_de_confianza = new float[2];
                 intervalo_de_confianza[0] = estadistico_xml.getAttribute(
                         "IntervaloDeConfianzaInicio").getFloatValue();
                 intervalo_de_confianza[1] = estadistico_xml.getAttribute(
                         "IntervaloDeConfianzaFin").getFloatValue();
-                String comentario = estadistico_xml.getChild("Comentario").
-                                    getText();
+                String comentario = estadistico_xml.getChild(ATTR_COMENTARIO).getText();
 
                 //Cojemos la lista de percentiles
                 @SuppressWarnings("unchecked")
@@ -579,10 +571,8 @@ public class CargarDatosXML extends CargarDatos {
                 int cuantos_van = 0;
                 while (it2.hasNext()) {
                     Element percentil_xml = it2.next();
-                    percentiles_float[cuantos_van] = percentil_xml.getAttribute(
-                            "Percentil").getIntValue();
-                    valores_percentiles[cuantos_van] = percentil_xml.
-                            getAttribute("ValorPercentil").getFloatValue();
+                    percentiles_float[cuantos_van] = percentil_xml.getAttribute("Percentil").getIntValue();
+                    valores_percentiles[cuantos_van] = percentil_xml.getAttribute("ValorPercentil").getFloatValue();
                     cuantos_van++;
                 }
                 ResultadosEstadisticos estadistico = new ResultadosEstadisticos(
@@ -593,10 +583,10 @@ public class CargarDatosXML extends CargarDatos {
                         valores_percentiles, fecha_inicio, fecha_fin, nombre);
                 estadistico.setComentario(comentario);
                 resultado.add(estadistico);
-            } catch (NotPercentilException ex) {
-                ex.printStackTrace();
-            } catch (DataConversionException ex) {
-                ex.printStackTrace();
+            } catch (NotPercentilException e) {
+               LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            } catch (DataConversionException e) {
+               LOGGER.log(Level.SEVERE, e.getMessage(), e);
             }
         }
         return resultado;
@@ -617,10 +607,10 @@ public class CargarDatosXML extends CargarDatos {
             int count = 0;
             while (it.hasNext()) {
                 try {
-                    senesles_monitorizadas[count] = ((Element) it.next()).
-                            getAttribute("NumeroSenal").getIntValue();
+                    senesles_monitorizadas[count] = it.next().getAttribute("NumeroSenal").getIntValue();
                     count++;
-                } catch (DataConversionException ex) {
+                } catch (DataConversionException e) {
+                   LOGGER.log(Level.SEVERE, e.getMessage(), e);
                 }
             }
             gestor_datos.setSenalesQueSeMonitorizaronLaUltimaVez(
@@ -642,26 +632,16 @@ public class CargarDatosXML extends CargarDatos {
         while (it.hasNext()) {
             try {
                 Element correlacion_xml = it.next();
-                float coef_correlacion = correlacion_xml.getAttribute(
-                        "Correlacion").getFloatValue();
-                int significacion = correlacion_xml.getAttribute(
-                        "Significacion").getIntValue();
-                String nombre_correlacion = correlacion_xml.getAttribute(
-                        "NombreCorrelacion").getValue();
-                String nombre_senhal1 = correlacion_xml.getAttribute(
-                        "NombreSenhal1").getValue();
-                String nombre_senhal2 = correlacion_xml.getAttribute(
-                        "NombreSenhal2").getValue();
-                String fecha_inicio1 = correlacion_xml.getAttribute(
-                        "FechaInicio1").getValue();
-                String fecha_inicio2 = correlacion_xml.getAttribute(
-                        "FechaInicio2").getValue();
-                String fecha_fin1 = correlacion_xml.getAttribute("FechaFin1").
-                                    getValue();
-                String fecha_fin2 = correlacion_xml.getAttribute("FechaFin2").
-                                    getValue();
-                String comentario = correlacion_xml.getChild("Comentario").
-                                    getText();
+                float coef_correlacion = correlacion_xml.getAttribute("Correlacion").getFloatValue();
+                int significacion = correlacion_xml.getAttribute("Significacion").getIntValue();
+                String nombre_correlacion = correlacion_xml.getAttribute("NombreCorrelacion").getValue();
+                String nombre_senhal1 = correlacion_xml.getAttribute("NombreSenhal1").getValue();
+                String nombre_senhal2 = correlacion_xml.getAttribute("NombreSenhal2").getValue();
+                String fecha_inicio1 = correlacion_xml.getAttribute("FechaInicio1").getValue();
+                String fecha_inicio2 = correlacion_xml.getAttribute("FechaInicio2").getValue();
+                String fecha_fin1 = correlacion_xml.getAttribute("FechaFin1").getValue();
+                String fecha_fin2 = correlacion_xml.getAttribute("FechaFin2").getValue();
+                String comentario = correlacion_xml.getChild(ATTR_COMENTARIO).getText();
 
                 ResultadoCorrelacion correlacion = new ResultadoCorrelacion();
                 correlacion.setNombre(nombre_correlacion);
@@ -675,8 +655,8 @@ public class CargarDatosXML extends CargarDatos {
                 correlacion.setNivelDeSignificacion(coef_correlacion);
                 correlacion.setNivelDeSignificacionDiscreto(significacion);
                 resultado.add(correlacion);
-            } catch (DataConversionException ex) {
-                ex.printStackTrace();
+            } catch (DataConversionException e) {
+               LOGGER.log(Level.SEVERE, e.getMessage(), e);
             }
         }
         return resultado;

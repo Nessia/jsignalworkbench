@@ -31,7 +31,14 @@ class ChannelArrowsControlPanel extends javax.swing.JPanel {
     private Cursor cursor;
     private String channelName;
     private JSignalMonitorPanel jsmPanel;
-    private Icon iconUp, iconDown, iconLeft, iconRight, iconUpH, iconDownH, iconLeftH, iconRightH;
+    private Icon iconUp;
+    private Icon iconDown;
+    private Icon iconLeft;
+    private Icon iconRight;
+    private Icon iconUpH;
+    private Icon iconDownH;
+    private Icon iconLeftH;
+    private Icon iconRightH;
 
     /** Creates new form ChannelConfigPanel */
     public ChannelArrowsControlPanel(String channelName, JSignalMonitorPanel jsmPanel) {

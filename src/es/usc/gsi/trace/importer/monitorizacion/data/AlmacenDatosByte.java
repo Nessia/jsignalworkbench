@@ -2,6 +2,7 @@
 
 package es.usc.gsi.trace.importer.monitorizacion.data;
 
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import es.usc.gsi.trace.importer.jsignalmonold.annotations.Annotation;
@@ -14,7 +15,7 @@ public class AlmacenDatosByte extends AlmacenDatos {
      * Atributos
      */
 
-    private byte datos[][];
+    private byte[][] datos;
     //public AlmacenDatos theAlmacenDatos; // nadie estaba utilizando este atributo
 
     /*
@@ -31,8 +32,8 @@ public class AlmacenDatosByte extends AlmacenDatos {
      * @param marcas
      * @param anotaciones
      */
-    public AlmacenDatosByte(byte[][] datos, byte[][] pos,
-                            TreeSet<Annotation> anotaciones, TreeSet<Mark>[] marcas) {
+    public AlmacenDatosByte(byte[][] datos,/* byte[][] pos,*/
+                            SortedSet<Annotation> anotaciones, TreeSet<Mark>[] marcas) {
         super(marcas, anotaciones);
         this.datos = datos;
     }

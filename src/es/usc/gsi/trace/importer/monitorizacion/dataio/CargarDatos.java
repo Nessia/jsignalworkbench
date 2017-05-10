@@ -2,7 +2,7 @@
 
 package es.usc.gsi.trace.importer.monitorizacion.dataio;
 
-import java.util.TreeSet;
+import java.util.SortedSet;
 
 import es.usc.gsi.trace.importer.jsignalmonold.annotations.Annotation;
 import es.usc.gsi.trace.importer.jsignalmonold.annotations.Mark;
@@ -16,12 +16,12 @@ import es.usc.gsi.trace.importer.monitorizacion.data.AlmacenDatos;
  * los devolvera a Fuente de datos como un objeto CargarDatos.
  */
 public abstract class CargarDatos {
-    protected int numero_senales;
+    protected int numeroSenales;
     protected float[][] datos;
-    protected byte pos[][];
+    protected byte[][] pos;
     protected String archivo;
-    protected TreeSet<Mark>[] marcas;
-    protected TreeSet<Annotation> anotaciones;
+    protected SortedSet<Mark>[] marcas;
+    protected SortedSet<Annotation> anotaciones;
     protected AlmacenDatos almacen;
 
     protected CargarDatos() {
@@ -45,7 +45,7 @@ public abstract class CargarDatos {
      * @todo Que devuelva null en la superclase
      * Devuelve las marcas de una determinada senal.
      */
-    protected TreeSet<Mark>[] getMarcas() {
+    protected SortedSet<Mark>[] getMarcas() {
         return marcas;
     }
 
@@ -55,7 +55,7 @@ public abstract class CargarDatos {
      * @todo Que devuelva null en la superclase
      * Devuelve las anotaciones de una determinada senhal.
      */
-    protected TreeSet<Annotation> getAnotaciones() {
+    protected SortedSet<Annotation> getAnotaciones() {
         return anotaciones;
     }
 
@@ -85,18 +85,18 @@ public abstract class CargarDatos {
 //    }
 
     protected int getNumeroSenales() {
-        return numero_senales;
+        return numeroSenales;
     }
 
     protected void setNumeroSenales(int _numero_senales) {
-        numero_senales = _numero_senales;
+        numeroSenales = _numero_senales;
     }
 
     protected AlmacenDatos getAlmacen() {
         return almacen;
     }
 
-    public void setAlmacen(TreeSet<Annotation> anotaciones) {
+    public void setAlmacen(SortedSet<Annotation> anotaciones) {
         this.anotaciones = anotaciones;
     }
 }

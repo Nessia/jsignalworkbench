@@ -1,19 +1,30 @@
 package es.usc.gsi.conversordatosmit.utilidades;
 
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class ParseadorFecha {
 
+
+   private static final Logger LOGGER = Logger.getLogger(ParseadorFecha.class.getName());
 // Argumento con formato de fecha de tipo hispano: dd/mm/yyyy hh:mm:ss
 // Devuelve el numero de segundos desde 1-1-1970
-    private static Locale formatoFechaLocal = new Locale("es", "ES"); // Formato de fecha local a Espanha
-    private static SimpleDateFormat conversorADate = new SimpleDateFormat(
-            "dd/MM/yyyy HH:mm:ss", formatoFechaLocal);
+    private static final Locale FORMATO_FECHA_LOCAL = new Locale("es", "ES"); // Formato de fecha local a Espanha
+    //"dd/MM/yyyy HH:mm:ss"
+    private static final DateFormat CONVERSOR_A_DATE = SimpleDateFormat.getDateTimeInstance(DateFormat.SHORT,
+          DateFormat.MEDIUM, FORMATO_FECHA_LOCAL);
+
+    private ParseadorFecha(){
+       // Esconder constructor
+    }
+
 
 // Devuelve el numero de segundos desde 1-1-1970 00:00:00
     public static long convierteASegundos(String fecha) {
@@ -21,10 +32,10 @@ public class ParseadorFecha {
         long res = 0;
 
         try {
-            Date f = conversorADate.parse(fecha); // Convertimos en un objeto Date
+            Date f = CONVERSOR_A_DATE.parse(fecha); // Convertimos en un objeto Date
             res = f.getTime() / 1000; // Convertimos el tiempo en milisegundos a segundos
         } catch (ParseException e) {
-            System.out.println("Imposible convertir a fecha");
+           LOGGER.log(Level.WARNING, "Imposible convertir a fecha", e);
         }
 
         return res;
@@ -34,28 +45,22 @@ public class ParseadorFecha {
 
     public static String calculaFechaFinal(String fechaInicial,
                                            long segundosASumar) {
-
-        String res = "";
         long fechaInicialSegundos = convierteASegundos(fechaInicial);
         long totalSegundos = fechaInicialSegundos + segundosASumar;
         Date fechaFinal = new Date(totalSegundos * 1000); // Argumento en milisegundos
-        res = conversorADate.format(fechaFinal);
-        return res;
-
+        return CONVERSOR_A_DATE.format(fechaFinal);
     }
 
 
     public static long calculaDiferencia(String fechaInicial, String fechaFinal) {
-
         long res = 0;
         try {
-            Date fInicial = conversorADate.parse(fechaInicial);
-            Date fFinal = conversorADate.parse(fechaFinal);
+            Date fInicial = CONVERSOR_A_DATE.parse(fechaInicial);
+            Date fFinal = CONVERSOR_A_DATE.parse(fechaFinal);
             res = (fFinal.getTime() - fInicial.getTime()) / 1000;
         } catch (ParseException e) {
-            System.out.println("Imposible calcular la diferencia");
+            LOGGER.log(Level.WARNING, "Imposible calcular la diferencia", e);
         }
-
         return res;
 
     }
@@ -74,10 +79,10 @@ public class ParseadorFecha {
         String horaSinMilis = horaParseada[0]; // Hora sin milisegundos
 
         try {
-            Date fFormateada = conversorADate.parse(dia + " " + horaSinMilis);
-            res = conversorADate.format(fFormateada);
+            Date fFormateada = CONVERSOR_A_DATE.parse(dia + " " + horaSinMilis);
+            res = CONVERSOR_A_DATE.format(fFormateada);
         } catch (ParseException e) {
-            System.out.println("Imposible convertir a formato hispano");
+            LOGGER.log(Level.WARNING, "Imposible convertir a formato hispano", e);
         }
 
         return res;
@@ -89,7 +94,7 @@ public class ParseadorFecha {
     public static void verificaFecha(String fecha) throws ParseException {
 
         try {
-            conversorADate.parse(fecha);
+            CONVERSOR_A_DATE.parse(fecha);
         } catch (ParseException e) {
             throw e;
         }

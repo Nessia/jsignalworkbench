@@ -3,7 +3,6 @@
  *
  * Created on 1 de agosto de 2007, 13:59
  */
-
 package net.javahispano.jsignalwb.ui;
 
 import javax.swing.JRadioButtonMenuItem;
@@ -29,16 +28,12 @@ public class JRadioButtonMenuItemAddMarks extends JRadioButtonMenuItem implement
 
     @Override
     public String getActionCommand() {
-        if (isSelected()) {
-            return "true";
-        } else {
-            return "false";
-        }
+       return isSelected()? "true" : "false";
     }
 
     @Override
     public void jSignalMonitorModeActionPerformed(JSignalMonitorModeEvent e) {
-        if (e.getMode() == JSignalMonitorModeEvent.MARK_CREATION) {
+        if (e.getMode() == JSignalMonitorModeEvent.Modo.MARK_CREATION) {
             setSelected(e.getValue());
         }
     }

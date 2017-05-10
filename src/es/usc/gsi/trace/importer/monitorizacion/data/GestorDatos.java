@@ -4,6 +4,8 @@ package es.usc.gsi.trace.importer.monitorizacion.data;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import es.usc.gsi.trace.importer.estadisticos.*;
 import es.usc.gsi.trace.importer.jsignalmonold.SamplesToDate;
@@ -12,43 +14,42 @@ import es.usc.gsi.trace.importer.perfil.PTBMInterface;
 
 public class GestorDatos {
 
-    /**
-     * instance flag attribute
-     * @todo ponerle un tamoan adecuado a los HasMap
-     */
+
+    private static final Logger LOGGER = Logger.getLogger(GestorDatos.class.getName());
     //private static int TIPO_ALMACEN;
-    private static boolean is_tiempo_real = false;
-    private static boolean is_instancia;
+    private static boolean isTiempoReal = false;
+//    private static boolean is_instancia;
     private static GestorDatos instancia;
 
     //private LinkedList manejadoresDeMedidaTerminada = new LinkedList();
-    private int numero_senales_monitorizadas = 0;
+    private int numeroSenalesMonitorizadas = 0;
     private ReferenciaDatos referencias;
 
     private AlmacenDatos almacen;
-    private HashMap<Integer,Integer> mapeaSenalCanal = new HashMap<Integer,Integer>(5, 0.75F);
-    private HashMap<Integer,Integer> mapeaCanalSenal = new HashMap<Integer,Integer>(5, 0.75F);
+    //@TODO ponerle un tamaño adecuado a los HasMap
+    private Map<Integer,Integer> mapeaSenalCanal = new HashMap<Integer,Integer>(5, 0.75F);
+    private Map<Integer,Integer> mapeaCanalSenal = new HashMap<Integer,Integer>(5, 0.75F);
 
-    private boolean esta_guardado = true;
-    private boolean tiene_archivo_asociado = false;
+    private boolean estaGuardado = true;
+    private boolean tieneArchivoAsociado = false;
     //private String archivo;
 
     //Maxima duracion del regisstro como indice
-    private int duracion_total_registro;
+    private int duracionTotalRegistro;
 
     //Seneles que se deben monitorizar (las que se monitorizaron la ultima vez).
-    private int[] senales_que_se_monitorizaron_la_ultima_vez;
+    private int[] senalesQueSeMonitorizaronLaUltimaVez;
     /**
      * default constructor throws exception if the user tries to instantiate more than
      * one instance
      * @throws SingletonException@throws monitorizacion.data.SingletonException
      */
-    public GestorDatos() throws Exception {
-        if (is_instancia) {
-            throw new Exception("Only one instance allowed");
-        } else {
-            is_instancia = true;
-        }
+    private GestorDatos() throws Exception {
+//        if (is_instancia) {
+//            throw new Exception("Only one instance allowed");
+//        } else {
+//            is_instancia = true;
+//        }
     }
 
 
@@ -57,18 +58,16 @@ public class GestorDatos {
      * @param tipo - "int", "short", o "float" segun se requiera.
      * @return monitorizacion.Data.AlmacenDatos
      */
-    public es.usc.gsi.trace.importer.monitorizacion.data.AlmacenDatos
-            getAlmacen() {
+    public AlmacenDatos getAlmacen() {
         return almacen;
     }
 
     /**
      * Devuelve un LikedList con las referencias a todos los canales que se estan
-     * monitorizando.
+     * monitorizando.arq
      * @return LinkedList
-     * @todo vale para algo?
      */
-    public LinkedList<Object> getReferenciasDatos() {
+    public List<Object> getReferenciasDatos() {
         return referencias.getReferencias();
     }
 
@@ -77,9 +76,8 @@ public class GestorDatos {
      * canales que se estan monitorizando. Si no hay posibilidad asociada la lista
      * contendra null.
      * @return LinkedList
-     * @todo vale para algo?
      */
-    public LinkedList<Object> getReferenciasPos() {
+    public List<Object> getReferenciasPos() {
         return referencias.getReferenciaPos();
     }
 
@@ -94,7 +92,6 @@ public class GestorDatos {
     /**
      * Merece la pena implementarlo
      * @param datos
-     * @todo vale para algo?
      */
     public void setDatos(float[][] datos) {
         almacen.setDatos(datos);
@@ -106,13 +103,11 @@ public class GestorDatos {
 
     /**
      * @param pos
-     * @todo vale para algo?
      */
     public void setPos(byte[][] pos) {
         for (int i = 0; i < pos.length; i++) {
             almacen.setPos(i, pos[i]);
         }
-
     }
 
     /**
@@ -139,15 +134,14 @@ public class GestorDatos {
      * @return GestorDatos
      */
     public static GestorDatos getInstancia() {
-        if (is_instancia) {
+        if (instancia != null) {
             return instancia;
         } else {
             try {
                 GestorDatos.instancia = new GestorDatos();
                 return instancia;
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-                ex.printStackTrace();
+                LOGGER.log(Level.WARNING, ex.getMessage(), ex);
                 return null;
             }
 
@@ -163,17 +157,13 @@ public class GestorDatos {
     public Object getData(int num_canal, int primero, int ultimo) {
         int num_datos = ultimo - primero;
         float[] result = new float[num_datos + 1];
-        if (this.getNumeroSenales() >
-            ((Integer) (this.mapeaCanalSenal.get(new Integer(num_canal)))).
-            intValue()) {
+        if (this.getNumeroSenales() > (this.mapeaCanalSenal.get(num_canal)).intValue()) {
             float[] tmp = (float[]) referencias.getReferencias(num_canal);
             for (int i = primero; i <= ultimo; i++) {
                 if (i < tmp.length) {
                     result[i - primero] = tmp[i];
                 } else {
-                    result[i - primero] = almacen.getRango(
-                            ((Integer) (this.mapeaCanalSenal.get(new Integer(
-                                    num_canal)))).intValue())[0];
+                    result[i - primero] = almacen.getRango(this.mapeaCanalSenal.get(num_canal).intValue())[0];
                 }
 
             }
@@ -202,13 +192,9 @@ public class GestorDatos {
         byte[] tmp = null;
         try {
             // if (this.getNumeroSenales() >= num_canal) {
-            if (this.getNumeroSenales() >
-                ((Integer) (this.mapeaCanalSenal.get(new Integer(num_canal)))).
-                intValue()) {
+            if (this.getNumeroSenales() > (this.mapeaCanalSenal.get(num_canal)).intValue()) {
                 // tmp = (byte[])referencias.getReferencias(num_canal-1);
-                tmp = (byte[]) almacen.getPos(((Integer) (this.
-                        mapeaCanalSenal.get
-                        (new Integer(num_canal)))).intValue()); ;
+                tmp = (byte[]) almacen.getPos(this.mapeaCanalSenal.get(num_canal).intValue()); ;
             } else {
                 tmp = this.almacen.getPosibilidadTotal();
             }
@@ -217,7 +203,7 @@ public class GestorDatos {
                 result[i - primero] = tmp[i];
             }
         } catch (Exception ex) {
-
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
         }
 
         if (tmp == null) {
@@ -232,19 +218,17 @@ public class GestorDatos {
      * @param primero
      * @param ultimo
      * @return java.util.LinkedList
-     * @todo implementar
      */
-    public LinkedList<Mark> getMarks(int num_canal, int primero, int ultimo) {
+    public List<Mark> getMarks(int num_canal, int primero, int ultimo) {
         /* if (true) {
             return  new LinkedList();
-          }*/int num_senal = ((Integer)
-                              this.mapeaCanalSenal.get(new Integer(num_canal))).
-                             intValue();
+          }*/
+        int num_senal = (this.mapeaCanalSenal.get(num_canal)).intValue();
         LinkedList<Mark> respuesta = new LinkedList<Mark>();
-        TreeSet<Mark> anotaciones = almacen.getMarcas()[num_senal];
-        if (anotaciones == null) {
-            System.out.println("");
-        }
+        SortedSet<Mark> anotaciones = almacen.getMarcas()[num_senal];
+//        if (anotaciones == null) {
+//            System.out.println("");
+//        }
 
         Mark ev_1 = new Mark(primero);
         Mark ev_2 = new Mark(ultimo + 1);
@@ -262,10 +246,10 @@ public class GestorDatos {
      * @param ultimo
      * @return java.util.LinkedList
      */
-    public LinkedList<Annotation> getAnnotations(int primero, int ultimo) {
+    public List<Annotation> getAnnotations(int primero, int ultimo) {
         LinkedList<Annotation> respuesta = new LinkedList<Annotation>();
         try {
-            TreeSet<Annotation> anotaciones = almacen.getAnotaciones();
+            SortedSet<Annotation> anotaciones = almacen.getAnotaciones();
             Annotation ev_1 = new Annotation(primero);
             Annotation ev_2 = new Annotation(ultimo + 1);
             SortedSet<Annotation> anotaciones_en_rango = anotaciones.subSet(ev_1, ev_2);
@@ -274,26 +258,11 @@ public class GestorDatos {
                 respuesta.add(it.next());
             }
         } catch (Exception ex) {
-
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
         }
 
         return respuesta;
 
-    }
-
-    /**
-     * @param marcas
-     */
-    public void setMarcas(LinkedList<Mark>[] marcas) {
-        // TODO
-    }
-
-    /**
-     * @param anotaciones
-     * @todo vale para algo?
-     */
-    public void setAnotaciones(LinkedList<Annotation> anotaciones) {
-        this.setEstaGuardado(false);
     }
 
     /**
@@ -304,28 +273,25 @@ public class GestorDatos {
      * @param marcas@param tipo_almacen - Indica que tipo de almacen se desea, si de
      * Float, int Shorth o byte.
      */
-    public void setAlmacen(Object datos, byte[][] pos, TreeSet<Annotation> anotaciones,
+    public void setAlmacen(Object datos, byte[][] pos, SortedSet<Annotation> anotaciones,
                            TreeSet<Mark>[] marcas, AlmacenDatos.TIPOS tipo_almacen, PTBMInterface ptbm) {
         switch (tipo_almacen) {
-        case BYTE: {
-            almacen = new AlmacenDatosByte((byte[][]) datos, pos, anotaciones, marcas);
+        case BYTE:
+            almacen = new AlmacenDatosByte((byte[][]) datos, /*pos,*/ anotaciones, marcas);
             //GestorDatos.TIPO_ALMACEN = AlmacenDatos.BYTE;
             break;
-        }
-        case FLOAT: {
-            almacen = new AlmacenDatosFloat((float[][]) datos, pos, anotaciones,
-                                            marcas, ptbm);
-            //GestorDatos.TIPO_ALMACEN = AlmacenDatos.FLOAT;
-            break;
-        }
-        default: {
-            almacen = new AlmacenDatosFloat((float[][]) datos, pos, anotaciones,
-                                            marcas, ptbm);
-            //GestorDatos.TIPO_ALMACEN = AlmacenDatos.FLOAT;
-            break;
-        }
-        }
 
+//        case FLOAT:
+//            almacen = new AlmacenDatosFloat((float[][]) datos, pos, anotaciones, marcas, ptbm);
+//            //GestorDatos.TIPO_ALMACEN = AlmacenDatos.FLOAT;
+//            break;
+
+        default:
+            almacen = new AlmacenDatosFloat((float[][]) datos, pos, anotaciones, marcas, ptbm);
+            //GestorDatos.TIPO_ALMACEN = AlmacenDatos.FLOAT;
+            break;
+
+        }
         referencias = new ReferenciaDatos(almacen);
     }
 
@@ -339,11 +305,6 @@ public class GestorDatos {
         referencias = new ReferenciaDatos(almacen);
     }
 
-    public void setAlmacen(AlmacenDatos almacen, boolean b) {
-        this.almacen = almacen;
-//    referencias = new ReferenciaDatos(almacen);
-    }
-
     /**
      * Contruye el almacen por defecto, de float.
      * @param datos
@@ -351,8 +312,8 @@ public class GestorDatos {
      * @param anotaciones
      * @param marcas
      */
-    public void setAlmacen(float[][] datos, byte[][] pos, TreeSet<Annotation> anotaciones,
-                           TreeSet<Mark>[] marcas, PTBMInterface ptbm) {
+    public void setAlmacen(float[][] datos, byte[][] pos, SortedSet<Annotation> anotaciones,
+          SortedSet<Mark>[] marcas, PTBMInterface ptbm) {
         almacen = new AlmacenDatosFloat(datos, pos, anotaciones, marcas, ptbm);
         referencias = new ReferenciaDatos(almacen);
     }
@@ -361,14 +322,14 @@ public class GestorDatos {
      * @return boolean
      */
     public boolean getTiempoReal() {
-        return is_tiempo_real;
+        return isTiempoReal;
     }
 
     /**
      * @param _is_tiempo_real
      */
-    public void setRealTime(boolean _is_tiempo_real) {
-        is_tiempo_real = _is_tiempo_real;
+    public static void setRealTime(boolean _is_tiempo_real) {
+        isTiempoReal = _is_tiempo_real;
     }
 
     /**
@@ -378,7 +339,6 @@ public class GestorDatos {
         if (this.almacen != null) {
             return almacen.getNumeroSenales();
         }
-
         return 0;
     }
 
@@ -387,8 +347,8 @@ public class GestorDatos {
      * @param posicion
      */
     public void anadeReferencia(int senal, int posicion) {
-        this.mapeaSenalCanal.put(new Integer(senal), new Integer(posicion));
-        this.mapeaCanalSenal.put(new Integer(posicion), new Integer(senal));
+        this.mapeaSenalCanal.put(senal, posicion);
+        this.mapeaCanalSenal.put(posicion, senal);
         referencias.anadeReferencia(senal, posicion);
     }
 
@@ -402,20 +362,16 @@ public class GestorDatos {
         if (almacen.getPosibilidadTotal() != null) {
             int numero_senhales = almacen.getNumeroSenales();
             //Y si esta se esta monitorizando
-            if (this.mapeaSenalCanal.get(new Integer(numero_senhales)) != null) {
-                Integer num_canal = ((Integer)this.mapeaSenalCanal.get(new
-                        Integer(numero_senhales)));
-                Integer new_senal = new Integer(numero_senhales);
-                this.mapeaSenalCanal.remove(new Integer(numero_senhales));
+            if (this.mapeaSenalCanal.get(numero_senhales) != null) {
+                Integer num_canal = this.mapeaSenalCanal.get(numero_senhales);
+                Integer new_senal = numero_senhales;
+                this.mapeaSenalCanal.remove(numero_senhales);
                 this.mapeaSenalCanal.put(new_senal, num_canal);
                 this.mapeaCanalSenal.put(num_canal, new_senal);
                 referencias.eliminaReferencia(num_canal.intValue() - 1);
-                referencias.anadeReferencia(num_canal.intValue(),
-                                            new_senal.intValue());
+                referencias.anadeReferencia(num_canal.intValue(), new_senal.intValue());
             }
-
         }
-
     }
 
 
@@ -425,7 +381,6 @@ public class GestorDatos {
      */
     public void setLeyenda(int senal, String leyendas) {
         almacen.setLeyenda(senal, leyendas);
-
         this.setEstaGuardado(false);
     }
 
@@ -443,8 +398,7 @@ public class GestorDatos {
      * @return String
      */
     public String getNombreSenalDelCanal(int senal) {
-        int canal = ((Integer)this.mapeaCanalSenal.get(new Integer(senal))).
-                    intValue();
+        int canal = this.mapeaCanalSenal.get(senal).intValue();
         return almacen.getNombreSenal(canal) + "\n" + almacen.getLeyenda(canal);
     }
 
@@ -478,9 +432,7 @@ public class GestorDatos {
      * @param int canal
      */
     public Object getPos(int canal) {
-        return this.almacen.getPos(((Integer) (this.mapeaCanalSenal.get
-                                               (new Integer(canal)))).intValue());
-
+        return this.almacen.getPos(this.mapeaCanalSenal.get(canal).intValue());
     }
 
     /**
@@ -488,21 +440,21 @@ public class GestorDatos {
      * @return int
      */
     public Integer getNumeroReferenciaDeSenal(int senal) {
-        return (Integer) mapeaSenalCanal.get(new Integer(senal));
+        return mapeaSenalCanal.get(senal);
     }
 
     /**
      * @return int
      */
     public int getNumeroSenalesMonitorizadas() {
-        return numero_senales_monitorizadas;
+        return numeroSenalesMonitorizadas;
     }
 
     /**
      * @param _numero_senales_monitorizadas
      */
     public void setNumeroSenalesMonitorizadas(int _numero_senales_monitorizadas) {
-        numero_senales_monitorizadas = _numero_senales_monitorizadas;
+        numeroSenalesMonitorizadas = _numero_senales_monitorizadas;
     }
 
     /**
@@ -510,7 +462,7 @@ public class GestorDatos {
      * @param senal
      */
     public int getCanalDeSena(int num_canal) {
-        Integer tmp = (Integer)this.mapeaSenalCanal.get(new Integer(num_canal));
+        Integer tmp = this.mapeaSenalCanal.get(num_canal);
         return tmp.intValue();
     }
 
@@ -520,8 +472,7 @@ public class GestorDatos {
      * @param anotacion
      */
     public void anadMark(int canal, Mark anotacion) {
-        int senal = ((Integer) mapeaCanalSenal.get(new Integer(canal))).
-                    intValue();
+        int senal = mapeaCanalSenal.get(canal).intValue();
         this.almacen.anadeMarca(senal, anotacion);
         this.setEstaGuardado(false);
     }
@@ -532,9 +483,7 @@ public class GestorDatos {
      * @param anotacion
      */
     public void deleteMark(int canal, Mark anotacion) {
-
-        int senal = ((Integer)
-                     this.mapeaCanalSenal.get(new Integer(canal))).intValue();
+        int senal = this.mapeaCanalSenal.get(canal).intValue();
         this.almacen.eliminaMarca(senal, anotacion);
         this.setEstaGuardado(false);
     }
@@ -563,8 +512,7 @@ public class GestorDatos {
         /* if (this.almacen != null) {
             return this.almacen.getEstaGuardado();
          }*/
-        return this.esta_guardado;
-
+        return this.estaGuardado;
     }
 
     /**
@@ -574,9 +522,8 @@ public class GestorDatos {
      * Modifica el estado (Guardado o no gurdado) del almacen de datos actual
      */
     public void setEstaGuardado(boolean _esta_guardado) {
-        esta_guardado = _esta_guardado;
+        estaGuardado = _esta_guardado;
         this.almacen.setEstaGuardado(_esta_guardado);
-
     }
 
     /**
@@ -586,14 +533,14 @@ public class GestorDatos {
         if (this.almacen != null) {
             return this.almacen.getTieneArchivoAsociado();
         }
-        return this.tiene_archivo_asociado;
+        return this.tieneArchivoAsociado;
     }
 
     /**
      * Vale para modificar el indicador de archivo asociado
      */
     public void setTieneArchivoAsociado(boolean _tiene_archivo_asociado) {
-        tiene_archivo_asociado = _tiene_archivo_asociado;
+        tieneArchivoAsociado = _tiene_archivo_asociado;
         this.almacen.setTieneArchivoAsociado(_tiene_archivo_asociado);
     }
 
@@ -661,18 +608,18 @@ public class GestorDatos {
      * El parametro devuelto es un array indicando para cada instante temporal la posibilidad
      * entre 0 y 100 de la ocurrencia de un determinado evento
      * @return
-     * @todo un pocio chapuza la forma de elegir el tamanho del vector de posibilidades
-     * @todo ponerle una leyenda temporal a la posibilidad en caso de que no todas xsean iguales
+     * @todo un poco chapuza la forma de elegir el tamanho del vector de posibilidades
+     * @todo ponerle una leyenda temporal a la posibilidad en caso de que no todas sean iguales
      */
     public void setPosibilidadTotal(int primero, int ultimo, byte pos) {
         if (this.almacen.getPosibilidadTotal() == null) {
             this.almacen.setPosibilidadTotal(new byte[this.getNumeroDatos(0)]);
         }
         if (almacen.getNumeroSenales() + 1 > almacen.getMarcas().length) {
-            TreeSet<Mark>[] marcas = almacen.getMarcas();
+            SortedSet<Mark>[] marcas = almacen.getMarcas();
             int num_senales = marcas.length + 1;
             @SuppressWarnings("unchecked")
-            TreeSet<Mark>[] marcas_new = new TreeSet[num_senales];
+            SortedSet<Mark>[] marcas_new = new TreeSet[num_senales];
             String[] leyendas = new String[num_senales];
             String[] nombres = new String[num_senales];
             String[] leyendas_temporales = new String[num_senales];
@@ -695,7 +642,7 @@ public class GestorDatos {
             almacen.setLeyendas(leyendas);
             almacen.setNombreSenales(nombres);
             almacen.setLeyendaTemporal(leyendas_temporales);
-            almacen.setFS(fs);
+            almacen.setFs(fs);
         }
         byte[] tmp = this.almacen.getPosibilidadTotal();
         for (int i = primero; i < ultimo; i++) {
@@ -710,12 +657,9 @@ public class GestorDatos {
      * almacen de datos asociado.
      */
     public static void eliminaGestorDatos() {
-        //instancia = null;
-        //is_instancia = false;
         instancia.almacen = null;
-        instancia.numero_senales_monitorizadas = 0;
-        //instancia.archivo = null;
-        instancia.esta_guardado = true;
+        instancia.numeroSenalesMonitorizadas = 0;
+        instancia.estaGuardado = true;
     }
 
     /**
@@ -735,13 +679,6 @@ public class GestorDatos {
         SamplesToDate.getInstancia().setFechaBase(_fecha_base);
         this.setEstaGuardado(false);
     }
-
-
-    /**
-     * Metodos del mogollon
-     * @return
-     */
-
 
     public String getNombrePaciente() {
         return almacen.getNombrePaciente();
@@ -797,7 +734,7 @@ public class GestorDatos {
      * @param fs
      */
     public void setFs(float[] fs) {
-        almacen.setFS(fs);
+        almacen.setFs(fs);
     }
 
     /**
@@ -817,11 +754,8 @@ public class GestorDatos {
      * @param fs
      */
     public void setFsSenal(int num_senal, float fs) {
-
         almacen.setFs(fs, num_senal);
-
         this.setEstaGuardado(false);
-
     }
 
 
@@ -844,16 +778,16 @@ public class GestorDatos {
     }
 
     public void setMaximaDuracionDelRegistro(int i) {
-        this.duracion_total_registro = i;
+        this.duracionTotalRegistro = i;
     }
 
     public int getMaximaDuracionDelRegistro() {
-        return duracion_total_registro;
+        return duracionTotalRegistro;
     }
 
     /**
      * anhade una nueva senhal al almacen de datos
-     * @todo: supone que el almacen de datos el float. No deviera serlo necesariamente.
+     * @todo: supone que el almacen de datos el float. No debiera serlo necesariamente.
      * @param nueva_senal
      * @param nombre
      * @param leyenda
@@ -953,11 +887,10 @@ public class GestorDatos {
      * @return
      */
     public Collection<ResultadosEstadisticos> getEstadisticos() {
-        if (almacen != null) {
-            return almacen.getEstadisticos();
-        } else {
-            return null;
+        if (almacen == null) {
+           return null;
         }
+        return almacen.getEstadisticos();
     }
 
     /**
@@ -967,11 +900,10 @@ public class GestorDatos {
      * @return
      */
     public Collection<ResultadoCorrelacion> getCorrelaciones() {
-        if (almacen != null) {
-            return almacen.getCorrelaciones();
-        } else {
+        if (almacen == null) {
             return null;
         }
+        return almacen.getCorrelaciones();
     }
 
     /**
@@ -980,11 +912,10 @@ public class GestorDatos {
      * @return
      */
     public ResultadosEstadisticos getEstadistico(String estadistico) {
-        if (almacen != null) {
-            return almacen.getEstadistico(estadistico);
-        } else {
-            return null;
+        if (almacen == null) {
+           return null;
         }
+        return almacen.getEstadistico(estadistico);
     }
 
     /**
@@ -1003,7 +934,6 @@ public class GestorDatos {
     /**
      * Devuelve un array con los indices de la senhales que se estan monitorizando en este momento.
      * @return
-     * @todo: Leer la nota de abajo
      */
     @SuppressWarnings("unchecked")
     public int[] getSenalesMonitorizadas() {
@@ -1013,12 +943,9 @@ public class GestorDatos {
         //Si hay tres canales y eliminamos uno sigue habiendo tres objetos de mapeos.
         for (int i = 0; i < senales_monitorizadas.length &&
                      i < this.getNumeroSenalesMonitorizadas(); i++) {
-            senales_monitorizadas[i] = ((Integer) ((Map.Entry<Integer,Integer>) (senales_object[i])).getValue()).intValue();
+            senales_monitorizadas[i] = (((Map.Entry<Integer,Integer>) (senales_object[i])).getValue()).intValue();
         }
         //     senales_monitorizadas[i] = ((Integer)((HashMap.Entry)(senales_object[i])).getValue()).intValue();
-
-
-
         return senales_monitorizadas;
     }
 
@@ -1027,7 +954,7 @@ public class GestorDatos {
      * @return
      */
     public int[] getSenalesQueSeMonitorizaronLaUltimaVez() {
-        return senales_que_se_monitorizaron_la_ultima_vez;
+        return senalesQueSeMonitorizaronLaUltimaVez;
     }
 
     /**
@@ -1036,7 +963,7 @@ public class GestorDatos {
      */
     public void setSenalesQueSeMonitorizaronLaUltimaVez(int[]
             _senales_que_se_monitorizaron_la_ultima_vez) {
-        senales_que_se_monitorizaron_la_ultima_vez =
+        senalesQueSeMonitorizaronLaUltimaVez =
                 _senales_que_se_monitorizaron_la_ultima_vez;
     }
 
@@ -1048,7 +975,7 @@ public class GestorDatos {
         int numSenales = this.getNumeroSenales();
         int nuevaLongitudMaxima = 0;
         for (int i = 0; i < numSenales; i++) {
-            float nuvosDatos[] = Remuestrea.elimina0Finales((float[])this.
+            float[] nuvosDatos = Remuestrea.elimina0Finales((float[])this.
                     getDatos(i));
             nuevaLongitudMaxima = Math.max(nuevaLongitudMaxima,
                                            nuvosDatos.length);
@@ -1059,7 +986,7 @@ public class GestorDatos {
                 continue;
             }
 
-            byte pos[] = (byte[])this.getPos(i);
+            byte[] pos = (byte[])this.getPos(i);
             byte[] nuevaPos = new byte[nuvosDatos.length];
             for (int j = 0; j < nuevaPos.length; j++) {
                 nuevaPos[j] = pos[j];
@@ -1079,16 +1006,6 @@ public class GestorDatos {
         //Esto tambien cambia el tamanho del monitor
         this.setMaximaDuracionDelRegistro(nuevaLongitudMaxima);
 
-    }
-
-    /**
-     * No lo necesitamos, nunca funcuonamos en timepo real
-     * getTotaNumberOfData
-     *
-     * @return int
-     */
-    public int getTotaNumberOfData() {
-        return 0;
     }
 
 }

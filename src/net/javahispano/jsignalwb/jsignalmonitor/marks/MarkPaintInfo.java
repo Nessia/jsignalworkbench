@@ -61,7 +61,7 @@ public class MarkPaintInfo {
     }
 
     public boolean equals(MarkPaintInfo mpi) {
-        if (mpi.getPoint().x == point.x &&
+        return (mpi.getPoint().x == point.x &&
             mpi.getPoint().y == point.y &&
             mpi.getStartValue().x == startValue.x &&
             mpi.getStartValue().y == startValue.y &&
@@ -70,10 +70,7 @@ public class MarkPaintInfo {
             mpi.getMaxValueY() == maxValueY &&
             mpi.getMinValueY() == minValueY &&
             mpi.getHeight() == height &&
-            mpi.getWidth() == width) {
-            return true;
-        }
-        return false;
+            mpi.getWidth() == width);
     }
 
 }

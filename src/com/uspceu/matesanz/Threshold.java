@@ -21,7 +21,7 @@ public class Threshold {
         }
 
         Arrays.sort(datosOrdenados);
-        int aux = (int) datosOrdenados.length / 4;
+        int aux = datosOrdenados.length / 4;
         quartil1 = datosOrdenados[aux];
         mediana = datosOrdenados[aux * 2];
         quartil3 = datosOrdenados[aux * 3];

@@ -41,8 +41,8 @@ public abstract class AlmacenDatos implements Serializable {
     protected String[] nombreSenales;
     protected String[] leyendaTemporal;
     protected AlmacenDatosByte almacenPos;
-    protected TreeSet<Mark>[] marcas;
-    protected TreeSet<Annotation> anotaciones;
+    protected SortedSet<Mark>[] marcas;
+    protected SortedSet<Annotation> anotaciones;
     protected byte[] posTotal;
     protected String fechaBase;
 
@@ -93,7 +93,7 @@ public abstract class AlmacenDatos implements Serializable {
 //    }
 
     public AlmacenDatos(TreeSet<Mark>[] marcas,
-            TreeSet<Annotation> anotaciones) {
+            SortedSet<Annotation> anotaciones) {
         this.anotaciones = anotaciones;
         this.marcas = marcas;
     }
@@ -167,7 +167,6 @@ public abstract class AlmacenDatos implements Serializable {
     /**
      * @param senal - Datos del array i, es decir la senhal i.
      * @return Object
-     * @todo cerciorarse de que funciona
      */
     public void setPos(int senal, byte[] pos) {
         almacenPos.setPos(senal, pos);
@@ -199,12 +198,12 @@ public abstract class AlmacenDatos implements Serializable {
     /**
      * @return LinkedList[]
      */
-    public TreeSet<Mark>[] getMarcas() {
+    public SortedSet<Mark>[] getMarcas() {
         return marcas;
     }
 
 
-    public void setMarcas(TreeSet<Mark>[] marcas) {
+    public void setMarcas(SortedSet<Mark>[] marcas) {
         this.marcas = marcas;
     }
 
@@ -212,7 +211,7 @@ public abstract class AlmacenDatos implements Serializable {
     /**
      * @return TreeSet<Annotation>
      */
-    public TreeSet<Annotation> getAnotaciones() {
+    public SortedSet<Annotation> getAnotaciones() {
         return anotaciones;
     }
 
@@ -223,9 +222,7 @@ public abstract class AlmacenDatos implements Serializable {
      */
     public float[] getRango(int senal) {
         if (rangosSenales.length <= senal) {
-            float[] f = {
-                        0, 100};
-            return f;
+            return new float[]{ 0, 100};
         }
         return rangosSenales[senal];
     }
@@ -251,14 +248,9 @@ public abstract class AlmacenDatos implements Serializable {
 
     /**
      * @param senal
-     * @return String[]
-     * @todo cutrada
+     * @return String
      */
     public String getLeyenda(int senal) {
-        /*   if (this.numero_senales == senal) {
-            String[] tmp = {"W","W","W"};
-         return tmp;
-             }*/
         return leyendas[senal];
     }
 
@@ -275,13 +267,8 @@ public abstract class AlmacenDatos implements Serializable {
     /**
      * @param senal
      * @return String
-     * @todo cutrada
      */
     public String getNombreSenal(int senal) {
-        /*    if (this.numero_senales == senal) {
-              return "Posibilidad";
-            }*/
-
         return this.nombreSenales[senal];
     }
 
@@ -299,12 +286,8 @@ public abstract class AlmacenDatos implements Serializable {
     /**
      * @param senal
      * @return String
-     * @todo cutrada
      */
     public String getLeyendaTemporal(int senal) {
-        /*       if (this.numero_senales == senal) {
-             return "Posibilidad";
-           }*/
         return this.leyendaTemporal[senal];
     }
 
@@ -413,7 +396,7 @@ public abstract class AlmacenDatos implements Serializable {
     }
 
 
-    protected void setFS(float[] _nombre_senales) {
+    protected void setFs(float[] _nombre_senales) {
         this.fs = _nombre_senales;
     }
 
@@ -509,13 +492,9 @@ public abstract class AlmacenDatos implements Serializable {
         float[][] rango_tmp = new float[nueva_num_senales /*+ 1*/][2];
         String[] leyendas_tmp = new String[nueva_num_senales];
         @SuppressWarnings("unchecked")
-        TreeSet<Mark>[] marcas_tmp = new TreeSet[nueva_num_senales];
+        SortedSet<Mark>[] marcas_tmp = new TreeSet[nueva_num_senales];
         boolean[] tienePosAsociada_tmp = null;
-        if (posTotal == null) {
-            tienePosAsociada_tmp = new boolean[nueva_num_senales];
-        } else {
-            tienePosAsociada_tmp = new boolean[nueva_num_senales];
-        }
+        tienePosAsociada_tmp = new boolean[nueva_num_senales];
 
         String[] leyenda_temporal_tmp = new String[nueva_num_senales];
         //Si hay posibilida total
@@ -590,7 +569,7 @@ public abstract class AlmacenDatos implements Serializable {
                                            1];
         String[] leyendsd_tmp = new String[leyendas.length - 1];
         @SuppressWarnings("unchecked")
-        TreeSet<Mark>[] marcas_tmp = new TreeSet[marcas.length - 1];
+        SortedSet<Mark>[] marcas_tmp = new TreeSet[marcas.length - 1];
         boolean[] pos_tmp = new boolean[tienePosAsociada.length - 1];
         int cout = 0;
         int num_senales = rangosSenales.length;
@@ -639,7 +618,7 @@ public abstract class AlmacenDatos implements Serializable {
      *
      * @param tmp
      */
-    public void setAnotaciones(TreeSet<Annotation> anotaciones) {
+    public void setAnotaciones(SortedSet<Annotation> anotaciones) {
         this.anotaciones = anotaciones;
     }
 
@@ -669,10 +648,7 @@ public abstract class AlmacenDatos implements Serializable {
      * @return
      */
     boolean eliminaEstadistico(String estadistico) {
-        if (estadisticos.remove(estadistico) != null) {
-            return true;
-        }
-        return false;
+        return (estadisticos.remove(estadistico) != null) ;
     }
 
 
@@ -682,10 +658,7 @@ public abstract class AlmacenDatos implements Serializable {
      * @return
      */
     boolean eliminaCorrelacion(ResultadoCorrelacion correlacion) {
-        if (correlaciones.remove(correlacion.getKey()) != null) {
-            return true;
-        }
-        return false;
+        return (correlaciones.remove(correlacion.getKey()) != null) ;
     }
 
 
@@ -695,10 +668,7 @@ public abstract class AlmacenDatos implements Serializable {
      * @return
      */
     boolean eliminaCorrelacion(String correlacion) {
-        if (correlaciones.remove(correlacion) != null) {
-            return true;
-        }
-        return false;
+        return (correlaciones.remove(correlacion) != null) ;
     }
 
     /**
@@ -739,12 +709,12 @@ public abstract class AlmacenDatos implements Serializable {
      * @return
      */
     protected ResultadosEstadisticos getEstadistico(String estadistico) {
-        return ((ResultadosEstadisticos) estadisticos.get(estadistico));
+        return estadisticos.get(estadistico);
     }
 
 
     protected ResultadoCorrelacion getCorrelacion(String correlacion) {
-        return ((ResultadoCorrelacion) correlaciones.get(correlacion));
+        return correlaciones.get(correlacion);
     }
 
 

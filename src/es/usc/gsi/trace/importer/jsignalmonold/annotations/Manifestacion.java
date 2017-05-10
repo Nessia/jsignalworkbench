@@ -1,6 +1,6 @@
 package es.usc.gsi.trace.importer.jsignalmonold.annotations;
 
-import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -15,17 +15,17 @@ public class Manifestacion extends Annotation {
      */
     private static final long serialVersionUID = -1269831574909541649L;
 
-    private LinkedList<Attribute> atributos;
+    private List<Attribute> atributos;
     private int tipoManifestacion;
     public static final int SINTOMA = 1;
     public static final int SIGNO = 2;
     public static final int TEST = 3;
     public static final int SENAL = 4;
-    public Attribute theAtributo[];
+    public Attribute[] theAtributo;
 
     public Manifestacion(String nombre, String comentario,
                          int tipo_manifestacion,
-                         LinkedList<Attribute> atributos) {
+                         List<Attribute> atributos) {
         this.texto = nombre;
         this.tipoManifestacion = tipo_manifestacion;
         this.atributos = atributos;
@@ -36,7 +36,7 @@ public class Manifestacion extends Annotation {
     /**
      * @return java.util.LinkedList
      */
-    public LinkedList<Attribute> getAtributos() {
+    public List<Attribute> getAtributos() {
         return this.atributos;
     }
 

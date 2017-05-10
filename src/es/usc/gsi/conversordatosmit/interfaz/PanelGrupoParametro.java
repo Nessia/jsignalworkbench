@@ -8,8 +8,7 @@ import javax.swing.*;
 
 import es.usc.gsi.conversordatosmit.ficheros.Parametro;
 
-public class PanelGrupoParametro extends JPanel implements ActionListener,
-        ItemListener {
+public class PanelGrupoParametro extends JPanel implements ActionListener, ItemListener {
 
     /**
     *

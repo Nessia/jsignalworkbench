@@ -2,11 +2,11 @@
 package com.sequencing;
 
 class Pico {
-    
+
     int maximo;
     int posicion;
     char base;
-    
+
     public static final Pico DUMMY_PICO = new Pico(Integer.MIN_VALUE, Integer.MIN_VALUE, 'o');
 
     Pico(int posicion, int maximo, char base) {
@@ -41,7 +41,7 @@ class Pico {
 
     @Override
     public String toString() {
-        return  "" + base ;
+        return Character.toString(base);
     }
-    
+
 }

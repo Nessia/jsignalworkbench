@@ -5,6 +5,8 @@ package es.usc.gsi.trace.importer.monitorizacion.dataio;
 import java.io.*;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import es.usc.gsi.trace.importer.jsignalmonold.annotations.Annotation;
 import es.usc.gsi.trace.importer.jsignalmonold.annotations.Mark;
@@ -14,6 +16,9 @@ import es.usc.gsi.trace.importer.jsignalmonold.annotations.Mark;
  * Strings organizados en columnas y seprados por tabulaciones.
  */
 public class CargarDatosTxt extends CargarDatos {
+
+
+    private static final Logger LOGGER = Logger.getLogger(CargarDatosTxt.class.getName());
 
     public CargarDatosTxt(String archivo) {
         super(archivo);
@@ -61,7 +66,8 @@ public class CargarDatosTxt extends CargarDatos {
             //reseteamos el buffer
             bf.reset();
             //Contadores de linea y columna
-            int lin = 0, col = 0;
+            int lin = 0;
+            int col = 0;
             do {
                 line = bf.readLine();
                 if (line != null) {
@@ -69,7 +75,7 @@ public class CargarDatosTxt extends CargarDatos {
                     lin = 0;
                     while (tk2.hasMoreTokens()) {
                         String dato_fichero = tk2.nextToken();
-                        if (dato_fichero.equals("\t")) {
+                        if ("\t".equals(dato_fichero)) {
                             datos[lin][col] = 0;
                             lin++;
                             /*  //Si la primera columna es la que falta el dtao = \t 21 \t 23 \t...
@@ -87,8 +93,7 @@ public class CargarDatosTxt extends CargarDatos {
                             if (tk2.hasMoreElements()) {
                                 //consuminos el \t adicional
                                 String ultimo_token = tk2.nextToken();
-                                if (!(ultimo_token.equals("\t") ||
-                                      ultimo_token.equals(" "))) {
+                                if (!("\t".equals(ultimo_token) || " ".equals(ultimo_token))) {
                                 }
                             }
                             lin++;
@@ -97,12 +102,11 @@ public class CargarDatosTxt extends CargarDatos {
                     col++;
                 }
             } while (line != null);
-            GestorIO gestor_io = GestorIO.getGestorIO();
-            gestor_io.setNumDatos(filas);
-            gestor_io.setNumSenales(columnas);
+            GestorIO.setNumDatos(filas);
+            GestorIO.setNumSenales(columnas);
 
         } catch (IOException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             datos = null;
             pos = null;
             marcas = null;
@@ -111,7 +115,9 @@ public class CargarDatosTxt extends CargarDatos {
             if(bf != null){
                 try {
                     bf.close();
-                } catch (IOException e) {}
+                } catch (IOException ex) {
+                   LOGGER.log(Level.FINER, ex.getMessage(), ex);
+                }
             }
         }
 

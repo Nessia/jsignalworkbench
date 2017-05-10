@@ -1,17 +1,5 @@
-/*
- * JSignalMonitor.java
- *
- * Created on 13 de abril de 2007, 11:16
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
-
-
 package net.javahispano.jsignalwb.jsignalmonitor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.javahispano.jsignalwb.jsignalmonitor.marks.JSignalMonitorAnnotation;
@@ -125,7 +113,7 @@ public interface JSignalMonitorDataSource {
 
     public List<String> getAvailableKindsOfIntervalAnnotations();
 
-    public ArrayList<String> getAvailableCategoriesOfAnnotations();
+    public List<String> getAvailableCategoriesOfAnnotations();
 
     /**
      * Notifica al {@link JSignalMonitorDataSource} de que el usuario ha

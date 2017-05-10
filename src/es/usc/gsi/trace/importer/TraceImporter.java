@@ -2,6 +2,8 @@ package es.usc.gsi.trace.importer;
 
 import java.io.File;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.Icon;
 
@@ -25,9 +27,12 @@ import net.javahispano.jsignalwb.plugins.LoaderAdapter;
  */
 public class TraceImporter extends LoaderAdapter {
 
+    private static final Logger LOGGER = Logger.getLogger(TraceImporter.class.getName());
+
+
     @Override
-    public ArrayList<String> getAvalaibleExtensions() {
-        ArrayList<String> l = new ArrayList<String>();
+    public List<String> getAvalaibleExtensions() {
+        List<String> l = new ArrayList<String>();
         l.add("mon");
         return l;
     }
@@ -60,9 +65,9 @@ public class TraceImporter extends LoaderAdapter {
     @Override
     public boolean load(File file) throws
             Exception {
-        GestorIO gestor_io = GestorIO.getGestorIO();
+        //GestorIO gestorIO = GestorIO.getGestorIO();
         String name = file.getPath();
-        boolean hubo_exito = gestor_io.cargarDatos(name, true);
+        boolean hubo_exito = GestorIO.cargarDatos(name, true);
         //int num_datos = gestor_io.getNumDatos();
         if (name.endsWith(".mon") && hubo_exito) {
             GestorDatos gestorDatos = GestorDatos.getInstancia();
@@ -74,7 +79,7 @@ public class TraceImporter extends LoaderAdapter {
             long fecha = obtenerFecha(gestorDatos.getFechaBase());
 
             //la fecha que le ponemos al registro
-            System.out.println((new Date(fecha)).toString());
+            LOGGER.log(Level.INFO, "%s", (new Date(fecha)).toString());
 
             for (int i = 0; i < numeroSenales; i++) {
                 String unidades = gestorDatos.getAlmacen().getLeyenda(i);
@@ -94,23 +99,27 @@ public class TraceImporter extends LoaderAdapter {
         String diaMesAno = tk.nextToken();
         SamplesToDate.getInstancia().setFechaBase(new Date(0));
         tk = new StringTokenizer(horaMinSeg, ":", false);
-        int hora = 0, minutos = 0, segundos = 0;
+        int hora = 0;
+        int minutos = 0;
+        int segundos = 0;
         try {
             hora = Integer.parseInt(tk.nextToken());
             minutos = Integer.parseInt(tk.nextToken());
             segundos = Integer.parseInt(tk.nextToken());
         } catch (NumberFormatException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             return 0;
         }
         tk = new StringTokenizer(diaMesAno, "/", false);
-        int ano = 0, mes = 0, dia = 0;
+        int ano = 0;
+        int mes = 0;
+        int dia = 0;
         try {
             dia = Integer.parseInt(tk.nextToken());
             mes = Integer.parseInt(tk.nextToken());
             ano = Integer.parseInt(tk.nextToken());
         } catch (NumberFormatException ex) {
-            ex.printStackTrace();
+           LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             return 0;
         }
 

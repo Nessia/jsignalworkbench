@@ -8,13 +8,15 @@ public class FiltroExportar extends FileFilter {
 
     @Override
     public boolean accept(File f) {
-        if (f.isDirectory()) {
-            return true;
-        }
-        if (f.getName().indexOf(".txt") == -1) {
-            return false;
-        }
-        return true;
+//        if (f.isDirectory()) {
+//            return true;
+//        }
+//        if (f.getName().indexOf(".txt") == -1) {
+//            return false;
+//        }
+//        return true;
+
+       return f.isDirectory() || f.getName().indexOf(".txt") != -1;
 
     }
 

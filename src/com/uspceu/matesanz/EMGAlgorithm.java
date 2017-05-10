@@ -22,7 +22,7 @@ public class EMGAlgorithm extends SimpleAlgorithm {
 
        Threshold tsenal = new Threshold(datos);
         //CUADRADO SENAL
-        float newData[] = new float[datos.length];
+        float[] newData = new float[datos.length];
         for (int i = 1; i < datos.length; i++) {
             newData[i] = (datos[i] - tsenal.mediana) * (datos[i] - tsenal.mediana);
         }
@@ -68,7 +68,7 @@ public class EMGAlgorithm extends SimpleAlgorithm {
         //Maquina de estados
         for (int i = 0; i < potenciaPromedioEnVentana.length; i++) {
 
-            maquina.funcionaMaquina(potenciaPromedioEnVentana[i],desplazamientoVentana);
+            maquina.funcionaMaquina(potenciaPromedioEnVentana[i]/*, desplazamientoVentana*/);
             if (maquina.estadoMaquina == Estados.NO_ACTIVIDAD) {
                 actividad[i] = 0;
             }

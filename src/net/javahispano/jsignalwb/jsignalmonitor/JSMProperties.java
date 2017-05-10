@@ -173,7 +173,7 @@ public class JSMProperties {
 
     public void setRepresentingValues(boolean representingValues) {
         this.representingValues = representingValues;
-        fireJSignalMonitorModeAction(new JSignalMonitorModeEvent(JSignalMonitorModeEvent.REPRESENT_XY_VALUES,
+        fireJSignalMonitorModeAction(new JSignalMonitorModeEvent(JSignalMonitorModeEvent.Modo.REPRESENT_XY_VALUES,
                 representingValues));
     }
 
@@ -195,7 +195,7 @@ public class JSMProperties {
 
     public void setIntervalSelection(boolean intervalSelection) {
         this.intervalSelection = intervalSelection;
-        fireJSignalMonitorModeAction(new JSignalMonitorModeEvent(JSignalMonitorModeEvent.INTERVAL_SELECTION,
+        fireJSignalMonitorModeAction(new JSignalMonitorModeEvent(JSignalMonitorModeEvent.Modo.INTERVAL_SELECTION,
                 intervalSelection));
     }
 
@@ -222,7 +222,7 @@ public class JSMProperties {
     public void setMarkCreation(boolean markCreation) {
         this.markCreation = markCreation;
         this.setIntervalSelection(false);
-        fireJSignalMonitorModeAction(new JSignalMonitorModeEvent(JSignalMonitorModeEvent.MARK_CREATION, markCreation));
+        fireJSignalMonitorModeAction(new JSignalMonitorModeEvent(JSignalMonitorModeEvent.Modo.MARK_CREATION, markCreation));
     }
 
     public LeftPanelConfiguration getLeftPanelConfiguration() {

@@ -15,6 +15,9 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import net.javahispano.jsignalwb.*;
 
 /**
@@ -22,7 +25,9 @@ import net.javahispano.jsignalwb.*;
  * @author Roman
  */
 class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
-    /**
+
+    private static final Logger LOGGER = Logger.getLogger(ChannelInfoPanel.class.getName());
+   /**
      *
      */
     private static final long serialVersionUID = 3148375794925039069L;
@@ -38,14 +43,20 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
     private JLabel value;
     private JPanel arrows;
     private JLabel configure;
-    private JLabel configureArrows;
+    private JLabel labelDown = new JLabel();
+    private JLabel labelUp = new JLabel();
+//    private JLabel configureArrows;
     private LeftPanelConfiguration configuration;
-    private ImageIcon icon, iconH;
+    private ImageIcon icon;
+    private ImageIcon iconH;
     private JPanel p = new JPanel();
     private Font font;
     //private JList jList1 = new JList();
     private JPanel jPanel1 = new JPanel();
     private BorderLayout borderLayout1 = new BorderLayout();
+
+//    private Icon iconUp;
+//    private Icon iconDown;
 
     /** Creates a new instance of ChannelInfoPanel */
 
@@ -53,7 +64,7 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
         try {
             jbInit();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
         }
    }
 
@@ -64,7 +75,7 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
         try {
             this.jbInit();
         } catch (Exception ex) {
-            ex.printStackTrace();
+           LOGGER.log(Level.WARNING, ex.getMessage(), ex);
         }
         //setPointVisible(true);
     }
@@ -75,19 +86,16 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
 
     public void setNameVisible(boolean visible) {
         //nameVisible=visible;
-        if (visible) {
-            if (name == null) {
-                name = new JLabel();
-                name.setFont(font);
-                name.setForeground(
-                        jsmp.getJSignalMonitorProperties().getLookAndFeelConfiguration().getColorFont());
-                name.setToolTipText("The signal name...");
-                name.setText(channel.getChannelProperties().getName());
-                p.add(name);
-            }
+        if (visible && name == null) {
+             name = new JLabel();
+             name.setFont(font);
+             name.setForeground(
+                     jsmp.getJSignalMonitorProperties().getLookAndFeelConfiguration().getColorFont());
+             name.setToolTipText("The signal name...");
+             name.setText(channel.getChannelProperties().getName());
+             p.add(name);
         }
         name.setVisible(visible);
-
     }
 
     public void setMagnitudeVisible(boolean visible) {
@@ -140,12 +148,10 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
 
     public void setArrowsVisible(boolean visible) {
         //arrowsVisible=visible;
-        if (visible) {
-            if (arrows == null) {
-                arrows = new ChannelArrowsControlPanel(channel.getChannelProperties().getName(), jsmp);
-                p.add(Box.createHorizontalStrut(10));
-                p.add(arrows);
-            }
+        if (visible && arrows == null) {
+             arrows = new ChannelArrowsControlPanel(channel.getChannelProperties().getName(), jsmp);
+             p.add(Box.createHorizontalStrut(10));
+             p.add(arrows);
         }
         configure.setVisible(!visible);
         arrows.setVisible(visible);
@@ -255,25 +261,29 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
         configure.setCursor(new Cursor(Cursor.HAND_CURSOR));
         configure.setToolTipText("Select the fields to show at the info panel...");
         configure.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 showInfoConfigPanel();
             }
         });
-        configureArrows = new JLabel();
+        JLabel configureArrows = new JLabel();
 
         configureArrows.setIcon(icon);
         configureArrows.setCursor(new Cursor(Cursor.HAND_CURSOR));
         configureArrows.setToolTipText("Select the fields to show at the info panel...");
         configureArrows.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 showInfoConfigPanel();
             }
 
+            @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 JLabel c = (JLabel) evt.getSource();
                 c.setIcon(iconH);
             }
 
+            @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 JLabel c = (JLabel) evt.getSource();
                 c.setIcon(icon);
@@ -283,13 +293,15 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
         jPanel1.setLayout(borderLayout1);
         jPanel1.setBackground(Color.white);
         labelUp.addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent e) {
-                labelUp_mousePressed(e);
+                labelUp_mousePressed();
             }
         });
         labelDown.addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent e) {
-                labelDown_mousePressed(e);
+                labelDown_mousePressed();
             }
         });
         p.add(configure);
@@ -303,7 +315,7 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
         Image image = Toolkit.getDefaultToolkit().createImage(
                 getClass().getResource("images/downB.png"));
 
-        iconDown = new ImageIcon(image.getScaledInstance(arrowSize, arrowSize, Image.SCALE_SMOOTH));
+        Icon iconDown = new ImageIcon(image.getScaledInstance(arrowSize, arrowSize, Image.SCALE_SMOOTH));
         labelDown.setIcon(iconDown);
         labelDown.setToolTipText("zoom -5");
         jPanel1.add(this.labelDown, java.awt.BorderLayout.SOUTH);
@@ -311,7 +323,7 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
         image = Toolkit.getDefaultToolkit().createImage(
                 getClass().getResource("images/upB.png"));
 
-        iconUp = new ImageIcon(image.getScaledInstance(arrowSize, arrowSize, Image.SCALE_SMOOTH));
+        Icon iconUp = new ImageIcon(image.getScaledInstance(arrowSize, arrowSize, Image.SCALE_SMOOTH));
         labelUp.setIcon(iconUp);
         labelUp.setToolTipText("zoom -5");
         jPanel1.add(this.labelUp, java.awt.BorderLayout.NORTH);
@@ -323,13 +335,10 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
 
     }
 
-    private javax.swing.JLabel labelDown = new JLabel();
-    private javax.swing.JLabel labelUp = new JLabel();
 
-    private Icon iconUp, iconDown;
-    public void labelDown_mouseClicked(MouseEvent e) {
-        desplazaSignal(true);
-    }
+//    public void labelDown_mouseClicked() {
+//        desplazaSignal(true);
+//    }
 
     private void desplazaSignal(boolean arriba) throws SignalNotFoundException {
         String signalName = channel.getChannelProperties().getName();
@@ -345,11 +354,11 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
         JSWBManager.getJSWBManagerInstance().refreshJSM(false);
     }
 
-    public void labelUp_mousePressed(MouseEvent e) {
+    public void labelUp_mousePressed() {
         desplazaSignal(false);
     }
 
-    public void labelDown_mousePressed(MouseEvent e) {
+    public void labelDown_mousePressed() {
         desplazaSignal(true);
     }
 

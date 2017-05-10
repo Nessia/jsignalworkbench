@@ -3,6 +3,7 @@
 package es.usc.gsi.trace.importer.monitorizacion.data;
 
 import java.util.HashMap;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import es.usc.gsi.trace.importer.estadisticos.ResultadoCorrelacion;
@@ -12,8 +13,10 @@ import es.usc.gsi.trace.importer.jsignalmonold.annotations.Mark;
 import es.usc.gsi.trace.importer.perfil.PTBMInterface;
 
 public class AlmacenDatosFloat extends AlmacenDatos {
-    private float datos[][];
     static final long serialVersionUID = 32145L;
+
+    private float[][] datos;
+
     public AlmacenDatosFloat() {
 
     }
@@ -23,21 +26,21 @@ public class AlmacenDatosFloat extends AlmacenDatos {
      * @param pos
      * @param marcas
      * @param anotaciones
-     * @todo inicializar las listas
      * @todo eliminar el for de inicializacion
      */
     @SuppressWarnings("unchecked")
-    public AlmacenDatosFloat(float[][] datos, byte[][] pos, TreeSet<Annotation> anotaciones,
-                             TreeSet<Mark>[] marcas) {
+    public AlmacenDatosFloat(float[][] datos, byte[][] pos2, SortedSet<Annotation> anotaciones,
+          SortedSet<Mark>[] marcas) {
         this.datos = datos;
         this.marcas = marcas;
         this.anotaciones = anotaciones;
         this.numeroSenales = datos.length;
+        byte[][] pos = pos2;
         if (pos == null) {
             pos = new byte[datos.length][];
         }
 
-        this.almacenPos = new AlmacenDatosByte(pos, null, null, null);
+        this.almacenPos = new AlmacenDatosByte(pos, /*null,*/ null, null);
         this.nombreSenales = new String[datos.length];
         //this.olvidado = new java.util.LinkedList();
         this.fs = new float[datos.length];
@@ -66,11 +69,9 @@ public class AlmacenDatosFloat extends AlmacenDatos {
      * @param pos
      * @param marcas
      * @param anotaciones
-     * @todo inicializar las listas
-     * @todo eliminar el for de inicializacion
      */
-    public AlmacenDatosFloat(float[][] datos, byte[][] pos, TreeSet<Annotation> anotaciones,
-                             TreeSet<Mark>[] marcas, PTBMInterface ptbm) {
+    public AlmacenDatosFloat(float[][] datos, byte[][] pos, SortedSet<Annotation> anotaciones,
+          SortedSet<Mark>[] marcas, PTBMInterface ptbm) {
         this(datos, pos, anotaciones, marcas);
         this.ptbm = ptbm;
     }

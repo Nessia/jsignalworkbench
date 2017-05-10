@@ -4,6 +4,8 @@ import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.plugins.framework.*;
 import java.util.*;
+import java.util.logging.Logger;
+
 import javax.swing.Icon;
 import java.awt.Color;
 import net.javahispano.jsignalwb.utilities.TimePositionConverter;
@@ -12,6 +14,9 @@ import javax.swing.JDialog;
 import javax.swing.*;
 
 public class AreaCerdo extends AlgorithmAdapter {
+
+    private static final Logger LOGGER = Logger.getLogger(AreaCerdo.class.getName());
+
     private static int indiceDroga = 0;
     private static int indiceParametro = 0;
 
@@ -56,7 +61,7 @@ public class AreaCerdo extends AlgorithmAdapter {
                                               JOptionPane.ERROR_MESSAGE);
             } else {
                 String nuevoNombre = "Flujo suavizado";
-                System.out.println(nuevoNombre);
+                LOGGER.info(nuevoNombre);
                 Signal nuevaSignal = sm.getSignal(nuevoNombre);
                 SignalIntervalProperties nuevoSignalInterval = new SignalIntervalProperties(nuevaSignal,
                         signalInterval.getStartTime(), signalInterval.getEndTime(),
@@ -104,10 +109,10 @@ public class AreaCerdo extends AlgorithmAdapter {
             }
         }
         long medio = TimePositionConverter.positionToTime(indiceMinOMax, s);
-        float tDuracionCaida = medio - si.getStartTime();
+        float tDuracionCaida = (float)medio - si.getStartTime();
         tDuracionCaida /= 1000.0F;
 
-        float tDuracionRecuperacion = si.getEndTime() - medio;
+        float tDuracionRecuperacion = si.getEndTime() - (float)medio;
         tDuracionRecuperacion /= 1000.0F;
 
         medida.setDuracionCaida(tDuracionCaida);
@@ -118,9 +123,9 @@ public class AreaCerdo extends AlgorithmAdapter {
     private void calculaValorBasal(MedidaDroga medida, SignalIntervalProperties si, Signal s) {
         float frecuencia = s.getSRate();
         int ventana;
-        if (frecuencia > 10) { //se trata de la se�al original
+        if (frecuencia > 10) { //se trata de la señal original
             ventana = 200; //cogemos 20 segundos
-        } else { //se trata de la se�al filtrada
+        } else { //se trata de la señal filtrada
             ventana = 2; //cogemos 20 segundos
         }
 
@@ -129,7 +134,7 @@ public class AreaCerdo extends AlgorithmAdapter {
         int i;
         int principioVentanaBasal = si.getFirstArrayPosition() - ventana;
         for (i = si.getFirstArrayPosition(); i >= principioVentanaBasal; i--) {
-            if (datos[i] == 0) { //0, la se�al est� cortada
+            if (datos[i] == 0) { //0, la señal esta cortada
                 break;
             }
             valorBasal += datos[i];
@@ -190,13 +195,7 @@ public class AreaCerdo extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        }
-        if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override
@@ -207,7 +206,7 @@ public class AreaCerdo extends AlgorithmAdapter {
     @Override
     public void launchExecutionGUI(JSWBManager jswbManager) {
         DialogArea dialogArea = new DialogArea(null, "Realización de medida", true);
-        dialogArea.jTextFieldPeso.setText("" + peso);
+        dialogArea.jTextFieldPeso.setText(Float.toString(peso));
         dialogArea.jComboBoxDroga.setSelectedIndex(indiceDroga);
         dialogArea.jComboBoxParametro.setSelectedIndex(indiceParametro);
         dialogArea.setSize(600, 400);
@@ -238,7 +237,7 @@ public class AreaCerdo extends AlgorithmAdapter {
         DefaultAlgorithmConfiguration jPane = new DefaultAlgorithmConfiguration(this,
                 jswbManager, conf);
         jPane.setIntervalMode(true);
-        jPane.jButton3ActionPerformed(null);
+        jPane.jButton3ActionPerformed();
         conf.getContentPane().add(jPane);
         conf.setSize(jPane.getPreferredSize());
         conf.setResizable(false);

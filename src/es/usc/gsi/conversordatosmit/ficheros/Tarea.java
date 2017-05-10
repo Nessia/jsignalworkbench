@@ -1,21 +1,26 @@
 package es.usc.gsi.conversordatosmit.ficheros;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import es.usc.gsi.conversordatosmit.ficheros.lectura.LeeFicheroDat;
 import es.usc.gsi.conversordatosmit.interfaz.ControladorInterfaz;
 
 public class Tarea extends Thread implements Cancelar {
-    private ControladorInterfaz controlInterfaz = ControladorInterfaz.
-                                                  getControlador();
+
+    private static final Logger LOGGER = Logger.getLogger(Tarea.class.getName());
+
+    private ControladorInterfaz controlInterfaz = ControladorInterfaz.getControlador();
     private Parametro[] parametros = null;
-    private Vector<FicheroHead> ficherosHead;
+    private List<FicheroHead> ficherosHead;
     private boolean cancel = false;
     private boolean memoryError = false;
 
 //**********************************************************************************************
 
-     public Tarea(Vector<FicheroHead> fh) {
+     public Tarea(List<FicheroHead> fh) {
          this.ficherosHead = fh;
          this.setPriority(Thread.MIN_PRIORITY);
      }
@@ -43,12 +48,13 @@ public class Tarea extends Thread implements Cancelar {
 
      @Override
      public void run() {
-         Vector<Parametro> copiaParamTemp = new Vector<Parametro>();
+         List<Parametro> copiaParamTemp = new ArrayList<Parametro>();
 
          try {
              int total = 1;
-             for (int i = 0; i < ficherosHead.size(); i++) {
-                 FicheroHead fh = (FicheroHead) ficherosHead.elementAt(i);
+             for(FicheroHead fh : ficherosHead){
+             //for (int i = 0; i < ficherosHead.size(); i++) {
+                 //FicheroHead fh = ficherosHead.elementAt(i);
                  Parametro[] p = fh.getParametros();
                  for (int j = 0; j < p.length; j++) {
                      if (p[j].getActivado()) {
@@ -69,12 +75,13 @@ public class Tarea extends Thread implements Cancelar {
              parametros = new Parametro[copiaParamTemp.size()];
 
              for (int i = 0; i < parametros.length; i++) {
-                 Parametro pTemp = (Parametro) copiaParamTemp.elementAt(i);
+                 Parametro pTemp = copiaParamTemp.get(i);
                  parametros[i] = new Parametro(pTemp); // Creamos un array con copias de parametros
                  parametros[i].setValores(pTemp.getValores()); // Referenciamos los valores de un parametro hacia otro.
                  pTemp.setValores(null);
              }
          } catch (OutOfMemoryError err) {
+             LOGGER.log(Level.SEVERE, err.getMessage(), err);
              parametros = null;
              memoryError = true;
              controlInterfaz.cierraIndicadorProgreso();

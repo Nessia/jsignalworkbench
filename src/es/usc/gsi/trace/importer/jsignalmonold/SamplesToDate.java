@@ -3,6 +3,8 @@ package es.usc.gsi.trace.importer.jsignalmonold;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -21,20 +23,22 @@ import javax.swing.JOptionPane;
 
 public class SamplesToDate {
 
+
+    private static final Logger LOGGER = Logger.getLogger(SamplesToDate.class.getName());
+
 //  static ResourceBundle res =ResourceBundle.getBundle("pintar.i18n.Res",Configuracion.localidad);
-    private static boolean is_instancia = false;
     private static SamplesToDate instancia;
     private SimpleDateFormat parser_fecha_completa;
     private SimpleDateFormat parser_fecha_hora;
     private Date fecha_base;
+
     private SamplesToDate() throws Exception {
-        if (is_instancia) {
-            throw new Exception("Only one instance allowed");
-        } else {
-            is_instancia = true;
-            parser_fecha_completa = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
-            parser_fecha_hora = new SimpleDateFormat("HH:mm:ss:SSS");
-        }
+//        if (isInstancia) {
+//            throw new Exception("Only one instance allowed");
+//        }
+//        isInstancia = true;
+        parser_fecha_completa = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        parser_fecha_hora = new SimpleDateFormat("HH:mm:ss:SSS");
     }
 
     public void setFechaBase(Date _fecha) {
@@ -53,7 +57,7 @@ public class SamplesToDate {
             fecha_base = parser_fecha_completa.parse(_fecha);
             return true;
         } catch (ParseException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             return false;
         }
     }
@@ -77,13 +81,15 @@ public class SamplesToDate {
         //En este caso la fecha esta en formato corto
         if (fecha_hasta.length() < 9) {
             StringTokenizer tk = new StringTokenizer(fecha_hasta.trim(), ":", false);
-            int hora = 0, minutos = 0, segundos = 0;
+            int hora = 0;
+            int minutos = 0;
+            int segundos = 0;
             try {
                 hora = Integer.parseInt(tk.nextToken());
                 minutos = Integer.parseInt(tk.nextToken());
                 segundos = Integer.parseInt(tk.nextToken());
             } catch (NumberFormatException ex) {
-                ex.printStackTrace();
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                 fallo = true;
             }
             Calendar calendario_fech_base = parser_fecha_completa.getCalendar();
@@ -101,14 +107,17 @@ public class SamplesToDate {
         //Si se cumple esto => llevava milisegundos
         else if (fecha_hasta.length() < 14) {
             StringTokenizer tk = new StringTokenizer(fecha_hasta.trim(), ":", false);
-            int hora = 0, minutos = 0, segundos = 0, milisegundos = 0;
+            int hora = 0;
+            int minutos = 0;
+            int segundos = 0;
+            int milisegundos = 0;
             try {
                 hora = Integer.parseInt(tk.nextToken());
                 minutos = Integer.parseInt(tk.nextToken());
                 segundos = Integer.parseInt(tk.nextToken());
                 milisegundos = Integer.parseInt(tk.nextToken());
             } catch (NumberFormatException ex) {
-                ex.printStackTrace();
+                LOGGER.log(Level.WARNING, ex.getMessage(), ex);
                 fallo = true;
             }
             Calendar calendario_fech_base = parser_fecha_completa.getCalendar();
@@ -132,7 +141,7 @@ public class SamplesToDate {
                 tmp = (Calendar) parser_fecha_completa.getCalendar().clone();
                 date_fecha_hasta = parser_fecha_completa.parse(fecha_hasta);
             } catch (ParseException ex) {
-                ex.printStackTrace();
+                LOGGER.log(Level.WARNING, ex.getMessage(), ex);
                 fallo = true;
             }
             //Para estar seguros de no modificar la fecha del parser
@@ -166,7 +175,7 @@ public class SamplesToDate {
             return this.getFecha(muestras, fs, corta);
         } else {
             String fecha = this.getFecha(muestras, fs, corta);
-            fecha = fecha.substring(0, fecha.lastIndexOf(":"));
+            fecha = fecha.substring(0, fecha.lastIndexOf(':'));
             return fecha;
         }
     }
@@ -209,18 +218,15 @@ public class SamplesToDate {
      * @return GestorDatos
      */
     public static SamplesToDate getInstancia() {
-        if (is_instancia) {
+        if (instancia != null) {
             return instancia;
-        } else {
-            try {
-                SamplesToDate.instancia = new SamplesToDate();
-                return instancia;
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-                ex.printStackTrace();
-                return null;
-            }
-
+        }
+        try {
+            SamplesToDate.instancia = new SamplesToDate();
+            return instancia;
+        } catch (Exception ex) {
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
+            return null;
         }
     }
 

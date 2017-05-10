@@ -19,7 +19,7 @@ public class DiuresisMinutoAMinuto extends SimpleAlgorithm  {
     public void runAlgorithm(SignalManager signalManager, Signal signal, float[] datos, float fs) {
 
         //minuto a minuto
-        float newData[] = new float[datos.length];
+        float[] newData = new float[datos.length];
 
         for (int i = 1; i < datos.length; i++) {
 

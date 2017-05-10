@@ -10,7 +10,8 @@ package es.usc.gsi.trace.importer.estadisticos;
  */
 
 public class MediaMovil {
-    public MediaMovil() {
+    private MediaMovil() {
+       // Constructor oculto
     }
 
     /**

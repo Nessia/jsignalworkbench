@@ -7,7 +7,7 @@
 package net.javahispano.jsignalwb.plugins.defaults;
 
 import java.awt.Window;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -23,36 +23,36 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
 
  // Declaracion de varibales -no modificar//GEN-BEGIN:variables
     private javax.swing.JPanel algorithmPane;
-    private javax.swing.JButton configureButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
+//    private javax.swing.JButton configureButton;
+//    private javax.swing.JButton jButton1;
+//    private javax.swing.JLabel jLabel1;
+//    private javax.swing.JLabel jLabel10;
+//    private javax.swing.JLabel jLabel11;
+//    private javax.swing.JLabel jLabel12;
+//    private javax.swing.JLabel jLabel13;
+//    private javax.swing.JLabel jLabel14;
+//    private javax.swing.JLabel jLabel15;
+//    private javax.swing.JLabel jLabel16;
+//    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
+//    private javax.swing.JLabel jLabel2;
+//    private javax.swing.JLabel jLabel20;
+//    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+//    private javax.swing.JLabel jLabel3;
+//    private javax.swing.JLabel jLabel4;
+//    private javax.swing.JLabel jLabel5;
+//    private javax.swing.JLabel jLabel6;
+//    private javax.swing.JLabel jLabel7;
+//    private javax.swing.JLabel jLabel8;
+//    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
+//    private javax.swing.JPanel jPanel1;
+//    private javax.swing.JScrollPane jScrollPane1;
+//    private javax.swing.JScrollPane jScrollPane2;
+//    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel loaderPane;
     private javax.swing.JPanel saverPane;
     // Fin de declaracion de variables//GEN-END:variables
@@ -66,7 +66,7 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
     public DetailPluginInfoPanel(JSWBManager jswbManager, Plugin plugin) {
         this.jswbManager = jswbManager;
         this.plugin = plugin;
-        if (plugin != null && (plugin instanceof Plugin)) {
+        if (plugin != null) {
             if (plugin instanceof AnnotationPlugin) {
                 pluginType = "Annotation";
             } else if (plugin instanceof MarkPlugin) {
@@ -91,10 +91,10 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
         loaderPane.setVisible(false);
         saverPane.setVisible(false);
         algorithmPane.setVisible(false);
-        if (pluginType.equals("Loader")) {
+        if ("Loader".equals(pluginType)) {
             Loader loader = (Loader) plugin;
             jLabel18.setText("No");
-            ArrayList<String> ext = loader.getAvalaibleExtensions();
+            List<String> ext = loader.getAvalaibleExtensions();
             DefaultListModel<String> dlm = new DefaultListModel<String>();
             jList1.setModel(dlm);
 
@@ -103,12 +103,12 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
             }
             loaderPane.setVisible(true);
         }
-        if (pluginType.equals("Saver")) {
+        if ("Saver".equals(pluginType)) {
             Saver saver = (Saver) plugin;
             jLabel19.setText(saver.getAvalaibleExtension().get(0));
             saverPane.setVisible(true);
         }
-        if (pluginType.equals("Algorithm")) {
+        if ("Algorithm".equals(pluginType)) {
             Algorithm algorithm = (Algorithm) plugin;
             int number = algorithm.numberOfSignalsNeeded();
             if (number > 0) {
@@ -146,37 +146,37 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
      */
     // <editor-fold defaultstate="collapsed" desc=" Codigo Generado  ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel14 = new javax.swing.JLabel();
-        configureButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+       JPanel jPanel1 = new javax.swing.JPanel();
+       JLabel jLabel1 = new javax.swing.JLabel();
+       JLabel jLabel8 = new javax.swing.JLabel();
+       JLabel jLabel2 = new javax.swing.JLabel();
+       JLabel jLabel9 = new javax.swing.JLabel();
+       JLabel jLabel3 = new javax.swing.JLabel();
+       JLabel jLabel10 = new javax.swing.JLabel();
+       JLabel jLabel4 = new javax.swing.JLabel();
+       JLabel jLabel11 = new javax.swing.JLabel();
+       JLabel jLabel5 = new javax.swing.JLabel();
+       JLabel jLabel12 = new javax.swing.JLabel();
+       JLabel jLabel6 = new javax.swing.JLabel();
+       JLabel jLabel13 = new javax.swing.JLabel();
+       JLabel jLabel7 = new javax.swing.JLabel();
+       JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+        JTextArea jTextArea1 = new javax.swing.JTextArea();
+        JLabel jLabel14 = new javax.swing.JLabel();
+        JButton configureButton = new javax.swing.JButton();
+        JButton jButton1 = new javax.swing.JButton();
         loaderPane = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        JLabel jLabel15 = new javax.swing.JLabel();
+        JLabel jLabel16 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<String>();
         saverPane = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
+        JLabel jLabel17 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         algorithmPane = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        JLabel jLabel20 = new javax.swing.JLabel();
+        JLabel jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
 
@@ -233,8 +233,9 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
             configureButton.setEnabled(true);
         }
         configureButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                configureButtonActionPerformed(evt);
+                configureButtonActionPerformed();
             }
         });
 
@@ -340,8 +341,9 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
 
         jButton1.setText("Close");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton1ActionPerformed();
             }
         });
 
@@ -508,13 +510,13 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
                 );
     } // </editor-fold>//GEN-END:initComponents
 
-    private void configureButtonActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_configureButtonActionPerformed
+    private void configureButtonActionPerformed() { //GEN-FIRST:event_configureButtonActionPerformed
         if (plugin.hasOwnConfigureGUI()) {
             plugin.launchConfigureGUI(jswbManager);
         }
     } //GEN-LAST:event_configureButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed() { //GEN-FIRST:event_jButton1ActionPerformed
         hideJWindow();
     } //GEN-LAST:event_jButton1ActionPerformed
 

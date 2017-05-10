@@ -1,6 +1,8 @@
 package es.usc.gsi.conversordatosmit;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -21,27 +23,30 @@ import net.javahispano.jsignalwb.SignalManager;
 
 public class PideDatosAlConversor extends Thread {
 
+    private static final Logger LOGGER = Logger.getLogger(PideDatosAlConversor.class.getName());
+    public static final String error_quedarse_sin_memoria = "<html>" +
+         "<body text=\"#000000\">" +
+         "<p align=\"center\"><font color=\"#FF0000\" size=\"5\">Error al exportar los datos </font></p></p>" +
+         "<p><font size=\"4\" color=\"#0000FF\">El equipo no tiene memoria virtual suficiente </font></p>" +
+         "<p><font size=\"4\" color=\"#0000FF\">para importar todos los datos que usted ha</font></p>" +
+         "<p><font size=\"4\" color=\"#0000FF\">selecionado. Importe un intervalo temporal</font></p>" +
+         "<p><font size=\"4\" color=\"#0000FF\">menos o disminuya la frecuecia de muestreo</font></p>" +
+         "<p><font size=\"4\" color=\"#0000FF\">de las se&ntilde;ales que est&aacute; adquiriendo.</font></p>" +
+         "</body>" +
+         "</html>";
     private float[][] rangos;
     private int max_numero_datos;
     private PanelPrincipal conversor;
     //private JSWBManager j;
-    public static final String error_quedarse_sin_memoria = "<html>" +
-            "<body text=\"#000000\">" +
-            "<p align=\"center\"><font color=\"#FF0000\" size=\"5\">Error al exportar los datos </font></p></p>" +
-            "<p><font size=\"4\" color=\"#0000FF\">El equipo no tiene memoria virtual suficiente </font></p>" +
-            "<p><font size=\"4\" color=\"#0000FF\">para importar todos los datos que usted ha</font></p>" +
-            "<p><font size=\"4\" color=\"#0000FF\">selecionado. Importe un intervalo temporal</font></p>" +
-            "<p><font size=\"4\" color=\"#0000FF\">menos o disminuya la frecuecia de muestreo</font></p>" +
-            "<p><font size=\"4\" color=\"#0000FF\">de las se&ntilde;ales que est&aacute; adquiriendo.</font></p>" +
-            "</body>" +
-            "</html>";
-
     // private CuadroDeEspera espera;
-    private float paso;
+    //private float paso;
     int datos_por_aaray;
 
-    public PideDatosAlConversor(PanelPrincipal conversor
-                                , JSWBManager jswbManager) {
+    /*
+     * Constructor
+     */
+
+    public PideDatosAlConversor(PanelPrincipal conversor/*, JSWBManager jswbManager*/) {
         this.conversor = conversor;
         //this.j = jswbManager;
     }
@@ -57,6 +62,7 @@ public class PideDatosAlConversor extends Thread {
         try {
             parametros = conversor.getParametros();
         } catch (OutOfMemoryError ex) {
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(conversor, error_quedarse_sin_memoria,
                                           "ERROR!!!",
                                           JOptionPane.ERROR_MESSAGE);
@@ -71,8 +77,7 @@ public class PideDatosAlConversor extends Thread {
             rangos = new float[parametros.length + 1][2];
 
             //Esto es para estimar que % se ha pasado:
-            paso = 100 / parametros.length * parametros[0].getValores().length;
-            paso = paso / 400;
+            //float paso = 100 / parametros.length * parametros[0].getValores().length / 400;
             datos_por_aaray = parametros[0].getValores().length;
             //Recojo los datos del array de parametros
             for (int i = 0; i < parametros.length; i++) {

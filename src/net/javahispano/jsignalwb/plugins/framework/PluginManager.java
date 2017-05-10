@@ -7,6 +7,8 @@ import java.net.*;
 import java.util.*;
 import java.util.List;
 import java.util.jar.JarFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -30,10 +32,13 @@ import net.javahispano.jsignalwb.plugins.defaults.*;
  */
 public class PluginManager {
 
+
+    private static final Logger LOGGER = Logger.getLogger(PluginManager.class.getName());
+
     //private static PluginManager pm = null;
     private FactoryPlugin factoryPlugin;
-    private HashMap<String, Object> pluginAssociation;
-    private HashMap<String, String> iconsAssociation;
+    private Map<String, Object> pluginAssociation;
+    private Map<String, String> iconsAssociation;
     private ClassLoader classLoader;
     private String defaultDirectory = "data/plugins";
 
@@ -210,10 +215,10 @@ public class PluginManager {
     }
 
     private Image generateImage(String name) {
-        name = name.toUpperCase();
+        String nameUpper = name.toUpperCase();
         BufferedImage bufferedImage = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
-        char first = name.charAt(0);
-        char last = name.charAt(name.length() - 1);
+        char first = nameUpper.charAt(0);
+        char last = nameUpper.charAt(nameUpper.length() - 1);
         Graphics2D g2d = bufferedImage.createGraphics();
         Font font = new Font(Font.SANS_SERIF, Font.BOLD, 13);
         g2d.setBackground(Color.LIGHT_GRAY);
@@ -459,9 +464,9 @@ public class PluginManager {
      *
      * @return Lista con todos los objetos {@link Loader}.
      */
-    public ArrayList<Loader> getAllLoaders() {
-        ArrayList<Loader> loaders = new ArrayList<Loader>();
-        ArrayList<String> names = new ArrayList<String>();
+    public List<Loader> getAllLoaders() {
+        List<Loader> loaders = new ArrayList<Loader>();
+        List<String> names = new ArrayList<String>();
         Iterator<String> it = pluginAssociation.keySet().iterator();
         while (it.hasNext()) {
             String plugin = it.next();
@@ -477,8 +482,7 @@ public class PluginManager {
                 //de esta operacion. Tampoco avisamos al codigo cliente
                 //porque no hay nada que este pueda hacer para solucionar el fallo
             } catch (PluginLoadException ex) {
-                System.out.println("Error intentar cargar un plugin");
-                ex.printStackTrace();
+                LOGGER.log(Level.SEVERE, "Error intentar cargar un plugin", ex);
             }
         }
         return loaders;
@@ -508,7 +512,7 @@ public class PluginManager {
      *
      * @return Lista con todos los objetos {@link Saver}.
      */
-    public ArrayList<Saver> getAllSavers() {
+    public List<Saver> getAllSavers() {
         ArrayList<Saver> savers = new ArrayList<Saver>();
         ArrayList<String> names = new ArrayList<String>();
         Iterator<String> it = pluginAssociation.keySet().iterator();
@@ -526,8 +530,7 @@ public class PluginManager {
                 //de esta operacion. Tampoco avisamos al codigo cliente
                 //porque no hay nada que este pueda hacer para solucionar el fallo
             } catch (PluginLoadException ex) {
-                System.out.println("Error intentar cargar un plugin");
-                ex.printStackTrace();
+               LOGGER.log(Level.SEVERE, "Error intentar cargar un plugin", ex);
             }
         }
         return savers;
@@ -667,18 +670,18 @@ public class PluginManager {
      *   los nombres de todos los plugins de esa categoria registrados.
      */
 
-    public HashMap<String, ArrayList<String>> getRegisteredPlugins() {
-        HashMap<String, ArrayList<String>>
+    public Map<String, ArrayList<String>> getRegisteredPlugins() {
+        Map<String, ArrayList<String>>
                 plugins = new HashMap<String, ArrayList<String>>();
         Iterator<String> it = pluginAssociation.keySet().iterator();
         while (it.hasNext()) {
             String s = it.next();
-            String pluginType = s.substring(0, s.indexOf(":"));
+            String pluginType = s.substring(0, s.indexOf(':'));
             if (!plugins.containsKey(pluginType)) {
                 plugins.put(pluginType, new ArrayList<String>());
             }
             // try {
-            plugins.get(pluginType).add(s.substring(s.lastIndexOf(":") + 1));
+            plugins.get(pluginType).add(s.substring(s.lastIndexOf(':') + 1));
             //} catch (Exception ex) {
             //    System.out.println("Error intentar cargar un plugin");
             //ex.printStackTrace();
@@ -694,7 +697,7 @@ public class PluginManager {
      *
      * @return Lista con todas las claves de los plugin cargados.
      */
-    public ArrayList<String> getKeysOfLoadedPlugins() {
+    public List<String> getKeysOfLoadedPlugins() {
         ArrayList<String> plugins = new ArrayList<String>();
         Iterator<String> it = pluginAssociation.keySet().iterator();
         while (it.hasNext()) {
@@ -715,25 +718,20 @@ public class PluginManager {
     public File[] getInstalledPlugins() {
         File file = new File(System.getProperty("user.home") + "/.JSignalWorkBench");
         if (file.exists()) {
-            File[] files = file.listFiles(
-                    new FileFilter() {
+            return file.listFiles(new FileFilter() {
+                @Override
                 public boolean accept(File fileToBeFiltered) {
-                    return fileToBeFiltered.getName().toLowerCase().endsWith(
-                            ".jar");
+                    return fileToBeFiltered.getName().toLowerCase().endsWith(".jar");
                 }
-            }
-            );
-            return files;
-        } else {
-            return null;
+            });
         }
+        return null;
+
     }
 
     private void searchPlugins(String directory, ExceptionsCollector ec) {
-        classLoader = PluginBrowser.install(this, classLoader,
-                                            PluginBrowser.search(new File(directory)), ec);
-        ec.showExceptions(
-                "The following errors appeared while looking for plugins:");
+        classLoader = PluginBrowser.install(this, classLoader, PluginBrowser.search(new File(directory)), ec);
+        ec.showExceptions("The following errors appeared while looking for plugins:");
     }
 
     private void loadPreviousPlugins() {
@@ -741,11 +739,10 @@ public class PluginManager {
         if (!f.exists()) {
             f.mkdir();
         }
-        File[] files = f.listFiles(
-                new FileFilter() {
+        File[] files = f.listFiles(new FileFilter() {
+            @Override
             public boolean accept(File fileToBeFiltered) {
-                return fileToBeFiltered.getName().toLowerCase().endsWith(
-                        ".jar");
+                return fileToBeFiltered.getName().toLowerCase().endsWith(".jar");
             }
         }
         );
@@ -757,9 +754,9 @@ public class PluginManager {
                 urls[index] = files[index].toURI().toURL();
                 jar.close();
             } catch (MalformedURLException ex) {
-                ex.printStackTrace();
+                LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             } catch (IOException ex) {
-                ex.printStackTrace();
+               LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             }
         }
         classLoader = new URLClassLoader(urls, classLoader);

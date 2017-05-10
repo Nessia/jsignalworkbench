@@ -33,7 +33,7 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
-    private void jbInit() throws Exception {
+    private void jbInit() {
         this.addWindowListener(new EventoVentana());
         this.setSize(ANCHOVENTANA, ALTOVENTANA);
 //    this.setResizable(false);

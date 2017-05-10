@@ -5,6 +5,7 @@ package es.usc.gsi.trace.importer.estadisticos;
  */
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>Title: Herraienta de monitorizacion</p>
@@ -118,7 +119,7 @@ public class ResultadosEstadisticos implements Serializable {
         return intervaloConfianza;
     }
 
-    public HashMap<String,String> getPercentiles() {
+    public Map<String,String> getPercentiles() {
         return percentiles;
     }
 

@@ -15,7 +15,7 @@ public class NotPercentilException extends Exception {
      */
     private static final long serialVersionUID = 7184112469595184667L;
 
-    private int percentilPedido;
+    private final int percentilPedido;
 
     public NotPercentilException(String mensaje, int percentilPedido) {
         super(mensaje);

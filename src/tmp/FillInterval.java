@@ -82,7 +82,7 @@ public class FillInterval extends AlgorithmAdapter {
         DefaultAlgorithmConfiguration jPane = new DefaultAlgorithmConfiguration(this,
                 jswbManager, conf);
         jPane.selectIntervals(1);
-        jPane.jButton3ActionPerformed(null);
+        jPane.jButton3ActionPerformed();
         /*conf.getContentPane().add(jPane);
         conf.setSize(jPane.getPreferredSize());
         conf.setResizable(false);
@@ -92,12 +92,7 @@ public class FillInterval extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true; // TODO antes era false @vanesa
-        }
-        return false;
+        return (gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR);
     }
 
     @Override

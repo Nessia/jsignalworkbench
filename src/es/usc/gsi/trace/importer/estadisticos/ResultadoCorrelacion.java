@@ -105,14 +105,13 @@ public class ResultadoCorrelacion implements Serializable {
      * @return
      */
     public String getTextoDescriptivo() {
-        String texto = "La correlacion fue calculada sobre la senhal " +
+        return "La correlacion fue calculada sobre la senhal " +
                        this.getSenal1() +
                        " desde " + this.getFechaInicio1() + " hasta " +
                        this.getFechaFin1() + " y sobre la senhal " +
                        this.getSenal2() +
                        " desde " + this.getFechaInicio2() + " hasta " +
                        this.getFechaFin2() + ".";
-        return texto;
     }
 
     /**

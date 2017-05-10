@@ -8,7 +8,9 @@ package net.javahispano.jsignalwb.ui;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -24,6 +26,8 @@ import net.javahispano.jsignalwb.plugins.framework.PluginManager;
  * @author Roman
  */
 public class JSWBFrame extends javax.swing.JFrame {
+
+    private static final Logger LOGGER = Logger.getLogger(JSWBFrame.class.getName());
     /**
      *
      */
@@ -88,26 +92,30 @@ public class JSWBFrame extends javax.swing.JFrame {
      *
      * @param args the command line arguments
      */
-    public static void main(final String args[]) {
+    public static void main(final String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 UIManager.installLookAndFeel("NimROD", "com.nilo.plaf.nimrod.NimRODLookAndFeel");
                 try {
                     UIManager.setLookAndFeel("com.nilo.plaf.nimrod.NimRODLookAndFeel");
-
                 } catch (UnsupportedLookAndFeelException ex1) {
+                   LOGGER.log(Level.WARNING, ex1.getMessage(), ex1);
                 } catch (IllegalAccessException ex1) {
+                   LOGGER.log(Level.WARNING, ex1.getMessage(), ex1);
                 } catch (InstantiationException ex1) {
+                   LOGGER.log(Level.WARNING, ex1.getMessage(), ex1);
                 } catch (ClassNotFoundException ex1) {
+                   LOGGER.log(Level.WARNING, ex1.getMessage(), ex1);
                 }
                 boolean develop = true; //cierto solo si se esta usando el framework para el desarrollo de plugings
                 try {
                     develop = Boolean.parseBoolean(args[0]);
                     //path = args[1];
                     //pluginsPath = args[1];
-                } catch (Exception ex) {
+                } catch (Exception ex1) {
                     //no se proporciona parmetro y se usa el valor por defecto
+                   LOGGER.log(Level.WARNING, "No se proporciona parmetro y se usa el valor por defecto", ex1);
                 }
                 JSWBManager jswbManager = JSWBManager.getJSWBManagerInstance(develop);
                 new JSWBFrame(jswbManager);
@@ -143,9 +151,9 @@ public class JSWBFrame extends javax.swing.JFrame {
 
         jswbManager.addJToolBarComponent(Box.createHorizontalStrut(8));
         jswbManager.addJToolBarSeparator();
-        HashMap<String, ArrayList<String>> plugins = pluginManager.getRegisteredPlugins();
+        Map<String, ArrayList<String>> plugins = pluginManager.getRegisteredPlugins();
         ArrayList<String> algorithms = plugins.get("algorithm");
-        if (algorithms != null && algorithms.size() > 0) {
+        if (algorithms != null && !algorithms.isEmpty()) {
             boolean labelAded = false;
             for (String algorithm : algorithms) {
                 if (pluginManager.getAlgorithm(algorithm).showInGUIOnthe(GUIPositions.TOOLBAR)) {
@@ -168,7 +176,7 @@ public class JSWBFrame extends javax.swing.JFrame {
         }
 
         ArrayList<String> genericPlugins = plugins.get("generic");
-        if (genericPlugins != null && genericPlugins.size() > 0) {
+        if (genericPlugins != null && !genericPlugins.isEmpty()) {
             boolean labelAded = false;
             for (String genericPlugin : genericPlugins) {
                 if (pluginManager.getGeneric(genericPlugin).showInGUIOnthe(GUIPositions.TOOLBAR)) {

@@ -34,9 +34,9 @@ public abstract class SimpleAlgorithm extends AlgorithmAdapter {
 
         plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Cuadrado",
                 new Square()));
-        plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Cuadrado nuva se�al",
+        plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Cuadrado nuva señal",
                 new SquareNewSignal()));
-        plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Cuadrado nueva se�al y detectar",
+        plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Cuadrado nueva señal y detectar",
                 new SquareNewSignalBeatDetect()));
 
         plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Calculo de la diuresis acumulada",
@@ -74,7 +74,7 @@ public abstract class SimpleAlgorithm extends AlgorithmAdapter {
     }
 
     public abstract void runAlgorithm(SignalManager signalManager,
-            Signal signal, float datos[], float fs);
+            Signal signal, float[] datos, float fs);
 
     @Override
     public void runAlgorithm(SignalManager signalManager, List<SignalIntervalProperties> signals,

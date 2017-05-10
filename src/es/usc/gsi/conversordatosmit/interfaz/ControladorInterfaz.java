@@ -2,6 +2,8 @@
 package es.usc.gsi.conversordatosmit.interfaz;
 
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -13,39 +15,38 @@ import es.usc.gsi.conversordatosmit.interfaz.filtros.*;
 
 public class ControladorInterfaz {
 
-    private ControladorInterfaz() {
-        dialogoAbrir = new DialogoAbrir();
-        dialogoAbrirGrabar = new JFileChooser();
-    }
 
-    private static ControladorInterfaz controlador;
-    private static boolean ini = false;
-    public static ControladorInterfaz getControlador() {
-        if (!ini) {
-
-            controlador = new ControladorInterfaz();
-            ini = true;
-        }
-        return controlador;
-    }
+    private static final Logger LOGGER = Logger.getLogger(ControladorInterfaz.class.getName());
 
     public static final int LISTA = 0;
     public static final int ETIQUETAS = 1;
 
     private static ControladorFicheros controlFicheros;
-
-    public static void enlazaControladorFicheros() {
-
-        controlFicheros = ControladorFicheros.getControlador();
-
-    }
-
+    private static ControladorInterfaz controlador;
+    private static boolean ini = false;
 
     private PanelPrincipal panelPrincipal = null;
     private JFileChooser dialogoAbrirGrabar; // QUITAR: HACER UN DIALOGO SOLO PARA ABRIR Y OTRO SOLO PARA GRABAR.
     private DialogoAbrir dialogoAbrir;
 
+    public static ControladorInterfaz getControlador() {
+       if (!ini) {
+           controlador = new ControladorInterfaz();
+           ini = true;
+       }
+       return controlador;
+    }
+
+    public static void enlazaControladorFicheros() {
+        controlFicheros = ControladorFicheros.getControlador();
+    }
+
     private IndicadorProgreso progreso = null;
+
+    private ControladorInterfaz() {
+       dialogoAbrir = new DialogoAbrir();
+       dialogoAbrirGrabar = new JFileChooser();
+    }
 
 
     //////////
@@ -84,7 +85,7 @@ public class ControladorInterfaz {
 
             } catch (FicheroNoValidoException e) {
                 // MOSTRAR DIALOGO INFORMATIVO
-                System.out.println("Fichero .hea no valido");
+                LOGGER.log(Level.SEVERE, "Fichero .hea no valido", e);
                 this.muestraDialogoError(
                         "Este fichero no es valido.\nPor favor, escoja otro fichero.");
                 this.abrirFichero(null);
@@ -124,7 +125,7 @@ public class ControladorInterfaz {
 
             } catch (DirectorioVacioException e) {
                 // MOSTRAR DIALOGO INFORMATIVO
-                System.out.println("Directorio no tiene ficheros .hea validos.");
+                LOGGER.log(Level.SEVERE, "Directorio no tiene ficheros .hea validos.", e);
                 this.muestraDialogoError(
                         "Esta carpeta no contiene ficheros validos.\nPor favor, escoja otra carpeta.");
                 this.abrirPaciente(null);
@@ -136,9 +137,9 @@ public class ControladorInterfaz {
     public void cambiaVista(int modoVista) {
         FicheroHead[] ficherosHead = controlFicheros.getFicherosHeadArray();
 
-        if (ficherosHead != null) {
+//        if (ficherosHead != null) {
             panelPrincipal.cambiaVista(ficherosHead, modoVista);
-        }
+//        }
 
     }
 
@@ -166,13 +167,15 @@ public class ControladorInterfaz {
             // solo devuelve excepciones. Poco ortodoxo?
             this.actualizaParametros();
         } catch (NoPacienteAbiertoException e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
             this.muestraDialogoError("Debe abrir la carpeta de un paciente o un fichero antes de poder importar datos.");
             return null;
         } catch (NoParametroSeleccionadoException e) {
-            this.muestraDialogoError(
-                    "Debe marcar alguna variable antes de poder importar datos.");
+           LOGGER.log(Level.WARNING, e.getMessage(), e);
+            this.muestraDialogoError("Debe marcar alguna variable antes de poder importar datos.");
             return null;
         } catch (FechasIncorrectasException e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
             this.muestraDialogoError("Por favor, compruebe que:\n" +
                                      "- Las fechas tienen el formato dd/mm/aaaa hh:mm:ss\n" +
                                      "- La fecha inicial no es posterior a la fecha final\n" +
@@ -182,6 +185,8 @@ public class ControladorInterfaz {
                     );
             return null;
 
+        } catch(NoExportableException e){
+           LOGGER.log(Level.WARNING, e.getMessage(), e);
         }
 
         return controlFicheros.getParametrosSeleccionados();
@@ -195,14 +200,17 @@ public class ControladorInterfaz {
             // solo devuelve excepciones. Poco ortodoxo?
             this.actualizaParametros();
         } catch (NoPacienteAbiertoException e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
             this.muestraDialogoError(
                     "Debe abrir la carpeta de un paciente o un fichero antes de poder exportar.");
             return;
         } catch (NoParametroSeleccionadoException e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
             this.muestraDialogoError(
                     "Debe marcar alguna variable antes de poder exportar.");
             return;
         } catch (FechasIncorrectasException e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
             this.muestraDialogoError("Por favor, compruebe que:\n" +
                                      "- Las fechas tienen el formato dd/mm/aaaa hh:mm:ss\n" +
                                      "- La fecha inicial no es posterior a la fecha final\n" +
@@ -212,6 +220,8 @@ public class ControladorInterfaz {
                     );
             return;
 
+        } catch(NoExportableException e){
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
         }
 
         int opcionSobreescribir = JOptionPane.YES_OPTION;
@@ -237,6 +247,7 @@ public class ControladorInterfaz {
                 try {
                     controlFicheros.volcarFicherosHead_ASCII(f);
                 } catch (ErrorExportandoException e) {
+                    LOGGER.log(Level.WARNING, e.getMessage(), e);
                     this.muestraDialogoError(
                             "Error al exportar datos.\n" +
                             "Por favor, escoja otra ubicacion para el archivo de exportacion"
@@ -266,32 +277,31 @@ public class ControladorInterfaz {
         try {
             panelPrincipal.actualizaFrecuencias(); // Cambia los valores de las frecuencias de exportacion al valor mas reciente
             panelPrincipal.actualizaFechas(); // Cambia los valores de las fechas de los parametros
-        } catch (Exception e) {
-
-            if (e instanceof FechaFinalMenorInicialException) {
+        } catch (FechaFinalMenorInicialException e) {
                 this.muestraDialogoError(
                         "Error: la fecha final es anterior a la inicial");
-            }
-            if (e instanceof FechaFinalIgualInicialException) {
-                this.muestraDialogoError(
-                        "Error: las fechas inicial y final son la misma");
-            }
-            if (e instanceof FechaInicialIncorrectaException) {
-                this.muestraDialogoError(
-                        "Error: la fecha inicial es incorrecta");
-            }
-            if (e instanceof FechaFinalIncorrectaException) {
-                this.muestraDialogoError("Error: la fecha final es incorrecta");
-            }
-            if (e instanceof FechaFinalMayorOriginalException) {
-                this.muestraDialogoError("Error: la fecha final de remuestreo es mayor que la fecha final original.\nEn la fecha que ha escrito el muestreo ya habia acabado.");
-            }
-            if (e instanceof FechaInicialMenorOriginalException) {
-                this.muestraDialogoError("Error: la fecha inicial de remuestreo es menor que la fecha inicial original.\nEn la fecha que ha escrito, el muestreo aun no habia empezado.");
-            }
-            throw new FechasIncorrectasException();
+                throw e;
+        } catch (FechaFinalIgualInicialException e) {
+             this.muestraDialogoError(
+                     "Error: las fechas inicial y final son la misma");
+             throw e;
+        } catch (FechaInicialIncorrectaException e) {
+             this.muestraDialogoError(
+                     "Error: la fecha inicial es incorrecta");
+             throw e;
+        } catch (FechaFinalIncorrectaException e) {
+             this.muestraDialogoError("Error: la fecha final es incorrecta");
+             throw e;
+        } catch (FechaFinalMayorOriginalException e) {
+             this.muestraDialogoError("Error: la fecha final de remuestreo es mayor que la fecha final original.\nEn la fecha que ha escrito el muestreo ya habia acabado.");
+             throw e;
+        } catch (FechaInicialMenorOriginalException e) {
+             this.muestraDialogoError("Error: la fecha inicial de remuestreo es menor que la fecha inicial original.\nEn la fecha que ha escrito, el muestreo aun no habia empezado.");
+             throw e;
+        } catch(Exception e){
+           LOGGER.log(Level.WARNING, e.getMessage(), e);
+           throw new FechasIncorrectasException(e.getMessage());
         }
-
     }
 
     public void creaIndicadorProgreso(Cancelar h, String titulo,
@@ -322,11 +332,8 @@ public class ControladorInterfaz {
         JOptionPane.showMessageDialog(panelPrincipal, mensaje);
     }
 
-    public int muestraDialogoConfirmacion(String mensaje, String titulo,
-                                          int modo) {
-        int opc = JOptionPane.showConfirmDialog(panelPrincipal, mensaje, titulo,
-                                                modo);
-        return opc;
+    public int muestraDialogoConfirmacion(String mensaje, String titulo, int modo) {
+        return JOptionPane.showConfirmDialog(panelPrincipal, mensaje, titulo, modo);
     }
 
 } // Fin clase ControladorInterfaz

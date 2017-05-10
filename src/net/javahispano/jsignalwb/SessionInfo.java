@@ -20,6 +20,7 @@ public class SessionInfo {
     private List<String> pluginsToDelete;
     private boolean sessionSaved;
     private boolean debugMode;
+
     public SessionInfo() {
         sessionSaved = true;
         pluginsToDelete = new ArrayList<String>();

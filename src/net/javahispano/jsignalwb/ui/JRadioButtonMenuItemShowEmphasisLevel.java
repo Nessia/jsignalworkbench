@@ -23,7 +23,6 @@ public class JRadioButtonMenuItemShowEmphasisLevel extends JRadioButtonMenuItem 
 
     public JRadioButtonMenuItemShowEmphasisLevel(String signalName) {
         super(new ShowEmphasisLevelAction(signalName));
-
         if (JSWBManager.getJSWBManagerInstance().getSignalHasEmphasis(signalName)) {
             setSelected(true);
         } else {
@@ -33,10 +32,6 @@ public class JRadioButtonMenuItemShowEmphasisLevel extends JRadioButtonMenuItem 
 
     @Override
     public String getActionCommand() {
-        if (isSelected()) {
-            return "true";
-        } else {
-            return "false";
-        }
+       return isSelected()? "true" : "false";
     }
 }

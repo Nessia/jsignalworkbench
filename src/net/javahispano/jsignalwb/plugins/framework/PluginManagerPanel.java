@@ -129,7 +129,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
                     ex.printStackTrace();
                 }
             }
-            HashMap<String, ArrayList<String>> registeredPlugins = JSWBManager.getPluginManager().getRegisteredPlugins();
+            Map<String, ArrayList<String>> registeredPlugins = JSWBManager.getPluginManager().getRegisteredPlugins();
             Iterator<String> it = registeredPlugins.keySet().iterator();
             ArrayList<String> temp;
             String kind;

@@ -10,6 +10,8 @@ import tmp.MedidaDroga;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * <p>Title: </p>
@@ -24,6 +26,9 @@ import java.util.List;
  * @version 0.5
  */
 public class DiuresisAnalisisError extends AlgorithmAdapter {
+
+    private static final Logger LOGGER = Logger.getLogger(DiuresisAnalisisError.class.getName());
+
     //private String droga = "Presión arterial";
 
     //private String parametro = "Presión arterial";
@@ -108,7 +113,8 @@ public class DiuresisAnalisisError extends AlgorithmAdapter {
                 contador++;
             }
 
-            final float meanUOPerMinute = (float)(diuresisAcumulada[i - 1]/contador);
+            assert contador != 0;
+            final float meanUOPerMinute = diuresisAcumulada[i - 1]/contador;
             i=inicio;
             float varianza = 0;
             for (int j = 0; j < 60 && i < diuresisAcumulada.length; j++, i++) {
@@ -118,18 +124,17 @@ public class DiuresisAnalisisError extends AlgorithmAdapter {
             varianza = varianza - meanUOPerMinute*meanUOPerMinute;
 
             rmse = Math.sqrt(rmse / contador);
-            assert (diuresisAcumulada[i - 1] == diuresisAcumuladaIdeal[i - 1]);
+            assert diuresisAcumulada[i - 1] == diuresisAcumuladaIdeal[i - 1];
             double cvrmse = contador * rmse / (diuresisAcumulada[i - 1]);
             stringBuilderCVRMSE.append((float)cvrmse + "; ");// + rmse + ", ");
             stringBuilderMeanPerMinute.append(meanUOPerMinute + ", ");
             stringBuilderVarianza.append(varianza + ", ");
             //hora ++;
         }
-        System.out.println(stringBuilderCVRMSE);
-        System.out.println(stringBuilderMeanPerMinute);
-        System.out.println(stringBuilderVarianza);
-       // System.out.println(stringBuilderrm);
-        System.out.println("");
+        LOGGER.log(Level.INFO, "%", stringBuilderCVRMSE.toString());
+        LOGGER.log(Level.INFO, "%", stringBuilderMeanPerMinute.toString());
+        LOGGER.log(Level.INFO, "%", stringBuilderVarianza.toString());
+       // LOGGER.info(stringBuilderrm.toString());
     }
 
     void calculaError2(float[] diuresisAcumulada, float[] diuresisAcumuladaIdeal) {
@@ -142,13 +147,14 @@ public class DiuresisAnalisisError extends AlgorithmAdapter {
                 rmse += Math.pow(diuresisAcumulada[i] - diuresisAcumuladaIdeal[i], 2);
                 contador++;
             }
+            assert contador != 0;
             rmse = Math.sqrt(rmse / contador);
-            assert (diuresisAcumulada[i - 1] == diuresisAcumuladaIdeal[i - 1]);
+            assert diuresisAcumulada[i - 1] == diuresisAcumuladaIdeal[i - 1];
             double cvrmse =  rmse / (diuresisAcumuladaIdeal[i - 1]);
             stringBuilder.append((float)cvrmse + "; ");// + rmse + ", ");
             //hora ++;
         }
-        System.out.println(stringBuilder);
+        LOGGER.log(Level.INFO, "%", stringBuilder.toString());
     }
 
 
@@ -180,12 +186,7 @@ public class DiuresisAnalisisError extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override

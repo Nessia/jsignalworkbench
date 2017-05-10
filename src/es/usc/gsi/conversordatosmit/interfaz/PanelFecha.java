@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -13,6 +14,8 @@ import es.usc.gsi.conversordatosmit.utilidades.ParseadorFecha;
 
 
 public class PanelFecha extends JPanel implements ActionListener {
+
+    private static final Logger LOGGER = Logger.getLogger(PanelFecha.class.getName());
 
     /**
     *
@@ -69,10 +72,7 @@ public class PanelFecha extends JPanel implements ActionListener {
 
 //*******************************************************************************
 
-     public String getFechaInicio() throws FechaFinalMenorInicialException,
-             FechaFinalIgualInicialException,
-             FechaInicialIncorrectaException,
-             FechaInicialMenorOriginalException {
+     public String getFechaInicio() throws FechasIncorrectasException {
          String fIni = tfFechaInicio.getText();
          String fFin = tfFechaFin.getText();
 
@@ -99,8 +99,7 @@ public class PanelFecha extends JPanel implements ActionListener {
 
 //*******************************************************************************
 
-     public String getFechaFin() throws FechaFinalIncorrectaException,
-             FechaFinalMayorOriginalException {
+     public String getFechaFin() throws FechasIncorrectasException {
 
          String fFin = tfFechaFin.getText();
 
@@ -145,11 +144,11 @@ public class PanelFecha extends JPanel implements ActionListener {
 
      @Override
      public void actionPerformed(ActionEvent e) {
-         System.out.println(e.getActionCommand());
-         if (e.getActionCommand().equals("RESET_INICIO")) {
+         LOGGER.info(e.getActionCommand());
+         if ("RESET_INICIO".equals(e.getActionCommand())) {
              this.resetInicio();
          }
-         if (e.getActionCommand().equals("RESET_FIN")) {
+         if ("RESET_FIN".equals(e.getActionCommand())) {
              this.resetFin();
          }
      }

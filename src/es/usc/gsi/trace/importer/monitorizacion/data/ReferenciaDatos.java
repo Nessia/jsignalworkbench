@@ -10,7 +10,7 @@ import java.util.LinkedList;
  */
 public class ReferenciaDatos extends Referencia {
 
-    boolean posAsociada[];
+    boolean[] posAsociada;
     private ReferenciaPosibilidades almacenPosibilidades;
 
     /**

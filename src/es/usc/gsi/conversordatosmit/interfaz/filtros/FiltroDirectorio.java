@@ -21,13 +21,7 @@ public class FiltroDirectorio extends FileFilter {
     // JDialog
     @Override
     public boolean accept(File f) {
-
-        if (f.isDirectory() || (f.getName().indexOf(".hea") != -1)) {
-            return true;
-        } else {
-            return false;
-        }
-
+        return (f.isDirectory() || (f.getName().indexOf(".hea") != -1)) ;
     }
 
     @Override

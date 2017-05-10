@@ -10,7 +10,7 @@ public interface RestriccionInterface extends Serializable {
      * Siempre podemos volver a leerlos, pero depende de nosotros que se haga de un modo correcto.
      */
 
-    static final long serialVersionUID = 1238L;
+    //static final long serialVersionUID = 1238L;
 
     /**
      * Devuelve la sintaxis de esta restriccion. En las posiciones del array se halla

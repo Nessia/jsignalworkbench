@@ -6,7 +6,8 @@
 
 package net.javahispano.jsignalwb.jsignalmonitor.marks;
 
-import java.util.ArrayList;
+
+import java.util.List;
 
 import javax.swing.JSplitPane;
 
@@ -42,7 +43,7 @@ public class AnnotationsSplitPanel extends JSplitPane {
     }
 
     public void refreshCategories() {
-        ArrayList<String> categories = jsmProperties.getDataSource().getAvailableCategoriesOfAnnotations();
+        List<String> categories = jsmProperties.getDataSource().getAvailableCategoriesOfAnnotations();
         acp.refreshCategories(categories);
         ap.refreshCategories(categories);
 

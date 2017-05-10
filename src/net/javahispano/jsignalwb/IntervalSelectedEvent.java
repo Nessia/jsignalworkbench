@@ -47,11 +47,7 @@ public class IntervalSelectedEvent {
     }
 
     public boolean isFullSignal() {
-        if (startTime < 0 || endTime < 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return startTime < 0 || endTime < 0 ;
     }
 
 }

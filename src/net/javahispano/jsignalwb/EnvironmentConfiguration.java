@@ -2,23 +2,25 @@ package net.javahispano.jsignalwb;
 
 import java.io.*;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * Created by IntelliJ IDEA.
  * User: a
  * Date: 01-dic-2008
  * Time: 15:54:17
- * To change this template use File | Settings | File Templates.
  */
 public class EnvironmentConfiguration {
 
 
-    private Properties propiedades;
-    private final static String directorio = "/.HerrmientaDeMonitorizacion";
-    private final static String archivo = "/config.txt";
-    private final static String PATH_JF_ABRIR_FICHEROS = "PATH_JF_ABRIR_FICHEROS";
-    private final static String DEFAULT_LOADER = "Default_Loader";
-    private final static String RECORDAR_PATH_FICHEROS = "Recordar_Path_Ficheros";
+    private static final Logger LOGGER = Logger.getLogger(EnvironmentConfiguration.class.getName());
+
+    private static final String PROP_USER_HOME = "user.home";
+    private static final String DIRECTORIO = "/.HerrmientaDeMonitorizacion";
+    private static final String ARCHIVO = "/config.txt";
+    private static final String PATH_JF_ABRIR_FICHEROS = "PATH_JF_ABRIR_FICHEROS";
+    private static final String DEFAULT_LOADER = "Default_Loader";
+    private static final String RECORDAR_PATH_FICHEROS = "Recordar_Path_Ficheros";
     /*private final static String PAIS = "Pais", IDIOMA = "Idioma", NUMERO_DE_DIGITOS = "Numero_de_digitos_decimales",
     , PATH_JF_ABRIR_BC = "PATH_JF_ABRIR_BC",
     DIVIDER_LOCATION = "Posicon_del_divisor", X_LOCATION_MAIN_FRAME = "Posicion_x_del_frame",
@@ -32,20 +34,21 @@ public class EnvironmentConfiguration {
     X_LOCATION_EDITOR = "Posicion_x_del_Editor", Y_LOCATION_EDITOR = "Posicion_y_del_Editor",
     ALTO_EDITOR = "Alto_del_Editor", LOOK_AND_FEEL = "Look_and_Feel", DESPLAZAMENTO = "desplazamiento_temporal";
     */
+    private Properties propiedades;
     private final String rutaDelArchivo;
     //private String desplazamiento;
     private static EnvironmentConfiguration environmentConfiguration;
 
     private EnvironmentConfiguration() {
-        String home = System.getProperty("user.home");
-        rutaDelArchivo = System.getProperty("user.home") + "/.JSignalWorkBench" + archivo;
+        String home = System.getProperty(PROP_USER_HOME);
+        rutaDelArchivo = System.getProperty(PROP_USER_HOME) + "/.JSignalWorkBench" + ARCHIVO;
         propiedades = new Properties();
         File archivo = new File(rutaDelArchivo);
         try {
             if (!archivo.exists()) {
                 Properties tmp = new Properties();
-                tmp.setProperty(PATH_JF_ABRIR_FICHEROS, System.getProperty("user.home"));
-                File directorio_file = new File(home + directorio);
+                tmp.setProperty(PATH_JF_ABRIR_FICHEROS, System.getProperty(PROP_USER_HOME));
+                File directorio_file = new File(home + DIRECTORIO);
                 directorio_file.mkdir();
                 FileOutputStream out = new FileOutputStream(archivo);
                 tmp.store(out, "Configuracion de JSignalWorkBench");
@@ -54,7 +57,7 @@ public class EnvironmentConfiguration {
             FileInputStream in = new FileInputStream(archivo);
             propiedades.load(in);
         } catch (IOException ex) {
-            System.out.println("Cagamos en la configuracion");
+            LOGGER.log(Level.SEVERE, "Fallo en al configuracion", ex);
         }
 
     }
@@ -115,7 +118,7 @@ public class EnvironmentConfiguration {
             FileOutputStream out = new FileOutputStream(archivo);
             propiedades.store(out, "Configuracion de JSignalWorkbench");
         } catch (IOException ex) {
-            System.out.println("Cagamos en la configuracion");
+           LOGGER.log(Level.SEVERE, "Fallo en al configuracion", ex);
         }
     }
 
@@ -125,21 +128,21 @@ public class EnvironmentConfiguration {
      * @return
      */
     public boolean getRecordarPathFicheros() {
-        String recordar_path_ficheros = (String) propiedades.getProperty(RECORDAR_PATH_FICHEROS);
+        String recordar_path_ficheros = propiedades.getProperty(RECORDAR_PATH_FICHEROS);
         if (recordar_path_ficheros == null) {
             propiedades.setProperty(RECORDAR_PATH_FICHEROS, "true");
             this.almacenaADisco();
             return false;
         }
-        return Boolean.valueOf(recordar_path_ficheros).booleanValue();
+        return Boolean.parseBoolean(recordar_path_ficheros);
     }
 
     /**
      * Modifica el boolean que indica si hay que recordar o no el path de los ficheros.
-     * @param _RecordarPathFicheros
+     * @param recordarPathFicheros
      */
-    public void setRecordarPathFicheros(boolean _RecordarPathFicheros) {
-        propiedades.setProperty(RECORDAR_PATH_FICHEROS, "" + _RecordarPathFicheros);
+    public void setRecordarPathFicheros(boolean recordarPathFicheros) {
+        propiedades.setProperty(RECORDAR_PATH_FICHEROS, Boolean.toString(recordarPathFicheros));
     }
 
 }

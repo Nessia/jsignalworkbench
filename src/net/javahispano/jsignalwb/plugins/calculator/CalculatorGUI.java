@@ -19,6 +19,8 @@ import javax.swing.JButton;
 //import net.javahispano.jsignalwb.Signal;
 import javax.swing.JTextField;
 import java.awt.event.MouseEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.event.MouseAdapter;
 import javax.swing.ListSelectionModel;
 import java.awt.event.ActionEvent;
@@ -37,14 +39,14 @@ import java.awt.event.ActionListener;
  * @version 0.5
  */
 public class CalculatorGUI extends JDialog {
+    private static final Logger LOGGER = Logger.getLogger(CalculatorGUI.class.getName());
     /**
      *
      */
     private static final long serialVersionUID = -6449258311894040022L;
+    private static final String FONT_TAHOMA = "Tahoma";
 
-    public enum Operation {
-        ADD, SUBSTRACT, MULTIPLY, DIVIDE
-    }
+    public enum Operation { ADD, SUBSTRACT, MULTIPLY, DIVIDE }
 
 
     private JPanel panel1 = new JPanel();
@@ -70,7 +72,9 @@ public class CalculatorGUI extends JDialog {
     private JButton jButton1 = new JButton();
     private JButton jButton2 = new JButton();
     private FlowLayout flowLayout2 = new FlowLayout();
-    String firstSignalName, secondSignalName, newSignalName;
+    String firstSignalName;
+    String secondSignalName;
+    String newSignalName;
     Operation operation = Operation.ADD;
     boolean cancelar = false;
     private JPanel jPanel7 = new JPanel();
@@ -91,7 +95,7 @@ public class CalculatorGUI extends JDialog {
             jbInit();
             pack();
         } catch (Exception exception) {
-            exception.printStackTrace();
+            LOGGER.log(Level.WARNING, exception.getMessage(), exception);
         }
         signalListFirst.setListData(signalNames);
         signalListSecond.setListData(signalNames);
@@ -105,7 +109,7 @@ public class CalculatorGUI extends JDialog {
 
     private void jbInit() throws Exception {
         panel1.setLayout(borderLayout1);
-        jLabel1.setFont(new java.awt.Font("Tahoma", Font.BOLD, 15));
+        jLabel1.setFont(new java.awt.Font(FONT_TAHOMA, Font.BOLD, 15));
         jLabel1.setForeground(Color.blue);
         jLabel1.setText("Calculadora de señales");
         jPanel4.setPreferredSize(new Dimension(200, 200));
@@ -115,17 +119,17 @@ public class CalculatorGUI extends JDialog {
         jPanel1.setBorder(BorderFactory.createLineBorder(Color.black));
         jPanel2.setLayout(borderLayout4);
         jPanel5.setLayout(flowLayout1);
-        jRadioButtonAdd.setFont(new java.awt.Font("Tahoma", Font.BOLD, 18));
+        jRadioButtonAdd.setFont(new java.awt.Font(FONT_TAHOMA, Font.BOLD, 18));
         jRadioButtonAdd.setSelected(true);
         jRadioButtonAdd.setText("+");
         jRadioButtonAdd.addActionListener(new CalculatorGUI_jRadioButtonAdd_actionAdapter(this));
-        jRadioButtonSubstract.setFont(new java.awt.Font("Tahoma", Font.BOLD, 18));
+        jRadioButtonSubstract.setFont(new java.awt.Font(FONT_TAHOMA, Font.BOLD, 18));
         jRadioButtonSubstract.setText("-");
         jRadioButtonSubstract.addActionListener(new CalculatorGUI_jRadioButtonSubstract_actionAdapter(this));
-        jRadioButtonMultiply.setFont(new java.awt.Font("Tahoma", Font.BOLD, 18));
+        jRadioButtonMultiply.setFont(new java.awt.Font(FONT_TAHOMA, Font.BOLD, 18));
         jRadioButtonMultiply.setText("*");
         jRadioButtonMultiply.addActionListener(new CalculatorGUI_jRadioButtonMultiply_actionAdapter(this));
-        jRadioButtonDivide.setFont(new java.awt.Font("Tahoma", Font.BOLD, 18));
+        jRadioButtonDivide.setFont(new java.awt.Font(FONT_TAHOMA, Font.BOLD, 18));
         jRadioButtonDivide.setText("/");
         jRadioButtonDivide.addActionListener(new CalculatorGUI_jRadioButtonDivide_actionAdapter(this));
         flowLayout1.setHgap(50);
@@ -135,7 +139,7 @@ public class CalculatorGUI extends JDialog {
         jButton2.addActionListener(new CalculatorGUI_jButton2_actionAdapter(this));
         jPanel6.setLayout(flowLayout2);
         flowLayout2.setHgap(15);
-        jLabel2.setText("Nombre de la se�al:");
+        jLabel2.setText("Nombre de la señal:");
         jTextFieldNweSignal.setColumns(25);
         jPanel7.setLayout(flowLayout3);
         flowLayout3.setHgap(15);
@@ -170,13 +174,13 @@ public class CalculatorGUI extends JDialog {
         jPanel4.add(jScrollPane2, java.awt.BorderLayout.CENTER);
     }
 
-    public void signalListSecond_mouseClicked(MouseEvent e) {
+    public void signalListSecond_mouseClicked() {
         generarNombreNuevaSenal();
     }
 
     private void generarNombreNuevaSenal() {
-        String firstSignalName = (String) signalListFirst.getSelectedValue();
-        String secondSignalName = (String) signalListSecond.getSelectedValue();
+        String firstSignalName = signalListFirst.getSelectedValue();
+        String secondSignalName = signalListSecond.getSelectedValue();
         if (firstSignalName == null || secondSignalName == null) {
             return;
         }
@@ -202,14 +206,14 @@ public class CalculatorGUI extends JDialog {
         return separador;
     }
 
-    public void jButton2_actionPerformed(ActionEvent e) {
+    public void jButton2_actionPerformed() {
         cancelar = true;
         this.dispose();
     }
 
-    public void jButton1_actionPerformed(ActionEvent e) {
-        firstSignalName = (String) signalListFirst.getSelectedValue();
-        secondSignalName = (String) signalListSecond.getSelectedValue();
+    public void jButton1_actionPerformed() {
+        firstSignalName = signalListFirst.getSelectedValue();
+        secondSignalName = signalListSecond.getSelectedValue();
         this.newSignalName = jTextFieldNweSignal.getText();
         if (jRadioButtonAdd.isSelected()) {
             this.operation = Operation.ADD;
@@ -226,27 +230,23 @@ public class CalculatorGUI extends JDialog {
         this.dispose();
     }
 
-    public void signalListFirst_mouseClicked(MouseEvent e) {
+    public void signalListFirst_mouseClicked() {
         generarNombreNuevaSenal();
     }
 
-    public void jRadioButtonAdd_actionPerformed(ActionEvent e) {
-
+    public void jRadioButtonAdd_actionPerformed() {
         generarNombreNuevaSenal();
     }
 
-    public void jRadioButtonSubstract_actionPerformed(ActionEvent e) {
-
+    public void jRadioButtonSubstract_actionPerformed() {
         generarNombreNuevaSenal();
     }
 
-    public void jRadioButtonMultiply_actionPerformed(ActionEvent e) {
-
+    public void jRadioButtonMultiply_actionPerformed() {
         generarNombreNuevaSenal();
     }
 
-    public void jRadioButtonDivide_actionPerformed(ActionEvent e) {
-
+    public void jRadioButtonDivide_actionPerformed() {
         generarNombreNuevaSenal();
     }
 }
@@ -260,7 +260,7 @@ class CalculatorGUI_jRadioButtonDivide_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jRadioButtonDivide_actionPerformed(e);
+        adaptee.jRadioButtonDivide_actionPerformed();
     }
 }
 
@@ -273,7 +273,7 @@ class CalculatorGUI_jRadioButtonMultiply_actionAdapter implements ActionListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jRadioButtonMultiply_actionPerformed(e);
+        adaptee.jRadioButtonMultiply_actionPerformed();
     }
 }
 
@@ -286,7 +286,7 @@ class CalculatorGUI_jRadioButtonSubstract_actionAdapter implements ActionListene
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jRadioButtonSubstract_actionPerformed(e);
+        adaptee.jRadioButtonSubstract_actionPerformed();
     }
 }
 
@@ -299,7 +299,7 @@ class CalculatorGUI_jRadioButtonAdd_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jRadioButtonAdd_actionPerformed(e);
+        adaptee.jRadioButtonAdd_actionPerformed();
     }
 }
 
@@ -312,7 +312,7 @@ class CalculatorGUI_jButton1_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton1_actionPerformed(e);
+        adaptee.jButton1_actionPerformed();
     }
 }
 
@@ -325,7 +325,7 @@ class CalculatorGUI_signalListFirst_mouseAdapter extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        adaptee.signalListFirst_mouseClicked(e);
+        adaptee.signalListFirst_mouseClicked();
     }
 }
 
@@ -338,7 +338,7 @@ class CalculatorGUI_signalListSecond_mouseAdapter extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        adaptee.signalListSecond_mouseClicked(e);
+        adaptee.signalListSecond_mouseClicked();
     }
 }
 
@@ -351,6 +351,6 @@ class CalculatorGUI_jButton2_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton2_actionPerformed(e);
+        adaptee.jButton2_actionPerformed();
     }
 }

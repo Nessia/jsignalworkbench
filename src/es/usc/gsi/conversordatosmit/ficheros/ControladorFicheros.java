@@ -2,7 +2,10 @@
 package es.usc.gsi.conversordatosmit.ficheros;
 
 import java.io.File;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import es.usc.gsi.conversordatosmit.excepciones.*;
 import es.usc.gsi.conversordatosmit.ficheros.escritura.EscribeHead_ASCII;
@@ -10,24 +13,24 @@ import es.usc.gsi.conversordatosmit.interfaz.ControladorInterfaz;
 
 public class ControladorFicheros {
 
+    private static final Logger LOGGER = Logger.getLogger(Logger.class.getName());
+
     private static ControladorFicheros controlador = new ControladorFicheros();
+    private static ControladorInterfaz controlInterfaz;
+
+    private List<FicheroHead> ficherosHead = new ArrayList<FicheroHead>();
+
     public static ControladorFicheros getControlador() {
         return controlador;
     }
 
-    private static ControladorInterfaz controlInterfaz;
-
     public static void enlazaControladorInterfaz() {
-
         controlInterfaz = ControladorInterfaz.getControlador();
     }
 
-    private Vector<FicheroHead> ficherosHead = new Vector<FicheroHead>();
-
-
     // Constructor privado
     private ControladorFicheros() {
-		//Vacio
+      //Vacio
     }
 
     /*
@@ -48,21 +51,20 @@ public class ControladorFicheros {
         ficherosHead.remove(fh);
     }
 
-    public Vector<FicheroHead> getFicherosHead() {
+    public List<FicheroHead> getFicherosHead() {
         return ficherosHead;
     }
 
     public FicheroHead[] getFicherosHeadArray() {
 
-        FicheroHead[] res = null;
+        FicheroHead[] res = new FicheroHead[ficherosHead.size()];;
 
-        if (ficherosHead.size() == 0) {
-            return null;
+        if (ficherosHead.isEmpty()) {
+            return res;
         }
 
-        res = new FicheroHead[ficherosHead.size()];
         for (int i = 0; i < ficherosHead.size(); i++) {
-            res[i] = (FicheroHead) ficherosHead.elementAt(i);
+            res[i] = ficherosHead.get(i);
         }
 
         return res;
@@ -87,7 +89,7 @@ public class ControladorFicheros {
     }
 
     public void vaciaVectorFicheros() {
-        this.ficherosHead.removeAllElements();
+        this.ficherosHead.clear();
     }
 
     public boolean existenArchivosAbiertos() {
@@ -100,8 +102,7 @@ public class ControladorFicheros {
         // INCLUIR CODIGO DE PREPROCESAMIENTO DEL PATH PARA
         // QUE EL FICHERO TENGA UN NOMBRE ADECUADO.
         int maxBarraProgreso = calcularMaxBarraProgreso();
-        EscribeHead_ASCII hilo = new EscribeHead_ASCII(ficherosHead,
-                ficheroDestino);
+        EscribeHead_ASCII hilo = new EscribeHead_ASCII(ficherosHead, ficheroDestino);
         hilo.start();
         this.creaIndicadorProgreso(hilo, "Exportando datos", "Exportando...",
                                    maxBarraProgreso, 0, false);
@@ -109,26 +110,30 @@ public class ControladorFicheros {
 
     private int calcularMaxBarraProgreso() {
         int max = 0;
-        FicheroHead fh;
-        for (int i = 0; i < ficherosHead.size(); i++) {
-            fh = (FicheroHead) ficherosHead.elementAt(i);
-            if (fh.getNumParametrosActivos() != 0) {
-                int num = (int) fh.getNumMuestras();
-                if (num > max) {
-                    max = num;
-                }
-                Parametro[] params = fh.getParametros();
-                int factorMax = 1;
-                for (int j = 0; j < params.length; j++) {
-                    if (params[j].getActivado()) {
-                        int factorFrec = params[j].getFactorFrecuencia();
-                        if (factorFrec > factorMax) {
-                            factorMax = factorFrec;
-                        }
-                    }
-                }
-                max = max * factorMax;
+        //FicheroHead fh;
+        //for (int i = 0; i < ficherosHead.size(); i++) {
+        //   fh = ficherosHead.elementAt(i);
+        for(FicheroHead fh : ficherosHead){
+            if (fh.getNumParametrosActivos() == 0) {
+               continue;
             }
+            int num = (int) fh.getNumMuestras();
+            if (num > max) {
+               max = num;
+            }
+            Parametro[] params = fh.getParametros();
+            int factorMax = 1;
+            for (int j = 0; j < params.length; j++) {
+                if (!params[j].getActivado()) {
+                   continue;
+                }
+                int factorFrec = params[j].getFactorFrecuencia();
+                if (factorFrec > factorMax) {
+                    factorMax = factorFrec;
+                }
+            }
+            max = max * factorMax;
+
         } // End for
         return max;
     }
@@ -143,8 +148,8 @@ public class ControladorFicheros {
 
         FicheroHead[] res;
         File[] listaFicheros;
-        Vector<File> temp1 = new Vector<File>(); // Almacena todos los ficheros .hea menos senal.hea --AHORA SI LOS ALMACENA
-        Vector<File> temp2 = new Vector<File>(); // Almacena todos los ficheros .hea VALIDOS.
+        List<File> temp1 = new ArrayList<File>(); // Almacena todos los ficheros .hea menos senal.hea --AHORA SI LOS ALMACENA
+        List<File> temp2 = new ArrayList<File>(); // Almacena todos los ficheros .hea VALIDOS.
 
         listaFicheros = f.listFiles();
 
@@ -173,12 +178,14 @@ public class ControladorFicheros {
 
         for (int j = 0; j < temp1.size(); j++) {
             try {
-                FicheroHead fhTemp = new FicheroHead((File) temp1.elementAt(j));
+                FicheroHead fhTemp = new FicheroHead((File) temp1.get(j));
                 temp2.add(fhTemp);
-            } catch (FicheroNoValidoException e) {}
+            } catch (FicheroNoValidoException e) {
+               LOGGER.log(Level.WARNING, e.getMessage(), e);
+            }
         } // Fin for j
 
-        if (temp2.size() == 0) {
+        if (temp2.isEmpty()) {
             //       this.cierraIndicadorProgreso();
             throw new DirectorioVacioException();
         }
@@ -186,7 +193,7 @@ public class ControladorFicheros {
         res = new FicheroHead[temp2.size()];
 
         for (int i = 0; i < res.length; i++) {
-            res[i] = (FicheroHead) temp2.elementAt(i);
+            res[i] = (FicheroHead) temp2.get(i);
         }
 
 //      this.cierraIndicadorProgreso();
@@ -196,16 +203,16 @@ public class ControladorFicheros {
 
     // Verifica condiciones de exportacion para decidir si se puede exportar el grupo de
     // ficheros o no.
-    public void esExportable() throws NoPacienteAbiertoException,
-            NoParametroSeleccionadoException {
+    public void esExportable() throws NoExportableException {
 
-        if (ficherosHead.size() == 0) {
+        if (ficherosHead.isEmpty()) {
             throw new NoPacienteAbiertoException(); // Si no se ha abierto ningun fichero head, no es exportable
         }
 
-        for (int i = 0; i < ficherosHead.size(); i++) {
+        //for (int i = 0; i < ficherosHead.size(); i++) {
+        for(FicheroHead fh : ficherosHead){
 
-            FicheroHead fh = (FicheroHead) ficherosHead.elementAt(i);
+            //FicheroHead fh = ficherosHead.elementAt(i);
             Parametro[] parG = fh.getParametros();
 
             for (int j = 0; j < parG.length; j++) {
@@ -221,11 +228,9 @@ public class ControladorFicheros {
     // Creacion y manejo de indicadores de progreso graficos: son
     // aconsejables para operaciones intensivas en ficheros.
 
-    public void creaIndicadorProgreso(Cancelar h, String titulo,
-                                      String textoPrincipal, int max, int min,
+    public void creaIndicadorProgreso(Cancelar h, String titulo, String textoPrincipal, int max, int min,
                                       boolean _stop) {
-        controlInterfaz.creaIndicadorProgreso(h, titulo, textoPrincipal, max,
-                                              min, _stop);
+        controlInterfaz.creaIndicadorProgreso(h, titulo, textoPrincipal, max, min, _stop);
     }
 
     public void notificaProgreso(int nuevoValor) {

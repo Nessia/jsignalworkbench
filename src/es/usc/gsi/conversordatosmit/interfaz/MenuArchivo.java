@@ -11,23 +11,22 @@ public class MenuArchivo extends JMenu implements ActionListener {
     /**
     *
     */
-   private static final long serialVersionUID = 3596737894964668987L;
+    private static final long serialVersionUID = 3596737894964668987L;
 
-   private ControladorInterfaz controlInterfaz = ControladorInterfaz.
-                                                  getControlador();
+    private static final String CMD_ABRIRPACIENTE = "Abrir paciente";
+    private static final String CMD_ABRIRFICHERO = "Abrir fichero";
+    private static final String CMD_CERRAR = "Cerrar";
+    private static final String CMD_EXPORTAR = "Exportar";
+//  private static final String CMD_GUARDAR = "Guardar";
+//  private static final String CMD_IMPORTAR="Importar";
+
+    private ControladorInterfaz controlInterfaz = ControladorInterfaz.getControlador();
 
     private JMenuItem abrirPaciente = new JMenuItem("Abrir paciente");
     private JMenuItem abrirFichero = new JMenuItem("Abrir fichero");
     private JMenuItem cerrar = new JMenuItem("Cerrar");
     private JMenuItem exportar = new JMenuItem("Exportar");
 //  private JMenuItem importar=new JMenuItem("Importar");
-
-    private final String CMD_ABRIRPACIENTE = "Abrir paciente";
-    private final String CMD_ABRIRFICHERO = "Abrir fichero";
-    private final String CMD_CERRAR = "Cerrar";
-    private final String CMD_EXPORTAR = "Exportar";
-//    private final String CMD_GUARDAR = "Guardar";
-//  private final String CMD_IMPORTAR="Importar";
 
     public MenuArchivo(String nombre) {
         super(nombre);

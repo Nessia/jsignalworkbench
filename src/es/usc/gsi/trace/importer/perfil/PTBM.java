@@ -3,48 +3,43 @@
 package es.usc.gsi.trace.importer.perfil;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 /**
  * @author Abraham Otero Quintana
  * @version 0.4
  */
 public class PTBM implements PTBMInterface, Serializable {
+
+    private static final Logger LOGGER = Logger.getLogger(PTBM.class.getName());
     /**
      * Esto nos hara a nosotros responsables del versionamiento de los ficheros Serializados.
      * Siempre podemos volver a leerlos, pero depende de nosotros que se haga de un modo correcto.
      */
 
-    static final long serialVersionUID = 1233L;
+    private static final long serialVersionUID = 1233L;
+
 
 //Separacion entre PTBM
-    private float inicioSoporteSeparacion = 10, inicioCoreSeparacion = 15,
-    finCoreSeparacion = 20, finSoporteSeparacion = 25;
+    private float inicioSoporteSeparacion = 10;
+    private float inicioCoreSeparacion = 15;
+    private float finCoreSeparacion = 20;
+    private float finSoporteSeparacion = 25;
     /**
      * //////////////////VARIABLES////////////////////////////////////
      */
-    private String nombre;
-
-    /**
-     * //////////////////VARIABLES////////////////////////////////////
-     */
-    private String comentario;
-
-    /**
-     * //////////////////VARIABLES////////////////////////////////////
-     */
-    private transient String fichero;
     private static int numeroPTB;
+    private String nombre;
+    private String comentario;
+    private transient String fichero;
     private int numeroPTBnoEstatico = 0;
     private transient boolean tieneficheroasociado = false;
     private transient boolean guardado = false;
-    public static final int MODIFICAR = 0;
-    public static final int BORRAR = -1;
-    public static final int ANHADIR = 1;
-    public static final int CREAR = 2;
     //private Vector parametros;
-    private Vector<PTB> vectorPTB = new Vector<PTB>();
-    public PTBInterface thePTBInterface[];
+    private List<PTB> vectorPTB = new Vector<PTB>();
+    public PTBInterface[] thePTBInterface;
 
 
     /**
@@ -56,7 +51,7 @@ public class PTBM implements PTBMInterface, Serializable {
     public PTBM(String nombre, String comentario, PTB ptb) {
         this.nombre = nombre;
         this.comentario = comentario;
-        vectorPTB.addElement(ptb);
+        vectorPTB.add(ptb);
         numeroPTB = 1;
         numeroPTBnoEstatico = 1;
     }
@@ -67,37 +62,45 @@ public class PTBM implements PTBMInterface, Serializable {
      * @param seleccion
      * @roseuid 3787081900A1
      */
-    public void anhadePTB(PTB ptb, int numeroPTB, int seleccion) {
-        if (seleccion == 1) {
-            vectorPTB.addElement(ptb);
-            PTBM.incrementaNumeroPTB();
-            numeroPTBnoEstatico++;
-        } else if (seleccion == 0) {
-            ((PTB) vectorPTB.elementAt(numeroPTB)).modificar(ptb.getNombre(),
-                    ptb.getParametro(),
-                    ptb.getUnidades(), ptb.getComentario(), "OJO");
-        } else if (seleccion == -1) {
-            revisaRestricciones(ptb);
-            vectorPTB.remove(numeroPTB);
-            PTBM.decrementaNumeroPTB();
-            numeroPTBnoEstatico--;
-            //Esto es para borrar restricciones que no se borran donde devieran
-            for (int i = 0; i < numeroPTB; i++) {
-                ((PTB) vectorPTB.elementAt(i)).setNumeroDePTB(i, numeroPTB);
-            }
+    @Override
+    public void anhadePTB(PTB ptb, int numeroPTB, PTBInterface.Acciones seleccion) {
+       switch(seleccion){
+       case ANHADIR:
+          vectorPTB.add(ptb);
+          PTBM.incrementaNumeroPTB();
+          numeroPTBnoEstatico++;
+          break;
+       case MODIFICAR:
+          vectorPTB.get(numeroPTB).modificar(ptb.getNombre(),
+                ptb.getParametro(),
+                ptb.getUnidades(), ptb.getComentario(), "OJO");
+          break;
+       case BORRAR:
+          revisaRestricciones(ptb);
+          vectorPTB.remove(numeroPTB);
+          PTBM.decrementaNumeroPTB();
+          numeroPTBnoEstatico--;
+          //Esto es para borrar restricciones que no se borran donde devieran
+          for (int i = 0; i < numeroPTB; i++) {
+              vectorPTB.get(i).setNumeroDePTB(i, numeroPTB);
+          }
 
-            for (int i = (numeroPTB); i < getNumeroPTB(); i++) {
-                int num = ((PTB) vectorPTB.elementAt(i)).getNumeroDePTB();
-                ((PTB) vectorPTB.elementAt(i)).setNumeroDePTB(num - 1,
-                        numeroPTB);
-            }
-        }
+          for (int i = (numeroPTB); i < getNumeroPTB(); i++) {
+              int num = vectorPTB.get(i).getNumeroDePTB();
+              vectorPTB.get(i).setNumeroDePTB(num - 1, numeroPTB);
+          }
+          break;
+       case CREAR:
+          LOGGER.warning("No se debe crear en este punto");
+          break;
+       }
     }
 
     /**
      * @return boolean
      * @roseuid 3787081900A5
      */
+    @Override
     public boolean tieneFicheroAsicoado() {
         return tieneficheroasociado;
     }
@@ -106,8 +109,8 @@ public class PTBM implements PTBMInterface, Serializable {
      * @param b
      * @roseuid 3787081900A6
      */
+    @Override
     public void setTieneFicheroAsociado(boolean b) {
-
         tieneficheroasociado = b;
     }
 
@@ -115,6 +118,7 @@ public class PTBM implements PTBMInterface, Serializable {
      * @return java.lang.String
      * @roseuid 3787081900A8
      */
+    @Override
     public String getFicheroAsociado() {
         return fichero;
     }
@@ -123,6 +127,7 @@ public class PTBM implements PTBMInterface, Serializable {
      * @param fichero
      * @roseuid 3787081900A9
      */
+    @Override
     public void setFicheroAsociado(String fichero) {
         this.fichero = fichero;
     }
@@ -161,10 +166,11 @@ public class PTBM implements PTBMInterface, Serializable {
      * @return PTB[]
      * @roseuid 3787081900B0
      */
+    @Override
     public PTB[] getPTB() {
         PTB[] vptb = new PTB[numeroPTBnoEstatico];
         for (int i = 0; i < (numeroPTBnoEstatico); i++) {
-            vptb[i] = ((PTB) vectorPTB.elementAt(i));
+            vptb[i] = vectorPTB.get(i);
         }
         return vptb;
     }
@@ -174,10 +180,11 @@ public class PTBM implements PTBMInterface, Serializable {
      * @param nptb
      * @roseuid 3787081900B1
      */
+    @Override
     public void setPTB(PTB[] vptb, int nptb) {
-        vectorPTB.removeAllElements();
+        vectorPTB.clear();
         for (int i = 0; i < nptb; i++) {
-            vectorPTB.addElement(vptb[i]);
+            vectorPTB.add(vptb[i]);
         }
         numeroPTB = nptb;
         this.numeroPTBnoEstatico = nptb;
@@ -187,10 +194,11 @@ public class PTBM implements PTBMInterface, Serializable {
      * @return int[]
      * @roseuid 3787081900B4
      */
+    @Override
     public int[] getNumeroPtoSig() {
-        int v[] = new int[numeroPTB];
+        int[] v = new int[numeroPTB];
         for (int i = 0; i < vectorPTB.size(); i++) {
-            v[i] = ((PTB) vectorPTB.elementAt(i)).getNumeroDePtoSig();
+            v[i] = vectorPTB.get(i).getNumeroDePtoSig();
         }
         return v;
     }
@@ -202,9 +210,10 @@ public class PTBM implements PTBMInterface, Serializable {
      * @param selecion
      * @roseuid 3787081900B5
      */
+    @Override
     public void anhadePtoSig(PTB ptb, PtoSig ptosig, int numeroPtoSig,
-                             int selecion) {
-        ((PTB) vectorPTB.elementAt(vectorPTB.indexOf(ptb))).anhadePtoSig(ptosig,
+          PTBInterface.Acciones selecion) {
+        vectorPTB.get(vectorPTB.indexOf(ptb)).anhadePtoSig(ptosig,
                 numeroPtoSig, selecion);
     }
 
@@ -217,11 +226,12 @@ public class PTBM implements PTBMInterface, Serializable {
      * @param selecion
      * @roseuid 3787081900BA
      */
+    @Override
     public void anhadeRestriccion(PTB ptb, PtoSig ptosig,
                                   Restriccion restriccion,
                                   Restriccion restriccion_vieja,
-                                  int numeroPtoSig, int selecion) {
-        ((PTB) (vectorPTB.elementAt(vectorPTB.indexOf(ptb)))).anhadeRestriccion(
+                                  int numeroPtoSig, PTBInterface.Acciones selecion) {
+        vectorPTB.get(vectorPTB.indexOf(ptb)).anhadeRestriccion(
                 ptb.getNumeroDePTB(),
                 ptosig.getNumeroDePtoSig(), restriccion,
                 restriccion_vieja, /*numeroPtoSig,*/ selecion);
@@ -232,6 +242,7 @@ public class PTBM implements PTBMInterface, Serializable {
      * @return boolean
      * @roseuid 3787081900C1
      */
+    @Override
     public boolean isGuardado() {
         return guardado;
     }
@@ -240,6 +251,7 @@ public class PTBM implements PTBMInterface, Serializable {
      * @param b
      * @roseuid 3787081900C2
      */
+    @Override
     public void setGuardado(boolean b) {
         guardado = b;
     }
@@ -250,17 +262,19 @@ public class PTBM implements PTBMInterface, Serializable {
      * @return Restriccion[]
      * @roseuid 3787081900C4
      */
+    @Override
     public Restriccion[] getRestricciones(int ptb, int ptosig) {
-        return ((PTB) vectorPTB.elementAt(ptb)).getRestricciones(ptosig);
+        return vectorPTB.get(ptb).getRestricciones(ptosig);
     }
 
     /**
      * @param ptosig
      * @roseuid 3787081900C7
      */
+    @Override
     public void revisaRestricciones(PtoSig ptosig) {
         for (int i = 0; i < numeroPTB; i++) {
-            ((PTB) vectorPTB.elementAt(i)).revisaRestricciones(ptosig);
+            vectorPTB.get(i).revisaRestricciones(ptosig);
         }
     }
 
@@ -268,15 +282,15 @@ public class PTBM implements PTBMInterface, Serializable {
      * @param ptb
      * @roseuid 3787081900C9
      */
+    @Override
     public void revisaRestricciones(PTB ptb) {
-        PTB ptb2 = ((PTB) vectorPTB.elementAt(vectorPTB.indexOf(ptb)));
+        PTB ptb2 = vectorPTB.get(vectorPTB.indexOf(ptb));
         int numptosig = ptb2.getNumeroDePtoSig();
-        PtoSig vptosig[] = new PtoSig[numptosig];
-        vptosig = ptb2.getPtoSig();
+        PtoSig[] vptosig = ptb2.getPtoSig();
 
         for (int i = 0; i < numeroPTB; i++) {
             for (int j = 0; j < numptosig; j++) {
-                ((PTB) vectorPTB.elementAt(i)).revisaRestricciones(vptosig[j]);
+                vectorPTB.get(i).revisaRestricciones(vptosig[j]);
             }
         }
     }
@@ -284,6 +298,7 @@ public class PTBM implements PTBMInterface, Serializable {
     /**
      * @roseuid 3787081900CB
      */
+    @Override
     public void almacenaNumeroPTB() {
         numeroPTBnoEstatico = PTBM.getNumeroPTB();
     }
@@ -292,10 +307,12 @@ public class PTBM implements PTBMInterface, Serializable {
      * @return int
      * @roseuid 3787081900CC
      */
+    @Override
     public int getnumeroPTBnoEstatico() {
         return numeroPTBnoEstatico;
     }
 
+    @Override
     public String getTitulo() {
         return nombre;
     }
@@ -304,6 +321,7 @@ public class PTBM implements PTBMInterface, Serializable {
      * Este metodo devuelve el comentario del PTBM
      * @roseuid 3788BA0903A7
      */
+    @Override
     public String getComentario() {
         return comentario;
     }
@@ -314,6 +332,7 @@ public class PTBM implements PTBMInterface, Serializable {
      * @param titulo
      * @param comentario
      */
+    @Override
     public void modificar(String titulo, String comentario) {
         this.nombre = titulo;
         this.comentario = comentario;
@@ -325,6 +344,7 @@ public class PTBM implements PTBMInterface, Serializable {
      * @return Object
      * @roseuid 3788D4B4020C
      */
+    @Override
     public Object getParametro(int parametro) {
         return null;
     }
@@ -333,38 +353,47 @@ public class PTBM implements PTBMInterface, Serializable {
      * @param parametro
      * @roseuid 3788D4B4027A
      */
+    @Override
     public void setParametro(int parametro) {
-
+       // Empty
     }
 
+    @Override
     public float getFinCoreSeparacion() {
         return finCoreSeparacion;
     }
 
+    @Override
     public float getFinSoporteSeparacion() {
         return finSoporteSeparacion;
     }
 
+    @Override
     public void setFinCoreSeparacion(float finCoreSeparacion) {
         this.finCoreSeparacion = finCoreSeparacion;
     }
 
+    @Override
     public void setFinSoporteSeparacion(float finSoporteSeparacion) {
         this.finSoporteSeparacion = finSoporteSeparacion;
     }
 
+    @Override
     public float getInicioSoporteSeparacion() {
         return inicioSoporteSeparacion;
     }
 
+    @Override
     public float getInicioCoreSeparacion() {
         return inicioCoreSeparacion;
     }
 
+    @Override
     public void setInicioCoreSeparacion(float inicioCoreSeparacion) {
         this.inicioCoreSeparacion = inicioCoreSeparacion;
     }
 
+    @Override
     public void setInicioSoporteSeparacion(float inicioSoporteSeparacion) {
         this.inicioSoporteSeparacion = inicioSoporteSeparacion;
     }
@@ -374,6 +403,7 @@ public class PTBM implements PTBMInterface, Serializable {
      *
      * @return float
      */
+    @Override
     public float getSeparacionCrips() {
         return inicioSoporteSeparacion;
     }

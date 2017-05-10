@@ -1,7 +1,9 @@
 package es.usc.gsi.conversordatosmit.ficheros.escritura;
 
 import java.io.*;
-import java.util.Vector;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import es.usc.gsi.conversordatosmit.ficheros.FicheroHead;
 import es.usc.gsi.conversordatosmit.ficheros.Parametro;
@@ -9,10 +11,12 @@ import es.usc.gsi.conversordatosmit.utilidades.ParseadorCadena;
 
 public class EscribeCabeceraHead_ASCII {
 
-    private Vector<FicheroHead> vectorFicherosHead;
+    private static final Logger LOGGER = Logger.getLogger(EscribeCabeceraHead_ASCII.class.getName());
+
+    private List<FicheroHead> vectorFicherosHead;
     private File ficheroDestinoCabecera;
 
-    public EscribeCabeceraHead_ASCII(Vector<FicheroHead> vectorFicherosHead,
+    public EscribeCabeceraHead_ASCII(List<FicheroHead> vectorFicherosHead,
                                      File ficheroDestino) {
 
         // Preprocesado del nombre de fichero para generar el nombre del .cxp
@@ -45,8 +49,7 @@ public class EscribeCabeceraHead_ASCII {
             fw = new FileWriter(ficheroDestinoCabecera);
             salida = new BufferedWriter(fw);
         } catch (Exception e) {
-            System.out.println(
-                    "Error al crear fichero de cabecera en exportacion");
+           LOGGER.log(Level.WARNING, "Error al crear fichero de cabecera en exportacion", e);
         }
 
         try {
@@ -89,15 +92,14 @@ public class EscribeCabeceraHead_ASCII {
             } // Fin bucle i
 
         } catch (Exception e) {
-            System.out.println(
-                    "Error al volcar datos de fichero de cabecera exportacion");
+           LOGGER.log(Level.SEVERE, "Error al volcar datos de fichero de cabecera exportacion", e);
         }
 
         try {
             salida.close();
             fw.close();
         } catch (Exception e) {
-            System.out.println("Error al cerrar fichero de cabecera");
+           LOGGER.log(Level.WARNING, "Error al cerrar fichero de cabecera", e);
         }
 
     }

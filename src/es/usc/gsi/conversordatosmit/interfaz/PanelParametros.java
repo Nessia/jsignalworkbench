@@ -20,8 +20,7 @@ public class PanelParametros extends JPanel {
         this.layoutPanel = new BoxLayout(this, BoxLayout.Y_AXIS); // Una sola columna y tantas filas como ficherosHead
         this.setLayout(layoutPanel);
 
-        PanelInfo informacion = new PanelInfo(ficherosHead[0],
-                                              PanelInfo.DIRECTORIO);
+        PanelInfo informacion = new PanelInfo(ficherosHead[0], PanelInfo.Modos.DIRECTORIO);
         this.add(informacion);
         this.creaPanelesFichero(ficherosHead);
     }

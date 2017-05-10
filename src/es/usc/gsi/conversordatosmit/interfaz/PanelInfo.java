@@ -2,6 +2,8 @@ package es.usc.gsi.conversordatosmit.interfaz;
 
 import java.awt.Color;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -10,17 +12,20 @@ import es.usc.gsi.conversordatosmit.ficheros.FicheroHead;
 
 public class PanelInfo extends JPanel {
 
+
+    private static final Logger LOGGER = Logger.getLogger(PanelInfo.class.getName());
     /**
     *
     */
     private static final long serialVersionUID = 3310265314087578520L;
 
-    public static final int DIRECTORIO = 0;
-    public static final int ARCHIVO = 1;
+//    public static final int DIRECTORIO = 0;
+//    public static final int ARCHIVO = 1;
+    public enum Modos {DIRECTORIO, ARCHIVO };
     private TitledBorder bordePanel;
     private JLabel labelDatos = new JLabel();
 
-    public PanelInfo(FicheroHead fh, int modo) {
+    public PanelInfo(FicheroHead fh, Modos modo) {
         // ANHADIR TODA LA INFORMACION PERTINENTE AL FICHERO
         // Y TAMBIEN A LOS PARAMETROS GENERALES LEIDOS DEL FICHERO.
         File localizacion = null;
@@ -32,7 +37,7 @@ public class PanelInfo extends JPanel {
         String frecuenciaMuestreoFrame = "";
 
         switch (modo) {
-        case PanelInfo.ARCHIVO:
+        case ARCHIVO:
             localizacion = fh;
             fechaInicioMuestreo = fh.getFechaInicio();
             fechaFinMuestreo = fh.getFechaFin();
@@ -54,7 +59,7 @@ public class PanelInfo extends JPanel {
                          frecuenciaMuestreoFrame + " Hz" +
                          "</font></html>";
             break;
-        case PanelInfo.DIRECTORIO:
+        case DIRECTORIO:
             localizacion = fh.getParentFile();
             fechaInicioMuestreo = fh.getFechaInicio();
             fechaFinMuestreo = fh.getFechaFin();
@@ -72,13 +77,15 @@ public class PanelInfo extends JPanel {
                          //  "<b>Frecuencia base de muestreo:</b> " + frecuenciaMuestreoFrame + " Hz" +
                          "</font></html>";
             break;
-        default:
-            localizacion = null;
+//        default:
+//            localizacion = null;
         }
 
         try {
             labelDatos.setText(textoLabel);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+           LOGGER.log(Level.INFO, e.getMessage(), e);
+        }
         this.add(labelDatos);
 
         bordePanel = new TitledBorder(BorderFactory.createLineBorder(new Color(

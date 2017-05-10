@@ -105,11 +105,7 @@ public class SignalManager {
      * @return True si existe la senhal, False en caso de que no exista
      */
     public boolean exists(String signalName) {
-        if (signals.get(signalName) != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return (signals.get(signalName) != null);
     }
 
     /**
@@ -126,8 +122,7 @@ public class SignalManager {
             fireSizeEvent(s, false);
 
         } else {
-            throw new SignalNotFoundException(name,
-                                              "Attempt of deleteting a non existent signal(" + name + ")");
+            throw new SignalNotFoundException(name, "Attempt of deleteting a non existent signal(" + name + ")");
         }
     }
 
@@ -145,9 +140,10 @@ public class SignalManager {
                                               "Attempt of renaming a non existent signal(" + oldName + ")");
         }
         if (exists(newName)) {
+         //@todo (Roman) comprobar si se deberia devolver true o false en vez de excepcion si existe la senhal nueva
             throw new SignalNotFoundException(newName,
                                               "Attempt of set a existent name renaming a signal(" + oldName + " to " +
-                                              newName + ")"); //@todo (Roman) comprobar si se deberia devolver true o false en vez de excepcion si existe la senhal nueva
+                                              newName + ")");
         }
         if (!oldName.equals(newName)) {
             Signal signal = getSignal(oldName);
@@ -172,10 +168,9 @@ public class SignalManager {
     public void setSignalVisible(String signalName, boolean visible) throws SignalNotFoundException {
 
         if (!exists(signalName)) {
-            throw new SignalNotFoundException(signalName,
-                                              "The signal is not loaded(" + signalName + ")");
+            throw new SignalNotFoundException(signalName, "The signal is not loaded(" + signalName + ")");
         }
-        if (!(isSignalVisible(signalName) == visible)) {
+        if (isSignalVisible(signalName) != visible) {
             Signal s = signals.get(signalName);
             s.setVisible(visible);
             fireSizeEvent(s, visible);
@@ -192,8 +187,7 @@ public class SignalManager {
      */
     public void setSignalMagnitude(String signalName, String magnitude) throws SignalNotFoundException {
         if (!exists(signalName)) {
-            throw new SignalNotFoundException(signalName,
-                                              "The signal is not loaded(" + signalName + ")");
+            throw new SignalNotFoundException(signalName, "The signal is not loaded(" + signalName + ")");
         }
         signals.get(signalName).setMagnitude(magnitude);
     }
@@ -208,8 +202,7 @@ public class SignalManager {
      */
     public void setSignalFrecuency(String signalName, float frecuency) throws SignalNotFoundException {
         if (!exists(signalName)) {
-            throw new SignalNotFoundException(signalName,
-                                              "The signal is not loaded(" + signalName + ")");
+            throw new SignalNotFoundException(signalName, "The signal is not loaded(" + signalName + ")");
         }
         signals.get(signalName).setFrecuency(frecuency);
     }

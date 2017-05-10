@@ -6,6 +6,8 @@
 package es.usc.gsi.conversordatosmit.ficheros;
 
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import es.usc.gsi.conversordatosmit.algoritmos.*;
 import es.usc.gsi.conversordatosmit.excepciones.FicheroNoValidoException;
@@ -14,6 +16,7 @@ import es.usc.gsi.conversordatosmit.utilidades.ParseadorFecha;
 
 public class FicheroHead extends File {
 
+    private static final Logger LOGGER = Logger.getLogger(FicheroHead.class.getName());
     /**
     *
     */
@@ -92,7 +95,7 @@ public class FicheroHead extends File {
             }
 
         } catch (Exception e) {
-            System.out.println("Error al leer el fichero");
+            LOGGER.log(Level.SEVERE, "Error al leer el fichero", e);
             throw new FicheroNoValidoException();
         }
         ;
@@ -184,7 +187,7 @@ public class FicheroHead extends File {
                     segundosMuestreo);
 
         } catch (Exception e) {
-            System.out.println("Error al leer fichero head: " + this.getName());
+            LOGGER.log(Level.SEVERE, "Error al leer fichero head: " + this.getName(), e);
             throw new FicheroNoValidoException();
         }
 
@@ -280,10 +283,7 @@ public class FicheroHead extends File {
             }
 
         } catch (Exception e) {
-            System.out.println("Error de archivo al leer parametros");
-            System.out.println("FicheroHead.leeParametros(): error " +
-                               e.getMessage());
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error de archivo al leer parametros", e);
             throw new FicheroNoValidoException();
         }
 
@@ -305,6 +305,16 @@ public class FicheroHead extends File {
     ////////////////////
     public Parametro getParametro(int indice) {
         return parametros[indice];
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+       return super.hashCode();
     }
 
 } // Fin clase FicheroHead

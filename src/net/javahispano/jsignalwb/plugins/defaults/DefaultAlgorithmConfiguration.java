@@ -11,6 +11,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -24,6 +26,7 @@ import net.javahispano.jsignalwb.plugins.Algorithm;
  */
 public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         PropertyChangeListener, IntervalSelectedListener {
+    private static final Logger LOGGER = java.util.logging.Logger.getLogger(DefaultAlgorithmConfiguration.class.getName());
     /**
     *
     */
@@ -35,24 +38,24 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+//    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+//    private javax.swing.JLabel jLabel5;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+//    private javax.swing.JPanel jPanel1;
+//    private javax.swing.JPanel jPanel2;
+//    private javax.swing.JPanel jPanel3;
+//    private javax.swing.JScrollPane jScrollPane1;
+//    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JCheckBox selectInterval;
     private javax.swing.JCheckBox selectSignals;
     // End of variables declaration//GEN-END:variables
 
-    private JSWBManager jswbManager;
-    private final Algorithm alg;
+    private transient JSWBManager jswbManager;
+    private transient final Algorithm alg;
     private Window owner;
     private DefaultListModel<String> dlmNo;
     private DefaultListModel<String> dlmYes;
@@ -60,7 +63,9 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
     private int intervalsNeeded;
     private ArrayList<IntervalSelectedEvent> intervals;
 
-    /** Creates new form DefaultAlgorithmConfiguration */
+    /*
+     * Constructor
+     */
     public DefaultAlgorithmConfiguration(Algorithm al, JSWBManager jswbManager, Window owner) {
         this.jswbManager = jswbManager;
         this.owner = owner;
@@ -109,9 +114,11 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
     public void intervalSelectedActionPerformed(IntervalSelectedEvent evt) {
 
         intervalsNeeded--;
-        if (intervalsNeeded < 0) return; // TODO añadido en github
+        if (intervalsNeeded < 0){
+           return; // añadido en github
+        }
         if (intervalsNeeded > 0) {
-            System.out.println("quedan " + intervalsNeeded + " intervalos por seleccionar");
+            LOGGER.log(Level.INFO, "quedan %i intervalos por seleccionar", intervalsNeeded);
             intervals.add(evt);
             jswbManager.selectInterval(this);
         } else {
@@ -139,32 +146,32 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        jButton3 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        selectSignals = new javax.swing.JCheckBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<String>();
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<String>();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        selectInterval = new javax.swing.JCheckBox();
-        jButton6 = new javax.swing.JButton();
+        jButton3 = new JButton();
+        JPanel jPanel2 = new JPanel();
+        selectSignals = new JCheckBox();
+        JScrollPane jScrollPane1 = new JScrollPane();
+        jList1 = new JList<String>();
+        jButton1 = new JButton();
+        jButton4 = new JButton();
+        jButton5 = new JButton();
+        jButton2 = new JButton();
+        JScrollPane jScrollPane2 = new JScrollPane();
+        jList2 = new JList<String>();
+        JPanel jPanel3 = new JPanel();
+        jLabel3 = new JLabel();
+        jLabel4 = new JLabel();
+        JPanel jPanel1 = new JPanel();
+        JLabel jLabel5 = new JLabel();
+        jSpinner1 = new JSpinner();
+        selectInterval = new JCheckBox();
+        JButton jButton6 = new JButton();
 
         jButton3.setForeground(java.awt.Color.blue);
         jButton3.setText("Run Algorithm");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton3ActionPerformed();
             }
         });
 
@@ -190,7 +197,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton1ActionPerformed();
             }
         });
 
@@ -198,7 +205,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButton4ActionPerformed();
             }
         });
 
@@ -206,7 +213,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jButton5ActionPerformed();
             }
         });
 
@@ -214,7 +221,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton2ActionPerformed();
             }
         });
 
@@ -363,7 +370,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jButton6ActionPerformed();
             }
         });
 
@@ -416,7 +423,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
                 );
     } // </editor-fold>//GEN-END:initComponents
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton6ActionPerformed
+    private void jButton6ActionPerformed() { //GEN-FIRST:event_jButton6ActionPerformed
         owner.setVisible(false);
         owner.dispose();
     } //GEN-LAST:event_jButton6ActionPerformed
@@ -435,7 +442,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         }
     } //GEN-LAST:event_selectionModeActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton5ActionPerformed
+    private void jButton5ActionPerformed() { //GEN-FIRST:event_jButton5ActionPerformed
         if (!jList2.isSelectionEmpty()) {
             //Line Object[] allSelected = jList2.getSelectedValues(); changed because the method is deprected
             List<String> allSelected = jList2.getSelectedValuesList();
@@ -457,38 +464,39 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         }
     } //GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton4ActionPerformed
-        if (!jList1.isSelectionEmpty()) {
-            //Line Object[] allSelected = jList1.getSelectedValues(); changed because the method is deprected
-            List<String> allSelected = jList1.getSelectedValuesList();
-            if (numberSignals > 0 && dlmYes.size() + allSelected.size() > numberSignals) {
-                JOptionPane.showMessageDialog(owner, "Maximum " + numberSignals + " signals selected");
-            } else {
-                for (String selected : allSelected) {
-                    dlmYes.addElement(selected);
-                    dlmNo.removeElement(selected);
-                }
-                if (numberSignals > 0 && dlmYes.size() >= numberSignals) {
-                    jButton4.setEnabled(false);
-                    jButton1.setEnabled(false);
-                } else if (numberSignals < 0 &&
-                           dlmYes.size() >= (numberSignals * ( -1))) {
-                    jButton3.setEnabled(true);
-                }
+    private void jButton4ActionPerformed() { //GEN-FIRST:event_jButton4ActionPerformed
+       if (jList1.isSelectionEmpty()) {
+          return;
+       }
+       //Line Object[] allSelected = jList1.getSelectedValues(); changed because the method is deprected
+       List<String> allSelected = jList1.getSelectedValuesList();
+       if (numberSignals > 0 && dlmYes.size() + allSelected.size() > numberSignals) {
+          JOptionPane.showMessageDialog(owner, "Maximum " + numberSignals + " signals selected");
+          return;
+       }
+       for (String selected : allSelected) {
+           dlmYes.addElement(selected);
+           dlmNo.removeElement(selected);
+       }
+       if (numberSignals > 0 && dlmYes.size() >= numberSignals) {
+           jButton4.setEnabled(false);
+           jButton1.setEnabled(false);
+       } else if (numberSignals < 0 && dlmYes.size() >= (numberSignals * ( -1))) {
+           jButton3.setEnabled(true);
+       }
 
-                if (dlmYes.size() > 0) {
-                    jButton5.setEnabled(true);
-                    jButton2.setEnabled(true);
-                }
-                if (dlmNo.size() <= 0) {
-                    jButton4.setEnabled(false);
-                    jButton1.setEnabled(false);
-                }
-            }
-        }
+       if (dlmYes.size() > 0) {
+           jButton5.setEnabled(true);
+           jButton2.setEnabled(true);
+       }
+       if (dlmNo.size() <= 0) {
+           jButton4.setEnabled(false);
+           jButton1.setEnabled(false);
+       }
+
     } //GEN-LAST:event_jButton4ActionPerformed
 
-    public void jButton3ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton3ActionPerformed
+    public void jButton3ActionPerformed() { //GEN-FIRST:event_jButton3ActionPerformed
         int intervalsNumber = 0;
         int signalsNumber = 0;
         if (selectInterval.isSelected()) {
@@ -506,9 +514,8 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
             try {
                 if (selectInterval.isSelected()) {
                     while (elemen.hasMoreElements()) {
-                        intervals.add(new IntervalSelectedEvent(elemen.nextElement().toString()));
+                        intervals.add(new IntervalSelectedEvent(elemen.nextElement()));
                     }
-
                     selectIntervals(intervalsNumber);
                 } else {
                     jswbManager.runAlgorithm(alg, elemen);
@@ -518,20 +525,14 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
             }
             owner.dispose();
         } else {
-            if (numberSignals < 0) {
-                JOptionPane.showMessageDialog(owner,
-                                              "Selected " + totalSelected +
-                                              " signals(or Intervals).Needed a minimum of " + numberSignals);
-            } else {
-                JOptionPane.showMessageDialog(owner,
-                                              "Selected " + totalSelected +
-                                              " signals(or Intervals).Needed a maximum of " + numberSignals);
-            }
+            JOptionPane.showMessageDialog(owner,
+                  "Selected " + totalSelected + " signals (or Intervals). Needed a "
+                        + (numberSignals < 0? "minimum" : "maximum") + "of " + numberSignals);
         }
 
     } //GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed() { //GEN-FIRST:event_jButton2ActionPerformed
 
         Object[] elements = dlmYes.toArray();
         for (int index = 0; index < elements.length; index++) {
@@ -549,7 +550,7 @@ public class DefaultAlgorithmConfiguration extends javax.swing.JPanel implements
         }
     } //GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed() { //GEN-FIRST:event_jButton1ActionPerformed
         if ((numberSignals > 0 && dlmYes.size() + dlmNo.size() <= numberSignals) || numberSignals <= 0) {
             Object[] elements = dlmNo.toArray();
             for (int index = 0; index < elements.length; index++) {

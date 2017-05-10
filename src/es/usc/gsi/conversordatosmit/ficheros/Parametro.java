@@ -11,6 +11,8 @@ public class Parametro {
     public static final int F212 = 212;
     public static final int F310 = 310;
 
+    public static int numSeleccionados = 0;
+
     private String nombreFichero;
     private FicheroDat ficheroDat;
     private int formatoAlmacenamiento;
@@ -41,12 +43,10 @@ public class Parametro {
     private String fechaFin;
     private String backupFechaFin;
 
-
     // Flag que indica si su checkbox esta activado
     private boolean activado = false;
-    public static int numSeleccionados = 0;
-    // Atributo que almacena los valores seleccionados
 
+    // Atributo que almacena los valores seleccionados
     private int[] valores;
 
 

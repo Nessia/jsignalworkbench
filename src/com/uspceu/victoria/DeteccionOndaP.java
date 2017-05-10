@@ -20,7 +20,7 @@ public class DeteccionOndaP extends SimpleAlgorithm{
     public void runAlgorithm (SignalManager manager, Signal signal, float[] datos,float freq ){
 
         List<MarkPlugin> latidos =  signal.getAllMarks();
-        float ondasP [] = new float[datos.length];
+        float[] ondasP  = new float[datos.length];
         int i = 0;
             for (MarkPlugin latido : latidos ) {
 
@@ -47,8 +47,8 @@ public class DeteccionOndaP extends SimpleAlgorithm{
                     }
                 ondasP[i] = posicionP;
                 i = i+1;
-                int iniMarca = (int) (posicionP-2);
-                int finMarca = (int) (posicionP+2);
+                int iniMarca = posicionP - 2;
+                int finMarca = posicionP + 2;
 
                 //System.out.println("Valor de P: "+max);
                 //System.out.println("Posicion de P: "+posicionP);

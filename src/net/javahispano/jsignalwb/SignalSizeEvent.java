@@ -43,11 +43,7 @@ public class SignalSizeEvent {
     }
 
     public boolean isSignalsReset() {
-        if (s == null) {
-            return true;
-        } else {
-            return false;
-        }
+        return (s == null) ;
     }
 
 }

@@ -16,7 +16,7 @@ public class MediaMovilException extends RuntimeException {
     private static final long serialVersionUID = -7653785216136652411L;
 
 
-    private int ventanaTemporal;
+    private final int ventanaTemporal;
 
     public MediaMovilException(String mensaje, int ventanaTemporal) {
         super(mensaje);

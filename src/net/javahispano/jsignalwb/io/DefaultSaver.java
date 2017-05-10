@@ -2,6 +2,7 @@ package net.javahispano.jsignalwb.io;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.plugins.*;
@@ -68,18 +69,18 @@ public class DefaultSaver extends SaverAdapter {
             f.mkdir();
         }
 
-        f = new File(f, f.getName() + ".txt");
+        File fTxt = new File(f, f.getName() + ".txt");
         /*if(f.isDirectory())
             f=new File(f,f.getName()+".txt");*/
         ArrayList<Signal> signalsArray = new ArrayList<Signal>(sm.getSignals());
-        if (saveValues(signalsArray, f)) {
-            return saveXml(signalsArray, f);
+        if (saveValues(signalsArray, fTxt)) {
+            return saveXml(signalsArray, fTxt);
         }
         return false;
     }
 
     @Override
-    public ArrayList<String> getAvalaibleExtension() {
+    public List<String> getAvalaibleExtension() {
         return extensions;
     }
 
@@ -99,17 +100,21 @@ public class DefaultSaver extends SaverAdapter {
      * @throws IOException
      * @return boolean
      */
-    protected boolean saveValues(ArrayList<Signal> signals,
-            File f) throws IOException {
-        f.createNewFile();
-        f.delete();
-        float[] values = null;
-        int maxSize = 0;
-
-        FileWriter fw = new FileWriter(f);
-        BufferedWriter bw = new BufferedWriter(fw);
-        PrintWriter pw = new PrintWriter(bw);
+    protected boolean saveValues(ArrayList<Signal> signals, File f) throws IOException {
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        PrintWriter pw = null;
         try {
+           // TODO por que se crea y se borra un fichero? @vanesa
+           f.createNewFile();
+           f.delete();
+           float[] values = null;
+           int maxSize = 0;
+
+           fw = new FileWriter(f);
+           bw = new BufferedWriter(fw);
+           pw = new PrintWriter(bw);
+
             for (Signal s : signals) {
                 int arrayLenght = s.getValues().length;
                 if (arrayLenght > maxSize) {
@@ -131,6 +136,7 @@ public class DefaultSaver extends SaverAdapter {
                 pw.println();
             }
             bw.flush();
+
         } finally {
             pw.close();
             bw.close();
@@ -176,14 +182,12 @@ public class DefaultSaver extends SaverAdapter {
                 JSWBManager.getJSWBManagerInstance().getJSMFrecuency(),
                 JSWBManager.getJSWBManagerInstance().getJSMScrollValue(),
                 JSWBManager.getJSWBManagerInstance().getJSMLeftPanelConfigurationString()));
-        ArrayList<String> loadedPlugins = pm.getKeysOfLoadedPlugins();
+        List<String> loadedPlugins = pm.getKeysOfLoadedPlugins();
         for (String key : loadedPlugins) {
             if (!key.startsWith("mark:") && !key.startsWith("annotation:") && !key.startsWith("grid:")) {
                 Plugin plugin = pm.getPlugin(key);
-                if (plugin != null) {
-                    if (plugin.hasDataToSave() || plugin.createFile()) {
-                        root.addContent(new XMLPlugin(key, plugin));
-                    }
+                if (plugin != null && (plugin.hasDataToSave() || plugin.createFile())) {
+                     root.addContent(new XMLPlugin(key, plugin));
                 }
             }
         }

@@ -1,11 +1,15 @@
 package com.uspceu;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.SignalManager;
 import net.javahispano.jsignalwb.plugins.MarkPlugin;
 
 public class Square extends SimpleAlgorithm{
+    private static final Logger LOGGER = Logger.getLogger(Square.class.getName());
 
     @Override
     public void runAlgorithm(SignalManager signalManager, Signal signal,
@@ -15,9 +19,7 @@ public class Square extends SimpleAlgorithm{
         }
        List<MarkPlugin> latidos = signal.getAllMarks();
         for (MarkPlugin latido : latidos) {
-            System.out.println(" "+(latido.getMarkTime()- signal.getStart()));
-
-            ;
+            LOGGER.log(Level.INFO, "Duracion %s", Long.toString(latido.getMarkTime()- signal.getStart()));
         }
     }
 

@@ -12,7 +12,7 @@ public class SquareNewSignalBeatDetect extends SimpleAlgorithm {
     public void runAlgorithm(SignalManager signalManager, Signal ecg,
                 float[] datos, float samplingFrquency) {
 
-        float newData[] = new float[datos.length];
+        float[] newData = new float[datos.length];
         for (int i = 0; i < datos.length; i++) {
             newData[i] = datos[i]*datos[i];
         }

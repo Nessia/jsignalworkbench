@@ -27,16 +27,16 @@ public class ValorAbsolutoMinutos extends SimpleAlgorithm {
         Signal biometrix = signalManager.getSignal("Biometrix");
         Signal bascula = signalManager.getSignal("Minuto a minuto de Bascula");
 
-        float arrayBiometrixAcumulado[];
-        float arrayBascula[];
+        float[] arrayBiometrixAcumulado;
+        float[] arrayBascula;
 
-        float arrayBiometrix[] = biometrix.getValues();
+        float[] arrayBiometrix = biometrix.getValues();
         analizaOy100(arrayBiometrix);
 
         arrayBiometrixAcumulado = biometrixAcumulado.getValues();
         arrayBascula = bascula.getValues();
-        float newData[] = new float[arrayBascula.length];
-        float newData2[] = new float[arrayBascula.length];
+        float[] newData = new float[arrayBascula.length];
+        float[] newData2 = new float[arrayBascula.length];
 
         for (int i = 0; i < arrayBascula.length; i++) {
             newData[i] = Math.abs(arrayBiometrixAcumulado[i] - arrayBascula[i]);
@@ -54,8 +54,10 @@ public class ValorAbsolutoMinutos extends SimpleAlgorithm {
     }
 
     private void analizaOy100(float[] arrayBiometrix) {
-        int transicionDesdeCero = 0, transicionDesdeCien = 0;
-        float sumaCeros = 0, sumaCienes = 0;
+        int transicionDesdeCero = 0;
+        int transicionDesdeCien = 0;
+        float sumaCeros = 0;
+        float sumaCienes = 0;
 
         int i = 0;
 

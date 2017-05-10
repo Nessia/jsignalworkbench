@@ -25,38 +25,39 @@ class MaquinaDeEstados {
         this.frecuenciaDePotencia=fs;
     }
 
-    public void funcionaMaquina(float dato, float muestrasPorVentanaDePotencia) {
+    public void funcionaMaquina(float dato) {
         final float THRESHOLD = 1.5f * threshold.mediana;
-        if (estadoMaquina == Estados.NO_ACTIVIDAD) {
-            if (dato >= THRESHOLD) {
-                estadoMaquina = Estados.TRANSICION;
-            }
-        }
-        else if (estadoMaquina == Estados.TRANSICION) {
-            if (dato < THRESHOLD) {
-                estadoMaquina = Estados.NO_ACTIVIDAD;
-                muestrasEsperandoEnTransicion = 0;
-            }
-            else if (dato >= THRESHOLD) {
-                if (muestrasEsperandoEnTransicion >= muestrasEsperaEnTransicion) {
-                    estadoMaquina = Estados.ACTIVIDAD;
-                    muestrasEsperandoEnActividad=0;
-                } else {
-                    muestrasEsperandoEnTransicion++;
-                }
-            }
-        }
-        else if (estadoMaquina == Estados.ACTIVIDAD) {
-            if (dato <= THRESHOLD && muestrasEsperandoEnActividad >= muestrasEsperaEnActividad) {
-                estadoMaquina = Estados.NO_ACTIVIDAD;//transición?
-                muestrasEsperandoEnActividad=0;
-            }
-            else if (dato >= THRESHOLD) {
-                muestrasEsperandoEnActividad=0;
+        switch(estadoMaquina){
+           case NO_ACTIVIDAD:
+              if (dato >= THRESHOLD) {
+                 estadoMaquina = Estados.TRANSICION;
+              }
+              break;
+           case TRANSICION:
+              if (dato < THRESHOLD) {
+                 estadoMaquina = Estados.NO_ACTIVIDAD;
+                 muestrasEsperandoEnTransicion = 0;
+              } else{ // if (dato >= THRESHOLD) {
+                 if (muestrasEsperandoEnTransicion >= muestrasEsperaEnTransicion) {
+                     estadoMaquina = Estados.ACTIVIDAD;
+                     muestrasEsperandoEnActividad=0;
+                 } else {
+                     muestrasEsperandoEnTransicion++;
+                 }
+              }
+              break;
+           case ACTIVIDAD:
+              if (dato <= THRESHOLD && muestrasEsperandoEnActividad >= muestrasEsperaEnActividad) {
+                 estadoMaquina = Estados.NO_ACTIVIDAD;//transición?
+                 muestrasEsperandoEnActividad=0;
+             }
+             else if (dato >= THRESHOLD) {
+                 muestrasEsperandoEnActividad=0;
 
-            } else {
-                muestrasEsperandoEnActividad++;
-            }
+             } else {
+                 muestrasEsperandoEnActividad++;
+             }
+              break;
         }
 
     }

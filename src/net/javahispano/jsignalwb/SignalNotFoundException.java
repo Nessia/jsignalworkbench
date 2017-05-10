@@ -13,7 +13,7 @@ public class SignalNotFoundException extends RuntimeException {
      */
     private static final long serialVersionUID = 5893109286439727406L;
 
-    private String signalName;
+    private final String signalName;
     /**
      * SignalNotFoundException
      *
@@ -50,12 +50,13 @@ public class SignalNotFoundException extends RuntimeException {
 
     private static String generateMessage(String msg, String signalName) {
         String text = "\n The missing signal is " + signalName;
-        if (msg != null) {
-            msg += msg + text;
+        String output = msg;
+        if (output != null) {
+            output += output + text;
         } else {
-            msg = text;
+            output = text;
         }
-        return msg;
+        return output;
     }
 
 }

@@ -3,6 +3,8 @@ package net.javahispano.jsignalwb.jsignalmonitor.printsupport;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -14,6 +16,8 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  * @version 0.5
  */
 public class PrintDialog extends JDialog {
+
+    private static final Logger LOGGER = Logger.getLogger(PrintDialog.class.getName());
     /**
      *
      */
@@ -51,8 +55,8 @@ public class PrintDialog extends JDialog {
         font = jsm.getJSMProperties().getLookAndFeelConfiguration().getMediumFont();
         try {
             jbInit();
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        } catch (Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
         }
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(400, 200);
@@ -131,11 +135,11 @@ public class PrintDialog extends JDialog {
         panel1.add(jPanel5, java.awt.BorderLayout.CENTER);
     }
 
-    public void jButton2_actionPerformed(ActionEvent e) {
+    public void jButton2_actionPerformed() {
         this.dispose();
     }
 
-    public void jButton1_actionPerformed(ActionEvent e) {
+    public void jButton1_actionPerformed() {
         int orientation;
         if (portraitRadioButton.isSelected()) {
             orientation = PrintUtilities.PORTRAIT;
@@ -159,7 +163,7 @@ class PrintDialog_jButton1_actionAdapter implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton1_actionPerformed(e);
+        adaptee.jButton1_actionPerformed();
     }
 }
 
@@ -171,6 +175,6 @@ class PrintDialog_jButton2_actionAdapter implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton2_actionPerformed(e);
+        adaptee.jButton2_actionPerformed();
     }
 }

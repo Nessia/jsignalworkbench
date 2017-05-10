@@ -9,16 +9,19 @@
 
 package net.javahispano.jsignalwb.plugins.framework;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author Roman
  */
 public class FactoryPlugin {
-    private HashMap<String, Object> pluginAssociation;
+
+   private Map<String, Object> pluginAssociation;
+
+
     /** Creates a new instance of FactoryPlugin */
-    public FactoryPlugin(HashMap<String, Object> pluginAssociation) {
+    public FactoryPlugin(Map<String, Object> pluginAssociation) {
         this.pluginAssociation = pluginAssociation;
     }
 

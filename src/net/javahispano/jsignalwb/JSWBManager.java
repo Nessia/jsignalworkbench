@@ -41,7 +41,7 @@ import java.awt.event.*;
  // TODO siendo un singleton deberían ser los campos estáticos? @vanesa
 public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener {
     // Parte estática
-
+    private static final String FONT_FAMILY = "Tahoma";
     private static JSWBManager jswbManagerInstance;
     //private static JSWBManager jswbmanager = null;
     private static JSignalMonitor jSignalMonitor = null;
@@ -53,17 +53,17 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
     private static IOManager iOManager;
     private static PluginManager pluginManager;
 
-    private static Font normalFont = new java.awt.Font("Tahoma", Font.BOLD, 12);
-    private static Font smallFont = new java.awt.Font("Tahoma", Font.BOLD, 11);
-    private static Font bigFont = new java.awt.Font("Tahoma", Font.BOLD, 13);
+    private static Font normalFont = new java.awt.Font(FONT_FAMILY, Font.BOLD, 12);
+    private static Font smallFont = new java.awt.Font(FONT_FAMILY, Font.BOLD, 11);
+    private static Font bigFont = new java.awt.Font(FONT_FAMILY, Font.BOLD, 13);
     private static Color fontColor = Color.BLUE;
     private static boolean deleteSignalsInNextLoad = true;
 
     // Atributos
 
-    private ArrayList<IntervalSelectedListener> intervalSelectedListeners;
-    private ArrayList<Component> jToolBarItems;
-    private ArrayList<JMenu> jMenuBarItems;
+    private List<IntervalSelectedListener> intervalSelectedListeners;
+    private List<Component> jToolBarItems;
+    private List<JMenu> jMenuBarItems;
     private JToolBar jToolBar;
     private JMenuBar jMenuBar;
     private SessionInfo sessionInfo;
@@ -261,7 +261,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         refreshJToolBar();
     }
 
-    public ArrayList<Component> getJToolBarItems() {
+    public List<Component> getJToolBarItems() {
         return jToolBarItems;
     }
 
@@ -427,7 +427,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
      *
      * @return HashMap
      */
-    public static HashMap<String, ArrayList<String>> getPluginNames() {
+    public static Map<String, ArrayList<String>> getPluginNames() {
         return pluginManager.getRegisteredPlugins();
     }
 
@@ -1430,7 +1430,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
     }
 
     public static Font getCustomSizeFont(int fontSize) {
-        return new java.awt.Font("Tahoma", Font.BOLD, fontSize);
+        return new java.awt.Font(FONT_FAMILY, Font.BOLD, fontSize);
     }
 
 

@@ -1,7 +1,7 @@
 package es.usc.gsi.conversordatosmit.excepciones;
 
 
-public class FechaFinalMenorInicialException extends Exception {
+public class FechaFinalMenorInicialException extends FechasIncorrectasException {
 
     /**
     *

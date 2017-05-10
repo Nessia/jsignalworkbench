@@ -3,13 +3,14 @@ package es.usc.gsi.conversordatosmit;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 
 import es.usc.gsi.conversordatosmit.interfaz.ControladorInterfaz;
 import es.usc.gsi.conversordatosmit.interfaz.PanelPrincipal;
-import net.javahispano.jsignalwb.JSWBManager;
 
 /**
  * <p>Title: Herraienta de monitorizacion</p>
@@ -22,10 +23,12 @@ import net.javahispano.jsignalwb.JSWBManager;
 
 public class FrameConversorMIT extends JDialog {
 
+    private static final Logger LOGGER = Logger.getLogger(FrameConversorMIT.class.getName());
     /**
     *
     */
     private static final long serialVersionUID = -2550378812820799768L;
+    private static final String VER_LENGUETAS = "Ver como Lenguetas";
 
 
     private PanelPrincipal conversor;
@@ -48,22 +51,22 @@ public class FrameConversorMIT extends JDialog {
     private FlowLayout flowLayout2 = new FlowLayout();
     private JRadioButton jRadioButton1 = new JRadioButton();
     private JRadioButton jRadioButton2 = new JRadioButton();
-    private JSWBManager jswbManager;
+    //private transient JSWBManager jswbManager;
     private File archivoAbierto = null;
 
-    public FrameConversorMIT(Window frame, JSWBManager jswbManager) {
+    public FrameConversorMIT(Window frame/*, JSWBManager jswbManager*/) {
         super(frame, "Convertidor de formato MIT a ASCII", Dialog.ModalityType.APPLICATION_MODAL);
         conversor = ControladorInterfaz.getControlador().
                     getPanelPrincipal();
         try {
             jbInit();
         } catch (Exception e) {
-            e.printStackTrace();
+           LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
         this.setSize(500, 600);
         panel_anadir_conversor.add(conversor, BorderLayout.CENTER);
         this.setLocationRelativeTo(frame);
-        this.jswbManager = jswbManager;
+        //this.jswbManager = jswbManager;
         /*        Point d = frame.getLocation();
                 Dimension t = frame.getSize();
                 setLocation((int) (d.x + t.getWidth() / 2 - 300),
@@ -77,22 +80,25 @@ public class FrameConversorMIT extends JDialog {
                 "Abre todos los registros que esten en un directorio.");
         abrirPaciente.setText("Abrir paciente");
         abrirPaciente.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                abrir_paciente_actionPerformed(e);
+                abrir_paciente_actionPerformed();
             }
         });
         abrirArchivo.setToolTipText("Abre un solo registro.");
         abrirArchivo.setText("Abrir archivo");
         abrirArchivo.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                abrir_archivo_actionPerformed(e);
+                abrir_archivo_actionPerformed();
             }
         });
         cerrarVista.setToolTipText("Cierra los registros abiertos");
         cerrarVista.setText("Cerrar vista");
         cerrarVista.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                cerrar_vista_actionPerformed(e);
+                cerrar_vista_actionPerformed();
             }
         });
         panel_anadir_conversor.setLayout(borderLayout3);
@@ -100,15 +106,17 @@ public class FrameConversorMIT extends JDialog {
                 "Vuelve a la interfase y carga en ella los datos seleccionados.");
         aceptar.setText("Exportar al entorno");
         aceptar.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                aceptar_actionPerformed(e);
+                aceptar_actionPerformed();
             }
         });
         cancelar.setToolTipText("Vuelve a la interfase sin guardar los datos.");
         cancelar.setText("Cancelar");
         cancelar.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                cancelar_actionPerformed(e);
+                cancelar_actionPerformed();
             }
         });
 
@@ -116,8 +124,9 @@ public class FrameConversorMIT extends JDialog {
                 "Guarda en el disco duro las senhales seleccionadas.");
         guardarAlHdd.setText("Guardar al HDD");
         guardarAlHdd.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                guardar_al_hdd_actionPerformed(e);
+                guardar_al_hdd_actionPerformed();
             }
         });
         jPanel2.setLayout(flowLayout1);
@@ -127,13 +136,14 @@ public class FrameConversorMIT extends JDialog {
         jPanel4.setBorder(BorderFactory.createEtchedBorder());
         jPanel2.setBorder(BorderFactory.createEtchedBorder());
         jPanel3.setBorder(BorderFactory.createEtchedBorder());
-        jRadioButton1.setToolTipText("Ver como Lenguetas");
-        jRadioButton1.setActionCommand("Ver como Lenguetas");
+        jRadioButton1.setToolTipText(VER_LENGUETAS);
+        jRadioButton1.setActionCommand(VER_LENGUETAS);
         jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Ver como Lenguetas");
+        jRadioButton1.setText(VER_LENGUETAS);
         jRadioButton1.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
             public void stateChanged(ChangeEvent e) {
-                jRadioButton1_stateChanged(e);
+                jRadioButton1_stateChanged();
             }
         });
         jRadioButton2.setToolTipText("Ver como lista");
@@ -158,16 +168,16 @@ public class FrameConversorMIT extends JDialog {
         panel_anadir_conversor.add(jPanel2, BorderLayout.SOUTH);
     }
 
-    void abrir_paciente_actionPerformed(ActionEvent e) {
+    void abrir_paciente_actionPerformed() {
         archivoAbierto = conversor.abrirPaciente(archivoAbierto);
         conversor.setVista(PanelPrincipal.ETIQUETAS);
     }
 
-    void abrir_archivo_actionPerformed(ActionEvent e) {
+    void abrir_archivo_actionPerformed() {
         archivoAbierto = conversor.abrirFichero(archivoAbierto);
     }
 
-    void cerrar_vista_actionPerformed(ActionEvent e) {
+    void cerrar_vista_actionPerformed() {
         int opcion = JOptionPane.showConfirmDialog(this,
                 "<html><body  text=\"#000000\"><font size=\"5\" color=\"#0033FF\">&iquest;Seguro que desea cerrar los registros abiertos?</font></body></html>"
                 , "Advertencia", JOptionPane.YES_NO_OPTION,
@@ -178,22 +188,18 @@ public class FrameConversorMIT extends JDialog {
     }
 
 
-    void aceptar_actionPerformed(ActionEvent e) {
+    void aceptar_actionPerformed() {
         //int opcion = Integer.MIN_VALUE;
-
-        PideDatosAlConversor pide_datos = new PideDatosAlConversor(conversor, jswbManager);
-
-        pide_datos.cargarDatos();
+        PideDatosAlConversor pideDatos = new PideDatosAlConversor(conversor/*, jswbManager*/);
+        pideDatos.cargarDatos();
         dispose();
-
     }
 
-    void guardar_al_hdd_actionPerformed(ActionEvent e) {
+    void guardar_al_hdd_actionPerformed() {
         conversor.vuelcaDatos();
     }
 
-
-    void jRadioButton1_stateChanged(ChangeEvent e) {
+    void jRadioButton1_stateChanged() {
         if (jRadioButton1.isSelected()) {
             conversor.setVista(PanelPrincipal.ETIQUETAS);
         } else {
@@ -201,7 +207,7 @@ public class FrameConversorMIT extends JDialog {
         }
     }
 
-    void cancelar_actionPerformed(ActionEvent e) {
+    void cancelar_actionPerformed() {
         int opcion = JOptionPane.showConfirmDialog(this,
                 "<html><body text=\"#000000\"><font size=\"5\" color=\"#0033FF\">&iquest;Seguro que desea cerrar la herramienta de conversion?</font></body></html>"
                 , "Advertencia", JOptionPane.YES_NO_OPTION,

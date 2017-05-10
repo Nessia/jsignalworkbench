@@ -5,12 +5,20 @@ package es.usc.gsi.trace.importer.perfil;
 import java.io.Serializable;
 
 public interface PTBInterface extends Serializable {
+
+// public static final int MODIFICAR = 0;
+// public static final int BORRAR = -1;
+// public static final int ANHADIR = 1;
+// public static final int CREAR = 2;
+ public enum Acciones { BORRAR, MODIFICAR, ANHADIR, CREAR };
+
+
     /**
      * Esto nos hara a nosotros responsables del versionamiento de los ficheros Serializados.
      * Siempre podemos volver a leerlos, pero depende de nosotros que se haga de un modo correcto.
      */
 
-    static final long serialVersionUID = 1232L;
+//    static final long serialVersionUID = 1232L;
 
     /**
      * Asigna un objeto de tipo PTBM a este PTB. Le indica a que PTBM pertenece.
@@ -117,10 +125,10 @@ public interface PTBInterface extends Serializable {
      * es necesario.
      * @param numeroPtoSig - Posicion que ocupa el PtoSIg que se va a modificar o
      * borrar. Si se va a crear no es necesario.
-     * @param seleccion - PTBM.BORRAR/MODIFICAR/ANHADIR.
+     * @param seleccion - enum Acciones.BORRAR/MODIFICAR/ANHADIR.
      * @roseuid 3788BB0A01DB
      */
-    public void anhadePtoSig(PtoSig ptosig, int numeroPtoSig, int seleccion);
+    public void anhadePtoSig(PtoSig ptosig, int numeroPtoSig, Acciones seleccion);
 
     /**
      * anhade, borra o modifica una restricion. OJO: se ha modificado para quitoer el
@@ -132,11 +140,11 @@ public interface PTBInterface extends Serializable {
      * modificar. null si se va a borrar.
      * @param restriccion_vieja - restriccion antigua en caso de que se vaya a borrar
      * o modificar. null si se va a nhadir.
-     * @param seleccion - PTBM:BORRAR/MODIFICAR/ANHADIR
+     * @param seleccion - PTBInterface.Acciones:BORRAR/MODIFICAR/ANHADIR
      * @roseuid 3788BB0A01EF
      */
     public void anhadeRestriccion(int ptb, int ptosig, Restriccion restriccion,
-                                  Restriccion restriccion_vieja, int seleccion);
+                                  Restriccion restriccion_vieja, PTBInterface.Acciones seleccion);
 
     /**
      * Devuelve le nombre de este PTB.
@@ -213,7 +221,6 @@ public interface PTBInterface extends Serializable {
     public void setIntFinCoreSeparacion(float intFinCoreSeparacion);
 
     public float getIntInicioCoreSeparacion();
-
 
     public float getIntFinCoreSeparacion();
 

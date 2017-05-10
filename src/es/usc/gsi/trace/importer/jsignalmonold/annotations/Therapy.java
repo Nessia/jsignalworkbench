@@ -14,7 +14,7 @@ public class Therapy extends Annotation {
     private String nombreFarmaco;
     private String faseTerapeutica;
     private String dosificacion;
-    private String tipo;
+    private String tipoTherapy;
 
     public Therapy(String nombre_farmaco, String fase_terapeutico,
                    String dosificacion, String tipo) {
@@ -22,7 +22,7 @@ public class Therapy extends Annotation {
         this.texto = nombre_farmaco;
         this.faseTerapeutica = fase_terapeutico;
         this.dosificacion = dosificacion;
-        this.tipo = tipo;
+        this.tipoTherapy = tipo;
     }
 
     /**
@@ -43,7 +43,7 @@ public class Therapy extends Annotation {
      * @return String
      */
     public String getTipoTerapia() {
-        return this.tipo;
+        return this.tipoTherapy;
     }
 
     /**
@@ -64,7 +64,7 @@ public class Therapy extends Annotation {
      * @param tipo
      */
     public void setTipoTerapia(String tipo) {
-        this.tipo = tipo;
+        this.tipoTherapy = tipo;
     }
 
     public String getNombreFarmaco() {

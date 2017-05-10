@@ -24,7 +24,7 @@ public class DiuresisHoraAHora extends SimpleAlgorithm {
     public void runAlgorithm(SignalManager signalManager, Signal signal, float[] datos, float fs) {
 
         //hora a hora
-        float newData[] = new float[datos.length/60];
+        float[] newData = new float[datos.length/60];
 
         for (int i = 59; i < datos.length;) {
             newData[i/60] = datos[i]-datos[i-59];

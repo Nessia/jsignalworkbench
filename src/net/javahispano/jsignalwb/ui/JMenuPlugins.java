@@ -41,7 +41,7 @@ public class JMenuPlugins extends JMenu {
         setMnemonic(KeyEvent.VK_P);
         this.jswbManager = jswbManager;
         MenuListener ml = new MenuListenerAdapter() {
-        	@Override
+           @Override
             public void menuSelected(javax.swing.event.MenuEvent evt) {
                 jMenuSelected(evt);
             }
@@ -53,7 +53,7 @@ public class JMenuPlugins extends JMenu {
     public void jMenuSelected(MenuEvent e) {
         this.removeAll();
         PluginManager pluginManager = JSWBManager.getPluginManager();
-        HashMap<String, ArrayList<String>> plugins = pluginManager.getRegisteredPlugins();
+        Map<String, ArrayList<String>> plugins = pluginManager.getRegisteredPlugins();
         Set<String> kindPlugins = plugins.keySet();
         List<String> kind = new LinkedList<String>(kindPlugins);
         Collections.sort(kind);

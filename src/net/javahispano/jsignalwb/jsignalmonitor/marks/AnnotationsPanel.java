@@ -26,7 +26,7 @@ public class AnnotationsPanel extends JPanel {
      */
     private static final long serialVersionUID = 7565073888086793850L;
 
-    private ArrayList<String> categories;
+    private List<String> categories;
     private JSMProperties jsmProperties;
     private HashMap<JSignalMonitorAnnotation, Rectangle> annotations;
     private int hLeftOffset;
@@ -41,11 +41,13 @@ public class AnnotationsPanel extends JPanel {
         setBackground(Color.WHITE);
         g2dColor = new Color(0, 255, 0, 75);
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 annotationsMouseMoved(evt);
             }
         });
         addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 annotationsMouseClicked(evt);
             }
@@ -148,7 +150,7 @@ public class AnnotationsPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        if (categories.size() > 0) {
+        if (!categories.isEmpty()) {
             for (int index = 1; index <= categories.size(); index++) {
                 g2d.drawLine(0, (index) * getFieldSize(), (int) getSize().getWidth(), (index) * getFieldSize());
             }
@@ -180,7 +182,7 @@ public class AnnotationsPanel extends JPanel {
         }
     }
 
-    public void refreshCategories(ArrayList<String> categories) {
+    public void refreshCategories(List<String> categories) {
         this.categories = categories;
         Runnable uiUpdateRunnable = new Runnable() {
             @Override
@@ -193,7 +195,7 @@ public class AnnotationsPanel extends JPanel {
     }
 
     private int getFieldSize() {
-        if (categories.size() == 0) {
+        if (categories.isEmpty()) {
             return 1;
         } else {
             return (int) ((getSize().getHeight()) / categories.size());

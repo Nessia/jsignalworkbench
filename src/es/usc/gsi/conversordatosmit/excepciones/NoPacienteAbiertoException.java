@@ -1,7 +1,7 @@
 package es.usc.gsi.conversordatosmit.excepciones;
 
 
-public class NoPacienteAbiertoException extends Exception {
+public class NoPacienteAbiertoException extends NoExportableException {
 
     /**
     *

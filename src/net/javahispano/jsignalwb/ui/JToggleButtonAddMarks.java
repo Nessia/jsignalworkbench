@@ -40,7 +40,7 @@ public class JToggleButtonAddMarks extends JToggleButton implements JSignalMonit
 
     @Override
     public void jSignalMonitorModeActionPerformed(JSignalMonitorModeEvent e) {
-        if (e.getMode() == JSignalMonitorModeEvent.MARK_CREATION) {
+        if (e.getMode() == JSignalMonitorModeEvent.Modo.MARK_CREATION) {
             setSelected(e.getValue());
         }
     }

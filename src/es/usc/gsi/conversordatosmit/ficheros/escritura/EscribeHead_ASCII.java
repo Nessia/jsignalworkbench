@@ -4,7 +4,10 @@
 package es.usc.gsi.conversordatosmit.ficheros.escritura;
 
 import java.io.*;
+import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -14,7 +17,9 @@ import es.usc.gsi.conversordatosmit.interfaz.ControladorInterfaz;
 
 public class EscribeHead_ASCII extends Thread implements Cancelar {
 
-    private Vector<FicheroHead> vectorFicherosHead;
+    private static final Logger LOGGER = Logger.getLogger(EscribeHead_ASCII.class.getName());
+
+    private List<FicheroHead> vectorFicherosHead;
     private File ficheroDestino;
     private LeeFicheroDat[] arrayLectores;
     private ControladorFicheros controlFicheros = ControladorFicheros.
@@ -26,7 +31,7 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
 //*******************************************************************************
 
     // FALTA: CREAR UN CONSTRUCTOR QUE ADMITA UNA FRECUENCIA DE REMUESTREO GLOBAL.
-    public EscribeHead_ASCII(Vector<FicheroHead> vectorFicherosHead, File ficheroDestino) {
+    public EscribeHead_ASCII(List<FicheroHead> vectorFicherosHead, File ficheroDestino) {
          this.vectorFicherosHead = vectorFicherosHead;
 
          // Correccion del nombre de fichero
@@ -62,10 +67,10 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
 
      private void creaLectores() {
          FicheroHead fhTemp;
-         Vector<LeeFicheroDat> vectorLectores = new Vector<LeeFicheroDat>();
+         List<LeeFicheroDat> vectorLectores = new Vector<LeeFicheroDat>();
 
          for (int i = 0; i < vectorFicherosHead.size(); i++) {
-             fhTemp = (FicheroHead) vectorFicherosHead.elementAt(i);
+             fhTemp = vectorFicherosHead.get(i);
              Parametro[] parG = fhTemp.getParametros();
 
              for (int j = 0; j < parG.length; j++) {
@@ -81,7 +86,7 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
          arrayLectores = new LeeFicheroDat[vectorLectores.size()];
 
          for (int i = 0; i < arrayLectores.length; i++) {
-             arrayLectores[i] = vectorLectores.elementAt(i);
+             arrayLectores[i] = vectorLectores.get(i);
          }
 
      }
@@ -90,7 +95,7 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
 
      private boolean vuelcaDatos() {
          //LeeFicheroDat lfdTemp = null;
-         String lineaVolcado = "";
+         StringBuilder lineaVolcado = new StringBuilder("");
          BufferedWriter salida = null;
          FileWriter fw = null;
          String datoLeido = "";
@@ -101,10 +106,10 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
              fw = new FileWriter(ficheroDestino);
              salida = new BufferedWriter(fw);
          } catch (Exception e) {
+             LOGGER.log(Level.SEVERE,"Error al crear fichero de exportacion", e);
              controlFicheros.cierraIndicadorProgreso();
              JOptionPane.showMessageDialog(controlInterfaz.getPanelPrincipal(),
                                            "Error al crear fichero de exportacion");
-             System.out.println("Error al crear fichero de exportacion");
 //      throw new ErrorExportandoException();
          }
          // Abre todos los ficheros.
@@ -121,7 +126,7 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
                      salida.close();
                      fw.close();
                  } catch (Exception e) {
-                     System.out.println("Error al cerrar fichero de salida");
+                     LOGGER.log(Level.SEVERE, "Error al cerrar fichero de salida", e);
                  }
                  /*boolean res = */ficheroDestino.delete();
                  String fichName = ficheroDestino.getName();
@@ -145,26 +150,25 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
 
                      datoLeido = arrayLectores[i].getSiguiente();
                      if (datoLeido == null) {
-                         lineaVolcado = lineaVolcado + separador;
+                         lineaVolcado.append(separador);
                          numeroLectoresFinalizados++;
                      } else {
-                         lineaVolcado = lineaVolcado + datoLeido + separador;
+                         lineaVolcado.append(datoLeido + separador);
                      }
 
                      //  System.out.println(lineaVolcado);
                  } catch (Exception e) {
-                     System.out.println("Error al volcar linea");
-                     e.printStackTrace();
+                     LOGGER.log(Level.SEVERE, "Error al volcar linea", e);
                  }
 
              } // Fin for i
 
              try {
-                 salida.write(lineaVolcado);
+                 salida.write(lineaVolcado.toString());
                  salida.flush();
-                 lineaVolcado = "";
+                 lineaVolcado = new StringBuilder(""); //lineaVolcado = "";
              } catch (Exception e) {
-                 System.out.println("Error al escribir linea");
+                 LOGGER.log(Level.SEVERE, "Error al escribir linea", e);
              }
 
              controlFicheros.notificaProgreso(j);
@@ -178,7 +182,7 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
              salida.close();
              fw.close();
          } catch (Exception e) {
-             System.out.println("Error al cerrar fichero de salida");
+             LOGGER.log(Level.SEVERE, "Error al cerrar fichero de salida", e);
          }
 
          return false;

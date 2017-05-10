@@ -18,6 +18,7 @@ import java.awt.*;
  * @author Roman
  */
 public class ChannelProperties {
+
     private Stroke dataStroke;
     private float dataRate;
     private long startTime;

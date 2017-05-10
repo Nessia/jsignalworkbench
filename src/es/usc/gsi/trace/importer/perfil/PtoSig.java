@@ -3,13 +3,17 @@
 package es.usc.gsi.trace.importer.perfil;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 /**
  * @author Abraham Otero Quintana
  * @version 0.4
  */
 public class PtoSig implements PtoSigInterface, Serializable {
+
+   private static final Logger LOGGER = Logger.getLogger(PtoSig.class.getName());
     /**
      * Esto nos hara a nosotros responsables del versionamiento de los ficheros Serializados.
      * Siempre podemos volver a leerlos, pero depende de nosotros que se haga de un modo correcto.
@@ -22,8 +26,8 @@ public class PtoSig implements PtoSigInterface, Serializable {
     //private int numeroRestricciones;
     private int ptb;
     private int numeroDePtoSig = 0;
-    public RestriccionInterface theRestriccionInterface[];
-    private Vector<Restriccion> vectorRestricciones = new Vector<Restriccion>();
+    public RestriccionInterface[] theRestriccionInterface;
+    private List<Restriccion> vectorRestricciones = new Vector<Restriccion>();
     private boolean es_flotante = true;
 
 
@@ -68,7 +72,7 @@ public class PtoSig implements PtoSigInterface, Serializable {
     public PtoSig(Restriccion restriccion, int ptb, int ptosig) {
         this.ptb = ptb;
         this.numeroDePtoSig = ptosig;
-        vectorRestricciones.addElement(restriccion);
+        vectorRestricciones.add(restriccion);
         //numeroRestricciones++;
     }
 
@@ -76,6 +80,7 @@ public class PtoSig implements PtoSigInterface, Serializable {
      * @return java.lang.String
      * @roseuid 378708190032
      */
+    @Override
     public String getL() {
         return L;
     }
@@ -84,6 +89,7 @@ public class PtoSig implements PtoSigInterface, Serializable {
      * @return java.lang.String
      * @roseuid 378708190033
      */
+    @Override
     public String getD() {
         return D;
     }
@@ -97,24 +103,32 @@ public class PtoSig implements PtoSigInterface, Serializable {
      * @param seleccion
      * @roseuid 378708190034
      */
+    @Override
     public void anhadeRestriccion(int ptb, int ptosig, Restriccion restriccion,
-                                  Restriccion restriccion_vieja, int seleccion) {
-        if (seleccion == PTBM.ANHADIR) {
-            vectorRestricciones.addElement(restriccion);
-        } else if (seleccion == PTBM.MODIFICAR) {
-            int index = vectorRestricciones.indexOf(restriccion_vieja);
-            vectorRestricciones.removeElementAt(index);
-            vectorRestricciones.insertElementAt(restriccion, index);
-        } else if (seleccion == PTBM.BORRAR) {
-            vectorRestricciones.removeElementAt(vectorRestricciones.indexOf(
-                    restriccion_vieja));
-            DecrementaNumeroRestricciones();
-        }
+                                  Restriccion restriccion_vieja, PTBInterface.Acciones seleccion) {
+       switch(seleccion){
+       case ANHADIR:
+          vectorRestricciones.add(restriccion);
+          break;
+       case MODIFICAR:
+          int index = vectorRestricciones.indexOf(restriccion_vieja);
+          vectorRestricciones.remove(index);//
+          vectorRestricciones.add(index,restriccion);
+          break;
+       case BORRAR:
+          vectorRestricciones.remove(vectorRestricciones.indexOf(restriccion_vieja));
+          DecrementaNumeroRestricciones();
+          break;
+      default:
+         LOGGER.warning("seleccion no puede tomar el valor crear en esta funcion" );
+         break;
+       }
     }
 
     /**
      * @roseuid 37870819003B
      */
+    @Override
     public void DecrementaNumeroRestricciones() {
         //numeroRestricciones--;
     }
@@ -123,6 +137,7 @@ public class PtoSig implements PtoSigInterface, Serializable {
      * @return int
      * @roseuid 37870819003C
      */
+    @Override
     public int getNumeroDeRestricciones() {
         return vectorRestricciones.size();
     }
@@ -131,6 +146,7 @@ public class PtoSig implements PtoSigInterface, Serializable {
      * @return int
      * @roseuid 37870819003D
      */
+    @Override
     public int getNumeroDePtoSig() {
         return numeroDePtoSig;
     }
@@ -139,6 +155,7 @@ public class PtoSig implements PtoSigInterface, Serializable {
      * @param num
      * @roseuid 37870819003E
      */
+    @Override
     public void setNumeroDePtoSig(int num) {
         numeroDePtoSig = num;
     }
@@ -147,6 +164,7 @@ public class PtoSig implements PtoSigInterface, Serializable {
      * @return int
      * @roseuid 378708190040
      */
+    @Override
     public int getNumeroDePTB() {
         return ptb;
     }
@@ -155,36 +173,28 @@ public class PtoSig implements PtoSigInterface, Serializable {
      * @param ptb
      * @roseuid 378708190041
      */
+    @Override
     public void setNumeroDePTB(int ptb, int num_ptb_borrado) {
 
         for (int i = 0; i < vectorRestricciones.size(); i++) {
-            if (((Restriccion) vectorRestricciones.elementAt(i)).getNumeroDePTB() ==
-                this.ptb) {
-                ((Restriccion) vectorRestricciones.elementAt(i)).setNumeroDePTB(
-                        ptb);
-            } else if (((Restriccion) vectorRestricciones.elementAt(i)).
-                       getNumeroDePTB() > num_ptb_borrado) {
-                int nuevo_numero = ((Restriccion) vectorRestricciones.elementAt(
-                        i)).getNumeroDePTB() - 1;
-                ((Restriccion) vectorRestricciones.elementAt(i)).setNumeroDePTB(
-                        nuevo_numero);
+            if (vectorRestricciones.get(i).getNumeroDePTB() == this.ptb) {
+                vectorRestricciones.get(i).setNumeroDePTB(ptb);
+            } else if (vectorRestricciones.get(i).getNumeroDePTB() > num_ptb_borrado) {
+                int nuevo_numero = vectorRestricciones.get(i).getNumeroDePTB() - 1;
+                vectorRestricciones.get(i).setNumeroDePTB(nuevo_numero);
             }
-            //Nunca deberia ejecutarse esto, pero es necesio . Chapuzas S.A.
-            else if (((Restriccion) vectorRestricciones.elementAt(i)).
-                     getNumeroDePTB() > num_ptb_borrado) {
-                vectorRestricciones.remove(i);
-            }
+            // Nunca deberia ejecutarse esto, pero es necesio . Chapuzas S.A.
+//            else if (vectorRestricciones.get(i).getNumeroDePTB() > num_ptb_borrado) {
+//                vectorRestricciones.remove(i);
+//            }
         }
         this.ptb = ptb;
     }
 
     public void setNumeroDePTB(int ptb) {
-
         for (int i = 0; i < vectorRestricciones.size(); i++) {
-            if (((Restriccion) vectorRestricciones.elementAt(i)).getNumeroDePTB() ==
-                ptb) {
-                ((Restriccion) vectorRestricciones.elementAt(i)).setNumeroDePTB(
-                        ptb);
+            if (vectorRestricciones.get(i).getNumeroDePTB() == ptb) {
+                vectorRestricciones.get(i).setNumeroDePTB(ptb);
             }
         }
         this.ptb = ptb;
@@ -195,9 +205,8 @@ public class PtoSig implements PtoSigInterface, Serializable {
      * @param ptb
      */
     public void setNumeroDePTBCargaPlantilla(int ptb) {
-
         for (int i = 0; i < vectorRestricciones.size(); i++) {
-            ((Restriccion) vectorRestricciones.elementAt(i)).setNumeroDePTB(ptb);
+            vectorRestricciones.get(i).setNumeroDePTB(ptb);
         }
         this.ptb = ptb;
     }
@@ -206,15 +215,12 @@ public class PtoSig implements PtoSigInterface, Serializable {
      * @param ptosig
      * @roseuid 378708190043
      */
+    @Override
     public void revisaRestricciones(PtoSig ptosig) {
         for (int i = 0; i < vectorRestricciones.size(); i++) {
-            if (ptosig.getNumeroDePTB() ==
-                ((Restriccion) vectorRestricciones.elementAt(i)).getNumeroDePTB()
-                &&
-                ptosig.getNumeroDePtoSig() ==
-                ((Restriccion) vectorRestricciones.elementAt(i)).
-                getNumeroDePtoSig()) {
-                vectorRestricciones.removeElementAt(i);
+            if (ptosig.getNumeroDePTB() == vectorRestricciones.get(i).getNumeroDePTB()
+                && ptosig.getNumeroDePtoSig() == vectorRestricciones.get(i).getNumeroDePtoSig()) {
+                vectorRestricciones.remove(i);
             }
         }
     }
@@ -223,10 +229,11 @@ public class PtoSig implements PtoSigInterface, Serializable {
      * @return Restriccion[]
      * @roseuid 378708190045
      */
+    @Override
     public Restriccion[] getRestricciones() {
-        Restriccion vrestricciones[] = new Restriccion[vectorRestricciones.size()];
+        Restriccion[] vrestricciones = new Restriccion[vectorRestricciones.size()];
         for (int i = 0; i < vectorRestricciones.size(); i++) {
-            vrestricciones[i] = ((Restriccion) vectorRestricciones.elementAt(i));
+            vrestricciones[i] = vectorRestricciones.get(i);
         }
         return vrestricciones;
     }
@@ -236,15 +243,15 @@ public class PtoSig implements PtoSigInterface, Serializable {
      * @param numrestricciones
      * @roseuid 378708190046
      */
-    public void setRestricciones(Restriccion[] vrestricciones,
-                                 int numrestricciones) {
-        vectorRestricciones.removeAllElements();
+    @Override
+    public void setRestricciones(Restriccion[] vrestricciones, int numrestricciones) {
+        vectorRestricciones.clear();
         for (int i = 0; i < numrestricciones; i++) {
-            vectorRestricciones.addElement(vrestricciones[i]);
+            vectorRestricciones.add(vrestricciones[i]);
         }
     }
 
-    /**
+    /*
      * Estos metodos nos valdran para averiguar si el PTBM es "flotante" o tiene algun
      * tipo de restriccion con el primer PtoSig.
      */

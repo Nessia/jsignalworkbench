@@ -2,6 +2,7 @@ package com.sequencing.gui;
 
 import com.sequencing.Sequencing;
 import java.awt.Color;
+import javax.swing.*;
 import static java.lang.Boolean.FALSE;
 import net.javahispano.jsignalwb.JSWBManager;
 
@@ -13,18 +14,18 @@ public class Configure extends javax.swing.JDialog {
     private static final long serialVersionUID = 4451763633903213420L;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton chooseButton;
-    private javax.swing.JDialog colourDialog;
-    private javax.swing.JPanel colourPanel;
-    private javax.swing.JColorChooser colourWindow;
-    private javax.swing.JButton confirmButton;
-    private javax.swing.JSlider heightSlider;
-    private javax.swing.JTextField heightText;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton modifyButton;
+//    private JButton chooseButton;
+    private JDialog colourDialog;
+    private JPanel colourPanel;
+    private JColorChooser colourWindow;
+//    private JButton confirmButton;
+    private JSlider heightSlider;
+    private JTextField heightText;
+//    private JLabel jLabel1;
+//    private JLabel jLabel3;
+//    private JPanel jPanel1;
+//    private JPanel jPanel2;
+//    private JButton modifyButton;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -40,24 +41,25 @@ public class Configure extends javax.swing.JDialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        colourDialog = new javax.swing.JDialog();
-        colourWindow = new javax.swing.JColorChooser();
-        confirmButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        heightSlider = new javax.swing.JSlider();
-        heightText = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        colourPanel = new javax.swing.JPanel();
-        chooseButton = new javax.swing.JButton();
-        modifyButton = new javax.swing.JButton();
+        colourDialog = new JDialog();
+        colourWindow = new JColorChooser();
+        JButton confirmButton = new JButton();
+        JLabel jLabel1 = new JLabel();
+        JPanel jPanel1 = new JPanel();
+        heightSlider = new JSlider();
+        heightText = new JTextField();
+        JLabel jLabel3 = new JLabel();
+        JPanel jPanel2 = new JPanel();
+        colourPanel = new JPanel();
+        JButton chooseButton = new JButton();
+        JButton modifyButton = new JButton();
 
         colourDialog.setMinimumSize(new java.awt.Dimension(500, 250));
 
         colourWindow.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                colourWindowMouseClicked(evt);
+                colourWindowMouseClicked();
             }
         });
         colourDialog.getContentPane().add(colourWindow, java.awt.BorderLayout.CENTER);
@@ -66,14 +68,14 @@ public class Configure extends javax.swing.JDialog {
         confirmButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmButtonActionPerformed(evt);
+                confirmButtonActionPerformed();
             }
         });
         colourDialog.getContentPane().add(confirmButton, java.awt.BorderLayout.PAGE_END);
 
         getContentPane().setLayout(new java.awt.GridLayout(0, 2));
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel1.setText("HEIGHT:");
         getContentPane().add(jLabel1);
 
@@ -83,24 +85,24 @@ public class Configure extends javax.swing.JDialog {
         heightSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                heightSliderStateChanged(evt);
+                heightSliderStateChanged();
             }
         });
         jPanel1.add(heightSlider);
 
-        heightText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        heightText.setHorizontalAlignment(JTextField.CENTER);
         heightText.setMaximumSize(new java.awt.Dimension(200, 60));
         heightText.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                heightTextActionPerformed(evt);
+                heightTextActionPerformed();
             }
         });
         jPanel1.add(heightText);
 
         getContentPane().add(jPanel1);
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel3.setText("CHOOSE COLOUR:");
         getContentPane().add(jLabel3);
 
@@ -113,7 +115,7 @@ public class Configure extends javax.swing.JDialog {
         chooseButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chooseButtonActionPerformed(evt);
+                chooseButtonActionPerformed();
             }
         });
         jPanel2.add(chooseButton);
@@ -129,7 +131,7 @@ public class Configure extends javax.swing.JDialog {
         modifyButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modifyButtonActionPerformed(evt);
+                modifyButtonActionPerformed();
             }
         });
         getContentPane().add(modifyButton);
@@ -137,14 +139,14 @@ public class Configure extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void heightSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_heightSliderStateChanged
+    private void heightSliderStateChanged() {//GEN-FIRST:event_heightSliderStateChanged
         heightText.setText(Integer.toString(heightSlider.getValue()));
     }//GEN-LAST:event_heightSliderStateChanged
 
-    private void heightTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heightTextActionPerformed
+    private void heightTextActionPerformed() {//GEN-FIRST:event_heightTextActionPerformed
         heightSlider.setValue(Integer.parseInt(heightText.getText()));    }//GEN-LAST:event_heightTextActionPerformed
 
-    private void modifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyButtonActionPerformed
+    private void modifyButtonActionPerformed() {//GEN-FIRST:event_modifyButtonActionPerformed
         Sequencing.setHEIGHT(Integer.parseInt(heightText.getText()));
 
         Color colour = colourPanel.getBackground();
@@ -153,15 +155,15 @@ public class Configure extends javax.swing.JDialog {
         this.setVisible(FALSE);
     }//GEN-LAST:event_modifyButtonActionPerformed
 
-    private void chooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseButtonActionPerformed
+    private void chooseButtonActionPerformed() {//GEN-FIRST:event_chooseButtonActionPerformed
         colourDialog.setVisible(true);
     }//GEN-LAST:event_chooseButtonActionPerformed
 
-    private void colourWindowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colourWindowMouseClicked
+    private void colourWindowMouseClicked() {//GEN-FIRST:event_colourWindowMouseClicked
 
     }//GEN-LAST:event_colourWindowMouseClicked
 
-    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
+    private void confirmButtonActionPerformed() {//GEN-FIRST:event_confirmButtonActionPerformed
         colourPanel.setBackground(colourWindow.getColor());
         colourDialog.update(null);
 
@@ -169,7 +171,7 @@ public class Configure extends javax.swing.JDialog {
     }//GEN-LAST:event_confirmButtonActionPerformed
 
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {

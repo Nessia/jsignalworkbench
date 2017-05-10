@@ -1,10 +1,14 @@
 package es.usc.gsi.conversordatosmit.ficheros.lectura;
 
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // Los metodos de esta clase se superpondran a los de RandomAccessFile: se devuelven
 // los datos de la buffer mientras se pueda, y si no se recarga la buffer para poder devolverlos.
 public class CacheMITDB {
+
+    private static final Logger LOGGER = Logger.getLogger(CacheMITDB.class.getName());
 
     private RandomAccessFile entrada; // Fichero de entrada
     private byte[] buffer; // Array de almacenamiento en memoria
@@ -107,6 +111,7 @@ public class CacheMITDB {
             entrada.seek(posicionLecturaActual);
             res = entrada.read(buffer);
         } catch (IOException e) {
+            LOGGER.log(Level.FINE, e.getMessage(), e);
             res = -1;
         }
         return res;

@@ -17,27 +17,31 @@ public class PTB implements PTBInterface, Serializable {
 
     static final long serialVersionUID = 1231L;
 
+    private static final String PRIMER_D = "0.0";
+    private static final String PRIMER_T2 = "20.0";
+    private static final String PRIMER_T = "0.0";
 
-    private float intInicioSoporteSeparacion = 10,
-    intInicioCoreSeparacion = 15, intFinCoreSeparacion = 20,
-    intFinSoporteSeparacion = 25;
+
+    private float intInicioSoporteSeparacion = 10;
+    private float intInicioCoreSeparacion = 15;
+    private float intFinCoreSeparacion = 20;
+    private float intFinSoporteSeparacion = 25;
     private float longitudVentana = 4;
 
 
     private String nombre;
     private String parametro;
-    private String unidades, unidades_temporales;
+    private String unidades;
+    private String unidadesTemporales;
     private String comentario;
     private int numPTB;
     //private int numeroPtoSig = 0;
-    private final String primerD = "0.0";
-    private final String primerT2 = "20.0";
-    private final String primerT = "0.0";
+
     //private Vector parametros;
-    private Vector<PtoSig> vectorPtoSig = new Vector<PtoSig>();
+    private List<PtoSig> vectorPtoSig = new Vector<PtoSig>();
     private PTBMInterface ptbm;
-    private boolean es_flotante = true;
-    private HashMap<String,AuxiliarOffset> almacen_offset = new HashMap<String,AuxiliarOffset>();
+    private boolean esFlotante = true;
+    private HashMap<String,AuxiliarOffset> almacenOffset = new HashMap<String,AuxiliarOffset>();
     private boolean buscarEnValorAbsoluto = false;
 
     /**
@@ -56,11 +60,11 @@ public class PTB implements PTBInterface, Serializable {
         this.unidades = unidades;
         this.comentario = comentario;
         this.numPTB = numPTB;
-        this.unidades_temporales = unidades_temporales;
+        this.unidadesTemporales = unidades_temporales;
         //numeroPtoSig++;
         //numeroPtoSig++;
-        vectorPtoSig.addElement(new PtoSig(primerD, primerT, numPTB, true));
-        vectorPtoSig.addElement(new PtoSig(primerD, primerT2, numPTB));
+        vectorPtoSig.add(new PtoSig(PRIMER_D, PRIMER_T, numPTB, true));
+        vectorPtoSig.add(new PtoSig(PRIMER_D, PRIMER_T2, numPTB));
 
     }
 
@@ -68,6 +72,7 @@ public class PTB implements PTBInterface, Serializable {
      * @param ptbm
      * @roseuid 378708190068
      */
+    @Override
     public void setPTBM(PTBMInterface ptbm) {
         this.ptbm = ptbm;
     }
@@ -76,8 +81,9 @@ public class PTB implements PTBInterface, Serializable {
      * @param ptosig
      * @roseuid 37870819006A
      */
+    @Override
     public void anhadePtoSig(PtoSig ptosig) {
-        vectorPtoSig.addElement(ptosig);
+        vectorPtoSig.add(ptosig);
         //numeroPtoSig++;
     }
 
@@ -85,6 +91,7 @@ public class PTB implements PTBInterface, Serializable {
      * @return int
      * @roseuid 37870819006C
      */
+    @Override
     public int getNumeroDePtoSig() {
         return vectorPtoSig.size();
     }
@@ -92,6 +99,7 @@ public class PTB implements PTBInterface, Serializable {
     /**
      * @roseuid 37870819006D
      */
+    @Override
     public void DecrementaNumeroDePtoSig() {
         //numeroPtoSig--;
     }
@@ -100,6 +108,7 @@ public class PTB implements PTBInterface, Serializable {
      * @return int
      * @roseuid 37870819006E
      */
+    @Override
     public int getNumeroDePTB() {
         return numPTB;
     }
@@ -108,11 +117,11 @@ public class PTB implements PTBInterface, Serializable {
      * @param tmp
      * @roseuid 37870819006F
      */
+    @Override
     public void setNumeroDePTB(int tmp, int ptb_borrado) {
         numPTB = tmp;
         for (int i = 0; i < vectorPtoSig.size(); i++) {
-            ((PtoSig) vectorPtoSig.elementAt(i)).setNumeroDePTB(tmp,
-                    ptb_borrado);
+            vectorPtoSig.get(i).setNumeroDePTB(tmp, ptb_borrado);
         }
 
     }
@@ -124,7 +133,7 @@ public class PTB implements PTBInterface, Serializable {
     public void setNumeroDePTB(int tmp) {
         numPTB = tmp;
         for (int i = 0; i < vectorPtoSig.size(); i++) {
-            ((PtoSig) vectorPtoSig.elementAt(i)).setNumeroDePTB(tmp);
+            vectorPtoSig.get(i).setNumeroDePTB(tmp);
         }
 
     }
@@ -136,8 +145,7 @@ public class PTB implements PTBInterface, Serializable {
     public void setNumeroDePTBCargaPlantilla(int tmp) {
         numPTB = tmp;
         for (int i = 0; i < vectorPtoSig.size(); i++) {
-            ((PtoSig) vectorPtoSig.elementAt(i)).setNumeroDePTBCargaPlantilla(
-                    tmp);
+            vectorPtoSig.get(i).setNumeroDePTBCargaPlantilla(tmp);
         }
 
     }
@@ -146,10 +154,10 @@ public class PTB implements PTBInterface, Serializable {
      * @param ptosig
      * @roseuid 378708190071
      */
+    @Override
     public void revisaRestricciones(PtoSig ptosig) {
-
         for (int i = 0; i < vectorPtoSig.size(); i++) {
-            ((PtoSig) vectorPtoSig.elementAt(i)).revisaRestricciones(ptosig);
+            vectorPtoSig.get(i).revisaRestricciones(ptosig);
         }
     }
 
@@ -157,10 +165,11 @@ public class PTB implements PTBInterface, Serializable {
      * @return PtoSig[]
      * @roseuid 378708190073
      */
+    @Override
     public PtoSig[] getPtoSig() {
-        PtoSig vptosig[] = new PtoSig[vectorPtoSig.size()];
+        PtoSig[] vptosig = new PtoSig[vectorPtoSig.size()];
         for (int i = 0; i < vectorPtoSig.size(); i++) {
-            vptosig[i] = ((PtoSig) vectorPtoSig.elementAt(i));
+            vptosig[i] = vectorPtoSig.get(i);
         }
         return vptosig;
     }
@@ -170,10 +179,11 @@ public class PTB implements PTBInterface, Serializable {
      * @param nptosig
      * @roseuid 378708190074
      */
+    @Override
     public void setPtoSig(PtoSig[] vptosig, int nptosig) {
-        vectorPtoSig.removeAllElements();
+        vectorPtoSig.clear();
         for (int i = 0; i < nptosig; i++) {
-            vectorPtoSig.addElement(vptosig[i]);
+            vectorPtoSig.add(vptosig[i]);
         }
     }
 
@@ -185,6 +195,7 @@ public class PTB implements PTBInterface, Serializable {
      * @param unidades_tiempo
      * @roseuid 378708190077
      */
+    @Override
     public void modificar(String nombre, String parametro, String unidades,
                           String unidades_tiempo, String comentario,
                           float intInicioSoporteSeparacion,
@@ -196,7 +207,7 @@ public class PTB implements PTBInterface, Serializable {
         this.parametro = parametro;
         this.unidades = unidades;
         this.comentario = comentario;
-        this.unidades_temporales = unidades_tiempo;
+        this.unidadesTemporales = unidades_tiempo;
         this.intFinCoreSeparacion = intFinCoreSeparacion;
         this.intFinSoporteSeparacion = intFinSoporteSeparacion;
         this.intInicioCoreSeparacion = intInicioCoreSeparacion;
@@ -205,14 +216,14 @@ public class PTB implements PTBInterface, Serializable {
         this.buscarEnValorAbsoluto = buscarEnValorAbsoluto;
     }
 
+    @Override
     public void modificar(String nombre, String parametro, String unidades,
                           String unidades_tiempo, String comentario) {
         this.nombre = nombre;
         this.parametro = parametro;
         this.unidades = unidades;
         this.comentario = comentario;
-        this.unidades_temporales = unidades_tiempo;
-
+        this.unidadesTemporales = unidades_tiempo;
     }
 
 
@@ -221,9 +232,9 @@ public class PTB implements PTBInterface, Serializable {
      * @return Restriccion[]
      * @roseuid 37870819007C
      */
+    @Override
     public Restriccion[] getRestricciones(int ptosig) {
-        return (((PtoSig) vectorPtoSig.elementAt(ptosig)).getRestricciones());
-
+        return vectorPtoSig.get(ptosig).getRestricciones();
     }
 
     /**
@@ -232,19 +243,19 @@ public class PTB implements PTBInterface, Serializable {
      * @param seleccion
      * @roseuid 37870819007E
      */
-    public void anhadePtoSig(PtoSig ptosig, int numeroPtoSig, int seleccion) {
-        if (seleccion == PTBM.ANHADIR) {
-            vectorPtoSig.addElement(ptosig);
-            numeroPtoSig++;
-        } else if (seleccion == PTBM.BORRAR) {
-            ptbm.revisaRestricciones(((PtoSig) vectorPtoSig.elementAt(
-                    numeroPtoSig)));
+    @Override
+    public void anhadePtoSig(PtoSig ptosig, int numeroPtoSig, Acciones seleccion) {
+        if (seleccion == Acciones.ANHADIR) {
+            vectorPtoSig.add(ptosig);
+//            numeroPtoSig++;
+        } else if (seleccion == Acciones.BORRAR) {
+            ptbm.revisaRestricciones(vectorPtoSig.get(numeroPtoSig));
             int numero_ptos_inicilaes = vectorPtoSig.size();
             for (int i = numero_ptos_inicilaes - 1; i >= numeroPtoSig; i--) {
-                PtoSig pto = (PtoSig) vectorPtoSig.elementAt(i);
+                PtoSig pto = vectorPtoSig.get(i);
                 //   pto.setNumeroDePtoSig(pto.getNumeroDePtoSig() -1);
                 for (int j = 0; j < numeroPtoSig; j++) {
-                    PtoSig pto2 = (PtoSig) vectorPtoSig.elementAt(j);
+                    PtoSig pto2 = vectorPtoSig.get(j);
                     pto2.revisaRestricciones(pto);
                     ptbm.revisaRestricciones(pto);
                 }
@@ -252,9 +263,8 @@ public class PTB implements PTBInterface, Serializable {
                 //this.numeroPtoSig--;
 
             }
-        } else if (seleccion == PTBM.MODIFICAR) {
-            vectorPtoSig.setElementAt(ptosig, numeroPtoSig);
-
+        } else if (seleccion == Acciones.MODIFICAR) {
+            vectorPtoSig.set(numeroPtoSig, ptosig);
         }
     }
 
@@ -267,11 +277,10 @@ public class PTB implements PTBInterface, Serializable {
      * @param seleccion
      * @roseuid 378708190082
      */
+    @Override
     public void anhadeRestriccion(int ptb, int ptosig, Restriccion restriccion,
-                                  Restriccion restriccion_vieja, int seleccion) {
-
-        ((PtoSig) vectorPtoSig.elementAt(ptosig))
-                .anhadeRestriccion(ptb, ptosig, restriccion, restriccion_vieja,
+                                  Restriccion restriccion_vieja, PTBInterface.Acciones seleccion) {
+        vectorPtoSig.get(ptosig).anhadeRestriccion(ptb, ptosig, restriccion, restriccion_vieja,
                                    /*numeroPtoSig,*/seleccion);
     }
 
@@ -279,6 +288,7 @@ public class PTB implements PTBInterface, Serializable {
      * @return java.lang.String
      * @roseuid 378708190089
      */
+    @Override
     public String getNombre() {
         return nombre;
     }
@@ -287,6 +297,7 @@ public class PTB implements PTBInterface, Serializable {
      * @return java.lang.String
      * @roseuid 37870819008A
      */
+    @Override
     public String getComentario() {
         return comentario;
     }
@@ -295,6 +306,7 @@ public class PTB implements PTBInterface, Serializable {
      * @return java.lang.String
      * @roseuid 37870819008B
      */
+    @Override
     public String getParametro() {
         return parametro;
     }
@@ -303,6 +315,7 @@ public class PTB implements PTBInterface, Serializable {
      * @return java.lang.String
      * @roseuid 37870819008C
      */
+    @Override
     public String getUnidades() {
         return unidades;
     }
@@ -311,8 +324,9 @@ public class PTB implements PTBInterface, Serializable {
      * @return String
      * @roseuid 3788C7170157
      */
+    @Override
     public String getUnidadesTemporales() {
-        return unidades_temporales;
+        return unidadesTemporales;
     }
 
 
@@ -322,11 +336,11 @@ public class PTB implements PTBInterface, Serializable {
      */
 
     public void setEsFlotante(boolean b) {
-        this.es_flotante = b;
+        this.esFlotante = b;
     }
 
     public boolean getEsFlotante() {
-        return es_flotante;
+        return esFlotante;
     }
 
     /**
@@ -334,6 +348,7 @@ public class PTB implements PTBInterface, Serializable {
      * @return Object
      * @roseuid 3788D4B30355
      */
+    @Override
     public Object getParametro(int parametro) {
         return null;
     }
@@ -342,8 +357,9 @@ public class PTB implements PTBInterface, Serializable {
      * @param parametro
      * @roseuid 3788D4B303C3
      */
+    @Override
     public void setParametro(int parametro) {
-
+       // Empty
     }
 
     /**Cada vez que el usuario defina una restriccion con el origen se invocara a este
@@ -351,81 +367,86 @@ public class PTB implements PTBInterface, Serializable {
      * eliminara de esta lista.
      */
     public void addOffset(String has, float[] off) {
-        almacen_offset.put(has, new AuxiliarOffset(has, off));
-        this.es_flotante = false;
+        almacenOffset.put(has, new AuxiliarOffset(has, off));
+        this.esFlotante = false;
     }
 
 
     public void delOffset(String has) {
-        almacen_offset.remove(has);
-        if (almacen_offset.isEmpty()) {
-            this.es_flotante = true;
+        almacenOffset.remove(has);
+        if (almacenOffset.isEmpty()) {
+            this.esFlotante = true;
         } else {
-            this.es_flotante = false;
+            this.esFlotante = false;
         }
     }
 
     public float[] getOffset() {
-        if (!almacen_offset.isEmpty()) {
-            Collection<AuxiliarOffset> c = almacen_offset.values();
+        if (!almacenOffset.isEmpty()) {
+            Collection<AuxiliarOffset> c = almacenOffset.values();
             Iterator<AuxiliarOffset> it = c.iterator();
-            float[] f = it.next().getOffset();
-            return f;
+            return it.next().getOffset();
         } else {
-            float[] tmp = {0, 0};
-            return tmp;
+            return new float[]{0, 0};
         }
     }
 
+    @Override
     public float getIntInicioSoporteSeparacion() {
         return intInicioSoporteSeparacion;
     }
 
+    @Override
     public void setIntInicioSoporteSeparacion(float intInicioSoporteSeparacion) {
         this.intInicioSoporteSeparacion = intInicioSoporteSeparacion;
     }
 
+    @Override
     public void setIntInicioCoreSeparacion(float intInicioCoreSeparacion) {
         this.intInicioCoreSeparacion = intInicioCoreSeparacion;
     }
 
+    @Override
     public void setIntFinSoporteSeparacion(float intFinSoporteSeparacion) {
         this.intFinSoporteSeparacion = intFinSoporteSeparacion;
     }
 
+    @Override
     public void setIntFinCoreSeparacion(float intFinCoreSeparacion) {
         this.intFinCoreSeparacion = intFinCoreSeparacion;
     }
 
+    @Override
     public float getIntFinCoreSeparacion() {
         return intFinCoreSeparacion;
     }
 
+    @Override
     public float getIntFinSoporteSeparacion() {
         return intFinSoporteSeparacion;
     }
 
+    @Override
     public float getIntInicioCoreSeparacion() {
         return intInicioCoreSeparacion;
     }
 
+    @Override
     public float getLongitudVentana() {
         return longitudVentana;
     }
 
+    @Override
     public void setLongitudVentana(float longitudVentana) {
         this.longitudVentana = longitudVentana;
     }
 
+    @Override
     public float getSeparacionCrisp() {
         return intInicioSoporteSeparacion;
     }
 
-    /**
-     * isBuscarEnValorAbsoluto
-     *
-     * @return boolean
-     */
+    @Override
     public boolean isBuscarEnValorAbsoluto() {
         return buscarEnValorAbsoluto;
     }
@@ -435,22 +456,36 @@ public class PTB implements PTBInterface, Serializable {
     }
 
     public class AuxiliarOffset implements Serializable {
+        static final long serialVersionUID = 12311L;
+
+        private String has;
+        private float[] offset;
+
         public AuxiliarOffset(String has, float[] offset) {
             this.has = has;
             this.offset = offset;
         }
 
+        @Override
         public int hashCode() {
             return Integer.parseInt(has);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if(obj instanceof AuxiliarOffset){
+               AuxiliarOffset i = (AuxiliarOffset)obj;
+               if(i.has == null && has == null && Arrays.equals(offset, i.offset)){
+                  return false;
+               }
+               return (has != null && has.equals(i.has)) && Arrays.equals(offset, i.offset);
+            }
+            return false;
         }
 
         public float[] getOffset() {
             return offset;
         }
-
-        private String has;
-        private float[] offset;
-        static final long serialVersionUID = 12311L;
     }
 
 

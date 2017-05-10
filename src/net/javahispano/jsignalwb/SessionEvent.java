@@ -5,7 +5,12 @@ package net.javahispano.jsignalwb;
  * Evento que se genera cuando se crea, destruye o guarda una sesion de trabajo.
  */
 public class SessionEvent {
-    private boolean newSession, saved, noSession, saveAs = false;
+
+   private boolean newSession;
+    private boolean saved;
+    private boolean noSession;
+    private boolean saveAs = false;
+
     SessionEvent(boolean created, boolean saved) {
         this.saved = saved;
         this.newSession = created;

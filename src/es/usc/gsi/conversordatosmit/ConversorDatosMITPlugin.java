@@ -50,7 +50,6 @@ public class ConversorDatosMITPlugin extends PluginAdapter implements GenericPlu
         return "Permite importar senhales de registros MIT-BIH. Importa nombre de senhales, frecuencias de muestreo, fecha de comienzo del registro, etc.";
     }
 
-    //@todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
     @Override
     public Icon getIcon() {
         return new javax.swing.ImageIcon(getClass().getResource("MIT.gif"));
@@ -126,7 +125,7 @@ public class ConversorDatosMITPlugin extends PluginAdapter implements GenericPlu
 
     @Override
     public void launch(JSWBManager jswbManager) {
-        FrameConversorMIT f = new FrameConversorMIT(JSWBManager.getParentWindow(), jswbManager);
+        FrameConversorMIT f = new FrameConversorMIT(JSWBManager.getParentWindow()/*, jswbManager*/);
         if (this.ultimoDirectorioAbierto != null) {
 
             File directorioViejo = new File(this.ultimoDirectorioAbierto);
@@ -145,12 +144,7 @@ public class ConversorDatosMITPlugin extends PluginAdapter implements GenericPlu
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return (gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR) ;
     }
 
 }

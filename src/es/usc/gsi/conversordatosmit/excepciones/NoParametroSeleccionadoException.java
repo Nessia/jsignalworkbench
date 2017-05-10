@@ -1,7 +1,7 @@
 package es.usc.gsi.conversordatosmit.excepciones;
 
 
-public class NoParametroSeleccionadoException extends Exception {
+public class NoParametroSeleccionadoException extends NoExportableException {
 
     /**
     *

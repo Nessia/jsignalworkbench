@@ -3,6 +3,8 @@ package es.usc.gsi.conversordatosmit.ficheros.lectura;
 
 import java.io.*;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import es.usc.gsi.conversordatosmit.algoritmos.*;
 import es.usc.gsi.conversordatosmit.ficheros.FicheroHead;
@@ -10,6 +12,8 @@ import es.usc.gsi.conversordatosmit.ficheros.Parametro;
 import es.usc.gsi.conversordatosmit.utilidades.ParseadorFecha;
 
 public class LeeFicheroDat {
+
+    private static final Logger LOGGER = Logger.getLogger(LeeFicheroDat.class.getName());
 
     private FicheroHead ficheroHead; // Fichero de cabecera
     private Parametro parametro; // Parametro que muestrearemos
@@ -235,7 +239,7 @@ public class LeeFicheroDat {
             entrada = new BufferedRandomAccessFile(raf, 10240);
 
         } catch (Exception e) {
-            System.out.println("Error al abrir el fichero .DAT");
+            LOGGER.log(Level.WARNING, "Error al abrir el fichero .DAT", e);
         }
 
     } // Fin abrir fichero
@@ -245,7 +249,7 @@ public class LeeFicheroDat {
         try {
             entrada.close();
         } catch (Exception e) {
-            System.out.println("Error al cerrar el fichero .DAT");
+           LOGGER.log(Level.WARNING, "Error al cerrar el fichero .DAT", e);
         }
     } // Fin cerrar fichero
 
@@ -265,6 +269,7 @@ public class LeeFicheroDat {
             valorMuestraOriginal = this.leeValorMuestra(posMuestraOriginal);
             res = Integer.toString(valorMuestraOriginal);
         } catch (EOFException e) {
+            LOGGER.log(Level.FINE, e.getMessage(), e);
             res = null;
         }
 
@@ -292,7 +297,9 @@ public class LeeFicheroDat {
                 valoresTemp.add(valorTemp);
                 valorTemp = this.getSiguiente();
             }
-        } catch (IOException e) {}
+        } catch (IOException e) {
+           LOGGER.log(Level.FINE, e.getMessage(), e);
+        }
 
         this.cierraFichero();
 //@todo y aqui es donde reserva el espacio para los datos de verdad

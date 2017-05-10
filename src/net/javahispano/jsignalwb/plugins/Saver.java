@@ -1,7 +1,7 @@
 package net.javahispano.jsignalwb.plugins;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Interfaz que deben implementar todos los plugin que pretendan extender
@@ -22,7 +22,7 @@ public interface Saver extends Plugin {
      *
      * @return ArrayList
      */
-    public ArrayList<String> getAvalaibleExtension();
+    public List<String> getAvalaibleExtension();
 
     public boolean save(File f) throws
             Exception;

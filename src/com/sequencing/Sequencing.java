@@ -18,6 +18,7 @@ public class Sequencing extends SimpleAlgorithm {
     public static Color COLOUR = blue;
     public static int LENGTH = 100000;
     public static int WIDTH = 4;
+
     public static int[] guanine;
     public static int[] adenine;
     public static int[] thymine;
@@ -345,20 +346,14 @@ public class Sequencing extends SimpleAlgorithm {
     }
 
     private static boolean buscarPicoEnEntornoDe(ArrayList<Pico> listaPicos, int i, Pico pico) {
-
         if (i - 3 > 0 && i + 4 < LENGTH) {
-            for (int j = i; j < i + 3; j++) {
-                if (j > 0 && j < listaPicos.size()) {
-                    if (listaPicos.get(j) != Pico.DUMMY_PICO) {
-                        if (Math.abs(listaPicos.get(j).posicion - pico.posicion) <= 4) {
-                            listaPicos.set(j, Pico.DUMMY_PICO);
-                            return true;
-                        }
-                    }
-                }
+            for (int j = i; j < i + 3 && j < listaPicos.size(); j++) {
+                 if (j > 0 && listaPicos.get(j) != Pico.DUMMY_PICO && Math.abs(listaPicos.get(j).posicion - pico.posicion) <= 4) {
+                      listaPicos.set(j, Pico.DUMMY_PICO);
+                      return true;
+                 }
             }
         }
-
         return false;
     }
 
@@ -404,7 +399,7 @@ public class Sequencing extends SimpleAlgorithm {
                 i++;
             }
 
-            if (aux == true) {
+            if (aux) {
 //                Peak peak = new Peak(maxPosition, maxValue);
                 DefaultIntervalMark mark = createIntervalMark(maxPosition - 2, maxPosition + 2, signal);
                 mark.setColor(COLOUR);

@@ -14,19 +14,17 @@ public interface PTBMInterface extends Serializable {
      * Esto nos hara a nosotros responsables del versionamiento de los ficheros Serializados.
      * Siempre podemos volver a leerlos, pero depende de nosotros que se haga de un modo correcto.
      */
-
-    static final long serialVersionUID = 1234L;
+    //static final long serialVersionUID = 1234L;
 
     /**
      * Este metodo se emplea para anhadir, eliminar o modificar un PTB de este PTBM.
      * @param ptb - Es el PTB que se va a anhadir, borrar o modificar. Si se va a
      * borrar o modificar no es necesario.
      * @param numeroPTB - Es el numero del PTB que se va a anhadir/borrar/modificar.
-     * @param seleccion - Puede tomar los valors PTBM.ANHADIR, PTBM.BORRAR,
-     * PTBM.Modificar
+     * @param seleccion - Puede tomar los valors PTBInterface.Acciones.ANHADIR/BORRAR/Modificar
      * @roseuid 37875DDC03AB
      */
-    public void anhadePTB(PTB ptb, int numeroPTB, int seleccion);
+    public void anhadePTB(PTB ptb, int numeroPTB, PTBInterface.Acciones seleccion);
 
     /**
      * Indica si el objeto PTBM tiene un fichero asignado o no.
@@ -88,11 +86,11 @@ public interface PTBMInterface extends Serializable {
      * necesario.
      * @param numeroPtoSig - Numero del PtoSig . Solo es imprescindible cuando se va a
      * borrar.
-     * @param selecion - PTBM.ANHADIR/BORRAR/MODIFICAR
+     * @param selecion - PTBInterface.Acciones.ANHADIR/BORRAR/MODIFICAR
      * @roseuid 37875DED034C
      */
     public void anhadePtoSig(PTB ptb, PtoSig ptosig, int numeroPtoSig,
-                             int selecion);
+          PTBInterface.Acciones selecion);
 
     /**
      * @param ptb
@@ -106,7 +104,7 @@ public interface PTBMInterface extends Serializable {
     public void anhadeRestriccion(PTB ptb, PtoSig ptosig,
                                   Restriccion restriccion,
                                   Restriccion restriccion_vieja,
-                                  int numeroPtoSig, int selecion);
+                                  int numeroPtoSig, PTBInterface.Acciones selecion);
 
     /**
      * Debuelve true si el fichero de Sereializacion asociado a este PTBM esta

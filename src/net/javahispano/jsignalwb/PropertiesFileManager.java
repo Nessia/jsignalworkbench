@@ -9,6 +9,8 @@ package net.javahispano.jsignalwb;
 import java.io.*;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -23,6 +25,8 @@ import org.jdom.output.XMLOutputter;
  */
 public class PropertiesFileManager {
 
+    private static final Logger LOGGER = Logger.getLogger(PropertiesFileManager.class.getName());
+
     private File propertiesFile;
     public PropertiesFileManager() {
 
@@ -33,7 +37,10 @@ public class PropertiesFileManager {
             }
             propertiesFile = new File(f, "jswbProperties.prop");
             if (!propertiesFile.exists()) {
-                propertiesFile.createNewFile();
+                boolean creado = propertiesFile.createNewFile();
+                if(!creado){
+                   throw new IOException("No se pudo crear el fichero");
+                }
                 Document doc = new Document(new Element("root"));
                 XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
                 FileOutputStream file = new FileOutputStream(propertiesFile);
@@ -43,6 +50,7 @@ public class PropertiesFileManager {
             }
 
         } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, "Imposible to create the properties file. The configuration data won't be remembered", ex);
             JOptionPane.showMessageDialog(null,
                     "Imposible to create the properties file. The configuration data won't be remembered");
         }
@@ -58,14 +66,14 @@ public class PropertiesFileManager {
                 while (it.hasNext()) {
                     Element elem = it.next();
                     File fd = new File(elem.getAttribute("path").getValue());
-                    if (fd.exists()) {
-                        fd.delete();
+                    if (fd.exists() && !fd.delete()){
+                        throw new IOException("No se ha podido borarr el fichero");
                     }
                 }
             } catch (JDOMException ex) {
-                ex.printStackTrace();
+               LOGGER.log(Level.SEVERE, "No se han podido eliminar los plugins desinstalados", ex);
             } catch (IOException ex) {
-                ex.printStackTrace();
+               LOGGER.log(Level.SEVERE, "No se han podido eliminar los plugins desinstalados", ex);
             }
         }
     }
@@ -103,7 +111,7 @@ public class PropertiesFileManager {
 
             }
         } catch (IOException ex) {
-            ex.printStackTrace();
+           LOGGER.log(Level.SEVERE, "No se han podido guardar las propiedades", ex);
         }
         EnvironmentConfiguration.getInstancia().almacenaADisco();
     }
@@ -134,9 +142,9 @@ public class PropertiesFileManager {
                     sessionInfo.setDebugMode(false);
                 }
             } catch (JDOMException ex) {
-                ex.printStackTrace();
+               LOGGER.log(Level.SEVERE, "No se ha podido cargar el fichero de propiedades", ex);
             } catch (IOException ex) {
-                ex.printStackTrace();
+               LOGGER.log(Level.SEVERE, "No se ha podido cargar el fichero de propiedades", ex);
             }
         }
         EnvironmentConfiguration.getInstancia();

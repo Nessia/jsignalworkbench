@@ -1,5 +1,7 @@
 package es.usc.gsi.trace.importer.estadisticos;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * <p>Title: Herraienta de monitorizacion</p>
@@ -11,17 +13,28 @@ package es.usc.gsi.trace.importer.estadisticos;
  */
 
 public class Estadistico {
-    private float datos[];
+
+
+    private static final Logger LOGGER = Logger.getLogger(Estadistico.class.getName());
+
+    private float[] datos;
     private int[] percentiles;
     private ResultadosEstadisticos resultados;
-    private String nombre_senal, fecha_fin, fecha_inicio;
+    private String nombreSenal;
+    private String fechaFin;
+    private String fechaInicio;
+
+    /*
+     * Constructor
+     */
+
     public Estadistico(float[] datos, int[] percentiles_adicionales,
                        String nombre_senal,
                        String fecha_inicio, String fecha_fin) {
         this.datos = datos;
-        this.nombre_senal = nombre_senal;
-        this.fecha_fin = fecha_fin;
-        this.fecha_inicio = fecha_inicio;
+        this.nombreSenal = nombre_senal;
+        this.fechaFin = fecha_fin;
+        this.fechaInicio = fecha_inicio;
 
         if (percentiles_adicionales != null) {
             this.percentiles = new int[3 + percentiles_adicionales.length];
@@ -69,9 +82,10 @@ public class Estadistico {
                                               cociente_de_variacion,
                                               intervalo_de_confianza,
                                               this.percentiles, percentiles,
-                                              fecha_inicio,
-                                              fecha_fin, nombre_senal);
+                                              fechaInicio,
+                                              fechaFin, nombreSenal);
         } catch (NotPercentilException ex) {
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             return null;
         }
 

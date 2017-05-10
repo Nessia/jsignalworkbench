@@ -11,6 +11,10 @@ package es.usc.gsi.trace.importer.estadisticos;
 
 public class Remuestrea {
 
+    private Remuestrea(){
+       // Ocultar constructor
+    }
+
     /**
      * Remuestre el array de float que se le pase. No emeplea suavizado.
      * @param datos datos iniciales a remuestrear
@@ -19,7 +23,7 @@ public class Remuestrea {
      * los datos antiguos.
      * @return array con los datos remuesrteados
      */
-    public static float[] remuestreaFs(float datos[], float fsInicial,
+    public static float[] remuestreaFs(float[] datos, float fsInicial,
                                        float fsFinal) {
         return remuestreaFs(datos, fsInicial, fsFinal, false);
     }
@@ -34,7 +38,7 @@ public class Remuestrea {
      * los datos antiguos.
      * @return array con los datos remuesrteados
      */
-    public static float[] remuestreaFs(float datos[], float fsInicial,
+    public static float[] remuestreaFs(float[] datos, float fsInicial,
                                        float fsFinal,
                                        boolean suaviza) {
         return remuestreaT(datos, 1 / fsInicial, 1 / fsFinal, suaviza);
@@ -51,7 +55,7 @@ public class Remuestrea {
      * @return array con los datos remuesrteados
      */
 
-    public static float[] remuestreaT(float datos[], float periodoInicial,
+    public static float[] remuestreaT(float[] datos, float periodoInicial,
                                       float periodoFinal) {
         return remuestreaT(datos, periodoInicial, periodoFinal, false);
     }
@@ -65,7 +69,7 @@ public class Remuestrea {
      * @return array con los datos remuesrteados
      */
 
-    public static float[] remuestreaT(float datos[], float periodoInicial,
+    public static float[] remuestreaT(float[] datos, float periodoInicial,
                                       float periodoFinal,
                                       boolean suaviza) {
         int numDatos = datos.length;
@@ -74,13 +78,12 @@ public class Remuestrea {
         float[] nuevoDatos = new float[nuevoNumDatos];
         for (int i = 0; i < numDatos; i++) {
             //Empezamos a rellenar en el dato correspondiente a i
-            int primerDatoARellenar = (int) i * (nuevoNumDatos / numDatos);
+            int primerDatoARellenar = i * (nuevoNumDatos / numDatos);
             //Seguimos hasta el dato correspondiente a i+1
-            int ultimoDatoARellenar = (int) (((i + 1) *
-                                              (nuevoNumDatos / numDatos)));
-            if (ultimoDatoARellenar < 0 || primerDatoARellenar < 0) {
-                System.out.println("");
-            }
+            int ultimoDatoARellenar = (i + 1) * (nuevoNumDatos / numDatos);
+//            if (ultimoDatoARellenar < 0 || primerDatoARellenar < 0) {
+//                System.out.println("");
+//            }
             for (int j = primerDatoARellenar; j < ultimoDatoARellenar; j++) {
 
                 //Si el dato nuevo se corresponde a varios antiguos y se quiere suavizado
@@ -122,7 +125,7 @@ public class Remuestrea {
             dato_de_corte--;
         }
         if (dato_de_corte != datos.length) {
-            float resultado[] = new float[dato_de_corte];
+            float[] resultado = new float[dato_de_corte];
             for (int i = 0; i < dato_de_corte; i++) {
                 resultado[i] = datos[i];
             }

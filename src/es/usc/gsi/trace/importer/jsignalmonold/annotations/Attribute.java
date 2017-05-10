@@ -24,8 +24,8 @@ public class Attribute implements Serializable {
      * Pretende ser el conjunto de valores que podra tomar el atributo. No se empleara
      * en la primera version.
      */
-    public static String[] opciones_atributo;
-    public static String[][] opciones_valor;
+//    public static String[] opciones_atributo;
+//    public static String[][] opciones_valor;
 
     public Attribute(String atributo, String valor) {
         this.atributo = atributo;

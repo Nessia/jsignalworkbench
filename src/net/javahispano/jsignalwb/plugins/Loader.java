@@ -1,7 +1,7 @@
 package net.javahispano.jsignalwb.plugins;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interfaz que implementan todos los plugings que permitan cargar datos en
@@ -19,9 +19,9 @@ public interface Loader extends Plugin {
      * Proporciona las extensiones que el loader en concreto acepta a la hora de
      * cargar las senales
      *
-     * @return ArrayList
+     * @return List
      */
-    public ArrayList<String> getAvalaibleExtensions();
+    public List<String> getAvalaibleExtensions();
 
     /**
      * Metodo que realiza la carga de los datos.

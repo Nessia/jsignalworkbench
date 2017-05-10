@@ -37,13 +37,13 @@ public class RutinasEstadisticas {
      * @return
      */
     public final static float[] calculaMediana(float[] datos, int[] percentiles) {
-        percentiles = (int[]) percentiles.clone();
+       int[] percentilesClon = (int[]) percentiles.clone();
         TreeSet<Float> numOrdenados = new TreeSet<Float>();
         float mediana = 0;
-        percentiles = ordenaPercentiles(percentiles);
+        percentilesClon = ordenaPercentiles(percentilesClon);
 
         for (int i = 0; i < datos.length; i++) {
-            Float dato = new Float(datos[i]);
+            Float dato = datos[i];
             while (numOrdenados.contains(dato)) {
                 //Megachapuza, como si hay dos iguales => los fund een uno => los hago diferentes
                 float datoActual = dato.floatValue();
@@ -54,9 +54,9 @@ public class RutinasEstadisticas {
                 //Mas chapuzas. Supongo que nunca pasara. si lo de abajo no actualiza el numero =>
                 if (Math.abs(datoActual) < Float.MIN_VALUE * 10000000) {
                     datoActual = datoActual + Float.MIN_VALUE;
-                    dato = new Float(datoActual);
+                    dato = datoActual;
                 } else {
-                    dato = new Float(datoActual + datoActual / 10000000);
+                    dato = datoActual + datoActual / 10000000;
                 }
             }
             numOrdenados.add(dato);
@@ -66,64 +66,53 @@ public class RutinasEstadisticas {
         int num_datos = datos.length;
         Iterator<Float> it = numOrdenados.iterator();
         boolean numero_datos_par;
-        int mitad_de_los_datos;
+        int mitad_de_los_datos = num_datos / 2;
         //Miro si el numero de datos es par
-        if (num_datos % 2 == 0) {
-            numero_datos_par = true;
-            mitad_de_los_datos = num_datos / 2;
-        } else {
-            numero_datos_par = false;
-            //Nos interesa el redondeo por defecto
-            mitad_de_los_datos = num_datos / 2;
-        }
+        numero_datos_par = (num_datos % 2 == 0);
+
         //Divido entre dos todos los datos de los percentiles, ya que la distribucion es supuestamente simetrica,
         //Y los multiplico por el numero de datos totales, por el percentil en cuestion y divido por 100
-        for (int i = 0; i < percentiles.length; i++) {
-            percentiles[i] = percentiles[i] * num_datos / (100);
+        for (int i = 0; i < percentilesClon.length; i++) {
+            percentilesClon[i] = percentilesClon[i] * num_datos / (100);
         }
 
         //Esta varibale me permitira ir almacenando correctamente los percentiles
         int cuantos_percentiles_van = 0;
-        float[] valor_de_los_percentiles = new float[percentiles.length];
+        float[] valor_de_los_percentiles = new float[percentilesClon.length];
         //Este flg nos indica cuando hemosm hallado la media
         boolean aun_no_hallada_mediana = true;
         boolean avanzo = false;
         //Cuando hallemos la media tambien hemos tenido que hallar todos los percentiles, por lo que acabasmos.
-        while (it.hasNext() &&
-               (aun_no_hallada_mediana ||
-                cuantos_percentiles_van < percentiles.length)) {
+        while (it.hasNext() && (aun_no_hallada_mediana ||
+                cuantos_percentiles_van < percentilesClon.length)) {
             cuantos_van++;
             //Para saber si el valor fue empleado por un percentil, la mediana o no fue empleado
             avanzo = false;
-            for (int i = cuantos_percentiles_van; i < percentiles.length; i++) {
-                if (cuantos_van == percentiles[i]) {
-                    valor_de_los_percentiles[i] = ((Float) (it.next())).
-                                                  floatValue();
+            for (int i = cuantos_percentiles_van; !avanzo && i < percentilesClon.length; i++) {
+                if (cuantos_van == percentilesClon[i]) {
+                    valor_de_los_percentiles[i] = it.next().floatValue();
                     cuantos_percentiles_van++;
                     avanzo = true;
-                    break;
                 }
             }
             if (numero_datos_par && mitad_de_los_datos == cuantos_van) {
-                mediana = ((Float) (it.next())).floatValue();
+                mediana = ( (it.next())).floatValue();
                 aun_no_hallada_mediana = false;
-                avanzo = true;
             } else if (!numero_datos_par && mitad_de_los_datos == cuantos_van) {
-                mediana = ((Float) (it.next())).floatValue();
-                mediana += ((Float) (it.next())).floatValue();
+                mediana = it.next().floatValue();
+                mediana += it.next().floatValue();
                 mediana /= 2;
                 aun_no_hallada_mediana = false;
-                avanzo = true;
             }
             //Si nadie cogio este valor para nada
-            if (!avanzo) {
+            else if (!avanzo) {
                 it.next();
             }
 
         }
-        float[] resultado = new float[percentiles.length + 1];
+        float[] resultado = new float[percentilesClon.length + 1];
         resultado[0] = mediana;
-        for (int i = 0; i < percentiles.length; i++) {
+        for (int i = 0; i < percentilesClon.length; i++) {
             resultado[i + 1] = valor_de_los_percentiles[i];
         }
 
@@ -137,20 +126,20 @@ public class RutinasEstadisticas {
      */
     public static final int[] ordenaPercentiles(int[] percentiles) {
         boolean cambio;
-        percentiles = (int[]) percentiles.clone();
+        int[] percentilesClon = (int[]) percentiles.clone();
 
         do {
             cambio = false;
-            for (int i = 1; i < percentiles.length; i++) {
-                if (percentiles[i - 1] > percentiles[i]) {
-                    int tmp = percentiles[i - 1];
-                    percentiles[i - 1] = percentiles[i];
-                    percentiles[i] = tmp;
+            for (int i = 1; i < percentilesClon.length; i++) {
+                if (percentilesClon[i - 1] > percentilesClon[i]) {
+                    int tmp = percentilesClon[i - 1];
+                    percentilesClon[i - 1] = percentilesClon[i];
+                    percentilesClon[i] = tmp;
                     cambio = true;
                 }
             }
         } while (cambio);
-        return percentiles;
+        return percentilesClon;
     }
 
     /**
@@ -249,7 +238,8 @@ public class RutinasEstadisticas {
             CorrelacionException {
         //Punteros que empleare para denominar a datos 1 y dos una vez que, en caso de ser necesrio,
         //Los halla ajustado para tener el mismo tamanho
-        float datos_t_1[], datos_t_2[];
+        float[] datos_t_1;
+        float[] datos_t_2;
         int longitud1 = datos1.length;
         int longitud2 = datos2.length;
         //Si no son iguales los vextores y no hayq ue formzar => se lanza excepcion.
@@ -302,7 +292,9 @@ public class RutinasEstadisticas {
         float media2 = calculaMedia(datos2);
         int nunm_datos = datos1.length;
         //Hacemos el calculo
-        double divisor = 0, primer_cuadrado = 0, segundo_cuadrado = 0;
+        double divisor = 0;
+        double primer_cuadrado = 0;
+        double segundo_cuadrado = 0;
         for (int i = 0; i < nunm_datos; i++) {
             divisor += (datos1[i] * datos2[i]);
             primer_cuadrado += datos1[i] * datos1[i];
@@ -333,7 +325,7 @@ public class RutinasEstadisticas {
             dato_de_corte--;
         }
         if (dato_de_corte != datos.length) {
-            float resultado[] = new float[dato_de_corte];
+            float[] resultado = new float[dato_de_corte];
             for (int i = 0; i < dato_de_corte; i++) {
                 resultado[i] = datos[i];
             }
@@ -351,7 +343,7 @@ public class RutinasEstadisticas {
     public static MAYORES caclulaNivelesDeSignificacion(float correlacion,
             int num_datos) {
         float logaritmo = (float) Math.log((1 + correlacion) / (1 - correlacion));
-        double coef = Math.sqrt(num_datos - 3) / 2 * logaritmo;
+        double coef = Math.sqrt(num_datos - 3.0) / 2 * logaritmo;
         float coeficiente = (float) Math.abs(coef);
 
         if (coeficiente > 2.58) {

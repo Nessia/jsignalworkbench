@@ -245,10 +245,10 @@ public class Signal {
      * @param frecuency frecuencia de la senhal medida en hercios.
      */
     public void setFrecuency(float frecuency) {
-        if (this.frecuency != frecuency) {
+//        if (this.frecuency != frecuency) {
             this.frecuency = frecuency;
             properties.setDataRate(frecuency);
-        }
+//        }
     }
 
     /**
@@ -283,9 +283,9 @@ public class Signal {
      * @param zoom empleado en la representacion en pantalla.
      */
     public void setZoom(float zoom) {
-        if (properties.getZoom() != zoom) {
+//        if (properties.getZoom() != zoom) {
             properties.setZoom(zoom);
-        }
+//        }
     }
 
     /**
@@ -328,9 +328,9 @@ public class Signal {
      * se debe representar el eje temporal.
      */
     public void setAbscissaValue(float abscissaValue) {
-        if (properties.getAbscissaValue() != abscissaValue) {
+//        if (properties.getAbscissaValue() != abscissaValue) {
             properties.setAbscissaValue(abscissaValue);
-        }
+//        }
     }
 
     /**
@@ -403,45 +403,6 @@ public class Signal {
     }
 
     public List<MarkPlugin> getMarks(long startTime, long endTime) {
-        /*@todo bug
-                at java.security.AccessController.doPrivileged(Native Method)
-                at java.awt.Dialog.show(Dialog.java:1089)
-                at java.awt.Component.show(Component.java:1419)
-                at java.awt.Component.setVisible(Component.java:1372)
-                at java.awt.Window.setVisible(Window.java:801)
-                at java.awt.Dialog.setVisible(Dialog.java:979)
-                at net.javahispano.jsignalwb.ui.AlgorithmExecutionJDialog.<init>(AlgorithmExecutionJDialog.java:50)
-                at net.javahispano.jsignalwb.JSWBManager.runAlgorithm(JSWBManager.java:725)
-                at net.javahispano.jsignalwb.JSWBManager.runAlgorithm(JSWBManager.java:675)
-                at net.javahispano.jsignalwb.plugins.DefaultAlgorithmConfiguration.jButton3ActionPerformed(DefaultAlgorithmConfiguration.java:441)
-         at net.javahispano.jsignalwb.plugins.DefaultAlgorithmConfiguration.access$000(DefaultAlgorithmConfiguration.java:28)
-                at net.javahispano.jsignalwb.plugins.DefaultAlgorithmConfiguration$1.actionPerformed(DefaultAlgorithmConfiguration.java:135)
-                at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1995)
-                at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2318)
-                at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:387)
-                at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:242)
-                at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:236)
-                at java.awt.Component.processMouseEvent(Component.java:6038)
-                at javax.swing.JComponent.processMouseEvent(JComponent.java:3260)
-                at java.awt.Component.processEvent(Component.java:5803)
-                at java.awt.Container.processEvent(Container.java:2058)
-                at java.awt.Component.dispatchEventImpl(Component.java:4410)
-                at java.awt.Container.dispatchEventImpl(Container.java:2116)
-                at java.awt.Component.dispatchEvent(Component.java:4240)
-                at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4322)
-                at java.awt.LightweightDispatcher.processMouseEvent(Container.java:3986)
-                at java.awt.LightweightDispatcher.dispatchEvent(Container.java:3916)
-                at java.awt.Container.dispatchEventImpl(Container.java:2102)
-                at java.awt.Window.dispatchEventImpl(Window.java:2429)
-                at java.awt.Component.dispatchEvent(Component.java:4240)
-                at java.awt.EventQueue.dispatchEvent(EventQueue.java:599)
-                at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:273)
-                at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:183)
-                at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:177)
-                at java.awt.Dialog$1.run(Dialog.java:1039)
-                at java.awt.Dialog$3.run(Dialog.java:1091)
-
-         */
         ArrayList<MarkPlugin> tempMarks = new ArrayList<MarkPlugin>();
         for (MarkPlugin mp : marks) {
             if (mp.isInterval()) {

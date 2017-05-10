@@ -16,7 +16,7 @@ public class PanelFichero extends JPanel {
     public static final int ETIQUETAS = 1;
 
     private FicheroHead ficheroHead;
-    private PanelInfo informacion;
+//    private PanelInfo informacion;
     private PanelGrupoParametro[] panelG; //Array de paneles
 
 //**********************************************************************************
@@ -61,7 +61,7 @@ public class PanelFichero extends JPanel {
 //**********************************************************************************
 
      private void vistaEtiquetas() {
-         informacion = new PanelInfo(ficheroHead, PanelInfo.ARCHIVO);
+         PanelInfo informacion = new PanelInfo(ficheroHead, PanelInfo.Modos.ARCHIVO);
          this.add(informacion);
 
          for (int i = 0; i < panelG.length; i++) {

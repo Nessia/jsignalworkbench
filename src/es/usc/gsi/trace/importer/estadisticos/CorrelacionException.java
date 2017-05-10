@@ -15,7 +15,8 @@ public class CorrelacionException extends Exception {
      */
     private static final long serialVersionUID = 2113136261875312388L;
 
-    private int longitud1, longitud2;
+    private final int longitud1;
+    private final int longitud2;
 
     public CorrelacionException(String mensaje, int longitud1,
                                 int longitud2) {

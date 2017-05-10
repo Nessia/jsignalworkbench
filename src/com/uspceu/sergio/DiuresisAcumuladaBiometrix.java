@@ -19,7 +19,7 @@ public class DiuresisAcumuladaBiometrix  extends SimpleAlgorithm {
     public void runAlgorithm(SignalManager signalManager, Signal signal, float[] datos, float fs) {
 
         //acumulada
-        float newData[] = new float[datos.length];
+        float[] newData = new float[datos.length];
         float acumulado = 0;
 
         for (int i = 1; i < datos.length; i++) {

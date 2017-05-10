@@ -26,12 +26,12 @@ public class ValorAbsolutoHoras extends SimpleAlgorithm {
         Signal biometrix = signalManager.getSignal("Hora a hora de Acumulado de Biometrix");
         Signal bascula = signalManager.getSignal("Hora a hora de Bascula");
 
-        float arrayBiometrix[];
-        float arrayBascula[];
+        float[] arrayBiometrix;
+        float[] arrayBascula;
 
         arrayBiometrix = biometrix.getValues();
         arrayBascula = bascula.getValues();
-        float newData[] = new float[arrayBascula.length];
+        float[] newData = new float[arrayBascula.length];
 
         for (int i = 0; i < arrayBascula.length; i++) {
            newData[i] = Math.abs(arrayBiometrix[i] - arrayBascula[i]);

@@ -87,7 +87,7 @@ public class JSignalMonitor {
      *   contrario.
      */
     public boolean addChannel(String name, ChannelProperties properties) {
-        return this.addChannel(new Channel(name, properties));
+        return this.addChannel(new Channel(/*name,*/ properties));
     }
 
     private boolean addChannel(Channel c) {

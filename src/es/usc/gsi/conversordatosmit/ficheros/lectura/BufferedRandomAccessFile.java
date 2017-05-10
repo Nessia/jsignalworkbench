@@ -2,8 +2,11 @@ package es.usc.gsi.conversordatosmit.ficheros.lectura;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BufferedRandomAccessFile {
+    private static final Logger LOGGER = Logger.getLogger(BufferedRandomAccessFile.class.getName());
 
     private static final int DEFAULTBUFFERSIZE = 10240;
 
@@ -35,6 +38,7 @@ public class BufferedRandomAccessFile {
             this.numMaxLecturasNormales = (int) (entrada.length() / bufferSize); // Numero de lecturas que podremos hacer con buffers de tamanho bufferSize.
             this.bufferSizeReducido = (int) (entrada.length() % bufferSize); // Tamanho del ultimo buffer: el resto de los bytes que quedan por leer en el final del fichero.
         } catch (IOException e) {
+            LOGGER.log(Level.FINE, e.getMessage(), e);
             this.numMaxLecturasNormales = 0;
             this.bufferSizeReducido = 0;
         }
@@ -75,7 +79,9 @@ public class BufferedRandomAccessFile {
                 int resTemp = this.llenaBuffer();
                 numLecturasBuffer++;
                 if (resTemp == -1) {
-                    return -1; // Si se ha alcanzado el final del fichero, devolvemos -1 aunque pudiesemos llenar el array b con ceros: es mejor no dejar leer todo un array que rellenarlo con datos falsos.
+                    // Si se ha alcanzado el final del fichero, devolvemos -1 aunque pudiesemos llenar el array b con ceros:
+                    // es mejor no dejar leer t.odo un array que rellenarlo con datos falsos.
+                    return -1;
                 }
                 posicionEnBuffer = 0;
             }
@@ -120,6 +126,7 @@ public class BufferedRandomAccessFile {
         try {
             res = entrada.read(buffer);
         } catch (IOException e) {
+            LOGGER.log(Level.FINE, e.getMessage(), e);
             res = -1;
         }
 

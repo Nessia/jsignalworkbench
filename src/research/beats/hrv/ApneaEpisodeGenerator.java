@@ -2,6 +2,8 @@ package research.beats.hrv;
 
 import java.util.List;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
@@ -20,6 +22,9 @@ import java.awt.*;
 
 
 public class ApneaEpisodeGenerator extends AlgorithmAdapter {
+    private static final Logger LOGGER = Logger.getLogger(ApneaEpisodeGenerator.class.getName());
+    private static final String ERROR = "Error";
+
     static int tamanoVentana = 300;
     static float pesoApnea = 1;
     static float pesoHipoapnea = 0.5f;
@@ -28,7 +33,7 @@ public class ApneaEpisodeGenerator extends AlgorithmAdapter {
     static StringBuilder stringBuilder;
 
     //private JFileChooser jf = new JFileChooser();
-    private float pesos[];
+//    private float[] pesos;
 
 
     @Override
@@ -51,7 +56,7 @@ public class ApneaEpisodeGenerator extends AlgorithmAdapter {
 
     private void pr(Signal flujo) throws RuntimeException {
         TreeSet<DefaultIntervalMark> apneaTree = getMarksAsTree(flujo);
-        pesos = new float[flujo.getValues().length];
+        float[] pesos = new float[flujo.getValues().length];
         int procesadas = 0;
         for (DefaultIntervalMark posibleLimitacion : apneaTree) {
             long inicioLong = posibleLimitacion.getMarkTime();
@@ -76,14 +81,14 @@ public class ApneaEpisodeGenerator extends AlgorithmAdapter {
         if (procesadas != apneaTree.size()) {
             advertirMarcaNoEsperada();
         }
-        if ( pesoHipoapnea !=1) {
-            clasificarIntervalos(flujo);
+        if ( pesoHipoapnea != 1) {
+            clasificarIntervalos(flujo, pesos);
         }
 
         guardarArchivo();
     }
 
-    private void clasificarIntervalos(Signal flujo) {
+    private static void clasificarIntervalos(Signal flujo, float[] pesos) {
         stringBuilder = new StringBuilder();
         float fs = flujo.getSRate();
         int ventana = (int) (fs * tamanoVentana);
@@ -118,9 +123,7 @@ public class ApneaEpisodeGenerator extends AlgorithmAdapter {
                 defaultIntervalAnnotation.setTitle("Apnea: " + (int) (porcentaje) + "%");
             }
 
-
-
-            System.out.print(texto);
+            LOGGER.info(texto);
             stringBuilder.append(texto);
             JSWBManager.getSignalManager().addAnnotation(defaultIntervalAnnotation);
             JSWBManager.getJSignalMonitor().repaintAll();
@@ -136,8 +139,12 @@ public class ApneaEpisodeGenerator extends AlgorithmAdapter {
                 p.write(stringBuilder.toString());
                 p.close();
             } catch (Exception ex) {
-                ex.printStackTrace();
+                LOGGER.log(Level.WARNING, ex.getMessage(), ex);
                 advertirProblemaEscribiendo();
+            } finally {
+               if(p != null){
+                  p.close();
+               }
             }
 
     }
@@ -160,19 +167,19 @@ public class ApneaEpisodeGenerator extends AlgorithmAdapter {
     private void advertirMarcaNoEsperada() {
         JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
                                       "Hay al menos una marca que no es una manera o hipoapnea",
-                                      "Error", JOptionPane.OK_OPTION);
+                                      ERROR, JOptionPane.OK_OPTION);
     }
 
     private void advertirSenalNoEncontrada() {
         JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
                                       "No se encontr una se�al con nombre \"Flujo\"",
-                                      "Error", JOptionPane.OK_OPTION);
+                                      ERROR, JOptionPane.OK_OPTION);
     }
 
     private void advertirProblemaEscribiendo() {
         JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
                                       "No se pudo escribir el fichero",
-                                      "Error", JOptionPane.OK_OPTION);
+                                      ERROR, JOptionPane.OK_OPTION);
     }
 
     @Override
@@ -194,7 +201,9 @@ public class ApneaEpisodeGenerator extends AlgorithmAdapter {
         pesoApnea = dialog.getPesoApnea();
         pesoHipoapnea = dialog.getPesoHipoapnea();
         limitePorcentaje = dialog.getLimitePorcentaje();
-        System.out.println(tamanoVentana + " " + pesoApnea + " " + pesoHipoapnea + " " + limitePorcentaje);
+        LOGGER.log(Level.INFO, "Tamaño ventana, pesoApnea, pesoHiponea, limitePorcentaje: {0}, {1}, {2}, {3}",
+              new String[]{ Integer.toString(tamanoVentana), Float.toString(pesoApnea),
+                    Float.toString(pesoHipoapnea), Float.toString(limitePorcentaje)});
     }
 
     @Override
@@ -209,13 +218,7 @@ public class ApneaEpisodeGenerator extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        }
-        if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return (gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR);
     }
 
     @Override

@@ -46,7 +46,7 @@ public class JToggleButtonXY extends JToggleButton implements JSignalMonitorMode
 
     @Override
     public void jSignalMonitorModeActionPerformed(JSignalMonitorModeEvent e) {
-        if (e.getMode() == JSignalMonitorModeEvent.REPRESENT_XY_VALUES) {
+        if (e.getMode() == JSignalMonitorModeEvent.Modo.REPRESENT_XY_VALUES) {
             setSelected(e.getValue());
         }
     }
