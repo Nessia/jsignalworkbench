@@ -31,8 +31,7 @@ public class LoadedTableCellEditorAndRenderer extends AbstractCellEditor
 
     public LoadedTableCellEditorAndRenderer() {
         Image image = Toolkit.getDefaultToolkit().createImage(
-                LoadedTableCellEditorAndRenderer.class.getResource(
-                        "images/load.jpg"));
+                LoadedTableCellEditorAndRenderer.class.getResource("images/load.jpg"));
         Icon smallIcon = new ImageIcon(
                 image.getScaledInstance(16, 16, Image.SCALE_SMOOTH));
         button = new JButton(smallIcon);
@@ -41,11 +40,9 @@ public class LoadedTableCellEditorAndRenderer extends AbstractCellEditor
         button.setToolTipText("Click to load the plugin");
         button.addActionListener(this);
         Image imageTic = Toolkit.getDefaultToolkit().createImage(
-                LoadedTableCellEditorAndRenderer.class.getResource(
-                        "images/tic.jpg"));
+                LoadedTableCellEditorAndRenderer.class.getResource("images/tic.jpg"));
         label = new JLabel(
-                new ImageIcon(
-                        imageTic.getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
+                new ImageIcon(imageTic.getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setToolTipText("Plugin loaded");
         loaded = false;

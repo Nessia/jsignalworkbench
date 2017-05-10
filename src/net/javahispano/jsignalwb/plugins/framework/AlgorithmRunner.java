@@ -1,6 +1,8 @@
 package net.javahispano.jsignalwb.plugins.framework;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
@@ -19,9 +21,11 @@ import net.javahispano.jsignalwb.plugins.Algorithm;
  */
 public class AlgorithmRunner extends SwingWorker<Boolean, Void> {
 
+    private static final Logger LOGGER = Logger.getLogger(AlgorithmRunner.class.getName());
+
     private Algorithm algorithm;
     private JSWBManager jswbManager;
-    private ArrayList<SignalIntervalProperties> signals;
+    private List<SignalIntervalProperties> signals;
     private String task;
     private String signalName;
 
@@ -34,7 +38,7 @@ public class AlgorithmRunner extends SwingWorker<Boolean, Void> {
      * @param signals ArrayList
      */
     public AlgorithmRunner(Algorithm alg, JSWBManager jswbManager,
-                           ArrayList<SignalIntervalProperties> signals) {
+                           List<SignalIntervalProperties> signals) {
         this.algorithm = alg;
         this.jswbManager = jswbManager;
         this.signals = signals;
@@ -56,7 +60,7 @@ public class AlgorithmRunner extends SwingWorker<Boolean, Void> {
             end = get();
         } catch (Exception e) {
             if (!isCancelled()) {
-                e.printStackTrace();
+                LOGGER.log(Level.SEVERE, e.getMessage(), e);
                 JOptionPane.showMessageDialog(null,
                                               "Ha sucedido un error al ejecutar el algoritmo " +
                                               algorithm.getName() + " version " +

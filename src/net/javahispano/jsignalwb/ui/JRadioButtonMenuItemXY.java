@@ -32,11 +32,7 @@ public class JRadioButtonMenuItemXY extends JRadioButtonMenuItem implements JSig
 
     @Override
     public String getActionCommand() {
-        if (isSelected()) {
-            return "true";
-        } else {
-            return "false";
-        }
+        return isSelected()? "true" : "false";
     }
 
     @Override

@@ -7,6 +7,8 @@
 package net.javahispano.jsignalwb.plugins.framework;
 
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
@@ -19,8 +21,12 @@ import net.javahispano.jsignalwb.plugins.Saver;
  * @author Roman Segador
  */
 public class SaverRunner extends SwingWorker<Boolean, Void> {
+
+    private static final Logger LOGGER = Logger.getLogger(SaverRunner.class.getName());
+
     private Saver saver;
     private File file;
+
     public SaverRunner(Saver saver, File file) {
         this.saver = saver;
         this.file = file;
@@ -30,10 +36,10 @@ public class SaverRunner extends SwingWorker<Boolean, Void> {
         try {
             saver.save(file);
         } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(null,
                                           "Error ejecutando el plugin " +
                                           saver.getName() + "\n" + ex.getMessage());
-            ex.printStackTrace();
         }
         return Boolean.valueOf(true);
     }
@@ -44,9 +50,9 @@ public class SaverRunner extends SwingWorker<Boolean, Void> {
         Boolean end = Boolean.valueOf(false);
         try {
             end = get();
-        } catch (Exception e) {
+        } catch (Exception ex) {
             if (!isCancelled()) {
-                e.printStackTrace();
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                 JOptionPane.showMessageDialog(null,
                                               "Ha sucedido un error al ejecutar el cargador " +
                                               saver.getName() + " version " +

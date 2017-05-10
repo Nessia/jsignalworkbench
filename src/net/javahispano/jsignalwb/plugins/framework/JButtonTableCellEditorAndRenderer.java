@@ -27,6 +27,7 @@ public class JButtonTableCellEditorAndRenderer extends AbstractCellEditor
     private static final long serialVersionUID = -3651849394491748179L;
 
     private JButton button;
+
     public JButtonTableCellEditorAndRenderer() {
         button = null;
     }

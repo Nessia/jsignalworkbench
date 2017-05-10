@@ -17,6 +17,8 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import net.javahispano.jsignalwb.framework.ExceptionsCollector;
 
@@ -26,26 +28,23 @@ import net.javahispano.jsignalwb.framework.ExceptionsCollector;
  */
 public class PluginBrowser {
 
+    private static final Logger LOGGER = Logger.getLogger(PluginBrowser.class.getName());
+
     /** Creates a new instance of PluginBrowser */
-    public PluginBrowser() {
+    private PluginBrowser() {
         // Empty
     }
 
     static public File[] search(File f) {
         if (f.isDirectory()) {
-            File[] files = f.listFiles(
-                    new FileFilter() {
+            return f.listFiles(new FileFilter() {
+                @Override
                 public boolean accept(File fileToBeFiltered) {
-                    return fileToBeFiltered.getName().toLowerCase().endsWith(
-                            ".jar");
+                    return fileToBeFiltered.getName().toLowerCase().endsWith(".jar");
                 }
-            }
-            );
-            return files;
-        } else {
-            return null;
+            });
         }
-
+        return null;
     }
 
     /** Objetivo --> Buscar en el directorio f todos aquellos archivos con extension
@@ -58,42 +57,38 @@ public class PluginBrowser {
     static public ClassLoader install(PluginManager pm, ClassLoader classLoader,
                                       File[] files, ExceptionsCollector ec) {
 
-        if (files != null) {
+         if(files == null){
+             return classLoader;
+         }
 
-            ArrayList<URL> urls = new ArrayList<URL>();
-            for (int i = 0; i < files.length; i++) {
-                try {
-                    JarFile jar = validateJar(files[i], pm);
-                    File file = new File(System.getProperty("user.home") + "/.JSignalWorkBench/" + files[i].getName());
-                    if (!file.exists()) {
-                        file.createNewFile();
-                    }
-                    copy(files[i], file);
-                    jar.close();
-                    jar = new JarFile(file);
-                    loadPlugin(jar, pm);
-                    urls.add(file.toURI().toURL());
-                    jar.close();
-                } catch (IOException ex) {
-                    ec.addException(ex);
-                }
-                /*catch (MalformedURLException ex) {
-                 ec.addException(new PluginLoadException(
-                         "URL malformed on: )" + files[i].getPath(),
-                         new RuntimeException()));
-                                    }*/ catch (PluginLoadException ple) {
-                   ec.addException(ple);
-               }
+         ArrayList<URL> urls = new ArrayList<URL>();
+         for (int i = 0; i < files.length; i++) {
+             try {
+                 JarFile jar = validateJar(files[i], pm);
+                 File file = new File(System.getProperty("user.home") + "/.JSignalWorkBench/" + files[i].getName());
+                 if (!file.exists() && !file.createNewFile()){
+                     throw new IOException("No se ha podido crear el fichero");
+                 }
+                 copy(files[i], file);
+                 jar.close();
+                 jar = new JarFile(file);
+                 loadPlugin(jar, pm);
+                 urls.add(file.toURI().toURL());
+                 jar.close();
+             } catch (IOException ex) {
+                 ec.addException(ex);
+             }
+             /*catch (MalformedURLException ex) {
+              ec.addException(new PluginLoadException(
+                      "URL malformed on: )" + files[i].getPath(),
+                      new RuntimeException()));
+                                 }*/ catch (PluginLoadException ple) {
+                ec.addException(ple);
             }
-            classLoader = new URLClassLoader(urls.toArray(new URL[urls.size()]),
-                                             classLoader);
+         }
+         return new URLClassLoader(urls.toArray(new URL[urls.size()]), classLoader);
 
-        } //else ec.addException(new RuntimeException("Plugins not found in the path: \""+f+"\""));
-        /*} else {
-            ec.addException(new RuntimeException("\"" + f +
-                    "\" isn't a existing directory"));
-                 }*/
-        return classLoader;
+
     }
 
     public static void loadPlugin(JarFile f, PluginManager pm) {
@@ -150,6 +145,12 @@ public class PluginBrowser {
         } catch (IOException ex) {
             throw new PluginLoadException("Can`t load file: \" " + f +
                                           "\". Wrong Jar file", ex);
+        } finally {
+            try{
+            if(currentFile != null) currentFile.close();
+            } catch(Exception e){
+                 LOGGER.log(Level.FINEST, e.getMessage(), e);
+            }
         }
         return currentFile;
     }
@@ -158,7 +159,8 @@ public class PluginBrowser {
         FileInputStream fIn = null;
         FileOutputStream fOut = null;
         try {
-            FileChannel in = null, out = null;
+            FileChannel in = null;
+            FileChannel out = null;
             fIn = new FileInputStream(source);
             in = fIn.getChannel();
             fOut = new FileOutputStream(dest);
@@ -168,10 +170,10 @@ public class PluginBrowser {
             MappedByteBuffer buf = in.map(FileChannel.MapMode.READ_ONLY, 0, size);
 
             out.write(buf);
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (FileNotFoundException e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+        } catch (IOException e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
 
         } finally {
             if (fIn != null) {

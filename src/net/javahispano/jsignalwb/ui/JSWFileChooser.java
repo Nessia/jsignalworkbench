@@ -49,12 +49,10 @@ public class JSWFileChooser extends JFileChooser implements PropertyChangeListen
     @Override
     public boolean isTraversable(File f) {
         boolean res = super.isTraversable(f);
-        if (isDefaultFilter) {
-            if (f.getName().toLowerCase().endsWith(".jsw")) {
-                //File parent=this.getSelectedFile().getParentFile();
-                this.changeToParentDirectory();
-                //super.setSelectedFile(parent);
-            }
+        if (isDefaultFilter && f.getName().toLowerCase().endsWith(".jsw")) {
+            //File parent=this.getSelectedFile().getParentFile();
+            this.changeToParentDirectory();
+            //super.setSelectedFile(parent);
         }
         return res;
     }
@@ -65,14 +63,7 @@ public class JSWFileChooser extends JFileChooser implements PropertyChangeListen
             FileFilter ff = new FileFilter() {
                 @Override
                 public boolean accept(File f) {
-
-                    if (f.getName().toLowerCase().endsWith(".jsw")) {
-                        //System.out.println(name);
-                        return true;
-                    } else {
-                        return false;
-                    }
-
+                    return f.getName().toLowerCase().endsWith(".jsw");
                 }
             };
             if (f.isDirectory() && f.listFiles(ff) != null && f.listFiles(ff).length > 0) {
@@ -110,7 +101,7 @@ public class JSWFileChooser extends JFileChooser implements PropertyChangeListen
             FileChooserFileFilter fcff = new FileChooserFileFilter(saver, saver.getAvalaibleExtension());
             //filters.add(fcff);
             addChoosableFileFilter(fcff);
-            if (fcff.getPlugin().getName().equals("defaultSaver")) {
+            if ("defaultSaver".equals(fcff.getPlugin().getName())) {
                 defaultFilter = fcff;
             }
             setFileFilter(defaultFilter);

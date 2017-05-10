@@ -14,7 +14,6 @@ import java.util.*;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
 import net.javahispano.jsignalwb.JSWBManager;
@@ -43,14 +42,14 @@ public class JMenuPlugins extends JMenu {
         MenuListener ml = new MenuListenerAdapter() {
            @Override
             public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jMenuSelected(evt);
+                jMenuSelected();
             }
         };
 
         addMenuListener(ml);
     }
 
-    public void jMenuSelected(MenuEvent e) {
+    public void jMenuSelected() {
         this.removeAll();
         PluginManager pluginManager = JSWBManager.getPluginManager();
         Map<String, ArrayList<String>> plugins = pluginManager.getRegisteredPlugins();
@@ -62,18 +61,17 @@ public class JMenuPlugins extends JMenu {
         while (it.hasNext()) {
             String pluginType = it.next();
             flag = false;
-            if (pluginType.equals("algorithm") || pluginType.equals("generic")) {
+            if ("algorithm".equals(pluginType) || "generic".equals(pluginType)) {
                 JMenu jMenu = new JMenu(pluginType);
                 ArrayList<String> plug = plugins.get(pluginType);
                 for (String s : plug) {
                     Plugin plugin = pluginManager.getPlugin(pluginType + ":" + s);
                     if (plugin.showInGUIOnthe(GUIPositions.MENU)) {
-                        if (pluginType.equals("algorithm")) {
+                        if ("algorithm".equals(pluginType)) {
                             jMenu.add(new JMenuAlgorithm(s, jswbManager));
                             flag = true;
-                        } else if (pluginType.equals("generic")) {
-                            jMenu.add(new JMenuGenericPlugin(s,
-                                    jswbManager));
+                        } else if ("generic".equals(pluginType)) {
+                            jMenu.add(new JMenuGenericPlugin(s, jswbManager));
                             flag = true;
                         }
                     }
@@ -84,7 +82,7 @@ public class JMenuPlugins extends JMenu {
             }
         }
         addSeparator();
-        add(new JMenuItem(new ShowPluginManagerAction(jswbManager, JSWBManager.getParentWindow())));
+        add(new JMenuItem(new ShowPluginManagerAction(/*jswbManager,*/ JSWBManager.getParentWindow())));
     }
 
 }

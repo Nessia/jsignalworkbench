@@ -14,7 +14,6 @@ import java.util.*;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
 import net.javahispano.jsignalwb.JSWBManager;
@@ -30,6 +29,7 @@ public class JMenuSignals extends JMenu {
      */
     private static final long serialVersionUID = -8798508394056148852L;
     JSWBManager jswbManager;
+
     /** Creates a new instance of JMenuSignals */
     public JMenuSignals(JSWBManager jswbManager) {
         super("Signals");
@@ -38,17 +38,17 @@ public class JMenuSignals extends JMenu {
         MenuListener ml = new MenuListenerAdapter() {
             @Override
             public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jMenuSelected(evt);
+                jMenuSelected();
             }
         };
         addMenuListener(ml);
     }
 
-    public void jMenuSelected(MenuEvent e) {
+    public void jMenuSelected() {
         List<String>
                 signalNames = new ArrayList<String>(JSWBManager.getSignalManager().getSignalsNames());
         removeAll();
-        if (signalNames.size() == 0) {
+        if (signalNames.isEmpty()) {
             JMenuItem jmi = new JMenuItem("No signals Loaded");
             jmi.setEnabled(false);
             add(jmi);

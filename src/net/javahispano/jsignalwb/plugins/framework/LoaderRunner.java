@@ -7,6 +7,8 @@
 package net.javahispano.jsignalwb.plugins.framework;
 
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
@@ -19,6 +21,8 @@ import net.javahispano.jsignalwb.plugins.Loader;
  * @author Roman Segador
  */
 public class LoaderRunner extends SwingWorker<Boolean, Void> {
+
+    private static final Logger LOGGER = Logger.getLogger(LoaderRunner.class.getName());
 
     private Loader loader;
     private File file;
@@ -33,7 +37,7 @@ public class LoaderRunner extends SwingWorker<Boolean, Void> {
         try {
             loader.load(file);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(
                     JSWBManager.getParentWindow(),
                     "Error loading..." + ex.getMessage());
@@ -47,9 +51,9 @@ public class LoaderRunner extends SwingWorker<Boolean, Void> {
         Boolean end = Boolean.valueOf(false);
         try {
             end = get();
-        } catch (Exception e) {
+        } catch (Exception ex) {
             if (!isCancelled()) {
-                e.printStackTrace();
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                 JOptionPane.showMessageDialog(null,
                                               "Ha sucedido un error al ejecutar el cargador " +
                                               loader.getName() + " version " +
