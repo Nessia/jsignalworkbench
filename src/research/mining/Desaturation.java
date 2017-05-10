@@ -73,7 +73,7 @@ public class Desaturation extends TemporalEvent {
      * @param level DETAILLEVEL
      * @return String
      */
-    public String genrateDescriptors(DETAILLEVEL level, long beginingRecording) {
+    public String generateDescriptors(DETAILLEVEL level, long beginingRecording) {
         String descriptors;
 
         descriptors = TimeRepresentation.timeToString(
@@ -124,8 +124,12 @@ public class Desaturation extends TemporalEvent {
     private FluxLimitation generateSurrotageFluxLim() {
         FluxLimitation fluxLimitation = new FluxLimitation();
         fluxLimitation.setAbsoluteBeginingTime(limitations.get(0).getAbsoluteBeginingTime());
-        int duration=0,apneaCounter=0,hypopneaCounter=0;//episodesCounter=0;
-        float energy=0,energyBefore=0,energyAfter=0;
+        int duration = 0;
+        int apneaCounter = 0;
+        int hypopneaCounter = 0;//episodesCounter=0;
+        float energy = 0;
+        float energyBefore = 0;
+        float energyAfter = 0;
 
         for (FluxLimitation fluxLim : limitations) {
             duration+=fluxLim.getDuration();
@@ -153,12 +157,12 @@ public class Desaturation extends TemporalEvent {
 
     private String generateTemporalRelations(String descriptors) {
         FluxLimitation fluxLim = limitations.get(0);
-        descriptors += "\t" +  (this.getAbsoluteBeginingTime() - fluxLim.getAbsoluteBeginingTime())/1000F
+        return descriptors
+                + "\t" +  (this.getAbsoluteBeginingTime() - fluxLim.getAbsoluteBeginingTime())/1000F
                  + "\t" +  (this.getAbsoluteBeginingTime() + this.getFallDuration()
                  -fluxLim.getAbsoluteBeginingTime() - fluxLim.getDuration())/1000F
                  + "\t" +  (this.getAbsoluteBeginingTime() + this.getDuration()
                             -fluxLim.getAbsoluteBeginingTime() - fluxLim.getDuration())/1000F;
-        return descriptors;
     }
 
 
@@ -207,9 +211,7 @@ public class Desaturation extends TemporalEvent {
     }
 
     public List<FluxLimitation> getLimitations(){
-        List<FluxLimitation> listCopy = new LinkedList<FluxLimitation>(limitations);
-
-        return listCopy;
+        return new LinkedList<FluxLimitation>(limitations);
     }
 
     public float getEnergyLimitations() {

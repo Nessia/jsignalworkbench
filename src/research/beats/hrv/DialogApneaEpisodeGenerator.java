@@ -3,6 +3,8 @@ package research.beats.hrv;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import net.javahispano.jsignalwb.JSWBManager;
@@ -21,6 +23,9 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class DialogApneaEpisodeGenerator extends JDialog {
 
+
+    private static final Logger LOGGER = Logger.getLogger(DialogApneaEpisodeGenerator.class.getName());
+
     /**
      *
      */
@@ -38,8 +43,8 @@ public class DialogApneaEpisodeGenerator extends JDialog {
             jbInit();
             pack();
             this.setSize(400, 400);
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        } catch (Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
         }
     }
 
@@ -56,9 +61,9 @@ public class DialogApneaEpisodeGenerator extends JDialog {
         jTextFieldVentana.addActionListener(new DialogApneaEpisodeGenerator_jTextField1_actionAdapter(this));
         jLabel3.setText("Peso de hipoapneas");
         jLabel3.setBounds(new Rectangle(53, 157, 148, 16));
-        jLabel4.setText("Porcentaje l�mite");
+        jLabel4.setText("Porcentaje límite");
         jLabel4.setBounds(new Rectangle(53, 202, 124, 16));
-        jLabel5.setText("Tama�o de la ventana");
+        jLabel5.setText("Tamaño de la ventana");
         jLabel5.setBounds(new Rectangle(53, 74, 176, 16));
         jTextFieldApneas.setColumns(10);
         jTextFieldApneas.setBounds(new Rectangle(258, 109, 69, 22));
@@ -72,7 +77,7 @@ public class DialogApneaEpisodeGenerator extends JDialog {
         jButton2.addActionListener(new DialogApneaEpisodeGenerator_jButton2_actionAdapter(this));
         this.getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
         jButton2.setText("Aceptar");
-        jLabel1.setText("Configuraci�n para generar los intervalos");
+        jLabel1.setText("Configuración para generar los intervalos");
         jPanel1.add(jButton2);
         jPanel1.add(jButton1);
         jButton1.setText("Cancelar");
@@ -110,7 +115,7 @@ public class DialogApneaEpisodeGenerator extends JDialog {
         // vacio
     }
 
-    public void jButton1_actionPerformed(ActionEvent e) {
+    public void jButton1_actionPerformed() {
         this.dispose();
     }
 
@@ -132,25 +137,25 @@ public class DialogApneaEpisodeGenerator extends JDialog {
 
     public void setTamanoVentana(int tamanoVentana) {
         this.tamanoVentana = tamanoVentana;
-        jTextFieldVentana.setText("" + tamanoVentana);
+        jTextFieldVentana.setText(Integer.toString(tamanoVentana));
     }
 
     public void setPesoHipoapnea(float pesoHipoapnea) {
         this.pesoHipoapnea = pesoHipoapnea;
-        jTextFieldHipoapneas.setText("" + pesoHipoapnea);
+        jTextFieldHipoapneas.setText(Float.toString(pesoHipoapnea));
     }
 
     public void setPesoApnea(float pesoApnea) {
         this.pesoApnea = pesoApnea;
-        jTextFieldApneas.setText("" + pesoApnea);
+        jTextFieldApneas.setText(Float.toString(pesoApnea));
     }
 
     public void setLimitePorcentaje(float limitePorcentaje) {
         this.limitePorcentaje = limitePorcentaje;
-        jTextFieelPorcentaje.setText("" + limitePorcentaje);
+        jTextFieelPorcentaje.setText(Float.toString(limitePorcentaje));
     }
 
-    public void jButton2_actionPerformed(ActionEvent e) {
+    public void jButton2_actionPerformed() {
         try {
             String ventana = jTextFieldVentana.getText();
             tamanoVentana = Integer.parseInt(ventana);
@@ -182,7 +187,7 @@ class DialogApneaEpisodeGenerator_jButton2_actionAdapter implements ActionListen
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton2_actionPerformed(e);
+        adaptee.jButton2_actionPerformed();
     }
 }
 
@@ -195,7 +200,7 @@ class DialogApneaEpisodeGenerator_jButton1_actionAdapter implements ActionListen
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton1_actionPerformed(e);
+        adaptee.jButton1_actionPerformed();
     }
 }
 

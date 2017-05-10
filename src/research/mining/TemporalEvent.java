@@ -7,7 +7,7 @@ public abstract class TemporalEvent implements Comparable<TemporalEvent> {
     //duracion del evento en milisegundos
     protected long duration; //L1
 
-    public enum DETAILLEVEL { LOW, MEDIUM, HIGH, EVERYTHING } ;
+    public enum DETAILLEVEL { LOW, MEDIUM, HIGH, EVERYTHING }
 
     public TemporalEvent() {
         // Empty

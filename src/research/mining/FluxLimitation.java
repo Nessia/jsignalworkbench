@@ -23,9 +23,7 @@ public class FluxLimitation extends TemporalEvent {
     private List<ThoracicMovementLimutation> thoracicLimitations =
             new LinkedList<ThoracicMovementLimutation>();
 
-    public enum Type {
-        APNEA, HIPOAPNEA
-    }
+    public enum Type { APNEA, HIPOAPNEA }
 
 
     public FluxLimitation() {

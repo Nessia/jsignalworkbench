@@ -1,25 +1,33 @@
 package research.mining;
 
 import java.io.*;
-import java.util.TreeSet;
+import java.util.SortedSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
 import research.mining.TemporalEvent.DETAILLEVEL;
 
 public class SaveInfo {
+
+    private static final Logger LOGGER = Logger.getLogger(SaveInfo.class.getName());
+    private static final String DEFAULT_TEMP_FILE = "C:\\tmp.csv";
+
     //Nivel de detalle a emplear al generar la informacion
     private DETAILLEVEL level;
-    private TreeSet<Desaturation> desatTree;
-    private String fileName = "C:\\tmp.csv";
+    private SortedSet<Desaturation> desatTree;
+    private String fileName = DEFAULT_TEMP_FILE;
     private long beginingRecording;
     //si vale true indica que debe de incluirse el tipo de episodio correspondiente
     //en la informacion generada; en caso contrario nos incluiran los episodios
     //correspondientes
-    private boolean includeDesat = true, includeFlux = true, includeThorax = true,
-    includeAbdomen = true;
+    private boolean includeDesat = true;
+    private boolean includeFlux = true;
+    private boolean includeThorax = true;
+    private boolean includeAbdomen = true;
 
-    public SaveInfo(TreeSet<Desaturation> desatTree) {
+    public SaveInfo(SortedSet<Desaturation> desatTree) {
         this.desatTree = desatTree;
     }
 
@@ -30,17 +38,17 @@ public class SaveInfo {
      * @return String
      */
     public String genrateDescriptors() {
-        String descriptors = "";
+        StringBuilder descriptors = new StringBuilder();
         for(Desaturation desaturation: desatTree){
-            //Sólo desaturaciones bien identificadas y asociadas con una
-            //única limitacion de flujo
+            //Solo desaturaciones bien identificadas y asociadas con una
+            //unica limitacion de flujo
             if (desaturation.getDesaturatedArea()<= 0 ||
-                    desaturation.getLimitations().size() == 0) {
+                    desaturation.getLimitations().isEmpty()) {
                 continue;
             }
-            descriptors += desaturation.genrateDescriptors(level, beginingRecording);
+            descriptors.append(desaturation.generateDescriptors(level, beginingRecording));
         }
-        return descriptors;
+        return descriptors.toString();
     }
 
     public void saveDescriptors() {
@@ -52,7 +60,7 @@ public class SaveInfo {
             pw.print(this.genrateDescriptors());
             pw.close();
         } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(null,
                                           "Ha sucedido un error",
                                           "Error",

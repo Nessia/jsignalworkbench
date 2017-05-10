@@ -3,14 +3,13 @@
  *
  * Created on 24 de mayo de 2007, 18:18
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
  */
 
 package net.javahispano.jsignalwb.io;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import net.javahispano.jsignalwb.SignalManager;
@@ -43,8 +42,8 @@ public class BasicLoader extends LoaderAdapter {
     }
 
     @Override
-    public ArrayList<String> getAvalaibleExtensions() {
-        ArrayList<String> ext = new ArrayList<String>();
+    public List<String> getAvalaibleExtensions() {
+        List<String> ext = new ArrayList<String>();
         ext.add("txt");
         return ext;
     }
@@ -52,6 +51,7 @@ public class BasicLoader extends LoaderAdapter {
     @Override
     protected float[][] loadSignals(File f) throws Exception {
         float[][] values = null;
+        FileReader fr2 = null;
         FileReader fr = new FileReader(f);
         BufferedReader input = new BufferedReader(fr);
 
@@ -68,7 +68,7 @@ public class BasicLoader extends LoaderAdapter {
                     while (st.hasMoreTokens()) {
                         temp = st.nextToken();
 
-                        if (!temp.equals(";")) {
+                        if (!";".equals(temp)) {
                             pos++;
                         }
                     }
@@ -79,8 +79,9 @@ public class BasicLoader extends LoaderAdapter {
             values = new float[pos][index1];
             input.close();
             fr.close();
-            fr = new FileReader(f);
-            input = new BufferedReader(fr);
+
+            fr2 = new FileReader(f);
+            input = new BufferedReader(fr2);
 
             index1 = 0;
             pos = 0;
@@ -100,6 +101,9 @@ public class BasicLoader extends LoaderAdapter {
         } finally {
             input.close();
             fr.close();
+            if(fr2 != null){
+                fr2.close();
+            }
         }
         return values;
 

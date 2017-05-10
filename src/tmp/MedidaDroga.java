@@ -2,11 +2,20 @@ package tmp;
 
 public class MedidaDroga {
     //todas las duraciones se dan en segundos
-    private float duracionTotal, duracionCaida, duracionRecuperacion, caida,
-            valorMinimo, valorBasal,area;
-    private String droga, parametro;
+    private float duracionTotal;
+    private float duracionCaida;
+    private float duracionRecuperacion;
+    private float caida;
+    private float valorMinimo;
+    private float valorBasal;
+    private float area;
+    private String droga;
+    private String parametro;
     private float areaRatio;
+
+
     public MedidaDroga() {
+        // Constructor por defecto
     }
 
     public float getArea() {
@@ -96,14 +105,15 @@ public class MedidaDroga {
                     caida + ","+ caida/valorBasal + "," + valorMinimo + "," + valorBasal + "," + area + "," + areaRatio;
 
         }
-        String texto= "Subida";
-if (caida <0) {
-    texto = "Ca韉a";
-}
-        return "Duraci髇 total: " + duracionTotal + "\nDuraci髇 "+ texto+ ": " + duracionCaida + "\nDuraci髇 Recuperaci髇: "
-                + duracionRecuperacion + "\n"+ texto+ ": " + caida + "\n"+ texto+ "/ValorBasal: "+ caida/valorBasal +
-                "\nValor M韓imo: " + valorMinimo + "\nValor basal: " + valorBasal +
-                "\n羠ea: " + area + "\n羠ea ratio:" + areaRatio;
+        String texto= caida < 0? "Ca铆da" : "Subida";
+        return "Duraci贸n total: " + duracionTotal
+                + "\nDuraci贸n "+ texto+ ": " + duracionCaida
+                + "\nDuraci贸n Recuperaci贸n: " + duracionRecuperacion + "\n"+ texto + ": " + caida + "\n" + texto
+                + "/ValorBasal: "+ caida/valorBasal
+                + "\nValor M铆nimo: " + valorMinimo
+                + "\nValor basal: " + valorBasal
+                + "\n脕rea: " + area
+                + "\n脕rea ratio:" + areaRatio;
 
     }
 }

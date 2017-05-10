@@ -15,11 +15,16 @@ import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.event.FocusAdapter;
 import javax.swing.*;
 import java.awt.Dimension;
 
 public class DialogArea extends JDialog {
+
+    private static final Logger LOGGER = Logger.getLogger(DialogArea.class.getName());
+
     /**
     *
     */
@@ -62,8 +67,8 @@ public class DialogArea extends JDialog {
             jComboBoxParametro = new JComboBox<String>(parametro);
             jbInit();
             pack();
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        } catch (Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
         }
     }
 
@@ -111,7 +116,7 @@ public class DialogArea extends JDialog {
         jCheckBoxPico.setText("Pico");
         jCheckBoxPico.setBounds(new Rectangle(236, 247, 91, 25));
         jLabel4.setForeground(Color.blue);
-        jLabel4.setText("Par�metro");
+        jLabel4.setText("Parametro");
         jLabel4.setBounds(new Rectangle(60, 203, 118, 16));
         jComboBoxParametro.setBounds(new Rectangle(215, 195, 312, 24));
         panel1.add(jLabel1, null);
@@ -130,15 +135,15 @@ public class DialogArea extends JDialog {
         panel1.setBounds(new Rectangle(10, 10, 540, 300));
     }
 
-    public void jCheckBoxValle_actionPerformed(ActionEvent e) {
+    public void jCheckBoxValle_actionPerformed() {
         this.jCheckBoxPico.setSelected(!this.jCheckBoxValle.isSelected());
     }
 
-    public void jCheckBoxPico_actionPerformed(ActionEvent e) {
+    public void jCheckBoxPico_actionPerformed() {
         this.jCheckBoxValle.setSelected(!this.jCheckBoxPico.isSelected());
     }
 
-    public void jTextFieldPeso_focusLost(FocusEvent e) {
+    public void jTextFieldPeso_focusLost() {
         try {
             Float.parseFloat(this.jTextFieldPeso.getText());
         } catch (NumberFormatException ex) {
@@ -147,11 +152,11 @@ public class DialogArea extends JDialog {
         }
     }
 
-    public void jButton1_actionPerformed(ActionEvent e) {
+    public void jButton1_actionPerformed() {
         this.dispose();
     }
 
-    public void jButton2_actionPerformed(ActionEvent e) {
+    public void jButton2_actionPerformed() {
         cancelado= true;
         this.dispose();
     }
@@ -166,7 +171,7 @@ class DialogArea_jButton2_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton2_actionPerformed(e);
+        adaptee.jButton2_actionPerformed();
     }
 }
 
@@ -179,7 +184,7 @@ class DialogArea_jButton1_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton1_actionPerformed(e);
+        adaptee.jButton1_actionPerformed();
     }
 }
 
@@ -192,7 +197,7 @@ class DialogArea_jTextFieldPeso_focusAdapter extends FocusAdapter {
 
     @Override
     public void focusLost(FocusEvent e) {
-        adaptee.jTextFieldPeso_focusLost(e);
+        adaptee.jTextFieldPeso_focusLost();
     }
 }
 
@@ -205,7 +210,7 @@ class DialogArea_jCheckBoxPico_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jCheckBoxPico_actionPerformed(e);
+        adaptee.jCheckBoxPico_actionPerformed();
     }
 }
 
@@ -218,6 +223,6 @@ class DialogArea_jCheckBoxValle_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jCheckBoxValle_actionPerformed(e);
+        adaptee.jCheckBoxValle_actionPerformed();
     }
 }

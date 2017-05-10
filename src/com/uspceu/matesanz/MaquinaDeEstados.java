@@ -1,9 +1,6 @@
 package com.uspceu.matesanz;
 
-enum Estados {
-
-    NO_ACTIVIDAD, TRANSICION, ACTIVIDAD
-};
+enum Estados { NO_ACTIVIDAD, TRANSICION, ACTIVIDAD }
 
 class MaquinaDeEstados {
 

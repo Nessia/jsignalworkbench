@@ -11,6 +11,8 @@ import javax.swing.*;
 import net.javahispano.jsignalwb.SignalManager;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
 import net.javahispano.jsignalwb.*;
@@ -20,17 +22,33 @@ import java.awt.*;
 
 public class VisualizadorDatosCerdo extends AlgorithmAdapter {
 
-    private boolean flujos = false, flujosDelRinhon = false, presionA = true, presionP = false,
-    diuresis = true, flujosDelRinhonSuavizados = false, presionesASuavizadas = true,
-    presionesPSuavizadas = false, flujosSuavizados = false;
+
+    private static final Logger LOGGER = Logger.getLogger(VisualizadorDatosCerdo.class.getName());
+
+    public static final String TITULO = "Visualizador de datos del cerdo";
+    public static final String FLUJO_CAROTIDA_SUAVIAZADO = "F. carótida suavizado";
+    public static final String PRESION_ARTERIAL_SISTOLICA = "P. arterial Sist.";
+    public static final String PRESION_ARTERIAL_DIASTOLICA = "P. arterial Diast.";
+    public static final String PRESION_PULMONAR_DIASTOLICA = "P. pulmonar Diast.";
+    public static final String PRESION_PULMONAR_SISTOLICA = "P. pulmonar Sist.";
+
+    private boolean flujos = false;
+    private boolean flujosDelRinhon = false;
+    private boolean presionA = true;
+    private boolean presionP = false;
+    private boolean diuresis = true;
+    private boolean flujosDelRinhonSuavizados = false;
+    private boolean presionesASuavizadas = true;
+    private boolean presionesPSuavizadas = false;
+    private boolean flujosSuavizados = false;
 
     @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
-        if (sm.getSignal("F. carótida suavizado") == null) {
+        if (sm.getSignal(FLUJO_CAROTIDA_SUAVIAZADO) == null) {
             generarFlujos(sm, 200);
         }
-        if (sm.getSignal("P. arterial Sist.") == null) {
+        if (sm.getSignal(PRESION_ARTERIAL_SISTOLICA) == null) {
             generarPresiones(sm, 200);
         }
 
@@ -60,18 +78,18 @@ public class VisualizadorDatosCerdo extends AlgorithmAdapter {
                 sm.setSignalVisible("Flujo médula", true);
             }
             if (presionesASuavizadas) {
-                sm.setSignalVisible("P. arterial Sist.", true);
-                sm.setSignalVisible("P. arterial Diast.", true);
+                sm.setSignalVisible(PRESION_ARTERIAL_SISTOLICA, true);
+                sm.setSignalVisible(PRESION_ARTERIAL_DIASTOLICA, true);
                 sm.setSignalVisible("P. arterial Media", true);
             }
             if (this.presionesPSuavizadas) {
-                sm.setSignalVisible("P. pulmonar Sist.", true);
-                sm.setSignalVisible("P. pulmonar Diast.", true);
+                sm.setSignalVisible(PRESION_PULMONAR_SISTOLICA, true);
+                sm.setSignalVisible(PRESION_PULMONAR_DIASTOLICA, true);
                 sm.setSignalVisible("P. pulmonar Media", true);
 
             }
             if (flujosSuavizados) {
-                sm.setSignalVisible("F. carótida suavizado", true);
+                sm.setSignalVisible(FLUJO_CAROTIDA_SUAVIAZADO, true);
                 sm.setSignalVisible("F. riñón suavizado", true);
             }
             if (flujosDelRinhonSuavizados) {
@@ -80,30 +98,31 @@ public class VisualizadorDatosCerdo extends AlgorithmAdapter {
             }
 
         } catch (SignalNotFoundException ex) {
+             LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(js.getJSignalMonitorPanel(),
-                                          "Error; alguna de las se�ales no tiene nombre correcto",
+                                          "Error; alguna de las señales no tiene nombre correcto",
                                           "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     static void generarPresiones(SignalManager sm, int ventana) {
-        Signal signalOriginal = sm.getSignal("Presi�n arterial");
+        Signal signalOriginal = sm.getSignal("Presión arterial");
         float[] datosOriginales = signalOriginal.getValues();
         float[] datosNuevos = null;
         datosNuevos = calculaMaxMovil(datosOriginales, ventana);
-        Signal nuevaSenhal = new Signal("P. arterial Sist.", datosNuevos, 100.0F / ventana, signalOriginal.getStart(),
+        Signal nuevaSenhal = new Signal(PRESION_ARTERIAL_SISTOLICA, datosNuevos, 100.0F / ventana, signalOriginal.getStart(),
                                         "mmHg");
         sm.addSignal(nuevaSenhal);
         nuevaSenhal.adjustVisibleRange();
 
         datosNuevos = calculaMinMovil(datosOriginales, ventana);
-        nuevaSenhal = new Signal("P. arterial Diast.", datosNuevos, 100.0F / ventana, signalOriginal.getStart(), "mmHg");
+        nuevaSenhal = new Signal(PRESION_ARTERIAL_DIASTOLICA, datosNuevos, 100.0F / ventana, signalOriginal.getStart(), "mmHg");
         sm.addSignal(nuevaSenhal);
         nuevaSenhal.adjustVisibleRange();
 
         datosNuevos = new float[datosNuevos.length];
-        float[] d = sm.getSignal("P. arterial Diast.").getValues();
-        float[] s = sm.getSignal("P. arterial Sist.").getValues();
+        float[] d = sm.getSignal(PRESION_ARTERIAL_DIASTOLICA).getValues();
+        float[] s = sm.getSignal(PRESION_ARTERIAL_SISTOLICA).getValues();
         for (int i = 0; i < d.length; i++) {
             datosNuevos[i] = d[i] + (s[i] - d[i]) / 3;
         }
@@ -111,21 +130,21 @@ public class VisualizadorDatosCerdo extends AlgorithmAdapter {
         sm.addSignal(nuevaSenhal);
         nuevaSenhal.adjustVisibleRange();
 
-        signalOriginal = sm.getSignal("Presi�n pulmonar");
+        signalOriginal = sm.getSignal("Presión pulmonar");
         datosOriginales = signalOriginal.getValues();
         datosNuevos = calculaMaxMovil(datosOriginales, ventana);
-        nuevaSenhal = new Signal("P. pulmonar Sist.", datosNuevos, 100.0F / ventana, signalOriginal.getStart(), "mmHg");
+        nuevaSenhal = new Signal(PRESION_PULMONAR_SISTOLICA, datosNuevos, 100.0F / ventana, signalOriginal.getStart(), "mmHg");
         sm.addSignal(nuevaSenhal);
         nuevaSenhal.adjustVisibleRange();
 
         datosNuevos = calculaMinMovil(datosOriginales, ventana);
-        nuevaSenhal = new Signal("P. pulmonar Diast.", datosNuevos, 100.0F / ventana, signalOriginal.getStart(), "mmHg");
+        nuevaSenhal = new Signal(PRESION_PULMONAR_DIASTOLICA, datosNuevos, 100.0F / ventana, signalOriginal.getStart(), "mmHg");
         sm.addSignal(nuevaSenhal);
         nuevaSenhal.adjustVisibleRange();
 
         datosNuevos = new float[datosNuevos.length];
-        d = sm.getSignal("P. pulmonar Diast.").getValues();
-        s = sm.getSignal("P. pulmonar Sist.").getValues();
+        d = sm.getSignal(PRESION_PULMONAR_DIASTOLICA).getValues();
+        s = sm.getSignal(PRESION_PULMONAR_SISTOLICA).getValues();
         for (int i = 0; i < d.length; i++) {
             datosNuevos[i] = d[i] + (s[i] - d[i]) / 3;
         }
@@ -137,7 +156,7 @@ public class VisualizadorDatosCerdo extends AlgorithmAdapter {
 
 
     static void generarFlujos(SignalManager sm, int ventana) {
-        Signal signalOriginal = sm.getSignal("Flujo car�tida");
+        Signal signalOriginal = sm.getSignal("Flujo carótida");
 
         float[] datosOriginales;
         float[] datosNuevos;
@@ -145,20 +164,17 @@ public class VisualizadorDatosCerdo extends AlgorithmAdapter {
 
         if (signalOriginal != null) {
             datosOriginales = signalOriginal.getValues();
-            datosNuevos = null;
             datosNuevos = calculaMediaMovil(datosOriginales, ventana);
-            nuevaSignal = new Signal("F. car�tida suavizado", datosNuevos, 100.0F / ventana, signalOriginal.getStart(),
-                                     "");
+            nuevaSignal = new Signal(FLUJO_CAROTIDA_SUAVIAZADO, datosNuevos, 100.0F / ventana, signalOriginal.getStart(), "");
             sm.addSignal(nuevaSignal);
             nuevaSignal.adjustVisibleRange();
         }
 
-        signalOriginal = sm.getSignal("Flujo ri��n");
+        signalOriginal = sm.getSignal("Flujo riñón");
         if (signalOriginal != null) {
             datosOriginales = signalOriginal.getValues();
-            datosNuevos = null;
             datosNuevos = calculaMediaMovil(datosOriginales, ventana);
-            nuevaSignal = new Signal("F. ri��n suavizado", datosNuevos, 100.0F / ventana, signalOriginal.getStart(), "");
+            nuevaSignal = new Signal("F. riñón suavizado", datosNuevos, 100.0F / ventana, signalOriginal.getStart(), "");
             sm.addSignal(nuevaSignal);
             nuevaSignal.adjustVisibleRange();
         }
@@ -166,21 +182,17 @@ public class VisualizadorDatosCerdo extends AlgorithmAdapter {
         signalOriginal = sm.getSignal("Flujo corteza");
         if (signalOriginal != null) {
             datosOriginales = signalOriginal.getValues();
-            datosNuevos = null;
             datosNuevos = calculaMediaMovil(datosOriginales, ventana);
-            nuevaSignal = new Signal("F. corteza suavizado", datosNuevos, 100.0F / ventana, signalOriginal.getStart(),
-                                     "");
+            nuevaSignal = new Signal("F. corteza suavizado", datosNuevos, 100.0F / ventana, signalOriginal.getStart(), "");
             sm.addSignal(nuevaSignal);
             nuevaSignal.adjustVisibleRange();
         }
 
-        signalOriginal = sm.getSignal("Flujo m�dula");
+        signalOriginal = sm.getSignal("Flujo médula");
         if (signalOriginal != null) {
             datosOriginales = signalOriginal.getValues();
-            datosNuevos = null;
             datosNuevos = calculaMediaMovil(datosOriginales, ventana);
-            nuevaSignal = new Signal("F. m�dula suavizado", datosNuevos, 100.0F / ventana, signalOriginal.getStart(),
-                                     "");
+            nuevaSignal = new Signal("F. médula suavizado", datosNuevos, 100.0F / ventana, signalOriginal.getStart(), "");
             sm.addSignal(nuevaSignal);
             nuevaSignal.adjustVisibleRange();
         }
@@ -273,13 +285,7 @@ public class VisualizadorDatosCerdo extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        }
-        if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override
@@ -289,17 +295,17 @@ public class VisualizadorDatosCerdo extends AlgorithmAdapter {
 
     @Override
     public String getName() {
-        return "Visualizador de datos del cerdo";
+        return TITULO;
     }
 
     @Override
     public String getDescription() {
-        return "Visualizador de datos del cerdo";
+        return TITULO;
     }
 
     @Override
     public String getShortDescription() {
-        return "Visualizador de datos del cerdo";
+        return TITULO;
     }
 }
 

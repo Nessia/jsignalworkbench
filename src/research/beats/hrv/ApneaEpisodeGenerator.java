@@ -172,7 +172,7 @@ public class ApneaEpisodeGenerator extends AlgorithmAdapter {
 
     private void advertirSenalNoEncontrada() {
         JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
-                                      "No se encontr una se�al con nombre \"Flujo\"",
+                                      "No se encontro una señal con nombre \"Flujo\"",
                                       ERROR, JOptionPane.OK_OPTION);
     }
 

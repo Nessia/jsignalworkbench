@@ -15,7 +15,7 @@ import java.util.TreeSet;
 public class RutinasEstadisticas {
     //public static final int MAYOR_QUE_90 = 1, MAYOR_QUE_95 = 2, MAYOR_QUE_975 =
     //        3, MAYOR_QUE_99 = 4, MAYOR_QUE_995 = 5, MENOR_QUE_90 = 0;
-     public enum MAYORES {MENOR_QUE_90, MAYOR_QUE_90, MAYOR_QUE_95, MAYOR_QUE_975, MAYOR_QUE_99, MAYOR_QUE_995}
+     public enum MAYORES { MENOR_QUE_90, MAYOR_QUE_90, MAYOR_QUE_95, MAYOR_QUE_975, MAYOR_QUE_99, MAYOR_QUE_995 }
 
     /**
      * Simple calculo de una media artimetica.

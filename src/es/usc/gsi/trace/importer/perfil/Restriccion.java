@@ -36,8 +36,8 @@ public class Restriccion implements RestriccionInterface, Serializable {
 
 
     public enum Semantica { PENDIENTE, PERSISTENCIA_EN_PENDIENTE,
-                  RECTA_BORROSA, TUBO_BORROSO, SIN_SEMANTICA};
-    public enum Cuantificador { TODO, CASI_TODO, MAYOR_PARTE, MUCHO, MITAD, POCO };
+                  RECTA_BORROSA, TUBO_BORROSO, SIN_SEMANTICA}
+    public enum Cuantificador { TODO, CASI_TODO, MAYOR_PARTE, MUCHO, MITAD, POCO }
     public enum UNIDADES { MILISEGUNDOS, SEGUNDOS, MINUTOS, HORAS }
 
 

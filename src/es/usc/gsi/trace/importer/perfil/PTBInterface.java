@@ -10,7 +10,7 @@ public interface PTBInterface extends Serializable {
 // public static final int BORRAR = -1;
 // public static final int ANHADIR = 1;
 // public static final int CREAR = 2;
- public enum Acciones { BORRAR, MODIFICAR, ANHADIR, CREAR };
+ public enum Acciones { BORRAR, MODIFICAR, ANHADIR, CREAR }
 
 
     /**

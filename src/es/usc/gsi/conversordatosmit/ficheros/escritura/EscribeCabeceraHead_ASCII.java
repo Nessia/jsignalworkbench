@@ -16,20 +16,16 @@ public class EscribeCabeceraHead_ASCII {
     private List<FicheroHead> vectorFicherosHead;
     private File ficheroDestinoCabecera;
 
-    public EscribeCabeceraHead_ASCII(List<FicheroHead> vectorFicherosHead,
-                                     File ficheroDestino) {
+    public EscribeCabeceraHead_ASCII(List<FicheroHead> vectorFicherosHead, File ficheroDestino) {
 
         // Preprocesado del nombre de fichero para generar el nombre del .cxp
         if (ficheroDestino.getName().indexOf(".txt") != -1) { // Si ya tiene extension .txt
             // SOLUCION PROVISIONAL: FALLARA SI EL FICHERO TIENE .ALGO Y .TXT AL FINAL.
-            String[] nombreSinExtension = ParseadorCadena.split(ficheroDestino.
-                    getName(), ".");
-            String pathSinExtension = ficheroDestino.getParent() +
-                                      File.separator + nombreSinExtension[0];
+            String[] nombreSinExtension = ParseadorCadena.split(ficheroDestino.getName(), ".");
+            String pathSinExtension = ficheroDestino.getParent() + File.separator + nombreSinExtension[0];
             this.ficheroDestinoCabecera = new File(pathSinExtension + ".cxp");
         } else { // Si no tiene extension .txt
-            this.ficheroDestinoCabecera = new File(ficheroDestino.
-                    getAbsolutePath() + ".cxp");
+            this.ficheroDestinoCabecera = new File(ficheroDestino.getAbsolutePath() + ".cxp");
         }
 
         // Vector de ficheros de cabecera

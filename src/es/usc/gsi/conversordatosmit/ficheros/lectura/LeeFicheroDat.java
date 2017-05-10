@@ -2,7 +2,8 @@ package es.usc.gsi.conversordatosmit.ficheros.lectura;
 
 
 import java.io.*;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -285,7 +286,7 @@ public class LeeFicheroDat {
 
         int[] res = null;
 
-        Vector<String> valoresTemp = new Vector<String>();
+        List<String> valoresTemp = new ArrayList<String>();
         String valorTemp;
 
         this.abreFichero();
@@ -302,13 +303,12 @@ public class LeeFicheroDat {
         }
 
         this.cierraFichero();
-//@todo y aqui es donde reserva el espacio para los datos de verdad
+        //@TODO y aqui es donde reserva el espacio para los datos de verdad
         res = new int[valoresTemp.size()];
-        System.out.println(res.length);
+        LOGGER.log(Level.INFO, "Tamaño de res: %s", res.length);
 
         for (int i = 0; i < res.length; i++) {
-            res[i] = Integer.parseInt((String) valoresTemp.elementAt(i)) -
-                     parametro.getOffset();
+            res[i] = Integer.parseInt((String) valoresTemp.get(i)) - parametro.getOffset();
             if (parametro.getGanancia() != 200) {
                 res[i] = (int) (res[i] / parametro.getGanancia());
             }

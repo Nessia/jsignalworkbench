@@ -57,7 +57,7 @@ public class ControladorFicheros {
 
     public FicheroHead[] getFicherosHeadArray() {
 
-        FicheroHead[] res = new FicheroHead[ficherosHead.size()];;
+        FicheroHead[] res = new FicheroHead[ficherosHead.size()];
 
         if (ficherosHead.isEmpty()) {
             return res;

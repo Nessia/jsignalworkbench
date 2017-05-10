@@ -21,7 +21,7 @@ public class PanelInfo extends JPanel {
 
 //    public static final int DIRECTORIO = 0;
 //    public static final int ARCHIVO = 1;
-    public enum Modos {DIRECTORIO, ARCHIVO };
+    public enum Modos { DIRECTORIO, ARCHIVO }
     private TitledBorder bordePanel;
     private JLabel labelDatos = new JLabel();
 

@@ -40,12 +40,12 @@ public class HRVLoader extends BasicLoader {
     }
 
     /**
-     * La extension que soporta es "txt". / TODO seguro? @vanesa
+     * La extension que soporta es "txt".  TODO seguro? @vanesa
      *
      * @return ArrayList
      */
     @Override
-    public ArrayList<String> getAvalaibleExtensions() {
+    public List<String> getAvalaibleExtensions() {
         ArrayList<String> ext = new ArrayList<String>();
         ext.add("hrv");
         return ext;
@@ -91,7 +91,7 @@ public class HRVLoader extends BasicLoader {
 
 //    private void alinearConECG(SignalManager sm, Signal newSignal, Signal oldSignal) {
 //        Signal ecg = sm.getSignal("ECG");
-//        if (ecg == null) {//no hay ECG; estamos abriendo directamente un registro hrv y no a�adiendo
+//        if (ecg == null) {//no hay ECG; estamos abriendo directamente un registro hrv y no añadiendo
 //            return;
 //        }
 //        List<MarkPlugin> beats =ecg.getAllMarks();
@@ -135,8 +135,8 @@ public class HRVLoader extends BasicLoader {
         float fs = obtenerFS(f);
         int muestras = Math.round(ventana*fs);
         float[] oldValues = s.getValues();
-        float[] newValues = new float[oldValues.length+muestras];
-        int numCerosPrincipioYFinal= muestras/2 + muestras%2;
+        float[] newValues = new float[oldValues.length + muestras];
+        int numCerosPrincipioYFinal= muestras/2 + muestras % 2;
         int i =0;
         for (; i < numCerosPrincipioYFinal; i++) {
             newValues[i]=0;
@@ -155,8 +155,7 @@ public class HRVLoader extends BasicLoader {
         int indicePrincipioVentana = nombreArchivo.indexOf('_');
         int indiceFinalVentana = nombreArchivo.lastIndexOf('.');
         String ventanaEnSegundosString = nombreArchivo.substring(indicePrincipioVentana + 1, indiceFinalVentana);
-        float ventanaEnSegundos = Float.parseFloat(ventanaEnSegundosString);
-        return ventanaEnSegundos;
+        return Float.parseFloat(ventanaEnSegundosString);
     }
 
     private float obtenerFS(File f) {

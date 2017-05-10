@@ -285,8 +285,8 @@ class DialogMobileMeanPlugin_jButton2_actionAdapter implements ActionListener {
 
 class DialogMobileMeanPlugin_textDuration_focusAdapter extends FocusAdapter {
     private DialogMobileMeanPlugin adaptee;
-    DialogMobileMeanPlugin_textDuration_focusAdapter(DialogMobileMeanPlugin
-            adaptee) {
+
+    DialogMobileMeanPlugin_textDuration_focusAdapter(DialogMobileMeanPlugin adaptee) {
         this.adaptee = adaptee;
     }
 

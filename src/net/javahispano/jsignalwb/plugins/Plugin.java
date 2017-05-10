@@ -132,14 +132,12 @@ public interface Plugin {
      * objeto {@link Action}. Un plugin puede aparecer en el menu de plugins,
      * y/o en la barra de tareas de la herramienta.
      */
-    public enum GUIPositions {
-        MENU, TOOLBAR} ;
+    public enum GUIPositions { MENU, TOOLBAR }
 
-        /**
-         * Enumeracion que representa los distintos tipos de plugin soportados
-         * por JSignalWorkbench.
-         */
-        public enum PluginTypes {
-            ALGORITHM, GRID, MARK, ANNOTATION, GENERIC, LOADER, SAVER} ;
+    /**
+     * Enumeracion que representa los distintos tipos de plugin soportados
+     * por JSignalWorkbench.
+     */
+    public enum PluginTypes { ALGORITHM, GRID, MARK, ANNOTATION, GENERIC, LOADER, SAVER }
 
-        }
+}
