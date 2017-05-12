@@ -17,52 +17,50 @@ import net.javahispano.jsignalwb.utilities.TimePositionConverter;
 public class DeteccionOndaP extends SimpleAlgorithm{
 
     @Override
-    public void runAlgorithm (SignalManager manager, Signal signal, float[] datos,float freq ){
+    public void runAlgorithm (SignalManager manager, Signal signal, float[] datos, float freq ){
 
         List<MarkPlugin> latidos =  signal.getAllMarks();
         float[] ondasP  = new float[datos.length];
         int i = 0;
-            for (MarkPlugin latido : latidos ) {
+        for (MarkPlugin latido : latidos ) {
 
-                int marca = (int) latido.getMarkTime();
-                int tiempoIn = (int) ((marca - 220)-signal.getStart());
-                int tiempoFin = (int) ((marca - 80)-signal.getStart());
-
-                float max = 0;
-
-
-                int posIni = (int)(tiempoIn*freq/1000);
-                int posFin = (int)(tiempoFin*freq/1000);
-                int posicionP = 0;
+            int marca = (int) latido.getMarkTime();
+            int tiempoIn = (int) ((marca - 220)-signal.getStart());
+            int tiempoFin = (int) ((marca - 80)-signal.getStart());
+            float max = 0;
 
 
-                    for(int j = posIni; j < posFin; j++){
-                            if(j==0){
-                                max = datos[j];
-                            }
-                            if (datos[j]>max){
-                                max = datos[j];
-                                posicionP = j;
-                            }
-                    }
-                ondasP[i] = posicionP;
-                i = i+1;
-                int iniMarca = posicionP - 2;
-                int finMarca = posicionP + 2;
+            int posIni = (int)(tiempoIn*freq/1000);
+            int posFin = (int)(tiempoFin*freq/1000);
+            int posicionP = 0;
 
-                //System.out.println("Valor de P: "+max);
-                //System.out.println("Posicion de P: "+posicionP);
-
-                long pplong = TimePositionConverter.positionToTime(posicionP, signal);
-                String maximoP = Long.toString(pplong);
-
-                DefaultIntervalMark mark = createIntervalMark(iniMarca, finMarca, signal);
-                mark.setTitle("P");//posicion maximo en cada onda P
-                mark.setComentary(maximoP);
-                mark.setColor(Color.BLUE);
-                signal.addMark(mark);
+            for(int j = posIni; j < posFin; j++){
+                if(j==0){
+                    max = datos[j];
                 }
+                if (datos[j]>max){
+                    max = datos[j];
+                    posicionP = j;
+                }
+            }
+            ondasP[i] = posicionP;
+            i++;
+
+            int iniMarca = posicionP - 2;
+            int finMarca = posicionP + 2;
+
+            //System.out.println("Valor de P: "+max);
+            //System.out.println("Posicion de P: "+posicionP);
+            long pplong = TimePositionConverter.positionToTime(posicionP, signal);
+            String maximoP = Long.toString(pplong);
+
+            DefaultIntervalMark mark = createIntervalMark(iniMarca, finMarca, signal);
+            mark.setTitle("P");//posicion maximo en cada onda P
+            mark.setComentary(maximoP);
+            mark.setColor(Color.BLUE);
+            signal.addMark(mark);
         }
+    }
 
     @Override
     public String getName() {

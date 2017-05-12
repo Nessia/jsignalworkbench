@@ -60,7 +60,7 @@ public class PideDatosAlConversor extends Thread {
 //LLAMADA A Codigo de CONVERSOTMIT
         Parametro[] parametros = null;
         try {
-            parametros = conversor.getParametros();
+            parametros = conversor.getParametrosSeleccionados();
         } catch (OutOfMemoryError ex) {
             LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(conversor, error_quedarse_sin_memoria,
@@ -82,7 +82,7 @@ public class PideDatosAlConversor extends Thread {
             //Recojo los datos del array de parametros
             for (int i = 0; i < parametros.length; i++) {
                 datos[i] = arrayIntToFloat(parametros[i].getValores(),
-                                           parametros[i].getGanancia(), i);
+                                           /*parametros[i].getGanancia(),*/ i);
                 nombresSenales[i] = parametros[i].getNombreParametro();
                 fs[i] = parametros[i].getFrecuenciaMuestreo();
                 unidadesSenales[i] = parametros[i].getUnidades();
@@ -130,23 +130,27 @@ public class PideDatosAlConversor extends Thread {
         String horaMinSeg = tk.nextToken();
         SamplesToDate.getInstancia().setFechaBase(new Date(0));
         tk = new StringTokenizer(horaMinSeg, ":", false);
-        int hora = 0, minutos = 0, segundos = 0;
+        int hora = 0;
+        int minutos = 0;
+        int segundos = 0;
         try {
             hora = Integer.parseInt(tk.nextToken());
             minutos = Integer.parseInt(tk.nextToken());
             segundos = Integer.parseInt(tk.nextToken());
         } catch (NumberFormatException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             return 0;
         }
         tk = new StringTokenizer(diaMesAno, "/", false);
-        int ano = 0, mes = 0, dia = 0;
+        int ano = 0;
+        int mes = 0;
+        int dia = 0;
         try {
             dia = Integer.parseInt(tk.nextToken());
             mes = Integer.parseInt(tk.nextToken());
             ano = Integer.parseInt(tk.nextToken());
         } catch (NumberFormatException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             return 0;
         }
 
@@ -160,14 +164,15 @@ public class PideDatosAlConversor extends Thread {
      * @param datos_int
      * @return
      */
-    private final float[] arrayIntToFloat(int[] datos_int, float ganancia,
+    private final float[] arrayIntToFloat(int[] datos_int, /*float ganancia,*/
                                           int senal) {
         float[] datos = new float[datos_int.length];
         float min = Float.MAX_VALUE;
         float max = Float.MIN_VALUE;
         for (int i = 0; i < datos_int.length; i++) {
             datos[i] = datos_int[i];
-            //@todo modificado hace poco datos[i] /= ganancia;
+            //@todo modificado hace poco
+            //datos[i] /= ganancia;
             if (datos[i] > max) {
                 max = datos[i];
             }
@@ -194,7 +199,6 @@ public class PideDatosAlConversor extends Thread {
         setPriority(Thread.MIN_PRIORITY);
         this.cargarDatos();
         //   espera.cambiaEstado();
-
     }
 
 }

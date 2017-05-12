@@ -1,5 +1,7 @@
 package es.usc.gsi.conversordatosmit.ficheros;
 
-public interface Cancelar {
+import java.io.Serializable;
+
+public interface Cancelar extends Serializable{
     public void cancelar();
 }

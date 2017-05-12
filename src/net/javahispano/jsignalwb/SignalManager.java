@@ -27,8 +27,8 @@ public class SignalManager {
      * No podra existir mas de una senal con el mismo nombre
      */
     private Map<String, Signal> signals;
-    private ArrayList<SignalSizeListener> listeners;
-    private ArrayList<AnnotationPlugin> annotations;
+    private List<SignalSizeListener> listeners;
+    private List<AnnotationPlugin> annotations;
 
     SignalManager() {
         signals = Collections.synchronizedMap(new HashMap<String, Signal>());
@@ -235,9 +235,10 @@ public class SignalManager {
      */
     public void setSignalStartTime(String signalName, long startTime) throws SignalNotFoundException {
         Signal s = signals.get(signalName);
-        if (!(s == null)) {
+        if (s != null) {
             s.setStart(startTime);
-            if (isSignalVisible(signalName) && jSignalMonitor.getScrollBaseTime() > startTime) { //@todo (roman) esto no deberia ir aqui.
+            //@todo (roman) esto no deberia ir aqui.
+            if (isSignalVisible(signalName) && jSignalMonitor.getScrollBaseTime() > startTime) {
                 jSignalMonitor.setScrollBaseTime(startTime);
             }
         } else {
@@ -292,7 +293,7 @@ public class SignalManager {
      */
     public void setSignalAbscissaValue(String signalName, float abscissaValue) throws SignalNotFoundException {
         Signal s = signals.get(signalName);
-        if (!(s == null)) {
+        if (s != null) {
             s.setAbscissaValue(abscissaValue);
         } else {
             throw new SignalNotFoundException(signalName,
@@ -352,7 +353,7 @@ public class SignalManager {
      * el valor false
      */
 
-    public boolean setSignals(ArrayList<Signal> newSignals) {
+    public boolean setSignals(List<Signal> newSignals) {
         boolean flag = true;
         //flag=this.removeAllSignals();
         removeAllSignals();
@@ -385,11 +386,10 @@ public class SignalManager {
      */
     public boolean isSignalVisible(String name) throws SignalNotFoundException {
         Signal s = getSignal(name);
-        if (!(s == null)) {
+        if (s != null) {
             return s.getProperties().isVisible();
         } else {
-            throw new SignalNotFoundException(name,
-                                              "The signal is not loaded(" + name + ")");
+            throw new SignalNotFoundException(name, "The signal is not loaded(" + name + ")");
         }
     }
 
@@ -403,7 +403,7 @@ public class SignalManager {
      */
     public boolean hasSignalEmphasisLevel(String signalName) throws SignalNotFoundException {
         Signal s = getSignal(signalName);
-        if (!(s == null)) {
+        if (s != null) {
             return s.hasEmphasisLevel();
         }
         throw new SignalNotFoundException(signalName,
@@ -585,7 +585,7 @@ public class SignalManager {
         }
     }
 
-    public ArrayList<String> getAnnotationsCategories() {
+    public List<String> getAnnotationsCategories() {
         ArrayList<String> cat = new ArrayList<String>();
         for (AnnotationPlugin ap : annotations) {
             if (!cat.contains(ap.getCategory())) {
@@ -631,7 +631,7 @@ public class SignalManager {
 
     private void fireSizeEvent(Signal s, boolean add) {
         SignalSizeEvent sse = null;
-        if (listeners.size() > 0) {
+        if (!listeners.isEmpty()) {
             sse = new SignalSizeEvent(s, add);
         }
         for (SignalSizeListener listener : listeners) {
@@ -682,7 +682,8 @@ public class SignalManager {
         }
     }
 
-    public boolean setSignalHasEmphasisLevel(String signalName, boolean value) { // @todo (Document) No anhadido a la documentacion
+ // @todo (Document) No anhadido a la documentacion
+    public boolean setSignalHasEmphasisLevel(String signalName, boolean value) {
         if (exists(signalName)) {
             return signals.get(signalName).setHasEmphasis(value);
         } else {
@@ -691,7 +692,8 @@ public class SignalManager {
         }
     }
 
-    public boolean getSignalHasEmphasisLevel(String signalName) { // @todo (Document) No anhadido a la documentacion
+ // @todo (Document) No anhadido a la documentacion
+    public boolean getSignalHasEmphasisLevel(String signalName) {
         if (exists(signalName)) {
             return signals.get(signalName).hasEmphasisLevel();
         } else {

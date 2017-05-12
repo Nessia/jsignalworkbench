@@ -3,8 +3,8 @@
 package es.usc.gsi.trace.importer.perfil;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Logger;
 
 /**
@@ -27,10 +27,10 @@ public class PTBM implements PTBMInterface, Serializable {
     private float inicioCoreSeparacion = 15;
     private float finCoreSeparacion = 20;
     private float finSoporteSeparacion = 25;
-    /**
+    /*
      * //////////////////VARIABLES////////////////////////////////////
      */
-    private static int numeroPTB;
+    private int numeroPTB;
     private String nombre;
     private String comentario;
     private transient String fichero;
@@ -38,7 +38,7 @@ public class PTBM implements PTBMInterface, Serializable {
     private transient boolean tieneficheroasociado = false;
     private transient boolean guardado = false;
     //private Vector parametros;
-    private List<PTB> vectorPTB = new Vector<PTB>();
+    private List<PTB> vectorPTB = new ArrayList<PTB>();
     public PTBInterface[] thePTBInterface;
 
 
@@ -67,7 +67,7 @@ public class PTBM implements PTBMInterface, Serializable {
        switch(seleccion){
        case ANHADIR:
           vectorPTB.add(ptb);
-          PTBM.incrementaNumeroPTB();
+          incrementaNumeroPTB();
           numeroPTBnoEstatico++;
           break;
        case MODIFICAR:
@@ -78,7 +78,7 @@ public class PTBM implements PTBMInterface, Serializable {
        case BORRAR:
           revisaRestricciones(ptb);
           vectorPTB.remove(numeroPTB);
-          PTBM.decrementaNumeroPTB();
+          decrementaNumeroPTB();
           numeroPTBnoEstatico--;
           //Esto es para borrar restricciones que no se borran donde devieran
           for (int i = 0; i < numeroPTB; i++) {
@@ -136,7 +136,7 @@ public class PTBM implements PTBMInterface, Serializable {
      * @return int
      * @roseuid 3787081900AB
      */
-    public static int getNumeroPTB() {
+    public int getNumeroPTB() {
         return numeroPTB;
     }
 
@@ -144,21 +144,21 @@ public class PTBM implements PTBMInterface, Serializable {
      * @param i
      * @roseuid 3787081900AC
      */
-    public static void setNumeroPTB(int i) {
+    public void setNumeroPTB(int i) {
         numeroPTB = i;
     }
 
     /**
      * @roseuid 3787081900AE
      */
-    public static void incrementaNumeroPTB() {
+    public void incrementaNumeroPTB() {
         numeroPTB++;
     }
 
     /**
      * @roseuid 3787081900AF
      */
-    public static void decrementaNumeroPTB() {
+    public void decrementaNumeroPTB() {
         numeroPTB--;
     }
 
@@ -300,7 +300,7 @@ public class PTBM implements PTBMInterface, Serializable {
      */
     @Override
     public void almacenaNumeroPTB() {
-        numeroPTBnoEstatico = PTBM.getNumeroPTB();
+        numeroPTBnoEstatico = getNumeroPTB();
     }
 
     /**

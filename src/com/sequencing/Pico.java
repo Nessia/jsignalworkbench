@@ -3,13 +3,13 @@ package com.sequencing;
 
 class Pico {
 
-    int maximo;
-    int posicion;
-    char base;
-
     public static final Pico DUMMY_PICO = new Pico(Integer.MIN_VALUE, Integer.MIN_VALUE, 'o');
 
-    Pico(int posicion, int maximo, char base) {
+    protected int maximo;
+    protected int posicion;
+    protected char base;
+
+    protected Pico(int posicion, int maximo, char base) {
         this.maximo = maximo;
         this.posicion = posicion;
         this.base = base;

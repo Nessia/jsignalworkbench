@@ -55,59 +55,60 @@ public class AnnotationsPanel extends JPanel {
     }
 
     private void annotationsMouseClicked(MouseEvent evt) {
-        if (evt.getButton() == MouseEvent.BUTTON1) {
-            boolean existentAnnotation = false;
-            Iterator<Rectangle> it = annotations.values().iterator();
-            while (it.hasNext()) {
-                Rectangle rect = it.next();
-                if (rect.contains(evt.getPoint())) {
-                    Iterator<JSignalMonitorAnnotation> it2 = annotations.keySet().iterator();
-                    while (it2.hasNext()) {
-                        JSignalMonitorAnnotation annotation = it2.next();
-                        if (annotations.get(annotation).equals(rect)) {
-                            existentAnnotation = true;
-                            annotation.showMarkInfo(getParentFrame());
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-            if (!existentAnnotation) {
-                if (jsmProperties.isIntervalSelection()) {
-                    if (!jsmProperties.isClicked()) {
-                        jsmProperties.setFirstTimeClicked(jsmProperties.getTimeAtLocation(evt.getX() - hLeftOffset));
-                        jsmProperties.setClicked(true);
-                    } else {
-                        jsmProperties.setIntervalSelection(false);
-                        long secondTimeClicked = jsmProperties.getTimeAtLocation(evt.getX() - hLeftOffset);
-                        if (jsmProperties.isMarkCreation()) {
-                            /*jsmProperties.getDataSource().notifyMarkAdded(
-                                positions.get((evt.getY()-getVScaleOffset()) / this.channelHeight),
-                                jsmProperties.getFirstTimeClicked(),secondTimeClicked);*/
-                            JPopupMenu popup = new AnnotationsPopupMenu(jsmProperties.getDataSource(),
-                                    Math.min(jsmProperties.getFirstTimeClicked(), secondTimeClicked),
-                                    Math.max(jsmProperties.getFirstTimeClicked(), secondTimeClicked));
-                            popup.show(this, evt.getX(), evt.getY());
-                        }
-                        Runnable uiUpdateRunnable = new Runnable() {
-                            @Override
-                            public void run() {
-                                repaint();
-                            }
-                        };
-                        javax.swing.SwingUtilities.invokeLater(uiUpdateRunnable);
-
-                    }
-                } else if (jsmProperties.isMarkCreation()) {
-                    JPopupMenu popup = new JPopupMenu();
-                    popup.add(new AnnotationAction(this, jsmProperties, evt.getPoint(), false));
-                    popup.add(new AnnotationAction(this, jsmProperties, evt.getPoint(), true));
-                    popup.show(this, evt.getX(), evt.getY());
-                }
-
-            }
+        if (evt.getButton() != MouseEvent.BUTTON1) {
+            return;
         }
+         boolean existentAnnotation = false;
+         Iterator<Rectangle> it = annotations.values().iterator();
+         while (it.hasNext()) {
+             Rectangle rect = it.next();
+             if (rect.contains(evt.getPoint())) {
+                 Iterator<JSignalMonitorAnnotation> it2 = annotations.keySet().iterator();
+                 while (it2.hasNext()) {
+                     JSignalMonitorAnnotation annotation = it2.next();
+                     if (annotations.get(annotation).equals(rect)) {
+                         existentAnnotation = true;
+                         annotation.showMarkInfo(getParentFrame());
+                         break;
+                     }
+                 }
+                 break;
+             }
+         }
+         if (!existentAnnotation) {
+             if (jsmProperties.isIntervalSelection()) {
+                 if (!jsmProperties.isClicked()) {
+                     jsmProperties.setFirstTimeClicked(jsmProperties.getTimeAtLocation(evt.getX() - hLeftOffset));
+                     jsmProperties.setClicked(true);
+                 } else {
+                     jsmProperties.setIntervalSelection(false);
+                     long secondTimeClicked = jsmProperties.getTimeAtLocation(evt.getX() - hLeftOffset);
+                     if (jsmProperties.isMarkCreation()) {
+                         /*jsmProperties.getDataSource().notifyMarkAdded(
+                             positions.get((evt.getY()-getVScaleOffset()) / this.channelHeight),
+                             jsmProperties.getFirstTimeClicked(),secondTimeClicked);*/
+                         JPopupMenu popup = new AnnotationsPopupMenu(jsmProperties.getDataSource(),
+                                 Math.min(jsmProperties.getFirstTimeClicked(), secondTimeClicked),
+                                 Math.max(jsmProperties.getFirstTimeClicked(), secondTimeClicked));
+                         popup.show(this, evt.getX(), evt.getY());
+                     }
+                     Runnable uiUpdateRunnable = new Runnable() {
+                         @Override
+                         public void run() {
+                             repaint();
+                         }
+                     };
+                     javax.swing.SwingUtilities.invokeLater(uiUpdateRunnable);
+
+                 }
+             } else if (jsmProperties.isMarkCreation()) {
+                 JPopupMenu popup = new JPopupMenu();
+                 popup.add(new AnnotationAction(this, jsmProperties, evt.getPoint(), false));
+                 popup.add(new AnnotationAction(this, jsmProperties, evt.getPoint(), true));
+                 popup.show(this, evt.getX(), evt.getY());
+             }
+
+         }
     }
 
     private void annotationsMouseMoved(MouseEvent evt) {

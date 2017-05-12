@@ -51,9 +51,9 @@ public class CargarDatosXML extends CargarDatos {
     public CargarDatosXML(String archivo) throws JDOMException {
         super(archivo);
         cargaDatos();
-
     }
 
+ // TODO complexity too high
     @SuppressWarnings("unchecked")
     private void cargaDatos() throws JDOMException {
         //Generamos el path de este archivo, lo necesitaremos para mas tarde:
@@ -410,6 +410,7 @@ public class CargarDatosXML extends CargarDatos {
         return resultado;
     }
 
+    // TODO complexity too high
     /**
      * Carga los datos del fichcer de texto
      * @param file
@@ -479,8 +480,7 @@ public class CargarDatosXML extends CargarDatos {
                         else if ("\t".equals(dato_fichero)) {
                             datos[columna][linea] = 0;
                         } else {
-                            datos[columna][linea] = Float.parseFloat(
-                                    dato_fichero);
+                            datos[columna][linea] = Float.parseFloat(dato_fichero);
                             //Si no estamos en la ultima columna //consuminos el \t adicional
                             if (tk2.hasMoreElements() && !("\t".equals(tk2.nextElement()))) {
                                LOGGER.log(Level.WARNING, "Se esta leyendo mal el fichero de entrada");
@@ -512,7 +512,7 @@ public class CargarDatosXML extends CargarDatos {
                 }
 
             } while (line != null);
-            bf.close();
+
 
             //GestorIO gestor_io = GestorIO.getGestorIO();
             GestorIO.setNumDatos(filas);

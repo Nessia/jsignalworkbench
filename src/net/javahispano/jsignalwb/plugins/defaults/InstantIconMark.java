@@ -13,6 +13,11 @@ package net.javahispano.jsignalwb.plugins.defaults;
  */
 public class InstantIconMark extends DefaultInstantMark {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3174982684139886793L;
+
     public InstantIconMark() {
         super();
         setIsImage(true);

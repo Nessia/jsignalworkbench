@@ -37,6 +37,7 @@ public class GestorIO {
 //        instanceFlagForGestorIO = true;
     }
 
+ // TODO complexity too high
     /**
      *
      * @param archivo
@@ -93,9 +94,10 @@ public class GestorIO {
                 GestorDatos gestor_fdatos = GestorDatos.getInstancia();
                 //Si carhgo el archivo de Vila
                 if (archivo.endsWith(".picos")) {
-                    for (int i = 0; i < datos.length && i < nombres_Vila.length;
-                                 i++) {
-                        gestor_fdatos.anhadeSenhal(datos[i], nombres_Vila[i], "",
+                    for (int i = 0; i < datos.length && i < nombres_Vila.length; i++) {
+                        gestor_fdatos.anhadeSenhal(datos[i],
+                                nombres_Vila[i],
+                                "",
                                 "",
                                 almacen.getFs(i),
                                 almacen.getRango(i));

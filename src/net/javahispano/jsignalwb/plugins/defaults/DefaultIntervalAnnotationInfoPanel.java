@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.Window;
 import java.beans.*;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -26,6 +28,8 @@ import com.michaelbaranov.microba.calendar.CalendarPane;
  */
 public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel implements PropertyChangeListener {
 
+    private static final Logger LOGGER = Logger.getLogger(DefaultIntervalAnnotationInfoPanel.class.getName());
+
     /**
      *
      */
@@ -36,20 +40,20 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
     private javax.swing.JTextArea comentaryTextArea;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker2;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
+//    private javax.swing.JButton jButton1;
+//    private javax.swing.JButton jButton2;
+//    private javax.swing.JButton jButton3;
+//    private javax.swing.JButton jButton4;
+//    private javax.swing.JLabel jLabel1;
+//    private javax.swing.JLabel jLabel2;
+//    private javax.swing.JLabel jLabel3;
+//    private javax.swing.JLabel jLabel4;
+//    private javax.swing.JLabel jLabel5;
+//    private javax.swing.JPanel jPanel1;
+//    private javax.swing.JPanel jPanel2;
+//    private javax.swing.JPanel jPanel3;
+//    private javax.swing.JPanel jPanel4;
+//    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
     private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate2;
@@ -78,7 +82,7 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
             datePicker1.setDate(new Date(dim.getAnnotationTime()));
             datePicker2.setDate(new Date(dim.getEndTime()));
         } catch (PropertyVetoException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
         }
         datePicker1.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
         datePicker2.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
@@ -115,29 +119,29 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        markTitleTextField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        JPanel jPanel1 = new JPanel();
+        JPanel jPanel2 = new JPanel();
+        JLabel jLabel2 = new JLabel();
+        JLabel jLabel3 = new JLabel();
+        markTitleTextField = new JTextField();
+        JLabel jLabel1 = new JLabel();
         jTextFieldDate1 = new net.javahispano.jsignalwb.ui.JTextFieldDate();
         jTextFieldDate2 = new net.javahispano.jsignalwb.ui.JTextFieldDate();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
         datePicker2 = new com.michaelbaranov.microba.calendar.DatePicker();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        comentaryTextArea = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        kindLabel = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        colorTextField = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        JLabel jLabel5 = new JLabel();
+        jTextField1 = new JTextField();
+        JPanel jPanel3 = new JPanel();
+        JLabel jLabel4 = new JLabel();
+        JScrollPane jScrollPane1 = new JScrollPane();
+        comentaryTextArea = new JTextArea();
+        JButton jButton1 = new JButton();
+        kindLabel = new JLabel();
+        JButton jButton2 = new JButton();
+        JPanel jPanel4 = new JPanel();
+        colorTextField = new JTextField();
+        JButton jButton3 = new JButton();
+        JButton jButton4 = new JButton();
 
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 5, true));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -148,23 +152,23 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
         jLabel3.setText("Mark Title:");
 
         markTitleTextField.setForeground(java.awt.Color.blue);
-        markTitleTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        markTitleTextField.setHorizontalAlignment(JTextField.CENTER);
         markTitleTextField.setText("jTextField1");
 
         jLabel1.setForeground(java.awt.Color.blue);
         jLabel1.setText("End time:");
 
         jTextFieldDate1.setForeground(java.awt.Color.blue);
-        jTextFieldDate1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldDate1.setHorizontalAlignment(JTextField.CENTER);
 
         jTextFieldDate2.setForeground(java.awt.Color.blue);
-        jTextFieldDate2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldDate2.setHorizontalAlignment(JTextField.CENTER);
 
         jLabel5.setForeground(java.awt.Color.blue);
         jLabel5.setText("Category:");
 
         jTextField1.setForeground(java.awt.Color.blue);
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField1.setHorizontalAlignment(JTextField.CENTER);
         jTextField1.setText(dim.getCategory());
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -272,7 +276,7 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1hideJWindow(evt);
+                jButton1hideJWindow();
             }
         });
 
@@ -285,21 +289,21 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton2ActionPerformed();
             }
         });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         colorTextField.setBackground(dim.getColor());
         colorTextField.setEditable(false);
-        colorTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        colorTextField.setHorizontalAlignment(JTextField.CENTER);
         colorTextField.setText("Mark Color");
 
         jButton3.setText("Choose color");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton3ActionPerformed();
             }
         });
 
@@ -330,7 +334,7 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButton4ActionPerformed();
             }
         });
 
@@ -398,18 +402,18 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
                 );
     } // </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton4ActionPerformed() { //GEN-FIRST:event_jButton4ActionPerformed
         hideJWindow();
     } //GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton3ActionPerformed() { //GEN-FIRST:event_jButton3ActionPerformed
         Color c = JColorChooser.showDialog(this, "SelectColor", dim.getColor());
         if (c != null) {
             colorTextField.setBackground(c);
         }
     } //GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed() { //GEN-FIRST:event_jButton2ActionPerformed
         if (JOptionPane.showConfirmDialog(jw.getParent(), "Are you sure?",
                                           "Delete Annotation",
                                           JOptionPane.YES_NO_OPTION,
@@ -420,7 +424,7 @@ public class DefaultIntervalAnnotationInfoPanel extends javax.swing.JPanel imple
 
     } //GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1hideJWindow(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton1hideJWindow
+    private void jButton1hideJWindow() { //GEN-FIRST:event_jButton1hideJWindow
         dim.setTitle(markTitleTextField.getText());
         dim.setComentary(comentaryTextArea.getText());
         long start = TimeRepresentation.stringToMillis(jTextFieldDate1.getText());

@@ -10,6 +10,7 @@
 package net.javahispano.jsignalwb.jsignalmonitor;
 
 import java.awt.*;
+import java.io.Serializable;
 
 
 /**
@@ -17,8 +18,12 @@ import java.awt.*;
  *
  * @author Roman
  */
-public class ChannelProperties {
+public class ChannelProperties implements Serializable{
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7091804106809660601L;
     private Stroke dataStroke;
     private float dataRate;
     private long startTime;

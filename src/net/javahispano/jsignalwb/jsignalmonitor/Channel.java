@@ -8,13 +8,18 @@ package net.javahispano.jsignalwb.jsignalmonitor;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
+import java.io.Serializable;
 
 
 /**
  *
  * @author Roman Segador
  */
-class Channel implements ImageObserver {
+class Channel implements ImageObserver, Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     //private boolean visible;
     private int[] points;
     //private int xPoints[];
@@ -109,7 +114,7 @@ class Channel implements ImageObserver {
         //bajo ciertas condiciones aunque paintColors= true el array de colores
         //no ha sido inicializado(En tu codigo original en ese caso el array tenia
         //tamanho 1 y el indice se sala de el.
-        if (paintColors && colors != null || startOffset != 0 || endOffset != 0) {
+        if (colors != null && (paintColors || startOffset != 0 || endOffset != 0)) {
             actualValue += startOffset;
             for (int i = startOffset; i < (points.length - 1 - endOffset); ) {
                 if (paintColors) {

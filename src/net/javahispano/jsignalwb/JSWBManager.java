@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.Action;
@@ -40,14 +42,15 @@ import java.awt.event.*;
  */
  // TODO siendo un singleton deberían ser los campos estáticos? @vanesa
 public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener {
+
+    private static final Logger LOGGER = Logger.getLogger(JSWBManager.class.getName());
+
     // Parte estática
     private static final String FONT_FAMILY = "Tahoma";
     private static JSWBManager jswbManagerInstance;
     //private static JSWBManager jswbmanager = null;
     private static JSignalMonitor jSignalMonitor = null;
     //private static String pluginsPath;
-    //private JSWBFrame jswbFrame;
-    //private boolean jswbFrameMode;
     private static Window parentWindow;
     private static SignalManager signalManager;
     private static IOManager iOManager;
@@ -60,7 +63,8 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
     private static boolean deleteSignalsInNextLoad = true;
 
     // Atributos
-
+    //private JSWBFrame jswbFrame;
+    //private boolean jswbFrameMode;
     private List<IntervalSelectedListener> intervalSelectedListeners;
     private List<Component> jToolBarItems;
     private List<JMenu> jMenuBarItems;
@@ -649,12 +653,12 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
     }
 
     @Override
-    public ArrayList<String> getAvailableCategoriesOfAnnotations() {
+    public List<String> getAvailableCategoriesOfAnnotations() {
         if (signalManager != null) {
             return signalManager.getAnnotationsCategories();
-        } else {
-            return new ArrayList<String>();
         }
+        return new ArrayList<String>();
+
     }
 
     @Override
@@ -669,7 +673,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
                     getProperties().getStartTime(), lastValue,
                     signal.getProperties().getDataRate());
 
-            return getChannelData(signal.getValues(), pos1, pos2, signal.getProperties().getAbscissaValue());
+            return getChannelData(signal.getValues(), pos1, pos2/*, signal.getProperties().getAbscissaValue()*/);
         }
         throw new SignalNotFoundException(signalName, "Attempt of obtaining values of a non existent signal");
 
@@ -724,10 +728,10 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
      * este metodo. Mi opinion es q deberia formar parte del API.
      */
     public boolean showPluginExecution(String pluginType, String name) {
-        if (pluginType.equals("algorithm")) {
+        if ("algorithm".equals(pluginType)) {
             pluginManager.getAlgorithm(name).launchExecutionGUI(this);
             return true;
-        } else if (pluginType.equals("generic")) {
+        } else if ("generic".equals(pluginType)) {
             pluginManager.getGeneric(name).launch(this);
             return true;
         }
@@ -749,8 +753,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
             return true;
         } else {
             JOptionPane.showMessageDialog(getParentWindow(),
-                                          "This Plugin(" + name +
-                                          ") hasn't configuration window");
+                                          "This Plugin(" + name + ") hasn't configuration window");
             return false;
         }
 
@@ -816,14 +819,13 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
      *  grafica y principal de la aplicacion. Ver {@link AlgorithmRunner},{@link
      *  AlgorithmExecutionJDialog}
      *  @param {@link Algorithm} alg Algoritmo sobre el que se lanzara la ejecucion
-     *  @param {@link ArrayList}<IntervalSelectedEvent> interval Enumeracion de los intervalos sobre
+     *  @param {@link List}<IntervalSelectedEvent> interval Enumeracion de los intervalos sobre
      *  los cuales se quiere ejecutar el algoritmo.
      *  @return true si el la ejecucion termina satisfactoriamente
      *          false si la ejecucion no termina satisfactoriamente.
      *  // fin de la documentacion en caso de ser API
      */
-    public boolean runAlgorithm(Algorithm alg,
-                                ArrayList<IntervalSelectedEvent> intervals) {
+    public boolean runAlgorithm(Algorithm alg, List<IntervalSelectedEvent> intervals) {
         ArrayList<SignalIntervalProperties>
                 signals = new ArrayList<SignalIntervalProperties>();
         for (IntervalSelectedEvent interval : intervals) {
@@ -902,10 +904,10 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
             setSaved(true);
             this.fireSessionEvent(new SessionEvent(true, true));
         } catch (PluginLoadException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(getParentWindow(), ex.getMessage());
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(getParentWindow(), "Error al cargar el fichero:\n" + ex.getMessage());
         }
         return true;
@@ -924,7 +926,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
             }
 
         } catch (IOException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(getParentWindow(), ex.getMessage());
         }
         return false;
@@ -942,10 +944,10 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
             sessionInfo.setLastSaverUsed(saverName);
             setSaved(true);
         } catch (PluginLoadException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(getParentWindow(), ex.getMessage());
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(getParentWindow(), "Error al salvar el fichero:\n" +
                                           ex.getMessage());
         }
@@ -961,9 +963,6 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         return signalManager;
     }
 
-    /*
-     * TODO No disenhado como parte del API.
-     */
     @Override
     public void signalSizeActionPerformed(SignalSizeEvent evt) {
         Signal s = evt.getSignal();
@@ -1175,23 +1174,24 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
     }
 
     public String getJSMLeftPanelConfigurationString() {
-        boolean prop[] = jSignalMonitor.getJSMProperties().getLeftPanelConfiguration().getProperties();
-        String temp = "" + prop.length;
+        boolean[] prop = jSignalMonitor.getJSMProperties().getLeftPanelConfiguration().getProperties();
+        StringBuilder temp = new StringBuilder(Integer.toString(prop.length));
         for (int index = 0; index < prop.length; index++) {
-            temp = temp + "," + String.valueOf(prop[index]);
+            temp.append("," + prop[index]);
         }
-        return temp;
+        return temp.toString();
     }
 
-    public void setJSMLeftPanelConfigurationString(String leftPanelConfig) {
-        int numberArg = Integer.parseInt(leftPanelConfig.substring(0, leftPanelConfig.indexOf(",")));
-        boolean args[] = new boolean[numberArg];
+    public void setJSMLeftPanelConfigurationString(String leftPanelConfig_2) {
+        String leftPanelConfig = leftPanelConfig_2;
+        int numberArg = Integer.parseInt(leftPanelConfig.substring(0, leftPanelConfig.indexOf(',')));
+        boolean[] args = new boolean[numberArg];
 
         for (int index = 0; index < numberArg - 1; index++) {
-            leftPanelConfig = leftPanelConfig.substring(leftPanelConfig.indexOf(",") + 1);
-            args[index] = Boolean.parseBoolean(leftPanelConfig.substring(0, leftPanelConfig.indexOf(",")));
+            leftPanelConfig = leftPanelConfig.substring(leftPanelConfig.indexOf(',') + 1);
+            args[index] = Boolean.parseBoolean(leftPanelConfig.substring(0, leftPanelConfig.indexOf(',')));
         }
-        leftPanelConfig = leftPanelConfig.substring(leftPanelConfig.indexOf(",") + 1);
+        leftPanelConfig = leftPanelConfig.substring(leftPanelConfig.indexOf(',') + 1);
         args[numberArg - 1] = Boolean.parseBoolean(leftPanelConfig);
         jSignalMonitor.getJSMProperties().getLeftPanelConfiguration().setProperties(args);
     }
@@ -1214,7 +1214,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
     }
 
     private void fireIntervalSelectedEvent(IntervalSelectedEvent evt) {
-        IntervalSelectedListener listeners[] =
+        IntervalSelectedListener[] listeners =
                 intervalSelectedListeners.toArray(
                         new IntervalSelectedListener[intervalSelectedListeners.
                         size()]);
@@ -1225,124 +1225,22 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
 
     }
 
-    /**
-     *
-     * que se ejecute adecuadamente aunque no haya parametros de la consola
-     * @todo obtener los plugin de desarrollo de un modo adecuado
-     *
-     * @param args the command line arguments
-     *
-     * public static void main(final String args[]) {
-     * java.awt.EventQueue.invokeLater(new Runnable() {
-     * public void run() {
-     *
-     * String path = null;
-     * //pluginsPath = ".";
-     * boolean develop = false; //cierto solo si se esta usando el framework para el desarrollo de plugings
-     * try {
-     * develop = Boolean.parseBoolean(args[0]);
-     * path = args[1];
-     * //pluginsPath = args[1];
-     * } catch (Exception ex) {
-     * //no se proporciona parmetro y se usa el valor por defecto
-     * }
-     *
-     * JSWBManager jswbManager = new JSWBManager();
-     * if (develop) {
-     *
-     * DebugPluginsManager.registerDebugPlugins(
-     * jswbManager.getPluginManager());
-     * if(path!=null)
-     * jswbManager.loadChannels(
-     * "defaultLoader", new File(path));
-     * }
-     * jswbManager.refreshJToolBar();
-     * jswbManager.getJSignalMonitor().repaintChannels();
-     *
-     *
-     * }
-     * });
-     * }*/
-
-    /*private void initJMenuBar() {
-        if(jMenuBar==null)
-            jMenuBar=new JMenuBar();
-        if(jMenuBarItems==null)
-            jMenuBarItems=new ArrayList<JMenu>();
-
-        //jswbFrame = new JSWBFrame(jSignalMonitor, getPluginManager());
-        //addJMenuBarItem(new JMenuFile());
-        //addJMenuBarItem(new JMenuSignals(this));
-        //addJMenuBarItem(new JMenuPlugins(this));
-        //addJMenuBarItem(new JMenuActions(this));
-
-
-
-         }
-
-         private void initJToolBar() {
-        if(jToolBar==null)
-            jToolBar=new JToolBar("JSWB ToolBar");
-        if(jToolBarItems==null)
-            jToolBarItems=new ArrayList<JComponent>();
-
-        /*addJToolBarButton(new OpenFileAction(this));
-           addJToolBarButton(new SaveAction(this));
-           HashMap<String, ArrayList<String>> plugins = pluginManager.getRegisteredPlugins();
-           ArrayList<String> algorithms = plugins.get("algorithm");
-           if (algorithms != null) {
-               addJToolBarSeparator();
-               addJToolBarButton(new JLabel(" Algorithms: "));
-               for (String algorithm : algorithms) {
-                   addJToolBarButton(new AlgorithmAction(algorithm,
-                           AlgorithmAction.RUN_ACTION, this));
-               }
-
-           }
-
-           ArrayList<String> genericPlugins = plugins.get("generic");
-           if (genericPlugins != null) {
-               addJToolBarSeparator();
-               addJToolBarButton(new JLabel(" Generics: "));
-               for (String genericPlugin : genericPlugins) {
-                   addJToolBarButton(new GenericPluginAction(this,genericPlugin,
-                           GenericPluginAction.LAUNCH_ACTION));
-               }
-           }
-
-           addJToolBarSeparator();
-           addJToolBarButton(new AdjustSignalVisibleRangeAction(this));
-           addJToolBarSeparator();
-           addJToolBarButton(new JRadioButtonXY(jSignalMonitor));
-           addJToolBarButton(new JRadioButtonAddMarks(jSignalMonitor));
-           addJToolBarSeparator();
-           addJToolBarButton(new MoveScrollPanel(jSignalMonitor));
-           /*addJToolBarButton(new RemoveAllMarksAction(this));
-              addJToolBarButton(new RemoveAllAnnotationsAction(this));
-
-              if(parentWindow !=null && (parentWindow instanceof JFrame)){
-                  addJToolBarSeparator();
-                  addJToolBarButton(new LookAndFeelAction((JFrame)parentWindow));
-              }
-
-               }*/
-
-      private void refreshJToolBar() {
-          if (jToolBar != null && jToolBarItems != null) {
-              jToolBar.removeAll();
-              for (Component component : jToolBarItems) {
-                  jToolBar.add(component);
-              }
-              Runnable uiUpdateRunnable = new Runnable() {
-                  @Override
-                  public void run() {
-                      jToolBar.validate();
-                      jToolBar.repaint();
-                  }
-              };
-              javax.swing.SwingUtilities.invokeLater(uiUpdateRunnable);
-          }
-      }
+    private void refreshJToolBar() {
+        if (jToolBar != null && jToolBarItems != null) {
+            jToolBar.removeAll();
+            for (Component component : jToolBarItems) {
+                jToolBar.add(component);
+            }
+            Runnable uiUpdateRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    jToolBar.validate();
+                    jToolBar.repaint();
+                }
+            };
+            javax.swing.SwingUtilities.invokeLater(uiUpdateRunnable);
+        }
+    }
 
     private void refreshJMenuBar() {
         if (jMenuBar != null && jMenuBarItems != null) {
@@ -1369,21 +1267,22 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
      * @param pos2 int
      * @return float[]
      */
-    private static float[] getChannelData(float[] signalValues, int pos1, int pos2, float defaultValue) {
-        if (pos2 < pos1) {
-            int a;
-            a = pos2;
-            pos2 = pos1;
-            pos1 = a;
-        }
-        /*@todo bug
-                 a veces se llama a este metodo como un valor de pos1 de -2147483648
-         */
-        if (pos2 <= pos1 || pos1 < 0 || pos2 < 0|| pos2 - pos1 > 10000000) {
+    private static float[] getChannelData(float[] signalValues, int pos1, int pos2/*, float defaultValue*/) {
+       int p2;
+       int p1;
+       if(pos2 < pos1){
+           p1 = pos2;
+           p2 = pos1;
+       }else{
+           p1 = pos1;
+           p2 = pos2;
+       }
+        // @todo bug - a veces se llama a este metodo como un valor de pos1 de -2147483648
+        if (p2 == p1 || p1 < 0 || p2 < 0 || p2 - p1 > 10000000) {
             return new float[1];
         }
-        float[] partialValues = new float[pos2 - pos1];
-        for (int index = pos1, index2 = 0; index < pos2; index++, index2++) {
+        float[] partialValues = new float[p2 - p1];
+        for (int index = p1, index2 = 0; index < p2; index++, index2++) {
             if (index < 0) {
                 partialValues[index2] = signalValues[0];
             } else if (index >= signalValues.length) {
@@ -1397,24 +1296,27 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
 
 
     private static short[] getChannelColors(short[] signalColors, int pos1, int pos2) {
-        if (pos2 < pos1) {
-            int a;
-            a = pos2;
-            pos2 = pos1;
-            pos1 = a;
-        }
-        if (pos2 == pos1) {
-            return new short[1];
-        }
-        short[] partialValues = new short[pos2 - pos1];
-        for (int index = pos1, index2 = 0; index < pos2; index++, index2++) {
-            if (index < 0 || index >= signalColors.length) {
-                partialValues[index2] = 0;
-            } else {
-                partialValues[index2] = signalColors[index];
-            }
-        }
-        return partialValues;
+       int p2;
+       int p1;
+       if(pos1 == pos2){
+          return new short[1]; // TODO por que de tamaño 1 si no va a tener ningun valor? @vanesa
+       }
+       if(pos2 < pos1){
+           p1 = pos2;
+           p2 = pos1;
+       }else{
+           p1 = pos1;
+           p2 = pos2;
+       }
+       short[] partialValues = new short[p2 - p1];
+       for (int index = p1, index2 = 0; index < p2; index++, index2++) {
+           if (index < 0 || index >= signalColors.length) {
+               partialValues[index2] = 0;
+           } else {
+               partialValues[index2] = signalColors[index];
+           }
+       }
+       return partialValues;
     }
 
     public SessionInfo getSessionInfo() {
@@ -1432,7 +1334,6 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
     public static Font getCustomSizeFont(int fontSize) {
         return new java.awt.Font(FONT_FAMILY, Font.BOLD, fontSize);
     }
-
 
     public static Font getNormalFont() {
         return normalFont;
@@ -1464,6 +1365,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
             signalManager.setSignalColor(signalName, color);
             setSaved(false);
         } catch (SignalNotFoundException ex) {
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(getParentWindow(), ex.getMessage());
         }
     }
@@ -1472,6 +1374,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         try {
             return signalManager.getSignalColor(signalName);
         } catch (SignalNotFoundException ex) {
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(getParentWindow(), ex.getMessage());
         }
         return null;
@@ -1486,6 +1389,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
             setSaved(false);
             return true;
         } catch (SignalNotFoundException ex) {
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(getParentWindow(), ex.getMessage());
         }
         return false;
@@ -1495,6 +1399,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         try {
             return signalManager.getSignalHasEmphasisLevel(signalName);
         } catch (SignalNotFoundException ex) {
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(getParentWindow(), ex.getMessage());
         }
         return false; // @todo (Roman) mirar esto
@@ -1504,6 +1409,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         try {
             return signalManager.getSignalGrid(signalName);
         } catch (SignalNotFoundException ex) {
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(getParentWindow(), ex.getMessage());
         }
         return null;
@@ -1517,8 +1423,10 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
                 signalManager.setSignalGrid(signalName, grid);
             }
         } catch (SignalNotFoundException ex) {
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(getParentWindow(), ex.getMessage());
         } catch (PluginLoadException ex) {
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(getParentWindow(), ex.getMessage());
         }
     }
@@ -1537,7 +1445,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         if (!isProjectSaved()) {
             int i = JOptionPane.showConfirmDialog(getParentWindow(), "Do you want to save?", "save",
                                                   JOptionPane.YES_NO_CANCEL_OPTION);
-            if (!(i == JOptionPane.CANCEL_OPTION)) {
+            if (i != JOptionPane.CANCEL_OPTION) {
                 if (i == JOptionPane.YES_OPTION) {
                     saveChannels();
                     savePropertiesFile();
@@ -1584,9 +1492,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
     }
 
     private Component getComponent(String constraint) {
-        Component comp =
-                ((BorderLayout) jswbPanel.getLayout()).getLayoutComponent(constraint);
-        return comp;
+        return ((BorderLayout) jswbPanel.getLayout()).getLayoutComponent(constraint);
     }
 
     private void launchJSWBPanelValidate() {

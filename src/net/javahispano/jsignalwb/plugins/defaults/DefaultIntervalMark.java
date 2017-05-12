@@ -21,6 +21,10 @@ import net.javahispano.jsignalwb.plugins.MarkPlugin;
  * @author Roman Segador
  */
 public class DefaultIntervalMark extends MarkPluginAdapter implements Comparable<MarkPlugin> {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6374243599505392681L;
     private long markTime;
     private long endTime;
     private String title;

@@ -17,9 +17,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.marks.JSignalMonitorMark;
  * @author Roman Segador
  */
 class SynchronizedElements {
-    private Map<String, Channel> channels; //Almacena los canales identificandolos mediante su nombre
+    /** Almacena los canales identificandolos mediante su nombre */
+    private Map<String, Channel> channels;
     private Map<JSignalMonitorMark, Rectangle> marks;
-    private List<String> positions; //Almacena el nombre de los canales en el orden que se mostraran
+    /** Almacena el nombre de los canales en el orden que se mostraran*/
+    private List<String> positions;
     public SynchronizedElements() {
         channels = new HashMap<String, Channel>();
         positions = new ArrayList<String>();

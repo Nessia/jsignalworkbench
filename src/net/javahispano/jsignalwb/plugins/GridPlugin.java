@@ -1,5 +1,7 @@
 package net.javahispano.jsignalwb.plugins;
 
+import java.io.Serializable;
+
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitorGrid;
 
@@ -8,7 +10,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitorGrid;
  *   (http://www.apache.org/licenses/). Copyright 2006-2007 Roman Segador y
  *   Abraham Otero
  */
-public interface GridPlugin extends Plugin, JSignalMonitorGrid {
+public interface GridPlugin extends Plugin, JSignalMonitorGrid, Serializable{
 
     /**
      * Permite indicarle al plugin sobre que senhales se esta mostrando.

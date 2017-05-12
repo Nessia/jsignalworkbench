@@ -730,7 +730,7 @@ public class PluginManager {
     }
 
     private void searchPlugins(String directory, ExceptionsCollector ec) {
-        classLoader = PluginBrowser.install(this, classLoader, PluginBrowser.search(new File(directory)), ec);
+        classLoader = PluginBrowser.install(this, classLoader, PluginBrowser.searchSearch(new File(directory)), ec);
         ec.showExceptions("The following errors appeared while looking for plugins:");
     }
 

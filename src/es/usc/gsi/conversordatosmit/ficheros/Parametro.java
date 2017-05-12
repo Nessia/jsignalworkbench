@@ -1,7 +1,13 @@
 package es.usc.gsi.conversordatosmit.ficheros;
 
+import java.io.Serializable;
 
-public class Parametro {
+public class Parametro implements Serializable{
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2695929206125829211L;
 
     public static final int F8 = 8;
     public static final int F16 = 16;
@@ -11,7 +17,11 @@ public class Parametro {
     public static final int F212 = 212;
     public static final int F310 = 310;
 
-    public static int numSeleccionados = 0;
+    private static int numSeleccionados = 0;
+
+    public static int getNumSeleccionados(){
+        return numSeleccionados;
+    }
 
     private String nombreFichero;
     private FicheroDat ficheroDat;
@@ -270,7 +280,7 @@ public class Parametro {
         try {
             //  System.out.println( nombreParametro.substring( nombreParametro.length() - 1 ) );
 
-            if (nombreParametro.equalsIgnoreCase("SaO2")) {
+            if ("SaO2".equalsIgnoreCase(nombreParametro)) {
                 return; // Excepcion a la regla general: en este caso, no se debe corregir el numero de final del nombre.
             }
 

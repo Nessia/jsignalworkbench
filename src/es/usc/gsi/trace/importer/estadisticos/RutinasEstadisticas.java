@@ -39,7 +39,7 @@ public class RutinasEstadisticas {
     public final static float[] calculaMediana(float[] datos, int[] percentiles) {
        int[] percentilesClon = (int[]) percentiles.clone();
         TreeSet<Float> numOrdenados = new TreeSet<Float>();
-        float mediana = 0;
+
         percentilesClon = ordenaPercentiles(percentilesClon);
 
         for (int i = 0; i < datos.length; i++) {
@@ -62,13 +62,7 @@ public class RutinasEstadisticas {
             numOrdenados.add(dato);
         }
 
-        int cuantos_van = 0;
         int num_datos = datos.length;
-        Iterator<Float> it = numOrdenados.iterator();
-        boolean numero_datos_par;
-        int mitad_de_los_datos = num_datos / 2;
-        //Miro si el numero de datos es par
-        numero_datos_par = (num_datos % 2 == 0);
 
         //Divido entre dos todos los datos de los percentiles, ya que la distribucion es supuestamente simetrica,
         //Y los multiplico por el numero de datos totales, por el percentil en cuestion y divido por 100
@@ -76,47 +70,58 @@ public class RutinasEstadisticas {
             percentilesClon[i] = percentilesClon[i] * num_datos / (100);
         }
 
-        //Esta varibale me permitira ir almacenando correctamente los percentiles
-        int cuantos_percentiles_van = 0;
-        float[] valor_de_los_percentiles = new float[percentilesClon.length];
-        //Este flg nos indica cuando hemosm hallado la media
-        boolean aun_no_hallada_mediana = true;
-        boolean avanzo = false;
-        //Cuando hallemos la media tambien hemos tenido que hallar todos los percentiles, por lo que acabasmos.
-        while (it.hasNext() && (aun_no_hallada_mediana ||
-                cuantos_percentiles_van < percentilesClon.length)) {
-            cuantos_van++;
-            //Para saber si el valor fue empleado por un percentil, la mediana o no fue empleado
-            avanzo = false;
-            for (int i = cuantos_percentiles_van; !avanzo && i < percentilesClon.length; i++) {
-                if (cuantos_van == percentilesClon[i]) {
-                    valor_de_los_percentiles[i] = it.next().floatValue();
-                    cuantos_percentiles_van++;
-                    avanzo = true;
-                }
-            }
-            if (numero_datos_par && mitad_de_los_datos == cuantos_van) {
-                mediana = ( (it.next())).floatValue();
-                aun_no_hallada_mediana = false;
-            } else if (!numero_datos_par && mitad_de_los_datos == cuantos_van) {
-                mediana = it.next().floatValue();
-                mediana += it.next().floatValue();
-                mediana /= 2;
-                aun_no_hallada_mediana = false;
-            }
-            //Si nadie cogio este valor para nada
-            else if (!avanzo) {
-                it.next();
-            }
+        return percentiles(num_datos, percentilesClon, numOrdenados);
+    }
 
-        }
-        float[] resultado = new float[percentilesClon.length + 1];
-        resultado[0] = mediana;
-        for (int i = 0; i < percentilesClon.length; i++) {
-            resultado[i + 1] = valor_de_los_percentiles[i];
-        }
+    private static float[] percentiles(int num_datos, int[] percentilesClon, TreeSet<Float> numOrdenados){
+       float mediana = 0;
+       int cuantos_van = 0;
+       boolean numero_datos_par;
+       int mitad_de_los_datos = num_datos / 2;
+       //Miro si el numero de datos es par
+       numero_datos_par = (num_datos % 2 == 0);
+       //Esta varibale me permitira ir almacenando correctamente los percentiles
+       int cuantos_percentiles_van = 0;
+       float[] valor_de_los_percentiles = new float[percentilesClon.length];
+       //Este flg nos indica cuando hemosm hallado la media
+       boolean aun_no_hallada_mediana = true;
+       boolean avanzo = false;
+        Iterator<Float> it = numOrdenados.iterator();
+       //Cuando hallemos la media tambien hemos tenido que hallar todos los percentiles, por lo que acabasmos.
+       while (it.hasNext() && (aun_no_hallada_mediana ||
+               cuantos_percentiles_van < percentilesClon.length)) {
+           cuantos_van++;
+           //Para saber si el valor fue empleado por un percentil, la mediana o no fue empleado
+           avanzo = false;
+           for (int i = cuantos_percentiles_van; !avanzo && i < percentilesClon.length; i++) {
+               if (cuantos_van == percentilesClon[i]) {
+                   valor_de_los_percentiles[i] = it.next().floatValue();
+                   cuantos_percentiles_van++;
+                   avanzo = true;
+               }
+           }
+           if (numero_datos_par && mitad_de_los_datos == cuantos_van) {
+               mediana = it.next();
+               aun_no_hallada_mediana = false;
+           } else if (!numero_datos_par && mitad_de_los_datos == cuantos_van) {
+               mediana = it.next();
+               mediana += it.next();
+               mediana /= 2;
+               aun_no_hallada_mediana = false;
+           }
+           //Si nadie cogio este valor para nada
+           else if (!avanzo) {
+               it.next();
+           }
 
-        return resultado;
+       }
+       float[] resultado = new float[percentilesClon.length + 1];
+       resultado[0] = mediana;
+       for (int i = 0; i < percentilesClon.length; i++) {
+           resultado[i + 1] = valor_de_los_percentiles[i];
+       }
+
+       return resultado;
     }
 
     /**

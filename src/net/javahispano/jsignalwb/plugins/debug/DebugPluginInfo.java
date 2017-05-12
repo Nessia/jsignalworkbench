@@ -50,21 +50,25 @@ public class DebugPluginInfo {
     }
 
     private static PluginTypes getPluginType(String p) {
-        if (p.equals("algorithm")) {
+        if ("algorithm".equals(p)) {
             return PluginTypes.ALGORITHM;
-        } else if (p.equals("anotation")) {
-            return PluginTypes.ANNOTATION;
-        } else if (p.equals("generic")) {
-            return PluginTypes.GENERIC;
-        } else if (p.equals("grid")) {
-            return PluginTypes.GRID;
-        } else if (p.equals("mark")) {
-            return PluginTypes.MARK;
-        } else if (p.equals("loader")) {
-            return PluginTypes.LOADER;
-        } else {
-            return PluginTypes.SAVER;
         }
+        if ("anotation".equals(p)) {
+            return PluginTypes.ANNOTATION;
+        }
+        if ("generic".equals(p)) {
+            return PluginTypes.GENERIC;
+        }
+        if ("grid".equals(p)) {
+            return PluginTypes.GRID;
+        }
+        if ("mark".equals(p)) {
+            return PluginTypes.MARK;
+        }
+        if ("loader".equals(p)) {
+            return PluginTypes.LOADER;
+        }
+        return PluginTypes.SAVER;
     }
 
     public String getPluginName() {

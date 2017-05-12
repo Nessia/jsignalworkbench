@@ -8,6 +8,8 @@ package net.javahispano.jsignalwb.plugins.defaults;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
@@ -18,6 +20,8 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman Segador
  */
 public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
+
+    private static final Logger LOGGER = Logger.getLogger(DefaultIntervalAnnotation.class.getName());
 
     private long annotationTime;
     private long endTime;
@@ -134,7 +138,8 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
     }
 
     @Override
-    public void setSavedData(String data) {
+    public void setSavedData(String d) {
+        String data = d;
         data = data.substring(data.indexOf("title:") + 6);
         title = data.substring(0, data.indexOf("||"));
         data = data.substring(data.indexOf("comentary:") + 10);
@@ -147,8 +152,8 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
         color = new Color(Integer.parseInt(data.substring(0, data.indexOf("||"))));
         data = data.substring(data.indexOf("category:") + 9);
         category = data;
-        System.out.println(imagePath);
-        if (!imagePath.trim().equals("default")) {
+        LOGGER.log(Level.INFO, imagePath);
+        if (!"default".equals(imagePath.trim())) {
             image = new ImageIcon(imagePath).getImage();
         } else {
             image = getDefaultImage();
@@ -231,7 +236,7 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
                                               BufferedImage.TYPE_INT_RGB);
             g2d = bufferedImage.createGraphics();
         }
-        //borramos todo lo antiguo
+        //borramos t.odo lo antiguo
         g2d.setColor(Color.white);
         g2d.fillRect(0, 0, width, height);
         g2d.setColor(color);

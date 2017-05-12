@@ -28,6 +28,7 @@ class ChannelArrowsControlPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labelUp;
     // End of variables declaration//GEN-END:variables
 
+    // TODO transient or serializable
     private Cursor cursor;
     private String channelName;
     private JSignalMonitorPanel jsmPanel;

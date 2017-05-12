@@ -3,8 +3,8 @@
 package es.usc.gsi.trace.importer.perfil;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Logger;
 
 /**
@@ -27,7 +27,7 @@ public class PtoSig implements PtoSigInterface, Serializable {
     private int ptb;
     private int numeroDePtoSig = 0;
     public RestriccionInterface[] theRestriccionInterface;
-    private List<Restriccion> vectorRestricciones = new Vector<Restriccion>();
+    private List<Restriccion> vectorRestricciones = new ArrayList<Restriccion>();
     private boolean es_flotante = true;
 
 

@@ -10,7 +10,7 @@ public interface PtoSigInterface extends Serializable {
      * Siempre podemos volver a leerlos, pero depende de nosotros que se haga de un modo correcto.
      */
 
-    static final long serialVersionUID = 1236L;
+//    static final long serialVersionUID = 1236L;
 
     /**
      * Devuelven el valor temporal del primer PtoSig.

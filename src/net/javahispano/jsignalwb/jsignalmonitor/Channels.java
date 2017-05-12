@@ -38,7 +38,7 @@ public class Channels extends javax.swing.JPanel {
     private int channelHeight; // Altura de cada canal
     private Color backgroundColor;
     private Color separatorsColor;
-    private Stroke separatorsStroke;
+    private transient final Stroke separatorsStroke = new BasicStroke(1);
     private Line2D l2d;
     //private Rectangle2D r2d;
     private JSMProperties jsmProperties;
@@ -58,19 +58,21 @@ public class Channels extends javax.swing.JPanel {
         setBackgroundColor(Color.WHITE);
         setSeparatorsColor(Color.BLACK);
         g2dColor = new Color(0, 255, 0, 75);
-        setSeparatorsStroke(new BasicStroke(1));
+
         this.setBackground(getBackgroundColor());
         mousePosition = new Point();
-        setL2d(new Line2D.Float());
+        l2d = new Line2D.Float();
         //setR2d(new Rectangle2D.Float());
         this.setLayout(null);
 
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 channels1MouseMoved(evt);
             }
         });
         addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 channels1Clicked(evt);
             }
@@ -90,10 +92,10 @@ public class Channels extends javax.swing.JPanel {
             }
 
             for (Channel c : channels.values()) {
-                c.getChannelProperties().refreshChannelHeight(channelHeight - 2 * getVScaleOffset());
+                c.getChannelProperties().refreshChannelHeight((float)channelHeight - 2 * getVScaleOffset());
                 pos = positions.indexOf(c.getChannelProperties().getName());
                 if (pos >= 0) {
-                    int y = pos * (int) channelHeight + 2 * getVScaleOffset();
+                    int y = pos * channelHeight + 2 * getVScaleOffset();
                     c.setAbscissaPosition((int) (y + (channelHeight - 2 * getVScaleOffset()))); //@abscissa mirar si hay problemas
                 }
             }
@@ -118,7 +120,7 @@ public class Channels extends javax.swing.JPanel {
                     pos = positions.indexOf(c.getChannelProperties().getName());
                     if (pos >= 0) {
                         p.setLocation(getHLeftOffsetScale(),
-                                      pos * (int) channelHeight + 2 * getVScaleOffset());
+                                      pos * channelHeight + 2 * getVScaleOffset());
                         c.getGrid().paintGrid(g2d, p, channelHeight - 2 * getVScaleOffset(),
                                               (int) getSize().getWidth() - hLeftOffsetScale - 10,
                                               c.getGridConfiguration());
@@ -136,7 +138,7 @@ public class Channels extends javax.swing.JPanel {
                 for (Channel c : channels.values()) {
                     if (!c.getChannelProperties().isInvadeNearChannels()) {
                         pos = positions.indexOf(c.getChannelProperties().getName());
-                        p.setLocation(getHLeftOffsetScale(), pos * (int) channelHeight + 1.5 * getVScaleOffset());
+                        p.setLocation(getHLeftOffsetScale(), pos * channelHeight + 1.5 * getVScaleOffset());
                         Shape s = new Rectangle(p.x, p.y, getSize().width, channelHeight - (int) (1.5 * getVScaleOffset()));
                         g2d.setClip(s);
                     }
@@ -197,7 +199,8 @@ public class Channels extends javax.swing.JPanel {
         }
     }
 
-    protected void paintLegend(Graphics2D g2d, int pos, int eight, int width, float zoom) {
+    protected void paintLegend(Graphics2D g2d, int position, int eight, int width, float zoom) {
+        int pos = position;
         int middle = getMiddle();
         int vMiddle = channelHeight / 2;
         Color oldColor = g2d.getColor();
@@ -231,7 +234,7 @@ public class Channels extends javax.swing.JPanel {
 
     protected void paintSeparators(Graphics2D g2d) {
 
-        if (syncElements.getPositions().size() > 0) {
+        if (!syncElements.getPositions().isEmpty()) {
             int middle = getMiddle();
             g2d.setColor(getSeparatorsColor());
             g2d.setStroke(getSeparatorsStroke());
@@ -255,7 +258,7 @@ public class Channels extends javax.swing.JPanel {
                                (float) syncElements.getPositions().size() * channelHeight + vScaleOffset + 15);
                 g2d.drawString(TimeRepresentation.timeToString(jsmProperties.getTimeAtLocation((getSize().width -
                         hLeftOffsetScale - 10)), true, true, true),
-                               (int) getSize().getWidth() - 160,
+                               (int) getSize().getWidth() - 160F,
                                (float) syncElements.getPositions().size() * channelHeight + vScaleOffset + 15);
             }
 
@@ -266,7 +269,8 @@ public class Channels extends javax.swing.JPanel {
         return (int) (getSize().getWidth() - hLeftOffsetScale) / 2 + hLeftOffsetScale;
     }
 
-    private String getTimeAdapted(float f) {
+    private String getTimeAdapted(float f1) {
+        float f = f1;
         if (f >= 1000) {
             f = f / 1000f;
             if (f >= 60) {
@@ -286,69 +290,71 @@ public class Channels extends javax.swing.JPanel {
     }
 
     private void channels1Clicked(MouseEvent evt) {
-        if (evt.getButton() == MouseEvent.BUTTON1) {
-            boolean existentMark = false;
-            synchronized (syncElements) {
-                Map<JSignalMonitorMark, Rectangle> marks = syncElements.getMarks();
-                Iterator<Rectangle> it = marks.values().iterator();
-                while (it.hasNext()) {
-                    Rectangle rect = it.next();
-                    if (rect.contains(evt.getPoint())) {
-                        Iterator<JSignalMonitorMark> it2 = marks.keySet().iterator();
-                        while (it2.hasNext()) {
-                            JSignalMonitorMark mark = it2.next();
-                            if (marks.get(mark).equals(rect)) {
-                                existentMark = true;
-                                mark.showMarkInfo(getParentFrame());
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                }
-            }
-            if (!existentMark) {
-                if (jsmProperties.isIntervalSelection()) {
-                    if (!jsmProperties.isClicked()) {
-                        jsmProperties.setFirstTimeClicked(jsmProperties.getTimeAtLocation(evt.getX() -
-                                getHLeftOffsetScale()));
-                        jsmProperties.setClicked(true);
-                    } else {
-                        synchronized (syncElements) {
-                            List<String> positions = syncElements.getPositions();
-                            jsmProperties.setIntervalSelection(false);
-                            long secondTimeClicked = jsmProperties.getTimeAtLocation(evt.getX() - getHLeftOffsetScale());
-                            if (jsmProperties.isMarkCreation()) {
-                                JPopupMenu popup = new MarksPopupMenu(jsmProperties.getDataSource(),
-                                        positions.get((evt.getY() - getVScaleOffset()) / this.channelHeight),
-                                        Math.min(jsmProperties.getFirstTimeClicked(), secondTimeClicked),
-                                        Math.max(jsmProperties.getFirstTimeClicked(), secondTimeClicked));
-                                popup.show(this, evt.getX(), evt.getY());
-                            } else {
-                                jsmProperties.getDataSource().notifyIntervalSelection(
-                                        positions.get((evt.getY() - getVScaleOffset()) / this.channelHeight),
-                                        Math.min(jsmProperties.getFirstTimeClicked(), secondTimeClicked),
-                                        Math.max(jsmProperties.getFirstTimeClicked(), secondTimeClicked));
-                                jsmProperties.setFirstTimeClicked( -1);
-                                jsmProperties.setClicked(false);
-                            }
-                        }
-                        Runnable uiUpdateRunnable = new Runnable() {
-                            public void run() {
-                                repaint();
-                            }
-                        };
-                        javax.swing.SwingUtilities.invokeLater(uiUpdateRunnable);
-
-                    }
-                } else if (jsmProperties.isMarkCreation()) {
-                    JPopupMenu popup = new JPopupMenu();
-                    popup.add(new MarkAction(this, jsmProperties, evt.getPoint(), false));
-                    popup.add(new MarkAction(this, jsmProperties, evt.getPoint(), true));
-                    popup.show(this, evt.getX(), evt.getY());
-                }
-            }
+        if (evt.getButton() != MouseEvent.BUTTON1) {
+            return;
         }
+         boolean existentMark = false;
+         synchronized (syncElements) {
+             Map<JSignalMonitorMark, Rectangle> marks = syncElements.getMarks();
+             Iterator<Rectangle> it = marks.values().iterator();
+             while (it.hasNext()) {
+                 Rectangle rect = it.next();
+                 if (rect.contains(evt.getPoint())) {
+                     Iterator<JSignalMonitorMark> it2 = marks.keySet().iterator();
+                     while (it2.hasNext()) {
+                         JSignalMonitorMark mark = it2.next();
+                         if (marks.get(mark).equals(rect)) {
+                             existentMark = true;
+                             mark.showMarkInfo(getParentFrame());
+                             break;
+                         }
+                     }
+                     break;
+                 }
+             }
+         }
+         if (!existentMark) {
+             if (jsmProperties.isIntervalSelection()) {
+                 if (!jsmProperties.isClicked()) {
+                     jsmProperties.setFirstTimeClicked(jsmProperties.getTimeAtLocation(evt.getX() -
+                             getHLeftOffsetScale()));
+                     jsmProperties.setClicked(true);
+                 } else {
+                     synchronized (syncElements) {
+                         List<String> positions = syncElements.getPositions();
+                         jsmProperties.setIntervalSelection(false);
+                         long secondTimeClicked = jsmProperties.getTimeAtLocation(evt.getX() - getHLeftOffsetScale());
+                         if (jsmProperties.isMarkCreation()) {
+                             JPopupMenu popup = new MarksPopupMenu(jsmProperties.getDataSource(),
+                                     positions.get((evt.getY() - getVScaleOffset()) / this.channelHeight),
+                                     Math.min(jsmProperties.getFirstTimeClicked(), secondTimeClicked),
+                                     Math.max(jsmProperties.getFirstTimeClicked(), secondTimeClicked));
+                             popup.show(this, evt.getX(), evt.getY());
+                         } else {
+                             jsmProperties.getDataSource().notifyIntervalSelection(
+                                     positions.get((evt.getY() - getVScaleOffset()) / this.channelHeight),
+                                     Math.min(jsmProperties.getFirstTimeClicked(), secondTimeClicked),
+                                     Math.max(jsmProperties.getFirstTimeClicked(), secondTimeClicked));
+                             jsmProperties.setFirstTimeClicked( -1);
+                             jsmProperties.setClicked(false);
+                         }
+                     }
+                     Runnable uiUpdateRunnable = new Runnable() {
+                         @Override
+                         public void run() {
+                             repaint();
+                         }
+                     };
+                     javax.swing.SwingUtilities.invokeLater(uiUpdateRunnable);
+
+                 }
+             } else if (jsmProperties.isMarkCreation()) {
+                 JPopupMenu popup = new JPopupMenu();
+                 popup.add(new MarkAction(this, jsmProperties, evt.getPoint(), false));
+                 popup.add(new MarkAction(this, jsmProperties, evt.getPoint(), true));
+                 popup.show(this, evt.getX(), evt.getY());
+             }
+         }
     }
 
     private void channels1MouseMoved(MouseEvent evt) {
@@ -387,7 +393,7 @@ public class Channels extends javax.swing.JPanel {
                         l2d.setLine(evt.getX(),
                                     getVScaleOffset(),
                                     evt.getX(),
-                                    (positions.size()) * channelHeight + getVScaleOffset());
+                                    (positions.size()) * (double)channelHeight + getVScaleOffset());
                         jsmProperties.setMouseTime(jsmProperties.getTimeAtLocation(
                                 evt.getX() - getHLeftOffsetScale()));
                     } else {
@@ -414,6 +420,7 @@ public class Channels extends javax.swing.JPanel {
         }
         if (flag) {
             Runnable uiUpdateRunnable = new Runnable() {
+                @Override
                 public void run() {
                     repaint();
                 }
@@ -444,11 +451,9 @@ public class Channels extends javax.swing.JPanel {
         synchronized (syncElements) {
             Map<String, Channel> channels = syncElements.getChannels();
             List<String> positions = syncElements.getPositions();
-            if (channels.containsKey(name) && positions.contains(name)) {
-                if (channels.remove(name) != null) {
-                    positions.remove(name);
-                    return true;
-                }
+            if (channels.containsKey(name) && positions.contains(name) && channels.remove(name) != null) {
+                positions.remove(name);
+                return true;
             }
             return false;
         }
@@ -478,10 +483,10 @@ public class Channels extends javax.swing.JPanel {
             marksPaintInfo.clear();
 
             for (Channel c : channels.values()) {
-                float data[] = dataSource.getChannelData(c.getChannelProperties().getName(), firstValue, lastValue);
+                float[] data = dataSource.getChannelData(c.getChannelProperties().getName(), firstValue, lastValue);
                 c.setPoints(Resample.resampleFs(data, c.getChannelProperties().getDataRate(), dataRate, true));
                 if (c.getChannelProperties().hasEmphasis()) {
-                    short color[] = dataSource.getSignalEmphasisLevels(c.getChannelProperties().getName(), firstValue,
+                    short[] color = dataSource.getSignalEmphasisLevels(c.getChannelProperties().getName(), firstValue,
                             lastValue);
                     c.setColors(Resample.resampleFs(color, c.getChannelProperties().getDataRate(), dataRate, true));
                 }
@@ -518,14 +523,14 @@ public class Channels extends javax.swing.JPanel {
                                     1);
                             marks.put(mark, rect);
                             Point point = new Point((int) rect.getX(),
-                                    positions.indexOf(c.getChannelProperties().getName()) * (int) channelHeight +
+                                    positions.indexOf(c.getChannelProperties().getName()) * channelHeight +
                                     2 * getVScaleOffset());
                             Point endValue = new Point(((int) (rect.getX() + rect.getWidth())),
                                     (int) (c.getAbscissaPosition() -
                                            (dataSource.getChannelValueAtTime(c.getChannelProperties().getName(),
                                     mark.getEndTime()) - c.getChannelProperties().getAbscissaValue()) *
                                            c.getChannelProperties().getZoom()));
-                            float markData[] = dataSource.getChannelData(c.getChannelProperties().getName(),
+                            float[] markData = dataSource.getChannelData(c.getChannelProperties().getName(),
                                     mark.getMarkTime(), mark.getEndTime());
                             int maxPos = 0;
                             int minPos = 0;
@@ -616,7 +621,7 @@ public class Channels extends javax.swing.JPanel {
 
 
     /** Proporciona un listado de los nombres de los canales cargados, esten o no visibles */
-    public ArrayList<String> getChannelNames() {
+    public List<String> getChannelNames() {
         ArrayList<String> temp = new ArrayList<String>();
         synchronized (syncElements) {
             Set<String> channelsSync = syncElements.getChannels().keySet();
@@ -687,10 +692,6 @@ public class Channels extends javax.swing.JPanel {
         return separatorsStroke;
     }
 
-    public void setSeparatorsStroke(Stroke separatorsStroke) {
-        this.separatorsStroke = separatorsStroke;
-    }
-
     public boolean hasChannel(String channelName) {
         boolean hasChannel;
         synchronized (syncElements) {
@@ -704,9 +705,9 @@ public class Channels extends javax.swing.JPanel {
 //        return l2d;
 //    }
 
-    private void setL2d(Line2D l2d) {
-        this.l2d = l2d;
-    }
+//    private void setL2d(Line2D l2d) {
+//        this.l2d = l2d;
+//    }
 
 //    private Rectangle2D getR2d() {
 //        return r2d;

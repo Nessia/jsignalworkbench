@@ -11,6 +11,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import net.javahispano.jsignalwb.SignalManager;
 import net.javahispano.jsignalwb.plugins.LoaderAdapter;
@@ -25,6 +27,8 @@ import net.javahispano.jsignalwb.plugins.LoaderAdapter;
  *   Abraham Otero
  */
 public class BasicLoader extends LoaderAdapter {
+
+    private static final Logger LOGGER = Logger.getLogger(BasicLoader.class.getName());
 
     /** Creates a new instance of basicLoader */
     public BasicLoader() {
@@ -52,10 +56,11 @@ public class BasicLoader extends LoaderAdapter {
     protected float[][] loadSignals(File f) throws Exception {
         float[][] values = null;
         FileReader fr2 = null;
-        FileReader fr = new FileReader(f);
-        BufferedReader input = new BufferedReader(fr);
-
+        FileReader fr = null;
+        BufferedReader input = null;
         try {
+            fr = new FileReader(f);
+            input = new BufferedReader(fr);
             String line;
             StringTokenizer st;
             int index1 = 0;
@@ -97,12 +102,22 @@ public class BasicLoader extends LoaderAdapter {
                 pos = 0;
                 index1++;
             }
-
+        } catch(IOException ioe){
+            throw ioe;
         } finally {
-            input.close();
-            fr.close();
+            if(fr != null){
+                try {
+                     fr.close();
+                } catch (IOException e) {
+                    LOGGER.log(Level.FINEST, e.getMessage(), e);
+                }
+            }
             if(fr2 != null){
-                fr2.close();
+                try {
+                     fr2.close();
+                } catch (IOException e) {
+                    LOGGER.log(Level.FINEST, e.getMessage(), e);
+                }
             }
         }
         return values;

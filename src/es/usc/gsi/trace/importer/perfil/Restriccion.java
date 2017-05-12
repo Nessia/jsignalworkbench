@@ -18,23 +18,6 @@ public class Restriccion implements RestriccionInterface, Serializable {
 
     static final long serialVersionUID = 1237L;
 
-//    public static final int SEMANTICA_PENDIENTE = 0;
-//    public static final int SEMANTICA_PERSISTENCIA_EN_PENDIENTE = 1;
-//    public static final int SEMANTICA_RECTA_BORROSA = 2;
-//    public static final int SEMANTICA_TUBO_BORROSO = 4;
-//    public static final int SEMANTICA_SIN_SEMANTICA = 3;
-//    public static final int CUANTIFICADOR_TODO = 1;
-//    public static final int CUANTIFICADOR_CASI_TODO = 2;
-//    public static final int CUANTIFICADOR_MUCHO = 4;
-//    public static final int CUANTIFICADOR_MITAD = 5;
-//    public static final int CUANTIFICADOR_POCO = 6;
-//    public static final int UNIDADES_MILISEGUNDOS = 1;
-//    public static final int UNIDADES_SEGUNDOS = 2;
-//    public static final int UNIDADES_MINUTOS = 3;
-//    public static final int UNIDADES_HORAS = 4;
-//    public static final int CUANTIFICADOR_MAYOR_PARTE = 3;
-
-
     public enum Semantica { PENDIENTE, PERSISTENCIA_EN_PENDIENTE,
                   RECTA_BORROSA, TUBO_BORROSO, SIN_SEMANTICA}
     public enum Cuantificador { TODO, CASI_TODO, MAYOR_PARTE, MUCHO, MITAD, POCO }

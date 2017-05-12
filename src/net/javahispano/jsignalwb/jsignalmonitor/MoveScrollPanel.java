@@ -8,7 +8,7 @@ package net.javahispano.jsignalwb.jsignalmonitor;
 
 import java.awt.Color;
 
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.*;
 
 
 /**
@@ -22,15 +22,15 @@ public class MoveScrollPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = -458399409807671860L;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton configButton;
-    private javax.swing.JButton defaultButton;
-    private javax.swing.JLabel infoLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JButton okButton;
+    private JButton configButton;
+    private JButton defaultButton;
+    private JLabel infoLabel;
+    private JButton jButton1;
+    private JButton jButton2;
+    private JComboBox<String> jComboBox1;
+//    private JPanel jPanel1;
+    private JTextField jTextField1;
+    private JButton okButton;
     // End of variables declaration//GEN-END:variables
 
     private JSignalMonitor jsm;
@@ -54,17 +54,17 @@ public class MoveScrollPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<String>();
-        jButton2 = new javax.swing.JButton();
-        infoLabel = new javax.swing.JLabel();
-        okButton = new javax.swing.JButton();
-        defaultButton = new javax.swing.JButton();
-        configButton = new javax.swing.JButton();
+        JPanel jPanel1 = new JPanel();
+        jButton1 = new JButton();
+        jTextField1 = new JTextField();
+        jComboBox1 = new JComboBox<String>();
+        jButton2 = new JButton();
+        infoLabel = new JLabel();
+        okButton = new JButton();
+        defaultButton = new JButton();
+        configButton = new JButton();
 
-        defaultButton = new javax.swing.JButton();
+        defaultButton = new JButton();
         infoLabel.setFont(jsm.getJSMProperties().getLookAndFeelConfiguration().getSmallFont());
         infoLabel.setForeground(jsm.getJSMProperties().getLookAndFeelConfiguration().getColorFont());
         okButton.setFont(jsm.getJSMProperties().getLookAndFeelConfiguration().getSmallFont());
@@ -82,14 +82,14 @@ public class MoveScrollPanel extends javax.swing.JPanel {
         jButton2.setFont(jsm.getJSMProperties().getLookAndFeelConfiguration().getSmallFont());
         jButton2.setForeground(jsm.getJSMProperties().getLookAndFeelConfiguration().getColorFont());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGap(0, 100, Short.MAX_VALUE)
                 );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGap(0, 100, Short.MAX_VALUE)
                 );
 
@@ -120,7 +120,7 @@ public class MoveScrollPanel extends javax.swing.JPanel {
         });
 
         infoLabel.setForeground(new java.awt.Color(0, 0, 255));
-        infoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
         infoLabel.setText("0 ms");
 
         okButton.setText("OK");
@@ -150,14 +150,14 @@ public class MoveScrollPanel extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                           .addContainerGap()
                           .addComponent(configButton)
-                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                          .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                           .addComponent(okButton)
                           .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                           .addComponent(jButton1)

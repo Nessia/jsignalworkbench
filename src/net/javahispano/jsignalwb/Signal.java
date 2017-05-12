@@ -1,6 +1,7 @@
 package net.javahispano.jsignalwb;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 
@@ -18,8 +19,12 @@ import org.joda.time.DateTime;
  *    Copyright 2006-2007. This software is under the Apache License Version 2.0
  *   (http://www.apache.org/licenses/).
  */
-public class Signal {
+public class Signal implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7219179744727512231L;
     /** Almacena el nombre de la senal*/
     private String name;
     /** Almacena el valor de la senal en cada instante de tiempo*/

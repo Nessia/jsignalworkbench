@@ -35,6 +35,9 @@ import research.beats.RatasLoader;
  */
 public class DebugPluginsManager {
 
+    private static final String PLUGIN_TYPE_ALGORITHM = "algorithm";
+    private static final String PLUGIN_TYPE_GENERIC = "generic";
+
     private static boolean analisisECG = true;
     private static boolean shas = true;
     private static boolean gridsDeSAHS = false;
@@ -214,25 +217,27 @@ public class DebugPluginsManager {
 //                                        new SignalGenerationPlugin()));
 //    }
 
+
+
     private static void diversosPluginsDeTest(ArrayList<DebugPluginInfo> plugins) {
         if (diversosPluginsDeTest) {
-            plugins.add(new DebugPluginInfo("algorithm", "Concurrencia",
+            plugins.add(new DebugPluginInfo(PLUGIN_TYPE_ALGORITHM, "Concurrencia",
                                             new PruebaDeConcurrenciaParaSwing()));
-            plugins.add(new DebugPluginInfo("algorithm", "Concurrencia 2",
+            plugins.add(new DebugPluginInfo(PLUGIN_TYPE_ALGORITHM, "Concurrencia 2",
                                             new PruebaDeConcurrenciaParaSwing2()));
-            plugins.add(new DebugPluginInfo("algorithm", "AddSignalPropertiesPlugin",
+            plugins.add(new DebugPluginInfo(PLUGIN_TYPE_ALGORITHM, "AddSignalPropertiesPlugin",
                                             new AddSignalPropertiesPlugin()));
-            plugins.add(new DebugPluginInfo("algorithm", "AddSinPlugin",
+            plugins.add(new DebugPluginInfo(PLUGIN_TYPE_ALGORITHM, "AddSinPlugin",
                                             new AddSinPlugin()));
-            plugins.add(new DebugPluginInfo("algorithm", "Concurrencia",
+            plugins.add(new DebugPluginInfo(PLUGIN_TYPE_ALGORITHM, "Concurrencia",
                                             new PruebaDeConcurrenciaParaSwing()));
-            plugins.add(new DebugPluginInfo("generic", "AddToolBarElementsPlugin",
+            plugins.add(new DebugPluginInfo(PLUGIN_TYPE_GENERIC, "AddToolBarElementsPlugin",
                                             new AddToolBarElementsPlugin()));
-            plugins.add(new DebugPluginInfo("generic", "AddComponentPlugin",
+            plugins.add(new DebugPluginInfo(PLUGIN_TYPE_GENERIC, "AddComponentPlugin",
                                             new AddComponentPlugin()));
-            plugins.add(new DebugPluginInfo("generic", "AddJMenuPlugin",
+            plugins.add(new DebugPluginInfo(PLUGIN_TYPE_GENERIC, "AddJMenuPlugin",
                                             new AddJMenuPlugin()));
-            plugins.add(new DebugPluginInfo("generic", "ShowSignalsPropertiesPlugin",
+            plugins.add(new DebugPluginInfo(PLUGIN_TYPE_GENERIC, "ShowSignalsPropertiesPlugin",
                                             new ShowSignalsPropertiesPlugin()));
 
         }

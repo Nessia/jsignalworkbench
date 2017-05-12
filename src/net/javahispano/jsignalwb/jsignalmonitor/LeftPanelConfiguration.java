@@ -6,17 +6,25 @@
 
 package net.javahispano.jsignalwb.jsignalmonitor;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Roman Segador
  */
-public class LeftPanelConfiguration {
+public class LeftPanelConfiguration implements Serializable{
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3020014822594798367L;
+
     private boolean arrowsVisible;
     private boolean nameVisible;
     private boolean magnitudeVisible;
     private boolean frecuencyVisible;
     private boolean zoomVisible;
     private boolean pointVisible;
+
     public LeftPanelConfiguration() {
         this(true, true, false, false, false, true);
     }
@@ -81,7 +89,7 @@ public class LeftPanelConfiguration {
     }
 
     public boolean[] getProperties() {
-        boolean properties[] = new boolean[6];
+        boolean[] properties = new boolean[6];
         properties[0] = arrowsVisible;
         properties[1] = nameVisible;
         properties[2] = magnitudeVisible;
@@ -91,7 +99,7 @@ public class LeftPanelConfiguration {
         return properties;
     }
 
-    public void setProperties(boolean properties[]) {
+    public void setProperties(boolean[] properties) {
         if (properties.length != 6) {
             throw new RuntimeException("Left panel configuration needs exactly 6 arguments");
         }

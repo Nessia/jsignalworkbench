@@ -25,7 +25,10 @@ import org.jdom.input.SAXBuilder;
  *   Abraham Otero
  */
 public class DefaultLoader extends LoaderAdapter {
-    private ArrayList<String> extensions; //Almacena las extensiones en que es capaz de almacenar senales el plugin
+     public static final String ATTR_FREQUENCY = "Frecuency";
+     public static final String ATTR_VERSION = "Version";
+
+    private final List<String> extensions; //Almacena las extensiones en que es capaz de almacenar senales el plugin
     private float frecuency;
     private long scrollValue;
     private String leftPanelConfig;
@@ -68,7 +71,7 @@ public class DefaultLoader extends LoaderAdapter {
      * unidades, etc. de las senhales. El segundo es el que se encarga de cargar
      * los valores (arrays de datos) de las senhales.
      *
-     * @param file File
+     * @param fichero File
      * @param sm {@link SignalManager}.
      * @param pm {@link PluginManager}.
      * @throws Exception
@@ -77,58 +80,48 @@ public class DefaultLoader extends LoaderAdapter {
      */
     @Override
     public boolean load(File file) throws Exception {
+         File fichero = file;
         //PluginManager pm=jswbManager.getPluginManager();
         SignalManager sm = JSWBManager.getSignalManager();
-        if (file != null && file.getName().toLowerCase().endsWith(".jsw")) {
-            file = file.getParentFile();
+        if (fichero != null && fichero.getName().toLowerCase().endsWith(".jsw")) {
+            fichero = fichero.getParentFile();
         }
         FileFilter ff = new FileFilter() {
             public boolean accept(File f) {
-
-                if (f.getName().toLowerCase().endsWith(".jsw")) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return f.getName().toLowerCase().endsWith(".jsw");
             }
         };
-        if (file != null && file.isDirectory() && file.listFiles(ff) != null && file.listFiles(ff).length > 0) {
-            file = file.listFiles(ff)[0];
+        if (fichero != null && fichero.isDirectory() && fichero.listFiles(ff) != null && fichero.listFiles(ff).length > 0) {
+            fichero = fichero.listFiles(ff)[0];
             ArrayList<Signal> signals = new ArrayList<Signal>();
-            if (loadValues(loadXml(file, signals), signals)) {
-                boolean flag = true;
-                for (Signal s : signals) {
-                    if (!sm.addSignal(s)) {
-                        flag = false;
-                    }
-                }
-                if (leftPanelConfig != null) {
-                    /*
-                                         @todo bug
-                     ahora este codigo se ejecuta fuera del EDT
-
-                     */
-
-                    JSWBManager.getJSWBManagerInstance().setJSMLeftPanelConfigurationString(leftPanelConfig);
-                }
-                JSWBManager.getJSWBManagerInstance().setJSMFrecuency(frecuency);
-                //genera eventos que pueden afectar a componentes Swing
-                JSWBManager.getJSWBManagerInstance().setJSMScrollValue(scrollValue);
-                //refresca JSignalMonitor
-                JSWBManager.getJSWBManagerInstance().refreshJSM(false);
-
-                //JSWBManager.getJSWBManagerInstance().getJSM().repaintAll();
-                return flag;
-            } else {
+            if (!loadValues(loadXml(fichero, signals), signals)) {
                 return false;
             }
-        } else {
-            return false;
+            boolean flag = true;
+            for (Signal s : signals) {
+                if (!sm.addSignal(s)) {
+                    flag = false;
+                }
+            }
+            if (leftPanelConfig != null) {
+                // @TODO bug ahora este codigo se ejecuta fuera del EDT
+
+                JSWBManager.getJSWBManagerInstance().setJSMLeftPanelConfigurationString(leftPanelConfig);
+            }
+            JSWBManager.getJSWBManagerInstance().setJSMFrecuency(frecuency);
+            //genera eventos que pueden afectar a componentes Swing
+            JSWBManager.getJSWBManagerInstance().setJSMScrollValue(scrollValue);
+            //refresca JSignalMonitor
+            JSWBManager.getJSWBManagerInstance().refreshJSM(false);
+
+            //JSWBManager.getJSWBManagerInstance().getJSM().repaintAll();
+            return flag;
         }
+        return false;
     }
 
     @Override
-    public ArrayList<String> getAvalaibleExtensions() {
+    public List<String> getAvalaibleExtensions() {
         return extensions;
     }
 
@@ -160,33 +153,26 @@ public class DefaultLoader extends LoaderAdapter {
             Document doc = builder.build(f);
             Element root = doc.getRootElement();
 
-            File fileValues = new File(f.getParent() + "/" + root.getAttribute("path").getValue());
+            File fileValues = new File(f.getParent(), root.getAttribute("path").getValue());
             List<Element> signalsXML = (List<Element>) root.getChildren("Signal");
 
             Iterator<Element> i = signalsXML.iterator();
             while (i.hasNext()) {
-                Element signal = (Element) i.next();
+                Element signal = i.next();
                 Signal s;
                 if (Boolean.valueOf(signal.getAttribute("HasPosibility").getValue())) {
                     s = new Signal(signal.getAttribute("Name").getValue(),
-                                   new float[Integer.parseInt(signal.getAttribute(
-                                           "Size").getValue())],
-                                   Float.parseFloat(signal.getAttribute("Frecuency").
-                            getValue()),
-                                   Long.parseLong(signal.getAttribute("Start").
-                                                  getValue()),
+                                   new float[signal.getAttribute("Size").getIntValue()],
+                                   signal.getAttribute(ATTR_FREQUENCY).getFloatValue(),
+                                   signal.getAttribute("Start").getLongValue(),
                                    signal.getAttribute("Magnitude").getValue(),
-                                   new short[Integer.parseInt(signal.getAttribute(
-                                           "Size").getValue())]);
+                                   new short[signal.getAttribute("Size").getIntValue()]);
                     //s.setHasColors(true);
                 } else {
                     s = new Signal(signal.getAttribute("Name").getValue(),
-                                   new float[Integer.parseInt(signal.getAttribute(
-                                           "Size").getValue())],
-                                   Float.parseFloat(signal.getAttribute("Frecuency").
-                            getValue()),
-                                   Long.parseLong(signal.getAttribute("Start").
-                                                  getValue()),
+                                   new float[signal.getAttribute("Size").getIntValue()],
+                                   signal.getAttribute(ATTR_FREQUENCY).getFloatValue(),
+                                   signal.getAttribute("Start").getLongValue(),
                                    signal.getAttribute("Magnitude").getValue());
                     //s.setHasColors(false);
                 }
@@ -197,9 +183,9 @@ public class DefaultLoader extends LoaderAdapter {
                     grid = grid.getChild("Plugin");
                     String key = grid.getAttribute("Key").getValue();
                     if (pm.isPluginRegistered(key)) {
-                        GridPlugin gp = pm.createGridPlugin(key.substring(key.indexOf(":") + 1));
+                        GridPlugin gp = pm.createGridPlugin(key.substring(key.indexOf(':') + 1));
                         gp.setSignal(s);
-                        if (gp.getPluginVersion().equals(grid.getAttribute("Version").getValue())) {
+                        if (gp.getPluginVersion().equals(grid.getAttribute(ATTR_VERSION).getValue())) {
                             if (gp.hasDataToSave()) {
                                 gp.setSavedData(grid.getText());
                             }
@@ -217,7 +203,7 @@ public class DefaultLoader extends LoaderAdapter {
                 Iterator<Element> propertiesList = ((List<Element>) signal.getChildren("ChannelProperties")).iterator();
                 Element properties;
                 if (propertiesList.hasNext()) {
-                    properties = (Element) propertiesList.next();
+                    properties = propertiesList.next();
                     /*s.getProperties().setZoom(Float.valueOf(properties.getAttribute(
                             "Zoom").getValue()));*/
                     s.getProperties().setDataColor(new Color(Integer.valueOf(
@@ -231,18 +217,18 @@ public class DefaultLoader extends LoaderAdapter {
                     //      getAttribute("AbscissaValue").getValue()));
 //                    float abs=Float.valueOf(properties.
 //                            getAttribute("AbscissaValue").getValue());
-                    float min = Float.valueOf(properties.getAttribute("MinValue").getValue());
-                    float max = Float.valueOf(properties.getAttribute("MaxValue").getValue());
+                    float min = properties.getAttribute("MinValue").getFloatValue();
+                    float max = properties.getAttribute("MaxValue").getFloatValue();
                     s.getProperties().setVisibleRange(min, max);
                 }
                 Iterator<Element> marksList = ((List<Element>)signal.getChildren("Mark")).iterator();
                 Element mark;
                 while (marksList.hasNext()) {
-                    mark = (Element) marksList.next();
+                    mark = marksList.next();
                     String pluginName = mark.getAttribute("Name").getValue();
                     if (pm.isPluginRegistered("mark", pluginName)) {
                         MarkPlugin mp = pm.createMarkPlugin(pluginName);
-                        if (mp.getPluginVersion().equals(mark.getAttribute("Version").getValue())) {
+                        if (mp.getPluginVersion().equals(mark.getAttribute(ATTR_VERSION).getValue())) {
                             mp.setMarkTime(Long.parseLong(mark.getAttribute("MarkTime").getValue()));
                             if (Boolean.parseBoolean(mark.getAttribute("Interval").getValue())) {
                                 mp.setEndTime(Long.parseLong(mark.getAttribute("EndTime").getValue()));
@@ -264,7 +250,7 @@ public class DefaultLoader extends LoaderAdapter {
                 Iterator<Element> propertyList = ((List<Element>) signal.getChildren("Property")).iterator();
                 Element property;
                 while (propertyList.hasNext()) {
-                    property = (Element) propertyList.next();
+                    property = propertyList.next();
                     String propertyName = property.getAttribute("Name").getValue();
                     String beanString = property.getText();
                     ByteArrayInputStream byteArrayIS = new ByteArrayInputStream(beanString.getBytes());
@@ -284,7 +270,7 @@ public class DefaultLoader extends LoaderAdapter {
                     String pluginName = annotation.getAttribute("Name").getValue();
                     if (pm.isPluginRegistered("annotation", pluginName)) {
                         AnnotationPlugin mp = pm.createAnnotationPlugin(pluginName);
-                        if (mp.getPluginVersion().equals(annotation.getAttribute("Version").getValue())) {
+                        if (mp.getPluginVersion().equals(annotation.getAttribute(ATTR_VERSION).getValue())) {
                             mp.setAnnotationTime(Long.parseLong(annotation.getAttribute("MarkTime").getValue()));
                             //mp.setJSWBManager(jswbManager);
                             if (Boolean.parseBoolean(annotation.getAttribute("Interval").getValue())) {
@@ -308,7 +294,7 @@ public class DefaultLoader extends LoaderAdapter {
             Iterator<Element> jsmList = ((List<Element>) root.getChildren("JSignalMonitor")).iterator();
             if (jsmList.hasNext()) {
                 Element jsm = jsmList.next();
-                frecuency = Float.valueOf(jsm.getAttribute("Frecuency").getValue());
+                frecuency = Float.valueOf(jsm.getAttribute(ATTR_FREQUENCY).getValue());
                 scrollValue = Long.valueOf(jsm.getAttribute("ScrollPosition").getValue());
 //                leftPanelConfig=jsm.getAttribute("LeftPanelConfig").getValue();
 
@@ -323,7 +309,7 @@ public class DefaultLoader extends LoaderAdapter {
                 String pluginKey = plugin.getAttribute("Key").getValue();
                 if (pm.isPluginRegistered(pluginKey)) {
                     Plugin p = pm.getPlugin(pluginKey);
-                    if (p.getPluginVersion().equals(plugin.getAttribute("Version").getValue())) {
+                    if (p.getPluginVersion().equals(plugin.getAttribute(ATTR_VERSION).getValue())) {
                         if (p.hasDataToSave()) {
                             p.setSavedData(plugin.getText());
                         }
@@ -398,7 +384,7 @@ public class DefaultLoader extends LoaderAdapter {
                                              }
                                              else
                          signals.get(index1).getValues()[pos]=Float.parseFloat(temp);*/
-                        if (!temp.equals("\t")) {
+                        if (!"\t".equals(temp)) {
                             /**
                              * @todo
                              * java.lang.IndexOutOfBoundsException: Index: 14, Size: 14

@@ -29,7 +29,7 @@ public class AbscissaOffsetAction extends AbstractAction {
     //private int value;
 
     /** Creates a new instance of AbscissaOffsetAction */
-    public AbscissaOffsetAction(JSignalMonitor jsm, String signalName, int value) {
+    public AbscissaOffsetAction(JSignalMonitor jsm/*, String signalName*/, int value) {
         this.jsm = jsm;
         //this.signalName = signalName;
         //this.value = value;

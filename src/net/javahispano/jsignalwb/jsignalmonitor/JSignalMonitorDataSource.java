@@ -1,5 +1,6 @@
 package net.javahispano.jsignalwb.jsignalmonitor;
 
+import java.io.Serializable;
 import java.util.List;
 
 import net.javahispano.jsignalwb.jsignalmonitor.marks.JSignalMonitorAnnotation;
@@ -9,7 +10,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.marks.JSignalMonitorMark;
  *
  * @author Roman
  */
-public interface JSignalMonitorDataSource {
+public interface JSignalMonitorDataSource extends Serializable {
 
     /**
      * Devuelve los valores de la senhal que se le pasa como parametro en el

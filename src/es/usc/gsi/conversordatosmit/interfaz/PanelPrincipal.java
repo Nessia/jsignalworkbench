@@ -124,7 +124,7 @@ public class PanelPrincipal extends JPanel /* implements ComponentListener */ {
 
     // 2.- OBTENCION DE ARRAY DE PARAMETROS
 
-    public Parametro[] getParametros() throws OutOfMemoryError {
+    public Parametro[] getParametrosSeleccionados() throws OutOfMemoryError {
         return controlInterfaz.getParametrosSeleccionados();
     }
 

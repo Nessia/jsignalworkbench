@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -25,6 +27,8 @@ import net.javahispano.jsignalwb.plugins.Plugin;
  * @author  Compaq_Propietario
  */
 public class PluginManagerPanel extends javax.swing.JPanel {
+
+    private static final Logger LOGGER = Logger.getLogger(PluginManagerPanel.class.getName());
     /**
      *
      */
@@ -58,7 +62,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
     private JFileChooser jfc;
     private Modes mode;
     //private TableModelPluginManager dtm;
-    private DefaultTableModel dtm;
+//    private DefaultTableModel dtm;
 
     /** Creates new form PluginManagerPanel */
     public PluginManagerPanel(/*JSWBManager jswbManager*/) {
@@ -91,7 +95,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
     }
 
     void refreshJTable() {
-        dtm = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
         dtm.setRowCount(0);
 
         File[] plugins = JSWBManager.getPluginManager().getInstalledPlugins();
@@ -111,7 +115,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
                     }
                     jarFile.close();
                 } catch (IOException ex) {
-                    ex.printStackTrace();
+                    LOGGER.log(Level.WARNING, ex.getMessage(), ex);
                 }
             }
             Map<String, ArrayList<String>> registeredPlugins = JSWBManager.getPluginManager().getRegisteredPlugins();
@@ -129,13 +133,13 @@ public class PluginManagerPanel extends javax.swing.JPanel {
 //                    || (kind.equals("mark") && mode == 6)
 //                    || (kind.equals("annotation") && mode == 7)) {
                 if (mode == Modes.ALL || mode == Modes.FROM_JAR_FILE
-                      || (kind.equals("loader") && mode == Modes.LOADERS)
-                      || (kind.equals("saver") && mode == Modes.SAVERS)
-                      || (kind.equals("algorithm") && mode == Modes.ALGORITHMS)
-                      || (kind.equals("generic") && mode == Modes.GENERICS)
-                      || (kind.equals("grid") && mode == Modes.GRIDS)
-                      || (kind.equals("mark") && mode == Modes.MARKS)
-                      || (kind.equals("annotation") && mode == Modes.ANNOTATIONS)) {
+                      || ("loader".equals(kind) && mode == Modes.LOADERS)
+                      || ("saver".equals(kind) && mode == Modes.SAVERS)
+                      || ("algorithm".equals(kind) && mode == Modes.ALGORITHMS)
+                      || ("generic".equals(kind) && mode == Modes.GENERICS)
+                      || ("grid".equals(kind) && mode == Modes.GRIDS)
+                      || ("mark".equals(kind) && mode == Modes.MARKS)
+                      || ("annotation".equals(kind) && mode == Modes.ANNOTATIONS)) {
                     temp = registeredPlugins.get(kind);
                     for (String pluginName : temp) {
                         if (mode != Modes.FROM_JAR_FILE || pluginJarAssociation.containsKey(kind + ":" + pluginName)) {
@@ -189,7 +193,7 @@ public class PluginManagerPanel extends javax.swing.JPanel {
                                                 new JButton(new PluginDetailAction(kind + ":" + pluginName, this)),
                                                 uninstall});
                                     } catch (IOException ex) {
-                                        ex.printStackTrace();
+                                        LOGGER.log(Level.WARNING, ex.getMessage(), ex);
                                     }
                                 } else {
                                     //jButton4.setEnabled(false);

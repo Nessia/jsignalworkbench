@@ -1,6 +1,7 @@
 package net.javahispano.jsignalwb.plugins;
 
 import java.io.File;
+import java.io.Serializable;
 
 import javax.swing.Icon;
 
@@ -21,7 +22,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *   (http://www.apache.org/licenses/). Copyright 2006-2007 Roman Segador y
  *   Abraham Otero
  */
-public interface Plugin {
+public interface Plugin extends Serializable{
     /**
      * Proporciona el hombre del plugin.
      *

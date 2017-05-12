@@ -11,6 +11,10 @@ package net.javahispano.jsignalwb.jsignalmonitor;
 
 public class Resample {
 
+    private Resample(){
+        // Hide constructor
+    }
+
     /**
      * Remuestre el array de float que se le pase. No emeplea suavizado.
      * @param datos datos iniciales a remuestrear

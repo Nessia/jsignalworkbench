@@ -14,7 +14,7 @@ import es.usc.gsi.conversordatosmit.excepciones.FicheroNoValidoException;
 import es.usc.gsi.conversordatosmit.utilidades.ParseadorCadena;
 import es.usc.gsi.conversordatosmit.utilidades.ParseadorFecha;
 
-public class FicheroHead extends File {
+public final class FicheroHead extends File {
 
     private static final Logger LOGGER = Logger.getLogger(FicheroHead.class.getName());
     /**
@@ -36,8 +36,8 @@ public class FicheroHead extends File {
 
     private Parametro[] parametros; // Array de parametros de este fichero head.
 
-    private FileReader fr;
-    private BufferedReader br;
+//    private FileReader fr;
+//    private BufferedReader br;
 
     /*
      * Constructores
@@ -45,15 +45,17 @@ public class FicheroHead extends File {
 
     public FicheroHead(String nombreFichero) throws FicheroNoValidoException {
         super(nombreFichero);
+        FileReader fr = null;
+        BufferedReader br = null;
         try {
             fr = new FileReader(this);
             br = new BufferedReader(fr);
 
-            this.leeFichero(); // Inicializacion de atributos.
+            this.leeFichero(br); // Inicializacion de atributos.
             parametros = new Parametro[numSenhales]; // MEJOR: LEER PRIMERO EL FICHERO ALMACENANDO EN UN VECTOR
             // LOS PARAMETROS QUE SON VALIDOS Y LUEGO CREAR EL ARRAY
             // A PARTIR DE ELLOS, POR SI HUBIESE ALGUNO DEFECTUOSO.
-            this.leeParametros();
+            this.leeParametros(br);
 
             // Estimacion del numero de muestras en funcion del tamanho del fichero, si es necesario
 
@@ -97,8 +99,15 @@ public class FicheroHead extends File {
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error al leer el fichero", e);
             throw new FicheroNoValidoException();
+        } finally{
+           if(fr != null){
+               try {
+                    fr.close();
+                } catch (IOException e) {
+                    LOGGER.log(Level.FINEST, e.getMessage(), e);
+                }
+           }
         }
-        ;
     }
 
     public FicheroHead(File fich) throws FicheroNoValidoException {
@@ -141,7 +150,7 @@ public class FicheroHead extends File {
         return num;
     }
 
-    private void leeFichero() throws FicheroNoValidoException {
+    private void leeFichero(BufferedReader br) throws FicheroNoValidoException {
 
         String[] datosFichero;
 
@@ -194,7 +203,7 @@ public class FicheroHead extends File {
     }
 
 
-    private void leeParametros() throws FicheroNoValidoException {
+    private void leeParametros(BufferedReader br) throws FicheroNoValidoException {
         // Poner codigo que posicione el puntero de lectura
         // en la segunda linea del fichero.
         //Parametro par;

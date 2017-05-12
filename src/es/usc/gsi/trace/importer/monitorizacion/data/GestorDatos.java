@@ -886,12 +886,12 @@ public class GestorDatos {
      * que modificar esa coleccion es modificar el almacen.
      * @return
      */
-    public Collection<ResultadosEstadisticos> getEstadisticos() {
-        if (almacen == null) {
-           return null;
-        }
-        return almacen.getEstadisticos();
-    }
+//    public Collection<ResultadosEstadisticos> getEstadisticos() {
+//        if (almacen == null) {
+//           return null;
+//        }
+//        return almacen.getEstadisticos();
+//    }
 
     /**
      * Devuelve todos las correlaciones como un colection.
@@ -899,12 +899,12 @@ public class GestorDatos {
      * que modificar esa coleccion es modificar el almacen.
      * @return
      */
-    public Collection<ResultadoCorrelacion> getCorrelaciones() {
-        if (almacen == null) {
-            return null;
-        }
-        return almacen.getCorrelaciones();
-    }
+//    public Collection<ResultadoCorrelacion> getCorrelaciones() {
+//        if (almacen == null) {
+//            return null;
+//        }
+//        return almacen.getCorrelaciones();
+//    }
 
     /**
      * Devuelve el resultado estadistico asociado con el String que se le pasa.

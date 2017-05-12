@@ -1,5 +1,7 @@
 package net.javahispano.jsignalwb.jsignalmonitor;
 
+import java.io.Serializable;
+
 import javax.swing.JPanel;
 
 /**
@@ -28,8 +30,12 @@ import javax.swing.JPanel;
  * @author Roman Segador y Abraham Otero Copyright 2006-2007. This software is
  *   under the Apache License Version 2.0 (http://www.apache.org/licenses/).
  */
-public class JSignalMonitor {
-    //private JSignalMonitorDataSource jsm;
+public class JSignalMonitor implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8477438763575195140L;
+	//private JSignalMonitorDataSource jsm;
     //private static int index=10;
     private JSignalMonitorPanel jsmPanel;
     private JSMProperties jsmProperties;

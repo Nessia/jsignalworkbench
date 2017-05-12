@@ -28,6 +28,8 @@ import net.javahispano.jsignalwb.jsignalmonitor.Resample;
  */
 public class CalculatorAlgorithm extends AlgorithmAdapter {
 
+    private static final String TITULO = "Calculadora de parametros";
+
     protected String firstSignalName;
     protected String secondSignalName;
     protected String newSignalName;
@@ -69,7 +71,7 @@ public class CalculatorAlgorithm extends AlgorithmAdapter {
     private float[] adjustSignalBeginingsByTrunkingTheEarlyOne(Signal earlySignal, Signal laterSignal) {
         int startOfLatestSignal = TimePositionConverter.timeToPosition(laterSignal.getStart(), earlySignal);
         float[] values = earlySignal.getValues();
-        float data[] = new float[values.length - startOfLatestSignal];
+        float[] data = new float[values.length - startOfLatestSignal];
         for (int j = 0; j < data.length; j++) {
             data[j] = values[startOfLatestSignal + j];
         }
@@ -80,7 +82,7 @@ public class CalculatorAlgorithm extends AlgorithmAdapter {
     private float[] generateNewValues() {
         int fin = Math.min(firstSignalValues.length, secondSignalValues.length);
 
-        float newValues[] = new float[fin];
+        float[] newValues = new float[fin];
         for (int i = 0; i < fin; i++) {
             switch (this.operation) {
             case ADD:
@@ -144,12 +146,7 @@ public class CalculatorAlgorithm extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override
@@ -159,16 +156,16 @@ public class CalculatorAlgorithm extends AlgorithmAdapter {
 
     @Override
     public String getName() {
-        return "Calculadora de parametros";
+        return TITULO;
     }
 
     @Override
     public String getDescription() {
-        return "Calculadora de parametros";
+        return TITULO;
     }
 
     @Override
     public String getShortDescription() {
-        return "Calculadora de parametros";
+        return TITULO;
     }
 }

@@ -31,15 +31,16 @@ public class ExceptionsCollector {
         exceptions.add(exception);
     }
 
-    public void showExceptions(String s) {
+    public void showExceptions(String anterior) {
+
         int van = 0;
-        if (exceptions.size() > 0) {
-            s = "<p><Font Color=RED>" + s + "</Font><p>";
+        if (!exceptions.isEmpty()) {
+             StringBuilder s = new StringBuilder("<p><Font Color=RED>" + anterior + "</Font><p>");
             for (Exception e : exceptions) {
-                s += "<p>-" + e.getMessage();
+                s.append("<p>-" + e.getMessage());
                 van++;
                 if (van > 10) {
-                    s += "<p>- Hay mas problemas....";
+                    s.append("<p>- Hay mas problemas....");
                     break;
                 }
             }

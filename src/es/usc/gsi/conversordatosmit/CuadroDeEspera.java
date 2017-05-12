@@ -26,8 +26,8 @@ public class CuadroDeEspera extends JDialog {
     */
     private static final long serialVersionUID = -7719770104772154018L;
 
-    private Border normal = BorderFactory.createLoweredBevelBorder();
-    private Border selecionado = BorderFactory.createRaisedBevelBorder();
+    private final Border normal = BorderFactory.createLoweredBevelBorder();
+    private final Border seleccionado = BorderFactory.createRaisedBevelBorder();
     private Window frame;
     private boolean cancelado = true;
     private JPanel panel1 = new JPanel();
@@ -169,7 +169,7 @@ public class CuadroDeEspera extends JDialog {
     }
 
     void aceptar_mouseEntered() {
-        aceptar.setBorder(selecionado);
+        aceptar.setBorder(seleccionado);
     }
 
     void aceptar_mouseExited() {
@@ -177,7 +177,7 @@ public class CuadroDeEspera extends JDialog {
     }
 
     void cancelar_mouseEntered() {
-        aceptar.setBorder(selecionado);
+        aceptar.setBorder(seleccionado);
     }
 
     void cancelar_mouseExited() {

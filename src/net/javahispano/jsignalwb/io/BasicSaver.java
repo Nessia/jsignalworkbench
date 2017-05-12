@@ -44,7 +44,8 @@ public class BasicSaver extends SaverAdapter {
         return ext;
     }
 
-    public boolean save(File f, float[][] data, boolean addTXT) throws Exception {
+    public boolean save(File fichero, float[][] data, boolean addTXT) throws Exception {
+        File f = fichero;
         if (addTXT && !f.getName().toLowerCase().endsWith(".txt")) {
             f = new File(f.getPath() + ".txt");
         }
@@ -53,12 +54,10 @@ public class BasicSaver extends SaverAdapter {
 
     @Override
     public boolean save(File f, float[][] data) throws Exception {
-        if (f.exists()) {
-            if (JOptionPane.showConfirmDialog(null,
-                                              "overwirte " + f.getCanonicalPath() + "?", "OverWrite",
-                                              JOptionPane.YES_NO_OPTION) != 0) {
-                return false;
-            }
+        if (f.exists() && JOptionPane.showConfirmDialog(null,
+                   "overwrite " + f.getCanonicalPath() + "?", "OverWrite",
+                   JOptionPane.YES_NO_OPTION) != 0) {
+             return false;
         }
         f.createNewFile();
         f.delete();
@@ -74,8 +73,7 @@ public class BasicSaver extends SaverAdapter {
                         pw.print(data[index2][index]);
                         flag = true;
                     }
-                   if (!flag) continue;
-                   if (index2!= data.length-1) pw.print("\t");
+                    if (flag && index2!= data.length-1) pw.print("\t");
                 }
                 pw.println();
             }

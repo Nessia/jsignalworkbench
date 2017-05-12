@@ -4,6 +4,7 @@
 package es.usc.gsi.conversordatosmit.ficheros.escritura;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -67,7 +68,7 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
 
      private void creaLectores() {
          FicheroHead fhTemp;
-         List<LeeFicheroDat> vectorLectores = new Vector<LeeFicheroDat>();
+         List<LeeFicheroDat> vectorLectores = new ArrayList<LeeFicheroDat>();
 
          for (int i = 0; i < vectorFicherosHead.size(); i++) {
              fhTemp = vectorFicherosHead.get(i);

@@ -12,16 +12,27 @@ import javax.swing.*;
 
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
+import net.javahispano.jsignalwb.ui.JTextFieldDate;
 
 /**
  *
  * @author  Compaq_Propietario
  */
-public class AxesGridPluginConfigureForm extends javax.swing.JPanel {
+public class AxesGridPluginConfigureForm extends JPanel {
     /**
      *
      */
     private static final long serialVersionUID = -6855596227413769996L;
+
+    // Declaracion de varibales -no modificar//GEN-BEGIN:variables
+//    private JButton jButton1;
+//    private JButton jButton2;
+    private JComboBox<String> jComboBox1;
+//    private JLabel jLabel1;
+//    private JLabel jLabel2;
+    private JTextField jTextField1;
+    private JTextFieldDate jTextFieldDate2;
+    // Fin de declaracion de variables//GEN-END:variables
 
     private String value = "1";
     private String unit = "s";
@@ -49,27 +60,27 @@ public class AxesGridPluginConfigureForm extends javax.swing.JPanel {
      */
     // <editor-fold defaultstate="collapsed" desc=" Codigo Generado  ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        jLabel2 = new javax.swing.JLabel();
+        JLabel jLabel2 = new JLabel();
         jTextFieldDate2 = new net.javahispano.jsignalwb.ui.JTextFieldDate();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<String>();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jTextField1 = new JTextField();
+        jComboBox1 = new JComboBox<String>();
+        JLabel jLabel1 = new JLabel();
+        JButton jButton1 = new JButton();
+        JButton jButton2 = new JButton();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 4, true));
         jLabel2.setForeground(java.awt.Color.blue);
         jLabel2.setText("Axe position:");
 
         jTextFieldDate2.setForeground(java.awt.Color.blue);
-        jTextFieldDate2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldDate2.setHorizontalAlignment(JTextField.CENTER);
 
         jTextField1.setForeground(java.awt.Color.blue);
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField1.setHorizontalAlignment(JTextField.CENTER);
         jTextField1.setText("0");
 
         jComboBox1.setForeground(java.awt.Color.blue);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] {"h", "m", "s", "ms"}));
+        jComboBox1.setModel(new DefaultComboBoxModel<String>(new String[] {"h", "m", "s", "ms"}));
 
         jLabel1.setForeground(java.awt.Color.blue);
         jLabel1.setText("Leyend Separation");
@@ -78,7 +89,7 @@ public class AxesGridPluginConfigureForm extends javax.swing.JPanel {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton1ActionPerformed();
             }
         });
 
@@ -86,66 +97,66 @@ public class AxesGridPluginConfigureForm extends javax.swing.JPanel {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton2ActionPerformed();
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                           .addContainerGap()
-                          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                          .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel1, GroupLayout.DEFAULT_SIZE,
+                                                  GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, GroupLayout.DEFAULT_SIZE,
+                                                  GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                          .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                               .addComponent(jTextField1)
-                                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                              .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jTextFieldDate2, javax.swing.GroupLayout.PREFERRED_SIZE, 172,
-                                                  javax.swing.GroupLayout.PREFERRED_SIZE))
+                                              .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                              .addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE,
+                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextFieldDate2, GroupLayout.PREFERRED_SIZE, 172,
+                                                  GroupLayout.PREFERRED_SIZE))
                           .addContainerGap())
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                           .addContainerGap(160, Short.MAX_VALUE)
                           .addComponent(jButton1)
-                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                           .addComponent(jButton2)
                           .addContainerGap())
                 );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                           .addContainerGap()
-                          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextFieldDate2, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                  javax.swing.GroupLayout.PREFERRED_SIZE)
+                          .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTextFieldDate2, GroupLayout.PREFERRED_SIZE,
+                                                  GroupLayout.DEFAULT_SIZE,
+                                                  GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2))
                           .addGap(7, 7, 7)
-                          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                          .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel1)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                  javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                  javax.swing.GroupLayout.PREFERRED_SIZE))
-                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                           javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE,
+                                                  GroupLayout.DEFAULT_SIZE,
+                                                  GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE,
+                                                  GroupLayout.DEFAULT_SIZE,
+                                                  GroupLayout.PREFERRED_SIZE))
+                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+                                           GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                          .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(jButton2)
                                     .addComponent(jButton1))
                           .addContainerGap())
                 );
     } // </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed() { //GEN-FIRST:event_jButton1ActionPerformed
         time = TimeRepresentation.stringToMillis(jTextFieldDate2.getText());
         distance = getDistance();
         grid.setYAxePosition(time);
@@ -153,7 +164,7 @@ public class AxesGridPluginConfigureForm extends javax.swing.JPanel {
         hideJWindow();
     } //GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed() { //GEN-FIRST:event_jButton2ActionPerformed
         hideJWindow();
     } //GEN-LAST:event_jButton2ActionPerformed
 
@@ -215,14 +226,6 @@ public class AxesGridPluginConfigureForm extends javax.swing.JPanel {
         return value;
     }
 
-    // Declaracion de varibales -no modificar//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
-    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate2;
-    // Fin de declaracion de variables//GEN-END:variables
+
 
 }

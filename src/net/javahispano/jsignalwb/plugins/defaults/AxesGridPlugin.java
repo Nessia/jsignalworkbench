@@ -23,12 +23,12 @@ public class AxesGridPlugin extends GridPluginAdapter {
     private long yAxePosition = -1;
     private long distance = -1;
     private Stroke stroke;
-    private Signal signal = null;
+    //private Signal signal = null;
     private String signalName;
 
     public AxesGridPlugin() {
         stroke = new BasicStroke(2);
-        // XXX que chapuza es esta?
+        // XXX que chapuza es esta? @vanesa
         //this.setYAxePosition((new Date(2008 - 1900, 1, 1)).getTime());
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2008 - 1900);
@@ -154,19 +154,19 @@ public class AxesGridPlugin extends GridPluginAdapter {
     }
 
     @Override
-    public void setSavedData(String data) {
-        yAxePosition = Long.parseLong(data.substring(0, data.indexOf("|")));
-        data = data.substring(data.indexOf("|"), data.length());
-        distance = Long.parseLong(data.substring(1, data.indexOf("|", 1)));
-        data = data.substring(data.indexOf("|", 1), data.length());
+    public void setSavedData(String d) {
+        String data = d;
+        yAxePosition = Long.parseLong(data.substring(0, data.indexOf('|')));
+        data = data.substring(data.indexOf('|'), data.length());
+        distance = Long.parseLong(data.substring(1, data.indexOf('|', 1)));
+        data = data.substring(data.indexOf('|', 1), data.length());
         this.signalName = data.substring(1, data.length());
     }
 
     @Override
     public String getDataToSave() {
-        return "" + yAxePosition + "|" + distance + "|" + signal.getName();
+        return yAxePosition + "|" + distance + "|" + signal.getName();
     }
-
 
     public long getYAxePosition() {
         return yAxePosition;

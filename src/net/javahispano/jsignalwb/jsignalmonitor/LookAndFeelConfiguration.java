@@ -2,6 +2,7 @@ package net.javahispano.jsignalwb.jsignalmonitor;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.Serializable;
 
 /**
  * <p>Title: </p>
@@ -15,11 +16,17 @@ import java.awt.Font;
  * @author Abraham Otero
  * @version 0.5
  */
-public class LookAndFeelConfiguration {
+public class LookAndFeelConfiguration implements Serializable{
 
-    private Font smallFont = new java.awt.Font("Tahoma", Font.BOLD, 11),
-    mediumFont = new java.awt.Font("Tahoma", Font.BOLD, 11),
-    largeFont = new java.awt.Font("Tahoma", Font.BOLD, 11);
+    /**
+     *
+     */
+    private static final long serialVersionUID = 976062730409208785L;
+    private static final String FONT_FAMILY = "Tahoma";
+
+    private Font smallFont = new java.awt.Font(FONT_FAMILY, Font.BOLD, 11);
+    private Font mediumFont = new java.awt.Font(FONT_FAMILY, Font.BOLD, 11);
+    private Font largeFont = new java.awt.Font(FONT_FAMILY, Font.BOLD, 11);
     private Color colorFont = Color.BLUE;
 
     public Color getColorFont() {

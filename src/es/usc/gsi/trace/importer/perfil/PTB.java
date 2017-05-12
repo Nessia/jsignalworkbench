@@ -38,7 +38,7 @@ public class PTB implements PTBInterface, Serializable {
     //private int numeroPtoSig = 0;
 
     //private Vector parametros;
-    private List<PtoSig> vectorPtoSig = new Vector<PtoSig>();
+    private List<PtoSig> vectorPtoSig = new ArrayList<PtoSig>();
     private PTBMInterface ptbm;
     private boolean esFlotante = true;
     private HashMap<String,AuxiliarOffset> almacenOffset = new HashMap<String,AuxiliarOffset>();

@@ -45,7 +45,7 @@ public abstract class SaverAdapter extends PluginAdapter implements Saver {
      * @throws Exception
      */
     public boolean save(File f, SignalManager sm) throws Exception {
-        float data[][] = new float[sm.getSignals().size()][];
+        float[][] data = new float[sm.getSignals().size()][];
         int index = 0;
         for (Signal s : sm.getSignals()) {
             data[index] = s.getValues();
@@ -65,6 +65,7 @@ public abstract class SaverAdapter extends PluginAdapter implements Saver {
      * @throws Exception
      */
     public boolean save(File f, float[][] data) throws Exception {
+        // TODO
         return false;
     }
 

@@ -24,6 +24,13 @@ import net.javahispano.jsignalwb.plugins.MarkPluginAdapter;
  * @author Roman
  */
 public class DefaultInstantMark extends MarkPluginAdapter {
+
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7265474046307101524L;
+
     private long markTime;
     private String title;
     private String comentary;
@@ -46,18 +53,22 @@ public class DefaultInstantMark extends MarkPluginAdapter {
         setIsImage(false);
     }
 
+    @Override
     public String getName() {
         return "Default Instant Mark";
     }
 
+    @Override
     public void setMarkTime(long markTime) {
         this.markTime = markTime;
     }
 
+    @Override
     public long getMarkTime() {
         return markTime;
     }
 
+    @Override
     public Image getImage() {
         return bufferedImage;
     }
@@ -70,6 +81,7 @@ public class DefaultInstantMark extends MarkPluginAdapter {
         this.jswbManager = jswbManager;
     }
 
+    @Override
     public void showMarkInfo(Window owner) {
         new DefaultInstantMarkInfoPanel(signal, this).showJWindow(owner);
     }
@@ -94,16 +106,20 @@ public class DefaultInstantMark extends MarkPluginAdapter {
         return title;
     }
 
+    @Override
     public boolean hasDataToSave() {
         return true;
     }
 
+    @Override
     public String getDataToSave() {
         return "title:" + title + "|| comentary:" + comentary + " || icon:" +
                 imagePath + " || isImage:" + isImage + "|| color:" + color.getRGB();
     }
 
-    public void setSavedData(String data) {
+    @Override
+    public void setSavedData(String d) {
+        String data = d;
         data = data.substring(data.indexOf("title:") + 6);
         title = data.substring(0, data.indexOf("||"));
         data = data.substring(data.indexOf("comentary:") + 10);
@@ -114,7 +130,7 @@ public class DefaultInstantMark extends MarkPluginAdapter {
         isImage = Boolean.parseBoolean(data.substring(0, data.indexOf("||")));
         data = data.substring(data.indexOf("color:") + 6);
         color = new Color(Integer.parseInt(data));
-        if (!imagePath.trim().equals("default")) {
+        if (!"default".equals(imagePath.trim())) {
             image = new ImageIcon(imagePath).getImage();
         } else {
             image = getDefaultImage();
@@ -122,6 +138,7 @@ public class DefaultInstantMark extends MarkPluginAdapter {
         refreshBufferedImage();
     }
 
+    @Override
     public String getToolTipText() {
         return title;
     }

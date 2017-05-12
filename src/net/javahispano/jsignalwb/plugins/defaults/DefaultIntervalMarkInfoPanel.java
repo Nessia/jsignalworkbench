@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.Window;
 import java.beans.*;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -26,33 +28,35 @@ import com.michaelbaranov.microba.calendar.CalendarPane;
  * @author  Compaq_Propietario
  */
 public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements PropertyChangeListener {
+
+    private static final Logger LOGGER = Logger.getLogger(DefaultIntervalMarkInfoPanel.class.getName());
     /**
      *
      */
     private static final long serialVersionUID = -6634476406106375360L;
 
  // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField colorTextField;
-    private javax.swing.JTextArea comentaryTextArea;
+    private JTextField colorTextField;
+    private JTextArea comentaryTextArea;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker2;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
+//    private JButton jButton1;
+    private JButton jButton2;
+//    private JButton jButton3;
+//    private JLabel jLabel1;
+//    private JLabel jLabel2;
+//    private JLabel jLabel3;
+//    private JLabel jLabel4;
+//    private JPanel jPanel1;
+//    private JPanel jPanel2;
+//    private JPanel jPanel3;
+//    private JPanel jPanel4;
+//    private JScrollPane jScrollPane1;
     private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
     private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate2;
-    private javax.swing.JLabel kindLabel;
-    private javax.swing.JTextField markTitleTextField;
-    private javax.swing.JLabel signalNameLabel;
+    private JLabel kindLabel;
+    private JTextField markTitleTextField;
+    private JLabel signalNameLabel;
     // End of variables declaration//GEN-END:variables
     private JWindow jw;
 
@@ -67,8 +71,9 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
         initComponents();
         if (signal == null) {
             jButton2.setEnabled(false);
+        }else{
+            signalNameLabel.setText("Signal: " + signal.getName());
         }
-        signalNameLabel.setText("Signal: " + signal.getName());
         markTitleTextField.setText(dim.getTitle());
         //markTimeTextField.setText(TimeRepresentation.timeToString(dim.getMarkTime()));
         //endTimeTextField.setText(TimeRepresentation.timeToString(dim.getEndTime()));
@@ -82,7 +87,7 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
             datePicker1.setDate(new Date(dim.getMarkTime()));
             datePicker2.setDate(new Date(dim.getEndTime()));
         } catch (PropertyVetoException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
         }
         datePicker1.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
         datePicker2.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
@@ -119,27 +124,27 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        jPanel1 = new javax.swing.JPanel();
-        signalNameLabel = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        markTitleTextField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        JPanel jPanel1 = new JPanel();
+        signalNameLabel = new JLabel();
+        JPanel jPanel2 = new JPanel();
+        JLabel jLabel2 = new JLabel();
+        JLabel jLabel3 = new JLabel();
+        markTitleTextField = new JTextField();
+        JLabel jLabel1 = new JLabel();
         jTextFieldDate1 = new net.javahispano.jsignalwb.ui.JTextFieldDate();
         jTextFieldDate2 = new net.javahispano.jsignalwb.ui.JTextFieldDate();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
         datePicker2 = new com.michaelbaranov.microba.calendar.DatePicker();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        comentaryTextArea = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        kindLabel = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        colorTextField = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        JPanel jPanel3 = new JPanel();
+        JLabel jLabel4 = new JLabel();
+        JScrollPane jScrollPane1 = new JScrollPane();
+        comentaryTextArea = new JTextArea();
+        JButton jButton1 = new JButton();
+        kindLabel = new JLabel();
+        jButton2 = new JButton();
+        JPanel jPanel4 = new JPanel();
+        colorTextField = new JTextField();
+        JButton jButton3 = new JButton();
 
         setForeground(java.awt.Color.blue);
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 5, true));
@@ -156,17 +161,17 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
         jLabel3.setText("Mark Title:");
 
         markTitleTextField.setForeground(java.awt.Color.blue);
-        markTitleTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        markTitleTextField.setHorizontalAlignment(JTextField.CENTER);
         markTitleTextField.setText("jTextField1");
 
         jLabel1.setForeground(java.awt.Color.blue);
         jLabel1.setText("End time:");
 
         jTextFieldDate1.setForeground(java.awt.Color.blue);
-        jTextFieldDate1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldDate1.setHorizontalAlignment(JTextField.CENTER);
 
         jTextFieldDate2.setForeground(java.awt.Color.blue);
-        jTextFieldDate2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldDate2.setHorizontalAlignment(JTextField.CENTER);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -261,7 +266,7 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1hideJWindow(evt);
+                jButton1hideJWindow();
             }
         });
 
@@ -274,21 +279,21 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton2ActionPerformed();
             }
         });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         colorTextField.setBackground(dim.getColor());
         colorTextField.setEditable(false);
-        colorTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        colorTextField.setHorizontalAlignment(JTextField.CENTER);
         colorTextField.setText("Mark Color");
 
         jButton3.setText("Choose color");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton3ActionPerformed();
             }
         });
 
@@ -378,7 +383,7 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
                 );
     } // </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton3ActionPerformed() { //GEN-FIRST:event_jButton3ActionPerformed
 
         Color newColor = JColorChooser.showDialog(this, "SelectColor", dim.getColor());
         if (newColor != null) {
@@ -387,18 +392,16 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
         }
     } //GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton2ActionPerformed
-        if (signal != null) {
-            if (JOptionPane.showConfirmDialog(jw.getParent(), "Are you sure?", "Delete mark", JOptionPane.YES_NO_OPTION,
+    private void jButton2ActionPerformed() { //GEN-FIRST:event_jButton2ActionPerformed
+        if (signal != null && JOptionPane.showConfirmDialog(jw.getParent(), "Are you sure?", "Delete mark", JOptionPane.YES_NO_OPTION,
                                               JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-                signal.removeMark(dim);
-                JSWBManager.getJSWBManagerInstance().refreshJSM(false);
-                hideJWindow();
-            }
+             signal.removeMark(dim);
+             JSWBManager.getJSWBManagerInstance().refreshJSM(false);
+             hideJWindow();
         }
     } //GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1hideJWindow(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton1hideJWindow
+    private void jButton1hideJWindow() { //GEN-FIRST:event_jButton1hideJWindow
         hideJWindow();
     } //GEN-LAST:event_jButton1hideJWindow
 

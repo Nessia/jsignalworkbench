@@ -9,6 +9,7 @@ package net.javahispano.jsignalwb.plugins.framework;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -19,6 +20,8 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman Segador
  */
 public class PluginLoadAction extends AbstractAction {
+
+    private static final Logger LOGGER = Logger.getLogger(PluginLoadAction.class.getName());
     /**
      *
      */
@@ -40,7 +43,7 @@ public class PluginLoadAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("loading.....");
+        LOGGER.info("loading.....");
         JSWBManager.getPluginManager().getPlugin(pluginKey);
         if (!JSWBManager.getPluginManager().isPluginLoaded(pluginKey)) {
             JOptionPane.showMessageDialog(JSWBManager.getParentWindow(), "Ploblems loading the plugin");

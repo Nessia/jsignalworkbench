@@ -11,8 +11,11 @@ import java.beans.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
 
 import net.javahispano.jsignalwb.JSWBManager;
@@ -28,35 +31,37 @@ import com.michaelbaranov.microba.calendar.CalendarPane;
  * @author  Compaq_Propietario
  */
 public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements PropertyChangeListener {
+
+    private static final Logger LOGGER = Logger.getLogger(DefaultInstantMarkInfoPanel.class.getName());
     /**
      *
      */
     private static final long serialVersionUID = -6038183406671451579L;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup;
-    private javax.swing.JTextField colorTextField;
-    private javax.swing.JTextArea comentaryTextArea;
+//    private ButtonGroup buttonGroup;
+    private JTextField colorTextField;
+    private JTextArea comentaryTextArea;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
-    private javax.swing.JLabel iconLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    //private static javax.swing.JColorChooser jColorChooser1 = new javax.swing.JColorChooser();
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private JLabel iconLabel;
+    private JButton jButton1;
+    private JButton jButton2;
+    private JButton jButton3;
+    private JButton jButton4;
+    //private static JColorChooser jColorChooser1 = new JColorChooser();
+//    private JLabel jLabel2;
+//    private JLabel jLabel3;
+//    private JLabel jLabel4;
+//    private JPanel jPanel1;
+//    private JPanel jPanel2;
+//    private JPanel jPanel3;
+//    private JRadioButton jRadioButton1;
+    private JRadioButton jRadioButton2;
+//    private JScrollPane jScrollPane1;
     private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
-    private javax.swing.JLabel kindLabel;
-    private javax.swing.JTextField markTitleTextField;
-    private javax.swing.JLabel signalNameLabel;
+    private JLabel kindLabel;
+    private JTextField markTitleTextField;
+    private JLabel signalNameLabel;
     // End of variables declaration//GEN-END:variables
     private JWindow jw;
 
@@ -71,6 +76,8 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
         initComponents();
         if (s == null) {
             jButton2.setEnabled(false);
+        }else{
+            signalNameLabel.setText("Signal: " + s.getName());
         }
 
         if (dim.isImage()) {
@@ -82,7 +89,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
             jButton4.setEnabled(false);
             jButton3.setEnabled(true);
         }
-        signalNameLabel.setText("Signal: " + s.getName());
+
         markTitleTextField.setText(dim.getTitle());
         //markTimeTextField.setText(TimeRepresentation.timeToString(dim.getMarkTime()));
         jTextFieldDate1.setText(TimeRepresentation.timeToString(
@@ -91,7 +98,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
         try {
             datePicker1.setDate(new Date(dim.getMarkTime()));
         } catch (PropertyVetoException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
         }
         datePicker1.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
         comentaryTextArea.setText(dim.getComentary());
@@ -117,36 +124,36 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        buttonGroup = new javax.swing.ButtonGroup();
-        signalNameLabel = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        markTitleTextField = new javax.swing.JTextField();
+        ButtonGroup buttonGroup = new ButtonGroup();
+        signalNameLabel = new JLabel();
+        JPanel jPanel1 = new JPanel();
+        JLabel jLabel2 = new JLabel();
+        JLabel jLabel3 = new JLabel();
+        markTitleTextField = new JTextField();
         jTextFieldDate1 = new net.javahispano.jsignalwb.ui.JTextFieldDate();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        comentaryTextArea = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        kindLabel = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        iconLabel = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        colorTextField = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        JPanel jPanel2 = new JPanel();
+        JLabel jLabel4 = new JLabel();
+        JScrollPane jScrollPane1 = new JScrollPane();
+        comentaryTextArea = new JTextArea();
+        jButton1 = new JButton();
+        kindLabel = new JLabel();
+        jButton2 = new JButton();
+        JPanel jPanel3 = new JPanel();
+        jRadioButton2 = new JRadioButton();
+        iconLabel = new JLabel();
+        jButton4 = new JButton();
+        JRadioButton jRadioButton1 = new JRadioButton();
+        colorTextField = new JTextField();
+        jButton3 = new JButton();
 
-        setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 5, true));
+        setBorder(new LineBorder(new java.awt.Color(255, 153, 0), 5, true));
         signalNameLabel.setForeground(java.awt.Color.blue);
-        signalNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        signalNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         signalNameLabel.setText("Signal:");
-        signalNameLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        signalNameLabel.setBorder(BorderFactory.createEtchedBorder());
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBorder(BorderFactory.createEtchedBorder());
         jLabel2.setForeground(java.awt.Color.blue);
         jLabel2.setText("Instant time:");
 
@@ -154,58 +161,58 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
         jLabel3.setText("Mark Title:");
 
         markTitleTextField.setForeground(java.awt.Color.blue);
-        markTitleTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        markTitleTextField.setHorizontalAlignment(JTextField.CENTER);
         markTitleTextField.setText("jTextField1");
 
         jTextFieldDate1.setForeground(java.awt.Color.blue);
-        jTextFieldDate1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldDate1.setHorizontalAlignment(JTextField.CENTER);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                           .addContainerGap()
-                          .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                          .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3))
-                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                          .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(markTitleTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 221,
+                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                          .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                    .addComponent(markTitleTextField, GroupLayout.DEFAULT_SIZE, 221,
                                                   Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                    .addGroup(GroupLayout.Alignment.TRAILING,
                                               jPanel1Layout.createSequentialGroup()
-                                              .addComponent(jTextFieldDate1, javax.swing.GroupLayout.DEFAULT_SIZE, 192,
+                                              .addComponent(jTextFieldDate1, GroupLayout.DEFAULT_SIZE, 192,
                 Short.MAX_VALUE)
-                                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                              .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 23,
-                javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                              .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                              .addComponent(datePicker1, GroupLayout.PREFERRED_SIZE, 23,
+                GroupLayout.PREFERRED_SIZE)))
                           .addContainerGap())
                 );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                           .addContainerGap()
-                          .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                          .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel3)
-                                    .addComponent(markTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                  javax.swing.GroupLayout.PREFERRED_SIZE))
-                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                           javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                          .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.
+                                    .addComponent(markTitleTextField, GroupLayout.PREFERRED_SIZE,
+                                                  GroupLayout.DEFAULT_SIZE,
+                                                  GroupLayout.PREFERRED_SIZE))
+                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+                                           GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                          .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.
                 BASELINE)
                                               .addComponent(jLabel2)
-                                              .addComponent(jTextFieldDate1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                  javax.swing.GroupLayout.PREFERRED_SIZE))
+                                              .addComponent(jTextFieldDate1, GroupLayout.PREFERRED_SIZE,
+                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(datePicker1, GroupLayout.PREFERRED_SIZE,
+                                                  GroupLayout.DEFAULT_SIZE,
+                                                  GroupLayout.PREFERRED_SIZE))
                           .addContainerGap())
                 );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setBorder(BorderFactory.createEtchedBorder());
         jLabel4.setForeground(java.awt.Color.blue);
         jLabel4.setText("Comment");
 
@@ -213,25 +220,25 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
         comentaryTextArea.setRows(5);
         jScrollPane1.setViewportView(comentaryTextArea);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                           .addContainerGap()
-                          .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287,
+                          .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 287,
                                                   Short.MAX_VALUE)
                                     .addComponent(jLabel4))
                           .addContainerGap())
                 );
         jPanel2Layout.setVerticalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                           .addContainerGap()
                           .addComponent(jLabel4)
-                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                          .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                          .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                           .addContainerGap())
                 );
 
@@ -239,27 +246,27 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hideJWindow(evt);
+                hideJWindowActionPerformed();
             }
         });
 
         kindLabel.setForeground(java.awt.Color.blue);
-        kindLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        kindLabel.setHorizontalAlignment(SwingConstants.CENTER);
         kindLabel.setText("Kind of Mark:");
-        kindLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        kindLabel.setBorder(BorderFactory.createEtchedBorder());
 
         jButton2.setText("Delete");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton2ActionPerformed();
             }
         });
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setBorder(BorderFactory.createEtchedBorder());
         buttonGroup.add(jRadioButton2);
         jRadioButton2.setText("Icon");
-        jRadioButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jRadioButton2.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jRadioButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -268,7 +275,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
             }
         });
 
-        iconLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconLabel.setHorizontalAlignment(SwingConstants.CENTER);
         iconLabel.setIcon(new ImageIcon(dim.getImageToShow().getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
 
         jButton4.setText("Choose Icon");
@@ -276,14 +283,14 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButton4ActionPerformed();
             }
         });
 
         buttonGroup.add(jRadioButton1);
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("Color");
-        jRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jRadioButton1.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -294,119 +301,119 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
 
         colorTextField.setBackground(dim.getColor());
         colorTextField.setEditable(false);
-        colorTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        colorTextField.setHorizontalAlignment(JTextField.CENTER);
         colorTextField.setText("Mark Color");
 
         jButton3.setText("Choose color");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton3ActionPerformed();
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
-                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                           .addContainerGap()
-                          .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                          .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                               .addComponent(jRadioButton1)
-                                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                              .addComponent(colorTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 137,
+                                              .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                              .addComponent(colorTextField, GroupLayout.DEFAULT_SIZE, 137,
                 Short.MAX_VALUE)
-                                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                              .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                              .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE,
-                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                              .addComponent(iconLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 140,
+                                              .addComponent(jRadioButton2, GroupLayout.DEFAULT_SIZE,
+                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                              .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                              .addComponent(iconLabel, GroupLayout.DEFAULT_SIZE, 140,
                 Short.MAX_VALUE)
                                               .addGap(9, 9, 9)))
-                          .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                          .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButton4, GroupLayout.Alignment.TRAILING,
+                                                  GroupLayout.DEFAULT_SIZE,
+                                                  GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton3, GroupLayout.Alignment.TRAILING,
+                                                  GroupLayout.DEFAULT_SIZE,
+                                                  GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                           .addContainerGap())
                 );
         jPanel3Layout.setVerticalGroup(
-                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                           .addContainerGap()
-                          .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.
+                          .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.
                 BASELINE)
                                               .addComponent(jRadioButton2)
-                                              .addComponent(iconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23,
-                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                              .addComponent(iconLabel, GroupLayout.PREFERRED_SIZE, 23,
+                GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jButton4))
-                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                           javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                          .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+                                           GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                          .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton3, GroupLayout.Alignment.TRAILING)
+                                    .addGroup(GroupLayout.Alignment.TRAILING,
                                               jPanel3Layout.
-                                              createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                              .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23,
-                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                              .addComponent(colorTextField, javax.swing.GroupLayout.PREFERRED_SIZE,
-                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                              createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                              .addComponent(jRadioButton1, GroupLayout.PREFERRED_SIZE, 23,
+                GroupLayout.PREFERRED_SIZE)
+                                              .addComponent(colorTextField, GroupLayout.PREFERRED_SIZE,
+                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                           .addContainerGap())
                 );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                           .addContainerGap()
-                          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(signalNameLabel, javax.swing.GroupLayout.Alignment.LEADING,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                              .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 227,
-                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                              .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 78,
+                          .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jPanel3, GroupLayout.Alignment.LEADING,
+                                                  GroupLayout.DEFAULT_SIZE,
+                                                  GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel2, GroupLayout.Alignment.LEADING,
+                                                  GroupLayout.DEFAULT_SIZE,
+                                                  GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel1, GroupLayout.Alignment.LEADING,
+                                                  GroupLayout.DEFAULT_SIZE,
+                                                  GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(signalNameLabel, GroupLayout.Alignment.LEADING,
+                                                  GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
+                                    .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                              .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 227,
+                GroupLayout.PREFERRED_SIZE)
+                                              .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                              .addComponent(jButton2, GroupLayout.DEFAULT_SIZE, 78,
                 Short.MAX_VALUE))
-                                    .addComponent(kindLabel, javax.swing.GroupLayout.Alignment.LEADING,
-                                                  javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE))
+                                    .addComponent(kindLabel, GroupLayout.Alignment.LEADING,
+                                                  GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE))
                           .addContainerGap())
                 );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                           .addContainerGap()
-                          .addComponent(signalNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                          .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                          .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                          .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                          .addComponent(signalNameLabel, GroupLayout.PREFERRED_SIZE, 36,
+                                        GroupLayout.PREFERRED_SIZE)
+                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                          .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE,
+                                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                          .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE,
+                                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                          .addComponent(jPanel3, GroupLayout.PREFERRED_SIZE,
+                                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                           .addComponent(kindLabel)
-                          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                           javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+                                           GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                          .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(jButton1)
                                     .addComponent(jButton2))
                           .addContainerGap())
@@ -426,7 +433,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
         }
     } //GEN-LAST:event_radioButtons
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton4ActionPerformed() { //GEN-FIRST:event_jButton4ActionPerformed
         if (jfc == null) {
             jfc = new JFileChooser();
 
@@ -437,22 +444,8 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
                         return true;
                     }
                     String path = f.getPath().toLowerCase();
-                    if (path.endsWith(".gif")) {
-                        return true;
-                    }
-                    if (path.endsWith(".jpg")) {
-                        return true;
-                    }
-                    if (path.endsWith(".jpeg")) {
-                        return true;
-                    }
-                    if (path.endsWith(".bmp")) {
-                        return true;
-                    }
-                    if (path.endsWith(".png")) {
-                        return true;
-                    }
-                    return false;
+                    return path.endsWith(".gif") || path.endsWith(".jpg") || path.endsWith(".jpeg")
+                            || path.endsWith(".bmp") || path.endsWith(".png");
                 }
 
                 // return a description of files
@@ -468,30 +461,28 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
                 dim.setImageToShow(new ImageIcon(jfc.getSelectedFile().getCanonicalPath()).getImage());
                 dim.setImagePath(jfc.getSelectedFile().getAbsolutePath());
             } catch (IOException ex) {
-                ex.printStackTrace();
+                LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             }
             iconLabel.setIcon(new ImageIcon(dim.getImageToShow().getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
         }
     } //GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton3ActionPerformed() { //GEN-FIRST:event_jButton3ActionPerformed
         Color c = JColorChooser.showDialog(this, "SelectColor", dim.getColor());
         if (c != null) {
             colorTextField.setBackground(c);
         }
     } //GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton2ActionPerformed
-        if (s != null) {
-            if (JOptionPane.showConfirmDialog(jw.getParent(), "Are you sure?", "Delete mark", JOptionPane.YES_NO_OPTION,
+    private void jButton2ActionPerformed() { //GEN-FIRST:event_jButton2ActionPerformed
+        if (s != null && JOptionPane.showConfirmDialog(jw.getParent(), "Are you sure?", "Delete mark", JOptionPane.YES_NO_OPTION,
                                               JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-                s.removeMark(dim);
-                hideJWindow();
-            }
+             s.removeMark(dim);
+             hideJWindow();
         }
     } //GEN-LAST:event_jButton2ActionPerformed
 
-    private void hideJWindow(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_hideJWindow
+    private void hideJWindowActionPerformed() { //GEN-FIRST:event_hideJWindow
         dim.setTitle(markTitleTextField.getText());
         dim.setComentary(comentaryTextArea.getText());
         dim.setColor(colorTextField.getBackground());

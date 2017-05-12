@@ -44,7 +44,7 @@ public class PrintDialog extends JDialog {
     private FlowLayout flowLayout3 = new FlowLayout();
     private JLabel jLabel1 = new JLabel();
     private Color color;
-    private Font font;
+    private Font tipoFuente;
     private JSignalMonitor jsm;
 
     private JLabel jLabel2 = new JLabel();
@@ -52,7 +52,7 @@ public class PrintDialog extends JDialog {
         super(owner, title);
         this.jsm = jsm;
         color = jsm.getJSMProperties().getLookAndFeelConfiguration().getColorFont();
-        font = jsm.getJSMProperties().getLookAndFeelConfiguration().getMediumFont();
+        tipoFuente = jsm.getJSMProperties().getLookAndFeelConfiguration().getMediumFont();
         try {
             jbInit();
         } catch (Exception e) {
@@ -70,12 +70,12 @@ public class PrintDialog extends JDialog {
     }
 
     private void jbInit() throws Exception {
-        everithingRadioButton.setFont(font);
-        signalsRadioButton.setFont(font);
+        everithingRadioButton.setFont(tipoFuente);
+        signalsRadioButton.setFont(tipoFuente);
         signalsRadioButton.setSelected(true);
-        landscapeRadioButton.setFont(font);
+        landscapeRadioButton.setFont(tipoFuente);
         landscapeRadioButton.setSelected(true);
-        portraitRadioButton.setFont(font);
+        portraitRadioButton.setFont(tipoFuente);
         portraitRadioButton.setSelected(true);
         panel1.setLayout(borderLayout1);
         jButton1.setText("Acept");
@@ -83,11 +83,11 @@ public class PrintDialog extends JDialog {
         jButton2.setText("Cancel");
         jButton2.addActionListener(new PrintDialog_jButton2_actionAdapter(this));
         portraitRadioButton.setText("Portrait");
-        portraitRadioButton.setFont(this.font);
+        portraitRadioButton.setFont(this.tipoFuente);
         portraitRadioButton.setForeground(color);
         jPanel2.setLayout(flowLayout1);
         landscapeRadioButton.setText("Landscape");
-        landscapeRadioButton.setFont(this.font);
+        landscapeRadioButton.setFont(this.tipoFuente);
         landscapeRadioButton.setForeground(color);
         jPanel4.setPreferredSize(new Dimension(195, 37));
         jPanel4.setLayout(flowLayout2);
@@ -101,20 +101,20 @@ public class PrintDialog extends JDialog {
         flowLayout3.setHgap(25);
         jLabel1.setFont(new java.awt.Font("Tahoma", Font.BOLD, 11));
         jLabel1.setText("Print");
-        jLabel1.setFont(this.font);
+        jLabel1.setFont(this.tipoFuente);
         jLabel1.setForeground(color);
         jLabel2.setText("Print orientation");
-        jLabel2.setFont(this.font);
+        jLabel2.setFont(this.tipoFuente);
         jLabel2.setForeground(color);
         buttonGroup1.add(portraitRadioButton);
         buttonGroup1.add(landscapeRadioButton);
         jPanel3.setBorder(BorderFactory.createEtchedBorder());
         jPanel4.setBorder(BorderFactory.createEtchedBorder());
         everithingRadioButton.setText("Everithing");
-        everithingRadioButton.setFont(this.font);
+        everithingRadioButton.setFont(this.tipoFuente);
         everithingRadioButton.setForeground(color);
         signalsRadioButton.setText("Only the signals");
-        signalsRadioButton.setFont(this.font);
+        signalsRadioButton.setFont(this.tipoFuente);
         signalsRadioButton.setForeground(color);
         buttonGroup2.add(everithingRadioButton);
         buttonGroup2.add(signalsRadioButton);

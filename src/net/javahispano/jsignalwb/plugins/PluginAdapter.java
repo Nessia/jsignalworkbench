@@ -131,17 +131,18 @@ public abstract class PluginAdapter implements Plugin {
      * Genera un icono con la primera y ultima letra de la cadena de texto que
      * se le pasa.
      *
-     * @param name String
+     * @param nombre String
      * @return Icon
      */
     protected Icon generateImage(String name) {
-        if (name.equals("")) {
-            name = "No icon";
+         String nombre = name;
+        if ("".equals(nombre)) {
+            nombre = "No icon";
         }
-        name = name.toUpperCase();
+        nombre = nombre.toUpperCase();
         BufferedImage bufferedImage = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
-        char first = name.charAt(0);
-        char last = name.charAt(name.length() - 1);
+        char first = nombre.charAt(0);
+        char last = nombre.charAt(nombre.length() - 1);
         Graphics2D g2d = bufferedImage.createGraphics();
         Font font = new Font(Font.SANS_SERIF, Font.BOLD, 13);
         g2d.setBackground(Color.LIGHT_GRAY);
@@ -156,16 +157,17 @@ public abstract class PluginAdapter implements Plugin {
      * Genera un icono con la primera y ultima letra de la cadena de texto que
      * se le pasa.
      *
-     * @param name String
+     * @param nombre String
      * @return Icon
      */
-    protected Icon generateImageSimple(String name,Color color) {
-        if (name.equals("")) {
-            name = "No icon";
+    protected Icon generateImageSimple(String name, Color color) {
+        String nombre = name;
+        if ("".equals(nombre)) {
+            nombre = "No icon";
         }
-        name = name.toUpperCase();
+        nombre = nombre.toUpperCase();
         BufferedImage bufferedImage = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
-        char first = name.charAt(0);
+        char first = nombre.charAt(0);
         //char last = name.charAt(name.length() - 1);
         Graphics2D g2d = bufferedImage.createGraphics();
         Font font = new Font(Font.SANS_SERIF, Font.BOLD, 20);

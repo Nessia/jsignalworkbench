@@ -33,9 +33,10 @@ public class CargarDatosTxt extends CargarDatos {
     @SuppressWarnings("unchecked")
     private void cargaDatos() {
         BufferedReader bf = null;
+        FileReader fr = null;
         try {
-            FileReader f = new FileReader(archivo);
-            bf = new BufferedReader(f);
+            fr = new FileReader(archivo);
+            bf = new BufferedReader(fr);
             File fich = new File(archivo);
             //Marcasmos el Buffer para poder resetearlo una vez averiguado el numero
             //de filas y columnas que hay en el
@@ -66,42 +67,9 @@ public class CargarDatosTxt extends CargarDatos {
             //reseteamos el buffer
             bf.reset();
             //Contadores de linea y columna
-            int lin = 0;
-            int col = 0;
-            do {
-                line = bf.readLine();
-                if (line != null) {
-                    StringTokenizer tk2 = new StringTokenizer(line, "\t ", true);
-                    lin = 0;
-                    while (tk2.hasMoreTokens()) {
-                        String dato_fichero = tk2.nextToken();
-                        if ("\t".equals(dato_fichero)) {
-                            datos[lin][col] = 0;
-                            lin++;
-                            /*  //Si la primera columna es la que falta el dtao = \t 21 \t 23 \t...
-                              //Por lo que en ese caso no hay que consumir ningun\t adicional
-                              if (tk2.hasMoreElements() && lin != 1) {
-                               //consuminos el \t adicional
-                               if (!(tk2.nextElement().equals("\t"))) {
-                             System.out.println("Se esta leyneod mal el fichero de entrada");
-                               }
-                              }*/
 
-                        } else {
-                            datos[lin][col] = Float.parseFloat(dato_fichero);
-                            //Si no estamos en la ultima columna
-                            if (tk2.hasMoreElements()) {
-                                //consuminos el \t adicional
-                                String ultimo_token = tk2.nextToken();
-                                if (!("\t".equals(ultimo_token) || " ".equals(ultimo_token))) {
-                                }
-                            }
-                            lin++;
-                        }
-                    }
-                    col++;
-                }
-            } while (line != null);
+            fijarDatos(bf);
+
             GestorIO.setNumDatos(filas);
             GestorIO.setNumSenales(columnas);
 
@@ -112,14 +80,44 @@ public class CargarDatosTxt extends CargarDatos {
             marcas = null;
             anotaciones = null;
         } finally {
-            if(bf != null){
+            if(fr != null){
                 try {
-                    bf.close();
+                    fr.close();
                 } catch (IOException ex) {
                    LOGGER.log(Level.FINER, ex.getMessage(), ex);
                 }
             }
         }
 
+    }
+
+    private void fijarDatos(BufferedReader bf ) throws IOException{
+        //Contadores de linea y columna
+        int col = 0;
+        int lin;
+        String line;
+        do {
+            line = bf.readLine();
+            if (line != null) {
+                StringTokenizer tk2 = new StringTokenizer(line, "\t ", true);
+                lin = 0;
+                while (tk2.hasMoreTokens()) {
+                    String dato_fichero = tk2.nextToken();
+                    if ("\t".equals(dato_fichero)) {
+                        datos[lin][col] = 0;
+                        lin++;
+                    } else {
+                        datos[lin][col] = Float.parseFloat(dato_fichero);
+                        //Si no estamos en la ultima columna
+                        if (tk2.hasMoreElements()) {
+                            //consuminos el \t adicional
+                            tk2.nextToken();
+                        }
+                        lin++;
+                    }
+                }
+                col++;
+            }
+        } while (line != null);
     }
 }

@@ -35,7 +35,7 @@ public class PluginBrowser {
         // Empty
     }
 
-    static public File[] search(File f) {
+    static public File[] searchSearch(File f) {
         if (f.isDirectory()) {
             return f.listFiles(new FileFilter() {
                 @Override
@@ -172,15 +172,24 @@ public class PluginBrowser {
             out.write(buf);
         } catch (FileNotFoundException e) {
             LOGGER.log(Level.WARNING, e.getMessage(), e);
+            throw e;
         } catch (IOException e) {
             LOGGER.log(Level.WARNING, e.getMessage(), e);
-
+            throw e;
         } finally {
             if (fIn != null) {
-                fIn.close();
+                try {
+                    fIn.close();
+                } catch (IOException e) {
+                    LOGGER.log(Level.FINEST, e.getMessage(), e);
+                }
             }
             if (fOut != null) {
-                fOut.close();
+                try {
+                    fOut.close();
+                } catch (IOException e) {
+                    LOGGER.log(Level.FINEST, e.getMessage(), e);
+                }
             }
         }
     }

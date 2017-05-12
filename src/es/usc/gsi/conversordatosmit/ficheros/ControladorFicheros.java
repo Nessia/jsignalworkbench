@@ -76,7 +76,7 @@ public class ControladorFicheros {
     // QUE CONTIENE TODOS LOS VALORES.
 
     public Parametro[] getParametrosSeleccionados() throws OutOfMemoryError {
-        int maxBarraProgreso = Parametro.numSeleccionados;
+        int maxBarraProgreso = Parametro.getNumSeleccionados();
         Tarea hilo = new Tarea(ficherosHead);
         hilo.start();
         this.creaIndicadorProgreso((Cancelar) hilo, "Importing data",

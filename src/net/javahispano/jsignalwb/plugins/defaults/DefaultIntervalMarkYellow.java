@@ -15,6 +15,11 @@ import java.awt.image.BufferedImage;
  */
 public class DefaultIntervalMarkYellow extends DefaultIntervalMark {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4947456562955148981L;
+
     public DefaultIntervalMarkYellow() {
         super();
     }

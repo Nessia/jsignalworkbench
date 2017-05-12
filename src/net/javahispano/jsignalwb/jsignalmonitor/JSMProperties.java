@@ -9,13 +9,18 @@
 
 package net.javahispano.jsignalwb.jsignalmonitor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  *No forma parte del API.
  */
-public class JSMProperties {
+public class JSMProperties implements Serializable{
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5496323589624389596L;
     private JSignalMonitorDataSource dataSource;
     private long scrollBaseTime;
     private long maxTime;
@@ -134,15 +139,16 @@ public class JSMProperties {
         return scrollValue;
     }
 
-    public void setScrollValue(long scrollValue) {
-        if (scrollValue < scrollBaseTime) {
-            scrollValue = scrollBaseTime;
-        } else if (scrollValue > maxTime) {
-            scrollValue = maxTime;
+    public void setScrollValue(long scrollvalue) {
+         long sv = scrollvalue;
+        if (sv < scrollBaseTime) {
+            sv = scrollBaseTime;
+        } else if (sv > maxTime) {
+            sv = maxTime;
         }
         long temp = this.getScrollValue();
-        this.scrollValue = scrollValue;
-        performAction(new JSignalMonitorScrollEvent(scrollValue, temp));
+        this.scrollValue = sv;
+        performAction(new JSignalMonitorScrollEvent(sv, temp));
 
     }
 
@@ -262,10 +268,10 @@ public class JSMProperties {
     }
 
     public float getFrecForFullView(int width) {
-        return ((float) width) / ((maxTime - scrollBaseTime) / 1000);
+        return ((float) width) / ((maxTime - scrollBaseTime) / 1000F);
     }
 
     public float getFrecForTimeInterval(long startTime, long endTime, int width) {
-        return ((float) width) / ((endTime - startTime) / 1000);
+        return ((float) width) / ((endTime - startTime) / 1000F);
     }
 }
