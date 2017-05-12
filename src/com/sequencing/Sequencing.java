@@ -5,6 +5,9 @@ import com.uspceu.SimpleAlgorithm;
 import java.awt.Color;
 import static java.awt.Color.blue;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.SignalManager;
@@ -14,15 +17,18 @@ import net.javahispano.jsignalwb.utilities.TimePositionConverter;
 
 public class Sequencing extends SimpleAlgorithm {
 
-    public static int HEIGHT = 140;
-    public static Color COLOUR = blue;
-    public static int LENGTH = 100000;
-    public static int WIDTH = 4;
 
-    public static int[] guanine;
-    public static int[] adenine;
-    public static int[] thymine;
-    public static int[] cytosine;
+    private static final Logger LOGGER = Logger.getLogger(Sequencing.class.getName());
+
+    public static final int LENGTH = 100000;
+
+    private static int height = 140;
+    private static Color colour = blue;
+
+    public int[] guanine;
+    public int[] adenine;
+    public int[] thymine;
+    public int[] cytosine;
 
     @Override
     public void runAlgorithm(SignalManager signalManager, Signal signal, float[] data, float fs) {
@@ -160,154 +166,12 @@ public class Sequencing extends SimpleAlgorithm {
             finalSequence.add(Pico.DUMMY_PICO);
         }
 
-        // FILL THE FINAL SEQUENCE ARRAY
-        for (int i = 0; i < sequenceLength; i++) {
-
-            Pico aux2 = Pico.DUMMY_PICO;
-
-            Pico picoG = finalGuanine.get(i);
-            if (picoG != Pico.DUMMY_PICO) {
-                if (buscarPicoEnEntornoDe(finalAdenine, i, picoG)) {
-                    if (buscarPicoEnEntornoDe(finalCytosine, i, picoG)) {
-                        if (buscarPicoEnEntornoDe(finalThymine, i, picoG)) {
-                            aux2 = new Pico(picoG.getPosicion(), picoG.getMaximo(), 'N');
-                        }
-                        if (aux2 == Pico.DUMMY_PICO) {
-                            aux2 = new Pico(picoG.getPosicion(), picoG.getMaximo(), 'V');
-                        }
-                    }
-                    if (buscarPicoEnEntornoDe(finalThymine, i, picoG)) {
-                        aux2 = new Pico(picoG.getPosicion(), picoG.getMaximo(), 'D');
-                    }
-                    if (aux2 == Pico.DUMMY_PICO) {
-                        aux2 = new Pico(picoG.getPosicion(), picoG.getMaximo(), 'R');
-                    }
-                }
-                if (buscarPicoEnEntornoDe(finalCytosine, i, picoG)) {
-                    if (buscarPicoEnEntornoDe(finalThymine, i, picoG)) {
-                        aux2 = new Pico(picoG.getPosicion(), picoG.getMaximo(), 'B');
-                    }
-                    if (aux2 == Pico.DUMMY_PICO) {
-                        aux2 = new Pico(picoG.getPosicion(), picoG.getMaximo(), 'S');
-                    }
-                }
-                if (buscarPicoEnEntornoDe(finalThymine, i, picoG)) {
-                    aux2 = new Pico(picoG.getPosicion(), picoG.getMaximo(), 'K');
-                }
-                if (aux2 == Pico.DUMMY_PICO) {
-                    aux2 = picoG;
-                }
-            }
-
-            Pico picoA = finalAdenine.get(i);
-            if (picoA != Pico.DUMMY_PICO) {
-                if (buscarPicoEnEntornoDe(finalGuanine, i, picoA)) {
-                    if (buscarPicoEnEntornoDe(finalCytosine, i, picoA)) {
-                        if (buscarPicoEnEntornoDe(finalThymine, i, picoA)) {
-                            aux2 = new Pico(picoA.getPosicion(), picoA.getMaximo(), 'N');
-                        }
-                        if (aux2 == Pico.DUMMY_PICO) {
-                            aux2 = new Pico(picoA.getPosicion(), picoA.getMaximo(), 'V');
-                        }
-                    }
-                    if (buscarPicoEnEntornoDe(finalThymine, i, picoA)) {
-                        aux2 = new Pico(picoA.getPosicion(), picoA.getMaximo(), 'D');
-                    }
-                    if (aux2 == Pico.DUMMY_PICO) {
-                        aux2 = new Pico(picoA.getPosicion(), picoA.getMaximo(), 'R');
-                    }
-                }
-                if (buscarPicoEnEntornoDe(finalCytosine, i, picoA)) {
-                    if (buscarPicoEnEntornoDe(finalThymine, i, picoA)) {
-                        aux2 = new Pico(picoA.getPosicion(), picoA.getMaximo(), 'H');
-                    }
-                    if (aux2 == Pico.DUMMY_PICO) {
-                        aux2 = new Pico(picoA.getPosicion(), picoA.getMaximo(), 'M');
-                    }
-                }
-                if (buscarPicoEnEntornoDe(finalThymine, i, picoA)) {
-                    aux2 = new Pico(picoA.getPosicion(), picoA.getMaximo(), 'W');
-                }
-                if (aux2 == Pico.DUMMY_PICO) {
-                    aux2 = picoA;
-                }
-            }
-
-            Pico picoT = finalThymine.get(i);
-            if (picoT != Pico.DUMMY_PICO) {
-                if (buscarPicoEnEntornoDe(finalGuanine, i, picoT)) {
-                    if (buscarPicoEnEntornoDe(finalAdenine, i, picoT)) {
-                        if (buscarPicoEnEntornoDe(finalCytosine, i, picoT)) {
-                            aux2 = new Pico(picoT.getPosicion(), picoT.getMaximo(), 'N');
-                        }
-                        if (aux2 == Pico.DUMMY_PICO) {
-                            aux2 = new Pico(picoT.getPosicion(), picoT.getMaximo(), 'D');
-                        }
-                    }
-                    if (buscarPicoEnEntornoDe(finalCytosine, i, picoT)) {
-                        aux2 = new Pico(picoT.getPosicion(), picoT.getMaximo(), 'B');
-                    }
-                    if (aux2 == Pico.DUMMY_PICO) {
-                        aux2 = new Pico(picoT.getPosicion(), picoT.getMaximo(), 'K');
-                    }
-                }
-                if (buscarPicoEnEntornoDe(finalAdenine, i, picoT)) {
-                    if (buscarPicoEnEntornoDe(finalCytosine, i, picoT)) {
-                        aux2 = new Pico(picoT.getPosicion(), picoT.getMaximo(), 'H');
-                    }
-                    if (aux2 == Pico.DUMMY_PICO) {
-                        aux2 = new Pico(picoT.getPosicion(), picoT.getMaximo(), 'W');
-                    }
-                }
-                if (buscarPicoEnEntornoDe(finalCytosine, i, picoT)) {
-                    aux2 = new Pico(picoT.getPosicion(), picoT.getMaximo(), 'Y');
-                }
-                if (aux2 == Pico.DUMMY_PICO) {
-                    aux2 = picoT;
-                }
-            }
-
-            Pico picoC = finalCytosine.get(i);
-            if (picoC != Pico.DUMMY_PICO) {
-                if (buscarPicoEnEntornoDe(finalGuanine, i, picoC)) {
-                    if (buscarPicoEnEntornoDe(finalAdenine, i, picoC)) {
-                        if (buscarPicoEnEntornoDe(finalThymine, i, picoC)) {
-                            aux2 = new Pico(picoC.getPosicion(), picoC.getMaximo(), 'N');
-                        }
-                        if (aux2 == Pico.DUMMY_PICO) {
-                            aux2 = new Pico(picoC.getPosicion(), picoC.getMaximo(), 'V');
-                        }
-                    }
-                    if (buscarPicoEnEntornoDe(finalThymine, i, picoC)) {
-                        aux2 = new Pico(picoC.getPosicion(), picoC.getMaximo(), 'B');
-                    }
-                    if (aux2 == Pico.DUMMY_PICO) {
-                        aux2 = new Pico(picoC.getPosicion(), picoC.getMaximo(), 'S');
-                    }
-                }
-                if (buscarPicoEnEntornoDe(finalAdenine, i, picoC)) {
-                    if (buscarPicoEnEntornoDe(finalThymine, i, picoC)) {
-                        aux2 = new Pico(picoC.getPosicion(), picoC.getMaximo(), 'H');
-                    }
-                    if (aux2 == Pico.DUMMY_PICO) {
-                        aux2 = new Pico(picoC.getPosicion(), picoC.getMaximo(), 'M');
-                    }
-                }
-                if (buscarPicoEnEntornoDe(finalThymine, i, picoC)) {
-                    aux2 = new Pico(picoC.getPosicion(), picoC.getMaximo(), 'Y');
-                }
-                if (aux2 == Pico.DUMMY_PICO) {
-                    aux2 = picoC;
-                }
-            }
-
-            finalSequence.set(i, aux2);
-        }
+        fillTheSequenceArray(sequenceLength, finalSequence, finalGuanine, finalAdenine, finalThymine, finalCytosine);
 
         //         PRINT THE FINAL SEQUENCE
-        System.out.println("\nSequence: ");
+        LOGGER.info("\nSequence: ");
         for (int j = 0; j < finalSequence.size(); j++) {
-            System.out.print(finalSequence.get(j));
+            LOGGER.log(Level.INFO, "%s", finalSequence.get(j).toString());
         }
 
         int dummies = 0;
@@ -322,9 +186,9 @@ public class Sequencing extends SimpleAlgorithm {
                 finalCleanSequence.add(finalSequence.get(i));
             }
         }
-        System.out.println("\nClean sequence: ");
+        LOGGER.info("\nClean sequence: ");
         for (int j = 0; j < finalCleanSequence.size(); j++) {
-            System.out.print(finalCleanSequence.get(j));
+            LOGGER.log(Level.INFO, "%s", finalCleanSequence.get(j).toString());
         }
 
 
@@ -343,6 +207,179 @@ public class Sequencing extends SimpleAlgorithm {
             }
         }
 
+    }
+
+    private void fillTheSequenceArray(int sequenceLength, ArrayList<Pico> finalSequence,
+            ArrayList<Pico> finalGuanine, ArrayList<Pico> finalAdenine, ArrayList<Pico> finalThymine,
+            ArrayList<Pico> finalCytosine){
+       // FILL THE FINAL SEQUENCE ARRAY
+       for (int i = 0; i < sequenceLength; i++) {
+
+           Pico aux2 = Pico.DUMMY_PICO;
+
+           aux2 = picoGuanine(aux2, i, finalGuanine, finalAdenine, finalThymine, finalCytosine);
+           aux2 = picoAdenine(aux2, i, finalGuanine, finalAdenine, finalThymine, finalCytosine);
+           aux2 = picoThymine(aux2, i, finalGuanine, finalAdenine, finalThymine, finalCytosine);
+           aux2 = picoCytosine(aux2, i, finalGuanine, finalAdenine, finalThymine, finalCytosine);
+
+           finalSequence.set(i, aux2);
+       }
+    }
+
+    private Pico picoGuanine(Pico aux, int i, ArrayList<Pico> finalGuanine, ArrayList<Pico> finalAdenine,
+          ArrayList<Pico> finalThymine, ArrayList<Pico> finalCytosine){
+        Pico aux2 = aux;
+        Pico pico = finalGuanine.get(i);
+       if (pico != Pico.DUMMY_PICO) {
+           if (buscarPicoEnEntornoDe(finalAdenine, i, pico)) {
+               if (buscarPicoEnEntornoDe(finalCytosine, i, pico)) {
+                   if (buscarPicoEnEntornoDe(finalThymine, i, pico)) {
+                       aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'N');
+                   }
+                   if (aux2 == Pico.DUMMY_PICO) {
+                       aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'V');
+                   }
+               }
+               if (buscarPicoEnEntornoDe(finalThymine, i, pico)) {
+                   aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'D');
+               }
+               if (aux2 == Pico.DUMMY_PICO) {
+                   aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'R');
+               }
+           }
+           if (buscarPicoEnEntornoDe(finalCytosine, i, pico)) {
+               if (buscarPicoEnEntornoDe(finalThymine, i, pico)) {
+                   aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'B');
+               }
+               if (aux2 == Pico.DUMMY_PICO) {
+                   aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'S');
+               }
+           }
+           if (buscarPicoEnEntornoDe(finalThymine, i, pico)) {
+               aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'K');
+           }
+           if (aux2 == Pico.DUMMY_PICO) {
+               aux2 = pico;
+           }
+       }
+       return aux2;
+    }
+
+    private Pico picoAdenine(Pico aux, int i, ArrayList<Pico> finalGuanine, ArrayList<Pico> finalAdenine,
+          ArrayList<Pico> finalThymine, ArrayList<Pico> finalCytosine){
+        Pico aux2 = aux;
+        Pico picoA = finalAdenine.get(i);
+       if (picoA != Pico.DUMMY_PICO) {
+           if (buscarPicoEnEntornoDe(finalGuanine, i, picoA)) {
+               if (buscarPicoEnEntornoDe(finalCytosine, i, picoA)) {
+                   if (buscarPicoEnEntornoDe(finalThymine, i, picoA)) {
+                       aux2 = new Pico(picoA.getPosicion(), picoA.getMaximo(), 'N');
+                   }
+                   if (aux2 == Pico.DUMMY_PICO) {
+                       aux2 = new Pico(picoA.getPosicion(), picoA.getMaximo(), 'V');
+                   }
+               }
+               if (buscarPicoEnEntornoDe(finalThymine, i, picoA)) {
+                   aux2 = new Pico(picoA.getPosicion(), picoA.getMaximo(), 'D');
+               }
+               if (aux2 == Pico.DUMMY_PICO) {
+                   aux2 = new Pico(picoA.getPosicion(), picoA.getMaximo(), 'R');
+               }
+           }
+           if (buscarPicoEnEntornoDe(finalCytosine, i, picoA)) {
+               if (buscarPicoEnEntornoDe(finalThymine, i, picoA)) {
+                   aux2 = new Pico(picoA.getPosicion(), picoA.getMaximo(), 'H');
+               }
+               if (aux2 == Pico.DUMMY_PICO) {
+                   aux2 = new Pico(picoA.getPosicion(), picoA.getMaximo(), 'M');
+               }
+           }
+           if (buscarPicoEnEntornoDe(finalThymine, i, picoA)) {
+               aux2 = new Pico(picoA.getPosicion(), picoA.getMaximo(), 'W');
+           }
+           if (aux2 == Pico.DUMMY_PICO) {
+               aux2 = picoA;
+           }
+       }
+       return aux2;
+    }
+
+    private Pico picoThymine(Pico aux, int i, ArrayList<Pico> finalGuanine, ArrayList<Pico> finalAdenine,
+          ArrayList<Pico> finalThymine, ArrayList<Pico> finalCytosine){
+        Pico aux2 = aux;
+        Pico pico = finalThymine.get(i);
+       if (pico != Pico.DUMMY_PICO) {
+           if (buscarPicoEnEntornoDe(finalGuanine, i, pico)) {
+               if (buscarPicoEnEntornoDe(finalAdenine, i, pico)) {
+                   if (buscarPicoEnEntornoDe(finalCytosine, i, pico)) {
+                       aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'N');
+                   }
+                   if (aux2 == Pico.DUMMY_PICO) {
+                       aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'D');
+                   }
+               }
+               if (buscarPicoEnEntornoDe(finalCytosine, i, pico)) {
+                   aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'B');
+               }
+               if (aux2 == Pico.DUMMY_PICO) {
+                   aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'K');
+               }
+           }
+           if (buscarPicoEnEntornoDe(finalAdenine, i, pico)) {
+               if (buscarPicoEnEntornoDe(finalCytosine, i, pico)) {
+                   aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'H');
+               }
+               if (aux2 == Pico.DUMMY_PICO) {
+                   aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'W');
+               }
+           }
+           if (buscarPicoEnEntornoDe(finalCytosine, i, pico)) {
+               aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'Y');
+           }
+           if (aux2 == Pico.DUMMY_PICO) {
+               aux2 = pico;
+           }
+       }
+       return aux2;
+    }
+
+    private Pico picoCytosine(Pico aux, int i, ArrayList<Pico> finalGuanine, ArrayList<Pico> finalAdenine,
+            ArrayList<Pico> finalThymine, ArrayList<Pico> finalCytosine){
+        Pico aux2 = aux;
+        Pico pico = finalCytosine.get(i);
+       if (pico != Pico.DUMMY_PICO) {
+           if (buscarPicoEnEntornoDe(finalGuanine, i, pico)) {
+               if (buscarPicoEnEntornoDe(finalAdenine, i, pico)) {
+                   if (buscarPicoEnEntornoDe(finalThymine, i, pico)) {
+                       aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'N');
+                   }
+                   if (aux2 == Pico.DUMMY_PICO) {
+                       aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'V');
+                   }
+               }
+               if (buscarPicoEnEntornoDe(finalThymine, i, pico)) {
+                   aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'B');
+               }
+               if (aux2 == Pico.DUMMY_PICO) {
+                   aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'S');
+               }
+           }
+           if (buscarPicoEnEntornoDe(finalAdenine, i, pico)) {
+               if (buscarPicoEnEntornoDe(finalThymine, i, pico)) {
+                   aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'H');
+               }
+               if (aux2 == Pico.DUMMY_PICO) {
+                   aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'M');
+               }
+           }
+           if (buscarPicoEnEntornoDe(finalThymine, i, pico)) {
+               aux2 = new Pico(pico.getPosicion(), pico.getMaximo(), 'Y');
+           }
+           if (aux2 == Pico.DUMMY_PICO) {
+               aux2 = pico;
+           }
+       }
+       return aux2;
     }
 
     private static boolean buscarPicoEnEntornoDe(ArrayList<Pico> listaPicos, int i, Pico pico) {
@@ -370,7 +407,7 @@ public class Sequencing extends SimpleAlgorithm {
 
         // CLEAN THE SIGNAL
         for (int i = 1; i < data.length; i++) {
-            dataClean[i] = Math.max(data[i] - HEIGHT, 0);
+            dataClean[i] = Math.max(data[i] - height, 0);
         }
 
         // SHOW THE CLEAN SIGNAL
@@ -402,16 +439,16 @@ public class Sequencing extends SimpleAlgorithm {
             if (aux) {
 //                Peak peak = new Peak(maxPosition, maxValue);
                 DefaultIntervalMark mark = createIntervalMark(maxPosition - 2, maxPosition + 2, signal);
-                mark.setColor(COLOUR);
+                mark.setColor(colour);
                 signal.addMark(mark);
 
-                if (signal.getName().equalsIgnoreCase("G")) {
+                if ("G".equalsIgnoreCase(signal.getName())) {
                     guanine[maxPosition] = 1;
-                } else if (signal.getName().equalsIgnoreCase("A")) {
+                } else if ("A".equalsIgnoreCase(signal.getName())) {
                     adenine[maxPosition] = 1;
-                } else if (signal.getName().equalsIgnoreCase("T")) {
+                } else if ("T".equalsIgnoreCase(signal.getName())) {
                     thymine[maxPosition] = 1;
-                } else if (signal.getName().equalsIgnoreCase("C")) {
+                } else if ("C".equalsIgnoreCase(signal.getName())) {
                     cytosine[maxPosition] = 1;
                 }
 
@@ -421,20 +458,20 @@ public class Sequencing extends SimpleAlgorithm {
     }
 
     // GETTERS + SETTERS
-    public static int getHEIGHT() {
-        return HEIGHT;
+    public static int getHeight() {
+        return height;
     }
 
-    public static void setHEIGHT(int HEIGHT) {
-        Sequencing.HEIGHT = HEIGHT;
+    public static void setHeight(int HEIGHT) {
+        height = HEIGHT;
     }
 
-    public static Color getCOLOUR() {
-        return COLOUR;
-    }
+//    public static Color getColour() {
+//        return colour;
+//    }
 
-    public static void setCOLOUR(Color COLOUR) {
-        Sequencing.COLOUR = COLOUR;
+    public static void setColour(Color COLOUR) {
+        colour = COLOUR;
     }
 
     // CONFIGURATION
@@ -446,7 +483,7 @@ public class Sequencing extends SimpleAlgorithm {
     @Override
     public void launchConfigureGUI(JSWBManager jswbManager) {
         Configure c = new Configure();
-        c.setVisible(true);//c.show(); // TODO funciona así? @vanesa
+        c.setVisible(true);//c.show();
     }
 
     @Override

@@ -33,8 +33,8 @@ public class Configure extends javax.swing.JDialog {
      */
     public Configure() {
         initComponents();
-        heightText.setText(Integer.toString(Sequencing.HEIGHT));
-        heightSlider.setValue(Sequencing.HEIGHT);
+        heightText.setText(Integer.toString(Sequencing.getHeight()));
+        heightSlider.setValue(Sequencing.getHeight());
         this.setLocationRelativeTo(JSWBManager.getParentWindow());
         setVisible(true);
     }
@@ -147,10 +147,10 @@ public class Configure extends javax.swing.JDialog {
         heightSlider.setValue(Integer.parseInt(heightText.getText()));    }//GEN-LAST:event_heightTextActionPerformed
 
     private void modifyButtonActionPerformed() {//GEN-FIRST:event_modifyButtonActionPerformed
-        Sequencing.setHEIGHT(Integer.parseInt(heightText.getText()));
+        Sequencing.setHeight(Integer.parseInt(heightText.getText()));
 
         Color colour = colourPanel.getBackground();
-        Sequencing.setCOLOUR(colour);
+        Sequencing.setColour(colour);
 
         this.setVisible(FALSE);
     }//GEN-LAST:event_modifyButtonActionPerformed
