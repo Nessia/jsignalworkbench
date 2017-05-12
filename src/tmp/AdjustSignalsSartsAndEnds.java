@@ -8,6 +8,7 @@ import javax.swing.Icon;
 import net.javahispano.jsignalwb.SignalManager;
 import java.util.List;
 import java.awt.Color;
+import java.util.Arrays;
 import java.util.Collection;
 import net.javahispano.jsignalwb.utilities.TimePositionConverter;
 
@@ -33,9 +34,10 @@ public class AdjustSignalsSartsAndEnds extends AlgorithmAdapter {
     @Override
     public void runAlgorithm(SignalManager sm,
                              List<SignalIntervalProperties> signals,
-            AlgorithmRunner ar) {
+                             AlgorithmRunner ar) {
         Collection<Signal> allSignals = sm.getSignals();
-        long maximumStart = Long.MIN_VALUE, minimumEnd = Long.MAX_VALUE;
+        long maximumStart = Long.MIN_VALUE;
+        long minimumEnd = Long.MAX_VALUE;
         for (Signal s : allSignals) {
             maximumStart = maximumStart > s.getStart() ? maximumStart : s.getStart();
             long tiemeOfEnd = TimePositionConverter.positionToTime(s.getValues().length, s);
@@ -46,10 +48,10 @@ public class AdjustSignalsSartsAndEnds extends AlgorithmAdapter {
             if (s.getStart() < maximumStart) {
                 int indexOfStart = TimePositionConverter.timeToPosition(maximumStart, s);
                 float[] data = s.getValues();
-                float[] newData = new float[data.length - indexOfStart];
-                for (int i = indexOfStart; i < data.length; i++) {
-                    newData[i - indexOfStart] = data[i];
-                }
+                float[] newData = Arrays.copyOfRange(data, indexOfStart, data.length);
+//                for (int i = indexOfStart; i < data.length; i++) {
+//                    newData[i - indexOfStart] = data[i];
+//                }
                 s.setValues(newData);
                 s.setStart(maximumStart);
             }
@@ -60,10 +62,10 @@ public class AdjustSignalsSartsAndEnds extends AlgorithmAdapter {
             if (tiemeOfEnd > minimumEnd) {
                 int indexOfEnd = TimePositionConverter.timeToPosition(minimumEnd, s);
                 float[] data = s.getValues();
-                float[] newData = new float[indexOfEnd];
-                for (int i = 0; i < indexOfEnd; i++) {
-                    newData[i] = data[i];
-                }
+                float[] newData = Arrays.copyOfRange(data, 0, indexOfEnd);
+//                for (int i = 0; i < indexOfEnd; i++) {
+//                    newData[i] = data[i];
+//                }
                 s.setValues(newData);
                 s.setStart(maximumStart);
             }
@@ -72,13 +74,7 @@ public class AdjustSignalsSartsAndEnds extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        }
-        if (gUIPositions == GUIPositions.TOOLBAR) {
-            return false;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU;
     }
 
     @Override
