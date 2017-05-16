@@ -6,6 +6,9 @@
 
 package net.javahispano.testplugins;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
@@ -18,12 +21,35 @@ import net.javahispano.jsignalwb.plugins.GenericPluginAdapter;
  */
 public class AddComponentPlugin extends GenericPluginAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5630787044885221496L;
+
+    private static final Logger LOGGER = Logger.getLogger(AddComponentPlugin.class.getName());
+
+    /*
+     * Atributos
+     */
+
     private int count = -1;
+
+    /*
+     * Constructores
+     */
 
     public AddComponentPlugin() {
         // Vacio
     }
 
+    /*
+     * Métodos
+     */
+
+    /*
+     * (non-Javadoc)
+     * @see net.javahispano.jsignalwb.plugins.Plugin#getName()
+     */
     @Override
     public String getName() {
         return "AddComponentPlugin";
@@ -39,28 +65,20 @@ public class AddComponentPlugin extends GenericPluginAdapter {
             jswb.removeRightComponent();
             jswb.removeLowerComponent();
             jswb.removeUpperComponent();
-        } else if (count % 4 == 0) {
-            JToolBar bar = new JToolBar(JToolBar.HORIZONTAL);
-            bar.setFloatable(false);
-            bar.add(new JButton("" + count));
-            jswb.setUpperComponent(bar);
-        } else if (count % 4 == 1) {
-            JToolBar bar = new JToolBar(JToolBar.VERTICAL);
-            bar.setFloatable(false);
-            bar.add(new JButton("" + count));
-            jswb.setRightComponent(bar);
-        } else if (count % 4 == 2) {
-            JToolBar bar = new JToolBar(JToolBar.HORIZONTAL);
-            bar.setFloatable(false);
-            bar.add(new JButton("" + count));
-            jswb.setLowerComponent(bar);
-        } else if (count % 4 == 3) {
-            JToolBar bar = new JToolBar(JToolBar.VERTICAL);
-            bar.setFloatable(false);
-            bar.add(new JButton("" + count));
-            jswb.setLeftComponent(bar);
+        }else{
+            JToolBar bar = null;
+            if (count % 4 == 0 || count % 4 == 2) {
+                bar = new JToolBar(JToolBar.HORIZONTAL);
+            } else if (count % 4 == 1 || count % 4 == 3) {
+                bar = new JToolBar(JToolBar.VERTICAL);
+            }
+            if (bar != null){
+               bar.setFloatable(false);
+               bar.add(new JButton(Integer.toString(count)));
+               jswb.setRightComponent(bar);
+            }
         }
-        System.out.println("--->" + jswb.hasLeftComponent() + "---" +
+        LOGGER.log(Level.INFO, "%s", "--->" + jswb.hasLeftComponent() + "---" +
                            jswb.hasUpperComponent() + "---" +
                            jswb.hasRightComponent() + "---" +
                            jswb.hasLowerComponent());

@@ -1,17 +1,30 @@
 package net.javahispano.testplugins;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 
 public class PruebaDeConcurrenciaParaSwing extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4770472064485285029L;
+
+    private static final Logger LOGGER = Logger.getLogger(PruebaDeConcurrenciaParaSwing.class.getName());
+
     String[] nombres = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
             "12", "13", "14", "15", "16", "17", "18", "19", "20",
             "21", "22", "23", "24", "25", "26", "27", "28", "29",
             "30"};
-    int i, j, k, l, m;
+    int i;
+    int j;
+    int k;
+    int l;
+    int m;
 
     public PruebaDeConcurrenciaParaSwing() {
         // Vacio
@@ -39,7 +52,7 @@ public class PruebaDeConcurrenciaParaSwing extends AlgorithmAdapter {
                     try {
                         sm.addSignal(nueva);
                     } catch (SignalNotFoundException evt) {
-                        System.out.println(evt.getSignalName());
+                        LOGGER.log(Level.WARNING, evt.getSignalName(), evt);
                     }
                 }
             };
@@ -57,7 +70,7 @@ public class PruebaDeConcurrenciaParaSwing extends AlgorithmAdapter {
                     try {
                         sm.setSignalVisibleRange(nombres[j], -5, 6);
                     } catch (SignalNotFoundException evt) {
-                        System.out.println(evt.getSignalName());
+                        LOGGER.log(Level.WARNING, evt.getSignalName(), evt);
                     }
                 }
             };
@@ -75,7 +88,7 @@ public class PruebaDeConcurrenciaParaSwing extends AlgorithmAdapter {
                     try {
                         sm.setSignalVisible(nombres[k], false);
                     } catch (SignalNotFoundException evt) {
-                        System.out.println(evt.getSignalName());
+                        LOGGER.log(Level.WARNING, evt.getSignalName(), evt);
                     }
                 }
             };
@@ -92,7 +105,7 @@ public class PruebaDeConcurrenciaParaSwing extends AlgorithmAdapter {
                     try {
                         sm.setSignalVisible(nombres[l], true);
                     } catch (SignalNotFoundException evt) {
-                        System.out.println(evt.getSignalName());
+                        LOGGER.log(Level.WARNING, evt.getSignalName(), evt);
                     }
                 }
             };
@@ -109,7 +122,7 @@ public class PruebaDeConcurrenciaParaSwing extends AlgorithmAdapter {
                     try {
                         sm.removeSignal(nombres[m]);
                     } catch (SignalNotFoundException evt) {
-                        System.out.println(evt.getSignalName());
+                        LOGGER.log(Level.WARNING, evt.getSignalName(), evt);
                     }
                 }
             };
@@ -125,6 +138,7 @@ public class PruebaDeConcurrenciaParaSwing extends AlgorithmAdapter {
         try {
             Thread.sleep(tiempo);
         } catch (InterruptedException ex) {
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
         }
     }
 

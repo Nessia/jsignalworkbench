@@ -24,6 +24,11 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public class BorrarMarcasEnIntervalo extends AlgorithmAdapter implements IntervalSelectedListener {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 611807130165011736L;
+
     @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
@@ -48,12 +53,7 @@ public class BorrarMarcasEnIntervalo extends AlgorithmAdapter implements Interva
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override
@@ -68,12 +68,12 @@ public class BorrarMarcasEnIntervalo extends AlgorithmAdapter implements Interva
 
     @Override
     public String getDescription() {
-        return "Borrar marcas";
+        return getName();
     }
 
     @Override
     public String getShortDescription() {
-        return "Borrar marcas";
+        return getName();
     }
 
     @Override

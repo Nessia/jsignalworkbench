@@ -1,6 +1,7 @@
 package com.uspceu;
 
 import com.sequencing.Sequencing;
+import com.uspceu.matesanz.EMGAlgorithm;
 import com.uspceu.sergio.DiuresisAcumuladaBiometrix;
 import com.uspceu.sergio.DiuresisHoraAHora;
 import com.uspceu.sergio.DiuresisMinutoAMinuto;
@@ -22,6 +23,11 @@ import net.javahispano.jsignalwb.utilities.TimePositionConverter;
 
 public abstract class SimpleAlgorithm extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2997238849065151357L;
+
     public static void registerSimpleAlgorithms() {
         // DONT REMOVE THIS CODE
         ArrayList<DebugPluginInfo> plugins = new ArrayList<DebugPluginInfo>();
@@ -38,7 +44,6 @@ public abstract class SimpleAlgorithm extends AlgorithmAdapter {
                 new SquareNewSignal()));
         plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Cuadrado nueva señal y detectar",
                 new SquareNewSignalBeatDetect()));
-
         plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Calculo de la diuresis acumulada",
                 new DiuresisAcumuladaBiometrix()));
         plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Calculo de la diuresis minuto a minuto",
@@ -54,19 +59,8 @@ public abstract class SimpleAlgorithm extends AlgorithmAdapter {
         plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Deteccion onda P",
                 new DeteccionOndaP()));
         plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Exportar P ", new ExportarOndaP()));
-        plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Deteccion Picos",
-                new Sequencing() {
-
-        }));
-
-
-        plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "EMG",
-                new com.uspceu.matesanz.EMGAlgorithm()));
-
-
-
-
-
+        plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Deteccion Picos", new Sequencing()));
+        plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "EMG", new EMGAlgorithm()));
 
 
         // DONT REMOVE THIS CODE

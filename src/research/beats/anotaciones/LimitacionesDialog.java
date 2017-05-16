@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -28,9 +30,14 @@ public class LimitacionesDialog extends JDialog {
      *
      */
     private static final long serialVersionUID = -1988504268897049275L;
+    private static final Logger LOGGER = Logger.getLogger(LimitacionesDialog.class.getName());
+
+    private static final Font REGULAR_FONT = new java.awt.Font("Tahoma", Font.BOLD, 14);
 
     LimitacionAnotacion limitacionAnotacion;
-    boolean apnea = true, desat = false, latido = false;
+    boolean apnea = true;
+    boolean desat = false;
+    boolean latido = false;
     private JPanel panel1 = new JPanel();
     private BorderLayout borderLayout1 = new BorderLayout();
     private JPanel jPanel1 = new JPanel();
@@ -61,7 +68,7 @@ public class LimitacionesDialog extends JDialog {
                 //jPanel2.remove(this.jComboBox1);
                 if (limitacionesAnotaciones.getTipo() <= 0) {
                     /* JLabel l = new JLabel( "Latido Normal");
-                     l.setFont(new java.awt.Font("Tahoma", Font.BOLD, 14));
+                     l.setFont(REGULAR_FONT);
                      l.setForeground(Color.blue);
                      this.jPanel2.add(l);*/
 
@@ -78,7 +85,7 @@ public class LimitacionesDialog extends JDialog {
                 } else {
                     jPanel2.remove(this.jComboBox1);
                     JLabel l = new JLabel("Desaturacion                       ");
-                    l.setFont(new java.awt.Font("Tahoma", Font.BOLD, 14));
+                    l.setFont(REGULAR_FONT);
                     l.setForeground(Color.blue);
                     this.jPanel2.add(l);
 
@@ -90,31 +97,15 @@ public class LimitacionesDialog extends JDialog {
 
             jPanel2.add(jLabel2);
             jPanel2.add(abelAutomatico);
-            this.abelAutomatico.setText("" + limitacionesAnotaciones.isAutomatica());
+            this.abelAutomatico.setText(Boolean.toString(limitacionesAnotaciones.isAutomatica()));
             this.setSize(300, 160);
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
         }
 
         this.limitacionAnotacion = limitacionesAnotaciones;
         this.setLocationRelativeTo(owner);
-        if (limitacionAnotacion.getTipo() == LimitacionAnotacion.HIPOAPNEA) {
-            jComboBox1.setSelectedItem("Hipoapnea");
-        } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.N) {
-            jComboBox1.setSelectedItem("N");
-        } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.A) {
-            jComboBox1.setSelectedItem("A");
-        } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.V) {
-            jComboBox1.setSelectedItem("V");
-        } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.P) {
-            jComboBox1.setSelectedItem("P");
-        } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.TV) {
-            jComboBox1.setSelectedItem("TV");
-        } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.Vrt) {
-            jComboBox1.setSelectedItem("Vrt");
-        } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.Prt) {
-            jComboBox1.setSelectedItem("Prt");
-        }
+        setSelectedItem();
 
         TimerTask timerTask = new TimerTask() {
             public void run() {
@@ -134,6 +125,26 @@ public class LimitacionesDialog extends JDialog {
         //this.setVisible(true);
     }
 
+    private void setSelectedItem(){
+        if (limitacionAnotacion.getTipo() == LimitacionAnotacion.HIPOAPNEA) {
+          jComboBox1.setSelectedItem("Hipoapnea");
+      } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.N) {
+          jComboBox1.setSelectedItem("N");
+      } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.A) {
+          jComboBox1.setSelectedItem("A");
+      } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.V) {
+          jComboBox1.setSelectedItem("V");
+      } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.P) {
+          jComboBox1.setSelectedItem("P");
+      } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.TV) {
+          jComboBox1.setSelectedItem("TV");
+      } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.Vrt) {
+          jComboBox1.setSelectedItem("Vrt");
+      } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.Prt) {
+          jComboBox1.setSelectedItem("Prt");
+      }
+    }
+
     public LimitacionesDialog(LimitacionAnotacion limitacionesAnotaciones) {
         this(new Frame(), "LimitacionesDialog", false, limitacionesAnotaciones);
     }
@@ -146,15 +157,15 @@ public class LimitacionesDialog extends JDialog {
         jButton2.addActionListener(new LimitacionesDialog_jButton2_actionAdapter(this));
         jButton3.setText("Borrar sin confirmar");
         jButton3.addActionListener(new LimitacionesDialog_jButton3_actionAdapter(this));
-        jLabel1.setFont(new java.awt.Font("Tahoma", Font.BOLD, 14));
+        jLabel1.setFont(REGULAR_FONT);
         jLabel1.setForeground(Color.blue);
-        jLabel2.setFont(new java.awt.Font("Tahoma", Font.BOLD, 14));
+        jLabel2.setFont(REGULAR_FONT);
         jLabel2.setForeground(Color.blue);
         jLabel2.setText("Creado automaticamente:");
-        abelAutomatico.setFont(new java.awt.Font("Tahoma", Font.BOLD, 14));
+        abelAutomatico.setFont(REGULAR_FONT);
         abelAutomatico.setForeground(Color.blue);
         abelAutomatico.setText("jLabel3");
-        jComboBox1.setFont(new java.awt.Font("Tahoma", Font.BOLD, 14));
+        jComboBox1.setFont(REGULAR_FONT);
         jComboBox1.setForeground(Color.blue);
         getContentPane().add(panel1);
         panel1.add(jPanel1, java.awt.BorderLayout.SOUTH);
@@ -166,19 +177,17 @@ public class LimitacionesDialog extends JDialog {
         jPanel2.add(jComboBox1);
     }
 
-    public void jButton1_actionPerformed(ActionEvent e) {
+    public void jButton1_actionPerformed() {
         hideJWindow();
     }
 
-    public void jButton2_actionPerformed(ActionEvent e) {
+    public void jButton2_actionPerformed() {
         Signal s = limitacionAnotacion.getSignal();
-        if (s != null) {
-            if (JOptionPane.showConfirmDialog(JSWBManager.getParentWindow(),
+        if (s != null && JOptionPane.showConfirmDialog(JSWBManager.getParentWindow(),
                                               "Are you sure?", "Delete mark", JOptionPane.YES_NO_OPTION,
                                               JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
                 s.removeMark(limitacionAnotacion);
                 JSWBManager.getJSWBManagerInstance().refreshJSM(false);
-            }
         }
         this.dispose();
     }
@@ -187,36 +196,36 @@ public class LimitacionesDialog extends JDialog {
      * hideJWindow
      */
     private void hideJWindow() {
-        if (apnea && ((String) jComboBox1.getSelectedItem()).equals("Apnea")) {
+        if (apnea && "Apnea".equals((String) jComboBox1.getSelectedItem())) {
             limitacionAnotacion.setTipo(LimitacionAnotacion.APNEA);
         } else if (apnea) {
             limitacionAnotacion.setTipo(LimitacionAnotacion.HIPOAPNEA);
         }
         if (latido) {
-            if (((String) jComboBox1.getSelectedItem()).equals("N")) {
+            if ("N".equals((String) jComboBox1.getSelectedItem())) {
                 limitacionAnotacion.setTipo(LimitacionAnotacion.N);
-            } else if (((String) jComboBox1.getSelectedItem()).equals("A")) {
+            } else if ("A".equals((String) jComboBox1.getSelectedItem())) {
                 limitacionAnotacion.setTipo(LimitacionAnotacion.A);
-            } else if (((String) jComboBox1.getSelectedItem()).equals("V")) {
+            } else if ("V".equals((String) jComboBox1.getSelectedItem())) {
                 limitacionAnotacion.setTipo(LimitacionAnotacion.V);
-            } else if (((String) jComboBox1.getSelectedItem()).equals("P")) {
+            } else if ("P".equals((String) jComboBox1.getSelectedItem())) {
                 limitacionAnotacion.setTipo(LimitacionAnotacion.P);
 
-            } else if (((String) jComboBox1.getSelectedItem()).equals("TV")) {
+            } else if ("TV".equals((String) jComboBox1.getSelectedItem())) {
                 limitacionAnotacion.setTipo(LimitacionAnotacion.TV);
-            } else if (((String) jComboBox1.getSelectedItem()).equals("Vrt")) {
+            } else if ("Vrt".equals((String) jComboBox1.getSelectedItem())) {
                 limitacionAnotacion.setTipo(LimitacionAnotacion.Vrt);
-            } else if (((String) jComboBox1.getSelectedItem()).equals("Prt")) {
+            } else if ("Prt".equals((String) jComboBox1.getSelectedItem())) {
                 limitacionAnotacion.setTipo(LimitacionAnotacion.Prt);
             }
-            if (!((String) jComboBox1.getSelectedItem()).equals("N")) {
+            if (!"N".equals((String) jComboBox1.getSelectedItem())) {
                 this.limitacionAnotacion.setAutomatica(false);
             }
         }
         this.dispose();
     }
 
-    public void jButton3_actionPerformed(ActionEvent e) {
+    public void jButton3_actionPerformed() {
         Signal s = limitacionAnotacion.getSignal();
         if (s != null) {
             s.removeMark(limitacionAnotacion);
@@ -235,7 +244,7 @@ class LimitacionesDialog_jButton3_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton3_actionPerformed(e);
+        adaptee.jButton3_actionPerformed();
     }
 }
 
@@ -248,7 +257,7 @@ class LimitacionesDialog_jButton2_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton2_actionPerformed(e);
+        adaptee.jButton2_actionPerformed();
     }
 }
 
@@ -261,6 +270,6 @@ class LimitacionesDialog_jButton1_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton1_actionPerformed(e);
+        adaptee.jButton1_actionPerformed();
     }
 }

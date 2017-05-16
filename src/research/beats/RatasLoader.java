@@ -5,11 +5,17 @@ import net.javahispano.jsignalwb.JSWBManager;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.io.File;
 import net.javahispano.jsignalwb.SignalManager;
 import net.javahispano.jsignalwb.io.BasicLoader;
 
 public class RatasLoader extends BasicLoader {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3921334629350089751L;
 
     private String[] nombres = {"I", "II", "III"};
 
@@ -24,7 +30,7 @@ public class RatasLoader extends BasicLoader {
     }
 
     @Override
-    public ArrayList<String> getAvalaibleExtensions() {
+    public List<String> getAvalaibleExtensions() {
         ArrayList<String> ext = new ArrayList<String>();
         ext.add("txt");
         return ext;

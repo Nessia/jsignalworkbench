@@ -1,7 +1,7 @@
 package es.usc.gsi.trace.importer.perfil.auxiliares;
 
 import java.io.*;
-import java.util.jar.*;
+//import java.util.jar.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

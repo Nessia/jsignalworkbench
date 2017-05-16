@@ -5,6 +5,11 @@ import net.javahispano.jsignalwb.SignalManager;
 
 public class SquareNewSignal extends SimpleAlgorithm {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6682298833813753563L;
+
     @Override
     public void runAlgorithm(SignalManager signalManager, Signal signal,
                 float[] datos, float samplingFrquency) {

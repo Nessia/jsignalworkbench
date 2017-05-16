@@ -32,6 +32,11 @@ public abstract class PluginAdapter implements Plugin {
 
 
     /**
+     *
+     */
+    private static final long serialVersionUID = -5525413009398871337L;
+
+    /**
      * Proporciona una descripcion corta del plugin
      *
      * @return Emplea el propio nombre del club y como descripcion

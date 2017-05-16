@@ -13,20 +13,11 @@ public class Configure extends javax.swing.JDialog {
      */
     private static final long serialVersionUID = 4451763633903213420L;
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-//    private JButton chooseButton;
     private JDialog colourDialog;
     private JPanel colourPanel;
     private JColorChooser colourWindow;
-//    private JButton confirmButton;
     private JSlider heightSlider;
     private JTextField heightText;
-//    private JLabel jLabel1;
-//    private JLabel jLabel3;
-//    private JPanel jPanel1;
-//    private JPanel jPanel2;
-//    private JButton modifyButton;
-    // End of variables declaration//GEN-END:variables
 
     /**
      * Creates new form Configure

@@ -15,6 +15,11 @@ import javax.swing.*;
 
 public class AreaCerdo extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2760328577354681248L;
+
     private static final Logger LOGGER = Logger.getLogger(AreaCerdo.class.getName());
 
     private static int indiceDroga = 0;

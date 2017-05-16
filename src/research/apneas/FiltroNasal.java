@@ -19,6 +19,12 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
   */
 public class FiltroNasal extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4579128488001254394L;
+
+
     public FiltroNasal() {
         //Vacio
     }
@@ -57,7 +63,8 @@ public class FiltroNasal extends AlgorithmAdapter {
      * @return float[]
      */
     public static float[] filtrarNasal(float[] datos) {
-        float[] d = null, d2 = null;
+        float[] d = null;
+        float[] d2 = null;
         d = filtro(datos);
         //invertir los datos
         d2 = Utilidades.invertirArray(d);

@@ -24,15 +24,19 @@ import research.apneas.ReduccionFlujo;
  * @version 0.5
  */
 public class ApneaGrid extends GridPluginAdapter {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6294553819385713088L;
+
+    private static final int PASO_X = 20;
+    private static final int PASO_X_1 = PASO_X - 1;
+
     private float[] valorBasal;
-//    private float[] delta;
-    private final int pasoX = 20;
-    private final int pasoX_1 = pasoX - 1;
-    private DefaultGrid defaultGrid = new DefaultGrid();
-    private TrapezoidalDistribution apnea =
-            new TrapezoidalDistribution(0, 0, 0.1F, 0.25F);
-    private TrapezoidalDistribution ha =
-            new TrapezoidalDistribution(0, 0, 0.5F, 0.8F);
+//  private float[] delta;
+    private final transient DefaultGrid defaultGrid = new DefaultGrid();
+    private TrapezoidalDistribution apnea = new TrapezoidalDistribution(0, 0, 0.1F, 0.25F);
+    private TrapezoidalDistribution ha = new TrapezoidalDistribution(0, 0, 0.5F, 0.8F);
     private boolean pintarRalla = true;
     private int bigSpace;
     private int bigSpaceY;
@@ -56,7 +60,7 @@ public class ApneaGrid extends GridPluginAdapter {
     public void setSignal(Signal s) {
         signal = s;
         apnea = new TrapezoidalDistribution(0, 0, 0.1F, 0.25F);
-        if (s.getName().equals("R. Airflow")) {
+        if ("R. Airflow".equals(s.getName())) {
             ha = new TrapezoidalDistribution(0, 0, 0.25F, 0.8F);
         } else {
             ha = new TrapezoidalDistribution(0, 0, 0.25F, 0.6F);
@@ -79,8 +83,8 @@ public class ApneaGrid extends GridPluginAdapter {
                           GridConfiguration gridconfig) {
         bigSpace = Math.round((width - 5) / (float) 10);
         bigSpaceY = Math.round((height - 5) / (float) 4);
-        g2d = (Graphics2D) g2d.create();
-        defaultGrid.paintGrid(g2d, p, height, width, gridconfig);
+        Graphics2D g = (Graphics2D) g2d.create();
+        defaultGrid.paintGrid(g, p, height, width, gridconfig);
         long start = JSWBManager.getJSignalMonitor().getScrollValue();
         long end = start + JSWBManager.getJSignalMonitor().getVisibleTime();
         int startIndex = TimePositionConverter.timeToPosition(start, signal);
@@ -88,52 +92,49 @@ public class ApneaGrid extends GridPluginAdapter {
         float temporalStep = (endIndex - startIndex) / (float) width;
         //asumimos cero en el centro
         float magnitudeStep = (2 * gridconfig.getMaxValue()) / height;
-        int van = -pasoX;
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .6f));
-        for (float i = startIndex; i < endIndex; i += pasoX * temporalStep) {
-            van += pasoX;
+        int van = -PASO_X;
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .6f));
+        for (float i = startIndex; i < endIndex; i += PASO_X * temporalStep) {
+            van += PASO_X;
             for (int j = 0; j < height / 2; j++) {
                 int altura = p.y + height / 2 - j;
                 int altura2 = p.y + height / 2 + j;
                 short pos = apnea.evaluatepossibilityAt(j * 2 * magnitudeStep / (valorBasal[(int) i]));
                 if (pos == 0) {
                     j++;
-                    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-                    paintFragm(g2d, p, van, altura, altura2, Color.BLACK);
-                    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .6f));
+                    g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+                    paintFragm(g, p, van, altura, altura2, Color.BLACK);
+                    g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .6f));
                     for (; j < height / 2; j++) {
                         altura = p.y + height / 2 - j;
                         altura2 = p.y + height / 2 + j;
                         pos = ha.evaluatepossibilityAt(j * 2 * magnitudeStep / (valorBasal[(int) i]));
-                        paintFragm(g2d, p, van, altura, altura2, getColorYellow(pos));
+                        paintFragm(g, p, van, altura, altura2, getColorYellow(pos));
                         if (pos == 0) {
                             break;
                         }
                     }
                     break;
                 }
-                paintFragm(g2d, p, van, altura, altura2, getColorRed(pos));
+                paintFragm(g, p, van, altura, altura2, getColorRed(pos));
             }
         }
 
     }
 
     private void paintFragm(Graphics2D g2d, Point p, int van, int altura, int altura2, Color color) {
-        if (!pintarRalla && color == Color.black) {
+        if (!pintarRalla && color.equals(Color.black)) {
             return;
         }
         g2d.setColor(color);
-        g2d.drawLine(p.x + van, altura, p.x + van + pasoX_1, altura);
-        g2d.drawLine(p.x + van, altura2, p.x + van + pasoX_1, altura2);
+        g2d.drawLine(p.x + van, altura, p.x + van + PASO_X_1, altura);
+        g2d.drawLine(p.x + van, altura2, p.x + van + PASO_X_1, altura2);
 
     }
 
     @Override
     public boolean hasDataToSave() {
-        if (signal != null) {
-            return true;
-        }
-        return false;
+        return signal != null;
     }
 
     @Override

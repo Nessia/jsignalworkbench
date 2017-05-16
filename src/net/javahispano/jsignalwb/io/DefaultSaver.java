@@ -24,7 +24,16 @@ import org.jdom.output.XMLOutputter;
  *   Abraham Otero
  */
 public class DefaultSaver extends SaverAdapter {
-    private ArrayList<String> extensions;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6108176217867262757L;
+
+    /*
+     * Atributos
+     */
+
+    private List<String> extensions;
 
     /** Crea una nueva instancia del defaultSaver.*/
     public DefaultSaver() {
@@ -100,7 +109,7 @@ public class DefaultSaver extends SaverAdapter {
      * @throws IOException
      * @return boolean
      */
-    protected boolean saveValues(ArrayList<Signal> signals, File f) throws IOException {
+    private boolean saveValues(ArrayList<Signal> signals, File f) throws IOException {
         FileWriter fw = null;
         BufferedWriter bw = null;
         PrintWriter pw = null;
@@ -166,7 +175,7 @@ public class DefaultSaver extends SaverAdapter {
      * @throws IOException
      * @return boolean
      */
-    protected boolean saveXml(ArrayList<Signal> signals, File f) throws IOException {
+    private boolean saveXml(ArrayList<Signal> signals, File f) throws IOException {
         PluginManager pm = JSWBManager.getPluginManager();
         Element root = new Element("JSignalWorkBench");
         root.setAttribute("path", f.getName());
@@ -212,6 +221,11 @@ public class DefaultSaver extends SaverAdapter {
     @Override
     public String getPluginVersion() {
         return "0.5";
+    }
+
+    @Override
+    protected boolean save(File f, float[][] data) throws Exception {
+        return false;
     }
 
 

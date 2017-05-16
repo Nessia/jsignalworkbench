@@ -17,6 +17,10 @@ import net.javahispano.jsignalwb.plugins.GridPluginAdapter;
  */
 public class DefaultGridPlugin extends GridPluginAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3897120822217764427L;
     private JSignalMonitorGrid jsmGrid;
 
 

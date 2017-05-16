@@ -19,6 +19,11 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public class AddSinPlugin extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1781229282466858330L;
+
     public AddSinPlugin() {
         // Vacio
     }
@@ -36,7 +41,7 @@ public class AddSinPlugin extends AlgorithmAdapter {
         for (int i = -2500; i < 2500; i++) {
             data[i + 2500] = (float) Math.sin(i);
         }
-        Signal s = new Signal("" + System.currentTimeMillis(), data);
+        Signal s = new Signal(Long.toString(System.currentTimeMillis()), data);
         AxesGridPlugin grid = new AxesGridPlugin();
         grid.setDistance(25000);
         grid.setYAxePosition(s.getStart() + (long) (2500000 * s.getSRate()));

@@ -27,6 +27,11 @@ import net.javahispano.jsignalwb.plugins.MarkPlugin;
  */
 public class ValleCerdo extends MarkPluginAdapter implements Comparable<MarkPlugin> {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6033129728076243513L;
+
     private long markTime;
     private long endTime;
     private String title;

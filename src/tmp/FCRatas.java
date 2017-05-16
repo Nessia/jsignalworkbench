@@ -12,6 +12,10 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 
 public class FCRatas extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5573874806873363991L;
     private int limiteDeteccionPicos = 5;
     private boolean debug = false;
     private int distanciaMinEntreLatidosEnMuestras = 15;
@@ -57,12 +61,13 @@ public class FCRatas extends AlgorithmAdapter {
 
     private Signal generarFC(SignalManager sm, Signal pa, boolean[] inicioCadaPico, int posicionPrimerPico) {
         float[] fc = new float[inicioCadaPico.length];
-        for (int j = posicionPrimerPico + distanciaMinEntreLatidosEnMuestras; j < inicioCadaPico.length; j++) {
+        int inicio = posicionPrimerPico;
+        for (int j = inicio + distanciaMinEntreLatidosEnMuestras; j < inicioCadaPico.length; j++) {
             if (inicioCadaPico[j]) {
-                for (int k = posicionPrimerPico; k < j; k++) {
-                    fc[k] = 60.0F / ((j - posicionPrimerPico) / pa.getSRate());
+                for (int k = inicio; k < j; k++) {
+                    fc[k] = 60.0F / ((j - inicio) / pa.getSRate());
                 }
-                posicionPrimerPico = j;
+                inicio = j;
             }
         }
         Signal fcSignal = new Signal("FC100", fc, pa.getSRate(), pa.getStart(), "");
@@ -141,13 +146,7 @@ public class FCRatas extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        }
-        if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override
@@ -162,11 +161,11 @@ public class FCRatas extends AlgorithmAdapter {
 
     @Override
     public String getDescription() {
-        return "Frecuencia cardiaca de las ratas";
+        return getName();
     }
 
     @Override
     public String getShortDescription() {
-        return "Frecuencia cardiaca de las ratas";
+        return getName();
     }
 }

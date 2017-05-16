@@ -43,6 +43,11 @@ import java.awt.event.*;
  // TODO siendo un singleton deberían ser los campos estáticos? @vanesa
 public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5546645817831620804L;
+
     private static final Logger LOGGER = Logger.getLogger(JSWBManager.class.getName());
 
     // Parte estática

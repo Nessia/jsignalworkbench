@@ -20,6 +20,11 @@ import net.javahispano.jsignalwb.plugins.GenericPluginAdapter;
 public class ShowSignalsPropertiesPlugin extends GenericPluginAdapter {
 
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6362170721413447042L;
+
     @Override
     public String getName() {
         return "ShowSignalsPropertiesPlugin";
@@ -29,23 +34,23 @@ public class ShowSignalsPropertiesPlugin extends GenericPluginAdapter {
     public void launch(JSWBManager jswbManager) {
         SignalManager sm = JSWBManager.getSignalManager();
         Iterator<String> names = sm.getSignalsNames().iterator();
-        String global = "Propiedades de las senhales:\n";
+        StringBuilder global = new StringBuilder("Propiedades de las senhales:\n");
         while (names.hasNext()) {
             String name = names.next();
             Signal signal = sm.getSignal(name);
-            global = global + "     Signal:" + name;
+            global.append("     Signal:" + name);
             Iterator<String> prop = signal.getAvailableProperties().iterator();
             while (prop.hasNext()) {
                 String property = prop.next();
                 Object obj = signal.getProperty(property);
-                global = global + "\n         " + property + "-->" + obj.getClass().getName();
+                global.append("\n         " + property + "-->" + obj.getClass().getName());
                 DebugBean db;
                 if (obj instanceof DebugBean) {
                     db = (DebugBean) obj;
-                    global = global + " (" + db.getVal1() + ", " + db.getVal2() + ", " + db.getVal3() + ")";
+                    global.append(" (" + db.getVal1() + ", " + db.getVal2() + ", " + db.getVal3() + ")");
                 }
             }
-            global = global + "\n";
+            global.append("\n");
         }
         JOptionPane.showMessageDialog(JSWBManager.getParentWindow(), global);
     }

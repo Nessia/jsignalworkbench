@@ -9,6 +9,11 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 
 public class Derivada extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1113153905048929731L;
+
     @Override
     public String getName() {
         return "Derivada";
@@ -23,16 +28,9 @@ public class Derivada extends AlgorithmAdapter {
             Signal senhalOriginal = si.getSignal();
             datos = senhalOriginal.getValues();
             derivada = new float[datos.length];
-            if (!si.isFullSignal()) {
-                for (int i = 1; i < datos.length; i++) {
-                    derivada[i] = datos[i] - datos[i - 1];
-                }
-
-            } else {
-                for (int i = 1; i < datos.length; i++) {
-                    derivada[i] = datos[i] - datos[i - 1];
-                }
-            }
+            for (int i = 1; i < datos.length; i++) {
+               derivada[i] = datos[i] - datos[i - 1];
+           }
 
 
         Signal senhalDerivada = new Signal(senhalOriginal.getName() + "'",

@@ -1,6 +1,7 @@
 package research.mining.tmp;
 
 import net.javahispano.jsignalwb.Signal;
+import net.javahispano.jsignalwb.SignalConstants;
 import net.javahispano.jsignalwb.SignalIntervalProperties;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.JSWBManager;
@@ -8,6 +9,8 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 import javax.swing.Icon;
 import net.javahispano.jsignalwb.SignalManager;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.Arrays;
 
 /**
@@ -24,12 +27,18 @@ import java.util.Arrays;
  */
 public class CalcularValorBasalSpO2 extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8142102131821153813L;
+    private static final Logger LOGGER = Logger.getLogger(CalcularValorBasalSpO2.class.getName());
+
     @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
-       Signal s = sm.getSignal("Sat02");
-       float f []=s.getValues();
-       float f2 []=Arrays.copyOf(f,f.length);
+       Signal s = sm.getSignal(SignalConstants.SENAL_SATURACION_02);
+       float[] f =s.getValues();
+       float[] f2 =Arrays.copyOf(f,f.length);
        double media =0;
        int contador=0;
        for (Float dato : f2) {
@@ -52,7 +61,7 @@ public class CalcularValorBasalSpO2 extends AlgorithmAdapter {
        }
        basal/= contador;
 
-       System.out.println("Media: "+ media+ " Basal: "+ basal);
+       LOGGER.log(Level.INFO, "%s", "Media: "+ media+ " Basal: "+ basal);
     }
 
     @Override
@@ -67,12 +76,7 @@ public class CalcularValorBasalSpO2 extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return false;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override

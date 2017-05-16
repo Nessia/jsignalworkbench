@@ -24,6 +24,11 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public class Paso1 extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -105597268089357713L;
+
     @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
@@ -50,12 +55,7 @@ public class Paso1 extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override
@@ -70,11 +70,11 @@ public class Paso1 extends AlgorithmAdapter {
 
     @Override
     public String getDescription() {
-        return "Anotando latidos";
+        return getName();
     }
 
     @Override
     public String getShortDescription() {
-        return "Anotando latidos";
+        return getName();
     }
 }

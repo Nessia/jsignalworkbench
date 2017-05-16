@@ -1,6 +1,7 @@
 package net.javahispano.jsignalwb;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 
@@ -20,8 +21,12 @@ import net.javahispano.jsignalwb.plugins.*;
  *   (http://www.apache.org/licenses/). Copyright 2006-2007 Roman Segador y
  *   Abraham Otero
  */
-public class SignalManager {
+public class SignalManager implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5929646532741288747L;
     private JSignalMonitor jSignalMonitor;
     /* signals relaciona el nombre de la senal con el objeto Signal que le corresponde
      * No podra existir mas de una senal con el mismo nombre

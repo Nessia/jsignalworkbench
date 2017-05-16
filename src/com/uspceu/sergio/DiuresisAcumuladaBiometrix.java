@@ -10,6 +10,11 @@ import net.javahispano.jsignalwb.SignalManager;
  */
 public class DiuresisAcumuladaBiometrix  extends SimpleAlgorithm {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4035683109014996177L;
+
     @Override
     public String getName() {
            return "Cálculo de la diuresis acumulada";

@@ -2,6 +2,8 @@ package tmp;
 
 import static java.lang.Math.*;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.Icon;
 
@@ -23,6 +25,13 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public class DiuresisEstimador extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4736868458761419064L;
+
+    private static final Logger LOGGER = Logger.getLogger(DiuresisEstimador.class.getName());
+
     int numDesplazamientos = 2;
     float fs = 1.0F / 1800;
 
@@ -39,19 +48,20 @@ public class DiuresisEstimador extends AlgorithmAdapter {
         Signal diuresisSignal = in.getSignal();
         final int numMuestras = diuresisSignal.getValues().length;
         float[] diuresis = diuresisSignal.getValues();
-        float pesoCerdo = 25;
+//        float pesoCerdo = 25;
 
         float[][] posiblesValoresDiuresis =
-            calculaTodosLosPosiblesValoresPAraCadaMuestra(numMuestras, diuresis, pesoCerdo);
+            calculaTodosLosPosiblesValoresPAraCadaMuestra(numMuestras, diuresis/*, pesoCerdo*/);
         float[][] diuresisMinMedYMax = calculaDiuresisMinMedYMax(numMuestras, posiblesValoresDiuresis);
 
         generaSenhalesDiuresis(sm, diuresisSignal, diuresisMinMedYMax);
 
-        calculaYAnhadeErroresMaxYMed(sm, diuresisSignal, numMuestras, diuresis, pesoCerdo, diuresisMinMedYMax);
+        calculaYAnhadeErroresMaxYMed(sm, diuresisSignal, numMuestras, diuresis, /*pesoCerdo,*/ diuresisMinMedYMax);
 
     }
 
-    private float[][] calculaTodosLosPosiblesValoresPAraCadaMuestra(int numMuestras, float[] diuresis, float pesoCerdo) {
+    private float[][] calculaTodosLosPosiblesValoresPAraCadaMuestra(int numMuestras, float[] diuresis/*,
+            float pesoCerdo*/) {
         float[][] posiblesValoresDiuresis = new float[numMuestras][numDesplazamientos];
         for (int muestra = (numDesplazamientos-1); muestra < numMuestras - (numDesplazamientos-1); muestra++) {
             for (int desplazamiento = -(numDesplazamientos-1); desplazamiento <= 0; desplazamiento++) {
@@ -97,7 +107,7 @@ public class DiuresisEstimador extends AlgorithmAdapter {
     }
 
     private void calculaYAnhadeErroresMaxYMed(SignalManager sm, Signal diuresisSignal, int numMuestras,
-                                              float[] diuresis, float pesoCerdo, float[][] diuresisMinMedYMax) {
+                                              float[] diuresis, /*float pesoCerdo,*/ float[][] diuresisMinMedYMax) {
         //corregir diuresis
         for (int i = 0; i < diuresis.length; i++) {
     //        diuresis[i] = diuresis[i] * 60 / pesoCerdo;
@@ -118,8 +128,8 @@ public class DiuresisEstimador extends AlgorithmAdapter {
         sm.addSignal(s5);
         sm.addSignal(s6);
 
-        System.out.println("Medio y maximo:\nn");
-        System.out.println(""+mediaErrores(errores[0])+" \t "+ standardDeviation( errores[0])+" \t "
+        LOGGER.info("Medio y maximo:\nn");
+        LOGGER.log(Level.INFO, "%s", mediaErrores(errores[0])+" \t "+ standardDeviation( errores[0])+" \t "
                            +mediaErrores(errores[1])+" \t "+ standardDeviation( errores[1]));
 
     }

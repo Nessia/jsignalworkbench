@@ -20,14 +20,18 @@ import net.javahispano.jsignalwb.plugins.GridPluginAdapter;
  * @author Roman Segador
  */
 public class AxesGridPlugin extends GridPluginAdapter {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5326250131184943761L;
     private long yAxePosition = -1;
     private long distance = -1;
-    private Stroke stroke;
+    private transient final Stroke stroke = new BasicStroke(2);
     //private Signal signal = null;
     private String signalName;
 
     public AxesGridPlugin() {
-        stroke = new BasicStroke(2);
+        //stroke = new BasicStroke(2);
         // XXX que chapuza es esta? @vanesa
         //this.setYAxePosition((new Date(2008 - 1900, 1, 1)).getTime());
         Calendar cal = Calendar.getInstance();

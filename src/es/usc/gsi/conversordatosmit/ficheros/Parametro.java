@@ -2,6 +2,8 @@ package es.usc.gsi.conversordatosmit.ficheros;
 
 import java.io.Serializable;
 
+import net.javahispano.jsignalwb.SignalConstants;
+
 public class Parametro implements Serializable{
 
     /**
@@ -260,7 +262,11 @@ public class Parametro implements Serializable{
 
     public void setActivado(boolean b) {
         this.activado = b;
-        numSeleccionados = b ? (numSeleccionados + 1) : (numSeleccionados - 1);
+        modificarSeleccionados(b);
+    }
+
+    public static void modificarSeleccionados(boolean incrementar){
+        numSeleccionados += incrementar?  1 : -1;
     }
 
     public boolean getActivado() {
@@ -273,14 +279,14 @@ public class Parametro implements Serializable{
     private void corrigeNombre() {
 
         String[] terminacion = {"I", "II", "III", "V", "aVL", "aVR", "aVF",
-                               "SaO2", "Resp"};
+                SignalConstants.SENAL_SA_O2, "Resp"};
         int indice;
         String nuevoNombre;
 
         try {
             //  System.out.println( nombreParametro.substring( nombreParametro.length() - 1 ) );
 
-            if ("SaO2".equalsIgnoreCase(nombreParametro)) {
+            if (SignalConstants.SENAL_SA_O2.equalsIgnoreCase(nombreParametro)) {
                 return; // Excepcion a la regla general: en este caso, no se debe corregir el numero de final del nombre.
             }
 

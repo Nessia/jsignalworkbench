@@ -11,6 +11,11 @@ import net.javahispano.jsignalwb.plugins.GenericPluginAdapter;
 import net.javahispano.plugins.temporalseries.TemporalSeries;
 
 public class SignalGenerationPlugin extends GenericPluginAdapter {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5103745015634630202L;
+
     public SignalGenerationPlugin() {
         // Empty
     }
@@ -45,8 +50,7 @@ public class SignalGenerationPlugin extends GenericPluginAdapter {
     public Icon getIcon() {
         Image logo = Toolkit.getDefaultToolkit().createImage(
                 SignalGeneration.class.getResource("logo.gif"));
-        Icon pulso = new ImageIcon(logo);
-        return pulso;
+        return new ImageIcon(logo);
     }
 
     @Override
@@ -56,11 +60,6 @@ public class SignalGenerationPlugin extends GenericPluginAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 }

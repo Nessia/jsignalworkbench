@@ -17,10 +17,15 @@ import javax.swing.*;
  */
 public class TestDeteccion extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7556213545467870779L;
+
     private Bdac bdac;
-    private long sampleCount = 0;
-    private int delay;
-    private float[] ecg = null;
+//    private long sampleCount = 0;
+//    private int delay;
+//    private float[] ecg = null;
     static  boolean esRata = false;
 
 
@@ -28,7 +33,7 @@ public class TestDeteccion extends AlgorithmAdapter {
         bdac = new Bdac();
     }
 
-    public static void generarMarcas(Signal s, long posicion, Color color) {
+    public static void generarMarcas(Signal s, long posicion/*, Color color*/) {
 
         LatidoAnotacion m = new LatidoAnotacion();
         // m.setTitle("Latidos" + (s.getStart() + (SampleRate.getMsPerSample() * posicion)));
@@ -60,9 +65,10 @@ public class TestDeteccion extends AlgorithmAdapter {
 
         // Initialize beat detection
         bdac.resetBdac();
-        sampleCount = 0;
-        ecg = signals.get(0).getSignal().getValues();
+        long sampleCount = 0;
+        float[] ecg = signals.get(0).getSignal().getValues();
         long detectionTimeR;
+        int delay;
 
         for (int i = 0; i < ecg.length - 1; i++) {
             ++sampleCount;
@@ -73,8 +79,7 @@ public class TestDeteccion extends AlgorithmAdapter {
             // and type.
             if (delay != 0) {
                 detectionTimeR = sampleCount - delay;
-                generarMarcas(signals.get(0).getSignal(), detectionTimeR,
-                              Color.GREEN);
+                generarMarcas(signals.get(0).getSignal(), detectionTimeR/*, Color.GREEN*/);
             }
         }
     }
@@ -94,12 +99,7 @@ public class TestDeteccion extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override

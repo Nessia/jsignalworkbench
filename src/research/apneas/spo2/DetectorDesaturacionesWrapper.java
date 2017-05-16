@@ -2,6 +2,7 @@ package research.apneas.spo2;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
@@ -21,6 +22,11 @@ import research.apneas.*;
  * @version 0.5
  */
 public class DetectorDesaturacionesWrapper extends AlgorithmAdapter {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -759010125910361241L;
+
     private static long inicioAbsoluto = 0;
 
     private Signal signal;
@@ -36,11 +42,11 @@ public class DetectorDesaturacionesWrapper extends AlgorithmAdapter {
 
     @Override
     public void runAlgorithm(SignalManager sm, float[] datos) {
-        signal = JSWBManager.getSignalManager().getSignal("SaO2");
+        signal = JSWBManager.getSignalManager().getSignal(SignalConstants.SENAL_SA_O2);
         ejecutar(datos);
     }
 
-    public ArrayList<EpisodioDesaturacion> ejecutar(float[] datos) {
+    public List<EpisodioDesaturacion> ejecutar(float[] datos) {
         inicioAbsoluto = signal.getStart();
         return test(datos, signal);
     }
@@ -68,27 +74,23 @@ public class DetectorDesaturacionesWrapper extends AlgorithmAdapter {
             Desaturacion d = b.anadeDato(da);
             // System.out.println("*****************************Valor basal "+b.getValorBasal());
 
-            if (d != null) {
-                // System.out.println(d.toString());
-                if (!d.isInicioSolo() && true) {
-                    //   System.out.println(d.toString());
-                    int principio = d.getComienzo() * paso; //el detector trabaja en segundos
-                    int fin = d.getFin() * paso; //el detector trabaja en segundos
-                    int medio = (principio + fin) / 2;
-                    Intervalo ip = new Intervalo(principio, medio, (int) (d.getPos() * 100));
-                    Intervalo iff = new Intervalo(medio, fin, (int) (d.getPos() * 100));
-                    ip.setDatos(datos);
-                    iff.setDatos(datos);
-                    ip.setFrecuencia(signal.getSRate());
-                    iff.setFrecuencia(signal.getSRate());
-                    iff.setFechaBase(inicioAbsoluto);
-                    ip.setFechaBase(inicioAbsoluto);
-                    EpisodioDesaturacion e = new EpisodioDesaturacion(ip, iff, d.getValorBasal());
-                    e.setDatos(datos);
+            if (d != null && !d.isInicioSolo()) {
+                 int principio = d.getComienzo() * paso; //el detector trabaja en segundos
+                 int fin = d.getFin() * paso; //el detector trabaja en segundos
+                 int medio = (principio + fin) / 2;
+                 Intervalo ip = new Intervalo(principio, medio, (int) (d.getPos() * 100));
+                 Intervalo iff = new Intervalo(medio, fin, (int) (d.getPos() * 100));
+                 ip.setDatos(datos);
+                 iff.setDatos(datos);
+                 ip.setFrecuencia(signal.getSRate());
+                 iff.setFrecuencia(signal.getSRate());
+                 iff.setFechaBase(inicioAbsoluto);
+                 ip.setFechaBase(inicioAbsoluto);
+                 EpisodioDesaturacion e = new EpisodioDesaturacion(ip, iff, d.getValorBasal());
+                 e.setDatos(datos);
 
-                    //   DetectorDesaturacionesWrapper.generarEpisodioDesaturacion(e,Color.yellow,signal);
-                    des.add(e);
-                }
+                 //   DetectorDesaturacionesWrapper.generarEpisodioDesaturacion(e,Color.yellow,signal);
+                 des.add(e);
             }
         }
         return des;

@@ -9,7 +9,11 @@ import net.javahispano.jsignalwb.plugins.GridPluginAdapter;
 public class GridGris extends GridPluginAdapter {
 
 
-    private DefaultGrid defaultGrid = new DefaultGrid();
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3790334641068965862L;
+    private final transient DefaultGrid defaultGrid = new DefaultGrid();
     private int bigSpace;
     private int bigSpaceY;
 
@@ -33,12 +37,12 @@ public class GridGris extends GridPluginAdapter {
                           GridConfiguration gridconfig) {
         bigSpace = Math.round((width - 5) / (float) 10);
         bigSpaceY = Math.round((height - 5) / (float) 4);
-        g2d = (Graphics2D) g2d.create();
+        Graphics2D g = (Graphics2D) g2d.create();
 
-        defaultGrid.paintGrid(g2d, p, height, width, gridconfig);
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .5f));
-        g2d.setColor(Color.lightGray);
-        g2d.fillRect(p.x, p.y, width, height);
+        defaultGrid.paintGrid(g, p, height, width, gridconfig);
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .5f));
+        g.setColor(Color.lightGray);
+        g.fillRect(p.x, p.y, width, height);
     }
 
 }

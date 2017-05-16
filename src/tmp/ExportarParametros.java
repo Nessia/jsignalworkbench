@@ -35,6 +35,10 @@ import java.io.File;
 public class ExportarParametros extends AlgorithmAdapter {
 
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5580999008549986862L;
     private static final Logger LOGGER = Logger.getLogger(ExportarParametros.class.getName());
 
     @Override

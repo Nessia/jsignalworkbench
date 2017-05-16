@@ -9,7 +9,7 @@ import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
-
+import net.javahispano.jsignalwb.SignalConstants;
 /**
  * <p>Title: </p>
  *
@@ -24,6 +24,11 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public class Paso2 extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3131758535666927783L;
+
     @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
@@ -31,10 +36,10 @@ public class Paso2 extends AlgorithmAdapter {
         for (Signal s : l) {
             sm.setSignalVisible(s.getName(), false);
         }
-        sm.setSignalVisible("Flujo", true);
-        sm.setSignalVisible("Sat02", true);
-        sm.setSignalVisibleRange("Sat02", 80, 100);
-        Signal sat = sm.getSignal("Sat02");
+        sm.setSignalVisible(SignalConstants.SENAL_FLUJO, true);
+        sm.setSignalVisible(SignalConstants.SENAL_SATURACION_02, true);
+        sm.setSignalVisibleRange(SignalConstants.SENAL_SATURACION_02, 80, 100);
+        Signal sat = sm.getSignal(SignalConstants.SENAL_SATURACION_02);
         sat.getProperties().setInvadeNearChannels(false);
         float[] d = sat.getValues();
         for (int i = 1; i < d.length; i++) {
@@ -42,14 +47,8 @@ public class Paso2 extends AlgorithmAdapter {
                 d[i] = d[i - 1];
             }
         }
-//        sm.setSignalVisible("ULF", true);
-  //      sm.setSignalVisible("VLF", true);
-    //    sm.setSignalVisible("LF", true);
-      //  sm.setSignalVisible("HF", true);
-        //sm.setSignalVisible("LF/HF", true);
-        //sm.setSignalVisible("HRV", true);
-        sm.setSignalVisible("Movimiento abdominal", true);
-       sm.setSignalVisible("Movimiento toracico", true);
+        sm.setSignalVisible(SignalConstants.SENAL_MOVIMIENTO_ABDOMINAL, true);
+        sm.setSignalVisible(SignalConstants.SENAL_MOVIMIENTO_TORACICO, true);
         JSignalMonitor js = JSWBManager.getJSignalMonitor();
         js.setRepresentingXYValues(true);
         js.setMarksSelectionMode(true);
@@ -68,12 +67,7 @@ public class Paso2 extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override
@@ -88,11 +82,11 @@ public class Paso2 extends AlgorithmAdapter {
 
     @Override
     public String getDescription() {
-        return "Anotando eventos respiratorios";
+        return getName();
     }
 
     @Override
     public String getShortDescription() {
-        return "Anotando eventos respiratorios";
+        return getName();
     }
 }

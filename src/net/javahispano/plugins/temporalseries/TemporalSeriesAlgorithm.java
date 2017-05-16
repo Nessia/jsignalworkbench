@@ -9,18 +9,26 @@ import javax.swing.JOptionPane;
 
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
+import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 
 /**
  *
  * @author Roman
  */
 public abstract class TemporalSeriesAlgorithm extends AlgorithmAdapter {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2138072481330722929L;
+
     public abstract void processTemporalSeries(SignalManager sm,
                                                List<TemporalSeries> signals);
 
 
+    @Override
     public void runAlgorithm(SignalManager sm,
-                             List<SignalIntervalProperties> signals) {
+                             List<SignalIntervalProperties> signals,
+                             AlgorithmRunner ar) {
         TemporalSeries.convertSignalsToTemporalSeries(sm);
         if (this.hasOwnConfigureGUI()) {
             this.launchConfigureGUI(JSWBManager.getJSWBManagerInstance());

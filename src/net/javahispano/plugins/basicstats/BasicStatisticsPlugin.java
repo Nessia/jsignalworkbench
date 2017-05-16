@@ -2,6 +2,8 @@ package net.javahispano.plugins.basicstats;
 
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -29,7 +31,20 @@ import org.jdom.output.XMLOutputter;
  * @version 1.0
  */
 public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
-    private HashMap<String, ResultadosEstadisticos> statisticsCollection;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5573306956993149941L;
+
+    private static final Logger LOGGER = Logger.getLogger(BasicStatisticsPlugin.class.getName());
+    public static final String EL_PERCENTIL = "Percentil";
+    public static final String ATTR_PERCENTIL = "Percentil";
+
+    /*
+     * Atributos
+     */
+
+    private Map<String, ResultadosEstadisticos> statisticsCollection;
     private Estadistico statistics = null;
     /**
      * I have a String that consists of XML data & tags. I need to convert the String to a JDOM Document Object. Does anyone know how?
@@ -87,10 +102,10 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
     @Override
     public void runAlgorithm(SignalManager sm,
                              List<SignalIntervalProperties> signals,
-            AlgorithmRunner ar) {
+                             AlgorithmRunner ar) {
         //Signal signal = sm.getSignal((String) signals.nextElement());
         Signal signal = signals.get(0).getSignal();
-        SignalIntervalProperties in = ((SignalIntervalProperties)signals.get(0));
+        SignalIntervalProperties in = signals.get(0);
         int ini = in.getFirstArrayPosition();
         int fi = in.getLastArrayPosition();
         float[] data = signal.getValues();
@@ -114,6 +129,7 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
 
     @Override
     public void launchConfigureGUI(JSWBManager jswbManager) {
+        // Vacio
     }
 
     @Override
@@ -130,16 +146,16 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
         try {
             doc = db.build((Reader) sr);
         } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(null,
                     "Ha sucedido un error al recuperar la informacion de sesiones pasadas en el plugin estadistico basico",
                                           "Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
             return;
         } catch (JDOMException ex) {
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(null,
                     "Ha sucedido un error al recuperar la informacion de sesiones pasadas en el plugin estadistico basico",
                                           "Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
             return;
         }
 
@@ -181,7 +197,7 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
             float cociente_de_variacion = estadistico.getCocienteDeVariacion();
             String fecha_inicio = estadistico.getFechaInicio();
             String fecha_fin = estadistico.getFechaFin();
-            HashMap<String, String> percentiles_map = estadistico.getPercentiles();
+            Map<String, String> percentiles_map = estadistico.getPercentiles();
             String comentario = estadistico.getComentario();
             //Creamos el elemeto estaditico y le ponemos sus atributos
             Element estadistico_xml = new Element("Estadistico");
@@ -208,11 +224,11 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
             if (percentiles_map != null) {
                 Iterator<String> it2 = percentiles_map.keySet().iterator();
                 while (it2.hasNext()) {
-                    String percentil_str = (String) it2.next();
-                    String valor_percentil = (String) percentiles_map.get(
+                    String percentil_str = it2.next();
+                    String valor_percentil = percentiles_map.get(
                             percentil_str);
-                    Element percentil_xml = new Element("Percentil");
-                    percentil_xml.setAttribute("Percentil", percentil_str);
+                    Element percentil_xml = new Element(EL_PERCENTIL);
+                    percentil_xml.setAttribute(ATTR_PERCENTIL, percentil_str);
                     percentil_xml.setAttribute("ValorPercentil",
                                                valor_percentil);
                     estadistico_xml.addContent(percentil_xml);
@@ -259,8 +275,8 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
                 float[] valores_percentiles = new float[num_percentiles];
                 int cuantos_van = 0;
                 while (it2.hasNext()) {
-                    Element percentil_xml = (Element) it2.next();
-                    percentiles_float[cuantos_van] = percentil_xml.getAttribute("Percentil").getIntValue();
+                    Element percentil_xml = it2.next();
+                    percentiles_float[cuantos_van] = percentil_xml.getAttribute(ATTR_PERCENTIL).getIntValue();
                     valores_percentiles[cuantos_van] = percentil_xml.getAttribute("ValorPercentil").getFloatValue();
                     cuantos_van++;
                 }
@@ -271,9 +287,9 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
                 estadistico.setComentario(comentario);
                 resultado.add(estadistico);
             } catch (NotPercentilException ex) {
-                ex.printStackTrace();
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             } catch (DataConversionException ex) {
-                ex.printStackTrace();
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
         return resultado;
@@ -285,23 +301,13 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
     }
 
     @Override
-    public void launchExecutionGUI(JSWBManager jswbManager) {
-        super.launchExecutionGUI(jswbManager);
-    }
-
-    @Override
     public boolean hasResultsGUI() {
         return true;
     }
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override
@@ -312,8 +318,7 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
     }
 
     public List<ResultadosEstadisticos> getStatisticsCollection() {
-        List<ResultadosEstadisticos> resultado = new ArrayList<ResultadosEstadisticos>(this.statisticsCollection.values());
-        return resultado;
+        return new ArrayList<ResultadosEstadisticos>(this.statisticsCollection.values());
     }
 
     public void addStatistics(ResultadosEstadisticos c) {

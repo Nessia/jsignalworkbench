@@ -1,6 +1,8 @@
 package net.javahispano.jsignalwb.ui.signalorganizer;
 
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -10,6 +12,12 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
 import net.javahispano.jsignalwb.plugins.GenericPluginAdapter;
 
 public class SignalOrganizerPlugin extends GenericPluginAdapter implements SignalSizeListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1739598967455906361L;
+
+    private static final Logger LOGGER = Logger.getLogger(SignalOrganizerPlugin.class.getName());
     private SignalManager signalManager = JSWBManager.getSignalManager();
 
     public SignalOrganizerPlugin() {
@@ -22,7 +30,7 @@ public class SignalOrganizerPlugin extends GenericPluginAdapter implements Signa
         JSignalMonitor jSignalMonitor = JSWBManager.getJSignalMonitor();
         for (String signalName : signalManager.getSignalsNames()) {
             Signal signal = signalManager.getSignal(signalName);
-            System.out.println(signal.getName() + " visible: " + signal.isVisible()
+            LOGGER.log(Level.INFO, "%s", signal.getName() + " visible: " + signal.isVisible()
                                + "Posicion en pantalla: " + jSignalMonitor.getChannelPosition(signalName));
         }
 
@@ -40,7 +48,7 @@ public class SignalOrganizerPlugin extends GenericPluginAdapter implements Signa
 
     @Override
     public void setSavedData(String dataSavedOnTheWorkingSession) {
-        System.out.println(dataSavedOnTheWorkingSession);
+        LOGGER.log(Level.INFO, "%s", dataSavedOnTheWorkingSession);
     }
 
     @Override
@@ -54,9 +62,9 @@ public class SignalOrganizerPlugin extends GenericPluginAdapter implements Signa
             return;
         }
        if (event.isSignalAdded()) {
-            System.out.println("Anhadiendo senhal con nombre: " + event.getSignal().getName());
+           LOGGER.log(Level.INFO, "%s", "Anhadiendo senhal con nombre: " + event.getSignal().getName());
         } else {
-            System.out.println("Eliminando senhal con nombre: " + event.getSignal().getName());
+           LOGGER.log(Level.INFO, "%s", "Eliminando senhal con nombre: " + event.getSignal().getName());
         }
 
     }

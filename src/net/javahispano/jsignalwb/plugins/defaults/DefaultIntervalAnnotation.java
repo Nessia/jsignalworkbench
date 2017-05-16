@@ -21,6 +21,11 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3432103447239994422L;
+
     private static final Logger LOGGER = Logger.getLogger(DefaultIntervalAnnotation.class.getName());
 
     private long annotationTime;

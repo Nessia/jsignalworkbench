@@ -10,6 +10,11 @@ import net.javahispano.jsignalwb.SignalManager;
  */
 public class ValorAbsolutoHoras extends SimpleAlgorithm {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1788167373137603946L;
+
     @Override
     public String getName() {
         return "Calculo del valor absoluto hora a hora";

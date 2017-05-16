@@ -1,6 +1,13 @@
 package tmp;
 
-public class MedidaDroga {
+import java.io.Serializable;
+
+public class MedidaDroga implements Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6750447706672427829L;
+
     //todas las duraciones se dan en segundos
     private float duracionTotal;
     private float duracionCaida;

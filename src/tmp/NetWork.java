@@ -2,6 +2,7 @@ package tmp;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.swing.Icon;
 
@@ -17,9 +18,19 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 public class NetWork extends AlgorithmAdapter {
 
 
-    String firstSignalName, secondSignalName, newSignalName;
-    Operation operation = Operation.ADD;
-    float[] firstSignalValues, secondSignalValues;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -936466691775574904L;
+
+    private static final Logger LOGGER = Logger.getLogger(NetWork.class.getName());
+
+    protected String firstSignalName;
+    protected String secondSignalName;
+    protected String newSignalName;
+    protected Operation operation = Operation.ADD;
+    protected float[] firstSignalValues;
+    protected float[] secondSignalValues;
 
     @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
@@ -29,7 +40,7 @@ public class NetWork extends AlgorithmAdapter {
         int i = 0;
         for (Signal signal : allSignals) {
             names[i] = signal.getName();
-            System.out.println(names[i]);
+            LOGGER.info(names[i]);
         }
     }
 
@@ -40,12 +51,7 @@ public class NetWork extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override

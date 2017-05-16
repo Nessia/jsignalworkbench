@@ -23,14 +23,15 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class DesaturacionAnotacion extends LimitacionAnotacion {
 
-    private List<LimitacionAnotacion> limitationsList =
-            new LinkedList<LimitacionAnotacion>();
-    private HashMap<LimitacionAnotacion, Color> oldColorLimitations =
-            new HashMap<LimitacionAnotacion, Color>();
-    private HashMap<LimitacionAnotacion, Color> oldColorTorax =
-            new HashMap<LimitacionAnotacion, Color>();
-    private HashMap<LimitacionAnotacion, Color> oldColorAbdomen =
-            new HashMap<LimitacionAnotacion, Color>();
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4884366489251485259L;
+
+    private List<LimitacionAnotacion> limitationsList = new LinkedList<LimitacionAnotacion>();
+    private Map<LimitacionAnotacion, Color> oldColorLimitations = new HashMap<LimitacionAnotacion, Color>();
+    private Map<LimitacionAnotacion, Color> oldColorTorax = new HashMap<LimitacionAnotacion, Color>();
+    private Map<LimitacionAnotacion, Color> oldColorAbdomen = new HashMap<LimitacionAnotacion, Color>();
 
 
     public DesaturacionAnotacion() {

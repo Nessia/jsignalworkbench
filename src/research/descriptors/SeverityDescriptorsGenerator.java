@@ -2,6 +2,7 @@ package research.descriptors;
 
 import java.util.List;
 import java.util.TreeSet;
+import java.util.logging.Logger;
 
 import javax.swing.Icon;
 
@@ -20,9 +21,19 @@ import java.util.Arrays;
 
 public class SeverityDescriptorsGenerator extends AlgorithmAdapter {
 
-    private Signal sato2Signal, fluxSignal;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 599127211201779451L;
+
+    private static final Logger LOGGER = Logger.getLogger(SeverityDescriptorsGenerator.class.getName());
+
+    private final static int minValueSpO2Aceptable = 20;
+
+    private Signal sato2Signal;
+    private Signal fluxSignal;
     private float[] sato2;
-    private final int minValueSpO2Aceptable = 20;
+
     //variables para guardar los datos
     private float apneaPercentage;
     private float hipoapneaPercentage;
@@ -154,29 +165,28 @@ public class SeverityDescriptorsGenerator extends AlgorithmAdapter {
 
     private void putDataInClipBoard() throws HeadlessException {
         String data = generateStringWithData();
-        System.out.println(data);
+        LOGGER.info(data);
         StringSelection stringSelection = new StringSelection(data);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, new ClipboardOwner() {
             @Override
             public void lostOwnership(Clipboard aClipboard,
                                       Transferable aContents) {
-
+                // Vacio
             }
         });
     }
 
     private String generateStringWithData() {
-        String data = apneaPercentage + "," + hipoapneaPercentage + "," +
+        return apneaPercentage + "," + hipoapneaPercentage + "," +
                       apneaAndHipoapneaPercentage + "," +
                       desaturationPercentage + "," + meanValueSato2 + "," +
                       basalValueSato2 + "," + deltaSato2 + "," + areaSato2   +",";
-        return data;
     }
 
     private void initialize(SignalManager sm) {
-        sato2Signal = sm.getSignal("Sat02");
-        fluxSignal = sm.getSignal("Flujo");
+        sato2Signal = sm.getSignal(SignalConstants.SENAL_SATURACION_02);
+        fluxSignal = sm.getSignal(SignalConstants.SENAL_FLUJO);
         sato2 = sato2Signal.getValues();
     }
 
@@ -202,12 +212,7 @@ public class SeverityDescriptorsGenerator extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override

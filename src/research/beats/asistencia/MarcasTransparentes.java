@@ -24,6 +24,11 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public class MarcasTransparentes extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5202548249676263628L;
+
     private boolean transparente = false;
 
     @Override
@@ -60,12 +65,7 @@ public class MarcasTransparentes extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override
@@ -80,11 +80,11 @@ public class MarcasTransparentes extends AlgorithmAdapter {
 
     @Override
     public String getDescription() {
-        return "MarcasTransparentes";
+        return getName();
     }
 
     @Override
     public String getShortDescription() {
-        return "MarcasTransparentes";
+        return getName();
     }
 }

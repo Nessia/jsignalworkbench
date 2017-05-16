@@ -1,6 +1,7 @@
 package research.beats;
 
-import java.awt.Color;
+import java.io.Serializable;
+import java.util.logging.Logger;
 
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.Signal;
@@ -10,7 +11,38 @@ import net.javahispano.jsignalwb.plugins.defaults.DefaultInstantMark;
  *
  * @author Santiago Fernandez Dapena
  */
-public class QRSDetect {
+public class QRSDetect implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1703693888655640694L;
+
+    private static final Logger LOGGER = Logger.getLogger(QRSDetect.class.getName());
+
+    private int ddPtr;
+    private int detThresh;
+    private int qpkcnt = 0;
+    private int[] qrsbuf = new int[8];
+    private int[] noise = new int[8];
+    private int[] rrbuf = new int[8];
+    private int[] rsetBuff = new int[8];
+    private int rsetCount = 0;
+    private int nmean;
+    private int qmean;
+//    private int rrmean;
+    private int count;
+    private int sbpeak = 0;
+    private int sbloc;
+    private int initBlank;
+    private int initMax;
+    private int preBlankCnt;
+    private int tempPeak;
+    private int lastDatum;
+    private int max = 0;
+    private int timeSinceMax = 0;
+    //private static int maxder;// lastmax;
+
     private int preBlank = SampleRate.getMs195();
     private int filterDelay = ((SampleRate.getDerivLength() / 2)
                                + (SampleRate.getLpBufferLgth() / 2 - 1)
@@ -22,23 +54,7 @@ public class QRSDetect {
     private int minPeakAmp = 7; // Prevents detections of peaks smaller than 150 uV.
     private double th = .73125; // Threshold coefficient; Valor original .3125
     private int[] ddBuffer; // Buffer holding derivative data.
-    private static int ddPtr;
-
-    private static int detThresh;
-    private static int qpkcnt = 0;
-    private static int[] qrsbuf = new int[8];
-    private static int[] noise = new int[8];
-    private static int[] rrbuf = new int[8];
-    private static int[] rsetBuff = new int[8];
-    private static int rsetCount = 0;
-    private static int nmean, qmean, rrmean;
-    private static int count, sbpeak = 0, sbloc;
     private int sbcount = SampleRate.getMs1500();
-    //private static int maxder;// lastmax;
-    private static int initBlank, initMax;
-    private static int preBlankCnt, tempPeak;
-    private static int lastDatum;
-    private static int max = 0, timeSinceMax = 0;
     private QRSFilter qrsFilter;
 
     /** Creates a new instance of QRSDetect */
@@ -83,7 +99,8 @@ public class QRSDetect {
 
         int fdatum = 0;
         int qrsDelay = 0;
-        int newPeak, aPeak;
+        int newPeak;
+        int aPeak;
 
         fdatum = qrsFilter.qrsFilter(datum); /* Filter data. */
 
@@ -102,7 +119,7 @@ public class QRSDetect {
         if (aPeak != 0 && preBlankCnt == 0) { // If there has been no peak for 195 ms,  save this one and start counting.
             if (SampleRate.getDebug()) {
                 Signal s = (Signal) JSWBManager.getSignalManager().getSignals().toArray()[0];
-                TestDeteccion.generarMarcas(s, time, Color.red);
+                TestDeteccion.generarMarcas(s, time/*, Color.red*/);
             }
 
             tempPeak = aPeak;
@@ -135,6 +152,7 @@ public class QRSDetect {
         /* Initialize the qrs peak buffer with the first eight 	*/
         /* local maximum peaks detected. */
 
+
         if (qpkcnt < 8) {
             ++count;
             if (newPeak > 0) {
@@ -148,7 +166,7 @@ public class QRSDetect {
                 if (qpkcnt == 8) {
                     qmean = mean(qrsbuf, 8);
                     nmean = 0;
-                    rrmean = SampleRate.getMs1000();
+//                    rrmean = SampleRate.getMs1000();
                     sbcount = SampleRate.getMs1500() + SampleRate.getMs150();
                     detThresh = thresh(qmean, nmean);
                 }
@@ -170,9 +188,9 @@ public class QRSDetect {
                     if (s != null) {
                         DefaultInstantMark m = new DefaultInstantMark();
                         long tt = (s.getStart() + (time - newPeak) * 10);
-                        m.setTitle(tt + "");
+                        m.setTitle(Long.toString(tt));
                         if (tt == 2682780620L) {
-                            System.out.println("");
+                            LOGGER.info("");
                         }
                         final long t = s.getStart() + (time - newPeak) * 10;
                         m.setMarkTime(t);
@@ -197,7 +215,7 @@ public class QRSDetect {
                         detThresh = thresh(qmean, nmean);
                         rrbuf = desplazarDerechaArray(rrbuf);
                         rrbuf[0] = count - SampleRate.getWindowWidth();
-                        rrmean = mean(rrbuf, 8);
+                        int rrmean = mean(rrbuf, 8);
                         sbcount = rrmean + (rrmean / 2) +
                                   SampleRate.getWindowWidth();
                         count = SampleRate.getWindowWidth();
@@ -238,7 +256,7 @@ public class QRSDetect {
             if ((count > sbcount) && (sbpeak > (detThresh / 2))) {
 
                 if (SampleRate.getDebug()) {
-                    System.out.println("Test for search back condition.");
+                    LOGGER.info("Test for search back condition.");
                 }
                 qrsbuf = desplazarDerechaArray(qrsbuf);
                 qrsbuf[0] = sbpeak;
@@ -246,7 +264,7 @@ public class QRSDetect {
                 detThresh = thresh(qmean, nmean);
                 rrbuf = desplazarDerechaArray(rrbuf);
                 rrbuf[0] = sbloc;
-                rrmean = mean(rrbuf, 8);
+                int rrmean = mean(rrbuf, 8);
                 sbcount = rrmean + (rrmean / 2) + SampleRate.getWindowWidth();
                 qrsDelay = count - sbloc;
                 count = count - sbloc;
@@ -276,7 +294,7 @@ public class QRSDetect {
 
                 if (rsetCount == 8) {
                     if (SampleRate.getDebug()) {
-                        System.out.println("if eight seconds elapses without a QRS detection");
+                        LOGGER.info("if eight seconds elapses without a QRS detection");
                     }
                     for (int i = 0; i < 8; ++i) {
                         qrsbuf[i] = rsetBuff[i];
@@ -284,7 +302,7 @@ public class QRSDetect {
                     }
                     qmean = mean(rsetBuff, 8);
                     nmean = 0;
-                    rrmean = SampleRate.getMs1000();
+//                    rrmean = SampleRate.getMs1000();
                     sbcount = SampleRate.getMs1500() + SampleRate.getMs150();
                     detThresh = thresh(qmean, nmean);
                     initBlank = 0;
@@ -328,13 +346,9 @@ public class QRSDetect {
         }
 
         //Si el valor de un Maximo cae por debajo de la mitad estamos seguros de que es pico
-        else if (datum < (max / 2)) {
-            pk = max;
-            max = 0;
-            timeSinceMax = 0;
-        }
+        // o
         //Si han pasado mas de 95 ms desde el maximo Lo convertimos en pico
-        else if (timeSinceMax > SampleRate.getMs95()) {
+        else if (datum < (max / 2) || timeSinceMax > SampleRate.getMs95()) {
             pk = max;
             max = 0;
             timeSinceMax = 0;
@@ -355,36 +369,43 @@ public class QRSDetect {
      */
     private int blsCheck(int[] dBuf, int dbPtr) {
 
-        int maxb, min, maxt, mint, t, x;
+        int maxb;
+        int min;
+//        int maxt;
+//        int mint;
+        int t;
+        int x;
         maxb = min = 0;
-        maxt = mint = 0;
+//        maxt = mint = 0;
+        int dbPuntero = dbPtr;
 
         for (t = 0; t < SampleRate.getMs220(); ++t) {
             x = dBuf[dbPtr];
             if (x > maxb) {
-                maxt = t;
+//                maxt = t;
                 maxb = x;
             } else if (x < min) {
-                mint = t;
+//                mint = t;
                 min = x;
             }
-            if (++dbPtr == derDelay) {
-                dbPtr = 0;
+            if (++dbPuntero == derDelay) {
+                dbPuntero = 0;
             }
         }
 
         //maxder = maxb;
-        min = -min;
+//        min = -min;
 
         /* Possible beat if a maximum and minimum pair are found
            where the interval between them is less than 150 ms. */
 
-        if ((maxb > (min / 8)) && (min > (maxb / 8)) &&
-            (Math.abs(maxt - mint) < SampleRate.getMs150())) {
-            return (0);
-        } else {
-            return (0); //@cambio  return (1);
-        }
+//        if ((maxb > (min / 8)) && (min > (maxb / 8)) &&
+//            (Math.abs(maxt - mint) < SampleRate.getMs150())) {
+//            return 0;
+//        } else {
+//            return 1; //@cambio  return (1);
+//        }
+        return 0;
     }
 
     /**
@@ -415,7 +436,8 @@ public class QRSDetect {
      * @return int
      */
     private int thresh(int qmean, int nmean) {
-        int thrsh, dmed;
+        int thrsh;
+        int dmed;
         double temp;
         dmed = qmean - nmean;
         temp = dmed;

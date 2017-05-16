@@ -13,6 +13,10 @@ import net.javahispano.jsignalwb.plugins.GenericPlugin;
 
 public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlugin, ActionListener, SessionListener {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3404320874296054074L;
     private File file = null;
     private ByteArrayOutputStream inMemoryDucyment;
     private JSWTextProcessor jSWTextProcessor = null;

@@ -4,6 +4,8 @@ import java.awt.HeadlessException;
 import java.io.File;
 import java.util.*;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -17,10 +19,18 @@ import net.javahispano.jsignalwb.utilities.TimePositionConverter;
 
 public class ExportarLatidos extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6245026658409815423L;
+    private static final Logger LOGGER = Logger.getLogger(ExportarLatidos.class.getName());
+    private static final String EXTENSION_BEATS = ".beats";
+    private static final String EXTENSION_DAT = ".dat";
+
     private String ultimoDirectorioAbierto = null;
     private JFileChooser jf;
     private BasicSaver basicSaver;
-    private float rr[];
+    private float[] rr;
     private boolean error = true;
     private boolean exportRHRV = true;
 
@@ -80,19 +90,12 @@ public class ExportarLatidos extends AlgorithmAdapter {
         jf = new JFileChooser(ultimoDirectorioAbierto);
         jf.setFileFilter(new FileFilter() {
             public boolean accept(File f) {
-                if (f.isDirectory()) {
-                    return true;
-                }
-                if (f.getName().toLowerCase().endsWith(".beats")) {
-                    return true;
-                }
-                return false;
+                return f.isDirectory() || f.getName().toLowerCase().endsWith(EXTENSION_BEATS);
             }
 
             @Override
             public String getDescription() {
-                String desc = "Archivos RR";
-                return desc;
+                return "Archivos RR";
             }
         });
     }
@@ -115,11 +118,11 @@ public class ExportarLatidos extends AlgorithmAdapter {
         }
         List<DefaultIntervalMark> beatMarks = new LinkedList<DefaultIntervalMark>();
         for (MarkPlugin mark : l) {
-            if (mark instanceof DefaultIntervalMark && ((DefaultIntervalMark) mark).getComentary().equals("0")) {
+            if (mark instanceof DefaultIntervalMark && "0".equals(((DefaultIntervalMark) mark).getComentary())) {
                 beatMarks.add((DefaultIntervalMark) mark);
             }
         }
-        if (beatMarks.size() == 0) {
+        if (beatMarks.isEmpty()) {
             this.errorMensaje();
             error = true;
             return;
@@ -134,7 +137,7 @@ public class ExportarLatidos extends AlgorithmAdapter {
         boolean useMax = decideOnMaxMin(beatMarks, signal);
         int i = 0;
         for (MarkPlugin m : beatMarks) {
-            long refinedRR = ajustarPrincipios(m, useMax, signal);
+            float refinedRR = ajustarPrincipios(m, useMax, signal);
             rr[i] = refinedRR - signal.getStart();
             if (Math.random()>0.98) rr[i]+=60;
             rr[i] /= 1000;
@@ -162,7 +165,8 @@ public class ExportarLatidos extends AlgorithmAdapter {
     private boolean decideOnMaxMin(List<DefaultIntervalMark> beatMarks, Signal e) {
         int counter = 0;
         float[] ec = e.getValues();
-        float min = 0, max = 0;
+        float min = 0;
+        float max = 0;
         for (MarkPlugin m : beatMarks) {
             int beging = TimePositionConverter.timeToPosition(m.getMarkTime(), e);
             int end = TimePositionConverter.timeToPosition(m.getEndTime(), e);
@@ -186,11 +190,7 @@ public class ExportarLatidos extends AlgorithmAdapter {
                 break;
             }
         }
-        if (Math.abs(min) > max) {
-            return false;
-        } else {
-            return true;
-        }
+        return Math.abs(min) <= max;
     }
 
     private long ajustarPrincipios(MarkPlugin m, boolean useMax, Signal e) {
@@ -216,18 +216,12 @@ public class ExportarLatidos extends AlgorithmAdapter {
             }
         }
 
-        long rrInterval = TimePositionConverter.positionToTime(selectedIndex, e);
-        return rrInterval;
+        return TimePositionConverter.positionToTime(selectedIndex, e);
     }
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override
@@ -247,27 +241,27 @@ public class ExportarLatidos extends AlgorithmAdapter {
                 == JFileChooser.APPROVE_OPTION) {
             File f = jf.getSelectedFile();
             ultimoDirectorioAbierto = jf.getCurrentDirectory().getAbsolutePath();
-            System.out.println(ultimoDirectorioAbierto);
+            LOGGER.log(Level.INFO, ultimoDirectorioAbierto);
             String n = f.getAbsolutePath();
             if (this.exportRHRV) {
-                if (!n.endsWith(".beats")) {
-                    n = n.concat(".beats");
+                if (!n.endsWith(EXTENSION_BEATS)) {
+                    n = n.concat(EXTENSION_BEATS);
                 }
 
             } else {
-                if (!n.endsWith(".dat")) {
-                    n = n.concat(".dat");
+                if (!n.endsWith(EXTENSION_DAT)) {
+                    n = n.concat(EXTENSION_DAT);
                 }
             }
             f = new File(n);
-            float tmp[][] = new float[1][rr.length];
+            float[][] tmp = new float[1][rr.length];
             tmp[0] = rr;
             try {
                 if (!basicSaver.save(f, tmp, false)) {
                     errorGuardarMensaje();
                 }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                 errorGuardarMensaje();
             }
         }

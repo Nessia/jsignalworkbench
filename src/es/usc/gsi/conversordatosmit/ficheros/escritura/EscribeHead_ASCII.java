@@ -1,4 +1,4 @@
-/* Esta clase esta bastante mal planteada: REFORMAR.
+/* TODO Esta clase esta bastante mal planteada: REFORMAR.
  Tiene una estructura "rara": todo se hace desde el constructor
  */
 package es.usc.gsi.conversordatosmit.ficheros.escritura;
@@ -6,7 +6,6 @@ package es.usc.gsi.conversordatosmit.ficheros.escritura;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,15 +17,18 @@ import es.usc.gsi.conversordatosmit.interfaz.ControladorInterfaz;
 
 public class EscribeHead_ASCII extends Thread implements Cancelar {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 280327071583524748L;
+
     private static final Logger LOGGER = Logger.getLogger(EscribeHead_ASCII.class.getName());
 
     private List<FicheroHead> vectorFicherosHead;
     private File ficheroDestino;
     private LeeFicheroDat[] arrayLectores;
-    private ControladorFicheros controlFicheros = ControladorFicheros.
-                                                  getControlador();
-    private ControladorInterfaz controlInterfaz = ControladorInterfaz.
-                                                  getControlador();
+    private ControladorFicheros controlFicheros = ControladorFicheros.getControlador();
+    private ControladorInterfaz controlInterfaz = ControladorInterfaz.getControlador();
     private boolean cancel = false;
 
 //*******************************************************************************
@@ -36,11 +38,10 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
          this.vectorFicherosHead = vectorFicherosHead;
 
          // Correccion del nombre de fichero
-         if (ficheroDestino.getName().indexOf(".txt") != -1) {
+         if (ficheroDestino.getName().endsWith(".txt")) {
              this.ficheroDestino = ficheroDestino;
          } else {
-             this.ficheroDestino = new File(ficheroDestino.getAbsolutePath() +
-                                            ".txt");
+             this.ficheroDestino = new File(ficheroDestino.getAbsolutePath() + ".txt");
          }
      }
 

@@ -1,6 +1,7 @@
 package research.mining.tmp;
 
 import net.javahispano.jsignalwb.Signal;
+import net.javahispano.jsignalwb.SignalConstants;
 import net.javahispano.jsignalwb.SignalIntervalProperties;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.JSWBManager;
@@ -8,6 +9,8 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 import javax.swing.Icon;
 import net.javahispano.jsignalwb.SignalManager;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.Arrays;
 
 /**
@@ -24,21 +27,31 @@ import java.util.Arrays;
  */
 public class Media extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -234952335936356213L;
+
+    private static final Logger LOGGER = Logger.getLogger(Media.class.getName());
+
     @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
-        Signal s  =sm.getSignal("Sat02");
-        float f []=s.getValues();
-       float f2 []=Arrays.copyOf(f,f.length);
+        Signal s = sm.getSignal(SignalConstants.SENAL_SATURACION_02);
+        float[] f =s.getValues();
+       float[] f2 =Arrays.copyOf(f,f.length);
        double media =0;
        int contador=0;
        for (Float dato : f2) {
-          if (dato<= 100&&dato>20) {
+          if (dato<= 100 && dato>20) {
               media+=dato;
               contador++;
           }
        }
-       media/=contador;
+       if(contador != 0){
+           media/=contador;
+           LOGGER.log(Level.INFO, "%s", "Media: "+ media);
+       }
 
        double basal =0;
        contador=0;
@@ -50,9 +63,11 @@ public class Media extends AlgorithmAdapter {
                contador++;
           }
        }
-       basal/= contador;
+       if(contador != 0){
+           basal/= contador;
+           LOGGER.log(Level.INFO, "%s", "Basal: "+ basal);
+       }
 
-       System.out.println("Media: "+ media+ " Basal: "+ basal);
     }
 
     @Override
@@ -67,12 +82,7 @@ public class Media extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override

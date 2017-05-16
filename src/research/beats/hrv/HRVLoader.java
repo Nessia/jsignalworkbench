@@ -21,7 +21,11 @@ import net.javahispano.jsignalwb.io.BasicLoader;
  * @version 0.5
  */
 public class HRVLoader extends BasicLoader {
-     private String[] nombres = {"ULF", "VLF", "LF", "HF", "LF/HF", "HRV","FC"};
+     /**
+     *
+     */
+    private static final long serialVersionUID = 4616724473321562471L;
+    private static final String[] NOMBRES = {"ULF", "VLF", "LF", "HF", "LF/HF", "HRV","FC"};
     //  private String[] nombres = {"Diuresis","F. riñón","F. carótida","P. arterial",
       // "P. pulmonar","F. corteza","F. médula","F. corteza+médula"};
     //  private String[] nombres = {"Presión arterial", "Flujo carótida"};
@@ -74,7 +78,7 @@ public class HRVLoader extends BasicLoader {
             if (s == null) {
                 return false;
             }
-            Signal newSignal = new Signal(nombres[i], corrigeInicioYFin(f,s,sm));
+            Signal newSignal = new Signal(NOMBRES[i], corrigeInicioYFin(f,s,sm));
             newSignal.setFrecuency(fs);
             newSignal.setStart(baseDate.getTime());
             //alinearConECG(sm,newSignal,s);

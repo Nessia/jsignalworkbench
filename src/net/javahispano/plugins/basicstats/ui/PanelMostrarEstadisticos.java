@@ -3,6 +3,8 @@ package net.javahispano.plugins.basicstats.ui;
 import java.awt.*;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -24,6 +26,14 @@ public class PanelMostrarEstadisticos extends JPanel {
      *
      */
     private static final long serialVersionUID = -5354805954330260351L;
+    private static final Logger LOGGER = Logger.getLogger(PanelMostrarEstadisticos.class.getName());
+    public static final String FONT_FAMILY = "Dialog";
+    public static final Font REGULAR_FONT = new Font(FONT_FAMILY, 1, 14);
+    public static final Font BIG_FONT = new Font(FONT_FAMILY, 1, 16);
+    public static final Color COLOR1 = new Color(78, 110, 255);
+    /*
+     * Atribute
+     */
 
     private ResultadosEstadisticos resultados_estadisticos;
 
@@ -37,7 +47,7 @@ public class PanelMostrarEstadisticos extends JPanel {
     private JCheckBox checkbox_o_label_percentiles = new JCheckBox();
     private JScrollPane scroll_panel_percentiles = new JScrollPane();
     //Codigo mio
-    String tmp[] = {"Percentil", "Valor"};
+    String[] tmp = {"Percentil", "Valor"};
     JTable table = new JTable(new String[6][2], tmp);
     private GridLayout gridLayout1 = new GridLayout();
     private JLabel jLabel3 = new JLabel();
@@ -57,7 +67,7 @@ public class PanelMostrarEstadisticos extends JPanel {
     private JLabel intervalo_de_confianza_menor = new JLabel();
     private JLabel intervalo_de_confianza_mayor = new JLabel();
     private JPanel jPanel6 = new JPanel();
-    private TitledBorder titledBorder1;
+//    private TitledBorder titledBorder1;
     private JPanel jPanel7 = new JPanel();
     private BorderLayout borderLayout4 = new BorderLayout();
     private JPanel jPanel8 = new JPanel();
@@ -70,8 +80,8 @@ public class PanelMostrarEstadisticos extends JPanel {
     private JPanel jPanel11 = new JPanel();
     private GridLayout gridLayout2 = new GridLayout();
     private JLabel jLabel5 = new JLabel();
-    private JTextField nombre_senal = new JTextField();
-    private JLabel fecha_inicio = new JLabel();
+    private JTextField nombreSenal = new JTextField();
+    private JLabel fechaInicio = new JLabel();
     private JLabel jLabel9 = new JLabel();
     private JLabel jLabel12 = new JLabel();
     private JLabel fecha_fin = new JLabel();
@@ -90,7 +100,7 @@ public class PanelMostrarEstadisticos extends JPanel {
         if (!puede_borrar_percentiles) {
             panel_percentiles.remove(checkbox_o_label_percentiles);
             JLabel label_percentiles = new JLabel();
-            label_percentiles.setFont(new java.awt.Font("Dialog", 1, 14));
+            label_percentiles.setFont(REGULAR_FONT);
             label_percentiles.setForeground(Color.blue);
             label_percentiles.setToolTipText("");
             label_percentiles.setText("Percentiles:");
@@ -100,34 +110,34 @@ public class PanelMostrarEstadisticos extends JPanel {
     }
 
     public PanelMostrarEstadisticos(ResultadosEstadisticos
-                                    resultados_estadisticos) {
-        this.resultados_estadisticos = resultados_estadisticos;
+                                    resultadosEstadisticos) {
+        this.resultados_estadisticos = resultadosEstadisticos;
         try {
             jbInit();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
         }
-        nombre_senal.setText(resultados_estadisticos.getNombreSenhal());
-        fecha_fin.setText(resultados_estadisticos.getFechaFin());
-        fecha_inicio.setText(resultados_estadisticos.getFechaInicio());
-        media.setText(MyFloat.formateaNumero(resultados_estadisticos.
+        nombreSenal.setText(resultadosEstadisticos.getNombreSenhal());
+        fecha_fin.setText(resultadosEstadisticos.getFechaFin());
+        fechaInicio.setText(resultadosEstadisticos.getFechaInicio());
+        media.setText(MyFloat.formateaNumero(resultadosEstadisticos.
                                              getMediaAritmetica()));
-        mediana.setText(MyFloat.formateaNumero(resultados_estadisticos.
+        mediana.setText(MyFloat.formateaNumero(resultadosEstadisticos.
                                                getMediana()));
-        varianza.setText(MyFloat.formateaNumero(resultados_estadisticos.
+        varianza.setText(MyFloat.formateaNumero(resultadosEstadisticos.
                                                 getVarianza()));
         desviacion_tipica.setText(MyFloat.formateaNumero(
-                resultados_estadisticos.getDesviacionTipica()));
-        error_estandar.setText(MyFloat.formateaNumero(resultados_estadisticos.
+                resultadosEstadisticos.getDesviacionTipica()));
+        error_estandar.setText(MyFloat.formateaNumero(resultadosEstadisticos.
                 getErrorEstandar()));
         cociente_vaiacion.setText(MyFloat.formateaNumero(
-                resultados_estadisticos.getCocienteDeVariacion()));
+                resultadosEstadisticos.getCocienteDeVariacion()));
         float[] tmp = new float[2];
-        tmp[0] = resultados_estadisticos.getIntervaloDeConfianza()[0];
-        tmp[1] = resultados_estadisticos.getIntervaloDeConfianza()[1];
+        tmp[0] = resultadosEstadisticos.getIntervaloDeConfianza()[0];
+        tmp[1] = resultadosEstadisticos.getIntervaloDeConfianza()[1];
         this.setIntervaloDeConfianza(tmp);
-        if (resultados_estadisticos.getPercentiles() != null) {
-            HashMap<String,String> percentiles_has_map = resultados_estadisticos.getPercentiles();
+        if (resultadosEstadisticos.getPercentiles() != null) {
+            Map<String,String> percentiles_has_map = resultadosEstadisticos.getPercentiles();
             Set<Entry<String, String>> percentiles_set = percentiles_has_map.entrySet();
             Iterator<Entry<String, String>> it = percentiles_set.iterator();
             int num_percentiles = 0;
@@ -150,17 +160,17 @@ public class PanelMostrarEstadisticos extends JPanel {
             validate();
         }
 
-        comentario.setText(resultados_estadisticos.getComentario());
+        comentario.setText(resultadosEstadisticos.getComentario());
 
     }
 
     void jbInit() throws Exception {
         checkbox_o_label_percentiles.setSelected(true);
-        titledBorder1 = new TitledBorder("");
+        TitledBorder titledBorder1 = new TitledBorder("");
         this.setLayout(borderLayout1);
         jPanel1.setLayout(borderLayout2);
         jPanel3.setLayout(borderLayout3);
-        checkbox_o_label_percentiles.setFont(new java.awt.Font("Dialog", 1, 14));
+        checkbox_o_label_percentiles.setFont(REGULAR_FONT);
         checkbox_o_label_percentiles.setForeground(Color.blue);
         checkbox_o_label_percentiles.setToolTipText("");
         checkbox_o_label_percentiles.setText("Percentiles:");
@@ -170,90 +180,80 @@ public class PanelMostrarEstadisticos extends JPanel {
         gridLayout1.setHgap(2);
         gridLayout1.setRows(7);
         gridLayout1.setVgap(2);
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14));
+        jLabel3.setFont(REGULAR_FONT);
         jLabel3.setForeground(Color.blue);
         jLabel3.setText("Media:");
-        media.setFont(new java.awt.Font("Dialog", 1, 14));
+        media.setFont(REGULAR_FONT);
         media.setText("jLabel4");
-        mediana.setFont(new java.awt.Font("Dialog", 1, 14));
+        mediana.setFont(REGULAR_FONT);
         mediana.setText("jLabel5");
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14));
+        jLabel6.setFont(REGULAR_FONT);
         jLabel6.setForeground(Color.blue);
         jLabel6.setText("Varianza:");
-        varianza.setFont(new java.awt.Font("Dialog", 1, 14));
+        varianza.setFont(REGULAR_FONT);
         varianza.setText("jLabel7");
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 14));
+        jLabel8.setFont(REGULAR_FONT);
         jLabel8.setForeground(Color.blue);
         jLabel8.setText("Desviacion tipica:");
-        desviacion_tipica.setFont(new java.awt.Font("Dialog", 1, 14));
+        desviacion_tipica.setFont(REGULAR_FONT);
         desviacion_tipica.setText("jLabel9");
-        jLabel10.setFont(new java.awt.Font("Dialog", 1, 14));
+        jLabel10.setFont(REGULAR_FONT);
         jLabel10.setForeground(Color.blue);
         jLabel10.setText("Mediana:");
-        jLabel11.setFont(new java.awt.Font("Dialog", 1, 14));
+        jLabel11.setFont(REGULAR_FONT);
         jLabel11.setForeground(Color.blue);
         jLabel11.setText("Error estandar:");
-        error_estandar.setFont(new java.awt.Font("Dialog", 1, 14));
+        error_estandar.setFont(REGULAR_FONT);
         error_estandar.setText("jLabel12");
-        jLabel13.setFont(new java.awt.Font("Dialog", 1, 14));
+        jLabel13.setFont(REGULAR_FONT);
         jLabel13.setForeground(Color.blue);
         jLabel13.setText("Cociente de variacion:");
-        cociente_vaiacion.setFont(new java.awt.Font("Dialog", 1, 14));
+        cociente_vaiacion.setFont(REGULAR_FONT);
         cociente_vaiacion.setText("jLabel14");
-        intervalo_de_confianza_checkbox.setFont(new java.awt.Font("Dialog", 1,
-                14));
+        intervalo_de_confianza_checkbox.setFont(REGULAR_FONT);
         intervalo_de_confianza_checkbox.setForeground(Color.blue);
         intervalo_de_confianza_checkbox.setToolTipText("");
-        intervalo_de_confianza_checkbox.setText(
-                "Intervalo de confianza del 95%:");
-        intervalo_de_confianza_menor.setFont(new java.awt.Font("Dialog", 1, 14));
-        intervalo_de_confianza_mayor.setFont(new java.awt.Font("Dialog", 1, 14));
+        intervalo_de_confianza_checkbox.setText("Intervalo de confianza del 95%:");
+        intervalo_de_confianza_menor.setFont(REGULAR_FONT);
+        intervalo_de_confianza_mayor.setFont(REGULAR_FONT);
         panel_intervalos.setLayout(gridLayout3);
         jPanel2.setBorder(titledBorder1);
-        this.setFont(new java.awt.Font("Dialog", 1, 14));
+        this.setFont(REGULAR_FONT);
         jPanel7.setLayout(borderLayout4);
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14));
+        jLabel4.setFont(REGULAR_FONT);
         jLabel4.setForeground(Color.blue);
         jLabel4.setText("Comentario:");
         jPanel6.setLayout(borderLayout6);
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 16));
+        jLabel1.setFont(BIG_FONT);
         jLabel1.setForeground(Color.red);
         jLabel1.setText("Resultado de los estadisticos:");
         jPanel11.setLayout(gridLayout2);
         gridLayout2.setColumns(2);
         gridLayout2.setRows(3);
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 14));
-        jLabel5.setForeground(new Color(78, 110, 255));
-        jLabel5.setToolTipText(
-                "Nombre de la senhal sobre la cual se efectuo el calculo.");
+        jLabel5.setFont(REGULAR_FONT);
+        jLabel5.setForeground(COLOR1);
+        jLabel5.setToolTipText("Nombre de la senhal sobre la cual se efectuo el calculo.");
         jLabel5.setText("Nombre de la senhal:");
-        nombre_senal.setToolTipText(
-                "Nombre de la senhal sobre la cual se efectuo el calculo.");
-        nombre_senal.setText("jTextField1");
-        fecha_inicio.setFont(new java.awt.Font("Dialog", 1, 14));
-        fecha_inicio.setToolTipText(
-                "Instante de esa senhal a partir del cual se realizo el calculo.");
-        fecha_inicio.setText("jLabel7");
-        jLabel9.setFont(new java.awt.Font("Dialog", 1, 14));
-        jLabel9.setForeground(new Color(78, 110, 255));
-        jLabel9.setToolTipText(
-                "Instante de esa senhal a partir del cual se realizo el calculo.");
+        nombreSenal.setToolTipText("Nombre de la senhal sobre la cual se efectuo el calculo.");
+        nombreSenal.setText("jTextField1");
+        fechaInicio.setFont(REGULAR_FONT);
+        fechaInicio.setToolTipText("Instante de esa senhal a partir del cual se realizo el calculo.");
+        fechaInicio.setText("jLabel7");
+        jLabel9.setFont(REGULAR_FONT);
+        jLabel9.setForeground(COLOR1);
+        jLabel9.setToolTipText("Instante de esa senhal a partir del cual se realizo el calculo.");
         jLabel9.setText("Tiempo de incio:");
-        jLabel12.setFont(new java.awt.Font("Dialog", 1, 14));
-        jLabel12.setForeground(new Color(78, 110, 255));
-        jLabel12.setToolTipText(
-                "Instante de esa senhal hasta donde se realizo el calculo.");
+        jLabel12.setFont(REGULAR_FONT);
+        jLabel12.setForeground(COLOR1);
+        jLabel12.setToolTipText("Instante de esa senhal hasta donde se realizo el calculo.");
         jLabel12.setText("Tiempo de fin:");
-        fecha_fin.setFont(new java.awt.Font("Dialog", 1, 14));
-        fecha_fin.setToolTipText(
-                "Instante de esa senhal hasta donde se realizo el calculo.");
+        fecha_fin.setFont(REGULAR_FONT);
+        fecha_fin.setToolTipText("Instante de esa senhal hasta donde se realizo el calculo.");
         fecha_fin.setText("jLabel14");
         jPanel11.setBorder(titledBorder1);
-        jPanel7.setFont(new java.awt.Font("Dialog", 1, 14));
+        jPanel7.setFont(REGULAR_FONT);
         jPanel7.setPreferredSize(new Dimension(446, 130));
-        table.setToolTipText(
-                "Si desea anhadir mas percentiles simplemente edite las columans de " +
-                "la izquierda.");
+        table.setToolTipText("Si desea anhadir mas percentiles simplemente edite las columans de la izquierda.");
         gridLayout3.setColumns(2);
         this.add(jPanel1, BorderLayout.CENTER);
         jPanel1.add(jPanel2, BorderLayout.CENTER);
@@ -272,9 +272,9 @@ public class PanelMostrarEstadisticos extends JPanel {
         jPanel10.add(jLabel1, null);
         jPanel6.add(jPanel11, BorderLayout.CENTER);
         jPanel11.add(jLabel5, null);
-        jPanel11.add(nombre_senal, null);
+        jPanel11.add(nombreSenal, null);
         jPanel11.add(jLabel9, null);
-        jPanel11.add(fecha_inicio, null);
+        jPanel11.add(fechaInicio, null);
         jPanel11.add(jLabel12, null);
         jPanel11.add(fecha_fin, null);
         jPanel2.add(jLabel3, null);
@@ -357,11 +357,8 @@ public class PanelMostrarEstadisticos extends JPanel {
     }
 
     public void setIntervaloDeConfianza(float[] _intervalo_de_confianza) {
-        intervalo_de_confianza_menor.setText("[" +
-                                             MyFloat.formateaNumero(_intervalo_de_confianza[
-                1]) + ",");
-        intervalo_de_confianza_mayor.setText(MyFloat.formateaNumero(
-                _intervalo_de_confianza[0]) + "]");
+        intervalo_de_confianza_menor.setText("[" + MyFloat.formateaNumero(_intervalo_de_confianza[1]) + ",");
+        intervalo_de_confianza_mayor.setText(MyFloat.formateaNumero(_intervalo_de_confianza[0]) + "]");
     }
 
     public String getComentario() {
@@ -369,7 +366,7 @@ public class PanelMostrarEstadisticos extends JPanel {
     }
 
     public String getFechaInicio() {
-        return fecha_inicio.getText();
+        return fechaInicio.getText();
     }
 
     public String getFechaFin() {
@@ -377,7 +374,7 @@ public class PanelMostrarEstadisticos extends JPanel {
     }
 
     public String getNombreSenhal() {
-        return nombre_senal.getText();
+        return nombreSenal.getText();
     }
 
     public void setComentario(String _comentario) {
@@ -385,15 +382,15 @@ public class PanelMostrarEstadisticos extends JPanel {
     }
 
     public void setFechaInicio(String _fecha_inicio) {
-        fecha_inicio.setText(_fecha_inicio);
+        fechaInicio.setText(_fecha_inicio);
     }
 
     public void setFechaFin(String _fecha_fin) {
         fecha_fin.setText(_fecha_fin);
     }
 
-    public void setNombreSenhal(String _nombre_senhal) {
-        nombre_senal.setText(_nombre_senhal);
+    public void setNombreSenhal(String nombreSenhal) {
+        this.nombreSenal.setText(nombreSenhal);
     }
 
     public ResultadosEstadisticos getResultadosEstadisticos() {
@@ -407,6 +404,6 @@ public class PanelMostrarEstadisticos extends JPanel {
      * @return
      */
     public boolean invalidarPercentiles() {
-        return!(checkbox_o_label_percentiles.isSelected());
+        return !checkbox_o_label_percentiles.isSelected();
     }
 }

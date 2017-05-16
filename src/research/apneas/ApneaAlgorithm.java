@@ -3,6 +3,8 @@ package research.apneas;
 import java.awt.Color;
 import java.util.*;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import net.javahispano.fuzzyutilities.representation.TrapezoidalDistribution;
 import net.javahispano.jsignalwb.*;
@@ -23,6 +25,15 @@ import research.apneas.spo2.DetectorDesaturacionesWrapper;
  * @version 0.5
  */
 public class ApneaAlgorithm extends AlgorithmAdapter {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2203914808889217590L;
+
+    private static final Logger LOGGER = Logger.getLogger(ApneaAlgorithm.class.getName());
+
+
     //@todo estudiar permitir pendientes de 0. 05
     private TrapezoidalDistribution pendienteNormal = new
             TrapezoidalDistribution( -0.1F, -0.1F, 0.1F, 0.1F);
@@ -52,25 +63,17 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
     //parparametros ventilacion
     /**
      * se dan en tanto por ciento
-     *  private TrapezoidalDistribution magnitudHipoapnea = new
-            TrapezoidalDistribution(0F, 0F, 0.6F, 0.6F);
-    private TrapezoidalDistribution magnitudApnea = new
-            TrapezoidalDistribution(0F, 0F, 0.15F, 0.15F);
+    private TrapezoidalDistribution magnitudHipoapnea = new TrapezoidalDistribution(0F, 0F, 0.6F, 0.6F);
+    private TrapezoidalDistribution magnitudApnea = new TrapezoidalDistribution(0F, 0F, 0.15F, 0.15F);
 
-    private TrapezoidalDistribution duracionHipoapnea = new
-            TrapezoidalDistribution(4, 4, 9.9F, 9.9F);
-    private TrapezoidalDistribution duracionApnea = new
-            TrapezoidalDistribution(4, 4, 9.9F, 9.9F);
+    private TrapezoidalDistribution duracionHipoapnea = new TrapezoidalDistribution(4, 4, 9.9F, 9.9F);
+    private TrapezoidalDistribution duracionApnea = new TrapezoidalDistribution(4, 4, 9.9F, 9.9F);
      */
-    private TrapezoidalDistribution magnitudHipoapnea = new
-            TrapezoidalDistribution(0F, 0F, 0.75F, 0.75F);
-    private TrapezoidalDistribution magnitudApnea = new
-            TrapezoidalDistribution(0F, 0F, 0.2F, 0.2F);
+    private TrapezoidalDistribution magnitudHipoapnea = new TrapezoidalDistribution(0F, 0F, 0.75F, 0.75F);
+    private TrapezoidalDistribution magnitudApnea = new TrapezoidalDistribution(0F, 0F, 0.2F, 0.2F);
 
-    private TrapezoidalDistribution duracionHipoapnea = new
-            TrapezoidalDistribution(5, 10, 60, 140);
-    private TrapezoidalDistribution duracionApnea = new
-            TrapezoidalDistribution(5, 10, 100, 140);
+    private TrapezoidalDistribution duracionHipoapnea = new TrapezoidalDistribution(5, 10, 60, 140);
+    private TrapezoidalDistribution duracionApnea = new TrapezoidalDistribution(5, 10, 100, 140);
 
     //se usan para calcular el valor basal de la apnea
     private int principioVentanaBasalFlujoApnea = 200;
@@ -96,8 +99,7 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
     private int persistenciaFlujo = 2;
 
     //relaciones entre el desaturaciones y flujo nasal
-    private TrapezoidalDistribution relacionTemporal = new
-            TrapezoidalDistribution(6, 10, 30, 45);
+    private TrapezoidalDistribution relacionTemporal = new TrapezoidalDistribution(6, 10, 30, 45);
 
     public ApneaAlgorithm() {
        //Empty
@@ -108,7 +110,8 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
 
-        Signal satO2, nasal;
+        Signal satO2;
+        Signal nasal;
         SignalIntervalProperties intervalo = signals.get(0);
         Signal s = intervalo.getSignal();
         String nombreSenal = s.getName().trim().toLowerCase();
@@ -131,9 +134,9 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
         {
             satO2 = s;
             //nasal = signals.get(1).getSignal();
-            float[] datosSatO2 = satO2.getValues();
-            float frecuencia = satO2.getSRate();
-            TreeSet<EpisodioDesaturacion> episodiosDes = calcularDesaturacion(sm, satO2, datosSatO2, frecuencia);
+            //float[] datosSatO2 = satO2.getValues();
+//            float frecuencia = satO2.getSRate();
+            TreeSet<EpisodioDesaturacion> episodiosDes = calcularDesaturacion(/*sm,*/ satO2/*, datosSatO2, frecuencia*/);
 
             for (Intervalo a : episodiosDes) {
                 DesatDetector.generarEpisodioDesaturacion(
@@ -205,25 +208,21 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
         TreeSet<Intervalo> hipoapneasCopia = new TreeSet<Intervalo>(hipoapneasIntervalos);
         for (Intervalo apnea : apneasCopia) {
             //obtenemos la apnea detectada Que comience justo despues de la hipoapnea que estamos analizando
-            Intervalo h = (Intervalo) hipoapneasCopia.floor(
+            Intervalo h = hipoapneasCopia.floor(
                     apnea);
             //si la apnea esta contenida
-            if (h != null) {
-                if (h.getFin() >= apnea.getFin()) {
-                    if (h.getDuracion() * 0.80 < apnea.getDuracion()) {
-                        hipoapneasIntervalos.remove(h);
-                    } else {
-                        apneasIntervalos.remove(apnea);
-                    }
-                }
-
+            if (h != null && h.getFin() >= apnea.getFin()) {
+                 if (h.getDuracion() * 0.80 < apnea.getDuracion()) {
+                     hipoapneasIntervalos.remove(h);
+                 } else {
+                     apneasIntervalos.remove(apnea);
+                 }
             }
         }
     }
 
-    private TreeSet<EpisodioDesaturacion> calcularDesaturacion(SignalManager
-            sm, Signal s, float[] datos,
-            float frecuencia) {
+    private TreeSet<EpisodioDesaturacion> calcularDesaturacion(/*SignalManager sm, */Signal s/*, float[] datos,*/
+            /*float frecuencia*/) {
         DetectorDesaturacionesWrapper detector = new DetectorDesaturacionesWrapper(s);
         return new TreeSet<EpisodioDesaturacion>(detector.ejecutar(s.getValues()));
     }
@@ -353,14 +352,6 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
 
     }
 
-    /*
-     * @todo Implement this net.javahispano.jsignalwb.plugins.Plugin method
-     * @TODO no implementa nada!!! debería ser hasDataToSave??
-     */
-    public boolean canSaveData() {
-        return true;
-    }
-
     @Override
     public String getDataToSave() {
         String s = pendienteNormal.toShortString() + "*" +
@@ -396,75 +387,8 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
                               this.relacionTemporal.toShortString() */
                    ;
 
-        System.out.println("por decir algo " + s);
+        LOGGER.log(Level.INFO, "%s", "por decir algo " + s);
         return s;
-    }
-
-    @Override
-    public void setSavedData(String string) {
-        /* */try {
-            if (true) {
-                return;
-            }
-            /*StringTokenizer t = new StringTokenizer(string, "*");
-            pendienteNormal = new TrapezoidalDistribution(t.nextToken());
-
-            //  this.pendienteAscenso = new TrapezoidalDistribution(t.nextToken());
-            // this.pendienteDescenso = new TrapezoidalDistribution(t.nextToken());
-            t.nextToken();
-            t.nextToken();
-            valorNormal = new TrapezoidalDistribution(t.nextToken());
-            // descensoAdmisibleRespectoBasal = new TrapezoidalDistribution(t.
-            //    nextToken());
-            //valorAdmisibleDesaturacionRespectoBasal = new
-            //TrapezoidalDistribution(t.nextToken());
-            t.nextToken();
-            t.nextToken();
-            this.ventanaPendientesSaO2 = Integer.parseInt(t.nextToken());
-            t.nextToken();
-            t.nextToken();
-            //  this.principioVentanaBasalSatO2 = Integer.parseInt(t.nextToken());
-            //  this.finVentanaBasalSatO2 = Integer.parseInt(t.nextToken());
-            // this.persistencia = Integer.parseInt(t.nextToken());
-            t.nextToken();
-            t.nextToken();
-            t.nextToken();
-            // this.limiteArrayPosiblidades = Integer.parseInt(t.nextToken());
-            t.nextToken();
-
-            this.duracionMaximaEpisodiosDesaturacion = Integer.parseInt(t.
-                    nextToken());
-//aqui comienza la configuraci+n de la apnea
-            this.magnitudHipoapnea = new TrapezoidalDistribution(t.nextToken());
-            this.magnitudApnea = new TrapezoidalDistribution(t.nextToken());
-            this.principioVentanaBasalFlujoApnea = 200; // Integer.parseInt(t.nextToken());
-            this.finVentanaBasalFlujoApnea = 200; // Integer.parseInt(t.nextToken());
-            t.nextToken();
-            t.nextToken();
-            this.anchoVentanaValorMedioApnea = Integer.parseInt(t.nextToken());
-            this.anchoVentanaValorMedioHipoApnea = 2; // = Integer.parseInt(t.nextToken());
-            t.nextToken();
-            this.duracionApnea = new TrapezoidalDistribution(t.nextToken());
-            duracionHipoapnea = new TrapezoidalDistribution(6, 10, 100, 120); //t.nextToken());
-            t.nextToken();
-            principioIntervaloFiltroEnergia = 60; //Integer.parseInt(t.nextToken());
-            relacionPrimerFiltroDerivada = 50; //Integer.parseInt(t.nextToken());
-            finIntervaloFiltroEnergia = 70; //Integer.parseInt(t.nextToken());
-            t.nextToken();
-            t.nextToken();
-            t.nextToken();
-            limiteEnergia = Integer.parseInt(t.nextToken());
-            finIntervaloSegundoFiltroEnergia = Integer.parseInt(t.nextToken());
-            considerarSoloOndasNegativas = Boolean.parseBoolean(t.nextToken());
-            this.ventanaCalculoDeltas = Float.parseFloat(t.nextToken());
-//la relacion temporal
-            //  persistenciaFlujo = Integer.parseInt(t.nextToken());
-            // relacionTemporal = new TrapezoidalDistribution(t.nextToken());
-             * */
-        } catch (NumberFormatException ex) {
-            ex.printStackTrace();
-        }
-        /**/
     }
 
     @Override
@@ -499,12 +423,7 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 }
 

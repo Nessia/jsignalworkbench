@@ -13,6 +13,13 @@ import net.javahispano.jsignalwb.plugins.defaults.AxesGridPlugin;
  * utilidad para el procesado de series temporales.
  */
 public class TemporalSeries extends Signal {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3331900922333676840L;
+    private static final String PROP_OFFSET = "offset";
+
+
     private static final long startAllSeries;
     static {
         Calendar cal = Calendar.getInstance();
@@ -184,7 +191,7 @@ public class TemporalSeries extends Signal {
         for (Signal signal : listaTemporalSeries) {
             if (!(signal instanceof TemporalSeries)) {
                 //intentamos transformarla
-                if (signal.getProperty("offset") != null) {
+                if (signal.getProperty(PROP_OFFSET) != null) {
                     convertSignalsToTemporalSeries(sm, signal);
                     continue;
                 }
@@ -206,7 +213,7 @@ public class TemporalSeries extends Signal {
                 0, signal.getMagnitude());
         temporalSeries.setGrid(new AxesGridPlugin(temporalSeries));
         temporalSeries.adjustVisibleRange();
-        Object o = signal.getProperty("offset");
+        Object o = signal.getProperty(PROP_OFFSET);
         if (o != null) {
             temporalSeries.setMinIndex((Integer) o);
         }
@@ -225,7 +232,7 @@ public class TemporalSeries extends Signal {
         long start = TemporalSeries.startAllSeries + (long) (n * 1000 / this.getSRate());
         this.setStart(start);
         this.offset = n;
-        this.setProperty("offset", n);
+        this.setProperty(PROP_OFFSET, n);
     }
 
     /**

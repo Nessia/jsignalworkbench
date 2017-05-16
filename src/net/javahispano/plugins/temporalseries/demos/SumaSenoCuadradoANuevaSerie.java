@@ -10,6 +10,7 @@ package net.javahispano.plugins.temporalseries.demos;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import net.javahispano.jsignalwb.SignalManager;
 import net.javahispano.plugins.temporalseries.TemporalSeries;
@@ -29,6 +30,13 @@ import net.javahispano.plugins.temporalseries.TemporalSeriesAlgorithm;
  */
 public class SumaSenoCuadradoANuevaSerie extends TemporalSeriesAlgorithm {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7070257782308896298L;
+
+    private static final Logger LOGGER = Logger.getLogger(SumaSenoCuadradoANuevaSerie.class.getName());
+
     public SumaSenoCuadradoANuevaSerie() {
         // Vacio
     }
@@ -42,7 +50,7 @@ public class SumaSenoCuadradoANuevaSerie extends TemporalSeriesAlgorithm {
     public void processTemporalSeries(SignalManager sm, List<TemporalSeries> signals) {
         Iterator<TemporalSeries> it = signals.iterator();
         if (signals.size() != 2) {
-            System.out.println("Error en el numero de senhales seleccionadas");
+            LOGGER.severe("Error en el numero de senhales seleccionadas");
             return;
         }
         TemporalSeries seno = it.next();

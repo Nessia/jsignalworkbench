@@ -18,6 +18,11 @@ import net.javahispano.jsignalwb.*;
  *   Abraham Otero.
  */
 public abstract class SaverAdapter extends PluginAdapter implements Saver {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6364667182902863411L;
+
     private boolean executionCanceled = false;
     /**
      * Invoca a <code>save(File f, SignalManager sm)</code> pasandole como
@@ -29,8 +34,8 @@ public abstract class SaverAdapter extends PluginAdapter implements Saver {
      * @return boolean
      * @throws Exception
      */
-    public boolean save(File f) throws
-            Exception {
+    @Override
+    public boolean save(File f) throws Exception {
         return save(f, JSWBManager.getSignalManager());
     }
 
@@ -64,10 +69,7 @@ public abstract class SaverAdapter extends PluginAdapter implements Saver {
      * @return false
      * @throws Exception
      */
-    public boolean save(File f, float[][] data) throws Exception {
-        // TODO
-        return false;
-    }
+    protected abstract boolean save(File f, float[][] data) throws Exception;
 
     @Override
     public void cancelExecution() {

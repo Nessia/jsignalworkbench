@@ -6,6 +6,7 @@
 package net.javahispano.plugins.temporalseries.demos;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.SignalManager;
@@ -18,13 +19,33 @@ import net.javahispano.plugins.temporalseries.TemporalSeriesAlgorithm;
  */
 public class TransformacionLineal extends TemporalSeriesAlgorithm {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8369902265490296580L;
+
+    private static final Logger LOGGER = Logger.getLogger(TransformacionLineal.class.getName());
+
+    /*
+     * Atributos
+     */
+
     private int b;
     private float a;
 
+
+    /*
+     * Métodos
+     */
+
+    /*
+     * (non-Javadoc)
+     * @see net.javahispano.plugins.temporalseries.TemporalSeriesAlgorithm#processTemporalSeries(net.javahispano.jsignalwb.SignalManager, java.util.List)
+     */
     @Override
     public void processTemporalSeries(SignalManager sm, List<TemporalSeries> signals) {
         if (signals.size() != 1) {
-            System.out.println(" Error en el numero de senhales seleccionadas");
+            LOGGER.severe(" Error en el numero de senhales seleccionadas");
             return;
         }
         TemporalSeries senal = signals.get(0);

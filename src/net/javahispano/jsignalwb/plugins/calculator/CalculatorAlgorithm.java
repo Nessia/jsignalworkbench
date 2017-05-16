@@ -28,6 +28,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.Resample;
  */
 public class CalculatorAlgorithm extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4944990767449754033L;
+
     private static final String TITULO = "Calculadora de parametros";
 
     protected String firstSignalName;

@@ -20,6 +20,15 @@ import net.javahispano.jsignalwb.plugins.GenericPluginAdapter;
  */
 public class AddToolBarElementsPlugin extends GenericPluginAdapter implements ActionListener {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2141205143794105567L;
+
+    /*
+     * Atributos
+     */
+
     JButton button;
 
     public AddToolBarElementsPlugin() {

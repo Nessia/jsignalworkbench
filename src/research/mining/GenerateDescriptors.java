@@ -3,6 +3,8 @@ package research.mining;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.Icon;
 
@@ -17,6 +19,13 @@ import research.mining.FluxLimitation.Type;
 import research.mining.TemporalEvent.DETAILLEVEL;
 
 public class GenerateDescriptors extends AlgorithmAdapter {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8265818076725827492L;
+
+    private static final Logger LOGGER = Logger.getLogger(GenerateDescriptors.class.getName());
 
     private Signal sato2Signal;
     private Signal fluxSignal;
@@ -57,7 +66,7 @@ public class GenerateDescriptors extends AlgorithmAdapter {
         SaveInfo generateInfo = new SaveInfo(desatTree);
         generateInfo.setBeginingRecording(fluxSignal.getStart());
         generateInfo.setLevel(DETAILLEVEL.EVERYTHING);
-        System.out.println(""+generateInfo.genrateDescriptors());
+        LOGGER.log(Level.INFO, "%s", generateInfo.genrateDescriptors());
         generateInfo.saveDescriptors();
 
     }
@@ -91,7 +100,9 @@ public class GenerateDescriptors extends AlgorithmAdapter {
                            //Dividimos por 1000 para pasar de milisegundos a segundos
                            (desatAnnotation.getEndTime() - desatAnnotation.getMarkTime()) / 1000
                 );/**/
-        int posMin,begin,end;
+        int posMin;
+        int begin;
+        int end;
 
         Desaturation desaturation = new Desaturation();
         desaturation.setAbsoluteBeginingTime(desatAnnotation.getMarkTime());
@@ -268,14 +279,20 @@ public class GenerateDescriptors extends AlgorithmAdapter {
      * @param end    posicion final del intervalo (incluido)
      * @return float  la energia normalizada
      */
-    private float calculateEnergy(float[] signal,int begin,int end){
+    private float calculateEnergy(float[] signal, int begin, int end){
         float energy = 0;
-        if(begin<0)             begin = 0;
-        if(end>signal.length)   end = signal.length;
+        int beginCorregido = begin;
+        int endCorregido = end;
+        if(beginCorregido<0){
+            beginCorregido = 0;
+        }
+        if(endCorregido>signal.length){
+            endCorregido = signal.length;
+        }
 
-        for(int i=begin; i<=end&&i<signal.length; i++)
+        for(int i=beginCorregido; i<=endCorregido && i<signal.length; i++)
                 energy += signal[i]*signal[i];
-        energy = energy/(end-begin+1);
+        energy = energy/(endCorregido-beginCorregido+1);
 
         return (float)Math.sqrt(energy);
     }
@@ -355,7 +372,7 @@ public class GenerateDescriptors extends AlgorithmAdapter {
 
         float a = area-areaAux;
         if (a<0) {
-            System.out.println("");
+            LOGGER.info("");
         }
         return a;
         //@bug a vecesdtan negativo
@@ -370,23 +387,34 @@ public class GenerateDescriptors extends AlgorithmAdapter {
      * @return int      cantidad de desaturaciones
      */
     private int calculateNumDesat(float[] signal,int begin,int end){
-        int num = 0,i = begin;
-        float min = 100,max1,max2=signal[begin];
+        int num = 0;
+        int i = begin;
+        float min = 100;
+        float max1;
+        float max2 = signal[begin];
 
         while(i<=end){
-            for(;signal[i]<=min && i<=end;i++)                    min = signal[i];
+            for(;signal[i]<=min && i<=end;i++){
+                min = signal[i];
+            }
 
             max1 = min;
 
-            for(;signal[i]>=max1 && i<=end; i++)        max1 = signal[i];
+            for(;signal[i]>=max1 && i<=end; i++){
+                max1 = signal[i];
+            }
 
-            if(1.9<=max1-min && 1.9<=max2-min)          num++;
+            if(1.9<=max1-min && 1.9<=max2-min){
+                num++;
+            }
 
             max2 = max1;
             min = 100;
         }
 
-        if(num==0)      num=1;
+        if(num==0){
+            num=1;
+        }
 
         return num;
     }
@@ -471,10 +499,10 @@ public class GenerateDescriptors extends AlgorithmAdapter {
         //Preparamos las anotaciones para ser procesadas
         (new AssociateEvents()).asociate(sm);
         //Obtenemos los array que necesitamos
-        sato2Signal = sm.getSignal("Sat02");
-        fluxSignal = sm.getSignal("Flujo");
-        toraxSignal = sm.getSignal("Movimiento toracico");
-        abdomenSignal = sm.getSignal("Movimiento abdominal");
+        sato2Signal = sm.getSignal(SignalConstants.SENAL_SATURACION_02);
+        fluxSignal = sm.getSignal(SignalConstants.SENAL_FLUJO);
+        toraxSignal = sm.getSignal(SignalConstants.SENAL_MOVIMIENTO_TORACICO);
+        abdomenSignal = sm.getSignal(SignalConstants.SENAL_MOVIMIENTO_ABDOMINAL);
         sato2 = sato2Signal.getValues();
         flux = fluxSignal.getValues();
         thorax = toraxSignal.getValues();
@@ -506,12 +534,7 @@ public class GenerateDescriptors extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override

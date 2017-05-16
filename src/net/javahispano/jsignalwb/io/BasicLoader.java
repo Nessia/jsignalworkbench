@@ -28,6 +28,10 @@ import net.javahispano.jsignalwb.plugins.LoaderAdapter;
  */
 public class BasicLoader extends LoaderAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4569098628633139057L;
     private static final Logger LOGGER = Logger.getLogger(BasicLoader.class.getName());
 
     /** Creates a new instance of basicLoader */

@@ -1,6 +1,10 @@
 package research.spo2;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import net.javahispano.jsignalwb.JSWBManager;
+import net.javahispano.jsignalwb.SignalConstants;
 import net.javahispano.jsignalwb.SignalManager;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
@@ -19,6 +23,12 @@ import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
  */
 public class TestJSWB extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -518847353915867106L;
+    private static final Logger LOGGER = Logger.getLogger(TestJSWB.class.getName());
+
     private static long inicio = 0;
 
     private static void test(float[] test) {
@@ -29,18 +39,18 @@ public class TestJSWB extends AlgorithmAdapter {
             // System.out.println("*****************************Valor basal "+b.getValorBasal());
 
             if (d != null) {
-                System.out.println(d.toString());
-                if (!d.isInicioSolo() && true) {
+                LOGGER.log(Level.INFO, "%s", d.toString());
+                if (!d.isInicioSolo()) {
                     DefaultIntervalMark m = new DefaultIntervalMark();
                     m.setMarkTime(inicio + d.getComienzo() * 1000);
                     m.setEndTime(inicio + d.getFin() * 1000);
-                    m.setComentary("" + d.getPos() + " " + d.getValorMinimo());
+                    m.setComentary(d.getPos() + " " + d.getValorMinimo());
                     //m.setMarkTime(inicio + 10*1000);
                     //  m.setEndTime(inicio + 100*1000);
 
 
 
-                    JSWBManager.getSignalManager().addSignalMark("SaO2", m);
+                    JSWBManager.getSignalManager().addSignalMark(SignalConstants.SENAL_SA_O2, m);
                 }
             }
         }
@@ -48,7 +58,7 @@ public class TestJSWB extends AlgorithmAdapter {
 
     @Override
     public void runAlgorithm(SignalManager sm, float[] signal) {
-        inicio = JSWBManager.getSignalManager().getSignal("SaO2").getStart();
+        inicio = JSWBManager.getSignalManager().getSignal(SignalConstants.SENAL_SA_O2).getStart();
         test(signal);
     }
 

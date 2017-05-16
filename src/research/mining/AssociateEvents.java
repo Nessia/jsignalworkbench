@@ -26,6 +26,11 @@ import research.beats.anotaciones.LimitacionAnotacion;
  */
 public class AssociateEvents extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4817691323518417103L;
+
     @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
@@ -33,10 +38,10 @@ public class AssociateEvents extends AlgorithmAdapter {
     }
 
     public void asociate(SignalManager sm) {
-        Signal sato2 = sm.getSignal("Sat02");
-        Signal flux = sm.getSignal("Flujo");
-        Signal torax = sm.getSignal("Movimiento toracico");
-        Signal abdomen = sm.getSignal("Movimiento abdominal");
+        Signal sato2 = sm.getSignal(SignalConstants.SENAL_SATURACION_02);
+        Signal flux = sm.getSignal(SignalConstants.SENAL_FLUJO);
+        Signal torax = sm.getSignal(SignalConstants.SENAL_MOVIMIENTO_TORACICO);
+        Signal abdomen = sm.getSignal(SignalConstants.SENAL_MOVIMIENTO_ABDOMINAL);
 
         TreeSet<LimitacionAnotacion> limTree = getMarksAsTree(flux);
         TreeSet<LimitacionAnotacion> limAbdomen = getMarksAsTree(abdomen);
@@ -151,12 +156,7 @@ public class AssociateEvents extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override
@@ -171,11 +171,11 @@ public class AssociateEvents extends AlgorithmAdapter {
 
     @Override
     public String getDescription() {
-        return "Asociar Eventos";
+        return getName();
     }
 
     @Override
     public String getShortDescription() {
-        return "Asociar Eventos";
+        return getName();
     }
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import net.javahispano.jsignalwb.JSWBManager;
+import net.javahispano.jsignalwb.SignalConstants;
 import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
 import net.javahispano.jsignalwb.jsignalmonitor.marks.MarkPaintInfo;
 import java.awt.Graphics2D;
@@ -30,8 +31,24 @@ import javax.swing.ToolTipManager;
  */
 public class LimitacionAnotacion extends DefaultIntervalMark {
 
-    public static final int APNEA = 1, HIPOAPNEA = 2, DESATURACION = 3, N = 0,
-    A = -1, V = -2, P = -3, TV = -4, Vrt = -5, Prt = -6;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3924443767402513342L;
+
+    public static final int APNEA = 1;
+    public static final int HIPOAPNEA = 2;
+    public static final int DESATURACION = 3;
+
+    public static final int N = 0;
+    public static final int A = -1;
+    public static final int V = -2;
+    public static final int P = -3;
+    public static final int TV = -4;
+    public static final int Vrt = -5;
+    public static final int Prt = -6;
+
+//    public enum SENALES { Prt, Vrt, TV, P, V, A, N, APNEA, HIPOPNEA, DESATURACION }
 
     private int tipo = 1;
     private boolean automatica = false;
@@ -40,10 +57,8 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
         super();
     }
 
-    private List<LimitacionAnotacion> toraxList =
-            new LinkedList<LimitacionAnotacion>();
-    private List<LimitacionAnotacion> abdomenList =
-            new LinkedList<LimitacionAnotacion>();
+    private List<LimitacionAnotacion> toraxList = new LinkedList<LimitacionAnotacion>();
+    private List<LimitacionAnotacion> abdomenList = new LinkedList<LimitacionAnotacion>();
 
     public void addToraxLimitation(LimitacionAnotacion l) {
         this.toraxList.add(l);
@@ -103,7 +118,7 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
             int y = p.y +  2*markPaintInfo.getHeight()/3 - radio;
             g2d.fillOval(x, y, radio, radio);
         }
-        if (this.getSignal().getName().equals("Flujo") ) {
+        if (SignalConstants.SENAL_FLUJO.equals(this.getSignal().getName()) ) {
             g2d.setColor(Color.BLACK);
             //Point p = markPaintInfo.getPoint();
             //int maxY = (int) Math.max(markPaintInfo.getPoint().getY(),
@@ -122,7 +137,7 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
 
     public void setTipo(int tipo) {
         this.tipo = tipo;
-        this.setComentary(tipo + "");
+        this.setComentary(Integer.toString(tipo));
         if (tipo == LimitacionAnotacion.APNEA ||
             tipo <= 0) {
           //  this.setColor(Color.RED);
@@ -148,32 +163,34 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
         String a = data.substring(0, data.indexOf('*'));
         this.automatica = Boolean.parseBoolean(a);
         super.setSavedData(data.substring(data.indexOf('*') + 1, data.length()));
-        if (this.getComentary().toLowerCase().equals("2")) {
+        if ("2".equalsIgnoreCase(this.getComentary())) {
             this.setTipo(LimitacionAnotacion.HIPOAPNEA);
         }
-        if (this.getComentary().toLowerCase().equals("3")) {
+        if ("3".equalsIgnoreCase(this.getComentary())) {
             this.setTipo(LimitacionAnotacion.DESATURACION);
         }
-        if (this.getComentary().toLowerCase().equals("1")) {
+        if ("1".equalsIgnoreCase(this.getComentary())) {
             this.setTipo(LimitacionAnotacion.APNEA);
         }
-
-        if (this.getComentary().toLowerCase().equals("-1")) {
+        if ("0".equalsIgnoreCase(this.getComentary())) {
+           this.setTipo(LimitacionAnotacion.N);
+        }
+        if ("-1".equalsIgnoreCase(this.getComentary())) {
             this.setTipo(LimitacionAnotacion.A);
         }
-        if (this.getComentary().toLowerCase().equals("-2")) {
+        if ("-2".equalsIgnoreCase(this.getComentary())) {
             this.setTipo(LimitacionAnotacion.V);
         }
-        if (this.getComentary().toLowerCase().equals("-3")) {
+        if ("-3".equalsIgnoreCase(this.getComentary())) {
             this.setTipo(LimitacionAnotacion.P);
         }
-        if (this.getComentary().toLowerCase().equals("-4")) {
+        if ("-4".equalsIgnoreCase(this.getComentary())) {
             this.setTipo(LimitacionAnotacion.TV);
         }
-        if (this.getComentary().toLowerCase().equals("-5")) {
+        if ("-5".equalsIgnoreCase(this.getComentary())) {
             this.setTipo(LimitacionAnotacion.Vrt);
         }
-        if (this.getComentary().toLowerCase().equals("-6")) {
+        if ("-6".equalsIgnoreCase(this.getComentary())) {
             this.setTipo(LimitacionAnotacion.Prt);
         }
     }

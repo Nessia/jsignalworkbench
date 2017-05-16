@@ -5,28 +5,36 @@
 
 package research.beats;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Santiago Fernandez Dapena
  */
 
-public class QRSFilter {
+public class QRSFilter implements Serializable {
 
-    private static int lpY1, lpY2;
-    private static int[] lpData;
-    private static int lpPtr;
-    private static long hpY = 0;
-    private static int[] hpData;
-    private static int hpPtr = 0;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4676157353623606811L;
 
-    private static int deriv1DerI = 0;
+    private int lpY1;
+    private int lpY2;
+    private int[] lpData;
+    private int lpPtr;
+    private long hpY = 0;
+    private int[] hpData;
+    private int hpPtr = 0;
 
-    private static int deriv2DerI = 0;
-    private static int mvWintSum = 0;
-    private static int[] mvWintData;
-    private static int mvWintPtr = 0;
-    private static int[] deriv1DerBuff;
-    private static int[] deriv2DerBuff;
+    private int deriv1DerI = 0;
+
+    private int deriv2DerI = 0;
+    private int mvWintSum = 0;
+    private int[] mvWintData;
+    private int mvWintPtr = 0;
+    private int[] deriv1DerBuff;
+    private int[] deriv2DerBuff;
 
     /** Creates a new instance of QRSFilter */
     public QRSFilter() {
@@ -193,7 +201,7 @@ public class QRSFilter {
             return (0);
         }
 
-        y = (int) (x - deriv1DerBuff[deriv1DerI]);
+        y = x - deriv1DerBuff[deriv1DerI];
         deriv1DerBuff[deriv1DerI] = x;
         if (++deriv1DerI == SampleRate.getDerivLength()) {
             deriv1DerI = 0;

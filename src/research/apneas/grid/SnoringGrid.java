@@ -12,11 +12,16 @@ import net.javahispano.jsignalwb.utilities.TimePositionConverter;
 
 public class SnoringGrid extends GridPluginAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 967855006486524150L;
+    private static final int PASO_X = 5;
+
     private static float valorBasal;
-    private final int pasoX = 5;
-    private DefaultGrid defaultGrid = new DefaultGrid();
-    private TrapezoidalDistribution dropSpO2 =
-            new TrapezoidalDistribution(4, 15, 100, 100);
+
+    private final transient DefaultGrid defaultGrid = new DefaultGrid();
+    private final transient TrapezoidalDistribution dropSpO2 = new TrapezoidalDistribution(4, 15, 100, 100);
 
     private int bigSpace;
     private int bigSpaceY;
@@ -57,10 +62,10 @@ public class SnoringGrid extends GridPluginAdapter {
         float temporalStep = (endIndex - startIndex) / (float) width;
         //asumimos cero en el centro
         float magnitudeStep = (gridconfig.getMaxValue() - gridconfig.getMinValue()) / height;
-        int van = -pasoX;
+        int van = -PASO_X;
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .6f));
-        for (float i = startIndex; i < endIndex; i += pasoX * temporalStep) {
-            van += pasoX;
+        for (float i = startIndex; i < endIndex; i += PASO_X * temporalStep) {
+            van += PASO_X;
             for (int j = height; j > 0; j--) {
                 int altura2 = p.y + j;
                 short pos = dropSpO2.evaluatepossibilityAt(
@@ -77,7 +82,7 @@ public class SnoringGrid extends GridPluginAdapter {
 
     private void paintFragm(Graphics2D g2d, Point p, int van, int altura, Color color) {
         g2d.setColor(color);
-        g2d.fillRect(p.x + van, altura, pasoX, 4);
+        g2d.fillRect(p.x + van, altura, PASO_X, 4);
 //        g2d.drawLine(p.x + van, altura, p.x + van + pasoX_1, altura+4);
     }
 

@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.Signal;
+import net.javahispano.jsignalwb.SignalConstants;
 import net.javahispano.jsignalwb.SignalManager;
 import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalAnnotation;
 import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
@@ -19,6 +20,11 @@ import net.javahispano.jsignalwb.utilities.TimePositionConverter;
 
 public class Sequencing extends SimpleAlgorithm {
 
+
+    /**
+     *
+     */
+    public static final long serialVersionUID = -6678823857555547986L;
 
     private static final Logger LOGGER = Logger.getLogger(Sequencing.class.getName());
 
@@ -43,16 +49,16 @@ public class Sequencing extends SimpleAlgorithm {
         thymine = new int[LENGTH];
         cytosine = new int[LENGTH];
 
-        signalManager.renameSignal("Signal0", "G");
-        signalManager.renameSignal("Signal1", "A");
-        signalManager.renameSignal("Signal2", "T");
-        signalManager.renameSignal("Signal3", "C");
+        signalManager.renameSignal("Signal0", SignalConstants.SENAL_GUANINE);
+        signalManager.renameSignal("Signal1", SignalConstants.SENAL_ADENINE);
+        signalManager.renameSignal("Signal2", SignalConstants.SENAL_THYMINE);
+        signalManager.renameSignal("Signal3", SignalConstants.SENAL_CYTOSINE);
 
         // MARK THE SIGNAL AND OBTAIN THE 0-1 ARRAYS FOR EACH BASE
-        markSignal(signalManager, "G");
-        markSignal(signalManager, "A");
-        markSignal(signalManager, "T");
-        markSignal(signalManager, "C");
+        markSignal(signalManager, SignalConstants.SENAL_GUANINE);
+        markSignal(signalManager, SignalConstants.SENAL_ADENINE);
+        markSignal(signalManager, SignalConstants.SENAL_THYMINE);
+        markSignal(signalManager, SignalConstants.SENAL_CYTOSINE);
 
         printBinaryArrays();
 
@@ -117,10 +123,10 @@ public class Sequencing extends SimpleAlgorithm {
 
 
        // CREATE ARRAYS WITH ALL THE VALUES OF THE SIGNAL
-       float[] g = signalManager.getSignal("G").getValues();
-       float[] a = signalManager.getSignal("A").getValues();
-       float[] t = signalManager.getSignal("T").getValues();
-       float[] c = signalManager.getSignal("C").getValues();
+       float[] g = signalManager.getSignal(SignalConstants.SENAL_GUANINE).getValues();
+       float[] a = signalManager.getSignal(SignalConstants.SENAL_ADENINE).getValues();
+       float[] t = signalManager.getSignal(SignalConstants.SENAL_THYMINE).getValues();
+       float[] c = signalManager.getSignal(SignalConstants.SENAL_CYTOSINE).getValues();
 
        int aux = 0;
        // SET A LETTER IN EACH ARRAY WHERE THERE IS A PEAK OF THAT BASE
@@ -290,7 +296,8 @@ public class Sequencing extends SimpleAlgorithm {
     private static boolean buscarPicoEnEntornoDe(List<Pico> listaPicos, int i, Pico pico) {
         if (i - 3 > 0 && i + 4 < LENGTH) {
             for (int j = i; j < i + 3 && j < listaPicos.size(); j++) {
-                 if (j > 0 && listaPicos.get(j) != Pico.DUMMY_PICO && Math.abs(listaPicos.get(j).posicion - pico.posicion) <= 4) {
+                 if (j > 0 && listaPicos.get(j) != Pico.DUMMY_PICO
+                         && Math.abs(listaPicos.get(j).posicion - pico.posicion) <= 4) {
                       listaPicos.set(j, Pico.DUMMY_PICO);
                       return true;
                  }
@@ -346,13 +353,13 @@ public class Sequencing extends SimpleAlgorithm {
                 mark.setColor(colour);
                 signal.addMark(mark);
 
-                if ("G".equalsIgnoreCase(signal.getName())) {
+                if (SignalConstants.SENAL_GUANINE.equalsIgnoreCase(signal.getName())) {
                     guanine[maxPosition] = 1;
-                } else if ("A".equalsIgnoreCase(signal.getName())) {
+                } else if (SignalConstants.SENAL_ADENINE.equalsIgnoreCase(signal.getName())) {
                     adenine[maxPosition] = 1;
-                } else if ("T".equalsIgnoreCase(signal.getName())) {
+                } else if (SignalConstants.SENAL_THYMINE.equalsIgnoreCase(signal.getName())) {
                     thymine[maxPosition] = 1;
-                } else if ("C".equalsIgnoreCase(signal.getName())) {
+                } else if (SignalConstants.SENAL_CYTOSINE.equalsIgnoreCase(signal.getName())) {
                     cytosine[maxPosition] = 1;
                 }
 

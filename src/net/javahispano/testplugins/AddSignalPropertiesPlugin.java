@@ -19,6 +19,10 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public class AddSignalPropertiesPlugin extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8839868272324883305L;
     int i = 0; //TODO un atributo debería tener un nombre más descriptivo @vanesa
 
     /*

@@ -25,14 +25,18 @@ import java.awt.Color;
  * @version 1.0
  */
 public class MobileMeanPlugin extends AlgorithmAdapter {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5693229083648676362L;
     private int window = 4;
     private boolean mediana = false;
     private boolean eliminarHuecos = true;
     private float valorHuecos = 50;
-
-    int deslizamientoParaCadaMediana = 500;
-    boolean resample = false; // TODO está a true en el otro codigo @vanesa
-    int ventanaResampleEnSegundos = 300;
+    protected int deslizamientoParaCadaMediana = 500;
+ // TODO está a true en el otro codigo @vanesa
+    protected boolean resample = false;
+    protected int ventanaResampleEnSegundos = 300;
 
     @Override
     public String getDataToSave() {
@@ -151,13 +155,14 @@ public class MobileMeanPlugin extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        }
-        if (gUIPositions == GUIPositions.TOOLBAR) {
-            return false;
-        }
-        return false;
+//        if (gUIPositions == GUIPositions.MENU) {
+//            return true;
+//        }
+//        if (gUIPositions == GUIPositions.TOOLBAR) {
+//            return false;
+//        }
+//        return false;
+        return gUIPositions == GUIPositions.MENU;
     }
 
     @Override

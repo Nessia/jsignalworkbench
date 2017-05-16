@@ -7,8 +7,12 @@ package net.javahispano.jsignalwb.plugins;
  *   (http://www.apache.org/licenses/). Copyright 2006-2007 Roman Segador y
  *   Abraham Otero
  */
-public abstract class GenericPluginAdapter extends PluginAdapter implements
-        GenericPlugin {
+public abstract class GenericPluginAdapter extends PluginAdapter implements GenericPlugin {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4058457604289905057L;
+
     /**
      * Por defecto los plugins genericos se muestran en el menu, pero no en la
      * barra de herramientas. Este comportamiento puede modificarse

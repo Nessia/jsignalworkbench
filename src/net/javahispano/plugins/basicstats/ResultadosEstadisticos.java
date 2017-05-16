@@ -6,6 +6,7 @@ package net.javahispano.plugins.basicstats;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>Title: Herraienta de monitorizacion</p>
@@ -22,11 +23,18 @@ public class ResultadosEstadisticos implements Serializable {
     */
     private static final long serialVersionUID = 8134252750037637806L;
 
-    private float mediaAritmetica, mediana, varianza, desviacionTipica,
-    errorEstandar, cocienteVariacion;
+    private float mediaAritmetica;
+    private float mediana;
+    private float varianza;
+    private float desviacionTipica;
+    private float errorEstandar;
+    private float cocienteVariacion;
     private float[] intervaloConfianza = new float[2];
-    private HashMap<String,String> percentiles = new HashMap<String,String>();
-    private String comentario, fechaInicio, fechaFin, nombreSenhal;
+    private Map<String,String> percentiles = new HashMap<String,String>();
+    private String comentario;
+    private String fechaInicio;
+    private String fechaFin;
+    private String nombreSenhal;
     private boolean tienePercentiles = true;
 
     /**
@@ -36,10 +44,10 @@ public class ResultadosEstadisticos implements Serializable {
      * @param varianza
      * @param desviacion_tipica
      * @param error_estandar
-     * @param cociente_de_variacion
+     * @param cocienteDeVariacion
      * @param intervalo_de_confianza
      * @param percentiles
-     * @param valores_percentiles
+     * @param valoresPercentiles
      * @param fecha_inicio
      * @param fecha_fin
      * @param nombre_senhal
@@ -47,10 +55,10 @@ public class ResultadosEstadisticos implements Serializable {
     public ResultadosEstadisticos(float mediaAritmetica, float mediana,
                                   float varianza,
                                   float desviacionTipica, float errorEstandar,
-                                  float cociente_de_variacion,
+                                  float cocienteDeVariacion,
                                   float[] intervaloConfianza,
                                   int[] percentiles,
-                                  float[] valores_percentiles,
+                                  float[] valoresPercentiles,
                                   String fechaInicio, String fecha_fin,
                                   String nombreSenhal) throws
             NotPercentilException {
@@ -59,23 +67,23 @@ public class ResultadosEstadisticos implements Serializable {
         this.varianza = varianza;
         this.desviacionTipica = desviacionTipica;
         this.errorEstandar = errorEstandar;
-        this.cocienteVariacion = cociente_de_variacion;
+        this.cocienteVariacion = cocienteDeVariacion;
         this.intervaloConfianza = Arrays.copyOf(intervaloConfianza, intervaloConfianza.length);
         this.fechaFin = fecha_fin;
         this.fechaInicio = fechaInicio;
         this.nombreSenhal = nombreSenhal;
         if (percentiles != null) {
             this.tienePercentiles = true;
-            if (percentiles.length != valores_percentiles.length) {
+            if (percentiles.length != valoresPercentiles.length) {
                 throw new NotPercentilException(
                         "Se paso un numero distinto de percentiles y de valores de percentil: " +
                         percentiles.length + " != " +
-                        valores_percentiles.length, 0);
+                        valoresPercentiles.length, 0);
             }
             this.percentiles = new HashMap<String,String>();
             for (int i = 0; i < percentiles.length; i++) {
                 this.percentiles.put(Integer.toString(percentiles[i]),
-                                     Float.toString(valores_percentiles[i]));
+                                     Float.toString(valoresPercentiles[i]));
             }
         } else {
             this.tienePercentiles = false;
@@ -114,7 +122,7 @@ public class ResultadosEstadisticos implements Serializable {
         return Arrays.copyOf(intervaloConfianza, intervaloConfianza.length);
     }
 
-    public HashMap<String,String> getPercentiles() {
+    public Map<String,String> getPercentiles() {
         return percentiles;
     }
 

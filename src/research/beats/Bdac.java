@@ -5,11 +5,18 @@
 
 package research.beats;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Santiago Fernandez Dapena
  */
-public class Bdac {
+public class Bdac implements Serializable{
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3569269795270853986L;
 
     private int beatSampleRate = 100;
     private double beatMSPerSample = ((double) 1000 / (double) beatSampleRate);

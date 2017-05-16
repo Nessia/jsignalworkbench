@@ -27,6 +27,11 @@ import java.util.logging.Logger;
  */
 public class DiuresisAnalisisError extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2329686349017324762L;
+
     private static final Logger LOGGER = Logger.getLogger(DiuresisAnalisisError.class.getName());
 
     //private String droga = "Presión arterial";

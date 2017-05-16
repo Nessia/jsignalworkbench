@@ -15,6 +15,11 @@ package research.beats.anotaciones;
  */
 public class LatidoAnotacion extends LimitacionAnotacion {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2399437301734724669L;
+
     public LatidoAnotacion() {
         super();
         this.setTipo(LimitacionAnotacion.N);

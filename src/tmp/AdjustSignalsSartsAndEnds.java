@@ -26,6 +26,11 @@ import net.javahispano.jsignalwb.utilities.TimePositionConverter;
  */
 public class AdjustSignalsSartsAndEnds extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3900016209169048180L;
+
     @Override
     public String getName() {
         return "Ajustar principio y fin de las senhales";

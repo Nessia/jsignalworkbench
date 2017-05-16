@@ -21,10 +21,15 @@ import net.javahispano.jsignalwb.plugins.*;
  */
 public class ConversorDatosMITPlugin extends PluginAdapter implements GenericPlugin {
 
+    /**
+    *
+    */
+    private static final long serialVersionUID = -6166080137750305200L;
 
     /*
      * Atributos
      */
+
 
     String ultimoDirectorioAbierto = null;
 

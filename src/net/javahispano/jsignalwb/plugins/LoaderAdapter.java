@@ -15,6 +15,10 @@ import java.util.Calendar;
  *   Abraham Otero
  */
 public abstract class LoaderAdapter extends PluginAdapter implements Loader {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1320575418858659671L;
     private boolean executionCanceled = false;
 
     /**

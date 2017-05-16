@@ -10,9 +10,15 @@ import es.usc.gsi.conversordatosmit.interfaz.ControladorInterfaz;
 
 public class Tarea extends Thread implements Cancelar {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2699156632036435382L;
+
     private static final Logger LOGGER = Logger.getLogger(Tarea.class.getName());
 
-    private ControladorInterfaz controlInterfaz = ControladorInterfaz.getControlador();
+    // TODO transient okay? @vanesa
+    private transient ControladorInterfaz controlInterfaz = ControladorInterfaz.getControlador();
     private Parametro[] parametros = null;
     private List<FicheroHead> ficherosHead;
     private boolean cancel = false;

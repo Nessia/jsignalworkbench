@@ -8,7 +8,14 @@ package research.apneas.gui;
 
 import java.beans.*;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.swing.GroupLayout;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
 import org.joda.time.DateTime;
@@ -18,13 +25,16 @@ import research.apneas.LimitacionFlujo;
  *
  * @author  b
  */
-public class PanelDatosComunes extends javax.swing.JPanel implements PropertyChangeListener {
+public class PanelDatosComunes extends JPanel implements PropertyChangeListener {
 
 
     /**
      *
      */
     private static final long serialVersionUID = 8418731573548689021L;
+
+    private static final Logger LOGGER = Logger.getLogger(PanelDatosComunes.class.getName());
+
     private LimitacionFlujo dim;
 //    private long principio, fin;
     private float duracion;
@@ -48,20 +58,20 @@ public class PanelDatosComunes extends javax.swing.JPanel implements PropertyCha
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        markTitleTextField = new javax.swing.JTextField();
+        JLabel jLabel1 = new JLabel();
+        JLabel jLabel2 = new JLabel();
+        JLabel jLabel3 = new JLabel();
+        markTitleTextField = new JTextField();
         jTextFieldDate1 = new net.javahispano.jsignalwb.ui.JTextFieldDate();
         jTextFieldDate2 = new net.javahispano.jsignalwb.ui.JTextFieldDate();
         datePicker2 = new com.michaelbaranov.microba.calendar.DatePicker();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
-        jLabel4 = new javax.swing.JLabel();
-        textFieldDuration = new javax.swing.JTextField();
-        textFieldPossibility = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jCheckBoxStatistics = new javax.swing.JCheckBox();
-        jLabel6 = new javax.swing.JLabel();
+        JLabel jLabel4 = new JLabel();
+        textFieldDuration = new JTextField();
+        textFieldPossibility = new JTextField();
+        JLabel jLabel5 = new JLabel();
+        jCheckBoxStatistics = new JCheckBox();
+        JLabel jLabel6 = new JLabel();
 
         jLabel1.setForeground(java.awt.Color.blue);
         jLabel1.setText("End time:");
@@ -74,24 +84,24 @@ public class PanelDatosComunes extends javax.swing.JPanel implements PropertyCha
 
         markTitleTextField.setEditable(false);
         markTitleTextField.setForeground(java.awt.Color.blue);
-        markTitleTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        markTitleTextField.setHorizontalAlignment(JTextField.CENTER);
         markTitleTextField.setText("jTextField1");
 
         jTextFieldDate1.setForeground(java.awt.Color.blue);
-        jTextFieldDate1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldDate1.setHorizontalAlignment(JTextField.CENTER);
         jTextFieldDate1.addFocusListener(new java.awt.event.FocusAdapter() {
-        	@Override
+            @Override
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextFieldDate1FocusLost(evt);
+                jTextFieldDate1FocusLost();
             }
         });
 
         jTextFieldDate2.setForeground(java.awt.Color.blue);
-        jTextFieldDate2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldDate2.setHorizontalAlignment(JTextField.CENTER);
         jTextFieldDate2.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextFieldDate2FocusLost(evt);
+                jTextFieldDate2FocusLost();
             }
         });
 
@@ -100,12 +110,12 @@ public class PanelDatosComunes extends javax.swing.JPanel implements PropertyCha
 
         textFieldDuration.setEditable(false);
         textFieldDuration.setForeground(java.awt.Color.blue);
-        textFieldDuration.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textFieldDuration.setHorizontalAlignment(JTextField.CENTER);
         textFieldDuration.setText("jTextField1");
 
         textFieldPossibility.setEditable(false);
         textFieldPossibility.setForeground(java.awt.Color.blue);
-        textFieldPossibility.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textFieldPossibility.setHorizontalAlignment(JTextField.CENTER);
         textFieldPossibility.setText("jTextField1");
 
         jLabel5.setForeground(java.awt.Color.blue);
@@ -116,7 +126,7 @@ public class PanelDatosComunes extends javax.swing.JPanel implements PropertyCha
         jLabel6.setForeground(java.awt.Color.blue);
         jLabel6.setText("Use in statistics generation");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,11 +227,11 @@ public class PanelDatosComunes extends javax.swing.JPanel implements PropertyCha
 
     } // </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldDate1FocusLost(java.awt.event.FocusEvent evt) { //GEN-FIRST:event_jTextFieldDate1FocusLost
+    private void jTextFieldDate1FocusLost() { //GEN-FIRST:event_jTextFieldDate1FocusLost
         updateDuration();
     } //GEN-LAST:event_jTextFieldDate1FocusLost
 
-    private void jTextFieldDate2FocusLost(java.awt.event.FocusEvent evt) { //GEN-FIRST:event_jTextFieldDate2FocusLost
+    private void jTextFieldDate2FocusLost() { //GEN-FIRST:event_jTextFieldDate2FocusLost
         updateDuration();
     } //GEN-LAST:event_jTextFieldDate2FocusLost
 
@@ -229,18 +239,18 @@ public class PanelDatosComunes extends javax.swing.JPanel implements PropertyCha
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker2;
-    private javax.swing.JCheckBox jCheckBoxStatistics;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private JCheckBox jCheckBoxStatistics;
+//    private JLabel jLabel1;
+//    private JLabel jLabel2;
+//    private JLabel jLabel3;
+//    private JLabel jLabel4;
+//    private JLabel jLabel5;
+//    private JLabel jLabel6;
     private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
     private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate2;
-    private javax.swing.JTextField markTitleTextField;
-    private javax.swing.JTextField textFieldDuration;
-    private javax.swing.JTextField textFieldPossibility;
+    private JTextField markTitleTextField;
+    private JTextField textFieldDuration;
+    private JTextField textFieldPossibility;
     // End of variables declaration//GEN-END:variables
 
     public void propertyChange(PropertyChangeEvent evt) {
@@ -265,11 +275,11 @@ public class PanelDatosComunes extends javax.swing.JPanel implements PropertyCha
     }
 
     private void updateDuration() {
-        if (!jTextFieldDate2.getText().equals("__:__:__.___ || __/__/____") &&
-            !jTextFieldDate1.getText().equals("__:__:__.___ || __/__/____")) {
+        if (!"__:__:__.___ || __/__/____".equals(jTextFieldDate2.getText()) &&
+            !"__:__:__.___ || __/__/____".equals(jTextFieldDate1.getText())) {
             float d = (TimeRepresentation.stringToMillis(jTextFieldDate2.getText()) -
-                       TimeRepresentation.stringToMillis(jTextFieldDate1.getText())) / 1000;
-            this.textFieldDuration.setText("" + d);
+                       TimeRepresentation.stringToMillis(jTextFieldDate1.getText())) / 1000F;
+            this.textFieldDuration.setText(Float.toString(d));
             this.duracion = d;
         }
     }
@@ -296,7 +306,7 @@ public class PanelDatosComunes extends javax.swing.JPanel implements PropertyCha
         try {
             this.datePicker1.setDate(new Date(principio));
         } catch (PropertyVetoException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
         }
     }
 
@@ -308,16 +318,16 @@ public class PanelDatosComunes extends javax.swing.JPanel implements PropertyCha
         try {
             this.datePicker2.setDate(new Date(fin));
         } catch (PropertyVetoException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
         }
     }
 
     public void setPosibilidad(byte posibilidad) {
-        this.textFieldPossibility.setText("" + posibilidad);
+        this.textFieldPossibility.setText(Byte.toString(posibilidad));
     }
 
     public void setEvento(String evento) {
-        this.markTitleTextField.setText("" + evento);
+        this.markTitleTextField.setText(evento);
     }
 
     public float getDuracion() {

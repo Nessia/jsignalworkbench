@@ -1,9 +1,11 @@
 package research.apneas;
 
 import java.awt.Color;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import net.javahispano.jsignalwb.JSWBManager;
+import net.javahispano.jsignalwb.SignalConstants;
 
 /**
  * Las instancias de esta clase cuando son tratadas como intervalos se comportan de un modo identico al intervalo de
@@ -20,7 +22,7 @@ public class HipoapneaDesaturacion extends ApneaYDesaturacion {
         super(limitacionFlujo, episodioDesaturacion, posRelacionTemporal);
     }
 
-    public TreeSet<ApneaYDesaturacion> getListaApneas() {
+    public SortedSet<ApneaYDesaturacion> getListaApneas() {
         return listaApneas;
     }
 
@@ -28,6 +30,6 @@ public class HipoapneaDesaturacion extends ApneaYDesaturacion {
         this.listaApneas.add(apnea);
         super.addEpisodioDesaturacion(apnea.getEpisodioDesaturacion());
         DesatDetector.generarEpisodioDesaturacion(apnea.getEpisodioDesaturacion(), Color.red,
-                                                  JSWBManager.getSignalManager().getSignal("SaO2"));
+                                                  JSWBManager.getSignalManager().getSignal(SignalConstants.SENAL_SA_O2));
     }
 }

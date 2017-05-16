@@ -1,6 +1,7 @@
 package research.beats.asistencia;
 
 import net.javahispano.jsignalwb.Signal;
+import net.javahispano.jsignalwb.SignalConstants;
 import net.javahispano.jsignalwb.SignalIntervalProperties;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.JSWBManager;
@@ -31,6 +32,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  */
 public class Paso3  extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5029254111057929342L;
+
     @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
@@ -38,18 +44,18 @@ public class Paso3  extends AlgorithmAdapter {
         for (Signal s : l) {
             sm.setSignalVisible(s.getName(), false);
         }
-        sm.renameSignal("Sat0III","Sat02");
-        sm.renameSignal("Movimientoabdominal","Movimiento abdominal");
-        sm.renameSignal("Movimientotoracico","Movimiento toracico");
+        sm.renameSignal("Sat0III", SignalConstants.SENAL_SATURACION_02);
+        sm.renameSignal("Movimientoabdominal", SignalConstants.SENAL_MOVIMIENTO_ABDOMINAL);
+        sm.renameSignal("Movimientotoracico", SignalConstants.SENAL_MOVIMIENTO_TORACICO);
 
-        sm.setSignalVisible("Flujo",true);
-                sm.setSignalVisible("Sat02",true);
-                sm.setSignalVisible("Movimiento abdominal",true);
-        sm.setSignalVisible("Movimiento toracico",true);
+        sm.setSignalVisible(SignalConstants.SENAL_FLUJO,true);
+        sm.setSignalVisible(SignalConstants.SENAL_SATURACION_02,true);
+        sm.setSignalVisible(SignalConstants.SENAL_MOVIMIENTO_ABDOMINAL,true);
+        sm.setSignalVisible(SignalConstants.SENAL_MOVIMIENTO_TORACICO,true);
 
-        sm.setSignalVisibleRange("Sat02", 80, 100);
-        sm.setSignalVisibleRange("Flujo", -20,20);
-        Signal sat = sm.getSignal("Sat02");
+        sm.setSignalVisibleRange(SignalConstants.SENAL_SATURACION_02, 80, 100);
+        sm.setSignalVisibleRange(SignalConstants.SENAL_FLUJO, -20,20);
+        Signal sat = sm.getSignal(SignalConstants.SENAL_SATURACION_02);
         sat.getProperties().setInvadeNearChannels(false);
         JSignalMonitor js = JSWBManager.getJSignalMonitor();
         js.setFrecuency(2);
@@ -67,12 +73,7 @@ public class Paso3  extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
     @Override

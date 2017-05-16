@@ -26,6 +26,15 @@ import net.javahispano.jsignalwb.plugins.MarkPlugin;
  * @version 0.5
  */
 public class PicoCerdo extends MarkPluginAdapter implements Comparable<MarkPlugin> {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8605752353257750611L;
+
+    /*
+     * Atributos
+     */
+
     private long markTime;
     private long endTime;
     private String title;
@@ -60,24 +69,22 @@ public class PicoCerdo extends MarkPluginAdapter implements Comparable<MarkPlugi
         this.markTime = markTime;
     }
 
-    /**
-     * Devuelve el numero de milisegundos que han transcurrido desde el 1 de
-     * enero de 1970 hasta el principio de la marca.
-     *
-     * @return long
-     */
+    @Override
     public long getMarkTime() {
         return markTime;
     }
 
+    @Override
     public void setSignal(Signal signal) {
         this.signal = signal;
     }
 
+    @Override
     public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 
+    @Override
     public boolean isInterval() {
         return true;
     }
@@ -88,6 +95,7 @@ public class PicoCerdo extends MarkPluginAdapter implements Comparable<MarkPlugi
      *
      * @return long
      */
+    @Override
     public long getEndTime() {
         return endTime;
     }
@@ -96,14 +104,17 @@ public class PicoCerdo extends MarkPluginAdapter implements Comparable<MarkPlugi
         this.jswbManager = jswbManager;
     }
 
-     public Image getImage() {
+    @Override
+    public Image getImage() {
         return im;
     }
 
+    @Override
     public boolean isOwnPainted() {
         return true;
     }
 
+    @Override
     public void paint(Graphics2D g2d, MarkPaintInfo markPaintInfo) {
         //if(this.markPaintInfo==null || !this.markPaintInfo.equals(markPaintInfo)){
         //this.markPaintInfo = markPaintInfo;
@@ -138,6 +149,8 @@ public class PicoCerdo extends MarkPluginAdapter implements Comparable<MarkPlugi
     public JSWBManager getJSWBManager() {
         return jswbManager;
     }
+
+    @Override
     public void showMarkInfo(Window owner) {
        //  new DefaultIntervalMarkInfoPanel(signal, this).showJWindow(owner);
     }
@@ -149,6 +162,7 @@ public class PicoCerdo extends MarkPluginAdapter implements Comparable<MarkPlugi
         return title;
     }
 
+    @Override
     public String getToolTipText() {
         return title;
     }
@@ -168,6 +182,7 @@ public class PicoCerdo extends MarkPluginAdapter implements Comparable<MarkPlugi
      *   object is less than, equal to, or greater than the specified object.
      * @todo Implement this java.lang.Comparable method
      */
+    @Override
     public int compareTo(MarkPlugin i) {
         if (i.getMarkTime() < this.getMarkTime()) {
             return 1;
@@ -177,6 +192,7 @@ public class PicoCerdo extends MarkPluginAdapter implements Comparable<MarkPlugi
         return 0;
     }
 
+    @Override
     public int hashCode() {
         return (int) (this.getMarkTime() | this.getEndTime());
     }

@@ -22,15 +22,20 @@ import java.awt.*;
 
 
 public class ApneaEpisodeGenerator extends AlgorithmAdapter {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6809536948075982773L;
     private static final Logger LOGGER = Logger.getLogger(ApneaEpisodeGenerator.class.getName());
     private static final String ERROR = "Error";
 
-    static int tamanoVentana = 300;
-    static float pesoApnea = 1;
-    static float pesoHipoapnea = 0.5f;
-    static float limitePorcentaje = 5;
-    static float limitePorcentaje2 = 20;
-    static StringBuilder stringBuilder;
+    // TODO antes todos los campos eran estáticos @vanesa
+    protected int tamanoVentana = 300;
+    protected float pesoApnea = 1;
+    protected float pesoHipoapnea = 0.5f;
+    protected float limitePorcentaje = 5;
+    protected float limitePorcentaje2 = 20;
+    protected StringBuilder stringBuilder;
 
     //private JFileChooser jf = new JFileChooser();
 //    private float[] pesos;
@@ -39,14 +44,13 @@ public class ApneaEpisodeGenerator extends AlgorithmAdapter {
     @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {
-        Signal flujo = sm.getSignal("Flujo");
+        Signal flujo = sm.getSignal(SignalConstants.SENAL_FLUJO);
         JSWBManager.getSignalManager().removeAllAnnotations();
         if (flujo == null) {
             advertirSenalNoEncontrada();
             return;
         }
 
-        // TODO se modifica un valor estático al instanciar un objeto
         pr(flujo);
         float tmp=  pesoHipoapnea;
         pesoHipoapnea = 1;
@@ -88,7 +92,7 @@ public class ApneaEpisodeGenerator extends AlgorithmAdapter {
         guardarArchivo();
     }
 
-    private static void clasificarIntervalos(Signal flujo, float[] pesos) {
+    private void clasificarIntervalos(Signal flujo, float[] pesos) {
         stringBuilder = new StringBuilder();
         float fs = flujo.getSRate();
         int ventana = (int) (fs * tamanoVentana);

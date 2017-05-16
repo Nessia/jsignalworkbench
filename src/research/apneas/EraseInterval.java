@@ -15,6 +15,11 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public class EraseInterval extends AlgorithmAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6429105140246213348L;
+
     @Override
     public String getName() {
         return "Borrar intervalo";
@@ -41,12 +46,7 @@ public class EraseInterval extends AlgorithmAdapter {
 
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-        if (gUIPositions == GUIPositions.MENU) {
-            return true;
-        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-            return true;
-        }
-        return false;
+        return gUIPositions == GUIPositions.MENU || gUIPositions == GUIPositions.TOOLBAR;
     }
 
 }

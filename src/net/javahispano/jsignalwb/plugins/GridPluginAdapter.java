@@ -6,6 +6,10 @@ import net.javahispano.jsignalwb.Signal;
 
 public abstract class GridPluginAdapter extends PluginAdapter implements GridPlugin {
     /**
+     *
+     */
+    private static final long serialVersionUID = 293643964630520558L;
+    /**
      * Contiene la senhal sobre la cual se esta mostrando este grid.
      */
     protected Signal signal;

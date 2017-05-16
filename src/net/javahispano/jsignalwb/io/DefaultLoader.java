@@ -25,8 +25,13 @@ import org.jdom.input.SAXBuilder;
  *   Abraham Otero
  */
 public class DefaultLoader extends LoaderAdapter {
-     public static final String ATTR_FREQUENCY = "Frecuency";
-     public static final String ATTR_VERSION = "Version";
+     /**
+     *
+     */
+    private static final long serialVersionUID = -5259341416115262162L;
+
+    public static final String ATTR_FREQUENCY = "Frecuency";
+    public static final String ATTR_VERSION = "Version";
 
     private final List<String> extensions; //Almacena las extensiones en que es capaz de almacenar senales el plugin
     private float frecuency;

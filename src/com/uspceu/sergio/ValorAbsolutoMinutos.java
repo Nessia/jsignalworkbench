@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.uspceu.sergio;
 
 import java.util.logging.Level;
@@ -18,6 +13,10 @@ import net.javahispano.jsignalwb.SignalManager;
  */
 public class ValorAbsolutoMinutos extends SimpleAlgorithm {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2201108459471301236L;
     private static final Logger LOGGER = Logger.getLogger(ValorAbsolutoMinutos.class.getName());
 
     @Override

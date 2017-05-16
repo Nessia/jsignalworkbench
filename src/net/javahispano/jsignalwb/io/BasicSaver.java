@@ -11,6 +11,7 @@ package net.javahispano.jsignalwb.io;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -27,6 +28,11 @@ import net.javahispano.jsignalwb.plugins.SaverAdapter;
  */
 public class BasicSaver extends SaverAdapter {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 956931331031701803L;
+
     @Override
     public String getName() {
         return "Basic Saver";
@@ -38,7 +44,7 @@ public class BasicSaver extends SaverAdapter {
     }
 
     @Override
-    public ArrayList<String> getAvalaibleExtension() {
+    public List<String> getAvalaibleExtension() {
         ArrayList<String> ext = new ArrayList<String>();
         ext.add("txt");
         return ext;

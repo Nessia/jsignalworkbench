@@ -24,13 +24,18 @@ import research.apneas.DesatDetector;
  * @version 0.5
  */
 public class SpO2Grid extends GridPluginAdapter {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3589322062643776819L;
 
-    private static float[] valorBasal;
-    private final int pasoX = 5;
-//    private final int pasoX_1 = pasoX - 1;
-    private DefaultGrid defaultGrid = new DefaultGrid();
-    private TrapezoidalDistribution dropSpO2 =
-            new TrapezoidalDistribution(3, 30, 100, 100);
+    private static final int PASO_X = 5;
+//  private static final int PASO_X_1 = pasoX - 1;
+
+    private float[] valorBasal;
+
+    private final transient DefaultGrid defaultGrid = new DefaultGrid();
+    private final transient TrapezoidalDistribution dropSpO2 = new TrapezoidalDistribution(3, 30, 100, 100);
     private int bigSpace;
     private int bigSpaceY;
 
@@ -65,11 +70,11 @@ public class SpO2Grid extends GridPluginAdapter {
     }
 
     @Override
-    public void paintGrid(Graphics2D g2d, Point p, int height, int width,
+    public void paintGrid(Graphics2D g2di, Point p, int height, int width,
                           GridConfiguration gridconfig) {
         bigSpace = Math.round((width - 5) / (float) 10);
         bigSpaceY = Math.round((height - 5) / (float) 4);
-        g2d = (Graphics2D) g2d.create();
+        Graphics2D g2d = (Graphics2D) g2di.create();
         defaultGrid.paintGrid(g2d, p, height, width, gridconfig);
         long start = JSWBManager.getJSignalMonitor().getScrollValue();
         long end = start + JSWBManager.getJSignalMonitor().getVisibleTime();
@@ -78,10 +83,10 @@ public class SpO2Grid extends GridPluginAdapter {
         float temporalStep = (endIndex - startIndex) / (float) width;
         //asumimos cero en el centro
         float magnitudeStep = (gridconfig.getMaxValue() - gridconfig.getMinValue()) / height;
-        int van = -pasoX;
+        int van = -PASO_X;
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .6f));
-        for (float i = startIndex; i < endIndex; i += pasoX * temporalStep) {
-            van += pasoX;
+        for (float i = startIndex; i < endIndex; i += PASO_X * temporalStep) {
+            van += PASO_X;
             for (int j = height; j > 0; j--) {
                 int altura2 = p.y + j;
                 short pos = dropSpO2.evaluatepossibilityAt(valorBasal[(int) i]
@@ -98,7 +103,7 @@ public class SpO2Grid extends GridPluginAdapter {
 
     private void paintFragm(Graphics2D g2d, Point p, int van, int altura, Color color) {
         g2d.setColor(color);
-        g2d.fillRect(p.x + van, altura, pasoX, 4);
+        g2d.fillRect(p.x + van, altura, PASO_X, 4);
 //        g2d.drawLine(p.x + van, altura, p.x + van + pasoX_1, altura+4);
     }
 

@@ -19,8 +19,15 @@ import research.apneas.LimitacionFlujo;
  * @version 0.5
  */
 public class LimitacionFlujoMark extends DefaultIntervalMark {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2785025098467751670L;
+    private static final int extraheightPixels = 10;
+
     private String title;
-    private final int extraheightPixels = 10;
+
+
     private LimitacionFlujo limitacionFlujo;
 
     /**

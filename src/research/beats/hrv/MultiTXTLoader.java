@@ -3,6 +3,7 @@ package research.beats.hrv;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.io.BasicLoader;
@@ -21,7 +22,11 @@ import net.javahispano.jsignalwb.jsignalmonitor.Resample;
  * @version 0.5
  */
 public class MultiTXTLoader extends BasicLoader {
-    private String[] nombres = {"Flujo", "Sat02", "Movimiento abdominal", "Movimiento toracico"};
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6150393316831938831L;
+
 
     //float[][] s ={ecg,flujo,sp02,a,t};
 
@@ -41,7 +46,7 @@ public class MultiTXTLoader extends BasicLoader {
      * @return ArrayList
      */
     @Override
-    public ArrayList<String> getAvalaibleExtensions() {
+    public List<String> getAvalaibleExtensions() {
         ArrayList<String> ext = new ArrayList<String>();
         ext.add("Carpetas");
         return ext;
@@ -59,7 +64,7 @@ public class MultiTXTLoader extends BasicLoader {
         float[] fs = {4, 4, 4, 4};
         float[][] s = {flujo, sp02, a, t};
         for (int i = 0; i < 4; i++) {
-            Signal newSignal = new Signal(nombres[i], s[i]);
+            Signal newSignal = new Signal(SignalConstants.NOMBRES.get(i), s[i]);
             newSignal.setFrecuency(fs[i]);
             Calendar cal = Calendar.getInstance();
             cal.set(Calendar.YEAR, 100);
