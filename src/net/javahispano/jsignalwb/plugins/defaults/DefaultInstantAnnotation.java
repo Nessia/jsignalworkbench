@@ -8,12 +8,6 @@ package net.javahispano.jsignalwb.plugins.defaults;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.ImageIcon;
-
-import net.javahispano.jsignalwb.JSWBManager;
 
 /**
  *
@@ -21,29 +15,24 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class DefaultInstantAnnotation extends AnnotationPluginAdapter {
 
-    private static final Logger LOGGER = Logger.getLogger(DefaultInstantAnnotation.class.getName());
-
-    private long annotationTime;
-    private String title;
-    private String commentary;
-    private String category;
-    private Color color;
-    private Image image;
-    private BufferedImage im;
-    private boolean isImage;
-    private String imagePath;
-    private JSWBManager jswbManager;
+    /*
+     * Constructor
+     */
 
     public DefaultInstantAnnotation() {
-        annotationTime = 0;
-        title = "Write here the annotation title...";
-        commentary = "Write here your commentary....";
-        color = Color.RED;
-        imagePath = "default";
-        image = getDefaultImage();
-        jswbManager = null;
+        super();
         category = "Instant";
         setIsImage(false);
+    }
+
+
+    /*
+     * Métodos
+     */
+
+    @Override
+    public boolean isInterval() {
+        return false;
     }
 
     @Override
@@ -52,137 +41,12 @@ public class DefaultInstantAnnotation extends AnnotationPluginAdapter {
     }
 
     @Override
-    public long getAnnotationTime() {
-        return annotationTime;
-    }
-
-    @Override
-    public Image getImage() {
-        return im;
-    }
-
-    @Override
-    public void setAnnotationTime(long annotationTime) {
-        this.annotationTime = annotationTime;
-    }
-
-    @Override
-    public void setJSWBManager(JSWBManager jswbManager) {
-        this.jswbManager = jswbManager;
-    }
-
-    @Override
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    @Override
     public void showMarkInfo(Window owner) {
-        new DefaultInstantAnnotationPanel(this).showJWindow(owner);
-    }
-
-    public JSWBManager getJSWBManager() {
-        return jswbManager;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setCommentary(String commentary) {
-        this.commentary = commentary;
-    }
-
-    public String getCommentary() {
-        return commentary;
-    }
-
-    public String getTitle() {
-        return title;
+        new DefaultInstantAnnotationInfoPanel(this).showJWindow(owner);
     }
 
     @Override
-    public boolean hasDataToSave() {
-        return true;
-    }
-
-    @Override
-    public String getDataToSave() {
-        return "title:" + title + "|| commentary:" + commentary + " || icon:" +
-                imagePath + " || isImage:" + isImage + "|| color:" +
-                color.getRGB() + "|| category: " + category;
-    }
-
-    @Override
-    public void setSavedData(String d) {
-        String data = d;
-        data = data.substring(data.indexOf("title:") + 6);
-        title = data.substring(0, data.indexOf("||"));
-        data = data.substring(data.indexOf("commentary:") + 10);
-        commentary = data.substring(0, data.indexOf("||"));
-        data = data.substring(data.indexOf("icon:") + 5);
-        imagePath = data.substring(0, data.indexOf("||"));
-        data = data.substring(data.indexOf("isImage:") + 8);
-        isImage = Boolean.parseBoolean(data.substring(0, data.indexOf("||")));
-        data = data.substring(data.indexOf("color:") + 6);
-        color = new Color(Integer.parseInt(data.substring(0, data.indexOf("||"))));
-        data = data.substring(data.indexOf("category:") + 9);
-        category = data;
-        LOGGER.log(Level.INFO, imagePath);
-        if (!"default".equals(imagePath.trim())) {
-            image = new ImageIcon(imagePath).getImage();
-        } else {
-            image = getDefaultImage();
-        }
-        refreshBufferedImage();
-    }
-
-    @Override
-    public String getToolTipText() {
-        return title;
-    }
-
-    public Image getDefaultImage() {
-        return new ImageIcon(DefaultInstantAnnotation.class.getResource(
-                "images/defaultIconMark.png")).getImage();
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-        refreshBufferedImage();
-    }
-
-    public void setImageToShow(Image image) {
-        this.image = image;
-        this.setIsImage(true);
-    }
-
-    public Image getImageToShow() {
-        return image;
-    }
-
-    public boolean isImage() {
-        return isImage;
-    }
-
-    public void setIsImage(boolean isImage) {
-        this.isImage = isImage;
-        refreshBufferedImage();
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    private void refreshBufferedImage() {
+    protected void refreshBufferedImage() {
         //System.out.println("refresco la imagen");
         if (isImage) {
             im = new BufferedImage(image.getHeight(null), image.getWidth(null), BufferedImage.TYPE_INT_RGB);
@@ -196,4 +60,13 @@ public class DefaultInstantAnnotation extends AnnotationPluginAdapter {
         }
     }
 
+    public void setImageToShow(Image image) {
+        this.image = image;
+        this.setIsImage(true);
+    }
+
+    //  public Image getDefaultImage() {
+    //  return new ImageIcon(DefaultInstantAnnotation.class.getResource(
+    //          "images/defaultIconMark.png")).getImage();
+    //}
 }
