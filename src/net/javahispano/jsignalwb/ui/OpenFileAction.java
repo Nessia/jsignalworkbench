@@ -3,8 +3,6 @@
  *
  * Created on 17 de mayo de 2007, 13:50
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
  */
 
 package net.javahispano.jsignalwb.ui;

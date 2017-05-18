@@ -60,17 +60,37 @@ public class MarkPaintInfo {
         return height;
     }
 
-    public boolean equals(MarkPaintInfo mpi) {
-        return (mpi.getPoint().x == point.x &&
-            mpi.getPoint().y == point.y &&
-            mpi.getStartValue().x == startValue.x &&
-            mpi.getStartValue().y == startValue.y &&
-            mpi.getEndValue().x == endValue.x &&
-            mpi.getEndValue().y == endValue.y &&
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null){
+            return false;
+        }
+        if(!(obj instanceof MarkPaintInfo)){
+            return false;
+        }
+        MarkPaintInfo mpi = (MarkPaintInfo)obj;
+        if(mpi.getPoint().x != point.x || mpi.getPoint().y != point.y){
+            return false;
+        }
+        if(mpi.getStartValue().x != startValue.x ||
+             mpi.getStartValue().y != startValue.y){
+            return false;
+        }
+        if(mpi.getEndValue().x != endValue.x ||
+              mpi.getEndValue().y != endValue.y){
+            return false;
+        }
+        return (
             mpi.getMaxValueY() == maxValueY &&
             mpi.getMinValueY() == minValueY &&
             mpi.getHeight() == height &&
             mpi.getWidth() == width);
+    }
+
+    @Override
+    public int hashCode() {
+        // TODO Auto-generated method stub
+        return super.hashCode();
     }
 
 }

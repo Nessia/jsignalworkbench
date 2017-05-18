@@ -21,11 +21,6 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class DefaultInstantAnnotation extends AnnotationPluginAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -337251442361482976L;
-
     private static final Logger LOGGER = Logger.getLogger(DefaultInstantAnnotation.class.getName());
 
     private long annotationTime;
@@ -34,7 +29,7 @@ public class DefaultInstantAnnotation extends AnnotationPluginAdapter {
     private String category;
     private Color color;
     private Image image;
-    private BufferedImage bufferedImage;
+    private BufferedImage im;
     private boolean isImage;
     private String imagePath;
     private JSWBManager jswbManager;
@@ -63,7 +58,7 @@ public class DefaultInstantAnnotation extends AnnotationPluginAdapter {
 
     @Override
     public Image getImage() {
-        return bufferedImage;
+        return im;
     }
 
     @Override
@@ -190,12 +185,12 @@ public class DefaultInstantAnnotation extends AnnotationPluginAdapter {
     private void refreshBufferedImage() {
         //System.out.println("refresco la imagen");
         if (isImage) {
-            bufferedImage = new BufferedImage(image.getHeight(null), image.getWidth(null), BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2d = bufferedImage.createGraphics();
+            im = new BufferedImage(image.getHeight(null), image.getWidth(null), BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2d = im.createGraphics();
             g2d.drawImage(image, 0, 0, image.getHeight(null), image.getWidth(null), null);
         } else {
-            bufferedImage = new BufferedImage(5, 15, BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2d = bufferedImage.createGraphics();
+            im = new BufferedImage(5, 15, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2d = im.createGraphics();
             g2d.setColor(color);
             g2d.fillRect(0, 0, 5, 15);
         }

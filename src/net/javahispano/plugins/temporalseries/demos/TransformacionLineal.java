@@ -19,10 +19,6 @@ import net.javahispano.plugins.temporalseries.TemporalSeriesAlgorithm;
  */
 public class TransformacionLineal extends TemporalSeriesAlgorithm {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 8369902265490296580L;
 
     private static final Logger LOGGER = Logger.getLogger(TransformacionLineal.class.getName());
 
