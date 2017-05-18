@@ -13,10 +13,7 @@ import net.javahispano.jsignalwb.plugins.MarkPlugin;
 import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
 
 public class MarcasP extends SimpleAlgorithm {
-    /**
-     *
-     */
-    private static final long serialVersionUID = -8883801243960685082L;
+
     private static final Logger LOGGER = Logger.getLogger(MarcasP.class.getName());
 
 

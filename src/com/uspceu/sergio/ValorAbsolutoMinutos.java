@@ -13,10 +13,6 @@ import net.javahispano.jsignalwb.SignalManager;
  */
 public class ValorAbsolutoMinutos extends SimpleAlgorithm {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 2201108459471301236L;
     private static final Logger LOGGER = Logger.getLogger(ValorAbsolutoMinutos.class.getName());
 
     @Override

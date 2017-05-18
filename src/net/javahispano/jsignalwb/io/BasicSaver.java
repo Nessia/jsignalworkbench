@@ -2,9 +2,6 @@
  * BasicSaver.java
  *
  * Created on 24 de mayo de 2007, 19:28
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
  */
 
 package net.javahispano.jsignalwb.io;
@@ -28,11 +25,6 @@ import net.javahispano.jsignalwb.plugins.SaverAdapter;
  */
 public class BasicSaver extends SaverAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 956931331031701803L;
-
     @Override
     public String getName() {
         return "Basic Saver";
@@ -44,7 +36,7 @@ public class BasicSaver extends SaverAdapter {
     }
 
     @Override
-    public List<String> getAvalaibleExtension() {
+    public List<String> getAvalaibleExtensions() {
         ArrayList<String> ext = new ArrayList<String>();
         ext.add("txt");
         return ext;

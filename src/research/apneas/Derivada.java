@@ -9,11 +9,6 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 
 public class Derivada extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -1113153905048929731L;
-
     @Override
     public String getName() {
         return "Derivada";

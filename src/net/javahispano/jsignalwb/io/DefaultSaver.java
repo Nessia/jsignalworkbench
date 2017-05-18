@@ -24,10 +24,6 @@ import org.jdom.output.XMLOutputter;
  *   Abraham Otero
  */
 public class DefaultSaver extends SaverAdapter {
-    /**
-     *
-     */
-    private static final long serialVersionUID = -6108176217867262757L;
 
     /*
      * Atributos
@@ -89,7 +85,7 @@ public class DefaultSaver extends SaverAdapter {
     }
 
     @Override
-    public List<String> getAvalaibleExtension() {
+    public List<String> getAvalaibleExtensions() {
         return extensions;
     }
 

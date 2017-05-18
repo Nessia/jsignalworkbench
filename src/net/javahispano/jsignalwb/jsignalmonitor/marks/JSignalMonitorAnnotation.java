@@ -3,8 +3,6 @@
  *
  * Created on 17 de julio de 2007, 18:54
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
  */
 
 package net.javahispano.jsignalwb.jsignalmonitor.marks;

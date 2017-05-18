@@ -18,10 +18,6 @@ import net.javahispano.jsignalwb.*;
  *   Abraham Otero.
  */
 public abstract class SaverAdapter extends PluginAdapter implements Saver {
-    /**
-     *
-     */
-    private static final long serialVersionUID = -6364667182902863411L;
 
     private boolean executionCanceled = false;
     /**

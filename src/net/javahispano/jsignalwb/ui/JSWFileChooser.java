@@ -30,7 +30,8 @@ public class JSWFileChooser extends JFileChooser implements PropertyChangeListen
      */
     private static final long serialVersionUID = 1291898517531230423L;
 
-    PluginManager pm;
+    // los plugins escriben sus propios datos
+    transient PluginManager pm;
     // ArrayList<FileChooserFileFilter> filters;
     boolean isDefaultFilter;
     FileChooserFileFilter defaultFilter;
@@ -98,7 +99,7 @@ public class JSWFileChooser extends JFileChooser implements PropertyChangeListen
         this.resetChoosableFileFilters();
 
         for (Saver saver : pm.getAllSavers()) {
-            FileChooserFileFilter fcff = new FileChooserFileFilter(saver, saver.getAvalaibleExtension());
+            FileChooserFileFilter fcff = new FileChooserFileFilter(saver, saver.getAvalaibleExtensions());
             //filters.add(fcff);
             addChoosableFileFilter(fcff);
             if ("defaultSaver".equals(fcff.getPlugin().getName())) {

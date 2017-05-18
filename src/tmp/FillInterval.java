@@ -26,10 +26,6 @@ import net.javahispano.jsignalwb.plugins.defaults.DefaultAlgorithmConfiguration;
  */
 public class FillInterval extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 4636259989210429101L;
 
     @Override
     public String getName() {

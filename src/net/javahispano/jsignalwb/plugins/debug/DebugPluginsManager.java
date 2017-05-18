@@ -125,30 +125,12 @@ public class DebugPluginsManager {
         if (shas) {
             plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Generador de episodios de apnea",
                                             new ApneaEpisodeGenerator()));
-//            plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Asociar Eventos",
-//                                            new AssociateEvents()));
-//            plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Generar descriptores",
-//                                            new GenerateDescriptors()));
-//            plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Anotando latidos",
-//                                            new Paso1()));
-//            plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Calcular valor basal SpO2",
-//                                            new CalcularValorBasalSpO2()));
-//            plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Anotando evento respiratorios",
-//                                            new Paso2()));
-//            plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "As",
-//                                            new Paso3()));
             plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Apnea",
                                             new research.apneas.ApneaAlgorithm()));
-//            plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "SnoreAlgorithm",
-//                                            new research.apneas.SnoreAlgorithm()));
-//            plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Filtro nasal",
-//                                            new research.apneas.FiltroNasal()));
             plugins.add(new DebugPluginInfo(PluginTypes.MARK, "Limitacion de flujo",
                                             new LimitacionAnotacion()));
             plugins.add(new DebugPluginInfo(PluginTypes.MARK, "Desaturación",
                                             new DesaturacionAnotacion()));
-//            plugins.add(new DebugPluginInfo(PluginTypes.ALGORITHM, "Caracterizar la gravedad del paciente",
-//                                            new SeverityDescriptorsGenerator()));
         }
     }
 
@@ -211,13 +193,6 @@ public class DebugPluginsManager {
                                         new DiuresisAnalisisError()));
         }
     }
-
-//    private static void generarSenhalesArtificiales(ArrayList<DebugPluginInfo> plugins) {
-//        plugins.add(new DebugPluginInfo(PluginTypes.GENERIC, "Signal Generation",
-//                                        new SignalGenerationPlugin()));
-//    }
-
-
 
     private static void diversosPluginsDeTest(ArrayList<DebugPluginInfo> plugins) {
         if (diversosPluginsDeTest) {

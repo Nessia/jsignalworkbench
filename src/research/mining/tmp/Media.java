@@ -27,10 +27,6 @@ import java.util.Arrays;
  */
 public class Media extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -234952335936356213L;
 
     private static final Logger LOGGER = Logger.getLogger(Media.class.getName());
 

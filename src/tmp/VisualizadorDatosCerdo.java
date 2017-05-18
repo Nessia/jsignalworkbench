@@ -23,11 +23,6 @@ import java.awt.*;
 public class VisualizadorDatosCerdo extends AlgorithmAdapter {
 
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 2002548138045887069L;
-
     private static final Logger LOGGER = Logger.getLogger(VisualizadorDatosCerdo.class.getName());
 
     public static final String TITULO = "Visualizador de datos del cerdo";

@@ -15,10 +15,7 @@ import java.util.Calendar;
  *   Abraham Otero
  */
 public abstract class LoaderAdapter extends PluginAdapter implements Loader {
-    /**
-     *
-     */
-    private static final long serialVersionUID = -1320575418858659671L;
+
     private boolean executionCanceled = false;
 
     /**
@@ -82,7 +79,6 @@ public abstract class LoaderAdapter extends PluginAdapter implements Loader {
                     cal.set(Calendar.MONTH, Calendar.JANUARY);
                     cal.set(Calendar.DAY_OF_MONTH, 1);
                     s.setStart(cal.getTime().getTime());
-
                 }
                 if (!sm.addSignal(s)) {
                     flag = false;
@@ -95,7 +91,7 @@ public abstract class LoaderAdapter extends PluginAdapter implements Loader {
     }
 
     /**
-     * La implementacion por defecto de vuelve null. Si el usuario solo escribe
+     * Si el usuario solo escribe
      * este metodo y de vuelve un array que contenga varios arrays con senhales
      * estas seran cargadas en el entorno con frecuencia de muestreo unidad y
      * con un nombre generico.
@@ -104,9 +100,7 @@ public abstract class LoaderAdapter extends PluginAdapter implements Loader {
      * @return null
      * @throws Exception
      */
-    protected float[][] loadSignals(File f) throws Exception {
-        return null;
-    }
+    protected abstract float[][] loadSignals(File f) throws Exception;
 
     @Override
     public void cancelExecution() {

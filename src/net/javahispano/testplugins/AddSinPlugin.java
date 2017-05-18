@@ -19,11 +19,6 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public class AddSinPlugin extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -1781229282466858330L;
-
     public AddSinPlugin() {
         // Vacio
     }

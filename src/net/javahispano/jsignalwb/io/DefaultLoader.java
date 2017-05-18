@@ -25,10 +25,6 @@ import org.jdom.input.SAXBuilder;
  *   Abraham Otero
  */
 public class DefaultLoader extends LoaderAdapter {
-     /**
-     *
-     */
-    private static final long serialVersionUID = -5259341416115262162L;
 
     public static final String ATTR_FREQUENCY = "Frecuency";
     public static final String ATTR_VERSION = "Version";
@@ -450,6 +446,11 @@ public class DefaultLoader extends LoaderAdapter {
         } catch (IOException ex) {
             throw new Exception("Error loading values: " + ex.getMessage(), ex);
         }
+    }
+
+    @Override
+    protected float[][] loadSignals(File f) throws Exception {
+        return null;
     }
 
 

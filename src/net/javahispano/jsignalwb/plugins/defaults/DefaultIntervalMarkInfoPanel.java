@@ -40,18 +40,7 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
     private JTextArea comentaryTextArea;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker2;
-//    private JButton jButton1;
     private JButton jButton2;
-//    private JButton jButton3;
-//    private JLabel jLabel1;
-//    private JLabel jLabel2;
-//    private JLabel jLabel3;
-//    private JLabel jLabel4;
-//    private JPanel jPanel1;
-//    private JPanel jPanel2;
-//    private JPanel jPanel3;
-//    private JPanel jPanel4;
-//    private JScrollPane jScrollPane1;
     private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
     private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate2;
     private JLabel kindLabel;
@@ -62,7 +51,6 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
 
     private Signal signal;
     private DefaultIntervalMark dim;
-//    private JColorChooser jcc;
 
     /** Creates new form DefaultIntervalMarkInfoPanel */
     public DefaultIntervalMarkInfoPanel(Signal signal, DefaultIntervalMark dim) {
@@ -75,8 +63,6 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
             signalNameLabel.setText("Signal: " + signal.getName());
         }
         markTitleTextField.setText(dim.getTitle());
-        //markTimeTextField.setText(TimeRepresentation.timeToString(dim.getMarkTime()));
-        //endTimeTextField.setText(TimeRepresentation.timeToString(dim.getEndTime()));
         jTextFieldDate1.setText(TimeRepresentation.timeToString(
                 dim.getMarkTime()));
         jTextFieldDate2.setText(TimeRepresentation.timeToString(
@@ -407,7 +393,6 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
 
     public void showJWindow(Window owner) {
         jw = new JWindow(owner);
-        //jw.setLocation(GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint());
         jw.add(this);
         jw.setSize(this.getPreferredSize());
         jw.setLocationRelativeTo(owner);
@@ -421,7 +406,6 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
         long end = TimeRepresentation.stringToMillis(jTextFieldDate2.getText());
         dim.setMarkTime(Math.min(start, end));
         dim.setEndTime(Math.max(start, end));
-//        dim.getJSWBManager().refreshJSM(true);
         jw.dispose();
     }
 

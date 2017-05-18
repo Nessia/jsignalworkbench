@@ -28,30 +28,34 @@ public class ThoracicMovementLimutation extends FluxLimitation {
      * @param level DETAILLEVEL
      * @return String
      */
-    public String genrateDescriptors(DETAILLEVEL level) {
-        String descriptors;
-
-        descriptors = TimeRepresentation.timeToString(
-                            this.getAbsoluteBeginingTime(),false,true,false);
+    public String generateDescriptors(DETAILLEVEL level) {
+        StringBuilder descriptors = new StringBuilder(TimeRepresentation.timeToString(
+                            this.getAbsoluteBeginingTime(),false,true,false));
 
         if(level == DETAILLEVEL.LOW){
-            if(this.getType() == Type.APNEA)    descriptors += "\tGEN_TAPNEA\t";
-            else                                descriptors += "\tGEN_THYPO\t";
+            if(this.getType() == Type.APNEA){
+                descriptors.append("\tGEN_TAPNEA\t");
+            } else{
+                descriptors.append("\tGEN_THYPO\t");
+            }
 
-            descriptors += this.getDuration();
+            descriptors.append(Long.toString(this.getDuration()));
         }
         else{
-            descriptors += "\tGEN_LIM\t" + this.getDuration();
-            if(this.getType() == Type.APNEA)    descriptors += "\tA";
-            else                                descriptors += "\tH";
+            descriptors.append("\tGEN_LIM\t" + this.getDuration());
+            if(this.getType() == Type.APNEA){
+                descriptors.append("\tA");
+            } else {
+                descriptors.append("\tH");
+            }
 
             if(level == DETAILLEVEL.HIGH || level == DETAILLEVEL.EVERYTHING)
-                descriptors += "\t" + this.getEnergy() + "\t"
+                descriptors.append("\t" + this.getEnergy() + "\t"
                         + this.getBasalEnergyBefore() + "\t"
-                        + this.getBasalEnergyAfter();
+                        + this.getBasalEnergyAfter());
         }
 
-        descriptors += "\n";
-        return descriptors;
+        descriptors.append("\n");
+        return descriptors.toString();
     }
 }

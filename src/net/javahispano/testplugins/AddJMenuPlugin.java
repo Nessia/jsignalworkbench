@@ -18,11 +18,6 @@ import net.javahispano.jsignalwb.plugins.GenericPluginAdapter;
  */
 public class AddJMenuPlugin extends GenericPluginAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -4221740062506097614L;
-
     public AddJMenuPlugin() {
         // Vacio
     }

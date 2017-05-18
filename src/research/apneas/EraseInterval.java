@@ -7,18 +7,12 @@ import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 
 /**
- * Created by IntelliJ IDEA.
  * User: a
  * Date: 03-dic-2008
  * Time: 20:30:07
  *
  */
 public class EraseInterval extends AlgorithmAdapter {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 6429105140246213348L;
 
     @Override
     public String getName() {

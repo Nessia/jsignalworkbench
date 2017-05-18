@@ -10,10 +10,6 @@ import net.javahispano.jsignalwb.SignalManager;
  */
 public class DiuresisMinutoAMinuto extends SimpleAlgorithm  {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -8669712349425924791L;
 
     @Override
     public String getName() {

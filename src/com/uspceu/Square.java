@@ -9,10 +9,6 @@ import net.javahispano.jsignalwb.SignalManager;
 import net.javahispano.jsignalwb.plugins.MarkPlugin;
 
 public class Square extends SimpleAlgorithm{
-    /**
-     *
-     */
-    private static final long serialVersionUID = 9060806496914265139L;
     private static final Logger LOGGER = Logger.getLogger(Square.class.getName());
 
     @Override

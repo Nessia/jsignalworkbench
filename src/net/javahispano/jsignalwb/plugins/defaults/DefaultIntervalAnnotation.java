@@ -21,11 +21,6 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 3432103447239994422L;
-
     private static final Logger LOGGER = Logger.getLogger(DefaultIntervalAnnotation.class.getName());
 
     private long annotationTime;
@@ -35,13 +30,16 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
     private String category;
     private Color color;
     private Image image;
-    private BufferedImage bufferedImage;
+    private BufferedImage im;
     private boolean isImage;
     private String imagePath;
     private JSWBManager jswbManager;
+
     private int height = 1;
     private int width = 1;
     private Graphics2D g2d;
+    private int barHeight = 4;
+    private Color fontColor = Color.blue;
 
     public DefaultIntervalAnnotation() {
         annotationTime = 0;
@@ -68,7 +66,7 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
 
     @Override
     public Image getImage() {
-        return bufferedImage;
+        return im;
     }
 
     @Override
@@ -232,14 +230,12 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
         return title;
     }
 
-    private int barHeight = 4;
-    private Color fontColor = Color.blue;
     private void refreshBufferedImage() {
         if (!isImage) {
             isImage = false;
-            bufferedImage = new BufferedImage(width, height,
+            im = new BufferedImage(width, height,
                                               BufferedImage.TYPE_INT_RGB);
-            g2d = bufferedImage.createGraphics();
+            g2d = im.createGraphics();
         }
         //borramos t.odo lo antiguo
         g2d.setColor(Color.white);
@@ -274,7 +270,7 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
             this.width = width;
             refreshBufferedImage();
         }
-        g2d.drawImage(bufferedImage, p.x, p.y, null);
+        g2d.drawImage(im, p.x, p.y, null);
     }
 
     public Image getDefaultImage() {

@@ -12,11 +12,6 @@ import net.javahispano.jsignalwb.io.BasicLoader;
 
 public class RatasLoader extends BasicLoader {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -3921334629350089751L;
-
     private String[] nombres = {"I", "II", "III"};
 
     @Override

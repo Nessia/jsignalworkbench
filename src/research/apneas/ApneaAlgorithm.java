@@ -26,10 +26,6 @@ import research.apneas.spo2.DetectorDesaturacionesWrapper;
  */
 public class ApneaAlgorithm extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 2203914808889217590L;
 
     private static final Logger LOGGER = Logger.getLogger(ApneaAlgorithm.class.getName());
 

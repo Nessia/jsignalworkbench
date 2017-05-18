@@ -31,10 +31,6 @@ import org.jdom.output.XMLOutputter;
  * @version 1.0
  */
 public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 5573306956993149941L;
 
     private static final Logger LOGGER = Logger.getLogger(BasicStatisticsPlugin.class.getName());
     public static final String EL_PERCENTIL = "Percentil";

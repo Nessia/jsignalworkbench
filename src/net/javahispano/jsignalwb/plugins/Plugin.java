@@ -1,8 +1,6 @@
 package net.javahispano.jsignalwb.plugins;
 
 import java.io.File;
-import java.io.Serializable;
-
 import javax.swing.Icon;
 
 import net.javahispano.jsignalwb.JSWBManager;
@@ -22,7 +20,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *   (http://www.apache.org/licenses/). Copyright 2006-2007 Roman Segador y
  *   Abraham Otero
  */
-public interface Plugin extends Serializable{
+public interface Plugin {
     /**
      * Proporciona el hombre del plugin.
      *
@@ -98,7 +96,7 @@ public interface Plugin extends Serializable{
     public void setSavedData(String data);
 
     /**
-     * Devuelve cierto si el plugin tiene datos se desea que el entorno guarde y
+     * Devuelve cierto si el plugin tiene datos que desea que el entorno guarde y
      * le devuelva la proxima vez que se ejecute la herramienta.
      *
      * @return ciertos y el entorno debe guardar de datos, falso en caso

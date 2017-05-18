@@ -22,11 +22,6 @@ import net.javahispano.jsignalwb.jsignalmonitor.Resample;
  * @version 0.5
  */
 public class MultiTXTLoader extends BasicLoader {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 6150393316831938831L;
-
 
     //float[][] s ={ecg,flujo,sp02,a,t};
 

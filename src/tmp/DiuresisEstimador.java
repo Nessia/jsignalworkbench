@@ -25,10 +25,6 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public class DiuresisEstimador extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 4736868458761419064L;
 
     private static final Logger LOGGER = Logger.getLogger(DiuresisEstimador.class.getName());
 

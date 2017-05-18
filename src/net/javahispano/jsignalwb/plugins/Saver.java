@@ -22,7 +22,7 @@ public interface Saver extends Plugin {
      *
      * @return ArrayList
      */
-    public List<String> getAvalaibleExtension();
+    public List<String> getAvalaibleExtensions();
 
     public boolean save(File f) throws
             Exception;

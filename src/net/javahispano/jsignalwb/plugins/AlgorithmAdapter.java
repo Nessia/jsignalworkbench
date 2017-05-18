@@ -16,10 +16,6 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public abstract class AlgorithmAdapter extends PluginAdapter implements Algorithm {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -2159985576838442829L;
     private boolean executionCanceled = false;
 
     /**
@@ -118,12 +114,6 @@ public abstract class AlgorithmAdapter extends PluginAdapter implements Algorith
      */
     @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
-//        if (gUIPositions == GUIPositions.MENU) {
-//            return true;
-//        } else if (gUIPositions == GUIPositions.TOOLBAR) {
-//            return false;
-//        }
-//        return false;
         return gUIPositions == GUIPositions.MENU;
     }
 

@@ -22,10 +22,6 @@ import research.apneas.*;
  * @version 0.5
  */
 public class DetectorDesaturacionesWrapper extends AlgorithmAdapter {
-    /**
-     *
-     */
-    private static final long serialVersionUID = -759010125910361241L;
 
     private static long inicioAbsoluto = 0;
 

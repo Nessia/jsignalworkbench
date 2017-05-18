@@ -27,10 +27,6 @@ import net.javahispano.jsignalwb.plugins.LoaderAdapter;
  */
 public class TraceImporter extends LoaderAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -6570536102428776316L;
     private static final Logger LOGGER = Logger.getLogger(TraceImporter.class.getName());
 
 
@@ -130,6 +126,11 @@ public class TraceImporter extends LoaderAdapter {
         Calendar d = new GregorianCalendar(ano, mes, dia, hora, minutos,
                                            segundos);
         return d.getTime().getTime();
+    }
+
+    @Override
+    protected float[][] loadSignals(File f) throws Exception {
+        return null;
     }
 
 }

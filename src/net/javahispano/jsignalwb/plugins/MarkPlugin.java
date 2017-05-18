@@ -2,14 +2,10 @@
  * MarkPlugin.java
  *
  * Created on 4 de julio de 2007, 15:07
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
  */
 
 package net.javahispano.jsignalwb.plugins;
 
-import java.io.Serializable;
 
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.jsignalmonitor.marks.JSignalMonitorMark;
@@ -25,7 +21,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.marks.JSignalMonitorMark;
  *   (http://www.apache.org/licenses/). Copyright 2006-2007 Roman Segador y
  *   Abraham Otero
  */
-public interface MarkPlugin extends Plugin, JSignalMonitorMark, Serializable {
+public interface MarkPlugin extends Plugin, JSignalMonitorMark {
 
 
     /**

@@ -6,10 +6,6 @@ import net.javahispano.jsignalwb.SignalManager;
 import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
 
 public class SquareNewSignalBeatDetect extends SimpleAlgorithm {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 8059541243525111529L;
     public static final double THRESHOLD = 5E7;
 
     @Override

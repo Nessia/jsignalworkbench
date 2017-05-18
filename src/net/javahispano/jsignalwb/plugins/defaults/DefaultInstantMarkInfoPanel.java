@@ -30,7 +30,7 @@ import com.michaelbaranov.microba.calendar.CalendarPane;
  *
  * @author  Compaq_Propietario
  */
-public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements PropertyChangeListener {
+public class DefaultInstantMarkInfoPanel extends JPanel implements PropertyChangeListener {
 
     private static final Logger LOGGER = Logger.getLogger(DefaultInstantMarkInfoPanel.class.getName());
     /**
@@ -39,25 +39,14 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
     private static final long serialVersionUID = -6038183406671451579L;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-//    private ButtonGroup buttonGroup;
     private JTextField colorTextField;
     private JTextArea comentaryTextArea;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private JLabel iconLabel;
-    private JButton jButton1;
     private JButton jButton2;
     private JButton jButton3;
     private JButton jButton4;
-    //private static JColorChooser jColorChooser1 = new JColorChooser();
-//    private JLabel jLabel2;
-//    private JLabel jLabel3;
-//    private JLabel jLabel4;
-//    private JPanel jPanel1;
-//    private JPanel jPanel2;
-//    private JPanel jPanel3;
-//    private JRadioButton jRadioButton1;
     private JRadioButton jRadioButton2;
-//    private JScrollPane jScrollPane1;
     private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
     private JLabel kindLabel;
     private JTextField markTitleTextField;
@@ -65,7 +54,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
     // End of variables declaration//GEN-END:variables
     private JWindow jw;
 
-    DefaultInstantMark dim;
+    transient DefaultInstantMark dim;
     Signal s;
     JFileChooser jfc;
 
@@ -136,7 +125,7 @@ public class DefaultInstantMarkInfoPanel extends javax.swing.JPanel implements P
         JLabel jLabel4 = new JLabel();
         JScrollPane jScrollPane1 = new JScrollPane();
         comentaryTextArea = new JTextArea();
-        jButton1 = new JButton();
+        JButton jButton1 = new JButton();
         kindLabel = new JLabel();
         jButton2 = new JButton();
         JPanel jPanel3 = new JPanel();

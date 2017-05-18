@@ -20,11 +20,6 @@ import net.javahispano.jsignalwb.plugins.GenericPluginAdapter;
 public class ShowSignalsPropertiesPlugin extends GenericPluginAdapter {
 
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -6362170721413447042L;
-
     @Override
     public String getName() {
         return "ShowSignalsPropertiesPlugin";

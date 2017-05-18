@@ -25,10 +25,7 @@ import java.awt.Color;
  * @version 1.0
  */
 public class MobileMeanPlugin extends AlgorithmAdapter {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 5693229083648676362L;
+
     private int window = 4;
     private boolean mediana = false;
     private boolean eliminarHuecos = true;

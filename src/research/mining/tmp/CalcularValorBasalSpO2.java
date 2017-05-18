@@ -27,10 +27,6 @@ import java.util.Arrays;
  */
 public class CalcularValorBasalSpO2 extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 8142102131821153813L;
     private static final Logger LOGGER = Logger.getLogger(CalcularValorBasalSpO2.class.getName());
 
     @Override

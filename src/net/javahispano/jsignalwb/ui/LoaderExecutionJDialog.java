@@ -26,13 +26,12 @@ public class LoaderExecutionJDialog extends javax.swing.JDialog implements Prope
     private static final long serialVersionUID = -6086174004796887828L;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JProgressBar jProgressBar1;
     // End of variables declaration//GEN-END:variables
 
-    private Loader loader;
+    private transient Loader loader;
     private SwingWorker<Boolean, Void> swWorker;
+
+
     /**
      * Creates new form LoaderExecutionJDialog
      * @param loader {@link Loader} a utilizar para la carga
@@ -48,7 +47,7 @@ public class LoaderExecutionJDialog extends javax.swing.JDialog implements Prope
         LoaderRunner lr = new LoaderRunner(loader, file);
         lr.addPropertyChangeListener(this);
         setLocationRelativeTo(this.getOwner());
-        swWorker = (SwingWorker<Boolean, Void>) lr;
+        swWorker = lr;
         jswbManager.setJSMIgnoreRepaintMode(true);
         lr.execute();
         setVisible(true);
@@ -61,10 +60,8 @@ public class LoaderExecutionJDialog extends javax.swing.JDialog implements Prope
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if ("state".equals(evt.getPropertyName())) {
-            if (evt.getNewValue().equals(LoaderRunner.StateValue.DONE)) {
-                this.dispose();
-            }
+        if ("state".equals(evt.getPropertyName()) && evt.getNewValue().equals(LoaderRunner.StateValue.DONE)) {
+            this.dispose();
         }
     }
 
@@ -75,9 +72,9 @@ public class LoaderExecutionJDialog extends javax.swing.JDialog implements Prope
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        jLabel1 = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jButton1 = new javax.swing.JButton();
+        JLabel jLabel1 = new JLabel();
+        JProgressBar jProgressBar1 = new JProgressBar();
+        JButton jButton1 = new JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jLabel1.setForeground(java.awt.Color.blue);
@@ -90,7 +87,7 @@ public class LoaderExecutionJDialog extends javax.swing.JDialog implements Prope
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton1ActionPerformed();
             }
         });
 
@@ -127,7 +124,7 @@ public class LoaderExecutionJDialog extends javax.swing.JDialog implements Prope
         pack();
     } // </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed() { //GEN-FIRST:event_jButton1ActionPerformed
         loader.cancelExecution();
         swWorker.cancel(false);
     } //GEN-LAST:event_jButton1ActionPerformed

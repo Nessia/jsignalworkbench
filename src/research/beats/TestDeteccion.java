@@ -17,10 +17,6 @@ import javax.swing.*;
  */
 public class TestDeteccion extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -7556213545467870779L;
 
     private Bdac bdac;
 //    private long sampleCount = 0;

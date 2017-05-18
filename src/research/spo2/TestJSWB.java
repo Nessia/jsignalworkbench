@@ -23,10 +23,6 @@ import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
  */
 public class TestJSWB extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -518847353915867106L;
     private static final Logger LOGGER = Logger.getLogger(TestJSWB.class.getName());
 
     private static long inicio = 0;

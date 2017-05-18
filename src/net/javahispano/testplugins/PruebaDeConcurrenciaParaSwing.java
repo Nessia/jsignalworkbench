@@ -9,10 +9,6 @@ import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 
 public class PruebaDeConcurrenciaParaSwing extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 4770472064485285029L;
 
     private static final Logger LOGGER = Logger.getLogger(PruebaDeConcurrenciaParaSwing.class.getName());
 

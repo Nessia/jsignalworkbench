@@ -18,11 +18,6 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 public class NetWork extends AlgorithmAdapter {
 
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -936466691775574904L;
-
     private static final Logger LOGGER = Logger.getLogger(NetWork.class.getName());
 
     protected String firstSignalName;

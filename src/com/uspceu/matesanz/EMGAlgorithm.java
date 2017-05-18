@@ -10,10 +10,6 @@ import net.javahispano.jsignalwb.SignalManager;
  */
 public class EMGAlgorithm extends SimpleAlgorithm {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 2952961873367717791L;
 
     protected float anchoVentanaSeg = 0.3F;
     protected float desplazamientoVentanaSeg = 0.1F;

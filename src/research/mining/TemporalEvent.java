@@ -45,6 +45,7 @@ public abstract class TemporalEvent implements Comparable<TemporalEvent> {
     *   object is less than, equal to, or greater than the specified object.
     * @todo Implement this java.lang.Comparable method
     */
+    @Override
     public int compareTo(TemporalEvent i) {
         if (i.getAbsoluteBeginingTime() < this.absoluteBeginingTime) {
             return 1;
@@ -54,11 +55,13 @@ public abstract class TemporalEvent implements Comparable<TemporalEvent> {
         return 1;
       }
 
+    @Override
     public int hashCode() {
         int valor = (int) (this.duration | this.absoluteBeginingTime);
         return 37 * 17 + valor ^ (valor >>> 32);
     }
 
+    @Override
     public boolean equals(Object o) {
         if (!(o instanceof TemporalEvent)) {
             return false;

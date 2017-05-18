@@ -21,10 +21,6 @@ import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
  */
 public class PigAlg extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1131810979377467007L;
 
     @Override
     public String getName() {

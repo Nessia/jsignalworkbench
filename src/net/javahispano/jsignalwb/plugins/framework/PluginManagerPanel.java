@@ -26,7 +26,7 @@ import net.javahispano.jsignalwb.plugins.Plugin;
  *
  * @author  Compaq_Propietario
  */
-public class PluginManagerPanel extends javax.swing.JPanel {
+public class PluginManagerPanel extends JPanel {
 
     private static final Logger LOGGER = Logger.getLogger(PluginManagerPanel.class.getName());
     /**
@@ -37,10 +37,6 @@ public class PluginManagerPanel extends javax.swing.JPanel {
     public enum Modes { ALL, LOADERS, SAVERS, ALGORITHMS, GENERICS, GRIDS, MARKS, ANNOTATIONS, FROM_JAR_FILE}
 
  // Declaracion de varibales -no modificar//GEN-BEGIN:variables
-//    private javax.swing.ButtonGroup buttonGroup1;
-//    private javax.swing.JButton jButton2;
-//    private javax.swing.JButton jButton3;
-//    private javax.swing.JPanel jPanel1;
     private JScrollPane jScrollPane2;
     private JTable jTable1;
     private JRadioButton rbAlgorithms;
@@ -56,13 +52,10 @@ public class PluginManagerPanel extends javax.swing.JPanel {
     private JWindow jw;
 
     //private JSWBManager jswbManager;
-    //private DefaultListModel dlm;
     private HashMap<String, JarFile> pluginJarAssociation;
     private HashMap<JarFile, File> jarFileFileAssociation;
     private JFileChooser jfc;
     private Modes mode;
-    //private TableModelPluginManager dtm;
-//    private DefaultTableModel dtm;
 
     /** Creates new form PluginManagerPanel */
     public PluginManagerPanel(/*JSWBManager jswbManager*/) {

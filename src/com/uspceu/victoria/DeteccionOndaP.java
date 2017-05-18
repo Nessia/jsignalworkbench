@@ -16,10 +16,6 @@ import net.javahispano.jsignalwb.utilities.TimePositionConverter;
  */
 public class DeteccionOndaP extends SimpleAlgorithm{
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 3603358462856268902L;
 
     @Override
     public void runAlgorithm (SignalManager manager, Signal signal, float[] datos, float freq ){

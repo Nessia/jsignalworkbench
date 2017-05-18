@@ -23,11 +23,6 @@ import net.javahispano.jsignalwb.utilities.TimePositionConverter;
 
 public abstract class SimpleAlgorithm extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 2997238849065151357L;
-
     public static void registerSimpleAlgorithms() {
         // DONT REMOVE THIS CODE
         ArrayList<DebugPluginInfo> plugins = new ArrayList<DebugPluginInfo>();

@@ -30,10 +30,6 @@ import net.javahispano.plugins.temporalseries.TemporalSeriesAlgorithm;
  */
 public class SumaSenoCuadradoANuevaSerie extends TemporalSeriesAlgorithm {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -7070257782308896298L;
 
     private static final Logger LOGGER = Logger.getLogger(SumaSenoCuadradoANuevaSerie.class.getName());
 

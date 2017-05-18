@@ -20,10 +20,7 @@ import net.javahispano.jsignalwb.plugins.*;
  */
 public abstract class AnnotationPluginAdapter extends PluginAdapter implements AnnotationPlugin {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 3360694961821151744L;
+
 
     @Override
     public boolean isInterval() {

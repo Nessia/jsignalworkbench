@@ -21,11 +21,6 @@ import net.javahispano.jsignalwb.plugins.GenericPluginAdapter;
  */
 public class AddComponentPlugin extends GenericPluginAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -5630787044885221496L;
-
     private static final Logger LOGGER = Logger.getLogger(AddComponentPlugin.class.getName());
 
     /*

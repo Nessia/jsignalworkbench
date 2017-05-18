@@ -12,10 +12,6 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 
 public class FCRatas extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 5573874806873363991L;
     private int limiteDeteccionPicos = 5;
     private boolean debug = false;
     private int distanciaMinEntreLatidosEnMuestras = 15;

@@ -20,7 +20,7 @@ import net.javahispano.jsignalwb.JSWBManager;
 
 /**
  * Clase que implementa practicamente todos los metodos de {@link  Plugin}
- * proporcionando un comportamiento por efecto. Se recomienda extender esta
+ * proporcionando un comportamiento por defecto. Se recomienda extender esta
  * clase en vez de incrementar {@link Plugin}, especialmente para la
  * construccion de prototipos que no esten muy integrados con JSignalWorkbench.
  *
@@ -29,12 +29,6 @@ import net.javahispano.jsignalwb.JSWBManager;
  *   Abraham Otero
  */
 public abstract class PluginAdapter implements Plugin {
-
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = -5525413009398871337L;
 
     /**
      * Proporciona una descripcion corta del plugin

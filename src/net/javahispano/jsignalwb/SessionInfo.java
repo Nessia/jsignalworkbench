@@ -14,6 +14,7 @@ import java.util.List;
  * @author Roman Segador
  */
 public class SessionInfo {
+
     private String lastFileOpenedPath;
     private String lastLoaderUsed;
     private String lastSaverUsed;

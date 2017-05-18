@@ -28,11 +28,6 @@ public class CorregirPosicionLatidosCuandoCambiaFecha extends AlgorithmAdapter {
 
     //private boolean transparente = false;
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 82833698698303309L;
-
     @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {

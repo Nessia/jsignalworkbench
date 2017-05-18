@@ -24,10 +24,6 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public class MarcasTransparentes extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 5202548249676263628L;
 
     private boolean transparente = false;
 

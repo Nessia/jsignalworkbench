@@ -19,10 +19,6 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
   */
 public class FiltroNasal extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -4579128488001254394L;
 
 
     public FiltroNasal() {

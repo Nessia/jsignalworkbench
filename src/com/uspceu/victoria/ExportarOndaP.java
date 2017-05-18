@@ -27,10 +27,6 @@ import research.beats.DialogKubiosRHRV;
  */
 public class ExportarOndaP extends SimpleAlgorithm{
 
-   /**
-     *
-     */
-    private static final long serialVersionUID = -2904640871717059460L;
     private static final Logger LOGGER = Logger.getLogger(ExportarOndaP.class.getName());
 
     public static final String EXT_BEATS = ".beats";

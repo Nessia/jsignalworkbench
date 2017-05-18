@@ -10,6 +10,7 @@ import java.awt.Window;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.plugins.*;
@@ -22,39 +23,16 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 3935489149726730726L;
 
  // Declaracion de varibales -no modificar//GEN-BEGIN:variables
-    private javax.swing.JPanel algorithmPane;
-//    private javax.swing.JButton configureButton;
-//    private javax.swing.JButton jButton1;
-//    private javax.swing.JLabel jLabel1;
-//    private javax.swing.JLabel jLabel10;
-//    private javax.swing.JLabel jLabel11;
-//    private javax.swing.JLabel jLabel12;
-//    private javax.swing.JLabel jLabel13;
-//    private javax.swing.JLabel jLabel14;
-//    private javax.swing.JLabel jLabel15;
-//    private javax.swing.JLabel jLabel16;
-//    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-//    private javax.swing.JLabel jLabel2;
-//    private javax.swing.JLabel jLabel20;
-//    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-//    private javax.swing.JLabel jLabel3;
-//    private javax.swing.JLabel jLabel4;
-//    private javax.swing.JLabel jLabel5;
-//    private javax.swing.JLabel jLabel6;
-//    private javax.swing.JLabel jLabel7;
-//    private javax.swing.JLabel jLabel8;
-//    private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
-//    private javax.swing.JPanel jPanel1;
-//    private javax.swing.JScrollPane jScrollPane1;
-//    private javax.swing.JScrollPane jScrollPane2;
-//    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JPanel loaderPane;
-    private javax.swing.JPanel saverPane;
+    private JPanel algorithmPane;
+
+    private JLabel jLabel18;
+    private JLabel jLabel19;
+    private JLabel jLabel22;
+    private JLabel jLabel23;
+
+    private JList<String> jList1;
+    private JPanel loaderPane;
+    private JPanel saverPane;
     // Fin de declaracion de variables//GEN-END:variables
 
     private JSWBManager jswbManager;
@@ -105,7 +83,7 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
         }
         if ("Saver".equals(pluginType)) {
             Saver saver = (Saver) plugin;
-            jLabel19.setText(saver.getAvalaibleExtension().get(0));
+            jLabel19.setText(saver.getAvalaibleExtensions().get(0));
             saverPane.setVisible(true);
         }
         if ("Algorithm".equals(pluginType)) {
@@ -146,41 +124,41 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
      */
     // <editor-fold defaultstate="collapsed" desc=" Codigo Generado  ">//GEN-BEGIN:initComponents
     private void initComponents() {
-       JPanel jPanel1 = new javax.swing.JPanel();
-       JLabel jLabel1 = new javax.swing.JLabel();
-       JLabel jLabel8 = new javax.swing.JLabel();
-       JLabel jLabel2 = new javax.swing.JLabel();
-       JLabel jLabel9 = new javax.swing.JLabel();
-       JLabel jLabel3 = new javax.swing.JLabel();
-       JLabel jLabel10 = new javax.swing.JLabel();
-       JLabel jLabel4 = new javax.swing.JLabel();
-       JLabel jLabel11 = new javax.swing.JLabel();
-       JLabel jLabel5 = new javax.swing.JLabel();
-       JLabel jLabel12 = new javax.swing.JLabel();
-       JLabel jLabel6 = new javax.swing.JLabel();
-       JLabel jLabel13 = new javax.swing.JLabel();
-       JLabel jLabel7 = new javax.swing.JLabel();
-       JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
-        JTextArea jTextArea1 = new javax.swing.JTextArea();
-        JLabel jLabel14 = new javax.swing.JLabel();
-        JButton configureButton = new javax.swing.JButton();
-        JButton jButton1 = new javax.swing.JButton();
-        loaderPane = new javax.swing.JPanel();
-        JLabel jLabel15 = new javax.swing.JLabel();
-        JLabel jLabel16 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<String>();
-        saverPane = new javax.swing.JPanel();
-        JLabel jLabel17 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        algorithmPane = new javax.swing.JPanel();
-        JLabel jLabel20 = new javax.swing.JLabel();
-        JLabel jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
+       JPanel jPanel1 = new JPanel();
+       JLabel jLabel1 = new JLabel();
+       JLabel jLabel8 = new JLabel();
+       JLabel jLabel2 = new JLabel();
+       JLabel jLabel9 = new JLabel();
+       JLabel jLabel3 = new JLabel();
+       JLabel jLabel10 = new JLabel();
+       JLabel jLabel4 = new JLabel();
+       JLabel jLabel11 = new JLabel();
+       JLabel jLabel5 = new JLabel();
+       JLabel jLabel12 = new JLabel();
+       JLabel jLabel6 = new JLabel();
+       JLabel jLabel13 = new JLabel();
+       JLabel jLabel7 = new JLabel();
+       JScrollPane jScrollPane1 = new JScrollPane();
+        JTextArea jTextArea1 = new JTextArea();
+        JLabel jLabel14 = new JLabel();
+        JButton configureButton = new JButton();
+        JButton jButton1 = new JButton();
+        loaderPane = new JPanel();
+        JLabel jLabel15 = new JLabel();
+        JLabel jLabel16 = new JLabel();
+        jLabel18 = new JLabel();
+        JScrollPane jScrollPane2 = new JScrollPane();
+        jList1 = new JList<String>();
+        saverPane = new JPanel();
+        JLabel jLabel17 = new JLabel();
+        jLabel19 = new JLabel();
+        algorithmPane = new JPanel();
+        JLabel jLabel20 = new JLabel();
+        JLabel jLabel21 = new JLabel();
+        jLabel22 = new JLabel();
+        jLabel23 = new JLabel();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0,
+        setBorder(BorderFactory.createTitledBorder(new LineBorder(new java.awt.Color(0,
                 153, 51), 4, true), "Plugin Info"));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(),
                 "General Info"));

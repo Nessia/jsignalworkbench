@@ -2,9 +2,6 @@
  * ExceptionsCollector.java
  *
  * Created on 10 de mayo de 2007, 10:34
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
  */
 
 package net.javahispano.jsignalwb.framework;
