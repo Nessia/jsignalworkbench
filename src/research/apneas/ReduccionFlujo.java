@@ -240,11 +240,11 @@ public class ReduccionFlujo {
         marca.setTitle(titulo);
         marca.setColor(color);
         if (Color.RED == color) {
-            marca.setTipo(LimitacionAnotacion.APNEA);
+            marca.setTipo(LimitacionAnotacion.SENALES.APNEA);
             marca.setColor(Color.RED);
         } else {
 
-            marca.setTipo(LimitacionAnotacion.HIPOAPNEA);
+            marca.setTipo(LimitacionAnotacion.SENALES.HIPOAPNEA);
             marca.setColor(Color.YELLOW);
         }
         marca.setAutomatica(true);

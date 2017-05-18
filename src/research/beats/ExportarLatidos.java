@@ -19,10 +19,6 @@ import net.javahispano.jsignalwb.utilities.TimePositionConverter;
 
 public class ExportarLatidos extends AlgorithmAdapter {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 6245026658409815423L;
     private static final Logger LOGGER = Logger.getLogger(ExportarLatidos.class.getName());
     private static final String EXTENSION_BEATS = ".beats";
     private static final String EXTENSION_DAT = ".dat";

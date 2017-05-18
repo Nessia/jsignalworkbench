@@ -24,11 +24,6 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
  */
 public class BorrarMarcasEnIntervalo extends AlgorithmAdapter implements IntervalSelectedListener {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 611807130165011736L;
-
     @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
             signals, AlgorithmRunner ar) {

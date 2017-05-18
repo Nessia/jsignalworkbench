@@ -31,26 +31,21 @@ import javax.swing.ToolTipManager;
  */
 public class LimitacionAnotacion extends DefaultIntervalMark {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -3924443767402513342L;
 
-    public static final int APNEA = 1;
-    public static final int HIPOAPNEA = 2;
-    public static final int DESATURACION = 3;
+//    public static final int APNEA = 1;
+//    public static final int HIPOAPNEA = 2;
+//    public static final int DESATURACION = 3;
+//    public static final int N = 0; // LATIDO
+//    public static final int A = -1;
+//    public static final int V = -2;
+//    public static final int P = -3;
+//    public static final int TV = -4;
+//    public static final int Vrt = -5;
+//    public static final int Prt = -6;
 
-    public static final int N = 0;
-    public static final int A = -1;
-    public static final int V = -2;
-    public static final int P = -3;
-    public static final int TV = -4;
-    public static final int Vrt = -5;
-    public static final int Prt = -6;
+    public enum SENALES { Prt, Vrt, TV, P, V, A, N, APNEA, HIPOAPNEA, DESATURACION }
 
-//    public enum SENALES { Prt, Vrt, TV, P, V, A, N, APNEA, HIPOPNEA, DESATURACION }
-
-    private int tipo = 1;
+    private SENALES tipo = SENALES.APNEA;
     private boolean automatica = false;
 
     public LimitacionAnotacion() {
@@ -86,7 +81,7 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
         new LimitacionesDialog((JFrame) JSWBManager.getParentWindow(), "Marca:", true, this);
     }
 
-    public int getTipo() {
+    public SENALES getTipo() {
         return tipo;
     }
 
@@ -108,7 +103,7 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
     }
 
     @Override
-  /* */ public void paint(Graphics2D g2d, MarkPaintInfo markPaintInfo) {
+    public void paint(Graphics2D g2d, MarkPaintInfo markPaintInfo) {
         super.paint(g2d, markPaintInfo);
         if (!isAutomatica()) {
             g2d.setColor(Color.GREEN);
@@ -120,32 +115,20 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
         }
         if (SignalConstants.SENAL_FLUJO.equals(this.getSignal().getName()) ) {
             g2d.setColor(Color.BLACK);
-            //Point p = markPaintInfo.getPoint();
-            //int maxY = (int) Math.max(markPaintInfo.getPoint().getY(),
-            //                      markPaintInfo.getMaxValueY());
-            //int x = p.x + markPaintInfo.getWidth()/2 - 2;
-            //int y = maxY  -16;
-            if (this.tipo == APNEA) {
-                //g2d.drawString("A", x, y);
-            }
-            if (this.tipo == HIPOAPNEA) {
-                //g2d.drawString("H", x, y);
-            }
 
         }
     }/**/
 
-    public void setTipo(int tipo) {
+    public void setTipo(SENALES tipo) {
         this.tipo = tipo;
-        this.setComentary(Integer.toString(tipo));
-        if (tipo == LimitacionAnotacion.APNEA ||
-            tipo <= 0) {
-          //  this.setColor(Color.RED);
-        } else if (tipo == LimitacionAnotacion.HIPOAPNEA) {
-          //  this.setColor(Color.YELLOW);
-        } else {
-          //  this.setColor(Color.BLUE);
-        }
+        this.setComentary(tipo.name());
+//        if (tipo == SENALES.HIPOAPNEA) {
+//          //  this.setColor(Color.YELLOW);
+//        } else if(tipo == SENALES.DESATURACION) {
+//          //  this.setColor(Color.BLUE);
+//        } else { // tipo == SENALES.APNEA || ipo <= 0) {
+//          //  this.setColor(Color.RED);
+//        }
 
     }
 
@@ -163,47 +146,37 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
         String a = data.substring(0, data.indexOf('*'));
         this.automatica = Boolean.parseBoolean(a);
         super.setSavedData(data.substring(data.indexOf('*') + 1, data.length()));
-        if ("2".equalsIgnoreCase(this.getComentary())) {
-            this.setTipo(LimitacionAnotacion.HIPOAPNEA);
-        }
-        if ("3".equalsIgnoreCase(this.getComentary())) {
-            this.setTipo(LimitacionAnotacion.DESATURACION);
-        }
-        if ("1".equalsIgnoreCase(this.getComentary())) {
-            this.setTipo(LimitacionAnotacion.APNEA);
-        }
-        if ("0".equalsIgnoreCase(this.getComentary())) {
-           this.setTipo(LimitacionAnotacion.N);
-        }
-        if ("-1".equalsIgnoreCase(this.getComentary())) {
-            this.setTipo(LimitacionAnotacion.A);
-        }
-        if ("-2".equalsIgnoreCase(this.getComentary())) {
-            this.setTipo(LimitacionAnotacion.V);
-        }
-        if ("-3".equalsIgnoreCase(this.getComentary())) {
-            this.setTipo(LimitacionAnotacion.P);
-        }
-        if ("-4".equalsIgnoreCase(this.getComentary())) {
-            this.setTipo(LimitacionAnotacion.TV);
-        }
-        if ("-5".equalsIgnoreCase(this.getComentary())) {
-            this.setTipo(LimitacionAnotacion.Vrt);
-        }
-        if ("-6".equalsIgnoreCase(this.getComentary())) {
-            this.setTipo(LimitacionAnotacion.Prt);
-        }
+        this.setTipo(SENALES.valueOf(this.getComentary()));
+//        if ("2".equalsIgnoreCase(this.getComentary())) {
+//            this.setTipo(LimitacionAnotacion.HIPOAPNEA);
+//        }
+//        if ("3".equalsIgnoreCase(this.getComentary())) {
+//            this.setTipo(LimitacionAnotacion.DESATURACION);
+//        }
+//        if ("1".equalsIgnoreCase(this.getComentary())) {
+//            this.setTipo(LimitacionAnotacion.APNEA);
+//        }
+//        if ("0".equalsIgnoreCase(this.getComentary())) {
+//           this.setTipo(LimitacionAnotacion.N);
+//        }
+//        if ("-1".equalsIgnoreCase(this.getComentary())) {
+//            this.setTipo(LimitacionAnotacion.A);
+//        }
+//        if ("-2".equalsIgnoreCase(this.getComentary())) {
+//            this.setTipo(LimitacionAnotacion.V);
+//        }
+//        if ("-3".equalsIgnoreCase(this.getComentary())) {
+//            this.setTipo(LimitacionAnotacion.P);
+//        }
+//        if ("-4".equalsIgnoreCase(this.getComentary())) {
+//            this.setTipo(LimitacionAnotacion.TV);
+//        }
+//        if ("-5".equalsIgnoreCase(this.getComentary())) {
+//            this.setTipo(LimitacionAnotacion.Vrt);
+//        }
+//        if ("-6".equalsIgnoreCase(this.getComentary())) {
+//            this.setTipo(LimitacionAnotacion.Prt);
+//        }
     }
-
-
-    /* public int compareTo(Object o) {
-     DefaultIntervalMark i = (DefaultIntervalMark) o;
-     if (i.getMarkTime() < this.getMarkTime()) {
-         return 1;
-     } else if (i.getMarkTime() > this.getMarkTime()) {
-         return -1;
-     }
-     return 0;//chapuza para que no haya problemas con duplicados
-     }*/
 
 }

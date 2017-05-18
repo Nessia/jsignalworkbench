@@ -22,10 +22,6 @@ import java.awt.*;
 
 
 public class ApneaEpisodeGenerator extends AlgorithmAdapter {
-    /**
-     *
-     */
-    private static final long serialVersionUID = -6809536948075982773L;
     private static final Logger LOGGER = Logger.getLogger(ApneaEpisodeGenerator.class.getName());
     private static final String ERROR = "Error";
 
@@ -70,10 +66,10 @@ public class ApneaEpisodeGenerator extends AlgorithmAdapter {
             float valor = 0;
             if (posibleLimitacion instanceof LimitacionAnotacion) {
                 LimitacionAnotacion apneaOHipoapnea = (LimitacionAnotacion) posibleLimitacion;
-                if (apneaOHipoapnea.getTipo() == LimitacionAnotacion.APNEA) {
+                if (apneaOHipoapnea.getTipo() == LimitacionAnotacion.SENALES.APNEA) {
                     valor = pesoApnea;
                     procesadas++;
-                } else if (apneaOHipoapnea.getTipo() == LimitacionAnotacion.HIPOAPNEA) {
+                } else if (apneaOHipoapnea.getTipo() == LimitacionAnotacion.SENALES.HIPOAPNEA) {
                     valor = pesoHipoapnea;
                     procesadas++;
                 }

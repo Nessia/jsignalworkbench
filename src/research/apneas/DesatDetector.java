@@ -12,6 +12,9 @@ import research.beats.anotaciones.LimitacionAnotacion;
 
 public class DesatDetector {
 
+    private static final boolean debugNivel1 = false;
+    private static final boolean debugNivel2 = false;
+
     //par\u2193metros relacionados con la base de conocimiento
     private TrapezoidalDistribution pendienteAscenso;
     private TrapezoidalDistribution pendienteDescenso;
@@ -41,7 +44,7 @@ public class DesatDetector {
     private TreeSet<Intervalo> descensos = new TreeSet<Intervalo>();
     private TreeSet<Intervalo> ascensos = new TreeSet<Intervalo>();
     private ArrayList<EpisodioDesaturacion> episodios = new ArrayList<
-            EpisodioDesaturacion>();
+EpisodioDesaturacion>();
     private Signal satO2;
     private Loggeer logger;
     private static float[] valorBasal;
@@ -52,11 +55,10 @@ public class DesatDetector {
 //    private SignalManager sm;
     private float frecuencia;
     private long fechaBase;
-    private final boolean debugNivel1 = false;
-    private final boolean debugNivel2 = false;
 
 
-    public DesatDetector(SignalManager sm, Signal s) {
+
+    public DesatDetector(/*SignalManager sm,*/ Signal s) {
 //        this.sm = sm;
         logger = new Loggeer(s);
         logger.setDebugNivel1(debugNivel1);
@@ -71,7 +73,7 @@ public class DesatDetector {
     /**
      * detectar
      */
-    public ArrayList<EpisodioDesaturacion> detectar() {
+    public List<EpisodioDesaturacion> detectar() {
         datosFiltrados = Utilidades.calculaMediaMovilClone(datos, (int) (this.ventanaFiltroMediano * frecuencia));
         logger.debugNivel1("SatO2 filtrada", datosFiltrados);
 
@@ -121,10 +123,13 @@ public class DesatDetector {
      */
     private void resuelveSolapes() {
         Iterator<EpisodioDesaturacion> i = episodios.iterator();
-        EpisodioDesaturacion anterior, siguiente = null;
-        if (i.hasNext()) {
-            siguiente = i.next();
-        } while (i.hasNext()) {
+        EpisodioDesaturacion anterior;
+        EpisodioDesaturacion siguiente = null;
+        if (!i.hasNext()) {
+            return;
+        }
+        siguiente = i.next();
+        while (i.hasNext()) {
             anterior = siguiente;
             siguiente = i.next();
             if (anterior.getFin() > siguiente.getPrincipio()) {
@@ -141,7 +146,10 @@ public class DesatDetector {
     private void calcularEpisodios() {
         //analizamos toda la senhal
         Intervalo intervaloOrigen = new Intervalo(0, 0, 0); //para obtener el primer elemento
-        Intervalo descenso = null, ascenso = null, siguienteDescenso = null, siguienteAscenso = null;
+        Intervalo descenso = null;
+        Intervalo ascenso = null;
+        Intervalo siguienteDescenso = null;
+        Intervalo siguienteAscenso = null;
         descenso = descensos.ceiling(intervaloOrigen);
         if (descenso != null) {
             siguienteDescenso = descensos.ceiling(descenso.desplazaEnTiempo(1));
@@ -283,7 +291,7 @@ public class DesatDetector {
                     ascenso.setPosibilidad(Math.max(ascenso.getPosibilidad(),
                             siguienteAscenso.getPosibilidad()));
                     ascensos.remove(siguienteAscenso);
-                    siguienteAscenso = ascensos.ceiling(ascenso.desplazaEnTiempo(1));
+//                    siguienteAscenso = ascensos.ceiling(ascenso.desplazaEnTiempo(1));
                 }
 
                 //Si no estaban suficientemente cerca para unir directamente
@@ -321,7 +329,7 @@ public class DesatDetector {
                 descensoNuevo.setFrecuencia(descenso.getFrecuencia());
                 descensoNuevo.setFechaBase(descenso.getFechaBase());
                 descensoNuevo.setDatos(descenso.getDatos());
-                siguienteDescenso = descensoNuevo;
+//                siguienteDescenso = descensoNuevo;
                 descensos.add(descensoNuevo);
                 //retrocedemos el actual descenso para que termine antes de que empiece el ascenso. Hemos creado otro
                 //descenso que, en caso de que metamos la pata "nos cubre las espaldas" para los siguientes episodios
@@ -403,7 +411,7 @@ public class DesatDetector {
                        "Tiempo de subida: " + e.getTiempoSubida();
         m.setComentary(texto);
         m.setTitle("Episodio de desaturacion");
-        m.setTipo(LimitacionAnotacion.DESATURACION);
+        m.setTipo(LimitacionAnotacion.SENALES.DESATURACION);
         m.setAutomatica(true);
         m.setColor(Color.CYAN);
         JSWBManager.getSignalManager().addSignalMark(satO2.getName(), m);
@@ -418,7 +426,8 @@ public class DesatDetector {
      */
     private void calculaIntervalos(float[] posibilidadPrincipio, TreeSet<Intervalo> listaIntervalos) {
         for (int i = 0; i < posibilidadPrincipio.length; i++) {
-            int principio, fin;
+            int principio;
+            int fin;
             while (i < posibilidadPrincipio.length && posibilidadPrincipio[i] == 0) {
                 i++;
             }

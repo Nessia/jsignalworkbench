@@ -23,10 +23,6 @@ import net.javahispano.jsignalwb.JSWBManager;
  */
 public class DesaturacionAnotacion extends LimitacionAnotacion {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 4884366489251485259L;
 
     private List<LimitacionAnotacion> limitationsList = new LinkedList<LimitacionAnotacion>();
     private Map<LimitacionAnotacion, Color> oldColorLimitations = new HashMap<LimitacionAnotacion, Color>();
@@ -36,7 +32,7 @@ public class DesaturacionAnotacion extends LimitacionAnotacion {
 
     public DesaturacionAnotacion() {
         super();
-        this.setTipo(LimitacionAnotacion.DESATURACION);
+        this.setTipo(SENALES.DESATURACION);
     }
 
     @Override

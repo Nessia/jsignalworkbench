@@ -12,6 +12,7 @@ import javax.swing.*;
 
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.Signal;
+import research.beats.anotaciones.LimitacionAnotacion.SENALES;
 
 /**
  * <p>Title: </p>
@@ -57,8 +58,8 @@ public class LimitacionesDialog extends JDialog {
         try {
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             jbInit();
-            if (limitacionesAnotaciones.getTipo() == LimitacionAnotacion.APNEA ||
-                limitacionesAnotaciones.getTipo() == LimitacionAnotacion.HIPOAPNEA) {
+            if (limitacionesAnotaciones.getTipo() == LimitacionAnotacion.SENALES.APNEA ||
+                limitacionesAnotaciones.getTipo() == LimitacionAnotacion.SENALES.HIPOAPNEA) {
 
                 jLabel1.setText("Tipo de limitacion: ");
                 jComboBox1.addItem("Apnea");
@@ -66,7 +67,8 @@ public class LimitacionesDialog extends JDialog {
 
             } else {
                 //jPanel2.remove(this.jComboBox1);
-                if (limitacionesAnotaciones.getTipo() <= 0) {
+                 if(limitacionAnotacion.getTipo().compareTo(LimitacionAnotacion.SENALES.APNEA) < 0){
+//                if (limitacionesAnotaciones.getTipo() <= 0) {
                     /* JLabel l = new JLabel( "Latido Normal");
                      l.setFont(REGULAR_FONT);
                      l.setForeground(Color.blue);
@@ -126,23 +128,29 @@ public class LimitacionesDialog extends JDialog {
     }
 
     private void setSelectedItem(){
-        if (limitacionAnotacion.getTipo() == LimitacionAnotacion.HIPOAPNEA) {
-          jComboBox1.setSelectedItem("Hipoapnea");
-      } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.N) {
-          jComboBox1.setSelectedItem("N");
-      } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.A) {
-          jComboBox1.setSelectedItem("A");
-      } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.V) {
-          jComboBox1.setSelectedItem("V");
-      } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.P) {
-          jComboBox1.setSelectedItem("P");
-      } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.TV) {
-          jComboBox1.setSelectedItem("TV");
-      } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.Vrt) {
-          jComboBox1.setSelectedItem("Vrt");
-      } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.Prt) {
-          jComboBox1.setSelectedItem("Prt");
-      }
+//        if (limitacionAnotacion.getTipo() == LimitacionAnotacion.SENALES.HIPOAPNEA) {
+//            jComboBox1.setSelectedItem("Hipoapnea");
+//        } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.SENALES.N) {
+//            jComboBox1.setSelectedItem("N");
+//        } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.SENALES.A) {
+//            jComboBox1.setSelectedItem("A");
+//        } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.SENALES.V) {
+//            jComboBox1.setSelectedItem("V");
+//        } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.SENALES.P) {
+//            jComboBox1.setSelectedItem("P");
+//        } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.SENALES.TV) {
+//            jComboBox1.setSelectedItem("TV");
+//        } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.SENALES.Vrt) {
+//            jComboBox1.setSelectedItem("Vrt");
+//        } else if (limitacionAnotacion.getTipo() == LimitacionAnotacion.SENALES.Prt) {
+//            jComboBox1.setSelectedItem("Prt");
+//        }
+         if(limitacionAnotacion.getTipo() == LimitacionAnotacion.SENALES.HIPOAPNEA) {
+             jComboBox1.setSelectedItem("Hipoapnea");
+         }else if(limitacionAnotacion.getTipo() != LimitacionAnotacion.SENALES.APNEA
+                && limitacionAnotacion.getTipo() != LimitacionAnotacion.SENALES.DESATURACION){
+            jComboBox1.setSelectedItem(limitacionAnotacion.getTipo().toString());
+        }
     }
 
     public LimitacionesDialog(LimitacionAnotacion limitacionesAnotaciones) {
@@ -196,29 +204,32 @@ public class LimitacionesDialog extends JDialog {
      * hideJWindow
      */
     private void hideJWindow() {
-        if (apnea && "Apnea".equals((String) jComboBox1.getSelectedItem())) {
-            limitacionAnotacion.setTipo(LimitacionAnotacion.APNEA);
+        String selected = (String) jComboBox1.getSelectedItem();
+        if (apnea && "Apnea".equals(selected)) {
+            limitacionAnotacion.setTipo(SENALES.APNEA);
         } else if (apnea) {
-            limitacionAnotacion.setTipo(LimitacionAnotacion.HIPOAPNEA);
+            limitacionAnotacion.setTipo(SENALES.HIPOAPNEA);
         }
         if (latido) {
-            if ("N".equals((String) jComboBox1.getSelectedItem())) {
-                limitacionAnotacion.setTipo(LimitacionAnotacion.N);
-            } else if ("A".equals((String) jComboBox1.getSelectedItem())) {
-                limitacionAnotacion.setTipo(LimitacionAnotacion.A);
-            } else if ("V".equals((String) jComboBox1.getSelectedItem())) {
-                limitacionAnotacion.setTipo(LimitacionAnotacion.V);
-            } else if ("P".equals((String) jComboBox1.getSelectedItem())) {
-                limitacionAnotacion.setTipo(LimitacionAnotacion.P);
 
-            } else if ("TV".equals((String) jComboBox1.getSelectedItem())) {
-                limitacionAnotacion.setTipo(LimitacionAnotacion.TV);
-            } else if ("Vrt".equals((String) jComboBox1.getSelectedItem())) {
-                limitacionAnotacion.setTipo(LimitacionAnotacion.Vrt);
-            } else if ("Prt".equals((String) jComboBox1.getSelectedItem())) {
-                limitacionAnotacion.setTipo(LimitacionAnotacion.Prt);
-            }
-            if (!"N".equals((String) jComboBox1.getSelectedItem())) {
+            limitacionAnotacion.setTipo(SENALES.valueOf(selected));
+//            if ("N".equals((String) jComboBox1.getSelectedItem())) {
+//                limitacionAnotacion.setTipo(LimitacionAnotacion.N);
+//            } else if ("A".equals((String) jComboBox1.getSelectedItem())) {
+//                limitacionAnotacion.setTipo(LimitacionAnotacion.A);
+//            } else if ("V".equals((String) jComboBox1.getSelectedItem())) {
+//                limitacionAnotacion.setTipo(LimitacionAnotacion.V);
+//            } else if ("P".equals((String) jComboBox1.getSelectedItem())) {
+//                limitacionAnotacion.setTipo(LimitacionAnotacion.P);
+//
+//            } else if ("TV".equals((String) jComboBox1.getSelectedItem())) {
+//                limitacionAnotacion.setTipo(LimitacionAnotacion.TV);
+//            } else if ("Vrt".equals((String) jComboBox1.getSelectedItem())) {
+//                limitacionAnotacion.setTipo(LimitacionAnotacion.Vrt);
+//            } else if ("Prt".equals((String) jComboBox1.getSelectedItem())) {
+//                limitacionAnotacion.setTipo(LimitacionAnotacion.Prt);
+//            }
+            if(limitacionAnotacion.getTipo() != SENALES.N){
                 this.limitacionAnotacion.setAutomatica(false);
             }
         }
