@@ -10,9 +10,11 @@
 package net.javahispano.jsignalwb.plugins;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JOptionPane;
 
+import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
 import net.javahispano.jsignalwb.jsignalmonitor.marks.MarkPaintInfo;
@@ -21,17 +23,73 @@ import net.javahispano.jsignalwb.jsignalmonitor.marks.MarkPaintInfo;
  *
  * @author Roman
  */
-public abstract class MarkPluginAdapter extends PluginAdapter implements MarkPlugin {
-    /**
-     *
-     */
-    private static final long serialVersionUID = -5878389345856236748L;
+public abstract class MarkPluginAdapter extends PluginAdapter implements MarkPlugin, Comparable<MarkPlugin> {
 
     /*
      * Atributos
      */
     protected Signal signal = null;
+    protected Color color;
+    protected long markTime;
+    protected String comentary;
+    protected String title;
+    protected BufferedImage im;
+    protected JSWBManager jswbManager;
 
+
+    protected MarkPluginAdapter(){
+       markTime = 0;
+       title = "Write here the mark title...";
+       comentary = "Write here your comentary....";
+       jswbManager = null;
+    }
+
+    public void setJSWBManager(JSWBManager jswbManager) {
+       this.jswbManager = jswbManager;
+    }
+
+    public JSWBManager getJSWBManager() {
+       return jswbManager;
+    }
+
+    public void setComentary(String comentary) {
+       this.comentary = comentary;
+    }
+
+    public String getComentary() {
+        return comentary;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public Image getImage() {
+        return im;
+    }
+
+    @Override
+    public void setMarkTime(long markTime) {
+        this.markTime = markTime;
+    }
+
+    @Override
+    public long getMarkTime() {
+        return markTime;
+    }
+
+    public Color getColor() {
+       return color;
+   }
+
+    public void setColor(Color color) {
+       this.color = color;
+    }
 
     @Override
     public boolean isInterval() {
@@ -79,14 +137,31 @@ public abstract class MarkPluginAdapter extends PluginAdapter implements MarkPlu
     }
 
     @Override
-    public Image getImage() {
-        throw new UnsupportedOperationException("Try to get the image of a mark that is ownPaintd. " +
-                                                "Set isOwnPainted true or override the getImage method.");
-    }
-
-    @Override
     public boolean showInGUIOnthe(GUIPositions gUIPositions) {
         return false;
     }
 
+    @Override
+    public int compareTo(MarkPlugin i) {
+        if (i.getMarkTime() < this.getMarkTime()) {
+            return 1;
+        } else if (i.getMarkTime() > this.getMarkTime()) {
+            return -1;
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof MarkPlugin){
+            MarkPlugin i = (MarkPlugin) obj;
+            return i.getMarkTime() == this.getMarkTime();
+        }
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (this.getMarkTime() | this.getEndTime());
+    }
 }

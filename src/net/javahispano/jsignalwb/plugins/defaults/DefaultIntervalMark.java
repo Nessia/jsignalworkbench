@@ -10,98 +10,63 @@ import java.awt.*;
 //import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 
-import net.javahispano.jsignalwb.JSWBManager;
-import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.jsignalmonitor.marks.MarkPaintInfo;
 import net.javahispano.jsignalwb.plugins.MarkPluginAdapter;
-import net.javahispano.jsignalwb.plugins.MarkPlugin;
 
 /**
  *
  * @author Roman Segador
  */
-public class DefaultIntervalMark extends MarkPluginAdapter implements Comparable<MarkPlugin> {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 6374243599505392681L;
-    private long markTime;
+public class DefaultIntervalMark extends MarkPluginAdapter {
+
     private long endTime;
-    private String title;
-    private String comentary;
-    protected Color color;
-    private BufferedImage im;
-    private JSWBManager jswbManager;
-    private int extraheightPixels = 10;
+    private int extraHeightPixels = 10;
     //private MarkPaintInfo markPaintInfo;
     private int innerTransparencyLevel = 50;
     private int borderTransparencyLevel = 150;
+
+    /*
+     * Constructor
+     */
+
     public DefaultIntervalMark() {
-        markTime = 0;
+        super();
         endTime = 0;
-        title = "Write here the mark title...";
-        comentary = "Write here your comentary....";
         color = Color.GREEN;
-        jswbManager = null;
         refreshBufferedImage();
     }
 
+    @Override
     public String getName() {
         return "Default Interval Mark";
     }
 
-    public void setMarkTime(long markTime) {
-        this.markTime = markTime;
-    }
-
-    /**
-     * Devuelve el numero de milisegundos que han transcurrido desde el 1 de
-     * enero de 1970 hasta el principio de la marca.
-     *
-     * @return long
-     */
-    public long getMarkTime() {
-        return markTime;
-    }
-
-    public void setSignal(Signal signal) {
-        this.signal = signal;
-    }
-
+    @Override
     public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 
+    @Override
     public boolean isInterval() {
         return true;
     }
 
-    /**
-     * Devuelve el numero de milisegundos que han transcurrido desde el 1 de
-     * enero de 1970 hasta el fin de la marca.
-     *
-     * @return long
-     */
+    @Override
     public long getEndTime() {
         return endTime;
     }
 
-    public void setJSWBManager(JSWBManager jswbManager) {
-        this.jswbManager = jswbManager;
-    }
-
+    @Override
     public void showMarkInfo(Window owner) {
         new DefaultIntervalMarkInfoPanel(signal, this).showJWindow(owner);
     }
 
-    public Image getImage() {
-        return im;
-    }
-
+    @Override
     public boolean isOwnPainted() {
         return true;
     }
 
+    @Override
     public void paint(Graphics2D g2d, MarkPaintInfo markPaintInfo) {
         //if(this.markPaintInfo==null || !this.markPaintInfo.equals(markPaintInfo)){
         //this.markPaintInfo = markPaintInfo;
@@ -121,9 +86,9 @@ public class DefaultIntervalMark extends MarkPluginAdapter implements Comparable
         g2d.setStroke(new BasicStroke(3));
 
         int x = markPaintInfo.getPoint().x;
-        int y = maxY - extraheightPixels - 2;
+        int y = maxY - extraHeightPixels - 2;
         int width = markPaintInfo.getWidth();
-        int height = minY - maxY + 2 * extraheightPixels + 3;
+        int height = minY - maxY + 2 * extraHeightPixels + 3;
         g2d.draw(new java.awt.geom.RoundRectangle2D.Float(x - 2, y, width + 3,
                 height, 15, 15));
         g2d.setColor(color2);
@@ -133,38 +98,20 @@ public class DefaultIntervalMark extends MarkPluginAdapter implements Comparable
         // }
     }
 
-    public JSWBManager getJSWBManager() {
-        return jswbManager;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setComentary(String comentary) {
-        this.comentary = comentary;
-    }
-
-    public String getComentary() {
-        return comentary;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
+    @Override
     public boolean hasDataToSave() {
         return true;
     }
 
+    @Override
     public String getDataToSave() {
         return "title:" + title + "|| comentary:" + comentary + "|| color:" +
                 color.getRGB();
     }
 
-
-    public void setSavedData(String data) {
-        data = data.substring(data.indexOf("title:") + 6);
+    @Override
+    public void setSavedData(String d) {
+        String data = d.substring(d.indexOf("title:") + 6);
         title = data.substring(0, data.indexOf("||"));
         data = data.substring(data.indexOf("comentary:") + 10);
         comentary = data.substring(0, data.indexOf("||"));
@@ -173,14 +120,11 @@ public class DefaultIntervalMark extends MarkPluginAdapter implements Comparable
         refreshBufferedImage();
     }
 
+    @Override
     public String getToolTipText() {
         return title;
     }
 
-    public Color getColor() {
-        Color c = new Color(color.getRed(), color.getGreen(), color.getBlue());
-        return c;
-    }
 
     /**
      * getExtraheightPixels
@@ -189,7 +133,7 @@ public class DefaultIntervalMark extends MarkPluginAdapter implements Comparable
      *   maximos y minimos, respectivamente, del intervalo de la marca.
      */
     public int getExtraheightPixels() {
-        return extraheightPixels;
+        return extraHeightPixels;
     }
 
     public int getInnerTransparencyLevel() {
@@ -200,9 +144,15 @@ public class DefaultIntervalMark extends MarkPluginAdapter implements Comparable
         return borderTransparencyLevel;
     }
 
+    @Override
     public void setColor(Color color) {
         this.color = color;
         refreshBufferedImage();
+    }
+
+    @Override
+    public Color getColor() {
+        return new Color(color.getRed(), color.getGreen(), color.getBlue());
     }
 
     /**
@@ -212,7 +162,7 @@ public class DefaultIntervalMark extends MarkPluginAdapter implements Comparable
      *   marca.
      */
     public void setExtraheightPixels(int extraheightPixels) {
-        this.extraheightPixels = extraheightPixels;
+        this.extraHeightPixels = extraheightPixels;
     }
 
     /**
@@ -233,31 +183,21 @@ public class DefaultIntervalMark extends MarkPluginAdapter implements Comparable
         this.borderTransparencyLevel = borderTransparencyLevel;
     }
 
-    private void refreshBufferedImage() {
+    protected void refreshBufferedImage() {
         im = new BufferedImage(5, 15, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = im.createGraphics();
         g2d.setColor(color);
         g2d.fillRect(0, 0, 5, 15);
     }
 
-    /**
-     * Compares this object with the specified object for order.
-     *
-     * @param o the object to be compared.
-     * @return a negative integer, zero, or a positive integer as this
-     *   object is less than, equal to, or greater than the specified object.
-     * @todo Implement this java.lang.Comparable method
-     */
-    public int compareTo(MarkPlugin i) {
-        if (i.getMarkTime() < this.getMarkTime()) {
-            return 1;
-        } else if (i.getMarkTime() > this.getMarkTime()) {
-            return -1;
+    @Override
+    public boolean equals(Object obj) {
+        if(obj!=null && obj instanceof DefaultIntervalMark){
+            DefaultIntervalMark i = (DefaultIntervalMark)obj;
+            if(i.endTime != this.endTime){
+                return false;
+            }
         }
-        return 0;
-    }
-
-    public int hashCode() {
-        return (int) (this.getMarkTime() | this.getEndTime());
+        return super.equals(obj);
     }
 }

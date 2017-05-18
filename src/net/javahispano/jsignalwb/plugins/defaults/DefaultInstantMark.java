@@ -3,8 +3,6 @@
  *
  * Created on 4 de julio de 2007, 15:57
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
  */
 
 package net.javahispano.jsignalwb.plugins.defaults;
@@ -14,10 +12,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 
-import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.plugins.MarkPluginAdapter;
 
-//import net.javahispano.jsignalwb.Signal;
 
 /**
  *
@@ -25,31 +21,16 @@ import net.javahispano.jsignalwb.plugins.MarkPluginAdapter;
  */
 public class DefaultInstantMark extends MarkPluginAdapter {
 
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 7265474046307101524L;
-
-    private long markTime;
-    private String title;
-    private String comentary;
-//    private Signal signal;
-    private Color color;
     private Image image;
-    private BufferedImage bufferedImage;
     private boolean isImage;
     private String imagePath;
-    private JSWBManager jswbManager;
+
     /** Creates a new instance of DefaultInstantMark */
     public DefaultInstantMark() {
-        markTime = 0;
-        title = "Write here the mark title...";
-        comentary = "Write here your comentary....";
+        super();
         color = Color.RED;
         imagePath = "default";
         image = getDefaultImage();
-        jswbManager = null;
         setIsImage(false);
     }
 
@@ -59,51 +40,8 @@ public class DefaultInstantMark extends MarkPluginAdapter {
     }
 
     @Override
-    public void setMarkTime(long markTime) {
-        this.markTime = markTime;
-    }
-
-    @Override
-    public long getMarkTime() {
-        return markTime;
-    }
-
-    @Override
-    public Image getImage() {
-        return bufferedImage;
-    }
-
-//    public void setSignal(Signal signal){
-//        this.signal=signal;
-//    }
-
-    public void setJSWBManager(JSWBManager jswbManager) {
-        this.jswbManager = jswbManager;
-    }
-
-    @Override
     public void showMarkInfo(Window owner) {
         new DefaultInstantMarkInfoPanel(signal, this).showJWindow(owner);
-    }
-
-    public JSWBManager getJSWBManager() {
-        return jswbManager;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setComentary(String comentary) {
-        this.comentary = comentary;
-    }
-
-    public String getComentary() {
-        return comentary;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     @Override
@@ -143,19 +81,6 @@ public class DefaultInstantMark extends MarkPluginAdapter {
         return title;
     }
 
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-        //refreshBufferedImage();
-        //bufferedImage=new BufferedImage(5,15,BufferedImage.TYPE_INT_RGB);
-        //Graphics2D g2d=bufferedImage.createGraphics();
-        //g2d.setColor(color);
-        //g2d.fillRect(0,0,5,15);
-    }
-
     public void setImageToShow(Image image) {
         this.image = image;
         //refreshBufferedImage();
@@ -180,12 +105,12 @@ public class DefaultInstantMark extends MarkPluginAdapter {
 
     private void refreshBufferedImage() {
         if (isImage) {
-            bufferedImage = new BufferedImage(15, 15, BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2d = bufferedImage.createGraphics();
+            im = new BufferedImage(15, 15, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2d = im.createGraphics();
             g2d.drawImage(image, 0, 0, 15, 15, null);
         } else {
-            bufferedImage = new BufferedImage(5, 15, BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2d = bufferedImage.createGraphics();
+            im = new BufferedImage(5, 15, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2d = im.createGraphics();
             g2d.setColor(color);
             g2d.fillRect(0, 0, 5, 15);
         }
@@ -194,5 +119,15 @@ public class DefaultInstantMark extends MarkPluginAdapter {
     public Image getDefaultImage() {
         return new ImageIcon(DefaultInstantMark.class.getResource(
                 "images/defaultIconMark.png")).getImage();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }
