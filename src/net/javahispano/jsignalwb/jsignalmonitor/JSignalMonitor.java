@@ -32,10 +32,10 @@ import javax.swing.JPanel;
  */
 public class JSignalMonitor implements Serializable{
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = -8477438763575195140L;
-	//private JSignalMonitorDataSource jsm;
+     *
+     */
+    private static final long serialVersionUID = -8477438763575195140L;
+    //private JSignalMonitorDataSource jsm;
     //private static int index=10;
     private JSignalMonitorPanel jsmPanel;
     private JSMProperties jsmProperties;
@@ -57,7 +57,7 @@ public class JSignalMonitor implements Serializable{
      *
      * @param jSignalMonitorDataSource {@link JSignalMonitorDataSource}
      */
-    public JSignalMonitor(JSignalMonitorDataSource jSignalMonitorDataSource,
+    private JSignalMonitor(JSignalMonitorDataSource jSignalMonitorDataSource,
                           LookAndFeelConfiguration lafC) {
         this.jsmProperties = new JSMProperties(jSignalMonitorDataSource);
         jsmPanel = new JSignalMonitorPanel(jsmProperties);
@@ -78,9 +78,9 @@ public class JSignalMonitor implements Serializable{
         jsmProperties.addModeListener(l);
     }
 
-    public void addScrollValueListener(JSignalMonitorScrollListener l) {
-        jsmProperties.addScrollValueChangeListener(l);
-    }
+//    public void addScrollValueListener(JSignalMonitorScrollListener l) {
+//        jsmProperties.addScrollValueChangeListener(l);
+//    }
 
     /**
      * Anhade un canal que visualizara la senhal cuyo nombre se le pasa como parametro.
@@ -92,7 +92,7 @@ public class JSignalMonitor implements Serializable{
      * @return true si la accion se realizo correctamente, false en caso
      *   contrario.
      */
-    public boolean addChannel(String name, ChannelProperties properties) {
+    public boolean addChannel(/*String name,*/ ChannelProperties properties) {
         return this.addChannel(new Channel(/*name,*/ properties));
     }
 
@@ -109,7 +109,7 @@ public class JSignalMonitor implements Serializable{
      *  Metodo encargado de refrescar el valor minimo y maximo representados
      *  por {@link JSignalMonitor} en la escala del tiempo.
      */
-    public void refreshMaxMinTime() {
+    private void refreshMaxMinTime() {
         long minTime = -1;
         long maxTime = -1;
         ChannelProperties cp;
@@ -148,9 +148,9 @@ public class JSignalMonitor implements Serializable{
      * @param signalName nombre de la senhal de la cual se va a obtener el zoom.
      * @return  zoom.
      */
-    public int getVerticalZoom(String signalName) {
-        return jsmPanel.getVerticalZoom(signalName);
-    }
+//    public int getVerticalZoom(String signalName) {
+//        return jsmPanel.getVerticalZoom(signalName);
+//    }
 
     /**
      * Devuelve el numero de canales que se estan representando.
@@ -519,13 +519,13 @@ public class JSignalMonitor implements Serializable{
         return jsmProperties.isShowActionLeyend();
     }
 
-    public void showAnnotationsPanel(boolean show) {
-        jsmPanel.showAnnotationsPanel(show);
-    }
+//    public void showAnnotationsPanel(boolean show) {
+//        jsmPanel.showAnnotationsPanel(show);
+//    }
 
-    public void showLeftPanel(boolean show) {
-        jsmPanel.showLeftPanel(show);
-    }
+//    public void showLeftPanel(boolean show) {
+//        jsmPanel.showLeftPanel(show);
+//    }
 
     public int getVScaleOffset() {
         return jsmPanel.getVScaleOffset();
@@ -543,17 +543,17 @@ public class JSignalMonitor implements Serializable{
         jsmPanel.setHLeftOffsetScale(hLeftOffsetScale);
     }
 
-    public void setZoomForFullView() {
-        setFrecuency(jsmPanel.getFrecForFullView());
-    }
+//    public void setZoomForFullView() {
+//        setFrecuency(jsmPanel.getFrecForFullView());
+//    }
 
     public float getZoomForFullView() {
         return jsmPanel.getFrecForFullView();
     }
 
-    public void setZoomForTimeInterval(long startTime, long endTime) {
-        setFrecuency(jsmPanel.getFrecForTimeInterval(startTime, endTime));
-        setScrollValue(startTime);
-        repaintAll();
-    }
+//    public void setZoomForTimeInterval(long startTime, long endTime) {
+//        setFrecuency(jsmPanel.getFrecForTimeInterval(startTime, endTime));
+//        setScrollValue(startTime);
+//        repaintAll();
+//    }
 }

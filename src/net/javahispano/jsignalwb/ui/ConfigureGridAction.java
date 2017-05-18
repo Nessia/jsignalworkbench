@@ -19,7 +19,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitorGrid;
  *
  * @author Roman Segador
  */
-public class ConfigureGridAction extends AbstractAction {
+class ConfigureGridAction extends AbstractAction {
     /**
      *
      */
@@ -27,7 +27,7 @@ public class ConfigureGridAction extends AbstractAction {
     private JSignalMonitorGrid grid;
     private Window owner;
     
-    public ConfigureGridAction(JSignalMonitorGrid grid, Window owner) {
+    ConfigureGridAction(JSignalMonitorGrid grid, Window owner) {
         this.grid = grid;
         this.owner = owner;
         this.putValue(SHORT_DESCRIPTION, "Launch the grid configuration");

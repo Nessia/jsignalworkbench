@@ -27,7 +27,7 @@ import org.jdom.input.SAXBuilder;
  * @version 0.2
  */
 
-public class CargarDatosXML extends CargarDatos {
+class CargarDatosXML extends CargarDatos {
 
     private static final Logger LOGGER = Logger.getLogger(CargarDatosXML.class.getName());
 
@@ -266,12 +266,12 @@ public class CargarDatosXML extends CargarDatos {
             Element terapia_xml = it.next();
             String texto = terapia_xml.getAttribute(ATTR_TEXTO).getValue();
             int tiempo_inicio;
-            int tipo_evento;
+            String tipo_evento;
             int offset;
             int tiempo_fin;
             try {
                 tiempo_inicio = terapia_xml.getAttribute(ATTR_TIEMPO_INICIO).getIntValue();
-                tipo_evento = terapia_xml.getAttribute(ATTR_TIPO_EVENTO).getIntValue();
+                tipo_evento = terapia_xml.getAttributeValue(ATTR_TIPO_EVENTO);
                 offset = terapia_xml.getAttribute(ATTR_OFFSET).getIntValue();
                 tiempo_fin = terapia_xml.getAttribute(ATTR_TIEMPO_FIN).getIntValue();
             } catch (DataConversionException ex) {
@@ -292,7 +292,7 @@ public class CargarDatosXML extends CargarDatos {
             Therapy terapia = new Therapy(nombre_farmaco, fase_terapeutica,
                                           dosificacion, tipo_terapia);
             terapia.setOffset(offset);
-            terapia.setTipo(tipo_evento);
+            terapia.setTipo(ClinicalEvent.Tipo.valueOf(tipo_evento));
             terapia.setTiempo(tiempo_inicio);
             terapia.setTipoTerapia(tipo_terapia);
             terapia.setTiempoFin(tiempo_fin);
@@ -319,12 +319,12 @@ public class CargarDatosXML extends CargarDatos {
             Element diagnostico_xml = it.next();
             String texto = diagnostico_xml.getAttribute(ATTR_TEXTO).getValue();
             int tiempo_inicio;
-            int tipo_evento;
+            String tipo_evento;
             int offset;
             int tiempo_fin;
             try {
                 tiempo_inicio = diagnostico_xml.getAttribute(ATTR_TIEMPO_INICIO).getIntValue();
-                tipo_evento = diagnostico_xml.getAttribute(ATTR_TIPO_EVENTO).getIntValue();
+                tipo_evento = diagnostico_xml.getAttributeValue(ATTR_TIPO_EVENTO);
                 offset = diagnostico_xml.getAttribute(ATTR_OFFSET).getIntValue();
                 tiempo_fin = diagnostico_xml.getAttribute(ATTR_TIEMPO_FIN).getIntValue();
             } catch (DataConversionException ex) {
@@ -332,8 +332,7 @@ public class CargarDatosXML extends CargarDatos {
                 //Devolvemos lo que tengamos
                 return resultado;
             }
-            String comentario = diagnostico_xml.getAttribute(ATTR_COMENTARIO).
-                                getValue();
+            String comentario = diagnostico_xml.getAttributeValue(ATTR_COMENTARIO);
             //Pedimos el elemento de tipo atributo
             Element atributo_xml = diagnostico_xml.getChild(EL_ATRIBUTO);
             String nombre_atributo = atributo_xml.getAttributeValue(ATTR_ATRIBUTO);
@@ -342,7 +341,7 @@ public class CargarDatosXML extends CargarDatos {
             //Creamos el objeto de tipo terapia
             Diagnostic diagnostico = new Diagnostic(texto, atributo);
             diagnostico.setOffset(offset);
-            diagnostico.setTipo(tipo_evento);
+            diagnostico.setTipo(ClinicalEvent.Tipo.valueOf(tipo_evento));
             diagnostico.setTiempo(tiempo_inicio);
             diagnostico.setTiempoFin(tiempo_fin);
             diagnostico.setAtributo(atributo);
@@ -367,16 +366,16 @@ public class CargarDatosXML extends CargarDatos {
             Element manifestacion_xml = it.next();
             String texto = manifestacion_xml.getAttribute(ATTR_TEXTO).getValue();
             int tiempo_inicio;
-            int tipo_evento;
+            String tipo_evento_str;
             int offset;
             int tiempo_fin;
-            int tipo_manifestacion;
+            String tipo_manifestacion_str;
             try {
                 tiempo_inicio = manifestacion_xml.getAttribute(ATTR_TIEMPO_INICIO).getIntValue();
-                tipo_evento = manifestacion_xml.getAttribute(ATTR_TIPO_EVENTO).getIntValue();
+                tipo_evento_str = manifestacion_xml.getAttributeValue(ATTR_TIPO_EVENTO);
                 offset = manifestacion_xml.getAttribute(ATTR_OFFSET).getIntValue();
                 tiempo_fin = manifestacion_xml.getAttribute(ATTR_TIEMPO_FIN).getIntValue();
-                tipo_manifestacion = manifestacion_xml.getAttribute("TipoManifestacion").getIntValue();
+                tipo_manifestacion_str = manifestacion_xml.getAttributeValue("TipoManifestacion");
             } catch (DataConversionException e) {
                 LOGGER.log(Level.SEVERE, "Excepcion de conversion numerica de JDOM no procesada", e);
                 //Devolvemos lo que tengamos
@@ -395,16 +394,16 @@ public class CargarDatosXML extends CargarDatos {
                 Attribute atributo = new Attribute(nobre_atributo, valor_atributo);
                 lista_atributo.add(atributo);
             }
-
+            Manifestacion.Tipo tipo_manifestacion = Manifestacion.Tipo.valueOf(tipo_manifestacion_str);
+            ClinicalEvent.Tipo tipo_evento = ClinicalEvent.Tipo.valueOf(tipo_evento_str);
             //Creamos el objeto de tipo terapia
-            Manifestacion manifestacion = new Manifestacion(texto, comentario,
-                    tipo_evento, lista_atributo);
+            Manifestacion manifestacion = new Manifestacion(texto, comentario, tipo_manifestacion,
+                    lista_atributo);
             manifestacion.setOffset(offset);
             manifestacion.setTipo(tipo_evento);
             manifestacion.setTiempo(tiempo_inicio);
             manifestacion.setTiempoFin(tiempo_fin);
             manifestacion.setComentario(comentario);
-            manifestacion.setTipoManifestacion(tipo_manifestacion);
             resultado.add(manifestacion);
         }
         return resultado;
@@ -515,7 +514,7 @@ public class CargarDatosXML extends CargarDatos {
 
 
             //GestorIO gestor_io = GestorIO.getGestorIO();
-            GestorIO.setNumDatos(filas);
+//            GestorIO.setNumDatos(filas);
             GestorIO.setNumSenales(columnas);
 
         } catch (IOException e) {

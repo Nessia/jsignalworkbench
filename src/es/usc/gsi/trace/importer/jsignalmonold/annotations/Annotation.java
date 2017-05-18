@@ -16,15 +16,6 @@ public class Annotation extends ClinicalEvent {
 
     private int tiempoFin;
 
-
-    public Annotation(){
-        // Empty
-    }
-
-    public Annotation(int i){
-        super(i);
-    }
-
     /**
      * @return int
      */

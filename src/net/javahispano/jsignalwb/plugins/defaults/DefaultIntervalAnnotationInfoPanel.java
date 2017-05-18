@@ -26,7 +26,7 @@ import com.michaelbaranov.microba.calendar.DatePicker;
  *
  * @author  Compaq_Propietario
  */
-public class DefaultIntervalAnnotationInfoPanel extends DefaultAnnotationInfoPanel<DefaultIntervalAnnotation> {
+class DefaultIntervalAnnotationInfoPanel extends DefaultAnnotationInfoPanel<DefaultIntervalAnnotation> {
 
     private static final Logger LOGGER = Logger.getLogger(DefaultIntervalAnnotationInfoPanel.class.getName());
 
@@ -41,7 +41,7 @@ public class DefaultIntervalAnnotationInfoPanel extends DefaultAnnotationInfoPan
     // End of variables declaration//GEN-END:variables
 
     /** Creates new form DefaultIntervalAnnotationInfoPanel */
-    public DefaultIntervalAnnotationInfoPanel(DefaultIntervalAnnotation dia) {
+    DefaultIntervalAnnotationInfoPanel(DefaultIntervalAnnotation dia) {
         super(dia);
         jTextFieldDate2.setText(TimeRepresentation.timeToString(dim.getEndTime()));
         datePicker2.showButtonOnly(true);

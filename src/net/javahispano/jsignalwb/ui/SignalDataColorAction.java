@@ -18,7 +18,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman Segador
  */
-public class SignalDataColorAction extends AbstractAction {
+class SignalDataColorAction extends AbstractAction {
 
     /**
     *
@@ -28,7 +28,7 @@ public class SignalDataColorAction extends AbstractAction {
     private JSWBManager jswbManager;
     private String signalName;
 
-    public SignalDataColorAction(JSWBManager jswbManager, String signalName) {
+    SignalDataColorAction(JSWBManager jswbManager, String signalName) {
         this.jswbManager = jswbManager;
         this.signalName = signalName;
         this.putValue(SHORT_DESCRIPTION, "Select the color of the signal...");

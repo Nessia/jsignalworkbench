@@ -4,8 +4,6 @@ package es.usc.gsi.trace.importer.perfil;
 
 import java.io.Serializable;
 
-import es.usc.gsi.trace.importer.perfil.auxiliares.MyFloat;
-
 /**
  * @author Abraham Otero Quintana
  * @version 0.4
@@ -20,8 +18,8 @@ public class Restriccion implements RestriccionInterface, Serializable {
 
     public enum Semantica { PENDIENTE, PERSISTENCIA_EN_PENDIENTE,
                   RECTA_BORROSA, TUBO_BORROSO, SIN_SEMANTICA}
-    public enum Cuantificador { TODO, CASI_TODO, MAYOR_PARTE, MUCHO, MITAD, POCO }
-    public enum UNIDADES { MILISEGUNDOS, SEGUNDOS, MINUTOS, HORAS }
+    public enum Cuantificador { TODO, CASI_TODO, MAYOR_PARTE, MUCHO, MITAD, POCO } // NO_UCD (unused code)
+    public enum UNIDADES { MILISEGUNDOS, SEGUNDOS, MINUTOS, HORAS } // NO_UCD (unused code)
 
 
     private String[] D;
@@ -49,7 +47,7 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @param sintaxis
      * @roseuid 378708190005
      */
-    public Restriccion(int ptb, int ptosig, String[] D, String[] L, String[] M,
+    private Restriccion(int ptb, int ptosig, String[] D, String[] L, String[] M,
           Semantica sintaxis) {
         this.D = D;
         this.L = L;
@@ -344,15 +342,15 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @param fs
      * @return
      */
-    public String[] getLParaFs(float fs) {
-        String[] Lfs = new String[4];
-        for (int i = 0; i < L.length; i++) {
-            float tmp = MyFloat.parseFloatSeguro(L[i]);
-            tmp = tmp * fs / 1000;
-            Lfs[i] = Float.toString(tmp);
-        }
-        return Lfs;
-    }
+//    public String[] getLParaFs(float fs) {
+//        String[] Lfs = new String[4];
+//        for (int i = 0; i < L.length; i++) {
+//            float tmp = MyFloat.parseFloatSeguro(L[i]);
+//            tmp = tmp * fs / 1000;
+//            Lfs[i] = Float.toString(tmp);
+//        }
+//        return Lfs;
+//    }
 
     /**
      * Devuelve una distribuccion de posibilidad respresentado la restriccion temporal en
@@ -360,22 +358,22 @@ public class Restriccion implements RestriccionInterface, Serializable {
      * @param fs
      * @return
      */
-    public String[] getMParaFs(float fss) {
-        //Si es semantica de tubo la multiplicamos por 1000 y putno, no tiene unidades temporales
-        //pero para procesrla de modo estandar se divide por 1000 al cargarla
-        float fs = fss;
-        if (semantica == Semantica.TUBO_BORROSO) {
-            fs = 1;
-        }
-
-        String[] Mfs = new String[4];
-        for (int i = 0; i < L.length; i++) {
-            float tmp = MyFloat.parseFloatSeguro(M[i]);
-            tmp = tmp * 1000 / fs;
-            Mfs[i] = Float.toString(tmp);
-        }
-        return Mfs;
-    }
+//    public String[] getMParaFs(float fss) {
+//        //Si es semantica de tubo la multiplicamos por 1000 y putno, no tiene unidades temporales
+//        //pero para procesrla de modo estandar se divide por 1000 al cargarla
+//        float fs = fss;
+//        if (semantica == Semantica.TUBO_BORROSO) {
+//            fs = 1;
+//        }
+//
+//        String[] Mfs = new String[4];
+//        for (int i = 0; i < L.length; i++) {
+//            float tmp = MyFloat.parseFloatSeguro(M[i]);
+//            tmp = tmp * 1000 / fs;
+//            Mfs[i] = Float.toString(tmp);
+//        }
+//        return Mfs;
+//    }
 
     @Override
     public boolean isRelativaAlNivelBasal() {

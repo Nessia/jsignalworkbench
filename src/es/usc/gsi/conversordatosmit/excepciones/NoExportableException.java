@@ -7,7 +7,7 @@ public class NoExportableException extends Exception {
      */
     private static final long serialVersionUID = -6492666373796007145L;
 
-    public NoExportableException(String message) {
+    protected NoExportableException(String message) {
         super(message);
     }
 

@@ -27,7 +27,7 @@ import com.michaelbaranov.microba.calendar.DatePicker;
  *
  * @author  Compaq_Propietario
  */
-public class DefaultInstantAnnotationInfoPanel extends DefaultAnnotationInfoPanel<DefaultInstantAnnotation> {
+class DefaultInstantAnnotationInfoPanel extends DefaultAnnotationInfoPanel<DefaultInstantAnnotation> {
 
 
     private static final Logger LOGGER = Logger.getLogger(DefaultInstantAnnotationInfoPanel.class.getName());
@@ -37,7 +37,7 @@ public class DefaultInstantAnnotationInfoPanel extends DefaultAnnotationInfoPane
      */
     private static final long serialVersionUID = 3082154615256147716L;
 
-    public static final String COLOR = "Color";
+    private static final String COLOR = "Color";
 
  // Variables declaration - do not modify//GEN-BEGIN:variables
     private JLabel iconLabel;
@@ -46,12 +46,12 @@ public class DefaultInstantAnnotationInfoPanel extends DefaultAnnotationInfoPane
     private JRadioButton jRadioButton1;
     private JRadioButton jRadioButton2;
     // End of variables declaration//GEN-END:variables
-    protected JFileChooser jfc;
-    protected JColorChooser jcc;
+    private JFileChooser jfc;
+//    private JColorChooser jcc;
 
 
     /** Creates new form DefaultInstantAnnotationPanel */
-    public DefaultInstantAnnotationInfoPanel(DefaultInstantAnnotation dia) {
+    DefaultInstantAnnotationInfoPanel(DefaultInstantAnnotation dia) {
         super(dia);
         if (dim.isImage()) {
             jRadioButton2.setSelected(true);
@@ -64,7 +64,7 @@ public class DefaultInstantAnnotationInfoPanel extends DefaultAnnotationInfoPane
             jButton4.setEnabled(false);
             jButton3.setEnabled(true);
         }
-        jcc = new JColorChooser();
+//        jcc = new JColorChooser();
     }
 
     @Override

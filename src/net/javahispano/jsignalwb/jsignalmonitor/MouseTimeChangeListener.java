@@ -11,7 +11,7 @@ package net.javahispano.jsignalwb.jsignalmonitor;
  *
  * @author Roman
  */
-public interface MouseTimeChangeListener {
+interface MouseTimeChangeListener {
 
     public void MouseTimeChangeActionPerformed(long time);
 }

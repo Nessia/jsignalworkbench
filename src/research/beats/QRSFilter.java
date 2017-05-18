@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author Santiago Fernandez Dapena
  */
 
-public class QRSFilter implements Serializable {
+class QRSFilter implements Serializable {
 
     /**
      *
@@ -55,7 +55,7 @@ public class QRSFilter implements Serializable {
      * @param datum
      * @return int
      */
-    public int qrsFilter(int datum) {
+    int qrsFilter(int datum) {
         int fdatum;
 
         fdatum = lpFilt(datum, 0); // Low pass filter data.
@@ -75,7 +75,7 @@ public class QRSFilter implements Serializable {
      * @param init int
      * @return int
      */
-    public int hpFilt(int datum, int init) {
+    private int hpFilt(int datum, int init) {
 
         int z;
         int halfPtr;
@@ -113,7 +113,7 @@ public class QRSFilter implements Serializable {
      * @param init int
      * @return int
      */
-    public int lpFilt(int datum, int init) {
+    private int lpFilt(int datum, int init) {
 
         int y0;
         int output;
@@ -153,7 +153,7 @@ public class QRSFilter implements Serializable {
      * @param init int
      * @return int
      */
-    public int mvWint(int datum, int init) {
+    private int mvWint(int datum, int init) {
 
         int output;
         if (init != 0) {
@@ -188,7 +188,7 @@ public class QRSFilter implements Serializable {
      * @param init int
      * @return int
      */
-    public int deriv1(int x, int init) {
+    int deriv1(int x, int init) {
 
         int y;
 
@@ -217,7 +217,7 @@ public class QRSFilter implements Serializable {
      * @param init int
      * @return int
      */
-    public int deriv2(int x, int init) {
+    private int deriv2(int x, int init) {
 
         int y;
 

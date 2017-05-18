@@ -27,7 +27,7 @@ public class ConversorDatosMITPlugin extends PluginAdapter implements GenericPlu
      */
 
 
-    String ultimoDirectorioAbierto = null;
+    private String ultimoDirectorioAbierto = null;
 
     /*
      * Constructor

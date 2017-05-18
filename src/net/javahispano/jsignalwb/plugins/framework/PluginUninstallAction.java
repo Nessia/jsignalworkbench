@@ -19,7 +19,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman Segador
  */
-public class PluginUninstallAction extends AbstractAction {
+class PluginUninstallAction extends AbstractAction {
     /**
      *
      */
@@ -29,7 +29,7 @@ public class PluginUninstallAction extends AbstractAction {
     private String pluginKey;
     private PluginManagerPanel pmPanel;
 
-    public PluginUninstallAction(File file, String pluginKey, PluginManagerPanel pmPanel) {
+    PluginUninstallAction(File file, String pluginKey, PluginManagerPanel pmPanel) {
         this.file = file;
         this.pluginKey = pluginKey;
         this.pmPanel = pmPanel;

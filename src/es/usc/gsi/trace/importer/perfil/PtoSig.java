@@ -26,9 +26,9 @@ public class PtoSig implements PtoSigInterface, Serializable {
     //private int numeroRestricciones;
     private int ptb;
     private int numeroDePtoSig = 0;
-    public RestriccionInterface[] theRestriccionInterface;
+//    public RestriccionInterface[] theRestriccionInterface;
     private List<Restriccion> vectorRestricciones = new ArrayList<Restriccion>();
-    private boolean es_flotante = true;
+//    private boolean es_flotante = true;
 
 
     /**
@@ -60,7 +60,7 @@ public class PtoSig implements PtoSigInterface, Serializable {
 
         numeroDePtoSig = 1;
         this.ptb = ptb;
-        this.es_flotante = es_flotante;
+//        this.es_flotante = es_flotante;
     }
 
     /**
@@ -256,12 +256,12 @@ public class PtoSig implements PtoSigInterface, Serializable {
      * tipo de restriccion con el primer PtoSig.
      */
 
-    void setEsFlotante(boolean b) {
-        this.es_flotante = b;
-    }
-
-    boolean getEsFlotante() {
-        return es_flotante;
-    }
+//    void setEsFlotante(boolean b) {
+//        this.es_flotante = b;
+//    }
+//
+//    boolean getEsFlotante() {
+//        return es_flotante;
+//    }
 
 }

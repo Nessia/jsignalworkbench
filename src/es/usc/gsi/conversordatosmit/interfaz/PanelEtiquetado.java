@@ -3,7 +3,7 @@ package es.usc.gsi.conversordatosmit.interfaz;
 
 import es.usc.gsi.conversordatosmit.ficheros.FicheroHead;
 
-public class PanelEtiquetado extends PanelEtiquetadoGeneral {
+class PanelEtiquetado extends PanelEtiquetadoGeneral {
 
     /**
     *
@@ -13,7 +13,7 @@ public class PanelEtiquetado extends PanelEtiquetadoGeneral {
     private ScrollPanelFichero[] scrollesPaneles;
     //  private JScrollPane[] scrollesPaneles;
 
-    public PanelEtiquetado(FicheroHead[] ficherosHead) {
+    PanelEtiquetado(FicheroHead[] ficherosHead) {
         this.creaScrollesPaneles(ficherosHead);
     }
 
@@ -24,8 +24,7 @@ public class PanelEtiquetado extends PanelEtiquetadoGeneral {
         scrollesPaneles = new ScrollPanelFichero[ficherosHead.length];
 
         for (int i = 0; i < ficherosHead.length; i++) {
-            panelesFichero[i] = new PanelFichero(ficherosHead[i],
-                                                 PanelFichero.ETIQUETAS);
+            panelesFichero[i] = new PanelFichero(ficherosHead[i], PanelFichero.Modo.ETIQUETAS);
             scrollesPaneles[i] = new ScrollPanelFichero(panelesFichero[i]);
             this.add(ficherosHead[i].getNombreFrame(), scrollesPaneles[i]);
         }

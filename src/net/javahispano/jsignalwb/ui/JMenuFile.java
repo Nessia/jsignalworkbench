@@ -20,7 +20,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman
  */
-public class JMenuFile extends JMenu {
+class JMenuFile extends JMenu {
 
     /**
     *

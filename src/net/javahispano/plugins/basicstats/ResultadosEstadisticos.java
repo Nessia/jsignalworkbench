@@ -52,7 +52,7 @@ public class ResultadosEstadisticos implements Serializable {
      * @param fecha_fin
      * @param nombre_senhal
      */
-    public ResultadosEstadisticos(float mediaAritmetica, float mediana,
+    ResultadosEstadisticos(float mediaAritmetica, float mediana,
                                   float varianza,
                                   float desviacionTipica, float errorEstandar,
                                   float cocienteDeVariacion,
@@ -126,49 +126,49 @@ public class ResultadosEstadisticos implements Serializable {
         return percentiles;
     }
 
-    protected void setMediaAritmetica(float mediaAritmetica) {
-        this.mediaAritmetica = mediaAritmetica;
-    }
-
-    protected void setMediana(float mediana) {
-        this.mediana = mediana;
-    }
-
-    protected void setVarianza(float varianza) {
-        this.varianza = varianza;
-    }
-
-    protected void setDesviacion_tipica(float desviacionTipica) {
-        this.desviacionTipica = desviacionTipica;
-    }
-
-    protected void setErrorEstandar(float errorEstandar) {
-        this.errorEstandar = errorEstandar;
-    }
-
-    protected void setCocienteDeVariacion(float cocienteVariacion) {
-        this.cocienteVariacion = cocienteVariacion;
-    }
-
-    protected void setIntervaloDeConfianza(float[] intervaloConfianza) {
-        this.intervaloConfianza = intervaloConfianza;
-    }
-
-    protected void setPercentiles(HashMap<String,String> percentiles) {
-        this.percentiles = percentiles;
-    }
-
-    protected void setPercentil(int percentil, float valor) throws
-            NotPercentilException {
-        if (percentil < 0 || percentil > 100) {
-            throw new NotPercentilException("No es un percentil admisible ",
-                                            percentil);
-        }
-
-        String percentil_key = null;
-        percentil_key = Integer.toString(percentil);
-        percentiles.put(percentil_key, Float.toString(valor));
-    }
+//    protected void setMediaAritmetica(float mediaAritmetica) {
+//        this.mediaAritmetica = mediaAritmetica;
+//    }
+//
+//    protected void setMediana(float mediana) {
+//        this.mediana = mediana;
+//    }
+//
+//    protected void setVarianza(float varianza) {
+//        this.varianza = varianza;
+//    }
+//
+//    protected void setDesviacion_tipica(float desviacionTipica) {
+//        this.desviacionTipica = desviacionTipica;
+//    }
+//
+//    protected void setErrorEstandar(float errorEstandar) {
+//        this.errorEstandar = errorEstandar;
+//    }
+//
+//    protected void setCocienteDeVariacion(float cocienteVariacion) {
+//        this.cocienteVariacion = cocienteVariacion;
+//    }
+//
+//    protected void setIntervaloDeConfianza(float[] intervaloConfianza) {
+//        this.intervaloConfianza = intervaloConfianza;
+//    }
+//
+//    protected void setPercentiles(HashMap<String,String> percentiles) {
+//        this.percentiles = percentiles;
+//    }
+//
+//    protected void setPercentil(int percentil, float valor) throws
+//            NotPercentilException {
+//        if (percentil < 0 || percentil > 100) {
+//            throw new NotPercentilException("No es un percentil admisible ",
+//                                            percentil);
+//        }
+//
+//        String percentil_key = null;
+//        percentil_key = Integer.toString(percentil);
+//        percentiles.put(percentil_key, Float.toString(valor));
+//    }
 
     public String getComentario() {
         if (comentario == null) {
@@ -190,13 +190,13 @@ public class ResultadosEstadisticos implements Serializable {
         return nombreSenhal;
     }
 
-    protected void setFechaInicio(String fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    protected void setFechaFin(String fechaFin) {
-        this.fechaFin = fechaFin;
-    }
+//    protected void setFechaInicio(String fechaInicio) {
+//        this.fechaInicio = fechaInicio;
+//    }
+//
+//    protected void setFechaFin(String fechaFin) {
+//        this.fechaFin = fechaFin;
+//    }
 
     /**
      * Permite modificar el nombnre de este estdistico.

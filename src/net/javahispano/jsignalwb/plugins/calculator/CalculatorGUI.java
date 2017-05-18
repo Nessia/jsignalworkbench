@@ -38,7 +38,7 @@ import java.awt.event.ActionListener;
  * @author Abraham Otero
  * @version 0.5
  */
-public class CalculatorGUI extends JDialog {
+class CalculatorGUI extends JDialog {
     private static final Logger LOGGER = Logger.getLogger(CalculatorGUI.class.getName());
     /**
      *
@@ -46,7 +46,7 @@ public class CalculatorGUI extends JDialog {
     private static final long serialVersionUID = -6449258311894040022L;
     private static final String FONT_TAHOMA = "Tahoma";
 
-    public enum Operation { ADD, SUBSTRACT, MULTIPLY, DIVIDE }
+    enum Operation { ADD, SUBSTRACT, MULTIPLY, DIVIDE }
 
 
     private JPanel panel1 = new JPanel();
@@ -88,7 +88,7 @@ public class CalculatorGUI extends JDialog {
      * Constructor
      */
 
-    public CalculatorGUI(Frame owner, String title, boolean modal, String[] signalNames) {
+    CalculatorGUI(Frame owner, String title, boolean modal, String[] signalNames) {
         super(owner, title, modal);
         try {
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -174,7 +174,7 @@ public class CalculatorGUI extends JDialog {
         jPanel4.add(jScrollPane2, java.awt.BorderLayout.CENTER);
     }
 
-    public void signalListSecond_mouseClicked() {
+    void signalListSecond_mouseClicked() {
         generarNombreNuevaSenal();
     }
 
@@ -206,12 +206,12 @@ public class CalculatorGUI extends JDialog {
         return separador;
     }
 
-    public void jButton2_actionPerformed() {
+    void jButton2_actionPerformed() {
         cancelar = true;
         this.dispose();
     }
 
-    public void jButton1_actionPerformed() {
+    void jButton1_actionPerformed() {
         firstSignalName = signalListFirst.getSelectedValue();
         secondSignalName = signalListSecond.getSelectedValue();
         this.newSignalName = jTextFieldNweSignal.getText();
@@ -230,23 +230,23 @@ public class CalculatorGUI extends JDialog {
         this.dispose();
     }
 
-    public void signalListFirst_mouseClicked() {
+    void signalListFirst_mouseClicked() {
         generarNombreNuevaSenal();
     }
 
-    public void jRadioButtonAdd_actionPerformed() {
+    void jRadioButtonAdd_actionPerformed() {
         generarNombreNuevaSenal();
     }
 
-    public void jRadioButtonSubstract_actionPerformed() {
+    void jRadioButtonSubstract_actionPerformed() {
         generarNombreNuevaSenal();
     }
 
-    public void jRadioButtonMultiply_actionPerformed() {
+    void jRadioButtonMultiply_actionPerformed() {
         generarNombreNuevaSenal();
     }
 
-    public void jRadioButtonDivide_actionPerformed() {
+    void jRadioButtonDivide_actionPerformed() {
         generarNombreNuevaSenal();
     }
 }

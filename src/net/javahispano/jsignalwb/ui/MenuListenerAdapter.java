@@ -16,10 +16,16 @@ import javax.swing.event.MenuListener;
  *
  * @author Roman
  */
-public class MenuListenerAdapter implements MenuListener {
-    public void menuSelected(MenuEvent e) {}
+class MenuListenerAdapter implements MenuListener {
+    public void menuSelected(MenuEvent e) {
+        //
+    }
 
-    public void menuDeselected(MenuEvent e) {}
+    public void menuDeselected(MenuEvent e) {
+        //
+    }
 
-    public void menuCanceled(MenuEvent e) {}
+    public void menuCanceled(MenuEvent e) {
+        //
+    }
 }

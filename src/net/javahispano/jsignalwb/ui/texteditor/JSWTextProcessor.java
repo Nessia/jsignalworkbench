@@ -3,6 +3,8 @@ package net.javahispano.jsignalwb.ui.texteditor;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -12,27 +14,30 @@ import javax.swing.text.Document;
 import com.borland.dbswing.DBTextDataBinder;
 import com.borland.dbswing.FontChooser;
 
-public class JSWTextProcessor extends JFrame {
+class JSWTextProcessor extends JFrame {
 
     /**
      *
      */
     private static final long serialVersionUID = -4401263930483576859L;
+
+    private static final Logger LOGGER = Logger.getLogger(JSWTextProcessor.class.getName());
+
     private ByteArrayOutputStream inMemoryDucyment;
     private Border normal = BorderFactory.createEtchedBorder();
     private Border selected = BorderFactory.createRaisedBevelBorder();
 
 
-    private JPanel contentPane;
+//    private JPanel contentPane;
     private JMenuBar menuBar1 = new JMenuBar();
     private JMenu menuFile = new JMenu();
     private JMenuItem menuFileExit = new JMenuItem();
     private JToolBar toolBar = new JToolBar();
     private JButton jButton1 = new JButton();
     private JButton jButton2 = new JButton();
-    private ImageIcon gifAbrir;
-    private ImageIcon gifGuardar;
-    private ImageIcon gifNuevo;
+//    private ImageIcon gifAbrir;
+//    private ImageIcon gifGuardar;
+//    private ImageIcon gifNuevo;
     private JLabel statusBar = new JLabel();
     private BorderLayout borderLayout1 = new BorderLayout();
     private JScrollPane jScrollPane1 = new JScrollPane();
@@ -53,7 +58,7 @@ public class JSWTextProcessor extends JFrame {
     private JMenu jMenu2 = new JMenu();
     private JMenuItem jMenuItem5 = new JMenuItem();
 
-    public JSWTextProcessor(File file, WindowListener windowFocusListener, ActionListener actionListener) {
+    JSWTextProcessor(File file, WindowListener windowFocusListener, ActionListener actionListener) {
         this.currFileName = file.toString();
         this.addWindowListener(windowFocusListener);
         menuFileExit.addActionListener(actionListener);
@@ -62,7 +67,7 @@ public class JSWTextProcessor extends JFrame {
             jbInit();
             updateCaption();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
         this.setIconImage(Toolkit.getDefaultToolkit().createImage(JSWTextProcessor.class.getResource("comentario.gif")));
         jButton1.setBorder(normal);
@@ -74,11 +79,11 @@ public class JSWTextProcessor extends JFrame {
 
     //Component initialization
     private void jbInit() throws Exception {
-        gifAbrir = new ImageIcon(JSWTextProcessor.class.getResource("openFile.gif"));
-        gifGuardar = new ImageIcon(JSWTextProcessor.class.getResource("closeFile.gif"));
-        gifNuevo = new ImageIcon(JSWTextProcessor.class.getResource("new.gif"));
+        ImageIcon gifAbrir = new ImageIcon(JSWTextProcessor.class.getResource("openFile.gif"));
+        ImageIcon gifGuardar = new ImageIcon(JSWTextProcessor.class.getResource("closeFile.gif"));
+        ImageIcon gifNuevo = new ImageIcon(JSWTextProcessor.class.getResource("new.gif"));
 
-        contentPane = (JPanel)this.getContentPane();
+        JPanel contentPane = (JPanel)this.getContentPane();
         document1 = editorpane.getDocument();
         editorpane.setContentType("text/rtf");
         contentPane.setLayout(borderLayout1);
@@ -93,12 +98,12 @@ public class JSWTextProcessor extends JFrame {
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                jButton1MouseEntered(e);
+                jButton1MouseEntered();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                jButton1MouseExited(e);
+                jButton1MouseExited();
             }
         });
         jButton1.addActionListener(new TextEditFrameJButton1ActionAdapter(this));
@@ -108,18 +113,18 @@ public class JSWTextProcessor extends JFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                jButton2ActionPerformed(e);
+                jButton2ActionPerformed();
             }
         });
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                jButton2MouseEntered(e);
+                jButton2MouseEntered();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                jButton2MouseExited(e);
+                jButton2MouseExited();
             }
         });
         jButton2.addActionListener(new TextEditFrameJButton2ActionAdapter(this));
@@ -161,18 +166,18 @@ public class JSWTextProcessor extends JFrame {
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                jButton3MouseEntered(e);
+                jButton3MouseEntered();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                jButton3MouseExited(e);
+                jButton3MouseExited();
             }
         });
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                jButton3ActionPerformed(e);
+                jButton3ActionPerformed();
             }
         });
         jMenu2.setText("About");
@@ -204,8 +209,7 @@ public class JSWTextProcessor extends JFrame {
         jFileChooser1.setFileFilter(new javax.swing.filechooser.FileFilter() {
             @Override
             public boolean accept(File f) {
-                return (f.getName().toLowerCase().endsWith(".rtf") ||
-                        f.getName().toLowerCase().endsWith(".rtf") || f.isDirectory());
+                return (f.getName().toLowerCase().endsWith(".rtf") || f.isDirectory());
             }
 
             @Override
@@ -216,7 +220,7 @@ public class JSWTextProcessor extends JFrame {
 
     }
 
-    void fileOpen() {
+    private void fileOpen() {
         if (!isSaved()) {
             return;
         }
@@ -226,16 +230,26 @@ public class JSWTextProcessor extends JFrame {
         this.repaint();
     }
 
-    boolean openFile(String fileName) {
+    private boolean openFile(String fileName) {
         File file = new File(fileName);
+        FileInputStream out = null;
         try {
-            FileInputStream out = new FileInputStream(file);
+            out = new FileInputStream(file);
             editorpane.getEditorKit().read(out, editorpane.getDocument(), 0);
             out.close();
         } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(this, "Error opening the file", "Error", JOptionPane.ERROR_MESSAGE);
             statusBar.setText("Error opening the file comments file of " + getJSWFileName());
             return false;
+        } finally {
+            if(out != null){
+                try{
+                    out.close();
+                } catch(Exception ex){
+                    LOGGER.log(Level.FINEST, ex.getMessage(), ex);
+                }
+            }
         }
         this.dirty = false;
         //  this.currFileName = fileName;
@@ -244,16 +258,26 @@ public class JSWTextProcessor extends JFrame {
         return true;
     }
 
-    boolean saveFile(String file) {
+    private boolean saveFile(String file) {
+        FileOutputStream out = null;
         try {
-            FileOutputStream out = new FileOutputStream(file);
+            out = new FileOutputStream(file);
             editorpane.getEditorKit().write(out, editorpane.getDocument(), 0, editorpane.getDocument().getLength());
             out.close();
         } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             JOptionPane.showMessageDialog(this, "Error scaving the file", "Error", JOptionPane.ERROR_MESSAGE);
             statusBar.setText("Error saving the file in" + getJSWFileName());
             return false;
-        }
+        } finally {
+           if(out != null){
+              try{
+                  out.close();
+              } catch(Exception ex){
+                  LOGGER.log(Level.FINEST, ex.getMessage(), ex);
+              }
+          }
+      }
         this.dirty = false;
         statusBar.setText("Saved in" + getJSWFileName());
         updateCaption();
@@ -273,7 +297,7 @@ public class JSWTextProcessor extends JFrame {
         return this.currFileName.substring(0, currFileName.lastIndexOf(System.getProperty("file.separator")));
     }
 
-    boolean exportFile() {
+    private boolean exportFile() {
         this.repaint();
         if (JFileChooser.APPROVE_OPTION == jFileChooser1.showSaveDialog(this)) {
             String file = jFileChooser1.getSelectedFile().getPath();
@@ -294,7 +318,7 @@ public class JSWTextProcessor extends JFrame {
      *
      * @return true si esta guardado, false en caso contrario.
      */
-    boolean isSaved() {
+    private boolean isSaved() {
         if (!dirty) {
             return true;
         }
@@ -314,7 +338,7 @@ public class JSWTextProcessor extends JFrame {
         }
     }
 
-    void updateCaption() {
+    private void updateCaption() {
         String caption;
         caption = "Editing the comment of " + getJSWFileName();
         if (dirty) {
@@ -325,7 +349,7 @@ public class JSWTextProcessor extends JFrame {
         this.setTitle(caption);
     }
 
-    public void fileExit_actionPerformed(ActionEvent e) {
+    private void fileExit_actionPerformed() {
         this.setVisible(false);
     }
 
@@ -333,12 +357,12 @@ public class JSWTextProcessor extends JFrame {
     protected void processWindowEvent(WindowEvent e) {
         super.processWindowEvent(e);
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-            fileExit_actionPerformed(null);
+            fileExit_actionPerformed();
         }
     }
 
 
-    void jMenuItem7ActionPerformed(ActionEvent e) {
+    private void jMenuItem7ActionPerformed() {
         Color color = JColorChooser.showDialog(this, "Background Color", editorpane.getBackground());
         if (color != null) {
             editorpane.setBackground(color);
@@ -346,7 +370,7 @@ public class JSWTextProcessor extends JFrame {
         this.repaint();
     }
 
-    void jMenuItem1ActionPerformed(ActionEvent e) {
+    private void jMenuItem1ActionPerformed() {
         if (isSaved()) {
             editorpane.setText("");
             statusBar.setText("New");
@@ -357,39 +381,39 @@ public class JSWTextProcessor extends JFrame {
         }
     }
 
-    void jMenuItem2ActionPerformed(ActionEvent e) {
+    private void jMenuItem2ActionPerformed() {
         fileOpen();
     }
 
-    void jMenuItem3ActionPerformed(ActionEvent e) {
+    private void jMenuItem3ActionPerformed() {
         saveFile(this.currFileName);
     }
 
-    void jMenuItem4ActionPerformed(ActionEvent e) {
+    private void jMenuItem4ActionPerformed() {
         exportFile();
     }
 
-    void jButton1ActionPerformed(ActionEvent e) {
+    private void jButton1ActionPerformed() {
         fileOpen();
     }
 
-    void jButton2ActionPerformed(ActionEvent e) {
+    private void jButton2ActionPerformed() {
         saveFile(this.currFileName);
     }
 
-    void document1ChangedUpdate(DocumentEvent e) {
+    private void document1ChangedUpdate() {
         dirty = true;
         updateCaption();
     }
 
-    void document1InsertUpdate(DocumentEvent e) {
+    private void document1InsertUpdate() {
         if (!dirty) {
             dirty = true;
             updateCaption();
         }
     }
 
-    void document1RemoveUpdate(DocumentEvent e) {
+    private void document1RemoveUpdate() {
         if (!dirty) {
             dirty = true;
             updateCaption();
@@ -400,31 +424,31 @@ public class JSWTextProcessor extends JFrame {
         return editorpane.getText();
     }
 
-    void jButton3ActionPerformed(ActionEvent e) {
-        jMenuItem1ActionPerformed(e);
+    private void jButton3ActionPerformed() {
+        jMenuItem1ActionPerformed();
     }
 
-    void jButton3MouseEntered(MouseEvent e) {
+    private void jButton3MouseEntered() {
         jButton3.setBorder(selected);
     }
 
-    void jButton3MouseExited(MouseEvent e) {
+    private void jButton3MouseExited() {
         jButton3.setBorder(normal);
     }
 
-    void jButton1MouseEntered(MouseEvent e) {
+    private void jButton1MouseEntered() {
         jButton1.setBorder(selected);
     }
 
-    void jButton1MouseExited(MouseEvent e) {
+    private void jButton1MouseExited() {
         jButton1.setBorder(normal);
     }
 
-    void jButton2MouseEntered(MouseEvent e) {
+    private void jButton2MouseEntered() {
         jButton2.setBorder(selected);
     }
 
-    void jButton2MouseExited(MouseEvent e) {
+    private void jButton2MouseExited() {
         jButton2.setBorder(normal);
     }
 
@@ -440,7 +464,7 @@ public class JSWTextProcessor extends JFrame {
         this.currFileName = currFileName;
     }
 
-    public void jMenuItem5_actionPerformed(ActionEvent e) {
+    void jMenuItem5_actionPerformed() {
         JOptionPane.showMessageDialog(this,
                                       "<html></head><body><p><font color=\"#FF0000\" size=\"5\">About</font>" +
                                       "</p><p><font " +
@@ -451,139 +475,139 @@ public class JSWTextProcessor extends JFrame {
     }
 
 
-    class TextEditFrameMenuFileExitActionAdapter implements ActionListener {
-        JSWTextProcessor adaptee;
+    private class TextEditFrameMenuFileExitActionAdapter implements ActionListener {
+        private JSWTextProcessor adaptee;
 
-        TextEditFrameMenuFileExitActionAdapter(JSWTextProcessor adaptee) {
+        private TextEditFrameMenuFileExitActionAdapter(JSWTextProcessor adaptee) {
             this.adaptee = adaptee;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.fileExit_actionPerformed(e);
+            adaptee.fileExit_actionPerformed();
         }
     }
 
 
-    class TextEditFrameMenuItem7ActionAdapter implements java.awt.event.ActionListener {
-        JSWTextProcessor adaptee;
+    private class TextEditFrameMenuItem7ActionAdapter implements java.awt.event.ActionListener {
+        private JSWTextProcessor adaptee;
 
-        TextEditFrameMenuItem7ActionAdapter(JSWTextProcessor adaptee) {
+        private TextEditFrameMenuItem7ActionAdapter(JSWTextProcessor adaptee) {
             this.adaptee = adaptee;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.jMenuItem7ActionPerformed(e);
+            adaptee.jMenuItem7ActionPerformed();
         }
     }
 
 
-    class TextEditFrameJMenuItem1ActionAdapter implements java.awt.event.ActionListener {
-        JSWTextProcessor adaptee;
+    private class TextEditFrameJMenuItem1ActionAdapter implements java.awt.event.ActionListener {
+        private JSWTextProcessor adaptee;
 
-        TextEditFrameJMenuItem1ActionAdapter(JSWTextProcessor adaptee) {
+        private TextEditFrameJMenuItem1ActionAdapter(JSWTextProcessor adaptee) {
             this.adaptee = adaptee;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.jMenuItem1ActionPerformed(e);
+            adaptee.jMenuItem1ActionPerformed();
         }
     }
 
 
-    class TextEditFrameJMenuItem2ActionAdapter implements java.awt.event.ActionListener {
-        JSWTextProcessor adaptee;
+    private class TextEditFrameJMenuItem2ActionAdapter implements java.awt.event.ActionListener {
+        private JSWTextProcessor adaptee;
 
-        TextEditFrameJMenuItem2ActionAdapter(JSWTextProcessor adaptee) {
+        private TextEditFrameJMenuItem2ActionAdapter(JSWTextProcessor adaptee) {
             this.adaptee = adaptee;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.jMenuItem2ActionPerformed(e);
+            adaptee.jMenuItem2ActionPerformed();
         }
     }
 
 
-    class TextEditFrameJMenuItem3ActionAdapter implements java.awt.event.ActionListener {
-        JSWTextProcessor adaptee;
+    private class TextEditFrameJMenuItem3ActionAdapter implements java.awt.event.ActionListener {
+        private JSWTextProcessor adaptee;
 
-        TextEditFrameJMenuItem3ActionAdapter(JSWTextProcessor adaptee) {
+        private TextEditFrameJMenuItem3ActionAdapter(JSWTextProcessor adaptee) {
             this.adaptee = adaptee;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.jMenuItem3ActionPerformed(e);
+            adaptee.jMenuItem3ActionPerformed();
         }
     }
 
 
-    class TextEditFrameJMenuItem4ActionAdapter implements java.awt.event.ActionListener {
-        JSWTextProcessor adaptee;
+    private class TextEditFrameJMenuItem4ActionAdapter implements java.awt.event.ActionListener {
+        private JSWTextProcessor adaptee;
 
-        TextEditFrameJMenuItem4ActionAdapter(JSWTextProcessor adaptee) {
+        private TextEditFrameJMenuItem4ActionAdapter(JSWTextProcessor adaptee) {
             this.adaptee = adaptee;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.jMenuItem4ActionPerformed(e);
+            adaptee.jMenuItem4ActionPerformed();
         }
     }
 
 
-    class TextEditFrameJButton1ActionAdapter implements java.awt.event.ActionListener {
-        JSWTextProcessor adaptee;
+    private class TextEditFrameJButton1ActionAdapter implements java.awt.event.ActionListener {
+        private JSWTextProcessor adaptee;
 
-        TextEditFrameJButton1ActionAdapter(JSWTextProcessor adaptee) {
+        private TextEditFrameJButton1ActionAdapter(JSWTextProcessor adaptee) {
             this.adaptee = adaptee;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.jButton1ActionPerformed(e);
+            adaptee.jButton1ActionPerformed();
         }
     }
 
 
-    class TextEditFrameJButton2ActionAdapter implements java.awt.event.ActionListener {
-        JSWTextProcessor adaptee;
+    private class TextEditFrameJButton2ActionAdapter implements java.awt.event.ActionListener {
+        private JSWTextProcessor adaptee;
 
-        TextEditFrameJButton2ActionAdapter(JSWTextProcessor adaptee) {
+        private TextEditFrameJButton2ActionAdapter(JSWTextProcessor adaptee) {
             this.adaptee = adaptee;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            adaptee.jButton2ActionPerformed(e);
+            adaptee.jButton2ActionPerformed();
         }
 
     }
 
 
-    class TextEditFrameDocument1DocumentAdapter implements javax.swing.event.DocumentListener {
-        JSWTextProcessor adaptee;
+    private class TextEditFrameDocument1DocumentAdapter implements javax.swing.event.DocumentListener {
+        private JSWTextProcessor adaptee;
 
-        TextEditFrameDocument1DocumentAdapter(JSWTextProcessor adaptee) {
+        private TextEditFrameDocument1DocumentAdapter(JSWTextProcessor adaptee) {
             this.adaptee = adaptee;
         }
 
         @Override
         public void changedUpdate(DocumentEvent e) {
-            adaptee.document1ChangedUpdate(e);
+            adaptee.document1ChangedUpdate();
         }
 
         @Override
         public void insertUpdate(DocumentEvent e) {
-            adaptee.document1InsertUpdate(e);
+            adaptee.document1InsertUpdate();
         }
 
         @Override
         public void removeUpdate(DocumentEvent e) {
-            adaptee.document1RemoveUpdate(e);
+            adaptee.document1RemoveUpdate();
         }
     }
 
@@ -599,6 +623,6 @@ class JSWTextProcessor_jMenuItem5_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jMenuItem5_actionPerformed(e);
+        adaptee.jMenuItem5_actionPerformed();
     }
 }

@@ -25,7 +25,7 @@ import net.javahispano.jsignalwb.plugins.framework.PluginManager;
  *
  * @author Roman
  */
-public class JSWBFrame extends javax.swing.JFrame {
+class JSWBFrame extends javax.swing.JFrame {
 
     private static final Logger LOGGER = Logger.getLogger(JSWBFrame.class.getName());
     /**
@@ -40,8 +40,9 @@ public class JSWBFrame extends javax.swing.JFrame {
     //private JMenu jMenuPlugins;
     //private JSignalMonitorPanel jsmPanel;
     //private PluginManager pm;
+
     /** Creates new form testFrame */
-    public JSWBFrame(JSWBManager jswbManager) {
+    private JSWBFrame(JSWBManager jswbManager) {
         this.setTitle("JSignalWorkBench");
         this.setIconImage(Toolkit.getDefaultToolkit().createImage(
                 JSWBManager.class.getResource("images/jswIcon.jpg")));
@@ -138,7 +139,7 @@ public class JSWBFrame extends javax.swing.JFrame {
         // jswbManager.addJToolBarComponent(Box.createHorizontalStrut(8));
         jswbManager.addJToolBarButton(new GenericPluginAction(jswbManager,
                 "JSWTextProcessorPlugin",
-                GenericPluginAction.ACTIONS.LAUNCH));
+                GenericPluginAction.Action.LAUNCH));
 
         //jswbManager.addJToolBarComponent(Box.createHorizontalStrut(8));
         jswbManager.addJToolBarButton(new PrintAction());
@@ -147,7 +148,7 @@ public class JSWBFrame extends javax.swing.JFrame {
 
         jswbManager.addJToolBarButton(new GenericPluginAction(jswbManager,
                 "SignalOrganizerPlugin",
-                GenericPluginAction.ACTIONS.LAUNCH));
+                GenericPluginAction.Action.LAUNCH));
 
         jswbManager.addJToolBarComponent(Box.createHorizontalStrut(8));
         jswbManager.addJToolBarSeparator();
@@ -160,7 +161,7 @@ public class JSWBFrame extends javax.swing.JFrame {
                     if (!labelAded) {
                         jswbManager.addJToolBarComponent(Box.createHorizontalStrut(4));
                         JLabel lAlg = new JLabel(" Algorithms: ");
-                        lAlg.setFont(JSWBManager.getNormalFont());
+                        lAlg.setFont(JSWBManager.NORMAL_FONT);
                         lAlg.setForeground(JSWBManager.getFontColor());
                         jswbManager.addJToolBarComponent(lAlg);
                         labelAded = true;
@@ -182,14 +183,14 @@ public class JSWBFrame extends javax.swing.JFrame {
                 if (pluginManager.getGeneric(genericPlugin).showInGUIOnthe(GUIPositions.TOOLBAR)) {
                     if (!labelAded) {
                         JLabel lGen = new JLabel(" Generics: ");
-                        lGen.setFont(JSWBManager.getNormalFont());
+                        lGen.setFont(JSWBManager.NORMAL_FONT);
                         lGen.setForeground(JSWBManager.getFontColor());
                         jswbManager.addJToolBarComponent(lGen);
                         jswbManager.addJToolBarComponent(Box.createHorizontalStrut(4));
                         labelAded = true;
                     }
                     jswbManager.addJToolBarButton(new GenericPluginAction(jswbManager, genericPlugin,
-                            GenericPluginAction.ACTIONS.LAUNCH));
+                            GenericPluginAction.Action.LAUNCH));
                 }
             }
             if (labelAded) {

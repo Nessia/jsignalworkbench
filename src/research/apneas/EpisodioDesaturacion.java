@@ -20,8 +20,8 @@ public class EpisodioDesaturacion extends Intervalo {
 //@todo parametro
     private TrapezoidalDistribution caidaEnSaturacion = new
             TrapezoidalDistribution(3F, 5F, 70, 110F);
-    private TrapezoidalDistribution pendienteAscenso;
-    private TrapezoidalDistribution pendienteDescenso;
+//    private TrapezoidalDistribution pendienteAscenso;
+//    private TrapezoidalDistribution pendienteDescenso;
     private TreeSet<Intervalo> artefactos = new TreeSet<Intervalo>();
 
     public EpisodioDesaturacion(Intervalo principio, Intervalo fin, float valorBasal) {
@@ -41,30 +41,18 @@ public class EpisodioDesaturacion extends Intervalo {
 
     }
 
-    public EpisodioDesaturacion(Intervalo principio, Intervalo fin, EpisodioDesaturacion desaturacion) {
-        this(principio, fin, desaturacion.valorBasal);
-    }
-
     /**
      * Devolvera a cierto cuando este episodio de desaturacion tiene una calidad elevada; es decir, existe bastante
      * evidencia de que es un episodio de desaturacion y es relevante.
      *
      * @return boolean
      */
-    public boolean esBuenaCalidad() {
-        if (this.posibilidad < 60) {
-            return false;
-        } else if (this.getDuracion() < 6) {
-            return false;
-        } else if (this.getCaidaSatO2() < 5) {
-            return false;
-        }
-        //si no cumple una calidad mnima combinando la caida y la duracion
-        else if (this.getCaidaSatO2() * this.getDuracion() < 50) {
-            return false;
-        }
-        return true;
-    }
+//    boolean esBuenaCalidad() {
+//        return !(this.posibilidad < 60 || this.getDuracion() < 6
+//                || this.getCaidaSatO2() < 5
+//                //si no cumple una calidad mnima combinando la caida y la duracion
+//                || this.getCaidaSatO2() * this.getDuracion() < 50);
+//    }
 
     private void identificaArtefactos() {
         for (int i = principio; i < fin; i++) {
@@ -93,11 +81,11 @@ public class EpisodioDesaturacion extends Intervalo {
      *   la senhal real y no sobre la filtrada. En especial el minimo.
      */
     private void caracterizaEpisodio() {
-        tiempoBajada = intervaloPrincipio.getFin() - intervaloPrincipio.getPrincipio() + 1;
+        tiempoBajada = intervaloPrincipio.getFin() - intervaloPrincipio.getPrincipio() + 1F;
         tiempoBajada /= frecuencia;
-        tiempoSubida = intervaloFin.getFin() - intervaloFin.getPrincipio() + 1;
+        tiempoSubida = intervaloFin.getFin() - intervaloFin.getPrincipio() + 1F;
         tiempoSubida /= frecuencia;
-        duracion = intervaloFin.getFin() - intervaloPrincipio.getPrincipio();
+        duracion = intervaloFin.getFin() - (float)intervaloPrincipio.getPrincipio();
         duracion /= frecuencia;
         caidaSatO2 = maximo - minimo;
         if (this.fin - this.principio < 4 * frecuencia) {
@@ -106,44 +94,44 @@ public class EpisodioDesaturacion extends Intervalo {
 
     }
 
-    private void refinarFin(float[] posibilidadFin) {
-        int i = fin;
-        //si "esta plano" pasamos de el. Ahora solo consideramos una ventana de un segundo
-        //y una pendiente ocho veces superior. Este valor es completamente arbitrario.
-        while (i > intervaloFin.principio + 1 &&
-               this.pendienteAscenso.multiply(8 / frecuencia).evaluatepossibilityAt(
-                       Utilidades.pendienteEnTornoA((int) (1 * frecuencia), i, datos)) == 0) {
-            posibilidadFin[i] = -40;
-            i--;
-        }
-        fin = i;
-        intervaloFin.setFin(fin);
-        caracterizaEpisodio();
-    }
-
-    private void refinarPrincipio(float[] posibilidadPrincipio) {
-        int i = principio;
-        //si "esta plano" pasamos de el. Ahora solo consideramos una ventana de un segundo
-        //y una pendiente ocho veces superior. Este valor es completamente arbitrario.
-        while (i < intervaloFin.fin - 1 && this.pendienteDescenso.multiply(8 / frecuencia).evaluatepossibilityAt(
-                Utilidades.pendienteEnTornoA((int) (1 * frecuencia), i, datos)) == 0) {
-            posibilidadPrincipio[i] = -10;
-            i++;
-        }
-        principio = i;
-        intervaloPrincipio.setPrincipio(principio);
-        //Miramos si el episodio empieza con una caida brusca
-        if (artefactos.size() > 0) {
-            Intervalo n = artefactos.first();
-            //si el intervalo comienza menos de dos segundos de un artefacto
-            if (n.getPrincipio() - principio < 2 * frecuencia) {
-                this.intervaloPrincipio.setPrincipio(n.getFin());
-                this.principio = n.getFin();
-            }
-        }
-
-        caracterizaEpisodio();
-    }
+//    private void refinarFin(float[] posibilidadFin) {
+//        int i = fin;
+//        //si "esta plano" pasamos de el. Ahora solo consideramos una ventana de un segundo
+//        //y una pendiente ocho veces superior. Este valor es completamente arbitrario.
+//        while (i > intervaloFin.principio + 1 &&
+//               this.pendienteAscenso.multiply(8 / frecuencia).evaluatepossibilityAt(
+//                       Utilidades.pendienteEnTornoA((int) (1 * frecuencia), i, datos)) == 0) {
+//            posibilidadFin[i] = -40;
+//            i--;
+//        }
+//        fin = i;
+//        intervaloFin.setFin(fin);
+//        caracterizaEpisodio();
+//    }
+//
+//    private void refinarPrincipio(float[] posibilidadPrincipio) {
+//        int i = principio;
+//        //si "esta plano" pasamos de el. Ahora solo consideramos una ventana de un segundo
+//        //y una pendiente ocho veces superior. Este valor es completamente arbitrario.
+//        while (i < intervaloFin.fin - 1 && this.pendienteDescenso.multiply(8 / frecuencia).evaluatepossibilityAt(
+//                Utilidades.pendienteEnTornoA((int) (1 * frecuencia), i, datos)) == 0) {
+//            posibilidadPrincipio[i] = -10;
+//            i++;
+//        }
+//        principio = i;
+//        intervaloPrincipio.setPrincipio(principio);
+//        //Miramos si el episodio empieza con una caida brusca
+//        if (!artefactos.isEmpty()) {
+//            Intervalo n = artefactos.first();
+//            //si el intervalo comienza menos de dos segundos de un artefacto
+//            if (n.getPrincipio() - principio < 2 * frecuencia) {
+//                this.intervaloPrincipio.setPrincipio(n.getFin());
+//                this.principio = n.getFin();
+//            }
+//        }
+//
+//        caracterizaEpisodio();
+//    }
 
 
     private void calcularMaximoYMinimo() {
@@ -169,17 +157,17 @@ public class EpisodioDesaturacion extends Intervalo {
         this.caidaEnSaturacion = caidaEnSaturacion;
     }
 
-    public void setPendienteAscenso(TrapezoidalDistribution pendienteAscenso,
-                                    float[] posibilidadFin) {
-        this.pendienteAscenso = pendienteAscenso;
-        this.refinarFin(posibilidadFin);
-    }
-
-    public void setPendienteDescenso(TrapezoidalDistribution pendienteDescenso,
-                                     float[] posibilidadPrincipio) {
-        this.pendienteDescenso = pendienteDescenso;
-        this.refinarPrincipio(posibilidadPrincipio);
-    }
+//    void setPendienteAscenso(TrapezoidalDistribution pendienteAscenso,
+//                                    float[] posibilidadFin) {
+//        this.pendienteAscenso = pendienteAscenso;
+//        this.refinarFin(posibilidadFin);
+//    }
+//
+//    void setPendienteDescenso(TrapezoidalDistribution pendienteDescenso,
+//                                     float[] posibilidadPrincipio) {
+//        this.pendienteDescenso = pendienteDescenso;
+//        this.refinarPrincipio(posibilidadPrincipio);
+//    }
 
     public float getMaximo() {
         return maximo;

@@ -12,7 +12,7 @@ import com.michaelbaranov.microba.calendar.CalendarPane;
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
 
-public abstract class DefaultAnnotationInfoPanel<T extends AnnotationPluginAdapter> extends DefaultInfoPanel {
+abstract class DefaultAnnotationInfoPanel<T extends AnnotationPluginAdapter> extends DefaultInfoPanel {
 
     /**
      *
@@ -23,7 +23,7 @@ private static final Logger LOGGER = Logger.getLogger(DefaultAnnotationInfoPanel
 
     protected transient T dim;
 
-    public DefaultAnnotationInfoPanel(T dim){
+    DefaultAnnotationInfoPanel(T dim){
         this.dim = dim;
         initComponents();
         markTitleTextField.setText(dim.getTitle());

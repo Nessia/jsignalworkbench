@@ -15,7 +15,7 @@ import net.javahispano.jsignalwb.plugins.MarkPluginAdapter;
 
 import com.michaelbaranov.microba.calendar.CalendarPane;
 
-public abstract class DefaultMarkInfoPanel<T extends MarkPluginAdapter> extends DefaultInfoPanel {
+abstract class DefaultMarkInfoPanel<T extends MarkPluginAdapter> extends DefaultInfoPanel {
 
     /**
      *
@@ -35,7 +35,7 @@ public abstract class DefaultMarkInfoPanel<T extends MarkPluginAdapter> extends 
     protected Signal signal;
     protected transient T dim;
 
-    public DefaultMarkInfoPanel(Signal signal, T dim) {
+    DefaultMarkInfoPanel(Signal signal, T dim) {
         this.signal = signal;
         this.dim = dim;
         initComponents();

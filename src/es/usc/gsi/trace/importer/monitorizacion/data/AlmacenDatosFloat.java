@@ -99,7 +99,7 @@ public class AlmacenDatosFloat extends AlmacenDatos {
         return datos;
     }
 
-    public void anhadeSenhal(float[] nueva_senal, String nombre, String leyenda,
+    void anhadeSenhal(float[] nueva_senal, String nombre, String leyenda,
                              String Leyenda_temporal, float fs,
                              float[] rango, int numero_datos) {
         super.anhadeSenhal(nombre, leyenda, Leyenda_temporal, fs, rango,

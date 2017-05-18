@@ -20,7 +20,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  *
  * @author Roman
  */
-public class JMenuChangePosition extends JMenu {
+class JMenuChangePosition extends JMenu {
 
     /**
      *
@@ -28,7 +28,7 @@ public class JMenuChangePosition extends JMenu {
     private static final long serialVersionUID = 2452050015473524911L;
 
     /** Creates a new instance of JMenuChangePosition */
-    public JMenuChangePosition(JSignalMonitor jsm, String signalName) {
+    JMenuChangePosition(JSignalMonitor jsm, String signalName) {
         super("Position");
         setMnemonic(KeyEvent.VK_P);
         JMenuItem rbMenuItem = new JMenuItem(new ChangePositionAction(jsm, signalName, ChangePositionAction.UP));

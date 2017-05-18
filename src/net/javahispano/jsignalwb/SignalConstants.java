@@ -7,9 +7,9 @@ import java.util.List;
 public class SignalConstants {
 
     public static final String SENAL_FLUJO = "Flujo";
-    public static final String SENAL_SATURACION_02 = "Sat02";
-    public static final String SENAL_MOVIMIENTO_ABDOMINAL = "Movimiento abdominal";
-    public static final String SENAL_MOVIMIENTO_TORACICO = "Movimiento toracico";
+    private static final String SENAL_SATURACION_02 = "Sat02";
+    private static final String SENAL_MOVIMIENTO_ABDOMINAL = "Movimiento abdominal";
+    private static final String SENAL_MOVIMIENTO_TORACICO = "Movimiento toracico";
 
     public static final String SENAL_GUANINE = "G";
     public static final String SENAL_ADENINE = "A";

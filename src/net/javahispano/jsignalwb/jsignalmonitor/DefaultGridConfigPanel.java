@@ -15,33 +15,23 @@ import javax.swing.*;
  *
  * @author  roman.segador.torre
  */
-public class DefaultGridConfigPanel extends javax.swing.JPanel {
+class DefaultGridConfigPanel extends javax.swing.JPanel {
     /**
      *
      */
     private static final long serialVersionUID = 6170769569351033992L;
 
  // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox LHCheckBox;
-    private javax.swing.JSpinner LHSpinner;
-    private javax.swing.JCheckBox LVCheckBox;
-    private javax.swing.JSpinner LVSpinner;
-    private javax.swing.JCheckBox SHCheckBox;
-    private javax.swing.JSpinner SHSpinner;
-    private javax.swing.JCheckBox SVCheckBox;
-    private javax.swing.JSpinner SVSpinner;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel2;
+    private JCheckBox LHCheckBox;
+    private JSpinner LHSpinner;
+    private JCheckBox LVCheckBox;
+    private JSpinner LVSpinner;
+    private JCheckBox SHCheckBox;
+    private JSpinner SHSpinner;
+    private JCheckBox SVCheckBox;
+    private JSpinner SVSpinner;
+    private JButton jButton1;
+//    private JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 
     private String originalConfig;
@@ -49,7 +39,7 @@ public class DefaultGridConfigPanel extends javax.swing.JPanel {
     private JWindow jw;
 
     /** Creates new form DemoGridPluginConfigPanel */
-    public DefaultGridConfigPanel(DefaultGrid grid) {
+    DefaultGridConfigPanel(DefaultGrid grid) {
         originalConfig = grid.getDataToSave();
         this.grid = grid;
         initComponents();
@@ -70,7 +60,7 @@ public class DefaultGridConfigPanel extends javax.swing.JPanel {
         //jPanel1.repaint();
     }
 
-    public void showJWindow(Window owner) {
+    void showJWindow(Window owner) {
         jw = new JWindow(owner);
         //jw.setLocation(GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint());
         jw.add(this);
@@ -92,26 +82,26 @@ public class DefaultGridConfigPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        LVCheckBox = new javax.swing.JCheckBox();
-        LHCheckBox = new javax.swing.JCheckBox();
-        SVCheckBox = new javax.swing.JCheckBox();
-        SHCheckBox = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        LVSpinner = new javax.swing.JSpinner();
-        SVSpinner = new javax.swing.JSpinner();
-        LHSpinner = new javax.swing.JSpinner();
-        SHSpinner = new javax.swing.JSpinner();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        JPanel jPanel2 = new JPanel();
+        LVCheckBox = new JCheckBox();
+        LHCheckBox = new JCheckBox();
+        SVCheckBox = new JCheckBox();
+        SHCheckBox = new JCheckBox();
+        JLabel jLabel1 = new JLabel();
+        JLabel jLabel2 = new JLabel();
+        JLabel jLabel3 = new JLabel();
+        JLabel jLabel4 = new JLabel();
+        LVSpinner = new JSpinner();
+        SVSpinner = new JSpinner();
+        LHSpinner = new JSpinner();
+        SHSpinner = new JSpinner();
+        JLabel jLabel5 = new JLabel();
+        JLabel jLabel6 = new JLabel();
+        JLabel jLabel7 = new JLabel();
+        JLabel jLabel8 = new JLabel();
+        jButton1 = new JButton();
+        JButton jButton2 = new JButton();
+        JButton jButton3 = new JButton();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 102, 0), 2, true));
 
@@ -119,29 +109,33 @@ public class DefaultGridConfigPanel extends javax.swing.JPanel {
 
         LVCheckBox.setText("Show");
         LVCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LVCheckBoxActionPerformed(evt);
+                LVCheckBoxActionPerformed();
             }
         });
 
         LHCheckBox.setText("Show");
         LHCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LHCheckBoxActionPerformed(evt);
+                LHCheckBoxActionPerformed();
             }
         });
 
         SVCheckBox.setText("Show");
         SVCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SVCheckBoxActionPerformed(evt);
+                SVCheckBoxActionPerformed();
             }
         });
 
         SHCheckBox.setText("Show");
         SHCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SHCheckBoxActionPerformed(evt);
+                SHCheckBoxActionPerformed();
             }
         });
 
@@ -156,47 +150,53 @@ public class DefaultGridConfigPanel extends javax.swing.JPanel {
         LVSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null,
                 Integer.valueOf(1)));
         LVSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                LVSpinnerStateChanged(evt);
+                LVSpinnerStateChanged();
             }
         });
 
         SVSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null,
                 Integer.valueOf(1)));
         SVSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                SVSpinnerStateChanged(evt);
+                SVSpinnerStateChanged();
             }
         });
 
         LHSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null,
                 Integer.valueOf(1)));
         LHSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                LHSpinnerStateChanged(evt);
+                LHSpinnerStateChanged();
             }
         });
 
         SHSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null,
                 Integer.valueOf(1)));
         SHSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                SHSpinnerStateChanged(evt);
+                SHSpinnerStateChanged();
             }
         });
 
-        jLabel5.setText("Divisions");
+        String divisions = "Divisions";
+        jLabel5.setText(divisions);
 
-        jLabel6.setText("Divisions");
+        jLabel6.setText(divisions);
 
-        jLabel7.setText("Divisions");
+        jLabel7.setText(divisions);
 
-        jLabel8.setText("Divisions");
+        jLabel8.setText(divisions);
 
         jButton1.setText("Choose Color");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton1ActionPerformed();
             }
         });
 
@@ -304,14 +304,14 @@ public class DefaultGridConfigPanel extends javax.swing.JPanel {
         jButton2.setText("Cancel");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton2ActionPerformed();
             }
         });
 
         jButton3.setText("OK");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton3ActionPerformed();
             }
         });
 
@@ -347,48 +347,48 @@ public class DefaultGridConfigPanel extends javax.swing.JPanel {
                 );
     } // </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton3ActionPerformed() { //GEN-FIRST:event_jButton3ActionPerformed
         hideJWindow();
     } //GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed() { //GEN-FIRST:event_jButton2ActionPerformed
         grid.setSavedData(originalConfig);
         hideJWindow();
     } //GEN-LAST:event_jButton2ActionPerformed
 
-    private void LVCheckBoxActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_LVCheckBoxActionPerformed
+    private void LVCheckBoxActionPerformed() { //GEN-FIRST:event_LVCheckBoxActionPerformed
         grid.setShowBigGrid(LVCheckBox.isSelected());
     } //GEN-LAST:event_LVCheckBoxActionPerformed
 
-    private void SVCheckBoxActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_SVCheckBoxActionPerformed
+    private void SVCheckBoxActionPerformed() { //GEN-FIRST:event_SVCheckBoxActionPerformed
         grid.setShowSmallGrid(SVCheckBox.isSelected());
     } //GEN-LAST:event_SVCheckBoxActionPerformed
 
-    private void LHCheckBoxActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_LHCheckBoxActionPerformed
+    private void LHCheckBoxActionPerformed() { //GEN-FIRST:event_LHCheckBoxActionPerformed
         grid.setShowBigGridY(LHCheckBox.isSelected());
     } //GEN-LAST:event_LHCheckBoxActionPerformed
 
-    private void SHCheckBoxActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_SHCheckBoxActionPerformed
+    private void SHCheckBoxActionPerformed() { //GEN-FIRST:event_SHCheckBoxActionPerformed
         grid.setShowSmallGridY(SHCheckBox.isSelected());
     } //GEN-LAST:event_SHCheckBoxActionPerformed
 
-    private void LVSpinnerStateChanged(javax.swing.event.ChangeEvent evt) { //GEN-FIRST:event_LVSpinnerStateChanged
+    private void LVSpinnerStateChanged() { //GEN-FIRST:event_LVSpinnerStateChanged
         grid.setNumberOfBigDivisionsX((Integer) LVSpinner.getValue());
     } //GEN-LAST:event_LVSpinnerStateChanged
 
-    private void SVSpinnerStateChanged(javax.swing.event.ChangeEvent evt) { //GEN-FIRST:event_SVSpinnerStateChanged
+    private void SVSpinnerStateChanged() { //GEN-FIRST:event_SVSpinnerStateChanged
         grid.setNumberOfDivisions((Integer) SVSpinner.getValue());
     } //GEN-LAST:event_SVSpinnerStateChanged
 
-    private void LHSpinnerStateChanged(javax.swing.event.ChangeEvent evt) { //GEN-FIRST:event_LHSpinnerStateChanged
+    private void LHSpinnerStateChanged() { //GEN-FIRST:event_LHSpinnerStateChanged
         grid.setNumberOfBigDivisionsY((Integer) LHSpinner.getValue());
     } //GEN-LAST:event_LHSpinnerStateChanged
 
-    private void SHSpinnerStateChanged(javax.swing.event.ChangeEvent evt) { //GEN-FIRST:event_SHSpinnerStateChanged
+    private void SHSpinnerStateChanged() { //GEN-FIRST:event_SHSpinnerStateChanged
         grid.setNumberOfDivisionsY((Integer) SHSpinner.getValue());
     } //GEN-LAST:event_SHSpinnerStateChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed() { //GEN-FIRST:event_jButton1ActionPerformed
         Color c = JColorChooser.showDialog(this, "SelectColor", grid.getColor());
         if (c != null) {
             grid.setColor(c);

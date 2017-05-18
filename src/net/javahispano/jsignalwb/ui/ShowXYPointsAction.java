@@ -22,14 +22,16 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  *
  * @author Roman
  */
-public class ShowXYPointsAction extends AbstractAction {
+class ShowXYPointsAction extends AbstractAction {
     /**
      *
      */
     private static final long serialVersionUID = 5149096829732056924L;
-    JSignalMonitor jsm;
+    
+    private JSignalMonitor jsm;
+    
     /** Creates a new instance of ShowXYPointsAction */
-    public ShowXYPointsAction(JSignalMonitor jsm) {
+    ShowXYPointsAction(JSignalMonitor jsm) {
         this.putValue(NAME, "XY");
         this.putValue(SHORT_DESCRIPTION, "Show the XY Values of the signals");
         Image image = Toolkit.getDefaultToolkit().createImage(

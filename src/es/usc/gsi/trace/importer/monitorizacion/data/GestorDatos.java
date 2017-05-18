@@ -27,7 +27,7 @@ public class GestorDatos {
 
     private AlmacenDatos almacen;
     //@TODO ponerle un tamaño adecuado a los HasMap
-    private Map<Integer,Integer> mapeaSenalCanal = new HashMap<Integer,Integer>(5, 0.75F);
+//    private Map<Integer,Integer> mapeaSenalCanal = new HashMap<Integer,Integer>(5, 0.75F);
     private Map<Integer,Integer> mapeaCanalSenal = new HashMap<Integer,Integer>(5, 0.75F);
 
     private boolean estaGuardado = true;
@@ -110,25 +110,25 @@ public class GestorDatos {
         }
     }
 
-    /**
-     * @param num_canal
-     * @param primero
-     * @param ultimo
-     * @return int[]
-     */
-    public void setPos(int num_canal, int primero, int ultimo, byte pos) {
-        byte[] tmp = (byte[]) almacen.getPos(num_canal);
-        //Si aun no habia posibilidad asociada a este canal
-        if (tmp == null) {
-            tmp = new byte[this.getNumeroDatos(num_canal)];
-            this.almacen.setPos(num_canal, tmp);
-        }
-        for (int i = primero; i < ultimo && i < tmp.length; i++) {
-            tmp[i] = (byte) Math.max(tmp[i], pos);
-        }
-        this.setEstaGuardado(false);
-
-    }
+//    /**
+//     * @param num_canal
+//     * @param primero
+//     * @param ultimo
+//     * @return int[]
+//     */
+//    public void setPos(int num_canal, int primero, int ultimo, byte pos) {
+//        byte[] tmp = (byte[]) almacen.getPos(num_canal);
+//        //Si aun no habia posibilidad asociada a este canal
+//        if (tmp == null) {
+//            tmp = new byte[this.getNumeroDatos(num_canal)];
+//            this.almacen.setPos(num_canal, tmp);
+//        }
+//        for (int i = primero; i < ultimo && i < tmp.length; i++) {
+//            tmp[i] = (byte) Math.max(tmp[i], pos);
+//        }
+//        this.setEstaGuardado(false);
+//
+//    }
 
     /**
      * @return GestorDatos
@@ -154,31 +154,31 @@ public class GestorDatos {
      * @param ultimo
      * @return float[]
      */
-    public Object getData(int num_canal, int primero, int ultimo) {
-        int num_datos = ultimo - primero;
-        float[] result = new float[num_datos + 1];
-        if (this.getNumeroSenales() > (this.mapeaCanalSenal.get(num_canal)).intValue()) {
-            float[] tmp = (float[]) referencias.getReferencias(num_canal);
-            for (int i = primero; i <= ultimo; i++) {
-                if (i < tmp.length) {
-                    result[i - primero] = tmp[i];
-                } else {
-                    result[i - primero] = almacen.getRango(this.mapeaCanalSenal.get(num_canal).intValue())[0];
-                }
-
-            }
-        } else {
-            byte[] tmp = this.almacen.getPosibilidadTotal();
-            for (int i = primero; (i <= ultimo && i < tmp.length); i++) {
-                result[i - primero] = tmp[i];
-            }
-        }
-//        if (result == null) {
-//            float[] tt = new float[10];
-//            result = tt;
+//    public Object getData(int num_canal, int primero, int ultimo) {
+//        int num_datos = ultimo - primero;
+//        float[] result = new float[num_datos + 1];
+//        if (this.getNumeroSenales() > (this.mapeaCanalSenal.get(num_canal)).intValue()) {
+//            float[] tmp = (float[]) referencias.getReferencias(num_canal);
+//            for (int i = primero; i <= ultimo; i++) {
+//                if (i < tmp.length) {
+//                    result[i - primero] = tmp[i];
+//                } else {
+//                    result[i - primero] = almacen.getRango(this.mapeaCanalSenal.get(num_canal).intValue())[0];
+//                }
+//
+//            }
+//        } else {
+//            byte[] tmp = this.almacen.getPosibilidadTotal();
+//            for (int i = primero; (i <= ultimo && i < tmp.length); i++) {
+//                result[i - primero] = tmp[i];
+//            }
 //        }
-        return result;
-    }
+////        if (result == null) {
+////            float[] tt = new float[10];
+////            result = tt;
+////        }
+//        return result;
+//    }
 
     /**
      * @param num_canal
@@ -186,59 +186,32 @@ public class GestorDatos {
      * @param ultimo
      * @return int[]
      */
-    public byte[] getPossibility(int num_canal, int primero, int ultimo) {
-        int num_datos = ultimo - primero;
-        byte[] result = new byte[num_datos + 1];
-        byte[] tmp = null;
-        try {
-            // if (this.getNumeroSenales() >= num_canal) {
-            if (this.getNumeroSenales() > (this.mapeaCanalSenal.get(num_canal)).intValue()) {
-                // tmp = (byte[])referencias.getReferencias(num_canal-1);
-                tmp = (byte[]) almacen.getPos(this.mapeaCanalSenal.get(num_canal).intValue()); ;
-            } else {
-                tmp = this.almacen.getPosibilidadTotal();
-            }
-
-            for (int i = primero; (i <= ultimo && i < tmp.length); i++) {
-                result[i - primero] = tmp[i];
-            }
-        } catch (Exception ex) {
-            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
-        }
-
-        if (tmp == null) {
-            result = new byte[num_datos + 1];
-        }
-
-        return result;
-    }
-
-    /**
-     * @param num_canal
-     * @param primero
-     * @param ultimo
-     * @return java.util.LinkedList
-     */
-    public List<Mark> getMarks(int num_canal, int primero, int ultimo) {
-        /* if (true) {
-            return  new LinkedList();
-          }*/
-        int num_senal = (this.mapeaCanalSenal.get(num_canal)).intValue();
-        LinkedList<Mark> respuesta = new LinkedList<Mark>();
-        SortedSet<Mark> anotaciones = almacen.getMarcas()[num_senal];
-//        if (anotaciones == null) {
-//            System.out.println("");
+//    public byte[] getPossibility(int num_canal, int primero, int ultimo) {
+//        int num_datos = ultimo - primero;
+//        byte[] result = new byte[num_datos + 1];
+//        byte[] tmp = null;
+//        try {
+//            // if (this.getNumeroSenales() >= num_canal) {
+//            if (this.getNumeroSenales() > (this.mapeaCanalSenal.get(num_canal)).intValue()) {
+//                // tmp = (byte[])referencias.getReferencias(num_canal-1);
+//                tmp = (byte[]) almacen.getPos(this.mapeaCanalSenal.get(num_canal).intValue()); ;
+//            } else {
+//                tmp = this.almacen.getPosibilidadTotal();
+//            }
+//
+//            for (int i = primero; (i <= ultimo && i < tmp.length); i++) {
+//                result[i - primero] = tmp[i];
+//            }
+//        } catch (Exception ex) {
+//            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
 //        }
-
-        Mark ev_1 = new Mark(primero);
-        Mark ev_2 = new Mark(ultimo + 1);
-        SortedSet<Mark> anotaciones_en_rango = anotaciones.subSet(ev_1, ev_2);
-        Iterator<Mark> it = anotaciones_en_rango.iterator();
-        while (it.hasNext()) {
-            respuesta.add(it.next());
-        }
-        return respuesta;
-    }
+//
+//        if (tmp == null) {
+//            result = new byte[num_datos + 1];
+//        }
+//
+//        return result;
+//    }
 
     /**
      * @param num_canal
@@ -246,24 +219,51 @@ public class GestorDatos {
      * @param ultimo
      * @return java.util.LinkedList
      */
-    public List<Annotation> getAnnotations(int primero, int ultimo) {
-        LinkedList<Annotation> respuesta = new LinkedList<Annotation>();
-        try {
-            SortedSet<Annotation> anotaciones = almacen.getAnotaciones();
-            Annotation ev_1 = new Annotation(primero);
-            Annotation ev_2 = new Annotation(ultimo + 1);
-            SortedSet<Annotation> anotaciones_en_rango = anotaciones.subSet(ev_1, ev_2);
-            Iterator<Annotation> it = anotaciones_en_rango.iterator();
-            while (it.hasNext()) {
-                respuesta.add(it.next());
-            }
-        } catch (Exception ex) {
-            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
-        }
+//    public List<Mark> getMarks(int num_canal, int primero, int ultimo) {
+//        /* if (true) {
+//            return  new LinkedList();
+//          }*/
+//        int num_senal = (this.mapeaCanalSenal.get(num_canal)).intValue();
+//        LinkedList<Mark> respuesta = new LinkedList<Mark>();
+//        SortedSet<Mark> anotaciones = almacen.getMarcas()[num_senal];
+////        if (anotaciones == null) {
+////            System.out.println("");
+////        }
+//
+//        Mark ev_1 = new Mark(primero);
+//        Mark ev_2 = new Mark(ultimo + 1);
+//        SortedSet<Mark> anotaciones_en_rango = anotaciones.subSet(ev_1, ev_2);
+//        Iterator<Mark> it = anotaciones_en_rango.iterator();
+//        while (it.hasNext()) {
+//            respuesta.add(it.next());
+//        }
+//        return respuesta;
+//    }
 
-        return respuesta;
-
-    }
+    /**
+     * @param num_canal
+     * @param primero
+     * @param ultimo
+     * @return java.util.LinkedList
+     */
+//    public List<Annotation> getAnnotations(int primero, int ultimo) {
+//        LinkedList<Annotation> respuesta = new LinkedList<Annotation>();
+//        try {
+//            SortedSet<Annotation> anotaciones = almacen.getAnotaciones();
+//            Annotation ev_1 = new Annotation(primero);
+//            Annotation ev_2 = new Annotation(ultimo + 1);
+//            SortedSet<Annotation> anotaciones_en_rango = anotaciones.subSet(ev_1, ev_2);
+//            Iterator<Annotation> it = anotaciones_en_rango.iterator();
+//            while (it.hasNext()) {
+//                respuesta.add(it.next());
+//            }
+//        } catch (Exception ex) {
+//            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
+//        }
+//
+//        return respuesta;
+//
+//    }
 
     /**
      * Construye un almacen del tipo especificado.
@@ -273,27 +273,27 @@ public class GestorDatos {
      * @param marcas@param tipo_almacen - Indica que tipo de almacen se desea, si de
      * Float, int Shorth o byte.
      */
-    public void setAlmacen(Object datos, byte[][] pos, SortedSet<Annotation> anotaciones,
-                           TreeSet<Mark>[] marcas, AlmacenDatos.TIPOS tipo_almacen, PTBMInterface ptbm) {
-        switch (tipo_almacen) {
-        case BYTE:
-            almacen = new AlmacenDatosByte((byte[][]) datos, /*pos,*/ anotaciones, marcas);
-            //GestorDatos.TIPO_ALMACEN = AlmacenDatos.BYTE;
-            break;
-
-//        case FLOAT:
+//    public void setAlmacen(Object datos, byte[][] pos, SortedSet<Annotation> anotaciones,
+//                           TreeSet<Mark>[] marcas, AlmacenDatos.TIPOS tipo_almacen, PTBMInterface ptbm) {
+//        switch (tipo_almacen) {
+//        case BYTE:
+//            almacen = new AlmacenDatosByte((byte[][]) datos, /*pos,*/ anotaciones, marcas);
+//            //GestorDatos.TIPO_ALMACEN = AlmacenDatos.BYTE;
+//            break;
+//
+////        case FLOAT:
+////            almacen = new AlmacenDatosFloat((float[][]) datos, pos, anotaciones, marcas, ptbm);
+////            //GestorDatos.TIPO_ALMACEN = AlmacenDatos.FLOAT;
+////            break;
+//
+//        default:
 //            almacen = new AlmacenDatosFloat((float[][]) datos, pos, anotaciones, marcas, ptbm);
 //            //GestorDatos.TIPO_ALMACEN = AlmacenDatos.FLOAT;
 //            break;
-
-        default:
-            almacen = new AlmacenDatosFloat((float[][]) datos, pos, anotaciones, marcas, ptbm);
-            //GestorDatos.TIPO_ALMACEN = AlmacenDatos.FLOAT;
-            break;
-
-        }
-        referencias = new ReferenciaDatos(almacen);
-    }
+//
+//        }
+//        referencias = new ReferenciaDatos(almacen);
+//    }
 
     /**
      * Metodo al que se le pasa un almacenDatos, pasando este a ser el almacen de
@@ -302,7 +302,7 @@ public class GestorDatos {
      */
     public void setAlmacen(AlmacenDatos almacen) {
         this.almacen = almacen;
-        referencias = new ReferenciaDatos(almacen);
+        referencias = new ReferenciaDatos(/*almacen*/);
     }
 
     /**
@@ -312,11 +312,11 @@ public class GestorDatos {
      * @param anotaciones
      * @param marcas
      */
-    public void setAlmacen(float[][] datos, byte[][] pos, SortedSet<Annotation> anotaciones,
-          SortedSet<Mark>[] marcas, PTBMInterface ptbm) {
-        almacen = new AlmacenDatosFloat(datos, pos, anotaciones, marcas, ptbm);
-        referencias = new ReferenciaDatos(almacen);
-    }
+//    public void setAlmacen(float[][] datos, byte[][] pos, SortedSet<Annotation> anotaciones,
+//          SortedSet<Mark>[] marcas, PTBMInterface ptbm) {
+//        almacen = new AlmacenDatosFloat(datos, pos, anotaciones, marcas, ptbm);
+//        referencias = new ReferenciaDatos(almacen);
+//    }
 
     /**
      * @return boolean
@@ -325,12 +325,6 @@ public class GestorDatos {
         return isTiempoReal;
     }
 
-    /**
-     * @param _is_tiempo_real
-     */
-    public static void setRealTime(boolean _is_tiempo_real) {
-        isTiempoReal = _is_tiempo_real;
-    }
 
     /**
      * @return int
@@ -346,43 +340,43 @@ public class GestorDatos {
      * @param senal
      * @param posicion
      */
-    public void anadeReferencia(int senal, int posicion) {
-        this.mapeaSenalCanal.put(senal, posicion);
-        this.mapeaCanalSenal.put(posicion, senal);
-        referencias.anadeReferencia(senal, posicion);
-    }
+//    public void anadeReferencia(int senal, int posicion) {
+//        this.mapeaSenalCanal.put(senal, posicion);
+//        this.mapeaCanalSenal.put(posicion, senal);
+//        referencias.anadeReferencia(senal, posicion);
+//    }
 
     /**
      * Mantiene la consistencia del mapeo cuando se anhade una senhal.
      * La senhal se anhade antes de la posibilidad, por lo que abra que desplazar esta
      * una posicion hacia arriba.
      */
-    public void mantenconsitenciaAlAnhadirSenhal() {
-        //Si hay posibilidad
-        if (almacen.getPosibilidadTotal() != null) {
-            int numero_senhales = almacen.getNumeroSenales();
-            //Y si esta se esta monitorizando
-            if (this.mapeaSenalCanal.get(numero_senhales) != null) {
-                Integer num_canal = this.mapeaSenalCanal.get(numero_senhales);
-                Integer new_senal = numero_senhales;
-                this.mapeaSenalCanal.remove(numero_senhales);
-                this.mapeaSenalCanal.put(new_senal, num_canal);
-                this.mapeaCanalSenal.put(num_canal, new_senal);
-                referencias.eliminaReferencia(num_canal.intValue() - 1);
-                referencias.anadeReferencia(num_canal.intValue(), new_senal.intValue());
-            }
-        }
-    }
+//    public void mantenconsitenciaAlAnhadirSenhal() {
+//        //Si hay posibilidad
+//        if (almacen.getPosibilidadTotal() != null) {
+//            int numero_senhales = almacen.getNumeroSenales();
+//            //Y si esta se esta monitorizando
+//            if (this.mapeaSenalCanal.get(numero_senhales) != null) {
+//                Integer num_canal = this.mapeaSenalCanal.get(numero_senhales);
+//                Integer new_senal = numero_senhales;
+//                this.mapeaSenalCanal.remove(numero_senhales);
+//                this.mapeaSenalCanal.put(new_senal, num_canal);
+//                this.mapeaCanalSenal.put(num_canal, new_senal);
+//                referencias.eliminaReferencia(num_canal.intValue() - 1);
+//                referencias.anadeReferencia(num_canal.intValue(), new_senal.intValue());
+//            }
+//        }
+//    }
 
 
     /**
      * @param senal
      * @param leyendas
      */
-    public void setLeyenda(int senal, String leyendas) {
-        almacen.setLeyenda(senal, leyendas);
-        this.setEstaGuardado(false);
-    }
+//    public void setLeyenda(int senal, String leyendas) {
+//        almacen.setLeyenda(senal, leyendas);
+//        this.setEstaGuardado(false);
+//    }
 
     /**
      * @param senal
@@ -397,10 +391,10 @@ public class GestorDatos {
      * @param senal
      * @return String
      */
-    public String getNombreSenalDelCanal(int senal) {
-        int canal = this.mapeaCanalSenal.get(senal).intValue();
-        return almacen.getNombreSenal(canal) + "\n" + almacen.getLeyenda(canal);
-    }
+//    public String getNombreSenalDelCanal(int senal) {
+//        int canal = this.mapeaCanalSenal.get(senal).intValue();
+//        return almacen.getNombreSenal(canal) + "\n" + almacen.getLeyenda(canal);
+//    }
 
     /**
      * @param senal
@@ -414,11 +408,11 @@ public class GestorDatos {
      * @param senal
      * @param nombre
      */
-    public void setNombreSenal(int senal, String nombre) {
-        almacen.setNombreSenal(senal, nombre);
-        this.setEstaGuardado(false);
-
-    }
+//    public void setNombreSenal(int senal, String nombre) {
+//        almacen.setNombreSenal(senal, nombre);
+//        this.setEstaGuardado(false);
+//
+//    }
 
     /**
      * @return Object
@@ -431,17 +425,17 @@ public class GestorDatos {
      * @return Object
      * @param int canal
      */
-    public Object getPos(int canal) {
-        return this.almacen.getPos(this.mapeaCanalSenal.get(canal).intValue());
-    }
+//    public Object getPos(int canal) {
+//        return this.almacen.getPos(this.mapeaCanalSenal.get(canal).intValue());
+//    }
 
     /**
      * @param senal
      * @return int
      */
-    public Integer getNumeroReferenciaDeSenal(int senal) {
-        return mapeaSenalCanal.get(senal);
-    }
+//    public Integer getNumeroReferenciaDeSenal(int senal) {
+//        return mapeaSenalCanal.get(senal);
+//    }
 
     /**
      * @return int
@@ -461,49 +455,48 @@ public class GestorDatos {
      * Permite averigura en que cana se esta monitorizando la senhal senal
      * @param senal
      */
-    public int getCanalDeSena(int num_canal) {
-        Integer tmp = this.mapeaSenalCanal.get(num_canal);
-        return tmp.intValue();
-    }
+//    public int getCanalDeSenal(int num_canal) {
+//        Integer tmp = this.mapeaSenalCanal.get(num_canal);
+//        return tmp.intValue();
+//    }
 
     /**
      * Anhade una marca al canal especificado.
      * @param senal
      * @param anotacion
      */
-    public void anadMark(int canal, Mark anotacion) {
-        int senal = mapeaCanalSenal.get(canal).intValue();
-        this.almacen.anadeMarca(senal, anotacion);
-        this.setEstaGuardado(false);
-    }
+//    public void anhadeMark(int canal, Mark anotacion) {
+//        int senal = mapeaCanalSenal.get(canal).intValue();
+//        this.almacen.anadeMarca(senal, anotacion);
+//        this.setEstaGuardado(false);
+//    }
 
     /**
      * Elimina una marca al canal especificado.
      * @param senal
      * @param anotacion
      */
-    public void deleteMark(int canal, Mark anotacion) {
-        int senal = this.mapeaCanalSenal.get(canal).intValue();
-        this.almacen.eliminaMarca(senal, anotacion);
-        this.setEstaGuardado(false);
-    }
+//    public void deleteMark(int canal, Mark anotacion) {
+//        int senal = this.mapeaCanalSenal.get(canal).intValue();
+//        this.almacen.eliminaMarca(senal, anotacion);
+//        this.setEstaGuardado(false);
+//    }
 
     /**
      * @param anotacion
      */
-    public void addAnnotation(Annotation anotacion) {
-        this.almacen.anadeAnotacion(anotacion);
-        this.setEstaGuardado(false);
-
-    }
+//    public void addAnnotation(Annotation anotacion) {
+//        this.almacen.anadeAnotacion(anotacion);
+//        this.setEstaGuardado(false);
+//    }
 
     /**
      * @param anotacion
      */
-    public void deleteAnnotation(Annotation anotacion) {
-        this.almacen.eliminaAnotacion(anotacion);
-        this.setEstaGuardado(false);
-    }
+//    public void deleteAnnotation(Annotation anotacion) {
+//        this.almacen.eliminaAnotacion(anotacion);
+//        this.setEstaGuardado(false);
+//    }
 
     /**
      * Indica si el almacen de datos actual esta o no guardado
@@ -570,7 +563,7 @@ public class GestorDatos {
      * Este metodo devuelve el numero de datos de un canal determinado
      */
 
-    public int getNumeroDatos(int i) {
+    private int getNumeroDatos(int i) {
         return Array.getLength(((Object[]) almacen.getDatos())[i]);
     }
 
@@ -581,9 +574,9 @@ public class GestorDatos {
         return this.almacen.getDatos(i);
     }
 
-    public void setDatos(int numSenal, float[] nuevosDatos) {
-        almacen.setDatos(numSenal, nuevosDatos);
-    }
+//    public void setDatos(int numSenal, float[] nuevosDatos) {
+//        almacen.setDatos(numSenal, nuevosDatos);
+//    }
 
     /**
      * Asigna una BC  este almacen
@@ -656,11 +649,11 @@ public class GestorDatos {
      * un gestor de datos se creara uno nuevo. Consecuentemente se elimina el
      * almacen de datos asociado.
      */
-    public static void eliminaGestorDatos() {
-        instancia.almacen = null;
-        instancia.numeroSenalesMonitorizadas = 0;
-        instancia.estaGuardado = true;
-    }
+//    public static void eliminaGestorDatos() {
+//        instancia.almacen = null;
+//        instancia.numeroSenalesMonitorizadas = 0;
+//        instancia.estaGuardado = true;
+//    }
 
     /**
      * Este metodo devuelve la fecha base de este almacen
@@ -743,20 +736,20 @@ public class GestorDatos {
      * @param num_canal
      * @param fs
      */
-    public void setFs(int num_canal, float fs) {
-        //almacen.setFs(fs,((Integer)(this.mapea_canal_senal.get(new Integer(num_canal)))).intValue());
-        almacen.setFs(fs, num_canal);
-    }
+//    public void setFs(int num_canal, float fs) {
+//        //almacen.setFs(fs,((Integer)(this.mapea_canal_senal.get(new Integer(num_canal)))).intValue());
+//        almacen.setFs(fs, num_canal);
+//    }
 
     /**
      *
      * @param num_senal
      * @param fs
      */
-    public void setFsSenal(int num_senal, float fs) {
-        almacen.setFs(fs, num_senal);
-        this.setEstaGuardado(false);
-    }
+//    public void setFsSenal(int num_senal, float fs) {
+//        almacen.setFs(fs, num_senal);
+//        this.setEstaGuardado(false);
+//    }
 
 
     /**
@@ -773,9 +766,9 @@ public class GestorDatos {
      * @param num_senal
      * @return
      */
-    public float getFsSenhal(int num_senal) {
-        return almacen.getFs(num_senal);
-    }
+//    public float getFsSenhal(int num_senal) {
+//        return almacen.getFs(num_senal);
+//    }
 
     public void setMaximaDuracionDelRegistro(int i) {
         this.duracionTotalRegistro = i;
@@ -841,9 +834,9 @@ public class GestorDatos {
      * @param estadistico
      * @return
      */
-    public boolean eliminaEstadistico(String estadistico) {
-        return almacen.eliminaEstadistico(estadistico);
-    }
+//    public boolean eliminaEstadistico(String estadistico) {
+//        return almacen.eliminaEstadistico(estadistico);
+//    }
 
     /**
      * Elimina la correlacion indicado por la key que se le pasa. La key de un estadistico es el
@@ -853,32 +846,32 @@ public class GestorDatos {
      * @param estadistico
      * @return
      */
-    public boolean eliminaCorrelacion(String correlacion) {
-        return almacen.eliminaCorrelacion(correlacion);
-    }
+//    public boolean eliminaCorrelacion(String correlacion) {
+//        return almacen.eliminaCorrelacion(correlacion);
+//    }
 
     /**
      * Elimina la correlacion que se le pasa.
      * @param estadistico
      * @return
      */
-    public boolean eliminaCorrelacion(ResultadoCorrelacion correlacion) {
-        return almacen.eliminaCorrelacion(correlacion);
-    }
+//    public boolean eliminaCorrelacion(ResultadoCorrelacion correlacion) {
+//        return almacen.eliminaCorrelacion(correlacion);
+//    }
 
     /**
      * Elimina todos los estadisticos.
      */
-    public void eliminaTodosLosEstadisticos() {
-        almacen.eliminaTodosLosEstadisticos();
-    }
+//    public void eliminaTodosLosEstadisticos() {
+//        almacen.eliminaTodosLosEstadisticos();
+//    }
 
     /**
      * Elimina todos los estadisticos.
      */
-    public void eliminaTodosLasCorrelaciones() {
-        almacen.eliminaTodasLasCorrelaciones();
-    }
+//    public void eliminaTodosLasCorrelaciones() {
+//        almacen.eliminaTodasLasCorrelaciones();
+//    }
 
     /**
      * Devuelve todos los estadisticos como un colection.
@@ -911,25 +904,24 @@ public class GestorDatos {
      * @param estadistico
      * @return
      */
-    public ResultadosEstadisticos getEstadistico(String estadistico) {
-        if (almacen == null) {
-           return null;
-        }
-        return almacen.getEstadistico(estadistico);
-    }
+//    public ResultadosEstadisticos getEstadistico(String estadistico) {
+//        if (almacen == null) {
+//           return null;
+//        }
+//        return almacen.getEstadistico(estadistico);
+//    }
 
     /**
      * Devuelve el resultado estadistico asociado con el String que se le pasa.
      * @param estadistico
      * @return
      */
-    public ResultadoCorrelacion getCorrelacion(String correlacion) {
-        if (almacen != null) {
-            return almacen.getCorrelacion(correlacion);
-        } else {
-            return null;
-        }
-    }
+//    public ResultadoCorrelacion getCorrelacion(String correlacion) {
+//        if (almacen == null) {
+//            return null;
+//        }
+//        return almacen.getCorrelacion(correlacion);
+//    }
 
     /**
      * Devuelve un array con los indices de la senhales que se estan monitorizando en este momento.
@@ -967,45 +959,5 @@ public class GestorDatos {
                 _senales_que_se_monitorizaron_la_ultima_vez;
     }
 
-    /**
-     * Elimina los posibles ceros finales de todos las senhales del almacen y reajusta
-     * el tamanho tanto del registro como del monitor.
-     */
-    public void eliminaCerosFinalesDelRegistro() {
-        int numSenales = this.getNumeroSenales();
-        int nuevaLongitudMaxima = 0;
-        for (int i = 0; i < numSenales; i++) {
-            float[] nuvosDatos = Remuestrea.elimina0Finales((float[])this.
-                    getDatos(i));
-            nuevaLongitudMaxima = Math.max(nuevaLongitudMaxima,
-                                           nuvosDatos.length);
-            this.setDatos(i, nuvosDatos);
-            //Reajustamos tambien la posibilidad
-            //Primero comprovamos si esta senhal tiene posibilidad
-            if (!almacen.isPosAsociada(i)) {
-                continue;
-            }
-
-            byte[] pos = (byte[])this.getPos(i);
-            byte[] nuevaPos = new byte[nuvosDatos.length];
-            for (int j = 0; j < nuevaPos.length; j++) {
-                nuevaPos[j] = pos[j];
-            }
-            //Y almacenamos la nueva posibilidad
-            almacen.setPos(i, nuevaPos);
-        }
-        //Y finalmente reajusamos la longitud maxima de la posibilidad total
-        byte[] posTotal = this.getPosibilidadTotal();
-        if (posTotal != null) {
-            byte[] nuevaPosTotal = new byte[nuevaLongitudMaxima];
-            for (int i = 0; i < nuevaPosTotal.length; i++) {
-                nuevaPosTotal[i] = posTotal[i];
-            }
-            almacen.setPosibilidadTotal(nuevaPosTotal);
-        }
-        //Esto tambien cambia el tamanho del monitor
-        this.setMaximaDuracionDelRegistro(nuevaLongitudMaxima);
-
-    }
 
 }

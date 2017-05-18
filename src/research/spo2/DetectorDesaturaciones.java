@@ -8,15 +8,44 @@ import java.util.Arrays;
  * @author Abraham Otero
  * @version 0.5
  */
-public class DetectorDesaturaciones {
+class DetectorDesaturaciones {
+    private static final int TAMANO_BUFFER = 120; //120 segundos
+    private static final int TIEMPO_CALCULO_BASAL = 10; //el valor basal se refresca cada 10 segundos
+
+    //para el calculo del grado de posibilidad de cada desaturacion
+
+    //comienzo del soporte de la distribucion de posibilidad trapezoidal que indica la caida minima
+    //de una desaturacion para ser considerada relevante
+    private static final float LIMITE_DESATURACION_P0 = 3;
+    //comienzo del nucleo de la distribucin anterior; el fin del nucleo es infinito
+    private static final float LIMITE_DESATURACIO_NP1 = 10;
+    //comienzo del soporte de la distribucion de posibilidad trapezoidal que indica la
+    // duracion minima de una desaturacion para ser considerada relevante
+    private static final float LIMITE_DURACION_P0 = 5;
+    //comienzo del nucleo de la distribucin anterior; el fin del nucleo es infinito
+    private static final float LIMITE_DURACION_P1 = 12;
+
+    //variables auxiliares; son valores precalculados Para no tener que calcularlos varias veces
+    private static final float mTiempoDistribucionTrapezoidal = 1 /
+            (LIMITE_DURACION_P1 - LIMITE_DESATURACION_P0);
+    private static final float bTiempoDistribucionTrapezoidal =
+            -LIMITE_DESATURACION_P0 * mTiempoDistribucionTrapezoidal;
+    private static final float mMagnitudDistribucionTrapezoidal =
+            1 / (LIMITE_DESATURACIO_NP1 - LIMITE_DESATURACION_P0);
+    private static final float bMagnitudDistribucionTrapezoidal =
+            -LIMITE_DESATURACION_P0 * mTiempoDistribucionTrapezoidal;
+
     //variables para almacenar los datos en un buffer y para suavizar la entrada
-    private final int tamanoBuffer = 120; //120 segundos
-    private float[] datos = new float[tamanoBuffer];
-    private float pasado, presente = 0, futuro = 0; //para calcular la mediana de tres
+
+    private float[] datos = new float[TAMANO_BUFFER];
+    // para calcular la mediana de tres
+    private float pasado;
+    private float presente = 0;
+    private float futuro = 0;
 
     //Para el calculo del valor basal
     private float valorBasal = 100; //aqui se almacena el valor basal
-    private final int tiempoCalculoBasal = 10; //el valor basal se refresca cada 10 segundos
+
 
     //para llevar cuenta del tiempo
     private long origenDeTiempo = 0; //origen de tiempos
@@ -38,28 +67,9 @@ public class DetectorDesaturaciones {
     private float valorPrincipioDesat; //valor al principio
     private float valorMinDesat = Float.MAX_VALUE; //Valor minimo que ha alcanzado
 
-    //para el calculo del grado de posibilidad de cada desaturacion
 
-    //comienzo del soporte de la distribucion de posibilidad trapezoidal que indica la caida minima
-    //de una desaturacion para ser considerada relevante
-    private final float limiteDesaturacionP0 = 3;
-    //comienzo del nucleo de la distribucin anterior; el fin del nucleo es infinito
-    private final float limiteDesaturacionP1 = 10;
-    //comienzo del soporte de la distribucion de posibilidad trapezoidal que indica la
-    // duracion minima de una desaturacion para ser considerada relevante
-    private final float limiteDuracionP0 = 5;
-    //comienzo del nucleo de la distribucin anterior; el fin del nucleo es infinito
-    private final float limiteDuracionP1 = 12;
 
-    //variables auxiliares; son valores precalculados Para no tener que calcularlos varias veces
-    private final float mTiempoDistribucionTrapezoidal = 1 /
-            (limiteDuracionP1 - limiteDesaturacionP0);
-    private final float bTiempoDistribucionTrapezoidal =
-            -limiteDesaturacionP0 * mTiempoDistribucionTrapezoidal;
-    private final float mMagnitudDistribucionTrapezoidal =
-            1 / (limiteDesaturacionP1 - limiteDesaturacionP0);
-    private final float bMagnitudDistribucionTrapezoidal =
-            -limiteDesaturacionP0 * mTiempoDistribucionTrapezoidal;
+
 
 
     /**
@@ -74,7 +84,7 @@ public class DetectorDesaturaciones {
      * @param nuevoDato float
      * @return Desaturacion
      */
-    public Desaturacion anadeDato(float nuevoDato) {
+    Desaturacion anadeDato(float nuevoDato) {
         indice++;
         tiempo++;
         //Suabizambos mediante una mediana calculada con la muestra anterior y siguiente
@@ -85,17 +95,17 @@ public class DetectorDesaturaciones {
             datos[indice] = nuevoDato; //guardamos el dato
             return null;
         }
-        nuevoDato = medianaDeTres();
-        if (indice == tamanoBuffer) { //si se lleno
+        float mediana = medianaDeTres();
+        if (indice == TAMANO_BUFFER) { //si se lleno
             //comienza a funcionar el comportamiento cilico
             if (!cicloActivado) {
                 cicloActivado = true;
             }
             indice = 0; //hay que volver al principio
         }
-        datos[indice] = nuevoDato; //guardamos el dato
+        datos[indice] = mediana; //guardamos el dato
         // cada X segundos actualizamos al valor basal
-        if (tiempo % tiempoCalculoBasal == 0) {
+        if (tiempo % TIEMPO_CALCULO_BASAL == 0) {
             calculaValorBasal();
         }
         if (epezadaDesat) {
@@ -112,16 +122,12 @@ public class DetectorDesaturaciones {
      *
      * @return Desaturacion
      */
-    public Desaturacion paraDeteccion() {
-        if (notificadoInicio) {
-            return transicionASinDeteccion();
-        }
-
-        else {
-            return null;
-        }
-
-    }
+//    public Desaturacion paraDeteccion() {
+//        if (notificadoInicio) {
+//            return transicionASinDeteccion();
+//        }
+//        return null;
+//    }
 
     /**
      * Calcula la mediana de las variables "pasado", "presente" y " futuro". Se usa para filtrar los
@@ -130,7 +136,7 @@ public class DetectorDesaturaciones {
      * @return float
      */
     private float medianaDeTres() {
-        float d = 0.0F;
+        float d;
         if (pasado <= presente && futuro >= presente || pasado >= presente && futuro <= presente) {
             d = presente;
         } else if (pasado <= presente && pasado >= futuro || pasado >= presente && pasado <= futuro) {
@@ -170,13 +176,14 @@ public class DetectorDesaturaciones {
      */
     private float calculaMedia(float[] tmp) {
         float suma = 0;
-        int fin, principio;
-        if (tiempo < tamanoBuffer) {
+        int fin;
+        int principio;
+        if (tiempo < TAMANO_BUFFER) {
             fin = tmp.length - tmp.length / 10;
             principio = tmp.length - 1;
         } else {
-            fin = tamanoBuffer - tamanoBuffer / 10;
-            principio = tamanoBuffer - 1;
+            fin = TAMANO_BUFFER - TAMANO_BUFFER / 10;
+            principio = TAMANO_BUFFER - 1;
         }
         for (int i = principio; i >= fin; i--) {
             suma += tmp[i];
@@ -191,7 +198,7 @@ public class DetectorDesaturaciones {
      * @return Desaturacion
      */
     private Desaturacion compruebaDesaturacion() {
-        if (valorBasal - datos[indice] > limiteDesaturacionP0) {
+        if (valorBasal - datos[indice] > LIMITE_DESATURACION_P0) {
             //Empezo otra antes de que las heuristicas marcasen el fin de la anterior
             if (buscandoFinDesat) {
                 if (notificadoInicio) {
@@ -207,12 +214,12 @@ public class DetectorDesaturaciones {
             }
             if (epezadaDesat && !notificadoInicio) {
                 //si al menos se ha producido una cada de limiteDesaturacionP0-1
-                if (valorPrincipioDesat - datos[indice] > limiteDesaturacionP0 - 1) {
+                if (valorPrincipioDesat - datos[indice] > LIMITE_DESATURACION_P0 - 1) {
                     caidaMinimaDeLaDesatCumplida = true;
                 } else {
                     caidaMinimaDeLaDesatCumplida = false;
                 }
-                if (tiempo - tiempoPrincipioDesat > limiteDuracionP0) {
+                if (tiempo - tiempoPrincipioDesat > LIMITE_DURACION_P0) {
                     duracionMinimaDeLaDesat = true;
                 } else {
                     caidaMinimaDeLaDesatCumplida = false;
@@ -332,14 +339,15 @@ public class DetectorDesaturaciones {
     private int refinarFin(int fin) {
         int indice1 = indice;
         int indice2 = this.corrigeIndice(indice - 1);
+        int retorno = fin;
         while (datos[indice1] <= datos[indice2]) {
-            fin--;
+            retorno--;
             indice1--;
             indice2--;
             indice1 = corrigeIndice(indice1);
             indice2 = corrigeIndice(indice2);
         }
-        return fin;
+        return retorno;
     }
 
     /**
@@ -361,9 +369,9 @@ public class DetectorDesaturaciones {
      * @return float
      */
     private float evaluarDuracion(int duracion) {
-        if (duracion <= this.limiteDuracionP0) {
+        if (duracion <= LIMITE_DURACION_P0) {
             return 0;
-        } else if (duracion >= this.limiteDuracionP1) {
+        } else if (duracion >= LIMITE_DURACION_P1) {
             return 1;
         } else {
             return mTiempoDistribucionTrapezoidal * duracion + bTiempoDistribucionTrapezoidal;
@@ -377,9 +385,9 @@ public class DetectorDesaturaciones {
      */
     private float evaluarCaida() {
         float caida = valorPrincipioDesat - valorMinDesat;
-        if (caida <= this.limiteDesaturacionP0) {
+        if (caida <= LIMITE_DESATURACION_P0) {
             return 0;
-        } else if (caida >= this.limiteDesaturacionP1) {
+        } else if (caida >= LIMITE_DESATURACIO_NP1) {
             return 1;
         } else {
             return mMagnitudDistribucionTrapezoidal * caida + bMagnitudDistribucionTrapezoidal;
@@ -409,7 +417,7 @@ public class DetectorDesaturaciones {
      */
     private int corrigeIndice(int i) {
         if (i < 0) {
-            return tamanoBuffer + i;
+            return TAMANO_BUFFER + i;
         }
         return i;
     }

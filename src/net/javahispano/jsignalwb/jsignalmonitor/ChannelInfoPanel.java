@@ -78,7 +78,7 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
         //setPointVisible(true);
     }
 
-    public void showInfoConfigPanel() {
+    private void showInfoConfigPanel() {
         new ChannelInfoConfigPanel(jsmp).showJWindow(jsmp);
     }
 
@@ -352,11 +352,11 @@ class ChannelInfoPanel extends JPanel implements MouseTimeChangeListener {
         JSWBManager.getJSWBManagerInstance().refreshJSM(false);
     }
 
-    public void labelUp_mousePressed() {
+    private void labelUp_mousePressed() {
         desplazaSignal(false);
     }
 
-    public void labelDown_mousePressed() {
+    private void labelDown_mousePressed() {
         desplazaSignal(true);
     }
 

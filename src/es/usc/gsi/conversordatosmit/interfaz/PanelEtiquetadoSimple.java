@@ -3,7 +3,7 @@ package es.usc.gsi.conversordatosmit.interfaz;
 import es.usc.gsi.conversordatosmit.ficheros.FicheroHead;
 
 
-public class PanelEtiquetadoSimple extends PanelEtiquetadoGeneral {
+class PanelEtiquetadoSimple extends PanelEtiquetadoGeneral {
 
     /**
     *
@@ -12,7 +12,7 @@ public class PanelEtiquetadoSimple extends PanelEtiquetadoGeneral {
     private ScrollPanelParametros scrollPanel;
 
 
-    public PanelEtiquetadoSimple(FicheroHead[] ficherosHead) {
+    PanelEtiquetadoSimple(FicheroHead[] ficherosHead) {
         this.creaScrollPanel(ficherosHead);
     }
 

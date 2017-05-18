@@ -21,18 +21,18 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman
  */
-public class ShowPropertiesAction extends AbstractAction {
+class ShowPropertiesAction extends AbstractAction {
     /**
      *
      */
     private static final long serialVersionUID = -1986385710540327614L;
 
-    String signalName;
-    JSWBManager jswbManager;
-    Window owner;
+    private String signalName;
+    private JSWBManager jswbManager;
+    private Window owner;
 
     /** Creates a new instance of ShowPropertiesAction */
-    public ShowPropertiesAction(String signalName, JSWBManager jswbManager, Window owner) {
+    ShowPropertiesAction(String signalName, JSWBManager jswbManager, Window owner) {
         this.signalName = signalName;
         this.jswbManager = jswbManager;
         this.owner = owner;

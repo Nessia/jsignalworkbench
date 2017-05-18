@@ -43,7 +43,7 @@ public final class FicheroHead extends File {
      * Constructores
      */
 
-    public FicheroHead(String nombreFichero) throws FicheroNoValidoException {
+    private FicheroHead(String nombreFichero) throws FicheroNoValidoException {
         super(nombreFichero);
         FileReader fr = null;
         BufferedReader br = null;
@@ -312,9 +312,9 @@ public final class FicheroHead extends File {
     }
 
     ////////////////////
-    public Parametro getParametro(int indice) {
-        return parametros[indice];
-    }
+//    public Parametro getParametro(int indice) {
+//        return parametros[indice];
+//    }
 
     @Override
     public boolean equals(Object obj) {

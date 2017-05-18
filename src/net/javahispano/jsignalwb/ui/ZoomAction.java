@@ -19,7 +19,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  *
  * @author Roman
  */
-public class ZoomAction extends AbstractAction {
+class ZoomAction extends AbstractAction {
     /**
      *
      */
@@ -29,7 +29,7 @@ public class ZoomAction extends AbstractAction {
     private int value;
 
     /** Creates a new instance of VisibleAction */
-    public ZoomAction(JSignalMonitor jsm, String signalName, int value) {
+    ZoomAction(JSignalMonitor jsm, String signalName, int value) {
         this.jsm = jsm;
         this.signalName = signalName;
         this.value = value;

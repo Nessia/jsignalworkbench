@@ -65,7 +65,7 @@ public class DetailPluginInfoPanel extends javax.swing.JPanel {
         }
     }
 
-    public void initPluginTypeInfo() {
+    private void initPluginTypeInfo() {
         loaderPane.setVisible(false);
         saverPane.setVisible(false);
         algorithmPane.setVisible(false);

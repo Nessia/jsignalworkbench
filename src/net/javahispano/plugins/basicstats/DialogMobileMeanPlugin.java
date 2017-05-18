@@ -2,6 +2,8 @@ package net.javahispano.plugins.basicstats;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -19,11 +21,13 @@ import javax.swing.event.ChangeListener;
  * @author Abraham Otero
  * @version 0.5
  */
-public class DialogMobileMeanPlugin extends JDialog {
+class DialogMobileMeanPlugin extends JDialog {
     /**
      *
      */
     private static final long serialVersionUID = 991651277729704027L;
+
+    private static final Logger LOGGER = Logger.getLogger(DialogMobileMeanPlugin.class.getName());
 
     private int window;
     private int oldWindow;
@@ -41,19 +45,20 @@ public class DialogMobileMeanPlugin extends JDialog {
     private JSlider jSlider1 = new JSlider();
     private JTextField textDuration = new JTextField();
     private JCheckBox jCheckBox1 = new JCheckBox();
-    FlowLayout flowLayout1 = new FlowLayout();
-    FlowLayout flowLayout2 = new FlowLayout();
-    JCheckBox jCheckBox2 = new JCheckBox();
-    JTextField jTextField1 = new JTextField();
-    public DialogMobileMeanPlugin(Frame owner, String title, boolean modal,
+    private FlowLayout flowLayout1 = new FlowLayout();
+    private FlowLayout flowLayout2 = new FlowLayout();
+    private JCheckBox jCheckBox2 = new JCheckBox();
+    private JTextField jTextField1 = new JTextField();
+
+    DialogMobileMeanPlugin(Frame owner, String title, boolean modal,
                                   int window) {
         super(owner, title, modal);
         try {
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             jbInit();
             pack();
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
         }
         this.ajustarSlider(window);
         jSlider1.setValue(window);
@@ -113,7 +118,7 @@ public class DialogMobileMeanPlugin extends JDialog {
         jPanel2.add(jTextField1);
     }
 
-    public void textDuration_actionPerformed(ActionEvent e) {
+    void textDuration_actionPerformed() {
         try {
             int valor = Integer.parseInt(textDuration.getText());
             ajustarSlider(valor);
@@ -132,11 +137,11 @@ public class DialogMobileMeanPlugin extends JDialog {
             }
     }
 
-    public void textDuration_focusLost(FocusEvent focusEvent) {
-        this.textDuration_actionPerformed(null);
+    void textDuration_focusLost() {
+        this.textDuration_actionPerformed();
     }
 
-    public void jSlider1_stateChanged(ChangeEvent changeEvent) {
+    void jSlider1_stateChanged() {
         int valor = jSlider1.getValue();
         textDuration.setText(Integer.toString(valor));
     }
@@ -163,12 +168,12 @@ public class DialogMobileMeanPlugin extends JDialog {
         return rellenar;
     }
 
-    public void jButton2_actionPerformed(ActionEvent e) {
+    void jButton2_actionPerformed() {
         this.dispose();
         this.window = oldWindow;
     }
 
-    public void jButton1_actionPerformed(ActionEvent e) {
+    void jButton1_actionPerformed() {
         this.window = jSlider1.getValue();
         this.mediana = jCheckBox1.isSelected();
         if (this.jCheckBox2.isSelected()) {
@@ -187,12 +192,8 @@ public class DialogMobileMeanPlugin extends JDialog {
 
     }
 
-    public void jCheckBox2_itemStateChanged(ItemEvent e) {
-        if (e.getStateChange() == ItemEvent.SELECTED) {
-            this.jTextField1.setEnabled(true);
-        } else {
-            this.jTextField1.setEnabled(false);
-        }
+    void jCheckBox2_itemStateChanged(ItemEvent e) {
+        this.jTextField1.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
     }
 
     public void setRellenar(boolean rellenar) {
@@ -207,15 +208,14 @@ public class DialogMobileMeanPlugin extends JDialog {
 
     public void setValorRelleno(float valorRelleno) {
         this.valorRelleno = valorRelleno;
-        this.jTextField1.setText("" + valorRelleno);
+        this.jTextField1.setText(Float.toString(valorRelleno));
     }
 }
 
 
 class DialogMobileMeanPlugin_jCheckBox2_itemAdapter implements ItemListener {
     private DialogMobileMeanPlugin adaptee;
-    DialogMobileMeanPlugin_jCheckBox2_itemAdapter(DialogMobileMeanPlugin
-                                                  adaptee) {
+    DialogMobileMeanPlugin_jCheckBox2_itemAdapter(DialogMobileMeanPlugin adaptee) {
         this.adaptee = adaptee;
     }
 
@@ -228,14 +228,13 @@ class DialogMobileMeanPlugin_jCheckBox2_itemAdapter implements ItemListener {
 
 class DialogMobileMeanPlugin_jButton1_actionAdapter implements ActionListener {
     private DialogMobileMeanPlugin adaptee;
-    DialogMobileMeanPlugin_jButton1_actionAdapter(DialogMobileMeanPlugin
-                                                  adaptee) {
+    DialogMobileMeanPlugin_jButton1_actionAdapter(DialogMobileMeanPlugin adaptee) {
         this.adaptee = adaptee;
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        adaptee.jButton1_actionPerformed(actionEvent);
+        adaptee.jButton1_actionPerformed();
     }
 }
 
@@ -250,35 +249,33 @@ class DialogMobileMeanPlugin_textDuration_actionAdapter implements
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.textDuration_actionPerformed(e);
+        adaptee.textDuration_actionPerformed();
     }
 }
 
 
 class DialogMobileMeanPlugin_jSlider1_changeAdapter implements ChangeListener {
     private DialogMobileMeanPlugin adaptee;
-    DialogMobileMeanPlugin_jSlider1_changeAdapter(DialogMobileMeanPlugin
-                                                  adaptee) {
+    DialogMobileMeanPlugin_jSlider1_changeAdapter(DialogMobileMeanPlugin adaptee) {
         this.adaptee = adaptee;
     }
 
     @Override
     public void stateChanged(ChangeEvent changeEvent) {
-        adaptee.jSlider1_stateChanged(changeEvent);
+        adaptee.jSlider1_stateChanged();
     }
 }
 
 
 class DialogMobileMeanPlugin_jButton2_actionAdapter implements ActionListener {
     private DialogMobileMeanPlugin adaptee;
-    DialogMobileMeanPlugin_jButton2_actionAdapter(DialogMobileMeanPlugin
-                                                  adaptee) {
+    DialogMobileMeanPlugin_jButton2_actionAdapter(DialogMobileMeanPlugin adaptee) {
         this.adaptee = adaptee;
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        adaptee.jButton2_actionPerformed(actionEvent);
+        adaptee.jButton2_actionPerformed();
     }
 }
 
@@ -292,6 +289,6 @@ class DialogMobileMeanPlugin_textDuration_focusAdapter extends FocusAdapter {
 
     @Override
     public void focusLost(FocusEvent focusEvent) {
-        adaptee.textDuration_focusLost(focusEvent);
+        adaptee.textDuration_focusLost();
     }
 }

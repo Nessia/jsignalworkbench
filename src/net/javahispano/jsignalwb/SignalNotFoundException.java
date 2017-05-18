@@ -14,17 +14,7 @@ public class SignalNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 5893109286439727406L;
 
     private final String signalName;
-    /**
-     * SignalNotFoundException
-     *
-     * @param signalName nombre de la senhal que no se ha encontrado.
-     * @param msg mensajes de error.
-     * @param e Throwable que ha provocado esta excepcion.
-     */
-    public SignalNotFoundException(String signalName, String msg, Throwable e) {
-        super(generateMessage(msg, signalName), e);
-        this.signalName = signalName;
-    }
+    
 
 
     /**
@@ -33,7 +23,7 @@ public class SignalNotFoundException extends RuntimeException {
      * @param signalName nombre de la senhal que no se ha encontrado.
      * @param msg mensajes de error.
      */
-    public SignalNotFoundException(String signalName, String msg) {
+    SignalNotFoundException(String signalName, String msg) {
         super(generateMessage(msg, signalName));
         this.signalName = signalName;
     }

@@ -17,7 +17,7 @@ import net.javahispano.jsignalwb.plugins.framework.PluginManagerPanel;
  *
  * @author Roman Segador
  */
-public class ShowPluginManagerAction extends AbstractAction {
+class ShowPluginManagerAction extends AbstractAction {
     /**
      *
      */
@@ -25,7 +25,7 @@ public class ShowPluginManagerAction extends AbstractAction {
     //private JSWBManager jswbManager;
     private Window owner;
 
-    public ShowPluginManagerAction(/*JSWBManager jswbManager,*/ Window owner) {
+    ShowPluginManagerAction(/*JSWBManager jswbManager,*/ Window owner) {
 //        this.jswbManager = jswbManager;
         this.owner = owner;
         this.putValue(NAME, String.valueOf("Plugin Manager"));

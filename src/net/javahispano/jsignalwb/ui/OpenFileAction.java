@@ -20,7 +20,7 @@ import net.javahispano.jsignalwb.JSWBManager;
 /**
  * @author Roman
  */
-public class OpenFileAction extends AbstractAction {
+class OpenFileAction extends AbstractAction {
     /**
      *
      */
@@ -33,7 +33,7 @@ public class OpenFileAction extends AbstractAction {
      * Creates a new instance of OpenFileAction
      * @param jswbManager JSWBManager
      */
-    public OpenFileAction(JSWBManager jswbManager) {
+    OpenFileAction(JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
         chooser = new JSWFileChooser(JSWBManager.getPluginManager());
         this.putValue(NAME, "Open file");

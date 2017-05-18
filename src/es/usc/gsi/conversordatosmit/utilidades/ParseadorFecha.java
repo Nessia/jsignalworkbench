@@ -26,11 +26,9 @@ public class ParseadorFecha {
     }
 
 
-// Devuelve el numero de segundos desde 1-1-1970 00:00:00
-    public static long convierteASegundos(String fecha) {
-
+    // Devuelve el numero de segundos desde 1-1-1970 00:00:00
+    private static long convierteASegundos(String fecha) {
         long res = 0;
-
         try {
             Date f = CONVERSOR_A_DATE.parse(fecha); // Convertimos en un objeto Date
             res = f.getTime() / 1000; // Convertimos el tiempo en milisegundos a segundos

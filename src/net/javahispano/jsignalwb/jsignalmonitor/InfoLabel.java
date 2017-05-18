@@ -7,7 +7,7 @@
 
 package net.javahispano.jsignalwb.jsignalmonitor;
 
-import java.awt.*;
+//import java.awt.*;
 
 /**
  *
@@ -25,7 +25,7 @@ class InfoLabel {
         this(20, 20, 20);
     }
 
-    public InfoLabel(int infoHOffset,
+    private InfoLabel(int infoHOffset,
                      int infoVOffset,
                      int infoFieldsOffset) {
         //setName(name);
@@ -35,20 +35,20 @@ class InfoLabel {
         setInfoFieldsOffset(infoFieldsOffset);
     }
 
-    public void paintInfoLabel(Graphics2D g2d, Point p, String name, String magnitude) {
-        g2d.setColor(Color.BLUE);
-        g2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
-
-        g2d.drawString("Name: " + name, (float) (p.getX() + getInfoHOffset()),
-                       (float) (p.getY() + getInfoVOffset()));
-        g2d.drawString("Magnitude: " + magnitude,
-                       (float) (p.getX() + getInfoHOffset()),
-                       (float) (p.getY() + getInfoVOffset() +
-                                getInfoFieldsOffset()));
-        /* g2d.drawString("Date:"+TimePositionConverter.timeToDateString(valX),(float)(p.getX()+getInfoHOffset()),(float)(p.getY()+getInfoVOffset()+2*getInfoFieldsOffset()));
-         g2d.drawString("Time:"+TimePositionConverter.timeToHourString(valX),(float)(p.getX()+getInfoHOffset()),(float)(p.getY()+getInfoVOffset()+3*getInfoFieldsOffset()));
-         g2d.drawString("Value:"+valY,(float)(p.getX()+getInfoHOffset()),(float)(p.getY()+getInfoVOffset()+4*getInfoFieldsOffset()));*/
-    }
+//    public void paintInfoLabel(Graphics2D g2d, Point p, String name, String magnitude) {
+//        g2d.setColor(Color.BLUE);
+//        g2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
+//
+//        g2d.drawString("Name: " + name, (float) (p.getX() + getInfoHOffset()),
+//                       (float) (p.getY() + getInfoVOffset()));
+//        g2d.drawString("Magnitude: " + magnitude,
+//                       (float) (p.getX() + getInfoHOffset()),
+//                       (float) (p.getY() + getInfoVOffset() +
+//                                getInfoFieldsOffset()));
+//        /* g2d.drawString("Date:"+TimePositionConverter.timeToDateString(valX),(float)(p.getX()+getInfoHOffset()),(float)(p.getY()+getInfoVOffset()+2*getInfoFieldsOffset()));
+//         g2d.drawString("Time:"+TimePositionConverter.timeToHourString(valX),(float)(p.getX()+getInfoHOffset()),(float)(p.getY()+getInfoVOffset()+3*getInfoFieldsOffset()));
+//         g2d.drawString("Value:"+valY,(float)(p.getX()+getInfoHOffset()),(float)(p.getY()+getInfoVOffset()+4*getInfoFieldsOffset()));*/
+//    }
 
     /* public String getName() {
          return name;

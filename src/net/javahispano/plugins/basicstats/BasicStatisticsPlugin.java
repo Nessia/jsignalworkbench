@@ -33,8 +33,8 @@ import org.jdom.output.XMLOutputter;
 public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
 
     private static final Logger LOGGER = Logger.getLogger(BasicStatisticsPlugin.class.getName());
-    public static final String EL_PERCENTIL = "Percentil";
-    public static final String ATTR_PERCENTIL = "Percentil";
+    private static final String EL_PERCENTIL = "Percentil";
+    private static final String ATTR_PERCENTIL = "Percentil";
 
     /*
      * Atributos
@@ -309,7 +309,7 @@ public class BasicStatisticsPlugin extends AlgorithmAdapter implements Plugin {
     @Override
     public void launchResultsGUI(JSWBManager jswbManager) {
         NewStatisticsDialog d = new NewStatisticsDialog(this,
-                statistics.getResultados(), JSWBManager.getParentWindow(), true);
+                statistics.getResultados(), JSWBManager.getParentWindow()/*, true*/);
         d.setVisible(true);
     }
 

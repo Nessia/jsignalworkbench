@@ -15,8 +15,8 @@ import es.usc.gsi.trace.importer.monitorizacion.data.AlmacenDatos;
  * monitorizacion ya realizada) creara uno u otro objeto para leer el archivo y
  * los devolvera a Fuente de datos como un objeto CargarDatos.
  */
-public abstract class CargarDatos {
-    protected int numeroSenales;
+abstract class CargarDatos {
+
     protected float[][] datos;
     protected byte[][] pos;
     protected String archivo;
@@ -83,14 +83,6 @@ public abstract class CargarDatos {
 //        this.anotaciones = null;
 //        this.pos = null;
 //    }
-
-    protected int getNumeroSenales() {
-        return numeroSenales;
-    }
-
-    protected void setNumeroSenales(int _numero_senales) {
-        numeroSenales = _numero_senales;
-    }
 
     protected AlmacenDatos getAlmacen() {
         return almacen;

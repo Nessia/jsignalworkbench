@@ -27,7 +27,7 @@ import com.michaelbaranov.microba.calendar.DatePicker;
  *
  * @author  Compaq_Propietario
  */
-public class DefaultIntervalMarkInfoPanel extends DefaultMarkInfoPanel<DefaultIntervalMark> {
+class DefaultIntervalMarkInfoPanel extends DefaultMarkInfoPanel<DefaultIntervalMark> {
 
     private static final Logger LOGGER = Logger.getLogger(DefaultIntervalMarkInfoPanel.class.getName());
     /**
@@ -41,7 +41,7 @@ public class DefaultIntervalMarkInfoPanel extends DefaultMarkInfoPanel<DefaultIn
     // Variables declaration - do not modify//GEN-END:variables
 
     /** Creates new form DefaultIntervalMarkInfoPanel */
-    public DefaultIntervalMarkInfoPanel(Signal signal, DefaultIntervalMark dim) {
+    DefaultIntervalMarkInfoPanel(Signal signal, DefaultIntervalMark dim) {
         super(signal, dim);
         jTextFieldDate2.setText(TimeRepresentation.timeToString(dim.getEndTime()));
         datePicker2.showButtonOnly(true);

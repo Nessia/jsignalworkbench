@@ -14,14 +14,14 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman Segador
  */
-public class JRadioButtonMenuItemSetSignalImaginary extends JRadioButtonMenuItem {
+class JRadioButtonMenuItemSetSignalImaginary extends JRadioButtonMenuItem {
 
     /**
      *
      */
     private static final long serialVersionUID = 4585519818125960699L;
 
-    public JRadioButtonMenuItemSetSignalImaginary(String signalName) {
+    JRadioButtonMenuItemSetSignalImaginary(String signalName) {
         super(new SetSignalImaginaryAction(signalName));
 
         if (JSWBManager.getSignalManager().getSignal(signalName).isImaginary()) {

@@ -1,44 +1,40 @@
 package research.mining;
 
-import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
+//import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
 
-class ThoracicMovementLimutation extends FluxLimitation {
-
-    public ThoracicMovementLimutation() {}
-
+class AbdominalMovementLimitation extends FluxLimitation {
 
     /**
-     * LOW: {absoluteBeginingTime: HH:MM:SS} \t {GEN_TAPNEA|GEN_THYPO} \t
-     * {duration} \n
+     * LOW: {absoluteBeginingTime: HH:MM:SS} \t {GEN_AAPNEA|GEN_AHYPO} \t
+     * {duration}  \n
      *
      * MEDIUM:{absoluteBeginingTime: HH:MM:SS} \t {GEN_LIM} \t {duration}  \t
      * {type: A|H}  \n
      *
      * HIGH: {absoluteBeginingTime: HH:MM:SS} \t {GEN_LIM} \t {duration}  \t
      * {type: A|H}  \t {energy}  \t {Tipo : basalEnergyBefore}   \t {Tipo :
-     * basalEnergyAfter}  \n
+     * EVERYTHING: basalEnergyAfter}  \n
      *
-     * EVERYTHING: {absoluteBeginingTime: HH:MM:SS} \t {GEN_LIM} \t {duration}
-     * \t {type: A|H}  \t {energy}  \t {Tipo : basalEnergyBefore}   \t {Tipo :
+     * {absoluteBeginingTime: HH:MM:SS} \t {GEN_LIM} \t {duration}  \t {type:
+     * A|H}  \t {energy}  \t {basalEnergyBefore}   \t {Tipo :
      * basalEnergyAfter}  \n
      *
      * @param level DETAILLEVEL
      * @return String
      */
 //    public String generateDescriptors(DETAILLEVEL level) {
-//        StringBuilder descriptors = new StringBuilder(TimeRepresentation.timeToString(
-//                            this.getAbsoluteBeginingTime(),false,true,false));
+//        StringBuilder descriptors = new StringBuilder(TimeRepresentation.timeToString(this.getAbsoluteBeginingTime(),
+//                false, true, false));
 //
 //        if(level == DETAILLEVEL.LOW){
 //            if(this.getType() == Type.APNEA){
-//                descriptors.append("\tGEN_TAPNEA\t");
-//            } else{
-//                descriptors.append("\tGEN_THYPO\t");
+//                descriptors.append("\tGEN_AAPNEA\t");
+//            } else {
+//                descriptors.append("\tGEN_AHYPO\t");
 //            }
 //
-//            descriptors.append(Long.toString(this.getDuration()));
-//        }
-//        else{
+//            descriptors.append(this.getDuration());
+//        } else {
 //            descriptors.append("\tGEN_LIM\t" + this.getDuration());
 //            if(this.getType() == Type.APNEA){
 //                descriptors.append("\tA");

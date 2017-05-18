@@ -9,6 +9,7 @@ package net.javahispano.jsignalwb.jsignalmonitor;
 import java.awt.Component;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -21,18 +22,14 @@ class ChannelInfoConfigPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 8895306506813565316L;
 
     // Declaracion de varibales -no modificar//GEN-BEGIN:variables
-    private javax.swing.JCheckBox arrowsCheckBox;
-//    private javax.swing.JButton jButton1;
-//    private javax.swing.JLabel jLabel1;
-//    private javax.swing.JPanel jPanel1;
-    private javax.swing.JCheckBox magnitudeCheckBox;
-    private javax.swing.JCheckBox nameCheckBox;
-//    private javax.swing.JButton okButton;
-    private javax.swing.JCheckBox pointCheckBox;
-    private javax.swing.JCheckBox zoomHCheckBox;
-    private javax.swing.JCheckBox zoomVCheckBox;
+    private JCheckBox arrowsCheckBox;
+    private JCheckBox magnitudeCheckBox;
+    private JCheckBox nameCheckBox;
+    private JCheckBox pointCheckBox;
+    private JCheckBox zoomHCheckBox;
+    private JCheckBox zoomVCheckBox;
     // Fin de declaracion de variables//GEN-END:variables
-    JWindow jw;
+    private JWindow jw;
 
     private LeftPanelConfiguration configuration;
     private JSignalMonitorPanel jsmp;
@@ -56,7 +53,7 @@ class ChannelInfoConfigPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc=" Codigo Generado  ">//GEN-BEGIN:initComponents
     private void initComponents() {
         JLabel jLabel1 = new JLabel();
-        JButton okButton = new javax.swing.JButton();
+        JButton okButton = new JButton();
         JPanel jPanel1 = new JPanel();
         arrowsCheckBox = new JCheckBox();
         nameCheckBox = new JCheckBox();
@@ -66,7 +63,7 @@ class ChannelInfoConfigPanel extends javax.swing.JPanel {
         pointCheckBox = new JCheckBox();
         JButton jButton1 = new JButton();
 
-        setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 3, true));
+        setBorder(new LineBorder(new java.awt.Color(255, 153, 51), 3, true));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14));
         jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel1.setText("Configuration");

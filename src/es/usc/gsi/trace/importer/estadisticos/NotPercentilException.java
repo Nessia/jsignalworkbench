@@ -17,7 +17,7 @@ public class NotPercentilException extends Exception {
 
     private final int percentilPedido;
 
-    public NotPercentilException(String mensaje, int percentilPedido) {
+    NotPercentilException(String mensaje, int percentilPedido) {
         super(mensaje);
         this.percentilPedido = percentilPedido;
     }

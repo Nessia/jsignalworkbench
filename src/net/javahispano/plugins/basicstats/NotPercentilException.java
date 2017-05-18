@@ -9,14 +9,14 @@ package net.javahispano.plugins.basicstats;
  * @version 0.2
  */
 
-public class NotPercentilException extends Exception {
+class NotPercentilException extends Exception {
     /**
      *
      */
     private static final long serialVersionUID = -5425176841957321048L;
-    private int percentilPedido;
+    private final int percentilPedido;
 
-    public NotPercentilException(String mensaje, int percetil_pedido) {
+    NotPercentilException(String mensaje, int percetil_pedido) {
         super(mensaje);
         this.percentilPedido = percetil_pedido;
     }

@@ -11,6 +11,6 @@ import java.io.Serializable;
  *
  * @author Roman
  */
-public interface SignalSizeListener extends Serializable {
+interface SignalSizeListener extends Serializable {
     public void signalSizeActionPerformed(SignalSizeEvent event);
 }

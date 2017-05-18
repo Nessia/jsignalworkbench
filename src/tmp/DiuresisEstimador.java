@@ -28,8 +28,8 @@ public class DiuresisEstimador extends AlgorithmAdapter {
 
     private static final Logger LOGGER = Logger.getLogger(DiuresisEstimador.class.getName());
 
-    int numDesplazamientos = 2;
-    float fs = 1.0F / 1800;
+    private int numDesplazamientos = 2;
+    private float fs = 1.0F / 1800;
 
     @Override
     public String getName() {
@@ -134,7 +134,7 @@ public class DiuresisEstimador extends AlgorithmAdapter {
      * @param population an array, the population
      * @return the variance
      */
-    public float variance(float[] population) {
+    private float variance(float[] population) {
             long n = 0;
             float mean = 0;
             float s = 0.0F;
@@ -152,7 +152,7 @@ public class DiuresisEstimador extends AlgorithmAdapter {
      * @param population an array, the population
      * @return the standard deviation
      */
-    public float standardDeviation(float[] population) {
+    private float standardDeviation(float[] population) {
             return (float)Math.sqrt(variance(population));
     }
 

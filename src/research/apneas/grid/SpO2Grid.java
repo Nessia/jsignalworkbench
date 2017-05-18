@@ -122,7 +122,7 @@ public class SpO2Grid extends GridPluginAdapter {
         return "";
     }
 
-    public static Color getColorRed(short code) {
+    private static Color getColorRed(short code) {
         if (code > 50) {
             return new Color(255, (int) (5F * (100 - code)), 0);
         }

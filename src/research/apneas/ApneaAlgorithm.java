@@ -118,10 +118,10 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
                 float[] datosNasal = nasal.getValues();
                 float frecuencia = nasal.getSRate();
 
-                TreeSet<Intervalo> hipoapneasIntervalos = calcularDescensosFlujo(nasal, datosNasal, frecuencia, false);
+                SortedSet<Intervalo> hipoapneasIntervalos = calcularDescensosFlujo(nasal, datosNasal, frecuencia, false);
                 /**/
 
-                TreeSet<Intervalo> apneasIntervalos = calcularDescensosFlujo(nasal, datosNasal, frecuencia, true);
+                SortedSet<Intervalo> apneasIntervalos = calcularDescensosFlujo(nasal, datosNasal, frecuencia, true);
                 this.generarRepresetacionAnotaciones(nasal, hipoapneasIntervalos, apneasIntervalos);
             }
             // satO2 = signals.get(1).getSignal();
@@ -185,8 +185,8 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
                /**/
     }
 
-    private void generarRepresetacionAnotaciones(Signal nasal, TreeSet<Intervalo> hipoapneasIntervalos,
-            TreeSet<Intervalo> apneasIntervalos) throws SignalNotFoundException {
+    private void generarRepresetacionAnotaciones(Signal nasal, SortedSet<Intervalo> hipoapneasIntervalos,
+            SortedSet<Intervalo> apneasIntervalos) throws SignalNotFoundException {
         buscarApneasContenidasEnHipoapneas(hipoapneasIntervalos, apneasIntervalos);
         for (Intervalo a : hipoapneasIntervalos) {
             ReduccionFlujo.generarMarca(a, nasal.getName(), "Hipoapnea", Color.YELLOW);
@@ -198,8 +198,8 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
 
     }
 
-    private void buscarApneasContenidasEnHipoapneas(TreeSet<Intervalo> hipoapneasIntervalos,
-            TreeSet<Intervalo> apneasIntervalos) {
+    private void buscarApneasContenidasEnHipoapneas(SortedSet<Intervalo> hipoapneasIntervalos,
+            SortedSet<Intervalo> apneasIntervalos) {
         TreeSet<Intervalo> apneasCopia = new TreeSet<Intervalo>(apneasIntervalos);
         TreeSet<Intervalo> hipoapneasCopia = new TreeSet<Intervalo>(hipoapneasIntervalos);
         for (Intervalo apnea : apneasCopia) {
@@ -223,7 +223,7 @@ public class ApneaAlgorithm extends AlgorithmAdapter {
         return new TreeSet<EpisodioDesaturacion>(detector.ejecutar(s.getValues()));
     }
 
-    private TreeSet<Intervalo> calcularDescensosFlujo(Signal s, float[] datos, float frecuencia, boolean apnea) {
+    private SortedSet<Intervalo> calcularDescensosFlujo(Signal s, float[] datos, float frecuencia, boolean apnea) {
         ReduccionFlujo d = new ReduccionFlujo();
         d.setMagnitudApnea(magnitudApnea);
         d.setMagnitudHipoapnea(magnitudHipoapnea);

@@ -18,7 +18,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSMProperties;
  *
  * @author Roman Segador
  */
-public class AnnotationAction extends AbstractAction {
+class AnnotationAction extends AbstractAction {
     /**
      *
      */
@@ -30,7 +30,7 @@ public class AnnotationAction extends AbstractAction {
     private boolean interval;
 
 
-    public AnnotationAction(AnnotationsPanel annotationsPanel, JSMProperties jsmp, Point p, boolean interval) {
+    AnnotationAction(AnnotationsPanel annotationsPanel, JSMProperties jsmp, Point p, boolean interval) {
         this.annotationsPanel = annotationsPanel;
         this.jsmp = jsmp;
         this.interval = interval;

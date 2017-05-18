@@ -362,24 +362,6 @@ public class PTB implements PTBInterface, Serializable {
        // Empty
     }
 
-    /**Cada vez que el usuario defina una restriccion con el origen se invocara a este
-     * metodo y se anhadira en una lista sus offsets correspondientes. Si se elimina, se
-     * eliminara de esta lista.
-     */
-    public void addOffset(String has, float[] off) {
-        almacenOffset.put(has, new AuxiliarOffset(has, off));
-        this.esFlotante = false;
-    }
-
-
-    public void delOffset(String has) {
-        almacenOffset.remove(has);
-        if (almacenOffset.isEmpty()) {
-            this.esFlotante = true;
-        } else {
-            this.esFlotante = false;
-        }
-    }
 
     public float[] getOffset() {
         if (!almacenOffset.isEmpty()) {
@@ -455,16 +437,12 @@ public class PTB implements PTBInterface, Serializable {
         this.buscarEnValorAbsoluto = buscarEnValorAbsoluto;
     }
 
-    public class AuxiliarOffset implements Serializable {
+    private class AuxiliarOffset implements Serializable {
         static final long serialVersionUID = 12311L;
 
         private String has;
         private float[] offset;
 
-        public AuxiliarOffset(String has, float[] offset) {
-            this.has = has;
-            this.offset = offset;
-        }
 
         @Override
         public int hashCode() {

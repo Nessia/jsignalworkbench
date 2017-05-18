@@ -37,7 +37,7 @@ public class FCRatas extends AlgorithmAdapter {
     }
 
 
-    public static float[] calculaMediaMovil(float[] datos, int ventanaEnMuestras) {
+    private static float[] calculaMediaMovil(float[] datos, int ventanaEnMuestras) {
         float[] datosDelValoMedio = new float[datos.length / ventanaEnMuestras];
         for (int i = 0; i < datosDelValoMedio.length; i++) {
             float tmp = 0;

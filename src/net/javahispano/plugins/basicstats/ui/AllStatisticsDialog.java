@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -20,12 +22,15 @@ import net.javahispano.plugins.basicstats.ResultadosEstadisticos;
  * @version 0.2
  */
 
-public class AllStatisticsDialog extends JDialog {
+class AllStatisticsDialog extends JDialog {
 
     /**
      *
      */
     private static final long serialVersionUID = 8492079877394370428L;
+
+    private static final Logger LOGGER = Logger.getLogger(AllStatisticsDialog.class.getName());
+
     private JPanel jPanel1 = new JPanel();
     private BorderLayout borderLayout1 = new BorderLayout();
     private JPanel jPanel3 = new JPanel();
@@ -41,20 +46,19 @@ public class AllStatisticsDialog extends JDialog {
 
     private FlowLayout flowLayout1 = new FlowLayout();
 
-    public AllStatisticsDialog(BasicStatisticsPlugin statisticsPlugin,
-                               Window parent, boolean modal) {
+    AllStatisticsDialog(BasicStatisticsPlugin statisticsPlugin,
+                               Window parent/*, boolean modal*/) {
         super(parent, "Todos los estadsticos almacenados en el entorno", Dialog.ModalityType.APPLICATION_MODAL);
         this.statisticsPlugin = statisticsPlugin;
         try {
             jbInit();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
         Collection<ResultadosEstadisticos> coleccion = statisticsPlugin.getStatisticsCollection();
         Iterator<ResultadosEstadisticos> it = coleccion.iterator();
         while (it.hasNext()) {
-            ResultadosEstadisticos resultado_estdaitico = (
-                    ResultadosEstadisticos) it.next();
+            ResultadosEstadisticos resultado_estdaitico = it.next();
             PanelMostrarEstadisticos panel_estaditico = new
                     PanelMostrarEstadisticos(
                             resultado_estdaitico, false);
@@ -76,24 +80,24 @@ public class AllStatisticsDialog extends JDialog {
         aceptar.setText("Aceptar");
 
         aceptar.addActionListener(new java.awt.event.ActionListener() {
-        	@Override
+            @Override
             public void actionPerformed(ActionEvent e) {
-                aceptar_actionPerformed(e);
+                aceptar_actionPerformed();
             }
         });
         borrar.setText("Borrar");
 
         borrar.addActionListener(new java.awt.event.ActionListener() {
-        	@Override
+            @Override
             public void actionPerformed(ActionEvent e) {
-                borrar_actionPerformed(e);
+                borrar_actionPerformed();
             }
         });
         borrar_todo.setText("Borrar Todos");
         borrar_todo.addActionListener(new java.awt.event.ActionListener() {
-        	@Override
+            @Override
             public void actionPerformed(ActionEvent e) {
-                borrar_todo_actionPerformed(e);
+                borrar_todo_actionPerformed();
             }
         });
         jPanel4.setLayout(flowLayout1);
@@ -108,7 +112,7 @@ public class AllStatisticsDialog extends JDialog {
         jPanel1.add(jTabbedPane1, BorderLayout.CENTER);
     }
 
-    void aceptar_actionPerformed(ActionEvent e) {
+    private void aceptar_actionPerformed() {
         for (int i = 0; i < jTabbedPane1.getTabCount(); i++) {
             PanelMostrarEstadisticos panel = (PanelMostrarEstadisticos)
                                              jTabbedPane1.getComponentAt(i);
@@ -127,7 +131,7 @@ public class AllStatisticsDialog extends JDialog {
         dispose();
     }
 
-    void borrar_actionPerformed(ActionEvent e) {
+    private void borrar_actionPerformed() {
         if (JOptionPane.showConfirmDialog(this, borrar_uno, "Adevertencia!!!",
                                           JOptionPane.WARNING_MESSAGE)
             == JOptionPane.YES_OPTION) {
@@ -146,7 +150,7 @@ public class AllStatisticsDialog extends JDialog {
 
     }
 
-    void borrar_todo_actionPerformed(ActionEvent e) {
+    private void borrar_todo_actionPerformed() {
         if (JOptionPane.showConfirmDialog(this, borrar_todos, "Adevertencia!!!",
                                           JOptionPane.WARNING_MESSAGE)
             == JOptionPane.YES_OPTION) {

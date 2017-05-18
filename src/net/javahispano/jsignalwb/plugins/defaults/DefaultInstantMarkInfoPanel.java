@@ -29,7 +29,7 @@ import com.michaelbaranov.microba.calendar.DatePicker;
  *
  * @author  Compaq_Propietario
  */
-public class DefaultInstantMarkInfoPanel extends DefaultMarkInfoPanel<DefaultInstantMark> {
+class DefaultInstantMarkInfoPanel extends DefaultMarkInfoPanel<DefaultInstantMark> {
 
     private static final Logger LOGGER = Logger.getLogger(DefaultInstantMarkInfoPanel.class.getName());
     /**
@@ -55,10 +55,10 @@ public class DefaultInstantMarkInfoPanel extends DefaultMarkInfoPanel<DefaultIns
 
 //    protected transient DefaultInstantMark dim;
 //    protected Signal signal;
-    protected JFileChooser jfc;
+    private JFileChooser jfc;
 
     /** Creates new form DefaultInstantMarkInfoPanel */
-    public DefaultInstantMarkInfoPanel(Signal signal, DefaultInstantMark dim) {
+    DefaultInstantMarkInfoPanel(Signal signal, DefaultInstantMark dim) {
         super(signal, dim);
         if (dim.isImage()) {
             jRadioButton2.setSelected(true);

@@ -65,10 +65,6 @@ public class PrintDialog extends JDialog {
 
     }
 
-    public PrintDialog(JSignalMonitor jsm) {
-        this(null, "PrintDialog", jsm);
-    }
-
     private void jbInit() throws Exception {
         everithingRadioButton.setFont(tipoFuente);
         signalsRadioButton.setFont(tipoFuente);
@@ -135,11 +131,11 @@ public class PrintDialog extends JDialog {
         panel1.add(jPanel5, java.awt.BorderLayout.CENTER);
     }
 
-    public void jButton2_actionPerformed() {
+    void jButton2_actionPerformed() {
         this.dispose();
     }
 
-    public void jButton1_actionPerformed() {
+    void jButton1_actionPerformed() {
         int orientation;
         if (portraitRadioButton.isSelected()) {
             orientation = PrintUtilities.PORTRAIT;

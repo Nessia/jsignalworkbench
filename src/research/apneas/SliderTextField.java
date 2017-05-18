@@ -2,42 +2,41 @@ package research.apneas;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class SliderTextField extends JPanel {
+class SliderTextField extends JPanel {
 
     /**
      *
      */
     private static final long serialVersionUID = 1082773121747880067L;
 
-    BorderLayout borderLayout1 = new BorderLayout();
-    JPanel jPanel1 = new JPanel();
-    JLabel jLabel1 = new JLabel();
-    JPanel jPanel2 = new JPanel();
-    JSlider jSlider = new JSlider();
-    JTextField jTextField = new JTextField();
+    private static final Logger LOGGER = Logger.getLogger(SliderTextField.class.getName());
+
+    private BorderLayout borderLayout1 = new BorderLayout();
+    private JPanel jPanel1 = new JPanel();
+    private JLabel jLabel1 = new JLabel();
+    private JPanel jPanel2 = new JPanel();
+    private JSlider jSlider = new JSlider();
+    private JTextField jTextField = new JTextField();
     private int maximum = 100;
 //    private int valor = 20;
     private int majorTickSpacing = 10;
     private int sliderPreferredWidth = 300;
-    private JTextField JTextField;
+//    private JTextField JTextField;
     private String texto = "texto por defecto";
 
-    public SliderTextField(int valor, String texto) {
-//        this.valor = valor;
-        setTexto(texto);
-
-    }
 
     public SliderTextField() {
         try {
             jbInit();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 
@@ -65,12 +64,12 @@ public class SliderTextField extends JPanel {
         jPanel2.add(jTextField);
     }
 
-    public void jSlider1_stateChanged(ChangeEvent e) {
-        jTextField.setText("" + jSlider.getValue());
+    void jSlider1_stateChanged() {
+        jTextField.setText(Integer.toString(jSlider.getValue()));
 
     }
 
-    public void jTextField1_actionPerformed(ActionEvent e) {
+    void jTextField1_actionPerformed() {
         int valor;
         try {
             valor = Integer.parseInt(jTextField.getText());
@@ -82,7 +81,7 @@ public class SliderTextField extends JPanel {
     }
 
     public JTextField getJTextField() {
-        return JTextField;
+        return jTextField;
     }
 
     public JSlider getJSlider() {
@@ -135,8 +134,8 @@ public class SliderTextField extends JPanel {
         this.jLabel1.setText(texto);
     }
 
-    public void jTextField_focusLost(FocusEvent e) {
-        this.jTextField1_actionPerformed(null);
+    void jTextField_focusLost() {
+        this.jTextField1_actionPerformed();
     }
 }
 
@@ -149,7 +148,7 @@ class SliderTextField_jTextField1_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jTextField1_actionPerformed(e);
+        adaptee.jTextField1_actionPerformed();
     }
 }
 
@@ -162,7 +161,7 @@ class SliderTextField_jTextField_focusAdapter extends FocusAdapter {
 
     @Override
     public void focusLost(FocusEvent e) {
-        adaptee.jTextField_focusLost(e);
+        adaptee.jTextField_focusLost();
     }
 }
 
@@ -175,6 +174,6 @@ class SliderTextField_jSlider1_changeAdapter implements ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        adaptee.jSlider1_stateChanged(e);
+        adaptee.jSlider1_stateChanged();
     }
 }

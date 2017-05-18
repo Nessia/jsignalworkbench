@@ -20,7 +20,7 @@ public class SignalIntervalProperties {
      *
      * @param signal senhal para la cose quiere construir el intervalo.
      */
-    public SignalIntervalProperties(Signal signal) {
+    SignalIntervalProperties(Signal signal) {
         this.signal = signal;
         this.fullSignal = true;
         this.startTime = signal.getStart();

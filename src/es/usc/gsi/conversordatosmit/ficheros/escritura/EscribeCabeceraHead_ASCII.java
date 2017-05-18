@@ -9,14 +9,14 @@ import es.usc.gsi.conversordatosmit.ficheros.FicheroHead;
 import es.usc.gsi.conversordatosmit.ficheros.Parametro;
 import es.usc.gsi.conversordatosmit.utilidades.ParseadorCadena;
 
-public class EscribeCabeceraHead_ASCII {
+class EscribeCabeceraHead_ASCII {
 
     private static final Logger LOGGER = Logger.getLogger(EscribeCabeceraHead_ASCII.class.getName());
 
     private List<FicheroHead> vectorFicherosHead;
     private File ficheroDestinoCabecera;
 
-    public EscribeCabeceraHead_ASCII(List<FicheroHead> vectorFicherosHead, File ficheroDestino) {
+    EscribeCabeceraHead_ASCII(List<FicheroHead> vectorFicherosHead, File ficheroDestino) {
 
         // Preprocesado del nombre de fichero para generar el nombre del .cxp
         if (ficheroDestino.getName().indexOf(".txt") != -1) { // Si ya tiene extension .txt
@@ -35,7 +35,7 @@ public class EscribeCabeceraHead_ASCII {
 
     }
 
-    public void vuelcaDatos() {
+    private void vuelcaDatos() {
 
         FileWriter fw = null;
         BufferedWriter salida = null;

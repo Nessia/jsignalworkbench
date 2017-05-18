@@ -23,19 +23,19 @@ public class ResultadosEstadisticos implements Serializable {
      */
     private static final long serialVersionUID = -5645152427437884919L;
 
-    private float mediaAritmetica;
-    private float mediana;
-    private float varianza;
-    private float desviacionTipica;
-    private float errorEstandar;
-    private float cocienteVariacion;
-    private float[] intervaloConfianza = new float[2];
-    private HashMap<String,String> percentiles = new HashMap<String,String>();
-    private String comentario;
-    private String fechaInicio;
-    private String fechaFin;
+    private final float mediaAritmetica;
+    private final float mediana;
+    private final float varianza;
+    private final float desviacionTipica;
+    private final float errorEstandar;
+    private final float cocienteVariacion;
+    private final float[] intervaloConfianza;
+    private final Map<String,String> percentiles;
+    private final String fechaInicio;
+    private final String fechaFin;
+    private final boolean tienePercentiles;
     private String nombreSenal;
-    private boolean tienePercentiles = true;
+    private String comentario;
 
     /**
      * Construye un Resultado estadistico, se le paso tod menos el comentario.
@@ -72,6 +72,7 @@ public class ResultadosEstadisticos implements Serializable {
         this.fechaFin = fecha_fin;
         this.fechaInicio = fecha_inicio;
         this.nombreSenal = nombre_senhal;
+        this.percentiles = new HashMap<String,String>();
         if (percentiles != null) {
             this.tienePercentiles = true;
             if (percentiles.length != valores_percentiles.length) {
@@ -80,7 +81,7 @@ public class ResultadosEstadisticos implements Serializable {
                         percentiles.length + " != " +
                         valores_percentiles.length, 0);
             }
-            this.percentiles = new HashMap<String,String>();
+
             for (int i = 0; i < percentiles.length; i++) {
                 this.percentiles.put(Integer.toString(percentiles[i]),
                                      Float.toString(valores_percentiles[i]));
@@ -123,55 +124,10 @@ public class ResultadosEstadisticos implements Serializable {
         return percentiles;
     }
 
-    protected void setMediaAritmetica(float _media_aritmetica) {
-        mediaAritmetica = _media_aritmetica;
-    }
-
-    protected void setMediana(float _mediana) {
-        mediana = _mediana;
-    }
-
-    protected void setVarianza(float _varianza) {
-        varianza = _varianza;
-    }
-
-    protected void setDesviacion_tipica(float _desviacion_tipica) {
-        desviacionTipica = _desviacion_tipica;
-    }
-
-    protected void setErrorEstandar(float _error_estandar) {
-        errorEstandar = _error_estandar;
-    }
-
-    protected void setCocienteDeVariacion(float _cociente_de_variacion) {
-        cocienteVariacion = _cociente_de_variacion;
-    }
-
-    protected void setIntervaloDeConfianza(float[] _intervalo_de_confianza) {
-        intervaloConfianza = _intervalo_de_confianza;
-    }
-
-    protected void setPercentiles(HashMap<String,String> _percentiles) {
-        percentiles = _percentiles;
-    }
-
-    protected void setPercentil(int percentil, float valor) throws
-            NotPercentilException {
-        if (percentil < 0 || percentil > 100) {
-            throw new NotPercentilException("No es un percentil admisible ",
-                                            percentil);
-        }
-
-        String percentil_key = null;
-        percentil_key = Integer.toString(percentil);
-        percentiles.put(percentil_key, Float.toString(valor));
-    }
-
     public String getComentario() {
         if (comentario == null) {
             return "";
         }
-
         return comentario;
     }
 
@@ -187,28 +143,20 @@ public class ResultadosEstadisticos implements Serializable {
         return nombreSenal;
     }
 
-    protected void setFechaInicio(String _fecha_inicio) {
-        fechaInicio = _fecha_inicio;
-    }
-
-    protected void setFechaFin(String _fecha_fin) {
-        fechaFin = _fecha_fin;
-    }
-
     /**
      * Permite modificar el nombnre de este estdistico.
-     * @param _nombre_senhal
+     * @param nombreSenhal
      */
-    public void setNombreSenhal(String _nombre_senhal) {
-        nombreSenal = _nombre_senhal;
+    public void setNombreSenhal(String nombreSenhal) {
+        this.nombreSenal = nombreSenhal;
     }
 
     /**
      * Permite modificar el comentario de este Estadistico.
-     * @param _comentario
+     * @param comentario
      */
-    public void setComentario(String _comentario) {
-        comentario = _comentario;
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
     /**
@@ -218,14 +166,5 @@ public class ResultadosEstadisticos implements Serializable {
     public boolean getTienePercentiles() {
         return tienePercentiles;
     }
-
-    /**
-     * Elimina los percentiles de este resultado estadistico.
-     */
-    public void invalidaPercentiles() {
-        this.percentiles = null;
-        this.tienePercentiles = false;
-    }
-
 
 }

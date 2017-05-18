@@ -22,7 +22,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman
  */
-public class LookAndFeelAction extends AbstractAction {
+class LookAndFeelAction extends AbstractAction {
     /**
      *
      */
@@ -31,7 +31,7 @@ public class LookAndFeelAction extends AbstractAction {
     private JFrame jFrame;
 //    private boolean enabled;
     /** Creates a new instance of LookAndFeelAction */
-    public LookAndFeelAction(JFrame jFrame) {
+    LookAndFeelAction(JFrame jFrame) {
 
         this.jFrame = jFrame;
         this.putValue(SHORT_DESCRIPTION, "Change look&feel");

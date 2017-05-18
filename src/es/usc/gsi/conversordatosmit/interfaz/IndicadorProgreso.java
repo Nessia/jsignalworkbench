@@ -13,7 +13,7 @@ import javax.swing.*;
 
 import es.usc.gsi.conversordatosmit.ficheros.Cancelar;
 
-public class IndicadorProgreso extends JDialog implements ActionListener {
+class IndicadorProgreso extends JDialog implements ActionListener {
 
 
     /**
@@ -31,7 +31,7 @@ public class IndicadorProgreso extends JDialog implements ActionListener {
 
 //***********************************************************************************
 
-     public IndicadorProgreso(Cancelar h, String titulo, String textoPrincipal,
+     IndicadorProgreso(Cancelar h, String titulo, String textoPrincipal,
                               int max, int min, boolean stop) {
 
          super((Frame)null, titulo, true); // Indicador modal

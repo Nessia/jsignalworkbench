@@ -5,7 +5,8 @@ import java.util.List;
 import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
 
 
-public class FluxLimitation extends TemporalEvent {
+class FluxLimitation extends TemporalEvent {
+    enum Type { APNEA, HIPOAPNEA }
 
     //Energia de la senhal normalizada por la duracion del episodio
     private float energy;
@@ -22,16 +23,13 @@ public class FluxLimitation extends TemporalEvent {
     //lista de limitaciones de movimiento toracico
     private List<FluxLimitation> thoracicLimitations = new LinkedList<FluxLimitation>();
 
-    public enum Type { APNEA, HIPOAPNEA }
+//    public FluxLimitation() {
+//        // vacio
+//    }
 
-
-    public FluxLimitation() {
-        // vacio
-    }
-
-    public FluxLimitation(long absoluteBeginingTime, long duration) {
-        super(absoluteBeginingTime, duration);
-    }
+//    FluxLimitation(long absoluteBeginingTime, long duration) {
+//        super(absoluteBeginingTime, duration);
+//    }
 
 
     /**
@@ -58,12 +56,12 @@ public class FluxLimitation extends TemporalEvent {
      * @param level DETAILLEVEL
      * @return String
      */
-    public String generateDescriptors(DETAILLEVEL level, long beginingRecording) {
+    String generateDescriptors(DETAILLEVEL level, long beginingRecording) {
         //@Emma que valores hay que poner si no hay ninguna limitacion toracica o abdominal??(duration == 0)
         // ahora mismo no se añade nada al string que se devuelve
 
         //long duration;
-        AbdominalMovementLimutation abdLim = new AbdominalMovementLimutation();
+        AbdominalMovementLimitation abdLim = new AbdominalMovementLimitation();
         ThoracicMovementLimutation thoraxLim = new ThoracicMovementLimutation();
 
         abdLim.setDuration(0);
@@ -111,13 +109,13 @@ public class FluxLimitation extends TemporalEvent {
        }
     }
 
-    public void addAbdomenLimitation(AbdominalMovementLimutation l) {
-        abdominalLimitations.add(l);
-    }
-
-    public void addToraxLimitation(ThoracicMovementLimutation l) {
-        thoracicLimitations.add(l);
-    }
+//    public void addAbdomenLimitation(AbdominalMovementLimitation l) {
+//        abdominalLimitations.add(l);
+//    }
+//
+//    public void addToraxLimitation(ThoracicMovementLimutation l) {
+//        thoracicLimitations.add(l);
+//    }
 
     public float getBasalEnergyAfter() {
         return basalEnergyAfter;

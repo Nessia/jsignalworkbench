@@ -11,6 +11,8 @@ import java.awt.Color;
 import java.awt.Window;
 import java.beans.*;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -23,39 +25,41 @@ import org.joda.time.DateTime;
 
 import com.michaelbaranov.microba.calendar.CalendarPane;
 
-public class ConfigureSignalPanel extends javax.swing.JPanel implements PropertyChangeListener, DocumentListener {
+class ConfigureSignalPanel extends JPanel implements PropertyChangeListener, DocumentListener {
     /**
      *
      */
     private static final long serialVersionUID = -6071314186108454176L;
 
+    private static final Logger LOGGER = Logger.getLogger(ConfigureSignalPanel.class.getName());
+
  // Declaracion de varibales -no modificar//GEN-BEGIN:variables
-    private javax.swing.JRadioButton abscissaIntervalRadioButton;
-    private javax.swing.JRadioButton abscissaZoomRadioButton;
-    private javax.swing.JButton applyButton;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton cancelButton;
+    private JRadioButton abscissaIntervalRadioButton;
+    private JRadioButton abscissaZoomRadioButton;
+    private JButton applyButton;
+//    private javax.swing.ButtonGroup buttonGroup1;
+//    private JButton cancelButton;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
-    private javax.swing.JLabel frecuencyLabel;
-    private javax.swing.JTextField frecuencyTextField;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+//    private JLabel frecuencyLabel;
+    private JTextField frecuencyTextField;
+//    private JLabel jLabel1;
+//    private JLabel jLabel2;
+//    private JPanel jPanel1;
+//    private JPanel jPanel2;
     private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
-    private javax.swing.JLabel magnitudeLabel;
-    private javax.swing.JTextField magnitudeTextField;
-    private javax.swing.JTextField maxVisibleTextField;
-    private javax.swing.JPanel minMaxPanel;
-    private javax.swing.JTextField minVisibleTextField;
-    private javax.swing.JLabel nameLabel;
-    private javax.swing.JTextField nameTextField;
-    private javax.swing.JButton okButton;
-    private javax.swing.JLabel startTimeLabel;
-    private javax.swing.JCheckBox visibleCheckBox;
-    private javax.swing.JLabel zoomLabel;
-    private javax.swing.JSlider zoomSlider;
-    private javax.swing.JTextField zoomTextField;
+//    private JLabel magnitudeLabel;
+    private JTextField magnitudeTextField;
+    private JTextField maxVisibleTextField;
+//    private JPanel minMaxPanel;
+    private JTextField minVisibleTextField;
+//    private JLabel nameLabel;
+    private JTextField nameTextField;
+//    private JButton okButton;
+//    private JLabel startTimeLabel;
+    private JCheckBox visibleCheckBox;
+//    private JLabel zoomLabel;
+    private JSlider zoomSlider;
+    private JTextField zoomTextField;
     // Fin de declaracion de variables//GEN-END:variables
     private JWindow jw;
     private boolean name;
@@ -68,11 +72,12 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
     private boolean zoom;
     private boolean interval;
 
-    String signalName;
-    SignalManager sm;
-    JSWBManager jswbManager;
+    private String signalName;
+    private SignalManager sm;
+    private JSWBManager jswbManager;
+
     /** Creates new form ConfigureSignalPanel2 */
-    public ConfigureSignalPanel(String signalName, JSWBManager jswbManager) {
+    ConfigureSignalPanel(String signalName, JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
         this.signalName = signalName;
         this.sm = JSWBManager.getSignalManager();
@@ -91,7 +96,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         try {
             datePicker1.setDate(new Date(sm.getSignal(signalName).getStart()));
         } catch (PropertyVetoException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
         }
         datePicker1.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
         applyButton.setEnabled(false);
@@ -117,22 +122,22 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
     private void documentEvent(DocumentEvent evt) {
         String property = evt.getDocument().getProperty("textField").toString();
 
-        if (property.equals("name")) {
+        if ("name".equals(property)) {
             name = true;
-        } else if (property.equals("abscissa")) {
+        } else if ("abscissa".equals(property)) {
             abscissa = true;
-        } else if (property.equals("start")) {
+        } else if ("start".equals(property)) {
             start = true;
-        } else if (property.equals("frecuency")) {
+        } else if ("frecuency".equals(property)) {
             frec = true;
-        } else if (property.equals("magnitude")) {
+        } else if ("magnitude".equals(property)) {
             magnitude = true;
-        } else if (property.equals("zoom")) {
+        } else if ("zoom".equals(property)) {
             zoom = true;
         }
         /*else if(property.equals("abscissaValue"))
             abscissaValue=true;*/
-        else if (property.equals("interval")) {
+        else if ("interval".equals(property)) {
             interval = true;
         }
         evt.getDocument().removeDocumentListener(this);
@@ -188,35 +193,35 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
      */
     // <editor-fold defaultstate="collapsed" desc=" Codigo Generado  ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        nameLabel = new javax.swing.JLabel();
-        nameTextField = new javax.swing.JTextField();
+        ButtonGroup buttonGroup1 = new ButtonGroup();
+        JLabel nameLabel = new JLabel();
+        nameTextField = new JTextField();
         nameTextField.setText(signalName);
-        startTimeLabel = new javax.swing.JLabel();
-        frecuencyLabel = new javax.swing.JLabel();
-        frecuencyTextField = new javax.swing.JTextField();
+        JLabel startTimeLabel = new JLabel();
+        JLabel frecuencyLabel = new JLabel();
+        frecuencyTextField = new JTextField();
         frecuencyTextField.setText(Float.toString(sm.getSignal(signalName).getSRate()));
-        magnitudeLabel = new javax.swing.JLabel();
-        magnitudeTextField = new javax.swing.JTextField();
+        JLabel magnitudeLabel = new JLabel();
+        magnitudeTextField = new JTextField();
         magnitudeTextField.setText(sm.getSignal(signalName).getMagnitude());
-        visibleCheckBox = new javax.swing.JCheckBox();
-        okButton = new javax.swing.JButton();
-        applyButton = new javax.swing.JButton();
-        cancelButton = new javax.swing.JButton();
+        visibleCheckBox = new JCheckBox();
+        JButton okButton = new JButton();
+        applyButton = new JButton();
+        JButton cancelButton = new JButton();
         jTextFieldDate1 = new net.javahispano.jsignalwb.ui.JTextFieldDate();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
-        jPanel1 = new javax.swing.JPanel();
-        abscissaZoomRadioButton = new javax.swing.JRadioButton();
-        abscissaIntervalRadioButton = new javax.swing.JRadioButton();
-        minMaxPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        minVisibleTextField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        maxVisibleTextField = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        zoomLabel = new javax.swing.JLabel();
-        zoomSlider = new javax.swing.JSlider();
-        zoomTextField = new javax.swing.JTextField();
+        JPanel jPanel1 = new JPanel();
+        abscissaZoomRadioButton = new JRadioButton();
+        abscissaIntervalRadioButton = new JRadioButton();
+        JPanel minMaxPanel = new JPanel();
+        JLabel jLabel1 = new JLabel();
+        minVisibleTextField = new JTextField();
+        JLabel jLabel2 = new JLabel();
+        maxVisibleTextField = new JTextField();
+        JPanel jPanel2 = new JPanel();
+        JLabel zoomLabel = new JLabel();
+        zoomSlider = new JSlider();
+        zoomTextField = new JTextField();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0), 4));
         nameLabel.setText("Name:");
@@ -236,7 +241,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         visibleCheckBox.addItemListener(new java.awt.event.ItemListener() {
             @Override
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                visibleCheckBoxItemStateChanged(evt);
+                visibleCheckBoxItemStateChanged();
             }
         });
 
@@ -244,7 +249,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         okButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okButtonActionPerformed(evt);
+                okButtonActionPerformed();
             }
         });
 
@@ -252,7 +257,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         applyButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                applyButtonActionPerformed(evt);
+                applyButtonActionPerformed();
             }
         });
 
@@ -260,7 +265,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
+                cancelButtonActionPerformed();
             }
         });
 
@@ -343,7 +348,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         zoomSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                zoomSliderStateChanged(evt);
+                zoomSliderStateChanged();
             }
         });
 
@@ -529,26 +534,26 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         }
     } //GEN-LAST:event_radioButtons
 
-    private void visibleCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) { //GEN-FIRST:event_visibleCheckBoxItemStateChanged
+    private void visibleCheckBoxItemStateChanged() { //GEN-FIRST:event_visibleCheckBoxItemStateChanged
         visible = true;
         applyButton.setEnabled(true);
     } //GEN-LAST:event_visibleCheckBoxItemStateChanged
 
-    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_okButtonActionPerformed
+    private void okButtonActionPerformed() { //GEN-FIRST:event_okButtonActionPerformed
         if (apply()) {
             hideJWindow();
         }
     } //GEN-LAST:event_okButtonActionPerformed
 
-    private void applyButtonActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_applyButtonActionPerformed
+    private void applyButtonActionPerformed() { //GEN-FIRST:event_applyButtonActionPerformed
         apply();
     } //GEN-LAST:event_applyButtonActionPerformed
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_cancelButtonActionPerformed
+    private void cancelButtonActionPerformed() { //GEN-FIRST:event_cancelButtonActionPerformed
         hideJWindow();
     } //GEN-LAST:event_cancelButtonActionPerformed
 
-    private void zoomSliderStateChanged(javax.swing.event.ChangeEvent evt) { //GEN-FIRST:event_zoomSliderStateChanged
+    private void zoomSliderStateChanged() { //GEN-FIRST:event_zoomSliderStateChanged
         if (zoomSlider.getValue() > 0) {
             zoomTextField.setText(Integer.toString(zoomSlider.getValue()));
         } else {
@@ -558,7 +563,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
         applyButton.setEnabled(true);
     } //GEN-LAST:event_zoomSliderStateChanged
 
-    public void showJWindow(Window owner) {
+    void showJWindow(Window owner) {
         jw = new JWindow(owner);
         //jw.setLocation(GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint());
         jw.add(this);
@@ -573,13 +578,12 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
 
     private boolean apply() {
         boolean flag = true;
-        if (zoom) {
-            if (abscissaZoomRadioButton.isSelected()) {
+        if (zoom && abscissaZoomRadioButton.isSelected()) {
                 float zoomValue = 0;
                 try {
                     zoomValue = Float.valueOf(zoomTextField.getText());
                 } catch (NumberFormatException ex) {
-                    ex.printStackTrace();
+                    LOGGER.log(Level.WARNING, ex.getMessage(), ex);
                 }
                 if (zoomValue > 0) {
                     sm.setSignalZoom(signalName, zoomValue / 100f);
@@ -588,7 +592,7 @@ public class ConfigureSignalPanel extends javax.swing.JPanel implements Property
                     zoomTextField.setBackground(Color.RED);
                     flag = false;
                 }
-            }
+
         }
 //        if(abscissa){
 //            float abscissaOffsetValue=0;

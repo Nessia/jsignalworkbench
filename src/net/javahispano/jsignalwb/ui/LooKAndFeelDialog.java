@@ -54,7 +54,7 @@ import javax.swing.*;
  * @version 1.0
  */
 
-public class LooKAndFeelDialog extends JDialog implements ActionListener {
+class LooKAndFeelDialog extends JDialog implements ActionListener {
 
     /**
      *
@@ -65,14 +65,14 @@ public class LooKAndFeelDialog extends JDialog implements ActionListener {
                                                 "<p><font color=\"#0000FF\"><b><font size=\"4\">Ese Look and Feel no est&aacute; </font></b></font></p>" +
                                                 "<p><font size=\"4\"><b><font color=\"#0000FF\">soportado en esta plataforma </font></b></font></p>" +
                                                 "</body>" +
-                                                "</html>"
-                                                , otro_error = "<html>" +
+                                                "</html>";
+    private String otro_error = "<html>" +
             "<p><font color=\"#0000FF\"><b><font size=\"4\">Hubo un error al intentar cambiar</font></b></font></p>" +
             "<p><b><font size=\"4\" color=\"#0000FF\">el Look anf Feel y no se pudo </font></b></p>" +
             "<p><b><font size=\"4\" color=\"#0000FF\">terminar la operaci&oacute;n.</font></b></p>" +
             "</body>" +
             "</html>";
-    ;
+
 
     private BorderLayout borderLayout1 = new BorderLayout();
     private JPanel panel_look_and_feel = new JPanel();
@@ -101,21 +101,21 @@ public class LooKAndFeelDialog extends JDialog implements ActionListener {
      * @param look_and_feel_no_soportado Mensaje se debe mostrar cuando el usuario selecione un Look and Feel no soportado.
      * @param otro_error Mensaje a mostrar cuando se produce una excepcion cualquiera salvo aquella producida por un Look and Feel no soportado.
      */
-    public LooKAndFeelDialog(JFrame parent, String look_and_feel_no_soportado, String otro_error) {
-        this(parent);
-        this.look_and_feel_no_soportado = look_and_feel_no_soportado;
-        this.otro_error = otro_error;
-        //estas lineas son necesarias para actualizar el texto de error
-        look_and_feel_selection.setOtroError(otro_error);
-        look_and_feel_selection.setLookAndFeelNoSoportado(look_and_feel_no_soportado);
-    }
+//    public LooKAndFeelDialog(JFrame parent, String look_and_feel_no_soportado, String otro_error) {
+//        this(parent);
+//        this.look_and_feel_no_soportado = look_and_feel_no_soportado;
+//        this.otro_error = otro_error;
+//        //estas lineas son necesarias para actualizar el texto de error
+//        look_and_feel_selection.setOtroError(otro_error);
+//        look_and_feel_selection.setLookAndFeelNoSoportado(look_and_feel_no_soportado);
+//    }
 
     /**
      * Este es el constructor que devemos emplear para emplear los mensajes por defecto
      * si se lanza alguna excepcion al cambiar el Look and Feel
      * @param parent JFrame al que le quereis cambiar el Look an Feel.
      */
-    public LooKAndFeelDialog(JFrame parent) {
+    LooKAndFeelDialog(JFrame parent) {
         super(parent);
         jbInit(parent);
         setModal(true);

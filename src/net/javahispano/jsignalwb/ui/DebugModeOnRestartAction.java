@@ -11,7 +11,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author roman.segador.torre
  */
-public class DebugModeOnRestartAction extends AbstractAction {
+class DebugModeOnRestartAction extends AbstractAction {
 
     /**
     *
@@ -28,11 +28,11 @@ public class DebugModeOnRestartAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         JSWBManager jswbManager = JSWBManager.getJSWBManagerInstance();
-        if (e.getActionCommand().toLowerCase().equals("true")) {
+        if ("true".equalsIgnoreCase(e.getActionCommand())) {
             jswbManager.setDebugModeOnRestart(true);
             JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
                                           "Debug mode is ON now");
-        } else if (e.getActionCommand().toLowerCase().equals("false")) {
+        } else if ("false".equalsIgnoreCase(e.getActionCommand())) {
             jswbManager.setDebugModeOnRestart(false);
             JOptionPane.showMessageDialog(JSWBManager.getParentWindow(),
                                           "When you restart the application the debug mode will be OFF");

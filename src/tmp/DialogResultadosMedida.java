@@ -11,14 +11,18 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.datatransfer.*;
 import java.awt.*;
 
-public class DialogResultadosMedida extends JDialog {
+class DialogResultadosMedida extends JDialog {
     /**
     *
     */
     private static final long serialVersionUID = -8907848707721914212L;
+
+    private static final Logger LOGGER = Logger.getLogger(DialogResultadosMedida.class.getName());
 
     private JPanel panel1 = new JPanel();
     private BorderLayout borderLayout1 = new BorderLayout();
@@ -33,14 +37,14 @@ public class DialogResultadosMedida extends JDialog {
     private JButton jButton2 = new JButton();
     private JButton jButton3 = new JButton();
 
-    public DialogResultadosMedida(Frame owner, String title, boolean modal) {
+    DialogResultadosMedida(Frame owner, String title, boolean modal) {
         super(owner, title, modal);
         try {
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             jbInit();
             pack();
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 
@@ -73,23 +77,23 @@ public class DialogResultadosMedida extends JDialog {
         jPanel3.add(jButton3);
     }
 
-    public void jButton3_actionPerformed(ActionEvent e) {
+    void jButton3_actionPerformed() {
         StringSelection stringSelection =  new StringSelection(this.jTextAreaMedida.getText());
                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                clipboard.setContents(stringSelection, new ClipboardOwner() {
                    @Override
                    public void lostOwnership(Clipboard aClipboard,
                                              Transferable aContents) {
-
+                       // Vacio
                    }
         });
     }
 
-    public void jButton1_actionPerformed(ActionEvent e) {
+    void jButton1_actionPerformed() {
         this.dispose();
     }
 
-    public void jButton2_actionPerformed(ActionEvent e) {
+    void jButton2_actionPerformed() {
         AreaCerdo.retrocedeMedida();
         this.dispose();
     }
@@ -104,7 +108,7 @@ class DialogResultadosMedida_jButton2_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton2_actionPerformed(e);
+        adaptee.jButton2_actionPerformed();
     }
 }
 
@@ -117,7 +121,7 @@ class DialogResultadosMedida_jButton1_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton1_actionPerformed(e);
+        adaptee.jButton1_actionPerformed();
     }
 }
 
@@ -130,6 +134,6 @@ class DialogResultadosMedida_jButton3_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton3_actionPerformed(e);
+        adaptee.jButton3_actionPerformed();
     }
 }

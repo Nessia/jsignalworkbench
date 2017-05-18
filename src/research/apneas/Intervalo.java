@@ -1,6 +1,6 @@
 package research.apneas;
 
-import static java.lang.Math.*;
+//import static java.lang.Math.*;
 
 public class Intervalo implements Comparable<Intervalo> {
     protected int principio;
@@ -22,7 +22,7 @@ public class Intervalo implements Comparable<Intervalo> {
         this.fin = fin;
     }
 
-    public Intervalo(Intervalo i) {
+    Intervalo(Intervalo i) {
         this.principio = i.principio;
         this.posibilidad = i.posibilidad;
         this.fin = i.fin;
@@ -66,22 +66,19 @@ public class Intervalo implements Comparable<Intervalo> {
           return false;
       }*/
 
-    public boolean seSolapaCon(Intervalo i) {
-        if (i.principio <= this.principio && i.fin <= fin && i.fin > principio ||
-            i.principio >= principio && i.fin <= fin ||
-            i.principio >= principio && i.fin >= fin && i.principio < fin) {
-            return true;
-        }
-        return false;
-    }
+//    public boolean seSolapaCon(Intervalo i) {
+//        return i.principio <= this.principio && i.fin <= fin && i.fin > principio ||
+//            i.principio >= principio && i.fin <= fin ||
+//            i.principio >= principio && i.fin >= fin && i.principio < fin;
+//    }
 
-    public Intervalo desplazaEnTiempo(int segundos) {
-        segundos = (int) (segundos * frecuencia);
-        Intervalo i = new Intervalo(principio + segundos, fin + segundos, posibilidad);
-        i.setFrecuencia(frecuencia);
-        i.setPosibilidad(posibilidad);
-        return i;
-    }
+//    Intervalo desplazaEnTiempo(int segundos) {
+//        int valor = (int) (segundos * frecuencia);
+//        Intervalo i = new Intervalo(principio + valor, fin + valor, posibilidad);
+//        i.setFrecuencia(frecuencia);
+//        i.setPosibilidad(posibilidad);
+//        return i;
+//    }
 
     /**
      * Devuelve la distancia desde el fin del intervalo al principio del
@@ -90,10 +87,10 @@ public class Intervalo implements Comparable<Intervalo> {
      * @param i Intervalo
      * @return int distancia en segundos
      */
-    public int distanciaCon(Intervalo i) {
-        //anterior implementacin espacioreturn (int) ((i.principio - fin) / frecuencia);
-        return (int) (min(abs((i.principio - fin)), abs(principio - i.fin)) / frecuencia);
-    }
+//    int distanciaCon(Intervalo i) {
+//        //anterior implementacin espacioreturn (int) ((i.principio - fin) / frecuencia);
+//        return (int) (min(abs((i.principio - fin)), abs(principio - i.fin)) / frecuencia);
+//    }
 
     /**
      * Devuelve la distancia desde el fin del intervalo al fin del
@@ -102,9 +99,9 @@ public class Intervalo implements Comparable<Intervalo> {
      * @param i Intervalo
      * @return int distancia en segundos
      */
-    public int distanciaEntreFines(Intervalo i) {
-        return (int) ((i.fin - fin) / frecuencia);
-    }
+//    int distanciaEntreFines(Intervalo i) {
+//        return (int) ((i.fin - fin) / frecuencia);
+//    }
 
     /**
      * Devuelve la distancia desde el Principio del intervalo al Principio del
@@ -113,9 +110,9 @@ public class Intervalo implements Comparable<Intervalo> {
      * @param i Intervalo
      * @return int distancia en segundos
      */
-    public int distanciaEntrePrincipios(Intervalo i) {
-        return (int) ((i.principio - principio) / frecuencia);
-    }
+//    int distanciaEntrePrincipios(Intervalo i) {
+//        return (int) ((i.principio - principio) / frecuencia);
+//    }
 
     public int getPrincipio() {
         return principio;

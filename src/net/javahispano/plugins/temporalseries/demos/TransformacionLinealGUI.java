@@ -7,22 +7,25 @@
 package net.javahispano.plugins.temporalseries.demos;
 
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+
 import net.javahispano.jsignalwb.JSWBManager;
 
 /**
  *
  * @author  b
  */
-public class TransformacionLinealGUI extends javax.swing.JDialog {
+class TransformacionLinealGUI extends javax.swing.JDialog {
     /**
      *
      */
     private static final long serialVersionUID = -2053024350591345377L;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+//    private javax.swing.JButton jButton1;
+//    private javax.swing.JLabel jLabel1;
+//    private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
@@ -31,7 +34,7 @@ public class TransformacionLinealGUI extends javax.swing.JDialog {
     private float a;
 
     /** Creates new form TransformacionLinealGUI */
-    public TransformacionLinealGUI(java.awt.Frame parent, boolean modal) {
+    private TransformacionLinealGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(JSWBManager.getParentWindow());
@@ -45,11 +48,11 @@ public class TransformacionLinealGUI extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        JLabel jLabel1 = new javax.swing.JLabel();
+        JLabel jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        JButton jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -65,7 +68,7 @@ public class TransformacionLinealGUI extends javax.swing.JDialog {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton1ActionPerformed();
             }
         });
 
@@ -115,7 +118,7 @@ public class TransformacionLinealGUI extends javax.swing.JDialog {
         pack();
     } // </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed() { //GEN-FIRST:event_jButton1ActionPerformed
         a = Float.parseFloat(jTextField1.getText());
         b = Integer.parseInt(jTextField2.getText());
         this.dispose();
@@ -124,7 +127,7 @@ public class TransformacionLinealGUI extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {

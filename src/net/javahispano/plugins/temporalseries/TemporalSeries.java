@@ -12,7 +12,7 @@ import net.javahispano.jsignalwb.plugins.defaults.AxesGridPlugin;
  * Clase que extiende a {@link Signal} proporcionando ciertos metodos de
  * utilidad para el procesado de series temporales.
  */
-public class TemporalSeries extends Signal {
+class TemporalSeries extends Signal {
     /**
      *
      */
@@ -40,10 +40,10 @@ public class TemporalSeries extends Signal {
      * @param sValues valores de la senhal.
      * @param t serie temporal de la cual se copiara la frecuencia de muestreo, instante de origen y unidades.
      */
-    public TemporalSeries(String sName, float[] sValues, TemporalSeries t) {
-        this(sName, sValues, t.getSRate(), 0, t.getMagnitude(),
-             t.getEmphasisLevel());
-    }
+//    public TemporalSeries(String sName, float[] sValues, TemporalSeries t) {
+//        this(sName, sValues, t.getSRate(), 0, t.getMagnitude(),
+//             t.getEmphasisLevel());
+//    }
 
     /**
      * Crea una nueva instancia de Signal. sName indica el nombre de la senal mientras que sValues almacena los valores de la senal ordenados para cada
@@ -55,10 +55,10 @@ public class TemporalSeries extends Signal {
      * @param t serie temporal de la cual se copiara la frecuencia de muestreo, instante de origen y unidades.
      */
 
-    public TemporalSeries(String sName, TemporalSeries t) {
-        this(sName, new float[10], t.getSRate(), 0, t.getMagnitude(),
-             t.getEmphasisLevel());
-    }
+//    public TemporalSeries(String sName, TemporalSeries t) {
+//        this(sName, new float[10], t.getSRate(), 0, t.getMagnitude(),
+//             t.getEmphasisLevel());
+//    }
 
 
     /**
@@ -72,7 +72,7 @@ public class TemporalSeries extends Signal {
      *   00:00:00 01/01/1970. Ver {@link TimePositionConverter}.
      * @param sMagnitude magnitud de la senhal.
      */
-    public TemporalSeries(String sName, float[] sValues, float frec,
+    private TemporalSeries(String sName, float[] sValues, float frec,
                           int sStart, String sMagnitude) {
         this(sName, sValues, frec, sStart, sMagnitude, null);
     }
@@ -87,10 +87,10 @@ public class TemporalSeries extends Signal {
      *   00:00:00 01/01/1970. Ver {@link TimePositionConverter}.
      * @param sMagnitude magnitud de la senhal.
      */
-    public TemporalSeries(String sName, float frec,
-                          int sStart, String sMagnitude) {
-        this(sName, new float[10], frec, sStart, sMagnitude, null);
-    }
+//    public TemporalSeries(String sName, float frec,
+//                          int sStart, String sMagnitude) {
+//        this(sName, new float[10], frec, sStart, sMagnitude, null);
+//    }
 
     /**
      * Crea una nueva instancia de Signal.
@@ -105,7 +105,7 @@ public class TemporalSeries extends Signal {
      * @param emphasis Nivel de enfasis con que se debe representar la senhal.
      *   Debe contener valores entre [0, 100].
      */
-    public TemporalSeries(String sName, float[] sValues, float frec,
+    private TemporalSeries(String sName, float[] sValues, float frec,
                           int sStart, String sMagnitude, short[] emphasis) {
         super(sName, sValues, frec, TemporalSeries.startAllSeries, sMagnitude, emphasis);
         AxesGridPlugin grid = new AxesGridPlugin(this);
@@ -120,14 +120,14 @@ public class TemporalSeries extends Signal {
      * @param n int
      * @return float
      */
-    public float getValueAt(int n) {
-        int posicionCorregida = n - offset;
-        if (posicionCorregida < 0 || posicionCorregida >= values.length) {
-            return 0;
-        } else {
-            return values[posicionCorregida];
-        }
-    }
+//    public float getValueAt(int n) {
+//        int posicionCorregida = n - offset;
+//        if (posicionCorregida < 0 || posicionCorregida >= values.length) {
+//            return 0;
+//        } else {
+//            return values[posicionCorregida];
+//        }
+//    }
 
     /**
      * Permite modificar el valor de la serie temporal en x[n]. Puede ocasionar que el tamanho del array crezca. Si se
@@ -137,31 +137,31 @@ public class TemporalSeries extends Signal {
      * @param value float
      * @return boolean
      */
-    public void setValueAt(int pos, float value) {
-        int posicionCorregida = pos - offset;
-        if (posicionCorregida < 0 || posicionCorregida >= values.length) {
-            if (pos >= offset && posicionCorregida >= values.length) {
-                int anadirAntes = Math.abs(pos - offset - values.length + 1);
-                float[] d = new float[values.length + anadirAntes];
-                for (int i = 0; i < values.length; i++) {
-                    d[i] = values[i];
-                }
-                this.setValues(d);
-                posicionCorregida = values.length - 1;
-            } else if (pos < offset) {
-                int anadirAntes = Math.abs(pos - offset);
-                float[] d = new float[anadirAntes + values.length];
-
-                for (int i = anadirAntes; i < d.length; i++) {
-                    d[i] = values[i - anadirAntes];
-                }
-                values = d;
-                this.setMinIndex(pos);
-                posicionCorregida = 0;
-            }
-        }
-        values[posicionCorregida] = value;
-    }
+//    public void setValueAt(int pos, float value) {
+//        int posicionCorregida = pos - offset;
+//        if (posicionCorregida < 0 || posicionCorregida >= values.length) {
+//            if (pos >= offset && posicionCorregida >= values.length) {
+//                int anadirAntes = Math.abs(pos - offset - values.length + 1);
+//                float[] d = new float[values.length + anadirAntes];
+//                for (int i = 0; i < values.length; i++) {
+//                    d[i] = values[i];
+//                }
+//                this.setValues(d);
+//                posicionCorregida = values.length - 1;
+//            } else if (pos < offset) {
+//                int anadirAntes = Math.abs(pos - offset);
+//                float[] d = new float[anadirAntes + values.length];
+//
+//                for (int i = anadirAntes; i < d.length; i++) {
+//                    d[i] = values[i - anadirAntes];
+//                }
+//                values = d;
+//                this.setMinIndex(pos);
+//                posicionCorregida = 0;
+//            }
+//        }
+//        values[posicionCorregida] = value;
+//    }
 
     /**
      * Devuelve el minimo valor de n para el cual la serie temporal esta definida. Para valores menores que este el
@@ -183,7 +183,7 @@ public class TemporalSeries extends Signal {
         return values.length + offset;
     }
 
-    public static void convertSignalsToTemporalSeries(SignalManager sm) throws
+    static void convertSignalsToTemporalSeries(SignalManager sm) throws
             SignalNotFoundException {
 
         Collection<Signal>
@@ -204,7 +204,7 @@ public class TemporalSeries extends Signal {
         }
     }
 
-    public static TemporalSeries convertSignalsToTemporalSeries(SignalManager
+    static TemporalSeries convertSignalsToTemporalSeries(SignalManager
             sm, Signal signal) throws
             SignalNotFoundException {
         sm.removeSignal(signal.getName());

@@ -19,33 +19,33 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author not attributable
  * @version 1.0
  */
-public class GenericPluginAction extends AbstractAction {
+class GenericPluginAction extends AbstractAction {
     /**
      *
      */
     private static final long serialVersionUID = 6005424833739530627L;
 //    public final static int CONFIGURE_ACTION = 1;
 //    public final static int LAUNCH_ACTION = 2;
-    public enum ACTIONS {CONFIGURE, LAUNCH}
+    enum Action {CONFIGURE, LAUNCH}
 
-    private ACTIONS action;
+    private Action action;
     private String genericPluginName;
     private JSWBManager jswbm;
 
-    public GenericPluginAction(JSWBManager jswbManager,
-                               String genericPluginName, ACTIONS action) {
+    GenericPluginAction(JSWBManager jswbManager,
+                               String genericPluginName, Action action) {
         this(jswbManager, genericPluginName, action, 20, 20);
     }
 
-    public GenericPluginAction(JSWBManager jswbManager, String genericPluginName,
-            ACTIONS action, int iconWidth, int iconHeight) {
+    private GenericPluginAction(JSWBManager jswbManager, String genericPluginName,
+            Action action, int iconWidth, int iconHeight) {
         this.action = action;
         this.genericPluginName = genericPluginName;
         this.jswbm = jswbManager;
         this.putValue(SHORT_DESCRIPTION, genericPluginName);
-        if (action == ACTIONS.CONFIGURE) {
+        if (action == Action.CONFIGURE) {
             this.putValue(NAME, "Configure");
-        } else if (action == ACTIONS.LAUNCH) {
+        } else if (action == Action.LAUNCH) {
             this.putValue(NAME, "Launch");
             Icon smallIcon = JSWBManager.getPluginManager().getIconDefaultSize("generic", genericPluginName,
                     iconWidth, iconHeight);
@@ -55,9 +55,9 @@ public class GenericPluginAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (action == ACTIONS.CONFIGURE) {
+        if (action == Action.CONFIGURE) {
             jswbm.showPluginConfiguration("generic", genericPluginName);
-        } else if (action == ACTIONS.LAUNCH) {
+        } else if (action == Action.LAUNCH) {
             jswbm.showPluginExecution("generic", genericPluginName);
         }
     }

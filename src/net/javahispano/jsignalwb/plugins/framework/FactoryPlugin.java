@@ -15,17 +15,17 @@ import java.util.Map;
  *
  * @author Roman
  */
-public class FactoryPlugin {
+class FactoryPlugin {
 
    private Map<String, Object> pluginAssociation;
 
 
     /** Creates a new instance of FactoryPlugin */
-    public FactoryPlugin(Map<String, Object> pluginAssociation) {
+    FactoryPlugin(Map<String, Object> pluginAssociation) {
         this.pluginAssociation = pluginAssociation;
     }
 
-    public Object getPlugin(String name, ClassLoader classLoader) {
+    Object getPlugin(String name, ClassLoader classLoader) {
         Object plugin = "";
         try {
             plugin = pluginAssociation.get(name);

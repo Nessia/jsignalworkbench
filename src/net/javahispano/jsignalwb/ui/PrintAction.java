@@ -27,7 +27,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.printsupport.PrintDialog;
  *
  * @author Roman Segador
  */
-public class PrintAction extends AbstractAction {
+class PrintAction extends AbstractAction {
 
 
     /**

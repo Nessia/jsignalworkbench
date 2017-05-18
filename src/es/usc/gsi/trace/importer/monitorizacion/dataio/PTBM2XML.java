@@ -1,7 +1,6 @@
 package es.usc.gsi.trace.importer.monitorizacion.dataio;
 
 import java.io.*;
-import java.text.DecimalFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,159 +12,6 @@ import org.jdom.output.XMLOutputter;
 
 import es.usc.gsi.trace.importer.perfil.*;
 
-class MyFloat {
-
-    private static final Logger LOGGER = Logger.getLogger(MyFloat.class.getName());
-
-    public final static int MAS_INFINITO = Integer.MAX_VALUE / 1000;
-    public final static int MENOS_INFINITO = Integer.MIN_VALUE / 1000;
-
-
-    private static boolean hayParser = false;
-    private static DecimalFormat decimalFormat;
-    private static int numeroDecimalesActuales = 1;
-
-
-    private MyFloat(){
-       // Hide constructor
-    }
-
-    private static void contruyePraser() {
-        if (!hayParser) {
-            Locale default_locale = Locale.getDefault();
-            //Ponemos como localidad la inglesa, pa que pille . en vez de ,
-            Locale.setDefault(new Locale("en", "GB"));
-            decimalFormat = new DecimalFormat("###.#");
-            //Ahora que ya tengo un parseador "A la inglesa" volvemos pa espananha:
-            Locale.setDefault(default_locale);
-            hayParser = true;
-        }
-
-    }
-
-    /**
-     *Se emplea para formatear los numeros que seguro estan bien,
-     * es decir los que ya se han chequeado y se vuelven a mostrar al usuario.
-     * @param numero
-     * @return
-     */
-    public static float parseFloatSeguro(String numero) {
-        if (!("&".equals(numero)) && !("-&".equals(numero))) {
-            return Float.parseFloat(numero);
-        } else if ("&".equals(numero)) {
-            return Integer.MAX_VALUE / 1000F;
-        } else {
-            return Integer.MIN_VALUE / 1000F; //Por que si no en validar dan overflow
-        }
-    }
-
-    /**
-     *
-     * @param numero
-     * @return
-     * @throws Exception
-     */
-    public static float parseFloat(String numero) throws NumberFormatException {
-//        try {
-            if (!("&".equals(numero)) && !("-&".equals(numero))) {
-                return Float.parseFloat(numero);
-            } else if ("&".equals(numero)) {
-                return MAS_INFINITO;
-            } else {
-                return MENOS_INFINITO; //Por que si no en validar dan overflow
-            }
-//        } catch (NumberFormatException ex) {
-//            throw ex;
-//        }
-    }
-
-    /**
-     *
-     * @param f
-     * @return
-     */
-    public static String formateaNumero(float f) {
-        //Si es infinito
-        if (f == MAS_INFINITO) {
-            return "&";
-        } else if (f == MENOS_INFINITO) {
-            return "-&";
-        }
-
-        return formateaNumero(Float.toString(f));
-    }
-
-    /**
-     * Devuelve null si No se pudo completar la operacion
-     * @param numero
-     * @return
-     */
-    public static String formateaNumero(String numero) {
-        if (!hayParser) {
-            contruyePraser();
-        }
-        String valor = numero.trim();
-        if ("&".equals(valor) || "-&".equals(valor)) {
-            return valor;
-        }
-
-        try {
-            return decimalFormat.format(parseFloat(valor));
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-            return null;
-        }
-    }
-
-    public static String toString(float numero) {
-        return formateaNumero(numero);
-    }
-
-    /**
-     *
-     * @param M
-     * @return
-     */
-//    private static String convierteAString(float M) {
-//        if (M < MAS_INFINITO && M > MENOS_INFINITO) {
-//            return Float.toString(M);
-//        } else if (M == MENOS_INFINITO) {
-//            return "-&";
-//        } else {
-//            return "&";
-//        }
-//    }
-
-    /**
-     * Emplear para cambiar el numero de digitos decimales del patron
-     * @param numero_decimaales
-     */
-    public static void setNumeroDecimales(int numeroDecimales) {
-        if (!hayParser) {
-            contruyePraser();
-        }
-        StringBuilder pattern = new StringBuilder("###");
-        if (numeroDecimales > 0) {
-            pattern.append(".");//pattern = pattern + ".";
-            for (int i = 0; i < numeroDecimales; i++) {
-                pattern.append("."); //pattern = pattern + "#";
-            }
-
-        }
-        numeroDecimalesActuales = numeroDecimales;
-        decimalFormat.applyPattern(pattern.toString());
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static int getNumeroDecimalesActuales() {
-        return numeroDecimalesActuales;
-    }
-}
-
-
 /**
  * <p>Title: Herraienta de monitorizacion</p>
  * <p>Description: </p>
@@ -175,15 +21,15 @@ class MyFloat {
  * @version 0.2
  */
 
-public class PTBM2XML {
+class PTBM2XML {
     private final static Logger LOGGER = Logger.getLogger(PTBM2XML.class.getName());
 
-    public final static String EL_UNIDADES_TEMPORALES = "UnidadesTemporales";
-    public final static String EL_INICIO_SOPORTE = "InicioSoporte";
-    public final static String EL_INICIO_CORE = "InicioCore";
-    public final static String EL_FIN_CORE = "FinCore";
-    public final static String EL_FIN_SOPORTE = "FinSoporte";
-    public final static String EL_LONGITUD_VENTANA_TEMPORAL = "LongitudVentanaTemporal";
+    private final static String EL_UNIDADES_TEMPORALES = "UnidadesTemporales";
+    private final static String EL_INICIO_SOPORTE = "InicioSoporte";
+    private final static String EL_INICIO_CORE = "InicioCore";
+    private final static String EL_FIN_CORE = "FinCore";
+    private final static String EL_FIN_SOPORTE = "FinSoporte";
+    private final static String EL_LONGITUD_VENTANA_TEMPORAL = "LongitudVentanaTemporal";
 
     private static PTBM2XML ptbm2XML = null;
 
@@ -201,7 +47,7 @@ public class PTBM2XML {
      * @param archivo
      * @return
      */
-    public boolean GuardaPTBM(PTBMInterface ptbm, String archivo) {
+    private boolean GuardaPTBM(PTBMInterface ptbm, String archivo) {
         if (ptbm == null) {
             return true;
         }
@@ -354,6 +200,22 @@ public class PTBM2XML {
 
     }
 
+    /**
+     *Se emplea para formatear los numeros que seguro estan bien,
+     * es decir los que ya se han chequeado y se vuelven a mostrar al usuario.
+     * @param numero
+     * @return
+     */
+    private static float parseFloatSeguro(String numero) {
+        if (!("&".equals(numero)) && !("-&".equals(numero))) {
+            return Float.parseFloat(numero);
+        }
+        if ("&".equals(numero)) {
+            return Integer.MAX_VALUE / 1000F;
+        }
+        return Integer.MIN_VALUE / 1000F; //Por que si no en validar dan overflow
+    }
+
 
     /**
      * Dada una cadena de caracteres que representa un archivo devuelve el PTBM contenido
@@ -361,7 +223,7 @@ public class PTBM2XML {
      * @param archivo
      * @return
      */
-    public PTBMInterface cargaPTBM(String archivo) {
+    PTBMInterface cargaPTBM(String archivo) {
         //Cargamos el documento validando
         SAXBuilder bulder = new SAXBuilder( /*true*/false);
         Document documento = null;
@@ -594,8 +456,8 @@ public class PTBM2XML {
                     unidadesTemporales = Restriccion.UNIDADES.SEGUNDOS.ordinal();
                     //Pasamos a milisegundos la restriccion
                     for (int i = 0; i < L.length; i++) {
-                        L[i] = Float.toString(MyFloat.parseFloatSeguro(L[i]) * 1000);
-                        M[i] = Float.toString(MyFloat.parseFloatSeguro(M[i]) / 1000);
+                        L[i] = Float.toString(parseFloatSeguro(L[i]) * 1000);
+                        M[i] = Float.toString(parseFloatSeguro(M[i]) / 1000);
                     }
 
                 }
@@ -644,7 +506,7 @@ public class PTBM2XML {
         /**/
     }
 
-    public static PTBM2XML getInstancia() {
+    static PTBM2XML getInstancia() {
         if (ptbm2XML == null) {
             ptbm2XML = new PTBM2XML();
         }

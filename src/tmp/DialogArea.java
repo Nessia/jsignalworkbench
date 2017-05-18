@@ -21,7 +21,7 @@ import java.awt.event.FocusAdapter;
 import javax.swing.*;
 import java.awt.Dimension;
 
-public class DialogArea extends JDialog {
+class DialogArea extends JDialog {
 
     private static final Logger LOGGER = Logger.getLogger(DialogArea.class.getName());
 
@@ -41,11 +41,11 @@ public class DialogArea extends JDialog {
     private JLabel jLabel4 = new JLabel();
     private JButton jButton1 = new JButton();
     private JButton jButton2 = new JButton();
+    private JCheckBox jCheckBoxPico = new JCheckBox();
     protected JTextField jTextFieldPeso = new JTextField();
     protected JComboBox<String> jComboBoxDroga;
     protected JComboBox<String> jComboBoxParametro;
     protected JCheckBox jCheckBoxValle = new JCheckBox();
-    protected JCheckBox jCheckBoxPico = new JCheckBox();
     protected boolean cancelado = false;
 
     private String[] parametro = {"Presión arterial sistólica",
@@ -59,7 +59,7 @@ public class DialogArea extends JDialog {
     };
 
 
-    public DialogArea(Frame owner, String title, boolean modal) {
+    DialogArea(Frame owner, String title, boolean modal) {
         super(owner, title, modal);
         try {
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -135,15 +135,15 @@ public class DialogArea extends JDialog {
         panel1.setBounds(new Rectangle(10, 10, 540, 300));
     }
 
-    public void jCheckBoxValle_actionPerformed() {
+    void jCheckBoxValle_actionPerformed() {
         this.jCheckBoxPico.setSelected(!this.jCheckBoxValle.isSelected());
     }
 
-    public void jCheckBoxPico_actionPerformed() {
+    void jCheckBoxPico_actionPerformed() {
         this.jCheckBoxValle.setSelected(!this.jCheckBoxPico.isSelected());
     }
 
-    public void jTextFieldPeso_focusLost() {
+    void jTextFieldPeso_focusLost() {
         try {
             Float.parseFloat(this.jTextFieldPeso.getText());
         } catch (NumberFormatException ex) {
@@ -152,11 +152,11 @@ public class DialogArea extends JDialog {
         }
     }
 
-    public void jButton1_actionPerformed() {
+    void jButton1_actionPerformed() {
         this.dispose();
     }
 
-    public void jButton2_actionPerformed() {
+    void jButton2_actionPerformed() {
         cancelado= true;
         this.dispose();
     }

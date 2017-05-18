@@ -4,26 +4,23 @@ enum Estados { NO_ACTIVIDAD, TRANSICION, ACTIVIDAD }
 
 class MaquinaDeEstados {
 
-    float tiempoEsperaEnTransicion = 0.5F;
-    float tiempoEsperaEnActividad =0.5F;
-    Estados estadoMaquina;
-    float dato;
-    Threshold threshold;
-    final float frecuenciaDePotencia;
-    final float muestrasEsperaEnTransicion;
-    final float muestrasEsperaEnActividad;
-    float muestrasEsperandoEnTransicion;
-    float muestrasEsperandoEnActividad;
+    private final float muestrasEsperaEnTransicion;
+    private final float muestrasEsperaEnActividad;
+    private float tiempoEsperaEnTransicion = 0.5F;
+    private float tiempoEsperaEnActividad = 0.5F;
+    private float muestrasEsperandoEnTransicion;
+    private float muestrasEsperandoEnActividad;
+    protected Estados estadoMaquina;
+    protected Threshold threshold;
 
     MaquinaDeEstados(float fs) {
         muestrasEsperaEnTransicion = tiempoEsperaEnTransicion * fs;
         muestrasEsperaEnActividad = tiempoEsperaEnActividad * fs;
         estadoMaquina = Estados.NO_ACTIVIDAD;
-        this.frecuenciaDePotencia=fs;
     }
 
     public void funcionaMaquina(float dato) {
-        final float THRESHOLD = 1.5f * threshold.mediana;
+        final float THRESHOLD = 1.5f * threshold.getMediana();
         switch(estadoMaquina){
            case NO_ACTIVIDAD:
               if (dato >= THRESHOLD) {
@@ -73,10 +70,6 @@ class MaquinaDeEstados {
 
     public void setThreshold(Threshold threshold) {
         this.threshold = threshold;
-    }
-
-    public float geTiempoEsperaEnTransicion() {
-        return tiempoEsperaEnTransicion;
     }
 
     public void setTiempoEsperaEnTransicion(float tiempo2) {

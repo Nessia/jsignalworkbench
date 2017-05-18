@@ -41,11 +41,11 @@ public class JSMProperties implements Serializable{
     private LookAndFeelConfiguration lookAndFeelConfiguration;
     /** Creates a new instance of JSMProperties */
 
-    public JSMProperties(JSignalMonitorDataSource dataSource) {
+    JSMProperties(JSignalMonitorDataSource dataSource) {
         this(dataSource, -1, 0, 0, 5);
     }
 
-    public JSMProperties(JSignalMonitorDataSource dataSource, long scrollBaseTime, long maxTime, long scrollValue,
+    private JSMProperties(JSignalMonitorDataSource dataSource, long scrollBaseTime, long maxTime, long scrollValue,
                          float frec) {
         this.dataSource = dataSource;
         this.scrollBaseTime = scrollBaseTime;
@@ -67,35 +67,27 @@ public class JSMProperties implements Serializable{
         modeListeners = new ArrayList<JSignalMonitorModeListener>();
     }
 
-    public void addScrollValueChangeListener(JSignalMonitorScrollListener l) {
+    void addScrollValueChangeListener(JSignalMonitorScrollListener l) {
         listeners.add(l);
     }
 
-    public void addMouseTimeChangeListener(MouseTimeChangeListener l) {
+    void addMouseTimeChangeListener(MouseTimeChangeListener l) {
         mouseListeners.add(l);
     }
 
-    public void addModeListener(JSignalMonitorModeListener l) {
+    void addModeListener(JSignalMonitorModeListener l) {
         modeListeners.add(l);
     }
 
-    public void removeScrollValueChangeListener(JSignalMonitorScrollListener l) {
-        if (listeners.contains(l)) {
-            listeners.remove(l);
-        }
-    }
+    
 
-    public void removeMouseTimeChangeListener(MouseTimeChangeListener l) {
+    void removeMouseTimeChangeListener(MouseTimeChangeListener l) {
         if (mouseListeners.contains(l)) {
             mouseListeners.remove(l);
         }
     }
 
-    public void removeModeListener(JSignalMonitorModeListener l) {
-        if (modeListeners.contains(l)) {
-            modeListeners.remove(l);
-        }
-    }
+    
 
     private void performAction(JSignalMonitorScrollEvent evt) {
         for (JSignalMonitorScrollListener l : listeners) {
@@ -265,11 +257,11 @@ public class JSMProperties implements Serializable{
         this.lookAndFeelConfiguration = lookAndFeelConfiguration;
     }
 
-    public float getFrecForFullView(int width) {
+    float getFrecForFullView(int width) {
         return ((float) width) / ((maxTime - scrollBaseTime) / 1000F);
     }
 
-    public float getFrecForTimeInterval(long startTime, long endTime, int width) {
+    float getFrecForTimeInterval(long startTime, long endTime, int width) {
         return ((float) width) / ((endTime - startTime) / 1000F);
     }
 }

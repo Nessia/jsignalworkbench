@@ -13,7 +13,6 @@ public class Diagnostic extends Annotation {
     private static final long serialVersionUID = -5769222345970481773L;
 
     private Attribute atributo;
-    public Attribute theAtributo;
 
     public Diagnostic(String nombre, Attribute atributo) {
         this.texto = nombre;

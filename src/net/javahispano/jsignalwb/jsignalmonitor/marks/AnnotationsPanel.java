@@ -20,7 +20,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSMProperties;
  *
  * @author Roman Segador
  */
-public class AnnotationsPanel extends JPanel {
+class AnnotationsPanel extends JPanel {
     /**
      *
      */
@@ -32,7 +32,8 @@ public class AnnotationsPanel extends JPanel {
     private int hLeftOffset;
     private Point mousePosition;
     private Color g2dColor;
-    public AnnotationsPanel(JSMProperties jsmProperties, int hLeftOffset) {
+
+    AnnotationsPanel(JSMProperties jsmProperties, int hLeftOffset) {
         this.jsmProperties = jsmProperties;
         categories = null;
         annotations = new HashMap<JSignalMonitorAnnotation, Rectangle>();
@@ -183,7 +184,7 @@ public class AnnotationsPanel extends JPanel {
         }
     }
 
-    public void refreshCategories(List<String> categories) {
+    void refreshCategories(List<String> categories) {
         this.categories = categories;
         Runnable uiUpdateRunnable = new Runnable() {
             @Override
@@ -207,7 +208,7 @@ public class AnnotationsPanel extends JPanel {
         return hLeftOffset;
     }
 
-    public void refreshAnnotations(long firstValue, long lastValue) {
+    void refreshAnnotations(long firstValue, long lastValue) {
         annotations.clear();
         List<JSignalMonitorAnnotation> temp = jsmProperties.getDataSource().getAnnotations(firstValue, lastValue);
         for (JSignalMonitorAnnotation annotation : temp) {

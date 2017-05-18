@@ -16,14 +16,14 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman Segador
  */
-public class JMenuActions extends JMenu {
+class JMenuActions extends JMenu {
 
     /**
     *
     */
     private static final long serialVersionUID = -3971434656060094549L;
 
-    public JMenuActions(JSWBManager jswbManager) {
+    JMenuActions(JSWBManager jswbManager) {
         super("Actions");
         setMnemonic(KeyEvent.VK_A);
         add(new RemoveAllMarksAction(jswbManager));

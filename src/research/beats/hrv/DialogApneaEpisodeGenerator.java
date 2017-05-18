@@ -21,7 +21,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Abraham Otero
  * @version 0.5
  */
-public class DialogApneaEpisodeGenerator extends JDialog {
+class DialogApneaEpisodeGenerator extends JDialog {
 
 
     private static final Logger LOGGER = Logger.getLogger(DialogApneaEpisodeGenerator.class.getName());
@@ -36,7 +36,7 @@ public class DialogApneaEpisodeGenerator extends JDialog {
     private float pesoHipoapnea = 1;
     private float limitePorcentaje = 30;
 
-    public DialogApneaEpisodeGenerator(Frame owner, String title, boolean modal) {
+    DialogApneaEpisodeGenerator(Frame owner, String title, boolean modal) {
         super(owner, title, modal);
         try {
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -111,11 +111,11 @@ public class DialogApneaEpisodeGenerator extends JDialog {
     private JTextField jTextFieldHipoapneas = new JTextField();
     private JTextField jTextFieelPorcentaje = new JTextField();
 
-    public void jTextField1_actionPerformed(ActionEvent e) {
+    void jTextField1_actionPerformed(ActionEvent e) {
         // vacio
     }
 
-    public void jButton1_actionPerformed() {
+    void jButton1_actionPerformed() {
         this.dispose();
     }
 
@@ -155,7 +155,7 @@ public class DialogApneaEpisodeGenerator extends JDialog {
         jTextFieelPorcentaje.setText(Float.toString(limitePorcentaje));
     }
 
-    public void jButton2_actionPerformed() {
+    void jButton2_actionPerformed() {
         try {
             String ventana = jTextFieldVentana.getText();
             tamanoVentana = Integer.parseInt(ventana);

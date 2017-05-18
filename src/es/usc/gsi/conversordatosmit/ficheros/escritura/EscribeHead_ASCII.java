@@ -194,7 +194,7 @@ public class EscribeHead_ASCII extends Thread implements Cancelar {
 //*******************************************************************************
 
 // INCLUIR METODO PARA CERRAR TODOS LOS FICHEROS ABIERTOS
-    public void cierraFicheros() {
+    private void cierraFicheros() {
         for (int i = 0; i < arrayLectores.length; i++) {
              arrayLectores[i].cierraFichero();
         }

@@ -18,8 +18,8 @@ public class ControladorInterfaz {
 
     private static final Logger LOGGER = Logger.getLogger(ControladorInterfaz.class.getName());
 
-    public static final int LISTA = 0;
-    public static final int ETIQUETAS = 1;
+    protected static final int LISTA = 0;
+    protected static final int ETIQUETAS = 1;
 
     private static ControladorFicheros controlFicheros;
     private static ControladorInterfaz controlador;
@@ -37,7 +37,7 @@ public class ControladorInterfaz {
        return controlador;
     }
 
-    public static void enlazaControladorFicheros() {
+    protected static void enlazaControladorFicheros() {
         controlFicheros = ControladorFicheros.getControlador();
     }
 
@@ -57,7 +57,7 @@ public class ControladorInterfaz {
         return panelPrincipal;
     }
 
-    public File abrirFichero(File archivoAbierto) {
+    protected File abrirFichero(File archivoAbierto) {
 
         FileFilter filtro = new FiltroHead(); //Solo se escogen ficheros head
         dialogoAbrirGrabar.resetChoosableFileFilters(); // Borra todos los filtros anteriores.
@@ -94,7 +94,7 @@ public class ControladorInterfaz {
         return null;
     }
 
-    public File abrirPaciente(File archivoAbierto) {
+    protected File abrirPaciente(File archivoAbierto) {
 
         FileFilter filtro = new FiltroDirectorio(); //Solo se escogen directorios
         dialogoAbrir.resetChoosableFileFilters(); // Borra todos los filtros anteriores.
@@ -134,7 +134,7 @@ public class ControladorInterfaz {
         return null;
     }
 
-    public void cambiaVista(int modoVista) {
+    protected void cambiaVista(int modoVista) {
         FicheroHead[] ficherosHead = controlFicheros.getFicherosHeadArray();
 
 //        if (ficherosHead != null) {
@@ -143,12 +143,12 @@ public class ControladorInterfaz {
 
     }
 
-    public void cerrarPaciente() {
+    protected void cerrarPaciente() {
         controlFicheros.vaciaVectorFicheros();
         panelPrincipal.cerrarPaciente();
     }
 
-    public void cerrarFichero() {
+    private void cerrarFichero() {
 
         this.cerrarPaciente(); // LO CIERRA TODO
 
@@ -193,7 +193,7 @@ public class ControladorInterfaz {
 
     }
 
-    public void exportaFicheros() {
+    protected void exportaFicheros() {
 
         try {
             controlFicheros.esExportable(); // Comprobacion de condiciones de exportacion: este metodo
@@ -328,11 +328,11 @@ public class ControladorInterfaz {
         }
     }
 
-    public void muestraDialogoError(String mensaje) {
+    private void muestraDialogoError(String mensaje) {
         JOptionPane.showMessageDialog(panelPrincipal, mensaje);
     }
 
-    public int muestraDialogoConfirmacion(String mensaje, String titulo, int modo) {
+    private int muestraDialogoConfirmacion(String mensaje, String titulo, int modo) {
         return JOptionPane.showConfirmDialog(panelPrincipal, mensaje, titulo, modo);
     }
 

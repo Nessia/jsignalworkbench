@@ -21,13 +21,13 @@ import net.javahispano.jsignalwb.plugins.Plugin;
  *
  * @author Roman
  */
-public class FileChooserFileFilter extends FileFilter {
+class FileChooserFileFilter extends FileFilter {
 
-    Plugin plugin;
-    ArrayList<String> extensions;
+    private Plugin plugin;
+    private ArrayList<String> extensions;
 
     /** Creates a new instance of getFileChooserFileFilter */
-    public FileChooserFileFilter(Plugin plugin, List<String> extensions) {
+    FileChooserFileFilter(Plugin plugin, List<String> extensions) {
         this.plugin = plugin;
         this.extensions = new ArrayList<String>(extensions);
     }

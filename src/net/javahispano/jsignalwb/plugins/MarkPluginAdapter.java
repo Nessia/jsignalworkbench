@@ -28,15 +28,18 @@ public abstract class MarkPluginAdapter extends PluginAdapter implements MarkPlu
     /*
      * Atributos
      */
+    private long markTime;
+    private JSWBManager jswbManager;
 
     protected Signal signal = null;
     protected Color color;
-    protected long markTime;
     protected String commentary;
     protected String title;
     protected BufferedImage im;
-    protected JSWBManager jswbManager;
 
+    /*
+     * Constructores
+     */
 
     protected MarkPluginAdapter(){
        markTime = 0;

@@ -19,9 +19,9 @@ public class GestorIO {
 
     private static final Logger LOGGER = Logger.getLogger(GestorIO.class.getName());
 
-    private static GestorIO instancia;
+//    private static GestorIO instancia;
     //private static String fichero;
-    private static int numDatos;
+//    private static int numDatos;
     private static int numSenales;
 
     //private CargarDatos cargador;
@@ -54,7 +54,7 @@ public class GestorIO {
             SortedSet<Mark>[] marcas = cargador.getMarcas();
             SortedSet<Annotation> anotaciones = cargador.getAnotaciones();
 
-            numDatos = datos[0].length;
+//            numDatos = datos[0].length;
             numSenales = datos.length;
             //+1 para la posibilidad global
             float[][] rango = new float[numSenales + 1][2];
@@ -134,31 +134,31 @@ public class GestorIO {
      * @param fichero
      * @return GestorIO
      */
-    public synchronized static GestorIO getGestorIO() {
-       if(GestorIO.instancia == null){
-          try {
-             GestorIO.instancia = new GestorIO();
-         } catch (Exception ex) {
-             LOGGER.log(Level.WARNING, ex.getMessage(), ex);
-             return null;
-         }
-       }
-       return instancia;
-    }
+//    public synchronized static GestorIO getGestorIO() {
+//       if(GestorIO.instancia == null){
+//          try {
+//             GestorIO.instancia = new GestorIO();
+//         } catch (Exception ex) {
+//             LOGGER.log(Level.WARNING, ex.getMessage(), ex);
+//             return null;
+//         }
+//       }
+//       return instancia;
+//    }
 
-    public static int getNumDatos() {
-        return numDatos;
-    }
+//    public static int getNumDatos() {
+//        return numDatos;
+//    }
 
-    public static void setNumDatos(int _num_datos) {
-        numDatos = _num_datos;
-    }
+//    static void setNumDatos(int _num_datos) {
+//        numDatos = _num_datos;
+//    }
 
-    public static int getNumSenales() {
-        return numSenales;
-    }
+//    public static int getNumSenales() {
+//        return numSenales;
+//    }
 
-    public static void setNumSenales(int _num_senales) {
+    static void setNumSenales(int _num_senales) {
         numSenales = _num_senales;
     }
 

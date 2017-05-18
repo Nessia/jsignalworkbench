@@ -2,6 +2,8 @@ package net.javahispano.plugins.basicstats.ui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -23,7 +25,10 @@ public class NewStatisticsDialog extends JDialog {
      *
      */
     private static final long serialVersionUID = 8479952279015870258L;
-    private static boolean quiere_ver_todos = true;
+
+    private static final Logger LOGGER = Logger.getLogger(NewStatisticsDialog.class.getName());
+
+    private static boolean quiereVerTodos = true;
     private ResultadosEstadisticos estadistico;
     private PanelMostrarEstadisticos panelEstadicticos;
     private BasicStatisticsPlugin statisticsPlugin; //statisticsPlugin
@@ -42,7 +47,7 @@ public class NewStatisticsDialog extends JDialog {
     private Window parent;
 
     public NewStatisticsDialog(BasicStatisticsPlugin statisticsPlugin, ResultadosEstadisticos estadistico,
-                               Window parent, boolean modal) {
+                               Window parent/*, boolean modal*/) {
         super(parent, "Nuevo estadistico", Dialog.ModalityType.APPLICATION_MODAL);
         this.parent = parent;
         this.estadistico = estadistico;
@@ -51,7 +56,7 @@ public class NewStatisticsDialog extends JDialog {
             jbInit();
             pack();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
         }
         panelEstadicticos = new PanelMostrarEstadisticos(estadistico);
         panelAnhadirPanelEstadisticos.add(panelEstadicticos);
@@ -73,7 +78,7 @@ public class NewStatisticsDialog extends JDialog {
         descartar.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                descartar_actionPerformed(e);
+                descartar_actionPerformed();
             }
         });
         anhadir.setText("Anhadir");
@@ -81,10 +86,10 @@ public class NewStatisticsDialog extends JDialog {
         anhadir.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                anhadir_actionPerformed(e);
+                anhadir_actionPerformed();
             }
         });
-        mostrarTodosEstadisticos.setSelected(NewStatisticsDialog.quiere_ver_todos);
+        mostrarTodosEstadisticos.setSelected(NewStatisticsDialog.quiereVerTodos);
         mostrarTodosEstadisticos.setText("Mostrar todos los estadisticos");
         jPanel2.setPreferredSize(new Dimension(422, 37));
         getContentPane().add(panel1);
@@ -97,11 +102,11 @@ public class NewStatisticsDialog extends JDialog {
         jPanel2.add(descartar, null);
     }
 
-    void descartar_actionPerformed(ActionEvent e) {
+    private void descartar_actionPerformed() {
         dispose();
     }
 
-    void anhadir_actionPerformed(ActionEvent e) {
+    private void anhadir_actionPerformed() {
         dispose();
         estadistico.setNombreSenhal(panelEstadicticos.getNombreSenhal());
         estadistico.setComentario(panelEstadicticos.getComentario());
@@ -110,9 +115,9 @@ public class NewStatisticsDialog extends JDialog {
             estadistico.invalidaPercentiles();
         }
         this.statisticsPlugin.addStatistics(estadistico);
-        quiere_ver_todos = mostrarTodosEstadisticos.isSelected();
-        if (NewStatisticsDialog.quiere_ver_todos) {
-            AllStatisticsDialog verTodos = new AllStatisticsDialog(statisticsPlugin, parent, false);
+        quiereVerTodos = mostrarTodosEstadisticos.isSelected();
+        if (NewStatisticsDialog.quiereVerTodos) {
+            AllStatisticsDialog verTodos = new AllStatisticsDialog(statisticsPlugin, parent/*, false*/);
             verTodos.setVisible(true);
         }
     }

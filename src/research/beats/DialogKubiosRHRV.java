@@ -80,16 +80,16 @@ public class DialogKubiosRHRV extends JDialog {
         jPanel2.add(jButton1);
     }
 
-    public void jCheckBox1_stateChanged(ChangeEvent e) {
+    void jCheckBox1_stateChanged() {
         jCheckBox2.setSelected(!jCheckBox1.isSelected());
     }
 
-    public void jCheckBox2_stateChanged(ChangeEvent e) {
+    void jCheckBox2_stateChanged() {
 
         jCheckBox1.setSelected(!jCheckBox2.isSelected());
     }
 
-    public void jButton1_actionPerformed(ActionEvent e) {
+    void jButton1_actionPerformed() {
         exportRHRV = jCheckBox1.isSelected();
         this.dispose();
     }
@@ -108,7 +108,7 @@ class DialogKubiosRHRV_jButton1_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton1_actionPerformed(e);
+        adaptee.jButton1_actionPerformed();
     }
 }
 
@@ -121,7 +121,7 @@ class DialogKubiosRHRV_jCheckBox2_changeAdapter implements ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        adaptee.jCheckBox2_stateChanged(e);
+        adaptee.jCheckBox2_stateChanged();
     }
 }
 
@@ -134,6 +134,6 @@ class DialogKubiosRHRV_jCheckBox1_changeAdapter implements ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        adaptee.jCheckBox1_stateChanged(e);
+        adaptee.jCheckBox1_stateChanged();
     }
 }

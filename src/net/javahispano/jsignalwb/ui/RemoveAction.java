@@ -18,7 +18,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman
  */
-public class RemoveAction extends AbstractAction {
+class RemoveAction extends AbstractAction {
     /**
     *
     */
@@ -36,7 +36,7 @@ public class RemoveAction extends AbstractAction {
      * Constructores
      */
 
-    public RemoveAction(JSWBManager jswbManager, String signalName) {
+    RemoveAction(JSWBManager jswbManager, String signalName) {
         this.jswbManager = jswbManager;
         this.signalName = signalName;
         this.putValue(NAME, String.valueOf("Remove"));

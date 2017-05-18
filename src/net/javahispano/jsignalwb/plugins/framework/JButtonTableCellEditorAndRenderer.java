@@ -18,7 +18,7 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author Roman Segador
  */
-public class JButtonTableCellEditorAndRenderer extends AbstractCellEditor
+class JButtonTableCellEditorAndRenderer extends AbstractCellEditor
             implements TableCellEditor, TableCellRenderer, ActionListener {
 
     /**
@@ -32,32 +32,8 @@ public class JButtonTableCellEditorAndRenderer extends AbstractCellEditor
         button = null;
     }
 
-    public JButtonTableCellEditorAndRenderer(String text) {
-        this(text, "Click");
-    }
-
-    public JButtonTableCellEditorAndRenderer(String text, String tooltipText) {
-        button = new JButton(text);
-        button.setToolTipText(tooltipText);
-        button.addActionListener(this);
-    }
-
-    public JButtonTableCellEditorAndRenderer(Icon icon) {
-        this(icon, "Click");
-    }
-
-    public JButtonTableCellEditorAndRenderer(Icon icon, String tooltipText) {
+    JButtonTableCellEditorAndRenderer(Icon icon, String tooltipText) {
         button = new JButton(icon);
-        button.setToolTipText(tooltipText);
-        button.addActionListener(this);
-    }
-
-    public JButtonTableCellEditorAndRenderer(String text, Icon icon) {
-        this(text, icon, "Click");
-    }
-
-    public JButtonTableCellEditorAndRenderer(String text, Icon icon, String tooltipText) {
-        button = new JButton(text, icon);
         button.setToolTipText(tooltipText);
         button.addActionListener(this);
     }

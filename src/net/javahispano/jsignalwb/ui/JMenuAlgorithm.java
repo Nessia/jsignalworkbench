@@ -21,7 +21,7 @@ import net.javahispano.jsignalwb.plugins.framework.PluginManager;
  *
  * @author Roman
  */
-public class JMenuAlgorithm extends JMenu {
+class JMenuAlgorithm extends JMenu {
     /**
      *
      */
@@ -29,7 +29,7 @@ public class JMenuAlgorithm extends JMenu {
 
     //private String algorithmName;
     /** Creates a new instance of JMenuAlgorithm */
-    public JMenuAlgorithm(String algorithmName, JSWBManager jswbManager) {
+    JMenuAlgorithm(String algorithmName, JSWBManager jswbManager) {
         super(algorithmName);
 
         //this.algorithmName = algorithmName;

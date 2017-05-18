@@ -5,9 +5,9 @@ class Pico {
 
     public static final Pico DUMMY_PICO = new Pico(Integer.MIN_VALUE, Integer.MIN_VALUE, 'o');
 
-    protected int maximo;
+    private int maximo;
+    private char base;
     protected int posicion;
-    protected char base;
 
     protected Pico(int posicion, int maximo, char base) {
         this.maximo = maximo;

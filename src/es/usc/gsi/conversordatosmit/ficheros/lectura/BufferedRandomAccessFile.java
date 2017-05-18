@@ -5,10 +5,10 @@ import java.io.RandomAccessFile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class BufferedRandomAccessFile {
+class BufferedRandomAccessFile {
     private static final Logger LOGGER = Logger.getLogger(BufferedRandomAccessFile.class.getName());
 
-    private static final int DEFAULTBUFFERSIZE = 10240;
+//    private static final int DEFAULTBUFFERSIZE = 10240;
 
     private RandomAccessFile entrada;
 
@@ -25,11 +25,11 @@ public class BufferedRandomAccessFile {
     //private int numPeticion = 0;
 
     // Contructor con tamanho de buffer por defecto.
-    public BufferedRandomAccessFile(RandomAccessFile entrada) {
-        this(entrada, DEFAULTBUFFERSIZE);
-    }
+//    BufferedRandomAccessFile(RandomAccessFile entrada) {
+//        this(entrada, DEFAULTBUFFERSIZE);
+//    }
 
-    public BufferedRandomAccessFile(RandomAccessFile entrada, int bufferSize) {
+    BufferedRandomAccessFile(RandomAccessFile entrada, int bufferSize) {
 
         this.entrada = entrada;
         this.bufferSize = bufferSize;
@@ -52,7 +52,7 @@ public class BufferedRandomAccessFile {
 
     // Metodos que se superponen a los de RandomAccessFile
 
-    public void seek(long posicion) {
+    void seek(long posicion) {
 
         int numLecturasSolicitado = (int) (posicion / bufferSize);
 
@@ -69,7 +69,7 @@ public class BufferedRandomAccessFile {
 
     } // Fin seek
 
-    public int read(byte[] b) {
+    int read(byte[] b) {
 
         int res = 0;
 
@@ -97,7 +97,7 @@ public class BufferedRandomAccessFile {
 
     } // Fin read
 
-    public void close() {
+    void close() {
 
         entrada = null;
         buffer = null;

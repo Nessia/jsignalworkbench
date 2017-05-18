@@ -14,7 +14,7 @@ import javax.swing.JPanel;
  *
  * @author Roman Segador
  */
-public class AnnotationCategoriesPanel extends JPanel {
+class AnnotationCategoriesPanel extends JPanel {
     /**
      *
      */
@@ -40,7 +40,7 @@ public class AnnotationCategoriesPanel extends JPanel {
         }
     }
 
-    public void refreshCategories(java.util.List<String> categories) {
+    void refreshCategories(java.util.List<String> categories) {
         this.categories = categories;
         Runnable uiUpdateRunnable = new Runnable() {
             @Override

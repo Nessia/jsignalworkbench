@@ -24,19 +24,19 @@ import net.javahispano.jsignalwb.plugins.framework.PluginManager;
  *
  * @author Roman Segador
  */
-public class JSWFileChooser extends JFileChooser implements PropertyChangeListener {
+class JSWFileChooser extends JFileChooser implements PropertyChangeListener {
     /**
      *
      */
     private static final long serialVersionUID = 1291898517531230423L;
 
     // los plugins escriben sus propios datos
-    transient PluginManager pm;
+    private transient PluginManager pm;
     // ArrayList<FileChooserFileFilter> filters;
-    boolean isDefaultFilter;
-    FileChooserFileFilter defaultFilter;
+    private boolean isDefaultFilter;
+    private FileChooserFileFilter defaultFilter;
 
-    public JSWFileChooser(PluginManager pm) {
+    JSWFileChooser(PluginManager pm) {
         super(".");
         this.pm = pm;
         super.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);

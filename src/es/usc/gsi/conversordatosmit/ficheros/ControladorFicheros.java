@@ -37,19 +37,19 @@ public class ControladorFicheros {
      * Metodos
      */
 
-    public FicheroHead getNuevoHead(String path) throws FicheroNoValidoException {
-        FicheroHead res = new FicheroHead(path);
-        this.setNuevoHead(res);
-        return res;
-    }
+//    public FicheroHead getNuevoHead(String path) throws FicheroNoValidoException {
+//        FicheroHead res = new FicheroHead(path);
+//        this.setNuevoHead(res);
+//        return res;
+//    }
 
     public void setNuevoHead(FicheroHead fh) {
         ficherosHead.add(fh);
     }
 
-    public void eliminaHead(FicheroHead fh) {
-        ficherosHead.remove(fh);
-    }
+//    public void eliminaHead(FicheroHead fh) {
+//        ficherosHead.remove(fh);
+//    }
 
     public List<FicheroHead> getFicherosHead() {
         return ficherosHead;
@@ -92,9 +92,9 @@ public class ControladorFicheros {
         this.ficherosHead.clear();
     }
 
-    public boolean existenArchivosAbiertos() {
-        return ficherosHead.isEmpty();
-    }
+//    public boolean existenArchivosAbiertos() {
+//        return ficherosHead.isEmpty();
+//    }
 
     public void volcarFicherosHead_ASCII(File ficheroDestino) throws
             ErrorExportandoException {
@@ -228,7 +228,7 @@ public class ControladorFicheros {
     // Creacion y manejo de indicadores de progreso graficos: son
     // aconsejables para operaciones intensivas en ficheros.
 
-    public void creaIndicadorProgreso(Cancelar h, String titulo, String textoPrincipal, int max, int min,
+    private void creaIndicadorProgreso(Cancelar h, String titulo, String textoPrincipal, int max, int min,
                                       boolean _stop) {
         controlInterfaz.creaIndicadorProgreso(h, titulo, textoPrincipal, max, min, _stop);
     }

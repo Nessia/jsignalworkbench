@@ -1,6 +1,8 @@
 package net.javahispano.plugins.basicstats;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
@@ -26,14 +28,16 @@ import java.awt.Color;
  */
 public class MobileMeanPlugin extends AlgorithmAdapter {
 
+    private static final Logger LOGGER = Logger.getLogger(MobileMeanPlugin.class.getName());
+
     private int window = 4;
     private boolean mediana = false;
     private boolean eliminarHuecos = true;
     private float valorHuecos = 50;
-    protected int deslizamientoParaCadaMediana = 500;
+    private int deslizamientoParaCadaMediana = 500;
  // TODO está a true en el otro codigo @vanesa
-    protected boolean resample = false;
-    protected int ventanaResampleEnSegundos = 300;
+    private boolean resample = false;
+    private int ventanaResampleEnSegundos = 300;
 
     @Override
     public String getDataToSave() {
@@ -49,7 +53,7 @@ public class MobileMeanPlugin extends AlgorithmAdapter {
             eliminarHuecos = Boolean.parseBoolean(t.nextToken());
             valorHuecos = Float.parseFloat(t.nextToken());
         } catch (NumberFormatException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
         }
     }
 
@@ -67,12 +71,12 @@ public class MobileMeanPlugin extends AlgorithmAdapter {
         sm.hideAllSignals();
         for (SignalIntervalProperties signali : signals) {
             Signal s = signali.getSignal();
-            Signal newSignal = generateSmoothSignal(sm, s);
+            Signal newSignal = generateSmoothSignal(/*sm,*/ s);
             sm.addSignal(newSignal);
         }
     }
 
-    private Signal generateSmoothSignal(SignalManager sm, Signal signal) {
+    private Signal generateSmoothSignal(/*SignalManager sm,*/ Signal signal) {
         float[] data = signal.getValues();
         float[] newData;
         int numberOfSamples = this.window;
@@ -81,7 +85,7 @@ public class MobileMeanPlugin extends AlgorithmAdapter {
             try {
                 newData = MediaMovil.calculaMediaMovilClone(data, numberOfSamples);
             } catch (MediaMovilException ex) {
-                ex.printStackTrace();
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                 return null;
             }
         } else {

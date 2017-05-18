@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-public class MenuVer extends JMenu implements ActionListener {
+class MenuVer extends JMenu implements ActionListener {
 
     /**
     *
@@ -24,7 +24,7 @@ public class MenuVer extends JMenu implements ActionListener {
      * Constructor
      */
 
-    public MenuVer(String nombre) {
+    MenuVer(String nombre) {
 
         super(nombre);
 

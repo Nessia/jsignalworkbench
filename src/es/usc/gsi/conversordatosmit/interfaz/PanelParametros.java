@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 import es.usc.gsi.conversordatosmit.ficheros.FicheroHead;
 
-public class PanelParametros extends JPanel {
+class PanelParametros extends JPanel {
 
 
     /**
@@ -16,7 +16,7 @@ public class PanelParametros extends JPanel {
     private PanelFichero[] panelesFichero;
     private BoxLayout layoutPanel;
 
-    public PanelParametros(FicheroHead[] ficherosHead) {
+    PanelParametros(FicheroHead[] ficherosHead) {
         this.layoutPanel = new BoxLayout(this, BoxLayout.Y_AXIS); // Una sola columna y tantas filas como ficherosHead
         this.setLayout(layoutPanel);
 
@@ -29,26 +29,21 @@ public class PanelParametros extends JPanel {
         panelesFichero = new PanelFichero[ficherosHead.length];
 
         for (int i = 0; i < ficherosHead.length; i++) {
-            panelesFichero[i] = new PanelFichero(ficherosHead[i],
-                                                 PanelFichero.LISTA);
+            panelesFichero[i] = new PanelFichero(ficherosHead[i], PanelFichero.Modo.LISTA);
             this.add(panelesFichero[i]);
         }
     }
 
-    public void actualizaFrecuencias() {
-
+    void actualizaFrecuencias() {
         for (int i = 0; i < panelesFichero.length; i++) {
             panelesFichero[i].actualizaFrecuencia();
         }
-
     }
 
-    public void actualizaFechas(String fechaInicio, String fechaFin) {
-
+    void actualizaFechas(String fechaInicio, String fechaFin) {
         for (int i = 0; i < panelesFichero.length; i++) {
             panelesFichero[i].actualizaFechas(fechaInicio, fechaFin);
         }
-
     }
 
 

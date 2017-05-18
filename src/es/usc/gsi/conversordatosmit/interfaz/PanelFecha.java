@@ -13,7 +13,7 @@ import es.usc.gsi.conversordatosmit.excepciones.*;
 import es.usc.gsi.conversordatosmit.utilidades.ParseadorFecha;
 
 
-public class PanelFecha extends JPanel implements ActionListener {
+class PanelFecha extends JPanel implements ActionListener {
 
     private static final Logger LOGGER = Logger.getLogger(PanelFecha.class.getName());
 
@@ -35,7 +35,7 @@ public class PanelFecha extends JPanel implements ActionListener {
 
 //*******************************************************************************
 
-    public PanelFecha(String fechaInicio, String fechaFin) {
+    PanelFecha(String fechaInicio, String fechaFin) {
          this.setLayout(new GridLayout(2, 1));
 
          this.fechaInicio = fechaInicio;
@@ -121,20 +121,13 @@ public class PanelFecha extends JPanel implements ActionListener {
 
 //*******************************************************************************
 
-     public void reset() {
-         this.tfFechaInicio.setText(fechaInicio);
-         this.tfFechaFin.setText(fechaFin);
-     }
-
-//*******************************************************************************
-
-     public void resetInicio() {
+     private void resetInicio() {
          this.tfFechaInicio.setText(fechaInicio);
      }
 
 //*******************************************************************************
 
-     public void resetFin() {
+     private void resetFin() {
          this.tfFechaFin.setText(fechaFin);
      }
 

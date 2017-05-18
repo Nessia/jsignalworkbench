@@ -31,15 +31,15 @@ public class PrintUtilities implements Printable {
     /**
      * modo de impresion: LANDSCAPE
      */
-    public static final int LANDSCAPE = PageFormat.LANDSCAPE;
+    static final int LANDSCAPE = PageFormat.LANDSCAPE;
     /**
      * modo de impresion: PORTRAIT
      */
-    public static final int PORTRAIT = PageFormat.PORTRAIT;
+    static final int PORTRAIT = PageFormat.PORTRAIT;
     /**
      * modo de impresion: REVERSE_LANDSCAPE
      */
-    public static final int REVERSE_LANDSCAPE = PageFormat.REVERSE_LANDSCAPE;
+//    public static final int REVERSE_LANDSCAPE = PageFormat.REVERSE_LANDSCAPE;
 
 
     /**
@@ -74,11 +74,11 @@ public class PrintUtilities implements Printable {
      * @param orientation orientacion con la que imprime
      * @throws PrinterException
      */
-    public static void printComponent(Component componentToBePrinted, int orientation) throws PrinterException {
-        PrintUtilities p = new PrintUtilities(componentToBePrinted);
-        p.setOrientation(orientation);
-        p.print();
-    }
+//    public static void printComponent(Component componentToBePrinted, int orientation) throws PrinterException {
+//        PrintUtilities p = new PrintUtilities(componentToBePrinted);
+//        p.setOrientation(orientation);
+//        p.print();
+//    }
 
 
     /**
@@ -92,14 +92,14 @@ public class PrintUtilities implements Printable {
      * @param width ancho por defecto del papel
      * @throws PrinterException
      */
-    public static void printComponent(Component componentToBePrinted, int orientation, int height, int width) throws
-            PrinterException {
-        PrintUtilities p = new PrintUtilities(componentToBePrinted);
-        p.setOrientation(orientation);
-        p.setDefaultPaperHeight(height);
-        p.setDefaultPaperWidht(width);
-        p.print();
-    }
+//    public static void printComponent(Component componentToBePrinted, int orientation, int height, int width) throws
+//            PrinterException {
+//        PrintUtilities p = new PrintUtilities(componentToBePrinted);
+//        p.setOrientation(orientation);
+//        p.setDefaultPaperHeight(height);
+//        p.setDefaultPaperWidht(width);
+//        p.print();
+//    }
 
     /**
      * Imprime el correspondiente componente.
@@ -107,7 +107,7 @@ public class PrintUtilities implements Printable {
      *
      * @throws PrinterException
      */
-    public void print() throws PrinterException {
+    private void print() throws PrinterException {
         PrinterJob printJob = PrinterJob.getPrinterJob();
         PageFormat pageFormat = new PageFormat();
         pageFormat.setOrientation(orientation);

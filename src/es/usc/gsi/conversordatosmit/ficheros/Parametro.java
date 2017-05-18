@@ -11,17 +11,17 @@ public class Parametro implements Serializable{
      */
     private static final long serialVersionUID = -2695929206125829211L;
 
-    public static final int F8 = 8;
+//    public static final int F8 = 8;
     public static final int F16 = 16;
     public static final int F61 = 61;
-    public static final int F80 = 80;
-    public static final int F160 = 160;
+//    public static final int F80 = 80;
+//    public static final int F160 = 160;
     public static final int F212 = 212;
-    public static final int F310 = 310;
+//    public static final int F310 = 310;
 
     private static int numSeleccionados = 0;
 
-    public static int getNumSeleccionados(){
+    protected static int getNumSeleccionados(){
         return numSeleccionados;
     }
 
@@ -64,7 +64,7 @@ public class Parametro implements Serializable{
 
     // ADMITE FECHAS DE INICIO DE REMUESTREO Y DE FIN DE REMUESTREO.
     // ESTAS FECHAS COINCIDIRAN CON LAS REALES EN CASO DE QUE NO SE REQUIERA REMUESTREO.
-    public Parametro(String nombreFichero, int formatoAlmacenamiento,
+    Parametro(String nombreFichero, int formatoAlmacenamiento,
                      int factorFrecuencia, float ganancia,
                      String unidades, int resolucionConversor,
                      int offset, long primerValorLeido, long checksum,
@@ -97,7 +97,7 @@ public class Parametro implements Serializable{
     }
 
     // Constructor copia
-    public Parametro(Parametro par) {
+    Parametro(Parametro par) {
         this(
                 par.getNombreFichero(), par.getFormatoAlmacenamiento(),
                 par.getFactorFrecuencia(), par.getGanancia(),
@@ -253,19 +253,17 @@ public class Parametro implements Serializable{
 
     }
 
-    public void resetFechas() {
-
-        this.fechaInicio = this.backupFechaInicio;
-        this.fechaFin = this.backupFechaFin;
-
-    }
+//    public void resetFechas() {
+//        this.fechaInicio = this.backupFechaInicio;
+//        this.fechaFin = this.backupFechaFin;
+//    }
 
     public void setActivado(boolean b) {
         this.activado = b;
         modificarSeleccionados(b);
     }
 
-    public static void modificarSeleccionados(boolean incrementar){
+    private static void modificarSeleccionados(boolean incrementar){
         numSeleccionados += incrementar?  1 : -1;
     }
 

@@ -26,7 +26,7 @@ import research.beats.anotaciones.LimitacionAnotacion.SENALES;
  * @author Abraham Otero
  * @version 0.5
  */
-public class LimitacionesDialog extends JDialog {
+class LimitacionesDialog extends JDialog {
     /**
      *
      */
@@ -35,10 +35,11 @@ public class LimitacionesDialog extends JDialog {
 
     private static final Font REGULAR_FONT = new java.awt.Font("Tahoma", Font.BOLD, 14);
 
-    LimitacionAnotacion limitacionAnotacion;
-    boolean apnea = true;
-    boolean desat = false;
-    boolean latido = false;
+    private transient LimitacionAnotacion limitacionAnotacion;
+    private boolean apnea = true;
+//    private boolean desat = false;
+    private boolean latido = false;
+
     private JPanel panel1 = new JPanel();
     private BorderLayout borderLayout1 = new BorderLayout();
     private JPanel jPanel1 = new JPanel();
@@ -92,7 +93,7 @@ public class LimitacionesDialog extends JDialog {
                     this.jPanel2.add(l);
 
                     apnea = false;
-                    desat = true;
+//                    desat = true;
                 }
 
             }
@@ -153,9 +154,9 @@ public class LimitacionesDialog extends JDialog {
         }
     }
 
-    public LimitacionesDialog(LimitacionAnotacion limitacionesAnotaciones) {
-        this(new Frame(), "LimitacionesDialog", false, limitacionesAnotaciones);
-    }
+//    public LimitacionesDialog(LimitacionAnotacion limitacionesAnotaciones) {
+//        this(new Frame(), "LimitacionesDialog", false, limitacionesAnotaciones);
+//    }
 
     private void jbInit() throws Exception {
         panel1.setLayout(borderLayout1);

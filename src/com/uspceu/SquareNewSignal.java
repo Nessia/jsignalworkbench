@@ -3,7 +3,7 @@ package com.uspceu;
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.SignalManager;
 
-public class SquareNewSignal extends SimpleAlgorithm {
+class SquareNewSignal extends SimpleAlgorithm {
 
 
     @Override

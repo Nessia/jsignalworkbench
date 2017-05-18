@@ -26,7 +26,7 @@ public abstract class AlmacenDatos implements Serializable {
 //    public static final int SHORT = 2;
 //    public static final int BYTE = 1;
 
-    public enum TIPOS { BYTE, SHORT, INT, FLOAT }
+//    enum TIPOS { BYTE, SHORT, INT, FLOAT }
 
     /**
      * Numero de senhales contenidas en este almacen.
@@ -44,22 +44,22 @@ public abstract class AlmacenDatos implements Serializable {
     protected SortedSet<Mark>[] marcas;
     protected SortedSet<Annotation> anotaciones;
     protected byte[] posTotal;
-    protected String fechaBase;
+    private String fechaBase;
 
     /**
      * para meter lo que sea en el futuro....
      */
     //protected LinkedList olvidado;
     protected float[] fs;
-    protected String nombre_paciente;
-    protected int edad_paciente;
+    private String nombre_paciente;
+    private int edad_paciente;
 
     /**
      * false si es mujer
      */
-    protected boolean is_hombre;
-    protected String comentario;
-    protected String[] otros_comentarios;
+    private boolean is_hombre;
+    private String comentario;
+    private String[] otros_comentarios;
 
     private transient boolean esta_guardado = false;
     private transient boolean tiene_archivo_asociado = false;
@@ -92,7 +92,7 @@ public abstract class AlmacenDatos implements Serializable {
 //            TreeSet<Annotation> anotaciones) {
 //    }
 
-    public AlmacenDatos(TreeSet<Mark>[] marcas,
+    AlmacenDatos(TreeSet<Mark>[] marcas,
             SortedSet<Annotation> anotaciones) {
         this.anotaciones = anotaciones;
         this.marcas = marcas;
@@ -128,34 +128,31 @@ public abstract class AlmacenDatos implements Serializable {
      * @param canal
      * @return boolean
      */
-    public boolean isPosAsociada(int canal) {
-        //En este caso es la posibilidad total
-        if (this.numeroSenales == canal) {
-            return true;
-        }
-
-        if (almacenPos.getDatos() != null &&
-            ((byte[][]) almacenPos.getDatos())[canal] != null) {
-            byte[] pos = ((byte[]) almacenPos.getDatos(canal));
-            for (int i = 0; i < pos.length; i++) {
-                if (pos[i] != 0) {
-                    return true;
-                }
-
-            }
-
-            return false;
-        }
-
-        return false;
-    }
+//    boolean isPosAsociada(int canal) {
+//        //En este caso es la posibilidad total
+//        if (this.numeroSenales == canal) {
+//            return true;
+//        }
+//
+//        if (almacenPos.getDatos() != null &&
+//            ((byte[][]) almacenPos.getDatos())[canal] != null) {
+//            byte[] pos = ((byte[]) almacenPos.getDatos(canal));
+//            for (int i = 0; i < pos.length; i++) {
+//                if (pos[i] != 0) {
+//                    return true;
+//                }
+//            }
+//        }
+//
+//        return false;
+//    }
 
 
     /**
      * @param senal - Datos del array i, es decir la senhal i.
      * @return Object
      */
-    public Object getPos(int senal) {
+    Object getPos(int senal) {
         if (almacenPos.getDatos() == null) {
             return null; //(new int[1]);
         }
@@ -227,16 +224,6 @@ public abstract class AlmacenDatos implements Serializable {
         return rangosSenales[senal];
     }
 
-
-    /**
-     * @param senal
-     * @param rango
-     */
-    public void setRango(int senal, float[] rango) {
-        rangosSenales[senal] = rango;
-    }
-
-
     /**
      *
      * @param rango
@@ -287,7 +274,7 @@ public abstract class AlmacenDatos implements Serializable {
      * @param senal
      * @return String
      */
-    public String getLeyendaTemporal(int senal) {
+    String getLeyendaTemporal(int senal) {
         return this.leyendaTemporal[senal];
     }
 
@@ -305,34 +292,34 @@ public abstract class AlmacenDatos implements Serializable {
      * @param senal
      * @param anotacion
      */
-    public void anadeMarca(int senal, Mark anotacion) {
-        this.marcas[senal].add(anotacion);
-    }
+//    void anadeMarca(int senal, Mark anotacion) {
+//        this.marcas[senal].add(anotacion);
+//    }
 
 
     /**
      * @param senal
      * @param anotacion
      */
-    public void eliminaMarca(int senal, Mark anotacion) {
-        this.marcas[senal].remove(anotacion);
-    }
+//    void eliminaMarca(int senal, Mark anotacion) {
+//        this.marcas[senal].remove(anotacion);
+//    }
 
 
     /**
      * @param anotacion
      */
-    public void anadeAnotacion(Annotation anotacion) {
-        this.anotaciones.add(anotacion);
-    }
+//    void anadeAnotacion(Annotation anotacion) {
+//        this.anotaciones.add(anotacion);
+//    }
 
 
     /**
      * @param anotacion
      */
-    public void eliminaAnotacion(Annotation anotacion) {
-        this.anotaciones.remove(anotacion);
-    }
+//    void eliminaAnotacion(Annotation anotacion) {
+//        this.anotaciones.remove(anotacion);
+//    }
 
 
     //////////////Conjunto de metodos para la gestion del almacenaje a archivo
@@ -647,9 +634,9 @@ public abstract class AlmacenDatos implements Serializable {
      * @param estadistico
      * @return
      */
-    boolean eliminaEstadistico(String estadistico) {
-        return (estadisticos.remove(estadistico) != null) ;
-    }
+//    boolean eliminaEstadistico(String estadistico) {
+//        return (estadisticos.remove(estadistico) != null) ;
+//    }
 
 
     /**
@@ -657,9 +644,9 @@ public abstract class AlmacenDatos implements Serializable {
      * @param estadistico
      * @return
      */
-    boolean eliminaCorrelacion(ResultadoCorrelacion correlacion) {
-        return (correlaciones.remove(correlacion.getKey()) != null) ;
-    }
+//    boolean eliminaCorrelacion(ResultadoCorrelacion correlacion) {
+//        return (correlaciones.remove(correlacion.getKey()) != null) ;
+//    }
 
 
     /**
@@ -667,55 +654,37 @@ public abstract class AlmacenDatos implements Serializable {
      * @param estadistico
      * @return
      */
-    boolean eliminaCorrelacion(String correlacion) {
-        return (correlaciones.remove(correlacion) != null) ;
-    }
+//    boolean eliminaCorrelacion(String correlacion) {
+//        return (correlaciones.remove(correlacion) != null) ;
+//    }
 
     /**
      *
      */
-    void eliminaTodosLosEstadisticos() {
+    private void eliminaTodosLosEstadisticos() {
         estadisticos = new HashMap<String, ResultadosEstadisticos>();
     }
 
     /**
      *
      */
-    void eliminaTodasLasCorrelaciones() {
+    private void eliminaTodasLasCorrelaciones() {
         correlaciones = new HashMap<String, ResultadoCorrelacion>();
     }
-
-    /**
-     *
-     * @return
-     */
-    protected Collection<ResultadosEstadisticos> getEstadisticos() {
-        return estadisticos.values();
-    }
-
-
-    /**
-     *
-     * @return
-     */
-    protected Collection<ResultadoCorrelacion> getCorrelaciones() {
-        return correlaciones.values();
-    }
-
 
     /**
      *
      * @param estadistico
      * @return
      */
-    protected ResultadosEstadisticos getEstadistico(String estadistico) {
-        return estadisticos.get(estadistico);
-    }
+//    protected ResultadosEstadisticos getEstadistico(String estadistico) {
+//        return estadisticos.get(estadistico);
+//    }
 
 
-    protected ResultadoCorrelacion getCorrelacion(String correlacion) {
-        return correlaciones.get(correlacion);
-    }
+//    protected ResultadoCorrelacion getCorrelacion(String correlacion) {
+//        return correlaciones.get(correlacion);
+//    }
 
 
     /**Cuando se carga un archivo serializado este no posee ciertos campos que se anhadienron

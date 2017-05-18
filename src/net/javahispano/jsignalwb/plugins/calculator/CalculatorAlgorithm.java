@@ -31,12 +31,12 @@ public class CalculatorAlgorithm extends AlgorithmAdapter {
 
     private static final String TITULO = "Calculadora de parametros";
 
-    protected String firstSignalName;
-    protected String secondSignalName;
-    protected String newSignalName;
-    protected Operation operation = Operation.ADD;
-    protected float[] firstSignalValues;
-    protected float[] secondSignalValues;
+    private String firstSignalName;
+    private String secondSignalName;
+    private String newSignalName;
+    private Operation operation = Operation.ADD;
+    private float[] firstSignalValues;
+    private float[] secondSignalValues;
 
     @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>

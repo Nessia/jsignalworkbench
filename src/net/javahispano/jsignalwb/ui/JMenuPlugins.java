@@ -25,7 +25,7 @@ import net.javahispano.jsignalwb.plugins.framework.PluginManager;
  *
  * @author Roman
  */
-public class JMenuPlugins extends JMenu {
+class JMenuPlugins extends JMenu {
 
     /**
     *
@@ -35,7 +35,7 @@ public class JMenuPlugins extends JMenu {
     private JSWBManager jswbManager;
 
     /** Creates a new instance of JMenuAlgorithms */
-    public JMenuPlugins(JSWBManager jswbManager) {
+    JMenuPlugins(JSWBManager jswbManager) {
         super("Plugins");
         setMnemonic(KeyEvent.VK_P);
         this.jswbManager = jswbManager;
@@ -49,7 +49,7 @@ public class JMenuPlugins extends JMenu {
         addMenuListener(ml);
     }
 
-    public void jMenuSelected() {
+    private void jMenuSelected() {
         this.removeAll();
         PluginManager pluginManager = JSWBManager.getPluginManager();
         Map<String, ArrayList<String>> plugins = pluginManager.getRegisteredPlugins();

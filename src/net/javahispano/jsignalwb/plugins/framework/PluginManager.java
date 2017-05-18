@@ -16,6 +16,7 @@ import net.javahispano.jsignalwb.framework.ExceptionsCollector;
 import net.javahispano.jsignalwb.plugins.*;
 import net.javahispano.jsignalwb.plugins.debug.DebugPluginInfo;
 import net.javahispano.jsignalwb.plugins.defaults.*;
+import net.javahispano.jsignalwb.ui.texteditor.JSWTextProcessorPlugin;
 
 
 /**
@@ -41,19 +42,6 @@ public class PluginManager {
     private Map<String, String> iconsAssociation;
     private ClassLoader classLoader;
     private String defaultDirectory = "data/plugins";
-
-    /**
-     * Crea una instancia de la clase indicando un directorio que contiene
-     * plugins que deben ser registrados, aunque no cargados hasta que sea
-     * necesario, por la instancia.
-     *
-     * @param pluginsPath directorio con plugins que deben ser registrados.
-     */
-    public PluginManager(String pluginsPath) {
-        this();
-        defaultDirectory = pluginsPath;
-
-    }
 
     /**
      * crea una instancia de la clase empleando un directorio de carga de
@@ -88,11 +76,11 @@ public class PluginManager {
 //        pluginAssociation.put("grid:Old Default Grid",
 //                "net.javahispano.jsignalwb.plugins.OldGridPlugin");
         pluginAssociation.put("grid:Default grid plugin",
-                              "net.javahispano.jsignalwb.plugins.defaults.DefaultGridPlugin");
+                DefaultGridPlugin.class.getName());//"net.javahispano.jsignalwb.plugins.defaults.DefaultGridPlugin");
         pluginAssociation.put("grid:Temporal Axis Grid",
-                              "net.javahispano.jsignalwb.plugins.defaults.AxesGridPlugin");
+                AxesGridPlugin.class.getName());//"net.javahispano.jsignalwb.plugins.defaults.AxesGridPlugin");
         pluginAssociation.put("generic:JSWTextProcessorPlugin",
-                              "net.javahispano.jsignalwb.ui.texteditor.JSWTextProcessorPlugin");
+                JSWTextProcessorPlugin.class.getName());//"net.javahispano.jsignalwb.ui.texteditor.JSWTextProcessorPlugin");
 
         pluginAssociation.put("generic:SignalOrganizerPlugin",
                               "net.javahispano.jsignalwb.ui.signalorganizer.SignalOrganizerPlugin");
@@ -111,11 +99,11 @@ public class PluginManager {
     }
 
 
-    boolean isIconRegistered(String pluginType, String pluginName) {
+    private boolean isIconRegistered(String pluginType, String pluginName) {
         return isIconRegistered(pluginType + ":" + pluginName);
     }
 
-    boolean isIconRegistered(String key) {
+    private boolean isIconRegistered(String key) {
         return iconsAssociation.containsKey(key);
     }
 
@@ -171,7 +159,7 @@ public class PluginManager {
      * @return Icon
      * @throws {@link PluginLoadException}
      */
-    public Icon getIcon(String pluginType, String pluginName) {
+    private Icon getIcon(String pluginType, String pluginName) {
         try {
             if (isPluginRegistered(pluginType, pluginName)) {
                 if (isIconRegistered(pluginType, pluginName)) {
@@ -240,7 +228,7 @@ public class PluginManager {
      * @return boolean true si el plugin se ha registrado correctamente,
      *   false en caso contrario.
      */
-    public boolean registerPlugin(String pluginType, String pluginName,
+    boolean registerPlugin(String pluginType, String pluginName,
                                   String pluginBaseClass) {
         String key = pluginType + ":" + pluginName;
         return registerPlugin(key, pluginBaseClass);
@@ -256,7 +244,7 @@ public class PluginManager {
      * @return boolean true si el plugin se ha registrado correctamente,
      *   false en caso contrario.
      */
-    public boolean registerPlugin(String key, String pluginBaseClass) {
+    private boolean registerPlugin(String key, String pluginBaseClass) {
         if (!isPluginRegistered(key)) {
             pluginAssociation.put(key, pluginBaseClass);
             return true;
@@ -266,43 +254,13 @@ public class PluginManager {
     }
 
     /**
-     * Registra el plugin indicado.
-     *
-     * @param key Clave asociada con este plugin. Las claves se forman
-     *   concatenando el tipo del plugin con ":" y con el nombre del plugin.
-     * @param plugin {@link  Plugin} a registrar.
-     * @return boolean true si el plugin se ha registrado correctamente,
-     *   false en caso contrario.
-     */
-    public boolean registerPlugin(String key, Plugin plugin) {
-        if (!isPluginRegistered(key)) {
-            pluginAssociation.put(key, plugin);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Elimina un plugin.
-     *
-     * @param pluginType tipo de plugin a registrar.
-     * @param pluginName nombre del plugin.
-     * @return boolean
-     */
-    public boolean unregisterPlugin(String pluginType, String pluginName) {
-        String key = pluginType + ":" + pluginName;
-        return unregisterPlugin(key);
-    }
-
-    /**
      * Elimina un plugin.
      *
      * @param key Clave asociada con este plugin. Las claves se forman
      *   concatenando el tipo del plugin con ":" y con el nombre del plugin.
      * @return boolean
      */
-    public boolean unregisterPlugin(String key) {
+    boolean unregisterPlugin(String key) {
         if (isPluginRegistered(key)) {
             pluginAssociation.remove(key);
             return true;
@@ -332,7 +290,7 @@ public class PluginManager {
      * false en caso contrario
      */
 
-    public boolean isPluginRegistered(String key) {
+    private boolean isPluginRegistered(String key) {
         return pluginAssociation.containsKey(key);
     }
 
@@ -357,7 +315,7 @@ public class PluginManager {
      * @return boolean true si el plugin est\u2193 registrado,
      * false en caso contrario
      */
-    public boolean isPluginLoaded(String key) {
+    boolean isPluginLoaded(String key) {
         return!(pluginAssociation.get(key) instanceof String);
     }
 
@@ -377,7 +335,7 @@ public class PluginManager {
      * Implica que los plugins se copien en la carpeta por defecto del programa
      * para el ususario {user}/.JSignalWorkBench
      */
-    public void searchPlugins() {
+    private void searchPlugins() {
         searchPlugins(defaultDirectory, new ExceptionsCollector(new JFrame()));
     }
 
@@ -388,7 +346,7 @@ public class PluginManager {
      * para el ususario {user}/.JSignalWorkBench
      * @param directory directorio del cual se desean instalar los plugins
      */
-    public void searchPlugins(String directory) {
+    void searchPlugins(String directory) {
         searchPlugins(directory, new ExceptionsCollector(new JFrame()));
     }
 

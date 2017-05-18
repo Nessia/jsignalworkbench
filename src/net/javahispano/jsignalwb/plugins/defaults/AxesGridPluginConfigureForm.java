@@ -18,18 +18,14 @@ import net.javahispano.jsignalwb.ui.JTextFieldDate;
  *
  * @author  Compaq_Propietario
  */
-public class AxesGridPluginConfigureForm extends JPanel {
+class AxesGridPluginConfigureForm extends JPanel {
     /**
      *
      */
     private static final long serialVersionUID = -6855596227413769996L;
 
     // Declaracion de varibales -no modificar//GEN-BEGIN:variables
-//    private JButton jButton1;
-//    private JButton jButton2;
     private JComboBox<String> jComboBox1;
-//    private JLabel jLabel1;
-//    private JLabel jLabel2;
     private JTextField jTextField1;
     private JTextFieldDate jTextFieldDate2;
     // Fin de declaracion de variables//GEN-END:variables
@@ -42,7 +38,7 @@ public class AxesGridPluginConfigureForm extends JPanel {
     private JWindow jw;
 
     /** Creates new form AxesGridPluginConfigureForm */
-    public AxesGridPluginConfigureForm(AxesGridPlugin grid) {
+    AxesGridPluginConfigureForm(AxesGridPlugin grid) {
         this.grid = grid;
         initComponents();
         time = grid.getYAxePosition();
@@ -196,7 +192,7 @@ public class AxesGridPluginConfigureForm extends JPanel {
         }
     }
 
-    public void showJWindow(Window owner) {
+    void showJWindow(Window owner) {
         jw = new JWindow(owner);
         //jw.setLocation(GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint());
         jw.add(this);

@@ -23,15 +23,15 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman
  */
-public class JMenuSignals extends JMenu {
+class JMenuSignals extends JMenu {
     /**
      *
      */
     private static final long serialVersionUID = -8798508394056148852L;
-    JSWBManager jswbManager;
+    private JSWBManager jswbManager;
 
     /** Creates a new instance of JMenuSignals */
-    public JMenuSignals(JSWBManager jswbManager) {
+    JMenuSignals(JSWBManager jswbManager) {
         super("Signals");
         setMnemonic(KeyEvent.VK_S);
         this.jswbManager = jswbManager;
@@ -44,7 +44,7 @@ public class JMenuSignals extends JMenu {
         addMenuListener(ml);
     }
 
-    public void jMenuSelected() {
+    private void jMenuSelected() {
         List<String>
                 signalNames = new ArrayList<String>(JSWBManager.getSignalManager().getSignalsNames());
         removeAll();

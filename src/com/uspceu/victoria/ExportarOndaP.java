@@ -29,7 +29,7 @@ public class ExportarOndaP extends SimpleAlgorithm{
 
     private static final Logger LOGGER = Logger.getLogger(ExportarOndaP.class.getName());
 
-    public static final String EXT_BEATS = ".beats";
+    private static final String EXT_BEATS = ".beats";
 
     /*
      * Atributos
@@ -94,7 +94,7 @@ public class ExportarOndaP extends SimpleAlgorithm{
         });
     }
 
-    public List<DefaultIntervalMark> marcasP (/*SignalManager signalManager,*/ Signal signal){
+    private List<DefaultIntervalMark> marcasP (/*SignalManager signalManager,*/ Signal signal){
         List<MarkPlugin> latidos = signal.getAllMarks();
         List<DefaultIntervalMark> ondasP = new LinkedList<DefaultIntervalMark>();
 

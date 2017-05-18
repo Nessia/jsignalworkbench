@@ -18,7 +18,7 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author Roman Segador
  */
-public class LoadedTableCellEditorAndRenderer extends AbstractCellEditor
+class LoadedTableCellEditorAndRenderer extends AbstractCellEditor
             implements TableCellEditor, TableCellRenderer, ActionListener {
     /**
      *

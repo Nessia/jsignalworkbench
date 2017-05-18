@@ -8,7 +8,7 @@ import java.util.TreeSet;
 import es.usc.gsi.trace.importer.jsignalmonold.annotations.Annotation;
 import es.usc.gsi.trace.importer.jsignalmonold.annotations.Mark;
 
-public class AlmacenDatosByte extends AlmacenDatos {
+class AlmacenDatosByte extends AlmacenDatos {
     private static final long serialVersionUID = 3212L;
 
     /*
@@ -32,7 +32,7 @@ public class AlmacenDatosByte extends AlmacenDatos {
      * @param marcas
      * @param anotaciones
      */
-    public AlmacenDatosByte(byte[][] datos,/* byte[][] pos,*/
+    AlmacenDatosByte(byte[][] datos,/* byte[][] pos,*/
                             SortedSet<Annotation> anotaciones, TreeSet<Mark>[] marcas) {
         super(marcas, anotaciones);
         this.datos = datos;
@@ -81,26 +81,13 @@ public class AlmacenDatosByte extends AlmacenDatos {
      * Anhade la senhal indicada al almacend e datos byte.
      * @param nueva_senal
      */
-    public void anhadeSenhal(byte[] nueva_senal) {
+    void anhadeSenhal(byte[] nueva_senal) {
         byte[][] datos_tmp = new byte[datos.length + 1][];
         for (int i = 0; i < datos.length; i++) {
             datos_tmp[i] = datos[i];
         }
         datos_tmp[datos.length] = nueva_senal;
         datos = datos_tmp;
-    }
-
-    /**
-     * LLamar cuando se cree una nueva senhal sin inicializarla a nada. Toma el mismo
-     *  tamanho que la senhal situada en la posicion 0 del arayy datos[].
-     */
-    public void anhadeSenhal() {
-        byte[][] datosTmp = new byte[datos.length + 1][];
-        for (int i = 0; i < datos.length; i++) {
-            datosTmp[i] = datos[i];
-        }
-        datosTmp[datos.length] = new byte[datos[0].length];
-        datos = datosTmp;
     }
 
     /**

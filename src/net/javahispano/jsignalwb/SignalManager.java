@@ -46,7 +46,7 @@ public class SignalManager implements Serializable {
         this.jSignalMonitor = jsm;
     }
 
-    public void addListener(SignalSizeListener listener) {
+    void addListener(SignalSizeListener listener) {
         listeners.add(listener);
     }
 
@@ -109,7 +109,7 @@ public class SignalManager implements Serializable {
      * @param signalName nombre de la senal a chequear
      * @return True si existe la senhal, False en caso de que no exista
      */
-    public boolean exists(String signalName) {
+    private boolean exists(String signalName) {
         return (signals.get(signalName) != null);
     }
 
@@ -296,15 +296,15 @@ public class SignalManager implements Serializable {
      * @throws {@link SignalNotFoundException} si la senhal no
      *   existe.
      */
-    public void setSignalAbscissaValue(String signalName, float abscissaValue) throws SignalNotFoundException {
-        Signal s = signals.get(signalName);
-        if (s != null) {
-            s.setAbscissaValue(abscissaValue);
-        } else {
-            throw new SignalNotFoundException(signalName,
-                                              "The signal is not loaded(" + signalName + ")");
-        }
-    }
+//    public void setSignalAbscissaValue(String signalName, float abscissaValue) throws SignalNotFoundException {
+//        Signal s = signals.get(signalName);
+//        if (s != null) {
+//            s.setAbscissaValue(abscissaValue);
+//        } else {
+//            throw new SignalNotFoundException(signalName,
+//                                              "The signal is not loaded(" + signalName + ")");
+//        }
+//    }
 
     /**
      * Elimina todas las senhales cargadas en el entorno.
@@ -358,17 +358,17 @@ public class SignalManager implements Serializable {
      * el valor false
      */
 
-    public boolean setSignals(List<Signal> newSignals) {
-        boolean flag = true;
-        //flag=this.removeAllSignals();
-        removeAllSignals();
-        for (Signal s : newSignals) {
-            if (!this.addSignal(s)) {
-                flag = false;
-            }
-        }
-        return flag;
-    }
+//    public boolean setSignals(List<Signal> newSignals) {
+//        boolean flag = true;
+//        //flag=this.removeAllSignals();
+//        removeAllSignals();
+//        for (Signal s : newSignals) {
+//            if (!this.addSignal(s)) {
+//                flag = false;
+//            }
+//        }
+//        return flag;
+//    }
 
     /**
      * Devuelva el objeto Signal identificado con el parametro name. En caso de
@@ -406,14 +406,14 @@ public class SignalManager implements Serializable {
      * @throws {@link SignalNotFoundException} si la senhal no
      *   existe.
      */
-    public boolean hasSignalEmphasisLevel(String signalName) throws SignalNotFoundException {
-        Signal s = getSignal(signalName);
-        if (s != null) {
-            return s.hasEmphasisLevel();
-        }
-        throw new SignalNotFoundException(signalName,
-                                          "The signal is not loaded(" + signalName + ")");
-    }
+//    public boolean hasSignalEmphasisLevel(String signalName) throws SignalNotFoundException {
+//        Signal s = getSignal(signalName);
+//        if (s != null) {
+//            return s.hasEmphasisLevel();
+//        }
+//        throw new SignalNotFoundException(signalName,
+//                                          "The signal is not loaded(" + signalName + ")");
+//    }
 
 
     /**
@@ -471,20 +471,20 @@ public class SignalManager implements Serializable {
      *   existe.
      */
 
-    public boolean setSignalVisibleRange(float abscissaValue, float maxValue) {
-        boolean flag = true;
-        synchronized (signals) {
-            Iterator<Signal> it = signals.values().iterator();
-            Signal s;
-            while (it.hasNext()) {
-                s = it.next();
-                if (!s.setVisibleRange(abscissaValue, maxValue)) {
-                    flag = false;
-                }
-            }
-        }
-        return flag;
-    }
+//    public boolean setSignalVisibleRange(float abscissaValue, float maxValue) {
+//        boolean flag = true;
+//        synchronized (signals) {
+//            Iterator<Signal> it = signals.values().iterator();
+//            Signal s;
+//            while (it.hasNext()) {
+//                s = it.next();
+//                if (!s.setVisibleRange(abscissaValue, maxValue)) {
+//                    flag = false;
+//                }
+//            }
+//        }
+//        return flag;
+//    }
 
     /**
      * Establece como valores maximo y minimo del eje de abcisas de la senhal que
@@ -494,11 +494,11 @@ public class SignalManager implements Serializable {
      * @param size tamanho en pixeles que ocupara la representacion de la senal.
      * @return boolean
      */
-    public void adjustVisibleRange(String signalName) {
-        adjustVisibleRange(signalName, 1);
-    }
+//    public void adjustVisibleRange(String signalName) {
+//        adjustVisibleRange(signalName, 1);
+//    }
 
-    public void adjustVisibleRange(String signalName, float range) throws SignalNotFoundException {
+    void adjustVisibleRange(String signalName, float range) throws SignalNotFoundException {
         Signal s = signals.get(signalName);
         if (s != null) {
             s.adjustVisibleRange(range);
@@ -518,7 +518,7 @@ public class SignalManager implements Serializable {
         adjustVisibleRange(1);
     }
 
-    public void adjustVisibleRange(float range) {
+    void adjustVisibleRange(float range) {
         synchronized (signals) {
             Iterator<Signal> it = signals.values().iterator();
             Signal s;
@@ -529,7 +529,7 @@ public class SignalManager implements Serializable {
         }
     }
 
-    public List<MarkPlugin> getSignalMarks(String signalName, long startTime, long endTime) throws
+    List<MarkPlugin> getSignalMarks(String signalName, long startTime, long endTime) throws
             SignalNotFoundException {
         if (exists(signalName)) {
             return signals.get(signalName).getMarks(startTime, endTime);
@@ -538,13 +538,13 @@ public class SignalManager implements Serializable {
                                           "Attempt of get Marks of a non existent signal(" + signalName + ")");
     }
 
-    public List<MarkPlugin> getAllSignalMarks(String signalName) throws SignalNotFoundException {
-        if (exists(signalName)) {
-            return signals.get(signalName).getAllMarks();
-        }
-        throw new SignalNotFoundException(signalName,
-                                          "Attempt of get Marks of a non existent signal(" + signalName + ")");
-    }
+//    public List<MarkPlugin> getAllSignalMarks(String signalName) throws SignalNotFoundException {
+//        if (exists(signalName)) {
+//            return signals.get(signalName).getAllMarks();
+//        }
+//        throw new SignalNotFoundException(signalName,
+//                                          "Attempt of get Marks of a non existent signal(" + signalName + ")");
+//    }
 
     public void addSignalMark(String signalName, MarkPlugin mark) throws SignalNotFoundException {
         if (exists(signalName)) {
@@ -555,24 +555,24 @@ public class SignalManager implements Serializable {
         }
     }
 
-    public void removeSignalMark(String signalName, MarkPlugin mark) throws SignalNotFoundException {
-        if (exists(signalName)) {
-            signals.get(signalName).removeMark(mark);
-            jSignalMonitor.repaintChannels();
-        } else {
-            throw new SignalNotFoundException(signalName,
-                                              "Attempt of remove Marks on a non existent signal(" + signalName + ")");
-        }
-    }
+//    public void removeSignalMark(String signalName, MarkPlugin mark) throws SignalNotFoundException {
+//        if (exists(signalName)) {
+//            signals.get(signalName).removeMark(mark);
+//            jSignalMonitor.repaintChannels();
+//        } else {
+//            throw new SignalNotFoundException(signalName,
+//                                              "Attempt of remove Marks on a non existent signal(" + signalName + ")");
+//        }
+//    }
 
-    public void removeAllSignalMarks(String signalName) throws SignalNotFoundException {
-        if (exists(signalName)) {
-            signals.get(signalName).removeAllMarks();
-        } else {
-            throw new SignalNotFoundException(signalName,
-                                              "Attempt of remove Marks on a non existent signal(" + signalName + ")");
-        }
-    }
+//    public void removeAllSignalMarks(String signalName) throws SignalNotFoundException {
+//        if (exists(signalName)) {
+//            signals.get(signalName).removeAllMarks();
+//        } else {
+//            throw new SignalNotFoundException(signalName,
+//                                              "Attempt of remove Marks on a non existent signal(" + signalName + ")");
+//        }
+//    }
 
     public void removeAllMarks() {
         synchronized (signals) {
@@ -600,7 +600,7 @@ public class SignalManager implements Serializable {
         return cat;
     }
 
-    public List<AnnotationPlugin> getAnnotations(long startTime, long endTime) {
+    List<AnnotationPlugin> getAnnotations(long startTime, long endTime) {
         ArrayList<AnnotationPlugin> tempAnnotations = new ArrayList<AnnotationPlugin>();
         for (AnnotationPlugin ap : annotations) {
             if (ap.isInterval()) {
@@ -622,7 +622,7 @@ public class SignalManager implements Serializable {
         }
     }
 
-    public void removeAnnotation(AnnotationPlugin annotationPlugin) {
+    void removeAnnotation(AnnotationPlugin annotationPlugin) {
         annotations.remove(annotationPlugin);
     }
 
@@ -644,7 +644,7 @@ public class SignalManager implements Serializable {
         }
     }
 
-    public void setSignalColor(String signalName, Color color) throws SignalNotFoundException {
+    void setSignalColor(String signalName, Color color) throws SignalNotFoundException {
         if (exists(signalName)) {
             signals.get(signalName).setDataColor(color);
             jSignalMonitor.repaintChannels();
@@ -654,7 +654,7 @@ public class SignalManager implements Serializable {
         }
     }
 
-    public Color getSignalColor(String signalName) throws SignalNotFoundException {
+    Color getSignalColor(String signalName) throws SignalNotFoundException {
         if (exists(signalName)) {
             return signals.get(signalName).getDataColor();
         } else {
@@ -663,16 +663,16 @@ public class SignalManager implements Serializable {
         }
     }
 
-    public GridPlugin getSignalGrid(String signalName) throws SignalNotFoundException {
-        if (exists(signalName)) {
-            return signals.get(signalName).getGrid();
-        } else {
-            throw new SignalNotFoundException(signalName,
-                                              "Attempt of set data color on a non existent signal(" + signalName + ")");
-        }
-    }
+//    GridPlugin getSignalGrid(String signalName) throws SignalNotFoundException {
+//        if (exists(signalName)) {
+//            return signals.get(signalName).getGrid();
+//        } else {
+//            throw new SignalNotFoundException(signalName,
+//                                              "Attempt of set data color on a non existent signal(" + signalName + ")");
+//        }
+//    }
 
-    public void setSignalGrid(String signalName, GridPlugin grid) throws SignalNotFoundException {
+    void setSignalGrid(String signalName, GridPlugin grid) throws SignalNotFoundException {
         if (exists(signalName)) {
             Signal signal = signals.get(signalName);
             signal.setGrid(grid);
@@ -688,7 +688,7 @@ public class SignalManager implements Serializable {
     }
 
  // @todo (Document) No anhadido a la documentacion
-    public boolean setSignalHasEmphasisLevel(String signalName, boolean value) {
+    boolean setSignalHasEmphasisLevel(String signalName, boolean value) {
         if (exists(signalName)) {
             return signals.get(signalName).setHasEmphasis(value);
         } else {
@@ -698,7 +698,7 @@ public class SignalManager implements Serializable {
     }
 
  // @todo (Document) No anhadido a la documentacion
-    public boolean getSignalHasEmphasisLevel(String signalName) {
+    boolean getSignalHasEmphasisLevel(String signalName) {
         if (exists(signalName)) {
             return signals.get(signalName).hasEmphasisLevel();
         } else {

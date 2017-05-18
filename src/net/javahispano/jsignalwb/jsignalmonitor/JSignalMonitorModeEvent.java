@@ -23,7 +23,7 @@ public class JSignalMonitorModeEvent {
      * Constructor
      */
 
-    public JSignalMonitorModeEvent(Modo mode, boolean value) {
+    JSignalMonitorModeEvent(Modo mode, boolean value) {
 //        if (mode != REPRESENT_XY_VALUES &&
 //            mode != MARK_CREATION &&
 //            mode != INTERVAL_SELECTION) {

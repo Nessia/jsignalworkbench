@@ -21,10 +21,10 @@ import net.javahispano.jsignalwb.SignalManager;
  * @version 0.2
  */
 
-public class PideDatosAlConversor extends Thread {
+class PideDatosAlConversor extends Thread {
 
     private static final Logger LOGGER = Logger.getLogger(PideDatosAlConversor.class.getName());
-    public static final String error_quedarse_sin_memoria = "<html>" +
+    private static final String ERROR_QUEDARSE_SIN_MEMORIA = "<html>" +
          "<body text=\"#000000\">" +
          "<p align=\"center\"><font color=\"#FF0000\" size=\"5\">Error al exportar los datos </font></p></p>" +
          "<p><font size=\"4\" color=\"#0000FF\">El equipo no tiene memoria virtual suficiente </font></p>" +
@@ -40,13 +40,13 @@ public class PideDatosAlConversor extends Thread {
     //private JSWBManager j;
     // private CuadroDeEspera espera;
     //private float paso;
-    int datos_por_aaray;
+//    int datos_por_aaray;
 
     /*
      * Constructor
      */
 
-    public PideDatosAlConversor(PanelPrincipal conversor/*, JSWBManager jswbManager*/) {
+    protected PideDatosAlConversor(PanelPrincipal conversor/*, JSWBManager jswbManager*/) {
         this.conversor = conversor;
         //this.j = jswbManager;
     }
@@ -54,7 +54,7 @@ public class PideDatosAlConversor extends Thread {
     /**
      * metodo que coge los datos del conversor y los carga en la interface.
      */
-    public boolean cargarDatos() {
+    protected boolean cargarDatos() {
         max_numero_datos = Integer.MIN_VALUE;
 
 //LLAMADA A Codigo de CONVERSOTMIT
@@ -63,7 +63,7 @@ public class PideDatosAlConversor extends Thread {
             parametros = conversor.getParametrosSeleccionados();
         } catch (OutOfMemoryError ex) {
             LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-            JOptionPane.showMessageDialog(conversor, error_quedarse_sin_memoria,
+            JOptionPane.showMessageDialog(conversor, ERROR_QUEDARSE_SIN_MEMORIA,
                                           "ERROR!!!",
                                           JOptionPane.ERROR_MESSAGE);
         }
@@ -78,7 +78,7 @@ public class PideDatosAlConversor extends Thread {
 
             //Esto es para estimar que % se ha pasado:
             //float paso = 100 / parametros.length * parametros[0].getValores().length / 400;
-            datos_por_aaray = parametros[0].getValores().length;
+//            datos_por_aaray = parametros[0].getValores().length;
             //Recojo los datos del array de parametros
             for (int i = 0; i < parametros.length; i++) {
                 datos[i] = arrayIntToFloat(parametros[i].getValores(),

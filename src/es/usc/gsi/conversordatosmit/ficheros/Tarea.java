@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import es.usc.gsi.conversordatosmit.ficheros.lectura.LeeFicheroDat;
 import es.usc.gsi.conversordatosmit.interfaz.ControladorInterfaz;
 
-public class Tarea extends Thread implements Cancelar {
+class Tarea extends Thread implements Cancelar {
 
     /**
      *
@@ -26,7 +26,7 @@ public class Tarea extends Thread implements Cancelar {
 
 //**********************************************************************************************
 
-     public Tarea(List<FicheroHead> fh) {
+     Tarea(List<FicheroHead> fh) {
          this.ficherosHead = fh;
          this.setPriority(Thread.MIN_PRIORITY);
      }
@@ -46,7 +46,7 @@ public class Tarea extends Thread implements Cancelar {
 
 //**********************************************************************************************
 
-     public boolean hasMemoryError() {
+     protected boolean hasMemoryError() {
          return memoryError;
      }
 

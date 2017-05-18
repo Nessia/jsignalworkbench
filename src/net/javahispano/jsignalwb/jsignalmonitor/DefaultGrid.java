@@ -241,7 +241,7 @@ public class DefaultGrid implements JSignalMonitorGrid {
         return gridConfig;
     }
 
-    public void refresh() {
+    private void refresh() {
         if (bufferedImage != null) {
             refreshBufferedImage(bufferedImage.getHeight(), bufferedImage.getWidth(), abscisaPositionBufferedImage);
         }

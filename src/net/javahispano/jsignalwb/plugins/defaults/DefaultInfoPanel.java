@@ -15,7 +15,7 @@ import com.michaelbaranov.microba.calendar.DatePicker;
 
 import net.javahispano.jsignalwb.ui.JTextFieldDate;
 
-public abstract class DefaultInfoPanel extends JPanel implements PropertyChangeListener {
+abstract class DefaultInfoPanel extends JPanel implements PropertyChangeListener {
 
     /**
      *
@@ -48,7 +48,7 @@ public abstract class DefaultInfoPanel extends JPanel implements PropertyChangeL
         return newDateTime.getMillis();
     }
 
-    public void showJWindow(Window owner) {
+    void showJWindow(Window owner) {
        jw = new JWindow(owner);
        jw.add(this);
        jw.setSize(this.getPreferredSize());

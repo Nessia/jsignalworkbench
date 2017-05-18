@@ -3,7 +3,7 @@ package es.usc.gsi.conversordatosmit.conversormitdb;
 
 import es.usc.gsi.conversordatosmit.interfaz.VentanaPrincipal;
 
-public class Principal {
+public class Principal { // NO_UCD (unused code)
 
     // Constructor
     private Principal() {

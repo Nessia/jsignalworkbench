@@ -14,7 +14,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitorDataSource;
  *
  * @author Roman Segador
  */
-public class AnnotationsPopupMenu extends JPopupMenu {
+class AnnotationsPopupMenu extends JPopupMenu {
 
 
     /**
@@ -22,14 +22,14 @@ public class AnnotationsPopupMenu extends JPopupMenu {
      */
     private static final long serialVersionUID = 7218514945679160009L;
 
-    public AnnotationsPopupMenu(JSignalMonitorDataSource dataSource, long time) {
+    AnnotationsPopupMenu(JSignalMonitorDataSource dataSource, long time) {
         super();
         for (String annotationName : dataSource.getAvailableKindsOfInstantAnnotations()) {
             add(new AddAnnotationAction(annotationName, dataSource, time));
         }
     }
 
-    public AnnotationsPopupMenu(JSignalMonitorDataSource dataSource, long startTime, long endTime) {
+    AnnotationsPopupMenu(JSignalMonitorDataSource dataSource, long startTime, long endTime) {
         super();
         for (String annotationName : dataSource.getAvailableKindsOfIntervalAnnotations()) {
             add(new AddAnnotationAction(annotationName, dataSource, startTime, endTime));

@@ -86,7 +86,7 @@ public class SnoringGrid extends GridPluginAdapter {
 //        g2d.drawLine(p.x + van, altura, p.x + van + pasoX_1, altura+4);
     }
 
-    public static Color getColorRed(short code) {
+    private static Color getColorRed(short code) {
         if (code > 50) {
             return new Color(255, (int) (5F * (100 - code)), 0);
         }

@@ -41,7 +41,7 @@ class Channel implements ImageObserver, Serializable {
      * @param infoLabel InfoLabel
      * @param grid JSignalMonitorGrid
      */
-    public Channel(ChannelProperties channelProperties, InfoLabel infoLabel,
+    private Channel(ChannelProperties channelProperties, InfoLabel infoLabel,
                    JSignalMonitorGrid grid) {
         points = new int[1];
         // xPoints = new int[1];
@@ -95,9 +95,9 @@ class Channel implements ImageObserver, Serializable {
         }
     }
 
-    public void paintData(Graphics2D g2d, Point p) {
-        paintData(g2d, p, 0, 0);
-    }
+//    public void paintData(Graphics2D g2d, Point p) {
+//        paintData(g2d, p, 0, 0);
+//    }
 
     public void paintData(Graphics2D g2d, Point p, int startOffset, int endOffset) {
         if(colors == null){

@@ -2,7 +2,7 @@ package es.usc.gsi.conversordatosmit.interfaz;
 
 import javax.swing.JTabbedPane;
 
-public abstract class PanelEtiquetadoGeneral extends JTabbedPane {
+abstract class PanelEtiquetadoGeneral extends JTabbedPane {
 
     /**
     *

@@ -26,12 +26,12 @@ public class ApneaEpisodeGenerator extends AlgorithmAdapter {
     private static final String ERROR = "Error";
 
     // TODO antes todos los campos eran estáticos @vanesa
-    protected int tamanoVentana = 300;
-    protected float pesoApnea = 1;
-    protected float pesoHipoapnea = 0.5f;
-    protected float limitePorcentaje = 5;
-    protected float limitePorcentaje2 = 20;
-    protected StringBuilder stringBuilder;
+    private int tamanoVentana = 300;
+    private float pesoApnea = 1;
+    private float pesoHipoapnea = 0.5f;
+    private float limitePorcentaje = 5;
+    private float limitePorcentaje2 = 20;
+    private StringBuilder stringBuilder;
 
     //private JFileChooser jf = new JFileChooser();
 //    private float[] pesos;

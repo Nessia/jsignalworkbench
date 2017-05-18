@@ -17,7 +17,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman Segador
  */
-public class SetGridAction extends AbstractAction {
+class SetGridAction extends AbstractAction {
     /**
      *
      */
@@ -27,7 +27,7 @@ public class SetGridAction extends AbstractAction {
     private String signalName;
     private String gridName;
 
-    public SetGridAction(String signalName, String gridName) {
+    SetGridAction(String signalName, String gridName) {
         //this.jswbManager = jswbManager;
         this.signalName = signalName;
         this.gridName = gridName;

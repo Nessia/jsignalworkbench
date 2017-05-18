@@ -14,14 +14,14 @@ import net.javahispano.jsignalwb.jsignalmonitor.*;
  *
  * @author Roman Segador
  */
-public class JToggleButtonAddMarks extends JToggleButton implements JSignalMonitorModeListener {
+class JToggleButtonAddMarks extends JToggleButton implements JSignalMonitorModeListener {
 
     /**
      *
      */
     private static final long serialVersionUID = 5128032825995871143L;
 
-    public JToggleButtonAddMarks(JSignalMonitor jsm) {
+    JToggleButtonAddMarks(JSignalMonitor jsm) {
         super(new SelectMarksAction(jsm));
         setFocusable(false);
         this.setText("");

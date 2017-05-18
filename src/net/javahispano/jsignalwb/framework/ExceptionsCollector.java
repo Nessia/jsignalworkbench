@@ -16,8 +16,10 @@ import javax.swing.JOptionPane;
  * @author Roman
  */
 public class ExceptionsCollector {
-    ArrayList<Exception> exceptions;
-    Component parentComponent;
+
+    private ArrayList<Exception> exceptions;
+    private Component parentComponent;
+
     /** Creates a new instance of ExceptionsCollector */
     public ExceptionsCollector(Component parentComponent) {
         exceptions = new ArrayList<Exception>();

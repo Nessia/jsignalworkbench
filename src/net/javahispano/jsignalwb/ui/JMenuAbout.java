@@ -18,7 +18,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Abraham Otero
  * @version 0.5
  */
-public class JMenuAbout extends JMenu {
+class JMenuAbout extends JMenu {
     /**
     *
     */

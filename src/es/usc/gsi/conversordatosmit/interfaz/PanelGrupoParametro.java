@@ -8,7 +8,7 @@ import javax.swing.*;
 
 import es.usc.gsi.conversordatosmit.ficheros.Parametro;
 
-public class PanelGrupoParametro extends JPanel implements ActionListener, ItemListener {
+class PanelGrupoParametro extends JPanel implements ActionListener, ItemListener {
 
     /**
     *
@@ -23,7 +23,7 @@ public class PanelGrupoParametro extends JPanel implements ActionListener, ItemL
 
 //***************************************************************************
 
-     public PanelGrupoParametro(Parametro parametro) {
+     PanelGrupoParametro(Parametro parametro) {
          this.parametro = parametro;
          this.setLayout(new GridLayout(1, 2));
          this.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
@@ -49,7 +49,7 @@ public class PanelGrupoParametro extends JPanel implements ActionListener, ItemL
 
 //***************************************************************************
 
-     public void inicializa() {
+     private void inicializa() {
          checkboxExportar.setText(parametro.getNombreParametro() + "-" +
                                   parametro.getUnidades());
          textfieldFrecuencia.setText(Float.toString(parametro.
@@ -64,14 +64,14 @@ public class PanelGrupoParametro extends JPanel implements ActionListener, ItemL
 //***************************************************************************
 
      //Resetea a los valores originales.
-     public void reset() {
+     private void reset() {
          parametro.resetFrecuencia();
          this.inicializa();
      }
 
 //***************************************************************************
 
-     public void actualizaFrecuencia() {
+     void actualizaFrecuencia() {
          float nuevoValor = Float.parseFloat(textfieldFrecuencia.getText());
          this.parametro.setFrecuenciaMuestreo(nuevoValor);
      }

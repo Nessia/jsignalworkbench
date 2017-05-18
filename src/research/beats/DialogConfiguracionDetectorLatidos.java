@@ -23,7 +23,7 @@ import java.awt.event.ActionListener;
  * @author Abraham Otero
  * @version 0.5
  */
-public class DialogConfiguracionDetectorLatidos extends JDialog {
+class DialogConfiguracionDetectorLatidos extends JDialog {
     /**
      *
      */
@@ -44,7 +44,7 @@ public class DialogConfiguracionDetectorLatidos extends JDialog {
      * Constructores
      */
 
-    public DialogConfiguracionDetectorLatidos(Frame owner, String title, boolean modal) {
+    DialogConfiguracionDetectorLatidos(Frame owner, String title, boolean modal) {
         super(owner, title, modal);
         this.setSize(330,220);
         this.setLocationRelativeTo(owner);
@@ -88,11 +88,11 @@ public class DialogConfiguracionDetectorLatidos extends JDialog {
 
     }
 
-    public void jButton2_actionPerformed(ActionEvent e) {
+    void jButton2_actionPerformed() {
         this.dispose();
     }
 
-    public void jButton1_actionPerformed(ActionEvent e) {
+    void jButton1_actionPerformed() {
         TestDeteccion.esRata = jRadioRatas.isSelected();
         this.dispose();
     }
@@ -107,7 +107,7 @@ class DialogConfiguracion_jButton1_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton1_actionPerformed(e);
+        adaptee.jButton1_actionPerformed();
     }
 }
 
@@ -120,6 +120,6 @@ class DialogConfiguracion_jButton2_actionAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton2_actionPerformed(e);
+        adaptee.jButton2_actionPerformed();
     }
 }

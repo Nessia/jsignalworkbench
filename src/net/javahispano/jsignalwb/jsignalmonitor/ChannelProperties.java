@@ -45,7 +45,7 @@ public class ChannelProperties implements Serializable{
         this(name, startTime, dataRate, dataSize, false);
     }
 
-    public ChannelProperties(String name, long startTime, float dataRate, int dataSize,
+    private ChannelProperties(String name, long startTime, float dataRate, int dataSize,
                              boolean hasColors) {
         setDataStroke(new BasicStroke(1));
         this.name = name;
@@ -68,7 +68,7 @@ public class ChannelProperties implements Serializable{
         return dataStroke;
     }
 
-    void setDataStroke(Stroke dataStroke) {
+    private void setDataStroke(Stroke dataStroke) {
         this.dataStroke = dataStroke;
     }
 
@@ -143,7 +143,7 @@ public class ChannelProperties implements Serializable{
         refreshEndTime();
     }
 
-    public boolean hasEmphasis() {
+    boolean hasEmphasis() {
         return hasColors;
     }
 
@@ -200,14 +200,14 @@ public class ChannelProperties implements Serializable{
         return setVisibleRange(newMin, newMax);
     }
 
-    public boolean setVisibleRange(float abscissaValue, float maxValue) {
+    private boolean setVisibleRange(float abscissaValue, float maxValue) {
         this.abscissaValue = abscissaValue;
         this.maxValue = maxValue;
         zoom = channelHeight / (maxValue - abscissaValue);
         return true;
     }
 
-    public void refreshChannelHeight(float newChannelHeight) {
+    void refreshChannelHeight(float newChannelHeight) {
         if (newChannelHeight > 0) {
             zoom *= (newChannelHeight / channelHeight);
             channelHeight = newChannelHeight;

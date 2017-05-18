@@ -3,6 +3,7 @@ package research.apneas;
 import java.awt.Color;
 import static java.lang.Math.*;
 import java.util.Arrays;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import net.javahispano.fuzzyutilities.representation.TrapezoidalDistribution;
@@ -10,6 +11,10 @@ import net.javahispano.jsignalwb.*;
 import research.beats.anotaciones.LimitacionAnotacion;
 
 public class ReduccionFlujo {
+    private static final int ventanaParaCalcularLaEnergia = 3;
+    private static final boolean debugNivel1 = false;
+    private static final boolean debugNivel2 = false;
+
     private TrapezoidalDistribution magnitudHipoapnea = new TrapezoidalDistribution(0, 0, 0.2F, 0.2F);
     private TrapezoidalDistribution magnitudApnea = new TrapezoidalDistribution(0.2F, 0.2F, 0.75F, 0.75F);
     private TrapezoidalDistribution duracionHipoapnea = new TrapezoidalDistribution(4, 10, 60, 140);
@@ -26,7 +31,7 @@ public class ReduccionFlujo {
     private int finIntervaloFiltroEnerigia = 70;
     private int principioIntervaloSegundoFiltroEnergia = 90;
     private int finIntervaloSegundoFiltroEnergia = 95;
-    private final int ventanaParaCalcularLaEnergia = 3;
+
     private int persistencia = 2;
 
     //Fin De las variables de la BC
@@ -36,17 +41,11 @@ public class ReduccionFlujo {
     private float frecuencia;
     private long fechaBase;
 
-    private TreeSet<Intervalo> hipoapneasIntervalos = new TreeSet<Intervalo>();
-    private TreeSet<Intervalo> apneasIntervalos = new TreeSet<Intervalo>();
+    private SortedSet<Intervalo> hipoapneasIntervalos = new TreeSet<Intervalo>();
+    private SortedSet<Intervalo> apneasIntervalos = new TreeSet<Intervalo>();
     private Loggeer logger;
     private boolean apnea;
 //    private Signal senalDeFlujoNasal;
-    private final boolean debugNivel1 = false;
-    private final boolean debugNivel2 = false;
-
-
-    public ReduccionFlujo() {
-    }
 
     /**
      * Lanza la deteccion. Devuelve una lista con los episodios de apnea o de hipoapnea.
@@ -55,7 +54,7 @@ public class ReduccionFlujo {
      * @param apnea boolean Cierto para detectar apneas, falso para las hipoapneas.
      * @return ArrayList
      */
-    public TreeSet<Intervalo> detectar(Signal nasal, boolean apnea) {
+    SortedSet<Intervalo> detectar(Signal nasal, boolean apnea) {
         logger = new Loggeer(nasal);
         logger.setDebugNivel1(debugNivel1);
         logger.setDebugNivel2(debugNivel2);
@@ -64,9 +63,9 @@ public class ReduccionFlujo {
         calcularReduccionesFlujo();
         if (!apnea) {
             return hipoapneasIntervalos;
-        } else {
-            return apneasIntervalos;
         }
+        return apneasIntervalos;
+
     }
 
     private void calcularReduccionesFlujo() {
@@ -143,7 +142,9 @@ public class ReduccionFlujo {
         TrapezoidalDistribution duracion = this.duracionHipoapnea.multiply(frecuencia);
         short[] emphasisLevel = new short[posibilidadRellenada.length];
         for (int i = 0; i < posibilidadRellenada.length; i++) {
-            int principio, fin, pos = 0;
+            int principio;
+            int fin;
+            int pos = 0;
             //busqueda de muestras consecutivas con posibilidadRellenada mayor que cero
             while (i < posibilidadRellenada.length && posibilidadRellenada[i] == 0) {
                 i++;
@@ -239,7 +240,7 @@ public class ReduccionFlujo {
         marca.setCommentary(texto);
         marca.setTitle(titulo);
         marca.setColor(color);
-        if (Color.RED == color) {
+        if (Color.RED.equals(color)){
             marca.setTipo(LimitacionAnotacion.SENALES.APNEA);
             marca.setColor(Color.RED);
         } else {
@@ -312,9 +313,11 @@ public class ReduccionFlujo {
             for (int j = i + ventanaTemporal / 2 - 1; j > i; j--) {
                 if (energia[j] < limiteEnergiaBajo * valorLimiteEnergia) {
                     energia[j] = 0;
-                } else {
-                    energia[j] = energia[j];
                 }
+                // TODO ???
+//                else {
+//                    energia[j] = energia[j];
+//                }
             }
         }
         return energia;
@@ -336,8 +339,8 @@ public class ReduccionFlujo {
         int ventanaDelta = (int) (ventanaCalculoDeltas * frecuencia);
         ventanaDelta /= 2;
         for (int i = ventanaDelta; i < datosNasal.length - ventanaDelta; i++) {
-            float maximo = Float.NEGATIVE_INFINITY,
-                           minimo = Float.POSITIVE_INFINITY;
+            float maximo = Float.NEGATIVE_INFINITY;
+            float minimo = Float.POSITIVE_INFINITY;
             for (int j = i - ventanaDelta; j < i + ventanaDelta; j++) {
                 maximo = max(maximo, datosNasal[j]);
                 minimo = min(minimo, datosNasal[j]);
@@ -447,8 +450,8 @@ public class ReduccionFlujo {
         return valorBasal;
     }
 
-    public static float[] getDelta() {
-        return delta;
-    }
+//    public static float[] getDelta() {
+//        return delta;
+//    }
 
 }

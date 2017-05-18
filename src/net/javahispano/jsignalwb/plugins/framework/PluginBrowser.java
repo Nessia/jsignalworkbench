@@ -26,7 +26,7 @@ import net.javahispano.jsignalwb.framework.ExceptionsCollector;
  *
  * @author Roman
  */
-public class PluginBrowser {
+class PluginBrowser {
 
     private static final Logger LOGGER = Logger.getLogger(PluginBrowser.class.getName());
 
@@ -35,7 +35,7 @@ public class PluginBrowser {
         // Empty
     }
 
-    static public File[] searchSearch(File f) {
+    static File[] searchSearch(File f) {
         if (f.isDirectory()) {
             return f.listFiles(new FileFilter() {
                 @Override
@@ -54,7 +54,7 @@ public class PluginBrowser {
      *               A su vez el metodo devuelve el classLoader del sistema con el
      *               classpath de los plugins anhadidos*/
 
-    static public ClassLoader install(PluginManager pm, ClassLoader classLoader,
+    static ClassLoader install(PluginManager pm, ClassLoader classLoader,
                                       File[] files, ExceptionsCollector ec) {
 
          if(files == null){
@@ -91,7 +91,7 @@ public class PluginBrowser {
 
     }
 
-    public static void loadPlugin(JarFile f, PluginManager pm) {
+    static void loadPlugin(JarFile f, PluginManager pm) {
         try {
             Attributes att = f.getManifest().getMainAttributes();
             String pluginType = att.getValue("PluginType");
@@ -118,7 +118,7 @@ public class PluginBrowser {
         }
     }
 
-    static public JarFile validateJar(File f, PluginManager pm) throws
+    static private JarFile validateJar(File f, PluginManager pm) throws
             PluginLoadException {
         JarFile currentFile = null;
         try {
@@ -155,7 +155,7 @@ public class PluginBrowser {
         return currentFile;
     }
 
-    static public void copy(File source, File dest) throws IOException {
+    private static void copy(File source, File dest) throws IOException {
         FileInputStream fIn = null;
         FileOutputStream fOut = null;
         try {

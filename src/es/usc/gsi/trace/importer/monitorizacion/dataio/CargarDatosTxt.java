@@ -15,12 +15,12 @@ import es.usc.gsi.trace.importer.jsignalmonold.annotations.Mark;
  * Carga los todos de un archivo .txt, en el cual los datos se almacenan como
  * Strings organizados en columnas y seprados por tabulaciones.
  */
-public class CargarDatosTxt extends CargarDatos {
+class CargarDatosTxt extends CargarDatos {
 
 
     private static final Logger LOGGER = Logger.getLogger(CargarDatosTxt.class.getName());
 
-    public CargarDatosTxt(String archivo) {
+    CargarDatosTxt(String archivo) {
         super(archivo);
         cargaDatos();
 
@@ -70,7 +70,7 @@ public class CargarDatosTxt extends CargarDatos {
 
             fijarDatos(bf);
 
-            GestorIO.setNumDatos(filas);
+//            GestorIO.setNumDatos(filas);
             GestorIO.setNumSenales(columnas);
 
         } catch (IOException ex) {

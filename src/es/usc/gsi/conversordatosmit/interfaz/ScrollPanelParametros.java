@@ -4,7 +4,7 @@ import javax.swing.JScrollPane;
 
 import es.usc.gsi.conversordatosmit.ficheros.FicheroHead;
 
-public class ScrollPanelParametros extends JScrollPane {
+class ScrollPanelParametros extends JScrollPane {
 
     /**
      *
@@ -15,7 +15,7 @@ public class ScrollPanelParametros extends JScrollPane {
 
 //*********************************************************************************
 
-     public ScrollPanelParametros(FicheroHead[] ficherosHead) {
+     ScrollPanelParametros(FicheroHead[] ficherosHead) {
          super();
          this.panelParametros = new PanelParametros(ficherosHead);
          this.setViewportView(panelParametros);
@@ -29,13 +29,13 @@ public class ScrollPanelParametros extends JScrollPane {
 
 //*********************************************************************************
 
-     public void actualizaFrecuencias() {
+     void actualizaFrecuencias() {
          panelParametros.actualizaFrecuencias();
      }
 
 //*********************************************************************************
 
-     public void actualizaFechas(String fechaInicio, String fechaFin) {
+     void actualizaFechas(String fechaInicio, String fechaFin) {
          panelParametros.actualizaFechas(fechaInicio, fechaFin);
      }
 

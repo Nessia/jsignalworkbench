@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author Santiago Fernandez Dapena
  */
-public class Bdac implements Serializable{
+class Bdac implements Serializable{
 
     /**
      *
@@ -49,7 +49,7 @@ public class Bdac implements Serializable{
         qrsDetect = new QRSDetect();
     }
 
-    public void resetBdac() {
+    void resetBdac() {
         qrsDetect.resetQRSDetec(); // Reset the qrs detector
 //        rrCount = 0;
         initBeatFlag = 1;
@@ -64,7 +64,7 @@ public class Bdac implements Serializable{
      * @param t int
      * @return int
      */
-    public int beatDetect(int ecgSample, int t) {
+    int beatDetect(int ecgSample, int t) {
         int detectDelay;
         int i;
 //        int rr = 0;

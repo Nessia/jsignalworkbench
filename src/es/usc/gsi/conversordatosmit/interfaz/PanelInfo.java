@@ -10,7 +10,7 @@ import javax.swing.border.TitledBorder;
 
 import es.usc.gsi.conversordatosmit.ficheros.FicheroHead;
 
-public class PanelInfo extends JPanel {
+class PanelInfo extends JPanel {
 
 
     private static final Logger LOGGER = Logger.getLogger(PanelInfo.class.getName());
@@ -21,11 +21,11 @@ public class PanelInfo extends JPanel {
 
 //    public static final int DIRECTORIO = 0;
 //    public static final int ARCHIVO = 1;
-    public enum Modos { DIRECTORIO, ARCHIVO }
+    enum Modos { DIRECTORIO, ARCHIVO }
     private TitledBorder bordePanel;
     private JLabel labelDatos = new JLabel();
 
-    public PanelInfo(FicheroHead fh, Modos modo) {
+    PanelInfo(FicheroHead fh, Modos modo) {
         // ANHADIR TODA LA INFORMACION PERTINENTE AL FICHERO
         // Y TAMBIEN A LOS PARAMETROS GENERALES LEIDOS DEL FICHERO.
         File localizacion = null;

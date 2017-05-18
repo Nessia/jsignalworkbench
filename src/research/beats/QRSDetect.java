@@ -11,7 +11,7 @@ import net.javahispano.jsignalwb.plugins.defaults.DefaultInstantMark;
  *
  * @author Santiago Fernandez Dapena
  */
-public class QRSDetect implements Serializable {
+class QRSDetect implements Serializable {
 
     /**
      *
@@ -62,7 +62,7 @@ public class QRSDetect implements Serializable {
         //Vacio
     }
 
-    public void resetQRSDetec() {
+    void resetQRSDetec() {
         /* Initialize all buffers to 0 on the first call. */
         for (int i = 0; i < 8; ++i) {
             noise[i] = 0; /* Initialize noise buffer */
@@ -95,7 +95,7 @@ public class QRSDetect implements Serializable {
      * @param time int
      * @return int
      */
-    public int qrsDetect(int datum, int time) {
+    int qrsDetect(int datum, int time) {
 
         int fdatum = 0;
         int qrsDelay = 0;

@@ -1,22 +1,25 @@
 package research.mining;
 
 
-public abstract class TemporalEvent implements Comparable<TemporalEvent> {
+abstract class TemporalEvent implements Comparable<TemporalEvent> {
+
+    enum DETAILLEVEL { LOW, MEDIUM, HIGH, EVERYTHING }
+
     //milisegundos desde 1 de enero de 1970 hasta el principio del evento
     private long absoluteBeginingTime; //L1
     //duracion del evento en milisegundos
     protected long duration; //L1
 
-    public enum DETAILLEVEL { LOW, MEDIUM, HIGH, EVERYTHING }
 
-    public TemporalEvent() {
-        // Empty
-    }
 
-    public TemporalEvent(long absoluteBeginingTime, long duration) {
-        this.absoluteBeginingTime = absoluteBeginingTime;
-        this.duration = duration;
-    }
+//    public TemporalEvent() {
+//        // Empty
+//    }
+//
+//    TemporalEvent(long absoluteBeginingTime, long duration) {
+//        this.absoluteBeginingTime = absoluteBeginingTime;
+//        this.duration = duration;
+//    }
 
     //  public abstract String genrateDescriptors(DETAILLEVEL level);
 

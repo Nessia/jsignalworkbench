@@ -8,16 +8,16 @@ import java.util.LinkedList;
  * Contien las referencias a los arrays que conriene los datos que se estan
  * monitorizando.
  */
-public class ReferenciaDatos extends Referencia {
+class ReferenciaDatos extends Referencia {
 
-    boolean[] posAsociada;
+//    boolean[] posAsociada;
     private ReferenciaPosibilidades almacenPosibilidades;
 
     /**
      * @param almacen
      */
-    protected ReferenciaDatos(AlmacenDatos almacen) {
-        super(almacen);
+    protected ReferenciaDatos(/*AlmacenDatos almacen*/) {
+        super(/*almacen*/);
         almacenPosibilidades = new ReferenciaPosibilidades();
     }
 
@@ -26,13 +26,5 @@ public class ReferenciaDatos extends Referencia {
      */
     protected LinkedList<Object> getReferenciaPos() {
         return almacenPosibilidades.getReferencias();
-    }
-
-    /**
-     * @param pos
-     * @return Object
-     */
-    protected Object getReferenciaPos(int pos) {
-        return almacenPosibilidades.getReferencias(pos);
     }
 }

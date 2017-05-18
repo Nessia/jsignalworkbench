@@ -22,15 +22,8 @@ public class SessionNotSavedException extends RuntimeException {
         super();
     }
 
-    public SessionNotSavedException(String message) {
+    SessionNotSavedException(String message) {
         super(message);
     }
 
-    public SessionNotSavedException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public SessionNotSavedException(Throwable cause) {
-        super(cause);
-    }
 }

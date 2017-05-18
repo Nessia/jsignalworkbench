@@ -18,7 +18,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Roman
  */
 
-public class JRadioButtonMenuItemVisible extends JRadioButtonMenuItem {
+class JRadioButtonMenuItemVisible extends JRadioButtonMenuItem {
 
     /**
      *
@@ -26,7 +26,7 @@ public class JRadioButtonMenuItemVisible extends JRadioButtonMenuItem {
     private static final long serialVersionUID = 6270914735608425887L;
 
     /** Creates a new instance of JMenuVisible */
-    public JRadioButtonMenuItemVisible(JSWBManager jswbManager, String signalName) {
+    JRadioButtonMenuItemVisible(JSWBManager jswbManager, String signalName) {
         super(new VisibleAction(jswbManager, signalName));
 
         if (JSWBManager.getSignalManager().getSignal(signalName).getProperties().

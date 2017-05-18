@@ -39,7 +39,7 @@ public class PTBM implements PTBMInterface, Serializable {
     private transient boolean guardado = false;
     //private Vector parametros;
     private List<PTB> vectorPTB = new ArrayList<PTB>();
-    public PTBInterface[] thePTBInterface;
+//    public PTBInterface[] thePTBInterface;
 
 
     /**
@@ -151,14 +151,14 @@ public class PTBM implements PTBMInterface, Serializable {
     /**
      * @roseuid 3787081900AE
      */
-    public void incrementaNumeroPTB() {
+    private void incrementaNumeroPTB() {
         numeroPTB++;
     }
 
     /**
      * @roseuid 3787081900AF
      */
-    public void decrementaNumeroPTB() {
+    private void decrementaNumeroPTB() {
         numeroPTB--;
     }
 

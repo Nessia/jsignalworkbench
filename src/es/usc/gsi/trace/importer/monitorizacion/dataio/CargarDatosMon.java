@@ -14,11 +14,11 @@ import es.usc.gsi.trace.importer.monitorizacion.data.AlmacenDatos;
  * Carga los datos referentes a una monitorizacion ya realizada. Peuede haber en
  * ellos anotaciones y maracas.
  */
-public class CargarDatosMon extends CargarDatos {
+class CargarDatosMon extends CargarDatos {
 
     private static final Logger LOGGER = Logger.getLogger(CargarDatosMon.class.getName());
 
-    public CargarDatosMon(String archivo) {
+    CargarDatosMon(String archivo) {
         super(archivo);
         cargaDatos();
 
@@ -34,7 +34,7 @@ public class CargarDatosMon extends CargarDatos {
             almacen.inicializaPartesNoSerializadas();
             float[][] tmp = (float[][]) almacen.getDatos();
             GestorIO.setNumSenales(tmp.length);
-            GestorIO.setNumDatos(tmp[0].length);
+//            GestorIO.setNumDatos(tmp[0].length);
             String fecha_base = almacen.getFechaBase();
             if (fecha_base != null) {
                 SamplesToDate.getInstancia().setFechaBase(fecha_base);

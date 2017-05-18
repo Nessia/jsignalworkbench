@@ -17,8 +17,8 @@ public class Attribute implements Serializable {
 
     static final long serialVersionUID = 3213L;
 
-    public String atributo;
-    public String valor;
+    private String atributo;
+    private String valor;
 
     /**
      * Pretende ser el conjunto de valores que podra tomar el atributo. No se empleara

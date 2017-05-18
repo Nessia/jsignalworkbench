@@ -21,16 +21,16 @@ import net.javahispano.plugins.basicstats.ResultadosEstadisticos;
  * @version 0.2
  */
 
-public class PanelMostrarEstadisticos extends JPanel {
+class PanelMostrarEstadisticos extends JPanel {
     /**
      *
      */
     private static final long serialVersionUID = -5354805954330260351L;
     private static final Logger LOGGER = Logger.getLogger(PanelMostrarEstadisticos.class.getName());
-    public static final String FONT_FAMILY = "Dialog";
-    public static final Font REGULAR_FONT = new Font(FONT_FAMILY, 1, 14);
-    public static final Font BIG_FONT = new Font(FONT_FAMILY, 1, 16);
-    public static final Color COLOR1 = new Color(78, 110, 255);
+    private static final String FONT_FAMILY = "Dialog";
+    private static final Font REGULAR_FONT = new Font(FONT_FAMILY, 1, 14);
+    private static final Font BIG_FONT = new Font(FONT_FAMILY, 1, 16);
+    private static final Color COLOR1 = new Color(78, 110, 255);
     /*
      * Atribute
      */
@@ -47,8 +47,8 @@ public class PanelMostrarEstadisticos extends JPanel {
     private JCheckBox checkbox_o_label_percentiles = new JCheckBox();
     private JScrollPane scroll_panel_percentiles = new JScrollPane();
     //Codigo mio
-    String[] tmp = {"Percentil", "Valor"};
-    JTable table = new JTable(new String[6][2], tmp);
+    private String[] tmp = {"Percentil", "Valor"};
+    private JTable table = new JTable(new String[6][2], tmp);
     private GridLayout gridLayout1 = new GridLayout();
     private JLabel jLabel3 = new JLabel();
     private JLabel media = new JLabel();
@@ -93,7 +93,7 @@ public class PanelMostrarEstadisticos extends JPanel {
      * @param resultados_estadisticos
      * @param puede_borrar_percentiles
      */
-    public PanelMostrarEstadisticos(ResultadosEstadisticos
+    PanelMostrarEstadisticos(ResultadosEstadisticos
                                     resultados_estadisticos,
                                     boolean puede_borrar_percentiles) {
         this(resultados_estadisticos);
@@ -109,7 +109,7 @@ public class PanelMostrarEstadisticos extends JPanel {
 
     }
 
-    public PanelMostrarEstadisticos(ResultadosEstadisticos
+    PanelMostrarEstadisticos(ResultadosEstadisticos
                                     resultadosEstadisticos) {
         this.resultados_estadisticos = resultadosEstadisticos;
         try {
@@ -164,7 +164,7 @@ public class PanelMostrarEstadisticos extends JPanel {
 
     }
 
-    void jbInit() throws Exception {
+    private void jbInit() throws Exception {
         checkbox_o_label_percentiles.setSelected(true);
         TitledBorder titledBorder1 = new TitledBorder("");
         this.setLayout(borderLayout1);
@@ -403,7 +403,7 @@ public class PanelMostrarEstadisticos extends JPanel {
      * Indica si hay que invalidar los percentiles.
      * @return
      */
-    public boolean invalidarPercentiles() {
+    boolean invalidarPercentiles() {
         return !checkbox_o_label_percentiles.isSelected();
     }
 }

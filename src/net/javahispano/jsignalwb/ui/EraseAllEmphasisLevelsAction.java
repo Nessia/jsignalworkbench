@@ -21,7 +21,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Abraham Otero
  * @version 0.5
  */
-public class EraseAllEmphasisLevelsAction extends AbstractAction {
+class EraseAllEmphasisLevelsAction extends AbstractAction {
     /**
      *
      */

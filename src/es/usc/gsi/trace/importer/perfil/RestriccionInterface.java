@@ -4,7 +4,7 @@ package es.usc.gsi.trace.importer.perfil;
 
 import java.io.Serializable;
 
-public interface RestriccionInterface extends Serializable {
+interface RestriccionInterface extends Serializable {
     /**
      * Esto nos hara a nosotros responsables del versionamiento de los ficheros Serializados.
      * Siempre podemos volver a leerlos, pero depende de nosotros que se haga de un modo correcto.

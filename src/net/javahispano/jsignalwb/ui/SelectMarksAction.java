@@ -21,15 +21,15 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  *
  * @author Roman Segador
  */
-public class SelectMarksAction extends AbstractAction {
+class SelectMarksAction extends AbstractAction {
     /**
      *
      */
     private static final long serialVersionUID = -7195118194261190443L;
 
-    JSignalMonitor jsm;
+    private JSignalMonitor jsm;
 
-    public SelectMarksAction(JSignalMonitor jsm) {
+    SelectMarksAction(JSignalMonitor jsm) {
         this.putValue(NAME, "Add Marks");
         this.putValue(MNEMONIC_KEY, KeyEvent.VK_D);
         this.putValue(SHORT_DESCRIPTION, "Set create marks mode...click on signal to add one...");

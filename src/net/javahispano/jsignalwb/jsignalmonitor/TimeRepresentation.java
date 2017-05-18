@@ -47,10 +47,10 @@ public class TimeRepresentation {
      *   milisegundos, false en caso contrario.
      * @return String representando ese instante del tiempo.
      */
-    public static String timeToString(long time,
-                                      boolean milisec) {
-        return timeToString(time, true, true, milisec);
-    }
+//    public static String timeToString(long time,
+//                                      boolean milisec) {
+//        return timeToString(time, true, true, milisec);
+//    }
 
     /**
      * Recibe un instante de tiempo medido en milisegundos desde la fecha
@@ -138,11 +138,10 @@ public class TimeRepresentation {
      *   milisegundos, false en caso contrario.
      * @return milisegundos transcurridos desde la fecha base.
      */
-    public static long stringToMillis(String time,
-                                      boolean milisec) {
-        return stringToMillis(time, true, true, milisec);
-
-    }
+//    public static long stringToMillis(String time,
+//                                      boolean milisec) {
+//        return stringToMillis(time, true, true, milisec);
+//    }
 
     /**
      * Recibe una cadena de caracteres con formato <code>HH:mm:ss.SSS

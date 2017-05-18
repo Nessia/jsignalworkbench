@@ -18,7 +18,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman Segador
  */
-public class ExitAction extends AbstractAction {
+class ExitAction extends AbstractAction {
 
     /**
      *

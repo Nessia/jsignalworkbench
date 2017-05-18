@@ -16,7 +16,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitorDataSource;
  *
  * @author Roman Segador
  */
-public class AddAnnotationAction extends AbstractAction {
+class AddAnnotationAction extends AbstractAction {
 
     /**
      *
@@ -27,9 +27,9 @@ public class AddAnnotationAction extends AbstractAction {
     private JSignalMonitorDataSource dataSource;
     private long startTime;
     private long endTime;
-    boolean interval;
+    private boolean interval;
 
-    public AddAnnotationAction(String annotationName, JSignalMonitorDataSource dataSource, long time) {
+    AddAnnotationAction(String annotationName, JSignalMonitorDataSource dataSource, long time) {
         this.annotationName = annotationName;
         this.dataSource = dataSource;
         this.startTime = time;
@@ -37,7 +37,7 @@ public class AddAnnotationAction extends AbstractAction {
         putValue(NAME, annotationName);
     }
 
-    public AddAnnotationAction(String annotationName, JSignalMonitorDataSource dataSource, long startTime, long endTime) {
+    AddAnnotationAction(String annotationName, JSignalMonitorDataSource dataSource, long startTime, long endTime) {
         this.annotationName = annotationName;
         this.dataSource = dataSource;
         this.startTime = startTime;

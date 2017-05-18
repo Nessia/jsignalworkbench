@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.StringTokenizer;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -12,6 +13,8 @@ import net.javahispano.jsignalwb.io.SessionNotSavedException;
 import net.javahispano.jsignalwb.plugins.GenericPlugin;
 
 public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlugin, ActionListener, SessionListener {
+
+    private static final Logger LOGGER = Logger.getLogger(JSWTextProcessorPlugin.class.getName());
 
     private File file = null;
     private ByteArrayOutputStream inMemoryDucyment;
@@ -72,7 +75,7 @@ public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlug
 
     @Override
     public void setSavedData(String data) {
-        if (!data.equals("")) {
+        if (!data.isEmpty()) {
             StringTokenizer st = new StringTokenizer(data, "*");
             jSWTextProcessorBounds = new Rectangle(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()),
                     Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
@@ -93,7 +96,7 @@ public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlug
     public void setFile(File file) {
         this.file = file;
         jSWTextProcessor = new JSWTextProcessor(file, this, this);
-        setFileIsInvalid(false, true);
+        setFileIsInvalid(false/*, true*/);
         hasSetFileBeenInvokedBeforeThisNewSessionCreatedEvent = true;
     }
 
@@ -144,7 +147,7 @@ public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlug
         inMemoryDucyment = this.jSWTextProcessor.getInMemoryDucyment();
         jSWTextProcessorBounds = jSWTextProcessor.getBounds();
         JSWBManager.getJSWBManagerInstance().getSessionInfo().setSessionSaved(false);
-        System.out.println("Intentar cerrandose");
+        LOGGER.info("Intentar cerrandose");
     }
 
     @Override
@@ -169,19 +172,19 @@ public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlug
         if (hasSetFileBeenInvokedBeforeThisNewSessionCreatedEvent) {
             hasSetFileBeenInvokedBeforeThisNewSessionCreatedEvent = false;
         }
-        this.setFileIsInvalid(true, !event.isSaveAs());
+        this.setFileIsInvalid(true/*, !event.isSaveAs()*/);
     }
 
     @Override
     public void sessionDestroyed(SessionEvent event) {
-        setFileIsInvalid(true, true);
+        setFileIsInvalid(true/*, true*/);
     }
 
     public boolean isFileIsInvalid() {
         return fileIsInvalid;
     }
 
-    public void setFileIsInvalid(boolean fileIsInvalid, boolean reset) {
+    private void setFileIsInvalid(boolean fileIsInvalid/*, boolean reset*/) {
         this.fileIsInvalid = fileIsInvalid;
         file = null;
     }
@@ -190,7 +193,7 @@ public class JSWTextProcessorPlugin extends WindowAdapter implements GenericPlug
     public void sessionSaved(SessionEvent event) {
         if (this.isFileIsInvalid()) {
             try {
-                this.setFileIsInvalid(false, false);
+                this.setFileIsInvalid(false/*, false*/);
                 file = JSWBManager.getIOManager().createNameForPlugin(this);
             } catch (IOException ex) {
             } catch (SessionNotSavedException ex) {

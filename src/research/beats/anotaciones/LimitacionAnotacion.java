@@ -55,13 +55,13 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
     private List<LimitacionAnotacion> toraxList = new LinkedList<LimitacionAnotacion>();
     private List<LimitacionAnotacion> abdomenList = new LinkedList<LimitacionAnotacion>();
 
-    public void addToraxLimitation(LimitacionAnotacion l) {
-        this.toraxList.add(l);
-    }
-
-    public void addAbdomenLimitation(LimitacionAnotacion l) {
-        this.abdomenList.add(l);
-    }
+//    public void addToraxLimitation(LimitacionAnotacion l) {
+//        this.toraxList.add(l);
+//    }
+//
+//    public void addAbdomenLimitation(LimitacionAnotacion l) {
+//        this.abdomenList.add(l);
+//    }
 
     public List<LimitacionAnotacion> getAbdomenList() {
         return new LinkedList<LimitacionAnotacion>(abdomenList);

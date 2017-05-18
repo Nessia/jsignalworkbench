@@ -31,7 +31,7 @@ class JSignalMonitorPanel extends JPanel implements AdjustmentListener, JSignalM
      */
     private static final long serialVersionUID = -5850639163174578160L;
 
-    public JScrollBar jScrollBar;
+    private JScrollBar jScrollBar;
     private Channels channels;
     private JPanel leftPanel;
     private JSplitPane splitPanel;
@@ -176,7 +176,7 @@ class JSignalMonitorPanel extends JPanel implements AdjustmentListener, JSignalM
 
     /** actualiza los valores del scroll. Debe ser invocado cuando varie el maximo o minimo valor
      *  representado o cuando se modifique el tamanho del panel*/
-    public void refreshScrollBar() {
+    private void refreshScrollBar() {
         //long tempValue=getScrollValue();
         //System.out.println(TimeRepresentation.timeToString(tempValue));
         int temp = Math.round(((jsmProperties.getMaxTime() - jsmProperties.getScrollBaseTime()) * jsmProperties.getFrec()) /
@@ -230,9 +230,9 @@ class JSignalMonitorPanel extends JPanel implements AdjustmentListener, JSignalM
         channels.vZoomToSignal(signalName, value);
     }
 
-    public int getVerticalZoom(String signalName) {
-        return channels.getVerticalZoom(signalName);
-    }
+//    public int getVerticalZoom(String signalName) {
+//        return channels.getVerticalZoom(signalName);
+//    }
 
     public void setJsmProperties(JSMProperties jsmProperties) {
         this.jsmProperties = jsmProperties;
@@ -367,22 +367,22 @@ class JSignalMonitorPanel extends JPanel implements AdjustmentListener, JSignalM
         return end - start;
     }
 
-    public void showAnnotationsPanel(boolean show) {
-        if (show) {
-            splitPanel2.setDividerLocation(splitPanel2.getLastDividerLocation());
-        } else {
-            splitPanel2.setDividerLocation(0);
-        }
-    }
-
-    public void showLeftPanel(boolean show) {
-        if (show) {
-            splitPanel.setDividerLocation(splitPanel.getLastDividerLocation());
-        } else {
-            splitPanel.setDividerLocation(0);
-            jScrollBar.setVisible(false);
-        }
-    }
+//    public void showAnnotationsPanel(boolean show) {
+//        if (show) {
+//            splitPanel2.setDividerLocation(splitPanel2.getLastDividerLocation());
+//        } else {
+//            splitPanel2.setDividerLocation(0);
+//        }
+//    }
+//
+//    public void showLeftPanel(boolean show) {
+//        if (show) {
+//            splitPanel.setDividerLocation(splitPanel.getLastDividerLocation());
+//        } else {
+//            splitPanel.setDividerLocation(0);
+//            jScrollBar.setVisible(false);
+//        }
+//    }
 
     public int getVScaleOffset() {
         return channels.getVScaleOffset();
@@ -405,8 +405,8 @@ class JSignalMonitorPanel extends JPanel implements AdjustmentListener, JSignalM
                 channels.getSize().width - channels.getHLeftOffsetScale() - 10);
     }
 
-    public float getFrecForTimeInterval(long startTime, long endTime) {
-        return jsmProperties.getFrecForTimeInterval(startTime, endTime,
-                channels.getSize().width - channels.getHLeftOffsetScale() - 10);
-    }
+//    public float getFrecForTimeInterval(long startTime, long endTime) {
+//        return jsmProperties.getFrecForTimeInterval(startTime, endTime,
+//                channels.getSize().width - channels.getHLeftOffsetScale() - 10);
+//    }
 }

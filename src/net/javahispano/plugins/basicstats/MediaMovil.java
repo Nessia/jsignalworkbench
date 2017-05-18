@@ -9,8 +9,9 @@ package net.javahispano.plugins.basicstats;
  * @version 0.2
  */
 
-public class MediaMovil {
-    public MediaMovil() {
+class MediaMovil {
+    private MediaMovil() {
+        // hide
     }
 
     /**
@@ -22,7 +23,7 @@ public class MediaMovil {
      * @throws MediaMovilException
      */
 
-    public static float[] calculaMediaMovil(float[] datos, int ventana) throws
+    private static float[] calculaMediaMovil(float[] datos, int ventana) throws
             MediaMovilException {
         if (datos == null) {
             throw new MediaMovilException("El array de datos pasado es null", ventana);
@@ -61,11 +62,10 @@ public class MediaMovil {
      * @throws MediaMovilException
      */
 
-    public static float[] calculaMediaMovilClone(float[] datos, int ventana) throws
+    static float[] calculaMediaMovilClone(float[] datos, int ventana) throws
             MediaMovilException {
         try {
-            return MediaMovil.calculaMediaMovil((float[]) datos.clone(),
-                                                ventana);
+            return MediaMovil.calculaMediaMovil((float[]) datos.clone(), ventana);
         } catch (MediaMovilException ex) {
             throw ex;
         }

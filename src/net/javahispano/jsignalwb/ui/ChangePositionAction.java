@@ -20,19 +20,19 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitor;
  *
  * @author Roman
  */
-public class ChangePositionAction extends AbstractAction {
+class ChangePositionAction extends AbstractAction {
     /**
      *
      */
     private static final long serialVersionUID = -4010413336088330332L;
-    public static final String UP = "up";
-    public static final String DOWN = "down";
+    static final String UP = "up";
+    static final String DOWN = "down";
     private JSignalMonitor jsm;
     private String signalName;
     private String value;
 
     /** Creates a new instance of ChangePositionAction */
-    public ChangePositionAction(JSignalMonitor jsm, String signalName, String value) {
+    ChangePositionAction(JSignalMonitor jsm, String signalName, String value) {
         this.jsm = jsm;
         this.signalName = signalName;
         this.value = value;
@@ -47,7 +47,7 @@ public class ChangePositionAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         String signalName2;
-        if ("up".equals(value.toLowerCase())) {
+        if ("up".equalsIgnoreCase(value)) {
             signalName2 = jsm.getChannelName(jsm.getChannelPosition(signalName) - 1);
         } else {
             signalName2 = jsm.getChannelName(jsm.getChannelPosition(signalName) + 1);

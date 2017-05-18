@@ -17,7 +17,7 @@ import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
   * @author Abraham Otero
   * @version 0.5
   */
-public class FiltroNasal extends AlgorithmAdapter {
+class FiltroNasal extends AlgorithmAdapter {
 
 
 
@@ -58,7 +58,7 @@ public class FiltroNasal extends AlgorithmAdapter {
      * @param datos float[]
      * @return float[]
      */
-    public static float[] filtrarNasal(float[] datos) {
+    static float[] filtrarNasal(float[] datos) {
         float[] d = null;
         float[] d2 = null;
         d = filtro(datos);

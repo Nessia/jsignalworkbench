@@ -18,7 +18,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman Segador
  */
-public class SaveAction extends AbstractAction {
+class SaveAction extends AbstractAction {
     /**
      *
      */
@@ -26,7 +26,7 @@ public class SaveAction extends AbstractAction {
 
     private JSWBManager jswbManager;
 
-    public SaveAction(JSWBManager jswbManager) {
+    SaveAction(JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
         Image image = Toolkit.getDefaultToolkit().createImage(
                 JSWBManager.class.getResource("images/save.jpg"));

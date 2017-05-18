@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @author Abraham Otero
  * @version 0.5
  */
-public class LimitacionFlujo extends Intervalo implements Serializable {
+class LimitacionFlujo extends Intervalo implements Serializable {
 
     /**
      *
@@ -28,13 +28,10 @@ public class LimitacionFlujo extends Intervalo implements Serializable {
 //    private float[] valorBasal = null;
 //    private float[] delta = null;
 
-    public LimitacionFlujo(int principio, int fin, int posibilidad) {
+    LimitacionFlujo(int principio, int fin, int posibilidad) {
         super(principio, fin, posibilidad);
     }
 
-    public LimitacionFlujo(Intervalo i) {
-        super(i);
-    }
 
     public float getPorcentajeReduccion() {
         return porcentajeReduccion;
@@ -52,7 +49,7 @@ public class LimitacionFlujo extends Intervalo implements Serializable {
         this.usarEnEstadisticas = usarEnEstadisticas;
     }
 
-    public boolean setValorBasal(float[] valorBasal, float[] delta) {
+    boolean setValorBasal(float[] valorBasal, float[] delta) {
 //        this.valorBasal = valorBasal;
 //        this.delta = delta;
         float energia = 0;

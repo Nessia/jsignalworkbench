@@ -14,14 +14,14 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman Segador
  */
-public class JRadioButtonMenuItemShowEmphasisLevel extends JRadioButtonMenuItem {
+class JRadioButtonMenuItemShowEmphasisLevel extends JRadioButtonMenuItem {
 
     /**
      *
      */
     private static final long serialVersionUID = -111040378654277061L;
 
-    public JRadioButtonMenuItemShowEmphasisLevel(String signalName) {
+    JRadioButtonMenuItemShowEmphasisLevel(String signalName) {
         super(new ShowEmphasisLevelAction(signalName));
         if (JSWBManager.getJSWBManagerInstance().getSignalHasEmphasis(signalName)) {
             setSelected(true);

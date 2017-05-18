@@ -19,17 +19,17 @@ import net.javahispano.jsignalwb.plugins.framework.PluginManager;
  * @author not attributable
  * @version 1.0
  */
-public class JMenuGenericPlugin extends JMenu {
+class JMenuGenericPlugin extends JMenu {
     /**
      *
      */
     private static final long serialVersionUID = 4751625944193702692L;
 
-    public JMenuGenericPlugin(String genericPluginName, JSWBManager jswbManager) {
+    JMenuGenericPlugin(String genericPluginName, JSWBManager jswbManager) {
         super(genericPluginName);
         PluginManager pm = JSWBManager.getPluginManager();
         JMenuItem configure = new JMenuItem(new GenericPluginAction(jswbManager,
-                genericPluginName, GenericPluginAction.ACTIONS.CONFIGURE));
+                genericPluginName, GenericPluginAction.Action.CONFIGURE));
         if (pm.isPluginLoaded("generic", genericPluginName)) {
             GenericPlugin gp = pm.getGeneric(genericPluginName);
             if (!gp.hasOwnConfigureGUI()) {
@@ -38,6 +38,6 @@ public class JMenuGenericPlugin extends JMenu {
         }
         add(configure);
         add(new JMenuItem(new GenericPluginAction(jswbManager, genericPluginName,
-                GenericPluginAction.ACTIONS.LAUNCH)));
+                GenericPluginAction.Action.LAUNCH)));
     }
 }

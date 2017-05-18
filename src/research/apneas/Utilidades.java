@@ -2,12 +2,16 @@ package research.apneas;
 
 import java.awt.Color;
 import static java.lang.Math.*;
-import java.util.Arrays;
+//import java.util.Arrays;
 
-import net.javahispano.fuzzyutilities.representation.TrapezoidalDistribution;
+//import net.javahispano.fuzzyutilities.representation.TrapezoidalDistribution;
 
-public class Utilidades {
+class Utilidades {
 
+
+    private Utilidades(){
+        // Esconder constructor
+    }
 
     /**
      * Calcula para cada valor del array que se le pasa como argumento a partir
@@ -27,36 +31,36 @@ public class Utilidades {
      * @param datosPosteriores int
      * @return float[]
      */
-    public static float[] calcularBasalMaximos(float[] datos, int datosAnteriores, int datosPosteriores) {
-        float[] basal = new float[datos.length];
-        float p[] = new float[datosAnteriores + datosPosteriores];
-        //el paso es la dcima parte de la ventana temporal
-        final int paso = max(1, (datosAnteriores + datosPosteriores) / 10);
-        for (int i = datosAnteriores; i < datos.length - datosPosteriores; i += paso) {
-            for (int j = i; j < i + p.length && j < datos.length; j++) {
-                p[j - i] = datos[j];
-            }
-            Arrays.sort(p);
-            float suma = 0;
-            //solo se considera el 10% de los datos mayores
-            for (int j = p.length * 95 / 100; j < p.length; j++) {
-                suma += p[j];
-            }
-            suma /= (p.length - p.length * 95 / 100);
-            for (int j = i; j < i + paso; j++) {
-                basal[j] = suma;
-            }
-        }
-
-        //llenamos el principio y al final con el ultimo un valor basal, o el primero, segun corresponda
-        for (int i = 0; i < datosAnteriores; i++) {
-            basal[i] = basal[datosAnteriores];
-        }
-        for (int i = basal.length - datosAnteriores; i < basal.length; i++) {
-            basal[i] = basal[datos.length - datosPosteriores - 1];
-        }
-        return basal;
-    }
+//    static float[] calcularBasalMaximos(float[] datos, int datosAnteriores, int datosPosteriores) {
+//        float[] basal = new float[datos.length];
+//        float p[] = new float[datosAnteriores + datosPosteriores];
+//        //el paso es la dcima parte de la ventana temporal
+//        final int paso = max(1, (datosAnteriores + datosPosteriores) / 10);
+//        for (int i = datosAnteriores; i < datos.length - datosPosteriores; i += paso) {
+//            for (int j = i; j < i + p.length && j < datos.length; j++) {
+//                p[j - i] = datos[j];
+//            }
+//            Arrays.sort(p);
+//            float suma = 0;
+//            //solo se considera el 10% de los datos mayores
+//            for (int j = p.length * 95 / 100; j < p.length; j++) {
+//                suma += p[j];
+//            }
+//            suma /= (p.length - p.length * 95.0 / 100.0);
+//            for (int j = i; j < i + paso; j++) {
+//                basal[j] = suma;
+//            }
+//        }
+//
+//        //llenamos el principio y al final con el ultimo un valor basal, o el primero, segun corresponda
+//        for (int i = 0; i < datosAnteriores; i++) {
+//            basal[i] = basal[datosAnteriores];
+//        }
+//        for (int i = basal.length - datosAnteriores; i < basal.length; i++) {
+//            basal[i] = basal[datos.length - datosPosteriores - 1];
+//        }
+//        return basal;
+//    }
 
 
     /**
@@ -78,7 +82,7 @@ public class Utilidades {
      * @param datosPosteriores int
      * @return float[]
      */
-    public static float[] calcularBasal(float[] datos, float[] posibilidad, int datosAnteriores,
+    static float[] calcularBasal(float[] datos, float[] posibilidad, int datosAnteriores,
                                         int datosPosteriores) {
         float[] basal = new float[datos.length];
         //@todo cambio reciente: antes el paso era de uno
@@ -127,12 +131,11 @@ public class Utilidades {
      * @param d float[]
      * @return float
      */
-    public static float pendienteEnTornoA(int ventana, int indice, float[] d) {
-        int minimo = indice - ventana / 2; //centramos sobre el indice
-        int maximo = indice + ventana / 2;
-        float pendiente = (d[maximo] - d[minimo]) / (maximo - minimo);
-        return pendiente;
-    }
+//    private static float pendienteEnTornoA(int ventana, int indice, float[] d) {
+//        int minimo = indice - ventana / 2; //centramos sobre el indice
+//        int maximo = indice + ventana / 2;
+//        return (d[maximo] - d[minimo]) / (maximo - minimo);
+//    }
 
     /**
      * Calcula el valor medio entorno al indice que se le pasa empleando para ello
@@ -144,7 +147,7 @@ public class Utilidades {
      * @param d float[]
      * @return float
      */
-    public static float valorMedioEnTornoA(int ventana, int indice, float[] d) {
+    static float valorMedioEnTornoA(int ventana, int indice, float[] d) {
         int minimo = indice - ventana / 2; //centramos sobre el indice
         int maximo = indice + ventana / 2;
         maximo = min(d.length, maximo);
@@ -155,25 +158,25 @@ public class Utilidades {
         return suma / (maximo - minimo);
     }
 
-    public static float valorMedioEnTornoA2(int ventana, int indice, float[] d) {
-        int minimo = indice - ventana / 2; //centramos sobre el indice
-        int maximo = indice + ventana / 2;
-        maximo = min(d.length, maximo);
-        float suma = 0;
-        float tmp[] = new float[maximo - minimo];
-
-        for (int i = minimo; i < maximo; i++) {
-            tmp[i - minimo] = d[i];
-            // suma += d[i];
-            //suma = Math.max(suma,d[i]);
-        }
-
-        Arrays.sort(tmp);
-        for (int i = tmp.length / 2; i < tmp.length; i++) {
-            suma += tmp[i];
-        }
-        return suma / (tmp.length - tmp.length / 2); // (maximo - minimo);
-    }
+//    public static float valorMedioEnTornoA2(int ventana, int indice, float[] d) {
+//        int minimo = indice - ventana / 2; //centramos sobre el indice
+//        int maximo = indice + ventana / 2;
+//        maximo = min(d.length, maximo);
+//        float suma = 0;
+//        float[] tmp = new float[maximo - minimo];
+//
+//        for (int i = minimo; i < maximo; i++) {
+//            tmp[i - minimo] = d[i];
+//            // suma += d[i];
+//            //suma = Math.max(suma,d[i]);
+//        }
+//
+//        Arrays.sort(tmp);
+//        for (int i = tmp.length / 2; i < tmp.length; i++) {
+//            suma += tmp[i];
+//        }
+//        return suma / (tmp.length - tmp.length / 2F); // (maximo - minimo);
+//    }
 
     /**
      * Calcula el valor medio entorno al indice que se le pasa empleando para ello
@@ -185,7 +188,7 @@ public class Utilidades {
      * @param d float[]
      * @return float
      */
-    public static float energiaEnTornoA(int ventana, int indice, float[] d) {
+    static float energiaEnTornoA(int ventana, int indice, float[] d) {
         int minimo = indice - ventana / 2; //centramos sobre el indice
         int maximo = indice + ventana / 2;
         maximo = min(d.length, maximo);
@@ -209,13 +212,13 @@ public class Utilidades {
      * @param pendiente TrapezoidalDistribution
      * @return float[]
      */
-    public static float[] compatibilidadConPendientes(float[] datos, int ventana, TrapezoidalDistribution pendiente) {
-        float[] posibilidad = new float[datos.length];
-        for (int i = ventana / 2; i < posibilidad.length - ventana / 2; i++) {
-            posibilidad[i] = pendiente.evaluatepossibilityAt(Utilidades.pendienteEnTornoA(ventana, i, datos));
-        }
-        return posibilidad;
-    }
+//    static float[] compatibilidadConPendientes(float[] datos, int ventana, TrapezoidalDistribution pendiente) {
+//        float[] posibilidad = new float[datos.length];
+//        for (int i = ventana / 2; i < posibilidad.length - ventana / 2; i++) {
+//            posibilidad[i] = pendiente.evaluatepossibilityAt(Utilidades.pendienteEnTornoA(ventana, i, datos));
+//        }
+//        return posibilidad;
+//    }
 
     /**
      * Calcula para el array de dantos que se le pasa como argumento cual es su
@@ -229,16 +232,16 @@ public class Utilidades {
      * @param pendiente TrapezoidalDistribution
      * @return float[]
      */
-    public static float[] compatibilidadConPendientes2(float[] datos,
-            int ventanaNormalMuestras, TrapezoidalDistribution pendiente) {
-        float[] posibilidad = new float[datos.length];
-        for (int i = ventanaNormalMuestras / 2; i < posibilidad.length - ventanaNormalMuestras / 2;
-                     i++) {
-            posibilidad[i] = pendiente.evaluatepossibilityAt(
-                    datos[i - ventanaNormalMuestras / 2] - datos[i + ventanaNormalMuestras / 2]);
-        }
-        return posibilidad;
-    }
+//    public static float[] compatibilidadConPendientes2(float[] datos,
+//            int ventanaNormalMuestras, TrapezoidalDistribution pendiente) {
+//        float[] posibilidad = new float[datos.length];
+//        for (int i = ventanaNormalMuestras / 2; i < posibilidad.length - ventanaNormalMuestras / 2;
+//                     i++) {
+//            posibilidad[i] = pendiente.evaluatepossibilityAt(
+//                    datos[i - ventanaNormalMuestras / 2] - datos[i + ventanaNormalMuestras / 2]);
+//        }
+//        return posibilidad;
+//    }
 
 
     /**
@@ -251,7 +254,7 @@ public class Utilidades {
      * @param persistencia numero de muestras mximas consecutivas a rellenar
      * @param limite float
      */
-    public static void rellenarHuecos(float[] datos, int persistencia, float limite) {
+    static void rellenarHuecos(float[] datos, int persistencia, float limite) {
 
         for (int i = persistencia; i < datos.length; i++) {
             //buscamos el primer dato mayor que el limite
@@ -279,13 +282,13 @@ public class Utilidades {
     }
 
 
-    public static void ponerACeroPorDebajoDe(float[] datos, float limite) {
-        for (int i = 0; i < datos.length; i++) {
-            if (datos[i] < limite) {
-                datos[i] = 0;
-            }
-        }
-    }
+//    static void ponerACeroPorDebajoDe(float[] datos, float limite) {
+//        for (int i = 0; i < datos.length; i++) {
+//            if (datos[i] < limite) {
+//                datos[i] = 0;
+//            }
+//        }
+//    }
 
     /**
      * Rellena todos los valores del array que sean menores que 0 con el
@@ -296,7 +299,7 @@ public class Utilidades {
      * @param datos float[]
      * @param persistencia numero de muestras mximas consecutivas a rellenar
      */
-    public static void rellenarHuecos(float[] datos, int persistencia) {
+    static void rellenarHuecos(float[] datos, int persistencia) {
         rellenarHuecos(datos, persistencia, 0);
     }
 
@@ -311,7 +314,7 @@ public class Utilidades {
      * @param original float[]
      * @return float[]
      */
-    public static float[] invertirArray(float[] original) {
+    static float[] invertirArray(float[] original) {
         float[] invertido = new float[original.length];
         for (int i = 0; i < original.length; i++) {
             invertido[i] = original[original.length - 1 - i];
@@ -320,31 +323,31 @@ public class Utilidades {
         return invertido;
     }
 
-    public static float[] calculaMediaMovilClone(float[] datos, int ventana) {
-        float[] datosFiltrados = new float[datos.length];
-        int medio;
-        float[] datosVentana;
-        if (ventana % 2 != 0) {
-            medio = ventana / 2;
-            datosVentana = new float[ventana];
-        } else {
-            medio = (ventana + 1) / 2;
-            datosVentana = new float[ventana + 1];
-        }
-
-        for (int i = 0; i < medio; i++) {
-            datosFiltrados[i] = datos[i];
-        }
-        for (int i = medio; i < datos.length - medio; i++) {
-            int c = 0;
-            for (int j = i - medio; j < i - medio + datosVentana.length; j++) {
-                datosVentana[c++] = datos[j];
-            }
-            Arrays.sort(datosVentana);
-            datosFiltrados[i] = datosVentana[medio];
-        }
-        return datosFiltrados;
-    }
+//    static float[] calculaMediaMovilClone(float[] datos, int ventana) {
+//        float[] datosFiltrados = new float[datos.length];
+//        int medio;
+//        float[] datosVentana;
+//        if (ventana % 2 != 0) {
+//            medio = ventana / 2;
+//            datosVentana = new float[ventana];
+//        } else {
+//            medio = (ventana + 1) / 2;
+//            datosVentana = new float[ventana + 1];
+//        }
+//
+//        for (int i = 0; i < medio; i++) {
+//            datosFiltrados[i] = datos[i];
+//        }
+//        for (int i = medio; i < datos.length - medio; i++) {
+//            int c = 0;
+//            for (int j = i - medio; j < i - medio + datosVentana.length; j++) {
+//                datosVentana[c++] = datos[j];
+//            }
+//            Arrays.sort(datosVentana);
+//            datosFiltrados[i] = datosVentana[medio];
+//        }
+//        return datosFiltrados;
+//    }
 
 
     public static Color getColor(short code) {

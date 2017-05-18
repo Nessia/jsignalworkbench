@@ -22,21 +22,21 @@ import net.javahispano.jsignalwb.plugins.*;
  *
  * @author Roman Segador
  */
-public abstract class AnnotationPluginAdapter extends PluginAdapter implements AnnotationPlugin {
+abstract class AnnotationPluginAdapter extends PluginAdapter implements AnnotationPlugin {
 
 
     private static final Logger LOGGER = Logger.getLogger(AnnotationPluginAdapter.class.getName());
-
-    protected long annotationTime;
+    private String imagePath;
+    private JSWBManager jswbManager;
+    private long annotationTime;
+    private String commentary;
     protected String title;
-    protected String commentary;
     protected String category;
     protected Color color;
     protected Image image;
     protected BufferedImage im;
     protected boolean isImage;
-    protected String imagePath;
-    protected JSWBManager jswbManager;
+
 
     protected AnnotationPluginAdapter(){
        annotationTime = 0;

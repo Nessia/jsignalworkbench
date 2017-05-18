@@ -23,7 +23,7 @@ public class Resample {
      * los datos antiguos.
      * @return array con los datos remuesrteados
      */
-    public static float[] resampleFs(float data[], float startFs,
+    public static float[] resampleFs(float[] data, float startFs,
                                      float endFs) {
         return resampleFs(data, startFs, endFs, false);
     }
@@ -38,7 +38,7 @@ public class Resample {
      * los datos antiguos.
      * @return array con los datos remuesrteados
      */
-    public static float[] resampleFs(float data[], float startFs,
+    public static float[] resampleFs(float[] data, float startFs,
                                      float endFs,
                                      boolean smooth) {
         return resampleT(data, 1 / startFs, 1 / endFs, smooth);
@@ -55,10 +55,10 @@ public class Resample {
      * @return array con los datos remuesrteados
      */
 
-    public static float[] resampleT(float data[], float startPeriod,
-                                    float endPeriod) {
-        return resampleT(data, startPeriod, endPeriod, false);
-    }
+//    public static float[] resampleT(float data[], float startPeriod,
+//                                    float endPeriod) {
+//        return resampleT(data, startPeriod, endPeriod, false);
+//    }
 
     /**
      * Remuestre el array de float que se le pase
@@ -69,7 +69,7 @@ public class Resample {
      * @return array con los datos remuesrteados
      */
 
-    public static float[] resampleT(float data[], float startPeriod,
+    private static float[] resampleT(float data[], float startPeriod,
                                     float endPeriod,
                                     boolean smooth) {
         int numDatos = data.length;
@@ -117,10 +117,10 @@ public class Resample {
      * los datos antiguos.
      * @return array con los datos remuesrteados
      */
-    public static short[] resampleFs(short data[], float startFs,
-                                     float endFs) {
-        return resampleFs(data, startFs, endFs, false);
-    }
+//    public static short[] resampleFs(short data[], float startFs,
+//                                     float endFs) {
+//        return resampleFs(data, startFs, endFs, false);
+//    }
 
     /**
      * Remuestre el array de float que se le pase
@@ -132,7 +132,7 @@ public class Resample {
      * los datos antiguos.
      * @return array con los datos remuesrteados
      */
-    public static short[] resampleFs(short data[], float startFs,
+    static short[] resampleFs(short[] data, float startFs,
                                      float endFs,
                                      boolean smooth) {
         return resampleT(data, 1 / startFs, 1 / endFs, smooth);
@@ -149,10 +149,10 @@ public class Resample {
      * @return array con los datos remuesrteados
      */
 
-    public static short[] resampleT(short data[], float startPeriod,
-                                    float endPeriod) {
-        return resampleT(data, startPeriod, endPeriod, false);
-    }
+//    public static short[] resampleT(short data[], float startPeriod,
+//                                    float endPeriod) {
+//        return resampleT(data, startPeriod, endPeriod, false);
+//    }
 
     /**
      * Remuestre el array de float que se le pase
@@ -163,7 +163,7 @@ public class Resample {
      * @return array con los datos remuesrteados
      */
 
-    public static short[] resampleT(short data[], float startPeriod,
+    private static short[] resampleT(short[] data, float startPeriod,
                                     float endPeriod,
                                     boolean smooth) {
         int numDatos = data.length;
@@ -208,23 +208,23 @@ public class Resample {
      * @param datos
      * @return
      */
-    public static float[] deleteLastZeros(float[] data) {
-        int datoDeCorte = data.length;
-        for (int i = data.length - 1; i >= 0; i--) {
-            if (data[i] != 0) {
-                break;
-            }
-            datoDeCorte--;
-        }
-        if (datoDeCorte != data.length) {
-            float resultado[] = new float[datoDeCorte];
-            for (int i = 0; i < datoDeCorte; i++) {
-                resultado[i] = data[i];
-            }
-            return resultado;
-        }
-        return data;
-    }
+//    public static float[] deleteLastZeros(float[] data) {
+//        int datoDeCorte = data.length;
+//        for (int i = data.length - 1; i >= 0; i--) {
+//            if (data[i] != 0) {
+//                break;
+//            }
+//            datoDeCorte--;
+//        }
+//        if (datoDeCorte != data.length) {
+//            float resultado[] = new float[datoDeCorte];
+//            for (int i = 0; i < datoDeCorte; i++) {
+//                resultado[i] = data[i];
+//            }
+//            return resultado;
+//        }
+//        return data;
+//    }
 
 
 }

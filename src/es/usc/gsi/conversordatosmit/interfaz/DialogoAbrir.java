@@ -4,7 +4,7 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-public class DialogoAbrir extends JFileChooser {
+class DialogoAbrir extends JFileChooser {
 
     /**
     *

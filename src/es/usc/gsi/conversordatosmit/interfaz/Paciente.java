@@ -8,35 +8,35 @@ import javax.swing.JPanel;
 
 import es.usc.gsi.conversordatosmit.ficheros.FicheroHead;
 
-public class Paciente extends JPanel {
+class Paciente extends JPanel {
 
     /**
     *
     */
     private static final long serialVersionUID = -2639492810876012195L;
 
-    public static final int LISTA = 0;
-    public static final int ETIQUETAS = 1;
+    private static final int LISTA = 0;
+    private static final int ETIQUETAS = 1;
 
     private PanelFecha panelFecha;
     private PanelEtiquetadoGeneral panelEtiquetado;
     private int modoVista;
 
-    public Paciente(FicheroHead[] ficherosHead, int modoVista) {
+    private Paciente(FicheroHead[] ficherosHead, int modoVista) {
         this.setLayout(new BorderLayout());
         this.panelFecha = new PanelFecha(ficherosHead[0].getFechaInicio(),
                                          ficherosHead[0].getFechaFin());
         this.creaVista(ficherosHead, modoVista);
     }
 
-    public Paciente(FicheroHead[] ficherosHead) {
+    Paciente(FicheroHead[] ficherosHead) {
         this(ficherosHead, Paciente.LISTA);
     }
 
     // Necesario llamar a este metodo despues de haber anhadido
     // este componente a un contenedor: es la unica manera de que el tamanho
     // sea respecto al contenedor. MEJORAR ESTO.
-    public void anhadeSubPanel() {
+    void anhadeSubPanel() {
         // LLAMAR A METODOS DE SUBPANELES??
         this.add(panelFecha, BorderLayout.NORTH);
         this.add(panelEtiquetado, BorderLayout.CENTER);
@@ -58,7 +58,7 @@ public class Paciente extends JPanel {
         }
     }
 
-    public void cambiaVista(FicheroHead[] ficherosHead, int modoVista) {
+    void cambiaVista(FicheroHead[] ficherosHead, int modoVista) {
         if (this.modoVista == modoVista) {
             return; // Si la  vista no cambia, no hacemos nada.
         }
@@ -68,7 +68,7 @@ public class Paciente extends JPanel {
         this.anhadeSubPanel(); // Se puede llamar desde aqui, ya que se supone que este componente ya ha sido anhadido.
     }
 
-    public void cerrarPaciente() {
+    void cerrarPaciente() {
         panelEtiquetado.cerrarTodosFicheros();
         this.removeAll();
         panelEtiquetado = null;
@@ -80,11 +80,11 @@ public class Paciente extends JPanel {
       return panelEtiquetado.getFicheroHeadSeleccionado();
        } */
 
-    public void actualizaFrecuencias() {
+    void actualizaFrecuencias() {
         panelEtiquetado.actualizaFrecuencias();
     }
 
-    public void actualizaFechas() throws Exception {
+    void actualizaFechas() throws Exception {
 
         String fIni = panelFecha.getFechaInicio();
         String fFin = panelFecha.getFechaFin();

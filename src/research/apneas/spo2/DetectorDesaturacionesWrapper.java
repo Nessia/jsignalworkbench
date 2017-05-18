@@ -1,12 +1,12 @@
 package research.apneas.spo2;
 
-import java.awt.Color;
+//import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
 import net.javahispano.jsignalwb.*;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
-import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
+//import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
 import research.apneas.*;
 
 /**
@@ -92,30 +92,30 @@ public class DetectorDesaturacionesWrapper extends AlgorithmAdapter {
         return des;
     }
 
-    static void generarEpisodioDesaturacion(EpisodioDesaturacion e, Color color,
-                                            Signal satO2) throws SignalNotFoundException {
-        //    color= Utilidades.getColor((short)e.getPosibilidad());
-        DefaultIntervalMark m = new DefaultIntervalMark();
-        long t = e.getPrincipioAbsoluto();
-        m.setMarkTime(t);
-        long t2 = e.getFinAbsoluto();
-        m.setEndTime(t2);
-        if (color == null) {
-            m.setColor(Utilidades.getColor((short) e.getPosibilidad()));
-        } else {
-            m.setColor(color);
-        }
-
-        String texto = "Duracion: " + e.getDuracionEpisodio() + ",\n" +
-                       "Valor minimo: " + e.getMinimo() + ",\n" +
-                       "Caida en la saturacion: " + e.getCaidaSatO2() + ",\n" +
-                       "Posibilidad: " + e.getPosibilidad() + ",\n" +
-                       "Tiempo de caida: " + e.getTiempoBajada() + ",\n" +
-                       "Tiempo de subida: " + e.getTiempoSubida();
-        m.setCommentary(texto);
-        m.setTitle("Episodio de desaturacion");
-        JSWBManager.getSignalManager().addSignalMark(satO2.getName(), m);
-    }
+//    static void generarEpisodioDesaturacion(EpisodioDesaturacion e, Color color,
+//                                            Signal satO2) throws SignalNotFoundException {
+//        //    color= Utilidades.getColor((short)e.getPosibilidad());
+//        DefaultIntervalMark m = new DefaultIntervalMark();
+//        long t = e.getPrincipioAbsoluto();
+//        m.setMarkTime(t);
+//        long t2 = e.getFinAbsoluto();
+//        m.setEndTime(t2);
+//        if (color == null) {
+//            m.setColor(Utilidades.getColor((short) e.getPosibilidad()));
+//        } else {
+//            m.setColor(color);
+//        }
+//
+//        String texto = "Duracion: " + e.getDuracionEpisodio() + ",\n" +
+//                       "Valor minimo: " + e.getMinimo() + ",\n" +
+//                       "Caida en la saturacion: " + e.getCaidaSatO2() + ",\n" +
+//                       "Posibilidad: " + e.getPosibilidad() + ",\n" +
+//                       "Tiempo de caida: " + e.getTiempoBajada() + ",\n" +
+//                       "Tiempo de subida: " + e.getTiempoSubida();
+//        m.setCommentary(texto);
+//        m.setTitle("Episodio de desaturacion");
+//        JSWBManager.getSignalManager().addSignalMark(satO2.getName(), m);
+//    }
 
     @Override
     public String getName() {

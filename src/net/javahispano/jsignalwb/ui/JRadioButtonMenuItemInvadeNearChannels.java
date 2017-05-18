@@ -15,14 +15,14 @@ import net.javahispano.jsignalwb.jsignalmonitor.ChannelProperties;
  *
  * @author Roman Segador
  */
-public class JRadioButtonMenuItemInvadeNearChannels extends JRadioButtonMenuItem {
+class JRadioButtonMenuItemInvadeNearChannels extends JRadioButtonMenuItem {
 
     /**
      *
      */
     private static final long serialVersionUID = -4690496177120502016L;
 
-    public JRadioButtonMenuItemInvadeNearChannels(JSWBManager jswbManager, ChannelProperties channelProperties) {
+    JRadioButtonMenuItemInvadeNearChannels(JSWBManager jswbManager, ChannelProperties channelProperties) {
         super(new InvadeNearChannelsAction(jswbManager, channelProperties));
 
         if (channelProperties.isInvadeNearChannels()) {

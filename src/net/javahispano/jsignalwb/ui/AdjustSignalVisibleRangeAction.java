@@ -21,7 +21,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman
  */
-public class AdjustSignalVisibleRangeAction extends AbstractAction {
+class AdjustSignalVisibleRangeAction extends AbstractAction {
     /**
      *
      */
@@ -29,12 +29,13 @@ public class AdjustSignalVisibleRangeAction extends AbstractAction {
     private JSWBManager jswbManager;
     private String channelName;
     private float range;
+
     /** Creates a new instance of AdjustSignalVisibleRangeAction */
-    public AdjustSignalVisibleRangeAction(JSWBManager jswbManager) {
+    AdjustSignalVisibleRangeAction(JSWBManager jswbManager) {
         this(1, jswbManager);
     }
 
-    public AdjustSignalVisibleRangeAction(float range, JSWBManager jswbManager) {
+    AdjustSignalVisibleRangeAction(float range, JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
         this.range = range;
         this.putValue(SHORT_DESCRIPTION, "Adjust the zoom to make all the signals full visible");
@@ -47,11 +48,11 @@ public class AdjustSignalVisibleRangeAction extends AbstractAction {
         this.putValue(LARGE_ICON_KEY, icon);
     }
 
-    public AdjustSignalVisibleRangeAction(String channelName, JSWBManager jswbManager) {
+    AdjustSignalVisibleRangeAction(String channelName, JSWBManager jswbManager) {
         this(channelName, 1, jswbManager);
     }
 
-    public AdjustSignalVisibleRangeAction(String channelName, float range, JSWBManager jswbManager) {
+    AdjustSignalVisibleRangeAction(String channelName, float range, JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
         this.channelName = channelName;
         this.range = range;

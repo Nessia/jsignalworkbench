@@ -50,8 +50,13 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
 
     private static final Logger LOGGER = Logger.getLogger(JSWBManager.class.getName());
 
-    // Parte estática
     private static final String FONT_FAMILY = "Tahoma";
+    private static final Font SMALL_FONT = new java.awt.Font(FONT_FAMILY, Font.BOLD, 11);
+    private static final Font BIG_FONT = new java.awt.Font(FONT_FAMILY, Font.BOLD, 13);
+    public static final Font NORMAL_FONT = new java.awt.Font(FONT_FAMILY, Font.BOLD, 12);
+
+    // Parte estática
+
     private static JSWBManager jswbManagerInstance;
     //private static JSWBManager jswbmanager = null;
     private static JSignalMonitor jSignalMonitor = null;
@@ -61,9 +66,6 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
     private static IOManager iOManager;
     private static PluginManager pluginManager;
 
-    private static Font normalFont = new java.awt.Font(FONT_FAMILY, Font.BOLD, 12);
-    private static Font smallFont = new java.awt.Font(FONT_FAMILY, Font.BOLD, 11);
-    private static Font bigFont = new java.awt.Font(FONT_FAMILY, Font.BOLD, 13);
     private static Color fontColor = Color.BLUE;
     private static boolean deleteSignalsInNextLoad = true;
 
@@ -101,9 +103,9 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         intervalSelectedListeners = new ArrayList<IntervalSelectedListener>();
         LookAndFeelConfiguration l = new LookAndFeelConfiguration();
         l.setFontColor(JSWBManager.getFontColor());
-        l.setSmallFont(JSWBManager.getSmallFont());
-        l.setMediumFont(JSWBManager.getNormalFont());
-        l.setLargeFont(JSWBManager.getBigFont());
+        l.setSmallFont(JSWBManager.SMALL_FONT);
+        l.setMediumFont(JSWBManager.NORMAL_FONT);
+        l.setLargeFont(JSWBManager.BIG_FONT);
         jSignalMonitor = new JSignalMonitor(this);
         jswbPanel = new JPanel();
         jswbPanel.setLayout(new BorderLayout());
@@ -121,7 +123,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         jMenuBar = null;
         jToolBar = null;
         //font=new Font(Font.DIALOG,Font.BOLD,12);
-        if (develop || sessionInfo.isDebugMode() || true) {
+        if (develop || sessionInfo.isDebugMode()) {
             DebugPluginsManager.registerDebugPlugins(pluginManager);
             //System.out.println("Cargados plugins debug");
         }
@@ -152,23 +154,22 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
      * Métodos
      */
 
-    public void printSignals(boolean everything, int orientation) {
-        if (everything) {
-            jSignalMonitor.printAll(orientation);
-        } else {
-            jSignalMonitor.printSignals(orientation);
-        }
+//    public void printSignals(boolean everything, int orientation) {
+//        if (everything) {
+//            jSignalMonitor.printAll(orientation);
+//        } else {
+//            jSignalMonitor.printSignals(orientation);
+//        }
+//    }
 
-    }
-
-    public void savePropertiesFile() {
+    private void savePropertiesFile() {
         pfm.savePropertiesFile(sessionInfo);
     }
 
     public void loadPreviouslyFile() {
         String path = sessionInfo.getLastFileOpenedPath();
         String loader = sessionInfo.getLastLoaderUsed();
-        if (path != null && loader != null && !path.equals("") && !loader.equals("")) {
+        if (path != null && loader != null && !path.isEmpty() && !loader.isEmpty()) {
             File file = new File(path);
             if (file.exists()) {
                 loadChannels(loader, file);
@@ -178,18 +179,6 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
 
     public static void setParentWindow(Window parentWindow) {
         JSWBManager.parentWindow = parentWindow;
-    }
-
-    public static void setBigFont(Font bigFont) {
-        JSWBManager.bigFont = bigFont;
-    }
-
-    public static void setSmallFont(Font smallFont) {
-        JSWBManager.smallFont = smallFont;
-    }
-
-    public static void setNormalFont(Font normalFont) {
-        JSWBManager.normalFont = normalFont;
     }
 
     public static void setDeleteSignalsInNextLoad(boolean deleteSignalsInNextLoad) {
@@ -263,12 +252,12 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         refreshJToolBar();
     }
 
-    public void clearJToolBar() {
-        if (jToolBarItems != null) {
-            jToolBarItems.clear();
-        }
-        refreshJToolBar();
-    }
+//    public void clearJToolBar() {
+//        if (jToolBarItems != null) {
+//            jToolBarItems.clear();
+//        }
+//        refreshJToolBar();
+//    }
 
     public List<Component> getJToolBarItems() {
         return jToolBarItems;
@@ -436,9 +425,9 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
      *
      * @return HashMap
      */
-    public static Map<String, ArrayList<String>> getPluginNames() {
-        return pluginManager.getRegisteredPlugins();
-    }
+//    public static Map<String, ArrayList<String>> getPluginNames() {
+//        return pluginManager.getRegisteredPlugins();
+//    }
 
     /**
      * Indica si debe o no mostrarse una senhal.
@@ -456,7 +445,7 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
             if (!visible) {
                 return jSignalMonitor.removeChannel(signalName);
             } else {
-                boolean flag = jSignalMonitor.addChannel(s.getName(), s.getProperties());
+                boolean flag = jSignalMonitor.addChannel(/*s.getName(),*/ s.getProperties());
                 //if(s.hasOwnGrid())
                 jSignalMonitor.setChannelGrid(s.getName(), s.getGrid());
                 return flag;
@@ -466,15 +455,15 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
 
     }
 
-    public void addSignalMark(String signalName, MarkPlugin mark) throws SignalNotFoundException {
-        signalManager.addSignalMark(signalName, mark);
-        setSaved(false);
-    }
-
-    public void addAnnotation(AnnotationPlugin annotation) {
-        signalManager.addAnnotation(annotation);
-        setSaved(false);
-    }
+//    public void addSignalMark(String signalName, MarkPlugin mark) throws SignalNotFoundException {
+//        signalManager.addSignalMark(signalName, mark);
+//        setSaved(false);
+//    }
+//
+//    public void addAnnotation(AnnotationPlugin annotation) {
+//        signalManager.addAnnotation(annotation);
+//        setSaved(false);
+//    }
 
     /**
      * Elimina por completo la senhal pasada como argumento.
@@ -488,20 +477,20 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         setSaved(false);
     }
 
-    public void removeSignalMark(String signalName, MarkPlugin mark) throws SignalNotFoundException {
-        signalManager.removeSignalMark(signalName, mark);
-        setSaved(false);
-    }
+//    public void removeSignalMark(String signalName, MarkPlugin mark) throws SignalNotFoundException {
+//        signalManager.removeSignalMark(signalName, mark);
+//        setSaved(false);
+//    }
 
     public void removeAnnotation(AnnotationPlugin annotation) {
         signalManager.removeAnnotation(annotation);
         setSaved(false);
     }
 
-    public void removeAllSignalMarks(String signalName) throws SignalNotFoundException {
-        signalManager.removeAllSignalMarks(signalName);
-        setSaved(false);
-    }
+//    public void removeAllSignalMarks(String signalName) throws SignalNotFoundException {
+//        signalManager.removeAllSignalMarks(signalName);
+//        setSaved(false);
+//    }
 
     public void removeAllMarks() {
         signalManager.removeAllMarks();
@@ -513,14 +502,14 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         setSaved(false);
     }
 
-    public static List<MarkPlugin> getAllSignalMarks(String signalName)
-            throws SignalNotFoundException {
-        return signalManager.getAllSignalMarks(signalName);
-    }
-
-    public static List<AnnotationPlugin> getAllAnnotations() {
-        return signalManager.getAllAnnotations();
-    }
+//    public static List<MarkPlugin> getAllSignalMarks(String signalName)
+//            throws SignalNotFoundException {
+//        return signalManager.getAllSignalMarks(signalName);
+//    }
+//
+//    public static List<AnnotationPlugin> getAllAnnotations() {
+//        return signalManager.getAllAnnotations();
+//    }
 
     @Override
     public float getChannelValueAtTime(String signalName, long time) {
@@ -873,10 +862,10 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
      *   los plugins.
      * @return PluginManager
      */
-    public static PluginManager getPluginManager(String pluginsPath) {
-        pluginManager.setDefaultDirectory(pluginsPath);
-        return pluginManager;
-    }
+//    public static PluginManager getPluginManager(String pluginsPath) {
+//        pluginManager.setDefaultDirectory(pluginsPath);
+//        return pluginManager;
+//    }
 
     /**
      * Devuelve el {@link PluginManager}.
@@ -1015,9 +1004,9 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
      * @throws {@link SignalNotFoundException} si no hay una senhal con el
      *   nombre indicado cargada y el entorno.
      */
-    public boolean setSignalVisibleRange(float abscissaValue, float maxValue) {
-        return signalManager.setSignalVisibleRange(abscissaValue, maxValue);
-    }
+//    public boolean setSignalVisibleRange(float abscissaValue, float maxValue) {
+//        return signalManager.setSignalVisibleRange(abscissaValue, maxValue);
+//    }
 
     /**
      * Establece como valores maximo y minimo del eje de ordenadas de la senhal que
@@ -1027,9 +1016,9 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
      * @throws {@link SignalNotFoundException} si no hay una senhal con el
      *   nombre indicado cargada y el entorno.
      */
-    public void adjustVisibleRange(String signalName) {
-        adjustVisibleRange(signalName, 1);
-    }
+//    public void adjustVisibleRange(String signalName) {
+//        adjustVisibleRange(signalName, 1);
+//    }
 
     public void adjustVisibleRange(String signalName, float range) {
         signalManager.adjustVisibleRange(signalName, range);
@@ -1039,9 +1028,9 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
      * Establece como valores maximo y minimo del eje de abcisas de todas las
      * senhales el valor maximo y minimo de cada senhal.
      */
-    public void adjustVisibleRange() {
-        adjustVisibleRange(1);
-    }
+//    public void adjustVisibleRange() {
+//        adjustVisibleRange(1);
+//    }
 
     public void adjustVisibleRange(float range) {
         signalManager.adjustVisibleRange(range);
@@ -1328,21 +1317,17 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         return sessionInfo;
     }
 
-    public static Font getBigFont() {
-        return bigFont;
-    }
-
-    public static Font getSmallFont() {
-        return smallFont;
-    }
-
-    public static Font getCustomSizeFont(int fontSize) {
-        return new java.awt.Font(FONT_FAMILY, Font.BOLD, fontSize);
-    }
-
-    public static Font getNormalFont() {
-        return normalFont;
-    }
+//    private static Font getBigFont() {
+//        return BIG_FONT;
+//    }
+//
+//    private static Font getSmallFont() {
+//        return SMALL_FONT;
+//    }
+//
+//    public static Font getNormalFont() {
+//        return NORMAL_FONT;
+//    }
 
     public static Color getFontColor() {
         return fontColor;
@@ -1410,15 +1395,15 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         return false; // @todo (Roman) mirar esto
     }
 
-    public GridPlugin getSignalGrid(String signalName) {
-        try {
-            return signalManager.getSignalGrid(signalName);
-        } catch (SignalNotFoundException ex) {
-            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
-            JOptionPane.showMessageDialog(getParentWindow(), ex.getMessage());
-        }
-        return null;
-    }
+//    public GridPlugin getSignalGrid(String signalName) {
+//        try {
+//            return signalManager.getSignalGrid(signalName);
+//        } catch (SignalNotFoundException ex) {
+//            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
+//            JOptionPane.showMessageDialog(getParentWindow(), ex.getMessage());
+//        }
+//        return null;
+//    }
 
     public static void setSignalGrid(String signalName, String gridName) {
 
@@ -1520,9 +1505,9 @@ public class JSWBManager implements JSignalMonitorDataSource, SignalSizeListener
         return sessionListenetList.add(n);
     }
 
-    public boolean removeSessionListener(SessionListener n) {
-        return sessionListenetList.remove(n);
-    }
+//    public boolean removeSessionListener(SessionListener n) {
+//        return sessionListenetList.remove(n);
+//    }
 
     public void setDebugModeOnRestart(boolean debug) {
         if (debug) {

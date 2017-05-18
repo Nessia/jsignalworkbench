@@ -28,7 +28,7 @@ public class IntervalSelectedEvent {
     /** genera un evento nuevo. Si alguno de los tiempos no es valido(menos que 0)
      *  se estimara que la seleccion de la senhal es completa*/
 
-    public IntervalSelectedEvent(String channelName, long startTime, long endTime) {
+    IntervalSelectedEvent(String channelName, long startTime, long endTime) {
         this.channelName = channelName;
         this.startTime = Math.min(startTime, endTime);
         this.endTime = Math.max(startTime, endTime);

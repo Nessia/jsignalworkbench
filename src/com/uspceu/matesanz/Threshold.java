@@ -2,12 +2,12 @@ package com.uspceu.matesanz;
 
 import java.util.Arrays;
 
-public class Threshold {
+class Threshold {
 
-    float mediana;
-    float quartil1;
-    float quartil3;
-    float media;
+    private float mediana;
+    private float quartil1;
+    private float quartil3;
+    private float media;
 
     Threshold(float[] datos) {
         float suma = 0;

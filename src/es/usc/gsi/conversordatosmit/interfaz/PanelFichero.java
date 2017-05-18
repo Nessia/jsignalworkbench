@@ -5,15 +5,16 @@ import javax.swing.*;
 import es.usc.gsi.conversordatosmit.ficheros.FicheroHead;
 import es.usc.gsi.conversordatosmit.ficheros.Parametro;
 
-public class PanelFichero extends JPanel {
+class PanelFichero extends JPanel {
 
     /**
     *
     */
     private static final long serialVersionUID = -3152553418779933433L;
 
-    public static final int LISTA = 0;
-    public static final int ETIQUETAS = 1;
+//    static final int LISTA = 0;
+//    static final int ETIQUETAS = 1;
+    enum Modo { LISTA, ETIQUETAS }
 
     private FicheroHead ficheroHead;
 //    private PanelInfo informacion;
@@ -21,7 +22,7 @@ public class PanelFichero extends JPanel {
 
 //**********************************************************************************
 
-     public PanelFichero(FicheroHead ficheroHead, int modoVista) {
+     PanelFichero(FicheroHead ficheroHead, Modo modoVista) {
          super();
 
          this.ficheroHead = ficheroHead;
@@ -35,11 +36,11 @@ public class PanelFichero extends JPanel {
          }
 
          switch (modoVista) {
-         case PanelFichero.LISTA:
+         case LISTA:
              this.vistaLista();
              break;
 
-         case PanelFichero.ETIQUETAS:
+         case ETIQUETAS:
              this.vistaEtiquetas();
              break;
 
@@ -77,7 +78,7 @@ public class PanelFichero extends JPanel {
 
 //**********************************************************************************
 
-     public void actualizaFrecuencia() {
+     void actualizaFrecuencia() {
          for (int i = 0; i < panelG.length; i++) {
              panelG[i].actualizaFrecuencia();
          }
@@ -85,7 +86,7 @@ public class PanelFichero extends JPanel {
 
 //**********************************************************************************
 
-     public void actualizaFechas(String fechaInicio, String fechaFin) {
+     void actualizaFechas(String fechaInicio, String fechaFin) {
          for (int i = 0; i < panelG.length; i++) {
              panelG[i].setFechaInicio(fechaInicio);
              panelG[i].setFechaFin(fechaFin);

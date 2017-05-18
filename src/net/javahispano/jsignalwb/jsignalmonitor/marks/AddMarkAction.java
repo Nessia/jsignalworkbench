@@ -16,7 +16,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.JSignalMonitorDataSource;
  *
  * @author Roman Segador
  */
-public class AddMarkAction extends AbstractAction {
+class AddMarkAction extends AbstractAction {
     /**
      *
      */
@@ -27,9 +27,9 @@ public class AddMarkAction extends AbstractAction {
     private JSignalMonitorDataSource dataSource;
     private long startTime;
     private long endTime;
-    boolean interval;
+    private boolean interval;
 
-    public AddMarkAction(String markName, String signalName, JSignalMonitorDataSource dataSource, long time) {
+    AddMarkAction(String markName, String signalName, JSignalMonitorDataSource dataSource, long time) {
         this.markName = markName;
         this.signalName = signalName;
         this.dataSource = dataSource;
@@ -38,7 +38,7 @@ public class AddMarkAction extends AbstractAction {
         putValue(NAME, markName);
     }
 
-    public AddMarkAction(String markName, String signalName, JSignalMonitorDataSource dataSource, long startTime,
+    AddMarkAction(String markName, String signalName, JSignalMonitorDataSource dataSource, long startTime,
                          long endTime) {
         this.markName = markName;
         this.signalName = signalName;

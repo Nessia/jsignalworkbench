@@ -46,7 +46,7 @@ public class Channels extends javax.swing.JPanel {
     private Color g2dColor;
 
     /** Creates new form Channels */
-    public Channels(JSMProperties jsmProperties) {
+    Channels(JSMProperties jsmProperties) {
 //        channels=Collections.synchronizedMap(new HashMap<String, Channel>());
 //        positions=Collections.synchronizedList(new ArrayList<String>());
 //        marks=Collections.synchronizedMap(new HashMap<JSignalMonitorMark,Rectangle>());
@@ -79,7 +79,7 @@ public class Channels extends javax.swing.JPanel {
         });
     }
 
-    public void sizeChange() {
+    void sizeChange() {
         int pos;
         synchronized (syncElements) {
             Map<String, Channel> channels = syncElements.getChannels();
@@ -179,7 +179,7 @@ public class Channels extends javax.swing.JPanel {
         }
     }
 
-    protected void paintMarks(Graphics2D g2d) {
+    private void paintMarks(Graphics2D g2d) {
 
         if (syncElements.getMarks().size() > 0) {
             Iterator<JSignalMonitorMark> it = syncElements.getMarks().keySet().iterator();
@@ -199,7 +199,7 @@ public class Channels extends javax.swing.JPanel {
         }
     }
 
-    protected void paintLegend(Graphics2D g2d, int position, int eight, int width, float zoom) {
+    private void paintLegend(Graphics2D g2d, int position, int eight, int width, float zoom) {
         int pos = position;
         int middle = getMiddle();
         int vMiddle = channelHeight / 2;
@@ -232,7 +232,7 @@ public class Channels extends javax.swing.JPanel {
         g2d.setStroke(oldStroke);
     }
 
-    protected void paintSeparators(Graphics2D g2d) {
+    private void paintSeparators(Graphics2D g2d) {
 
         if (!syncElements.getPositions().isEmpty()) {
             int middle = getMiddle();
@@ -432,7 +432,7 @@ public class Channels extends javax.swing.JPanel {
 
     // Objetivo-> Cargar un nuevo canal a la aplicacion
     // En caso de existir otro con el mismo nombre no lo carga y devuelve false
-    public Boolean addChannel(Channel ch) {
+    Boolean addChannel(Channel ch) {
         synchronized (syncElements) {
             Map<String, Channel> channels = syncElements.getChannels();
             List<String> positions = syncElements.getPositions();
@@ -447,7 +447,7 @@ public class Channels extends javax.swing.JPanel {
     }
 
     // Elimina el canal identificado por name en caso de existir
-    public Boolean removeChannel(String name) {
+    Boolean removeChannel(String name) {
         synchronized (syncElements) {
             Map<String, Channel> channels = syncElements.getChannels();
             List<String> positions = syncElements.getPositions();
@@ -461,7 +461,7 @@ public class Channels extends javax.swing.JPanel {
 
 
     /** Intercambia la posicion de los canales channela y channelb*/
-    public void swapPositions(String channela, String channelb) {
+    void swapPositions(String channela, String channelb) {
         synchronized (syncElements) {
             List<String> positions = syncElements.getPositions();
             int temp = positions.indexOf(channela);
@@ -474,7 +474,7 @@ public class Channels extends javax.swing.JPanel {
      *  para el intervalo de tiempo mostrado por pantalla, debera ser invocado cada vez que se modifique
      *  el intervalo mostrado o q los datos de la senhal original sean modificados */
 
-    public void refreshData(JSignalMonitorDataSource dataSource, long firstValue, long lastValue, float dataRate) {
+    void refreshData(JSignalMonitorDataSource dataSource, long firstValue, long lastValue, float dataRate) {
         synchronized (syncElements) {
             Map<JSignalMonitorMark, Rectangle> marks = syncElements.getMarks();
             Map<String, Channel> channels = syncElements.getChannels();
@@ -612,12 +612,12 @@ public class Channels extends javax.swing.JPanel {
 //    }
 
     /** Borra todos los canales de JSignalMonitor */
-    public void resetChannels() {
-        synchronized (syncElements) {
-            syncElements.getChannels().clear();
-            syncElements.getPositions().clear();
-        }
-    }
+//    public void resetChannels() {
+//        synchronized (syncElements) {
+//            syncElements.getChannels().clear();
+//            syncElements.getPositions().clear();
+//        }
+//    }
 
 
     /** Proporciona un listado de los nombres de los canales cargados, esten o no visibles */
@@ -644,7 +644,7 @@ public class Channels extends javax.swing.JPanel {
 //    }
 
     /** Proporciona las propiedades del canal indicado */
-    public ChannelProperties getChannelProperties(String name) {
+    ChannelProperties getChannelProperties(String name) {
         ChannelProperties prop;
         synchronized (syncElements) {
             prop = syncElements.getChannels().get(name).getChannelProperties();
@@ -692,7 +692,7 @@ public class Channels extends javax.swing.JPanel {
         return separatorsStroke;
     }
 
-    public boolean hasChannel(String channelName) {
+    boolean hasChannel(String channelName) {
         boolean hasChannel;
         synchronized (syncElements) {
             hasChannel = syncElements.getPositions().contains(channelName);
@@ -719,13 +719,13 @@ public class Channels extends javax.swing.JPanel {
 
 
     /** Establece el zoom de la senhal en tanto por ciento */
-    public void vZoomToSignal(String name, float zoom) {
+    void vZoomToSignal(String name, float zoom) {
         if (zoom > 0) {
             verticalZoom(name, (zoom / 100f));
         }
     }
 
-    public int getVerticalZoom(String signalName) {
+    int getVerticalZoom(String signalName) {
         int zoom;
         synchronized (syncElements) {
             Channel c = syncElements.getChannels().get(signalName);
@@ -755,7 +755,7 @@ public class Channels extends javax.swing.JPanel {
         return name;
     }
 
-    public int getChannelPosition(String channelName) {
+    int getChannelPosition(String channelName) {
         int position;
         synchronized (syncElements) {
             position = syncElements.getPositions().indexOf(channelName);
@@ -763,7 +763,7 @@ public class Channels extends javax.swing.JPanel {
         return position;
     }
 
-    public int getPanelPosition(long time) {
+    private int getPanelPosition(long time) {
         if (time < jsmProperties.getScrollValue()) {
             return getHLeftOffsetScale();
         } else if (time > jsmProperties.getTimeAtLocation((int) (getSize().getWidth() - getHLeftOffsetScale()))) {
@@ -784,7 +784,7 @@ public class Channels extends javax.swing.JPanel {
         return null;
     }
 
-    public void refreshGridsConfig() {
+    void refreshGridsConfig() {
         synchronized (syncElements) {
             List<String> positions = syncElements.getPositions();
             Map<String, Channel> channels = syncElements.getChannels();
@@ -794,7 +794,7 @@ public class Channels extends javax.swing.JPanel {
         }
     }
 
-    public JSignalMonitorGrid getChannelGrid(String channelName) {
+    JSignalMonitorGrid getChannelGrid(String channelName) {
         JSignalMonitorGrid grid;
         synchronized (syncElements) {
             grid = syncElements.getChannels().get(channelName).getGrid();
@@ -802,7 +802,7 @@ public class Channels extends javax.swing.JPanel {
         return grid;
     }
 
-    public void setChannelGrid(String channelName, JSignalMonitorGrid jsmGrid) {
+    void setChannelGrid(String channelName, JSignalMonitorGrid jsmGrid) {
         synchronized (syncElements) {
             syncElements.getChannels().get(channelName).setGrid(jsmGrid);
         }

@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-public class MenuArchivo extends JMenu implements ActionListener {
+class MenuArchivo extends JMenu implements ActionListener {
 
 
     /**
@@ -28,7 +28,7 @@ public class MenuArchivo extends JMenu implements ActionListener {
     private JMenuItem exportar = new JMenuItem("Exportar");
 //  private JMenuItem importar=new JMenuItem("Importar");
 
-    public MenuArchivo(String nombre) {
+    MenuArchivo(String nombre) {
         super(nombre);
 
         this.setMnemonic(KeyEvent.VK_A);

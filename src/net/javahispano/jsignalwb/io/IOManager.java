@@ -37,28 +37,6 @@ public class IOManager {
 
     /**
      * <p>Carga en el sistema las senales contenidas en path, descargando todas
-     * aquellas que ya estuviesen cargadas en el sistema si asi se le indica.</p>
-     *
-     * <p> Precondiciones -->
-     * path debe contener la ruta relativa correcta de un fichero que contenga
-     * los datos de las senales a cargar. </p>
-     *
-     * <p> Postcondiciones --> Devolvera true si
-     * las senales son cargadas correctamente y false en caso contrario. </p>
-     *
-     * @param path direccion del archivo cargar.
-     * @param nombre del {@link Loader}a emplear.
-     * @param clear true si se desea borrar todas las senhales existentes antes
-     * de realizar la carga, false en caso contrario.
-     * @throws Exception
-     * @return true si la carga se realiza correctamente, false en caso contrario.
-     */
-    public boolean loadSignals(String path, String loaderName, boolean clear) throws Exception {
-        return loadSignals(new File(path), loaderName, clear);
-    }
-
-    /**
-     * <p>Carga en el sistema las senales contenidas en path, descargando todas
      * aquellas que ya estuviesen cargadas en el sistema.</p>
      *
      * <p> Precondiciones -->
@@ -85,20 +63,6 @@ public class IOManager {
         }
         new LoaderExecutionJDialog(loader, f);
         return true;
-    }
-
-    /**
-     * Salva los datos cargados en el sistema en un destino cuyo nombre sera
-     * path y cuyo formato vendra determinado por el saver correspondiente, los
-     * almacenara en la ubicacion indicada en absolutePath, con el nombre
-     * indicado en path(y path.xml para el archivo xml)
-     *
-     * @param path direccion del archivo.
-     * @param saverName nombre del {@link Saver a emplear}
-     * @throws Exception
-     */
-    public void saveSignals(String path, String saverName) throws Exception {
-        saveSignals(new File(path), saverName);
     }
 
     /**

@@ -23,7 +23,7 @@ import org.jdom.output.XMLOutputter;
  *
  * @author Roman Segador
  */
-public class PropertiesFileManager {
+class PropertiesFileManager {
 
     private static final Logger LOGGER = Logger.getLogger(PropertiesFileManager.class.getName());
 
@@ -56,7 +56,7 @@ public class PropertiesFileManager {
         }
     }
 
-    public void deleteUninstallPlugins() {
+    void deleteUninstallPlugins() {
         if (propertiesFile.exists()) {
             try {
                 SAXBuilder builder = new SAXBuilder();
@@ -78,7 +78,7 @@ public class PropertiesFileManager {
         }
     }
 
-    public void savePropertiesFile(SessionInfo sessionInfo) {
+    void savePropertiesFile(SessionInfo sessionInfo) {
         try {
             if (propertiesFile.exists()) {
                 Element root = new Element("root");
@@ -116,7 +116,7 @@ public class PropertiesFileManager {
         EnvironmentConfiguration.getInstancia().almacenaADisco();
     }
 
-    public SessionInfo loadPropertiesFile() {
+    SessionInfo loadPropertiesFile() {
         SessionInfo sessionInfo = new SessionInfo();
         if (propertiesFile.exists()) {
             try {

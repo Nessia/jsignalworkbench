@@ -18,7 +18,7 @@ import net.javahispano.jsignalwb.plugins.defaults.DetailPluginInfoPanel;
  *
  * @author Roman Segador
  */
-public class PluginDetailAction extends AbstractAction {
+class PluginDetailAction extends AbstractAction {
     /**
      *
      */
@@ -27,7 +27,7 @@ public class PluginDetailAction extends AbstractAction {
     private String pluginKey;
     private PluginManagerPanel pmPanel;
 
-    public PluginDetailAction(String pluginKey, PluginManagerPanel pmPanel) {
+    PluginDetailAction(String pluginKey, PluginManagerPanel pmPanel) {
         this.pluginKey = pluginKey;
         this.pmPanel = pmPanel;
         ImageIcon icon = new ImageIcon(PluginDetailAction.class.getResource("images/more.png"));

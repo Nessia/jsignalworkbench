@@ -8,7 +8,7 @@ package research.spo2;
  * @author Abraham Otero
  * @version 0.5
  */
-public class Desaturacion {
+class Desaturacion {
 
     private long tiempoInicial = 0; //origen de tiempos
     private int comienzo = 0; //Posicion relativa al origen
@@ -17,12 +17,12 @@ public class Desaturacion {
     private float pos = 0; //grado de cumplimiento de los criterios de duracion y caida
     private float valorMinimo = 0; //el valor mnimo que ha alcanzado la desaturacion
 
-    public Desaturacion(long tiempoInicial, int comienzo) {
+    Desaturacion(long tiempoInicial, int comienzo) {
         this.tiempoInicial = tiempoInicial;
         this.comienzo = comienzo;
     }
 
-    public Desaturacion(long tiempoInicial, int comienzo, int fin) {
+    Desaturacion(long tiempoInicial, int comienzo, int fin) {
         this(tiempoInicial, comienzo);
         this.fin = fin;
         this.inicioSolo = false;

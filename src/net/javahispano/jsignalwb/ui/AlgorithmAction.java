@@ -28,14 +28,14 @@ public class AlgorithmAction extends AbstractAction {
 //    public final static int CONFIGURE_ACTION = 1;
 //    public final static int RUN_ACTION = 2;
 //    public final static int RESULTS_ACTION = 3;
-    public enum ACTIONS { CONFIGURE_ACTION, RUN_ACTION, RESULTS_ACTION }
+    enum ACTIONS { CONFIGURE_ACTION, RUN_ACTION, RESULTS_ACTION }
 
     private ACTIONS action;
     private String algorithmName;
     private JSWBManager jswbm;
 
     /** Creates a new instance of AlgorithmAction */
-    public AlgorithmAction(String algorithmName, ACTIONS algorithmAction,
+    AlgorithmAction(String algorithmName, ACTIONS algorithmAction,
                            JSWBManager jswbManager) {
         this.action = algorithmAction;
         this.algorithmName = algorithmName;

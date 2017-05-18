@@ -12,6 +12,8 @@ import java.beans.*;
 import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -29,22 +31,24 @@ import com.michaelbaranov.microba.calendar.CalendarPane;
  *
  * @author  Roman
  */
-public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeListener, DocumentListener {
+class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeListener, DocumentListener {
     /**
      *
      */
     private static final long serialVersionUID = 3756618805202282113L;
 
+    private static final Logger LOGGER = Logger.getLogger(ConfigureJSM.class.getName());
+
  // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton applyButton;
     private javax.swing.JButton cancelButton;
     private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+//    private javax.swing.JLabel jLabel1;
+//    private javax.swing.JLabel jLabel2;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JTextField jTextField1;
     private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
-    private javax.swing.JButton okButton;
+//    private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables
     private JWindow jw;
 
@@ -53,7 +57,7 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
     private boolean scroll;
 
     /** Creates new form ConfigureJSM */
-    public ConfigureJSM(JSWBManager jswbManager) {
+    ConfigureJSM(JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
         initComponents();
         scroll = zoomH = false;
@@ -63,7 +67,7 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
         try {
             datePicker1.setDate(new Date(jswbManager.getJSMScrollValue()));
         } catch (PropertyVetoException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
         }
         datePicker1.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
         applyButton.setEnabled(false);
@@ -116,9 +120,9 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
     private void documentEvent(DocumentEvent evt) {
         String property = evt.getDocument().getProperty("textField").toString();
 
-        if (property.equals("scroll")) {
+        if ("scroll".equals(property)) {
             scroll = true;
-        } else if (property.equals("zoomH")) {
+        } else if ("zoomH".equals(property)) {
             zoomH = true;
         }
         evt.getDocument().removeDocumentListener(this);
@@ -142,13 +146,13 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
     private void initComponents() {
         jTextField1 = new javax.swing.JTextField();
         jSlider1 = new javax.swing.JSlider();
-        okButton = new javax.swing.JButton();
+        JButton okButton = new javax.swing.JButton();
         applyButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        JLabel jLabel1 = new javax.swing.JLabel();
         jTextFieldDate1 = new net.javahispano.jsignalwb.ui.JTextFieldDate();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
-        jLabel2 = new javax.swing.JLabel();
+        JLabel jLabel2 = new javax.swing.JLabel();
 
         jTextField1.setText(Float.toString(jswbManager.getJSMFrecuency()));
 
@@ -161,7 +165,7 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
         jSlider1.setValue((int) (jswbManager.getJSMFrecuency() * 10));
         jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSlider1StateChanged(evt);
+                jSlider1StateChanged();
             }
         });
 
@@ -169,7 +173,7 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
         okButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okButtonActionPerformed(evt);
+                okButtonActionPerformed();
             }
         });
 
@@ -177,7 +181,7 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
         applyButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                applyButtonActionPerformed(evt);
+                applyButtonActionPerformed();
             }
         });
 
@@ -185,7 +189,7 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
+                cancelButtonActionPerformed();
             }
         });
 
@@ -261,29 +265,29 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
                 );
     } // </editor-fold>//GEN-END:initComponents
 
-    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_okButtonActionPerformed
+    private void okButtonActionPerformed() { //GEN-FIRST:event_okButtonActionPerformed
         if (apply()) {
             hideJWindow();
             jswbManager.refreshJSM(false);
         }
     } //GEN-LAST:event_okButtonActionPerformed
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_cancelButtonActionPerformed
+    private void cancelButtonActionPerformed() { //GEN-FIRST:event_cancelButtonActionPerformed
         hideJWindow();
         jswbManager.refreshJSM(false);
     } //GEN-LAST:event_cancelButtonActionPerformed
 
-    private void applyButtonActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_applyButtonActionPerformed
+    private void applyButtonActionPerformed() { //GEN-FIRST:event_applyButtonActionPerformed
         apply();
     } //GEN-LAST:event_applyButtonActionPerformed
 
-    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) { //GEN-FIRST:event_jSlider1StateChanged
+    private void jSlider1StateChanged() { //GEN-FIRST:event_jSlider1StateChanged
         if (jSlider1.getValue() >= 0) {
             double fs = 0.00999 * jSlider1.getValue() + 0.001;
             DecimalFormat df = new DecimalFormat("#.####");
             String texto = df.format(fs);
 
-            System.out.println("" + jSlider1.getValue() + " fs " + fs);
+            LOGGER.log(Level.INFO, "%s", jSlider1.getValue() + " fs " + fs);
             texto = texto.replace(',', '.');
             jTextField1.setText(texto);
         }
@@ -297,7 +301,7 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
         boolean flag = true;
         if (zoomH) {
             try {
-                float value = Float.valueOf(jTextField1.getText());
+                float value = Float.parseFloat(jTextField1.getText());
                 jswbManager.setJSMFrecuency(value);
                 jswbManager.refreshJSM(true);
                 jTextField1.setBackground(Color.WHITE);
@@ -307,12 +311,12 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
             }
         } else if (scroll) {
             String dateValue = jTextFieldDate1.getFormattedText();
-            if (!dateValue.equals("")) {
+            if (!dateValue.isEmpty()) {
                 try {
                     long newScroll = TimeRepresentation.stringToMillis(dateValue, true, true, true);
                    // if (newScroll >= jswbManager.getJSMScrollBaseTime() && newScroll <= jswbManager.getJSMMaxTime()) {
                        Collection <Signal> signals = JSWBManager.getSignalManager().getSignals();
-                       boolean b []= new boolean[signals.size()];
+                       boolean[] b = new boolean[signals.size()];
                        int c=0;
                        for (Signal s : signals) {
                            s.setStart(newScroll);
@@ -335,6 +339,7 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
                         jTextFieldDate1.setBackground(Color.RED);
                     }*/
                 } catch (Exception ex) {
+                    LOGGER.log(Level.WARNING, ex.getMessage(), ex);
                     jTextFieldDate1.setBackground(Color.RED);
                     flag = false;
                 }
@@ -346,7 +351,7 @@ public class ConfigureJSM extends javax.swing.JPanel implements PropertyChangeLi
         return flag;
     }
 
-    public void showJWindow(Window owner) {
+    void showJWindow(Window owner) {
         jw = new JWindow(owner);
         jw.add(this);
         jw.setSize(this.getPreferredSize());

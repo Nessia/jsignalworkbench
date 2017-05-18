@@ -8,7 +8,7 @@ package research.apneas.spo2;
  * @author Abraham Otero
  * @version 0.5
  */
-public class Desaturacion {
+class Desaturacion {
 
     private long tiempoInicial = 0; //origen de tiempos
     private int comienzo = 0; //Posicion relativa al origen
@@ -18,12 +18,12 @@ public class Desaturacion {
     private float valorMinimo = 0; //el valor mnimo que ha alcanzado la desaturacion
     private float valorBasal = 100;
 
-    public Desaturacion(long tiempoInicial, int comienzo) {
+    Desaturacion(long tiempoInicial, int comienzo) {
         this.tiempoInicial = tiempoInicial;
         this.comienzo = comienzo;
     }
 
-    public Desaturacion(long tiempoInicial, int comienzo, int fin) {
+    Desaturacion(long tiempoInicial, int comienzo, int fin) {
         this(tiempoInicial, comienzo);
         this.fin = fin;
         this.inicioSolo = false;

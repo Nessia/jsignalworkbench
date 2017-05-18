@@ -87,20 +87,16 @@ public class GridConfiguration {
     public boolean equals(Object obj) {
         if (obj instanceof GridConfiguration) {
             GridConfiguration temp = (GridConfiguration) obj;
-            if (frec == temp.getFrec() &&
+            return frec == temp.getFrec() &&
                 vZoom == temp.getVZoom() &&
                 abscissaPosition == temp.getAbscissaPosition() &&
                 abscissaValue == temp.getAbscissaValue() &&
-                maxValue == temp.getMaxValue()) {
-                return true;
-            } else {
-                return false;
-            }
+                maxValue == temp.getMaxValue();
         }
         return false;
     }
 
-    public String toStrig() {
+    public String toString() {
         return "maxValue_ " + maxValue + " abscissaPosition_ " + abscissaValue + " vZoom " + vZoom +
                 " frec " + frec + " abscissaValue " + abscissaValue;
     }

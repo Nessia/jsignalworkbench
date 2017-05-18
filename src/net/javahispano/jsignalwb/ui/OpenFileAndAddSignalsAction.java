@@ -20,7 +20,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  * @author Abraham Otero
  * @version 0.5
  */
-public class OpenFileAndAddSignalsAction extends OpenFileAction {
+class OpenFileAndAddSignalsAction extends OpenFileAction {
     /**
      *
      */
@@ -30,7 +30,7 @@ public class OpenFileAndAddSignalsAction extends OpenFileAction {
      * Creates a new instance of OpenFileAction
      * @param jswbManager JSWBManager
      */
-    public OpenFileAndAddSignalsAction(JSWBManager jswbManager) {
+    OpenFileAndAddSignalsAction(JSWBManager jswbManager) {
         super(jswbManager);
         this.putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl A"));
         this.putValue(NAME, "Add Signals");

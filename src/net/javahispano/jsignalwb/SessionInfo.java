@@ -55,7 +55,7 @@ public class SessionInfo {
         this.lastSaverUsed = lastSaverUsed;
     }
 
-    public void addPluginToDelete(String pluginToDelete) {
+    void addPluginToDelete(String pluginToDelete) {
         pluginsToDelete.add(pluginToDelete);
     }
 

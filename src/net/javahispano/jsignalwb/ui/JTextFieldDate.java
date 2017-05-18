@@ -2,6 +2,8 @@ package net.javahispano.jsignalwb.ui;
 
 import java.awt.Dimension;
 import java.text.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.text.DefaultFormatterFactory;
@@ -15,6 +17,8 @@ public class JTextFieldDate extends JFormattedTextField {
      */
     private static final long serialVersionUID = -6690119670280436071L;
 
+    private static final Logger LOGGER = Logger.getLogger(JTextFieldDate.class.getName());
+
     private static DateFormat sdf;
     private static Dimension size = new Dimension(60, 20);
     private static MaskFormatter mf;
@@ -26,7 +30,7 @@ public class JTextFieldDate extends JFormattedTextField {
             mf.setPlaceholderCharacter('_');
             sdf = new SimpleDateFormat("HH:mm:ss.SSS || dd/MM/yyyy");
         } catch (ParseException pe) {
-            pe.printStackTrace();
+            LOGGER.log(Level.WARNING, pe.getMessage(), pe);
         }
     }
 
@@ -44,11 +48,7 @@ public class JTextFieldDate extends JFormattedTextField {
      * iniciandolo con la fecha que se le pasa como argumento.");
      * @param text fecha inicial
      */
-
-
-
-    public JTextFieldDate(String text) {
-
+    private JTextFieldDate(String text) {
         super(text);
         setFormatter(mf);
         setMinimumSize(size);

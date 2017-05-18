@@ -17,14 +17,14 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman Segador
  */
-public class JMenuGrids extends JMenu {
+class JMenuGrids extends JMenu {
 
     /**
      *
      */
     private static final long serialVersionUID = 5286499359936364174L;
 
-    public JMenuGrids(String signalName) {
+    JMenuGrids(String signalName) {
         super("Change Grid");
         setMnemonic(KeyEvent.VK_G);
         List<String> grids = JSWBManager.getAvailableKindsOfGrids();

@@ -24,7 +24,7 @@ import net.javahispano.jsignalwb.plugins.framework.PluginLoadException;
  *
  * @author Roman
  */
-public class SaveAsAction extends AbstractAction {
+class SaveAsAction extends AbstractAction {
     /**
      *
      */
@@ -37,7 +37,7 @@ public class SaveAsAction extends AbstractAction {
     /**
      * Creates a new instance of SaveAsAction
      */
-    public SaveAsAction(Component component, JSWBManager jswbManager) {
+    SaveAsAction(Component component, JSWBManager jswbManager) {
         this.component = component;
         this.jswbManager = jswbManager;
         this.chooser = new JSWFileChooser(JSWBManager.getPluginManager());

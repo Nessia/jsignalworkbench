@@ -27,9 +27,7 @@ public class Signal implements Serializable {
     private static final long serialVersionUID = -7219179744727512231L;
     /** Almacena el nombre de la senal*/
     private String name;
-    /** Almacena el valor de la senal en cada instante de tiempo*/
-    protected float[] values;
-    protected short[] emphasis;
+    private short[] emphasis;
     private List<MarkPlugin> marks;
     private boolean hasColors;
     private boolean imaginary;
@@ -43,6 +41,8 @@ public class Signal implements Serializable {
     private GridPlugin grid;
     private Map<String, Object> externalProperties;
     //private boolean ownGrid;
+    /** Almacena el valor de la senal en cada instante de tiempo*/
+    protected float[] values;
 
     /**
      * Crea una nueva instancia de Signal. sName indica el nombre de la senal
@@ -66,7 +66,7 @@ public class Signal implements Serializable {
      * @param emphasis Nivel de enfasis con que se debe representar la senhal.
      *   Debe contener valores entre [0, 100].
      */
-    public Signal(String sName, float[] sValues, short[] emphasis) {
+    private Signal(String sName, float[] sValues, short[] emphasis) {
         this(sName, sValues, 1, new DateTime().getMillis(), "Unknown", emphasis);
     }
 
@@ -216,16 +216,16 @@ public class Signal implements Serializable {
      * @return boolean true si tienen niveles de enfasis asociado,
      * false en caso contrario.
      */
-    public boolean hasEmphasisLevel() {
+    boolean hasEmphasisLevel() {
         return hasColors;
     }
 
-    public void eraseEmphasis() {
+    void eraseEmphasis() {
         this.emphasis = null;
         this.setHasEmphasis(false);
     }
 
-    public boolean setHasEmphasis(boolean hasColors) {
+    boolean setHasEmphasis(boolean hasColors) {
         if (hasColors && (emphasis == null || emphasis.length != values.length)) {
             return false;
         }
@@ -352,7 +352,7 @@ public class Signal implements Serializable {
         return properties.setVisibleRange(abscissaValue, maxValue, range);
     }
 
-    public boolean setVisibleRange(float abscissaValue, float maxValue) {
+    boolean setVisibleRange(float abscissaValue, float maxValue) {
         return setVisibleRange(abscissaValue, maxValue, 1);
     }
 
@@ -377,7 +377,7 @@ public class Signal implements Serializable {
         return adjustVisibleRange(1);
     }
 
-    public boolean adjustVisibleRange(float range) {
+    boolean adjustVisibleRange(float range) {
 
         float min = values[0];
         float max = values[0];
@@ -403,7 +403,7 @@ public class Signal implements Serializable {
         }
     }
 
-    public void removeAllMarks() {
+    void removeAllMarks() {
         marks.clear();
     }
 
@@ -468,13 +468,13 @@ public class Signal implements Serializable {
         }
     }
 
-    public void removeProperty(String property) {
-        synchronized (externalProperties) {
-            if (externalProperties.containsKey(property)) {
-                externalProperties.remove(property);
-            }
-        }
-    }
+//    public void removeProperty(String property) {
+//        synchronized (externalProperties) {
+//            if (externalProperties.containsKey(property)) {
+//                externalProperties.remove(property);
+//            }
+//        }
+//    }
 
     public void cleanProperties() {
         synchronized (externalProperties) {

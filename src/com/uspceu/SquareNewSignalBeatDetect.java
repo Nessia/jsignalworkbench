@@ -5,8 +5,8 @@ import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.SignalManager;
 import net.javahispano.jsignalwb.plugins.defaults.DefaultIntervalMark;
 
-public class SquareNewSignalBeatDetect extends SimpleAlgorithm {
-    public static final double THRESHOLD = 5E7;
+class SquareNewSignalBeatDetect extends SimpleAlgorithm {
+    private static final double THRESHOLD = 5E7;
 
     @Override
     public void runAlgorithm(SignalManager signalManager, Signal ecg,

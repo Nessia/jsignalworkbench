@@ -19,15 +19,15 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman Segador
  */
-public class RemoveAllAnnotationsAction extends AbstractAction {
+class RemoveAllAnnotationsAction extends AbstractAction {
     /**
      *
      */
     private static final long serialVersionUID = 6496607921185343707L;
 
-    JSWBManager jswbManager;
+    private JSWBManager jswbManager;
 
-    public RemoveAllAnnotationsAction(JSWBManager jswbManager) {
+    RemoveAllAnnotationsAction(JSWBManager jswbManager) {
         this.jswbManager = jswbManager;
         this.putValue(SHORT_DESCRIPTION, "Remove all the annotations. Be careful...");
         this.putValue(NAME, "Remove all annotations");

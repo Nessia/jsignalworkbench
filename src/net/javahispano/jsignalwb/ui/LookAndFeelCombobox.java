@@ -4,6 +4,8 @@ package net.javahispano.jsignalwb.ui;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -15,18 +17,21 @@ import javax.swing.*;
  * @author Abraham Otero
  * @version 1.0
  */
-public class LookAndFeelCombobox extends JComboBox<String> implements ActionListener, Runnable {
+class LookAndFeelCombobox extends JComboBox<String> implements ActionListener, Runnable {
     /**
      *
      */
     private static final long serialVersionUID = -5066855815389601001L;
 
+    private static final Logger LOGGER = Logger.getLogger(LookAndFeelCombobox.class.getName());
+
     private JFrame frame;
 
     private String look_and_feel;
-    private String look_and_feel_no_soportado, otro_error;
+    private String look_and_feel_no_soportado;
+    private String otro_error;
 
-    public LookAndFeelCombobox(JFrame frame, String look_and_feel_no_soportado, String otro_error) {
+    LookAndFeelCombobox(JFrame frame, String look_and_feel_no_soportado, String otro_error) {
         super();
         this.frame = frame;
         this.look_and_feel_no_soportado = look_and_feel_no_soportado;
@@ -39,7 +44,7 @@ public class LookAndFeelCombobox extends JComboBox<String> implements ActionList
     /**
      * Anhade al combobox los Looks an feel instalados.
      */
-    protected void actualizaLookAnfFeel() {
+    private void actualizaLookAnfFeel() {
         UIManager.LookAndFeelInfo[] look_and_feel_info = UIManager.getInstalledLookAndFeels();
         for (int i = 0; i < look_and_feel_info.length; i++) {
             addItem(look_and_feel_info[i].getName());
@@ -49,7 +54,7 @@ public class LookAndFeelCombobox extends JComboBox<String> implements ActionList
     /**
      * Seleciona en el combobox el Look and Feel actual de la plataforma.
      */
-    protected void reflejaElLookAndFeelActual() {
+    private void reflejaElLookAndFeelActual() {
         String nombre_del_Look_and_Feel_actual = UIManager.getLookAndFeel().getName();
 
         UIManager.LookAndFeelInfo[] lnfInfos = UIManager.getInstalledLookAndFeels();
@@ -95,10 +100,10 @@ public class LookAndFeelCombobox extends JComboBox<String> implements ActionList
      * @param e Excepcion que se produce
      * @param mensaje Mensaje a mostrar en el cuadro de dialogo.
      */
-    protected void erroralActualizarLookAndFeel(Exception e, String mensaje) {
+    private void erroralActualizarLookAndFeel(Exception e, String mensaje) {
         JOptionPane.showConfirmDialog(this, mensaje, "Advertencia!!!", JOptionPane.DEFAULT_OPTION,
                                       JOptionPane.WARNING_MESSAGE);
-        e.printStackTrace();
+        LOGGER.log(Level.SEVERE, e.getMessage(), e);
         reflejaElLookAndFeelActual();
     }
 
@@ -114,7 +119,7 @@ public class LookAndFeelCombobox extends JComboBox<String> implements ActionList
             while (true) {
                 //Buscamos el padre del JRootPane
                 Container nueva_raiz = raiz_del_esta_ventana.getParent();
-                //si es null el es el contenedor padre de todos
+                //si es null el es el contenedor padre de t.odos
                 if (nueva_raiz == null) {
                     break;
                 }

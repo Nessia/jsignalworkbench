@@ -20,7 +20,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman
  */
-public class VisibleAction extends AbstractAction {
+class VisibleAction extends AbstractAction {
     /**
      *
      */
@@ -30,7 +30,7 @@ public class VisibleAction extends AbstractAction {
     private String signalName;
 
     /** Creates a new instance of VisibleAction */
-    public VisibleAction(JSWBManager jswbManager, String signalName) {
+    VisibleAction(JSWBManager jswbManager, String signalName) {
         this.signalName = signalName;
         this.jswbManager = jswbManager;
         this.putValue(NAME, "Visible");
@@ -40,10 +40,10 @@ public class VisibleAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().toLowerCase().equals("true")) {
+        if ("true".equalsIgnoreCase(e.getActionCommand())) {
             JSWBManager.setChannelVisible(signalName, true);
             jswbManager.refreshJSM(false);
-        } else if (e.getActionCommand().toLowerCase().equals("false")) {
+        } else if ("false".equalsIgnoreCase(e.getActionCommand())) {
             JSWBManager.setChannelVisible(signalName, false);
             jswbManager.refreshJSM(false);
         }

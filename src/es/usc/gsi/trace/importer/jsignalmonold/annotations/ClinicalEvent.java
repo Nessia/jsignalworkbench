@@ -16,30 +16,23 @@ public class ClinicalEvent implements Comparable<ClinicalEvent>, Serializable {
 
     static final long serialVersionUID = 3215L;
 
-    protected int tiempo_inicio;
-    protected boolean modofecha;
+    private int tiempo_inicio;
     protected String texto;
     protected String comentario;
-    public static final int MARCA = 0;
-    public static final int ANOTACION = 1;
-    public static final int DIAGNOSTICO = 2;
-    public static final int MANIFESTACION = 3;
-    public static final int TERAPIA = 4;
-    public static final int EVENTO = 5;
-    protected int tipo = 5;
+
+//    public static final int MARCA = 0;
+//    public static final int ANOTACION = 1;
+//    public static final int DIAGNOSTICO = 2;
+//    public static final int MANIFESTACION = 3;
+//    public static final int TERAPIA = 4;
+//    public static final int EVENTO = 5;
+    public enum Tipo { MARCA, ANOTACION, DIAGNOSTICO, MANIFESTACION, TERAPIA, EVENTO}
+
+    protected Tipo tipo = Tipo.EVENTO;
 
 //   protected GregorianCalendar fecha;
-    protected int offset;
-    protected float fs_sobre_la_cual_se_define_el_offset = 1.0F;
-
-    /**
-     * Este constructor construye un evento "Vacio", con solo tiempo de inicio.
-     * Es empleado por PanelAnotaciones para buscar en el TreeSet de anotaciones
-     * aquellas que le interesan
-     */
-    public ClinicalEvent(int i) {
-        this.tiempo_inicio = i;
-    }
+    private int offset;
+    private float fs_sobre_la_cual_se_define_el_offset = 1.0F;
 
     public ClinicalEvent() {
         //
@@ -105,15 +98,8 @@ public class ClinicalEvent implements Comparable<ClinicalEvent>, Serializable {
      * Debuelve el tipo de enento (Marca, Diagnostico, Terapia o manifestacion)
      * al cual pertene este evento
      */
-    public int getTipo() {
+    public Tipo getTipo() {
         return this.tipo;
-    }
-
-    /**
-     * Metodo que se invoca para evitar que halla dos eventos en el mismo instante
-     */
-    public void evitaIgualdad() {
-        this.tiempo_inicio++;
     }
 
     @Override
@@ -127,8 +113,8 @@ public class ClinicalEvent implements Comparable<ClinicalEvent>, Serializable {
         }
     }
 
-    public void setTipo(int _tipo) {
-        tipo = _tipo;
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 
     /**

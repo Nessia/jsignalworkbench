@@ -23,7 +23,7 @@ import java.awt.Dimension;
  * @author Abraham Otero
  * @version 0.5
  */
-public class PanelVisualizadorCerdo extends JPanel {
+class PanelVisualizadorCerdo extends JPanel {
 
     private static final Logger LOGGER = Logger.getLogger(PanelVisualizadorCerdo.class.getName());
     /**
@@ -201,7 +201,7 @@ public class PanelVisualizadorCerdo extends JPanel {
         this.jCheckBoxPresionesSuavizadas.setSelected(presionesSuavizadas);
     }
 
-    public void jButton1_actionPerformed() {
+    void jButton1_actionPerformed() {
         frame.dispose();
     }
 

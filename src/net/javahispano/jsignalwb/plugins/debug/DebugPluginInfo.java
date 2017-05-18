@@ -24,7 +24,7 @@ public class DebugPluginInfo {
         this.pluginType = pluginType;
     }
 
-    public DebugPluginInfo(String pluginType, String pluginName, Plugin plugin) {
+    DebugPluginInfo(String pluginType, String pluginName, Plugin plugin) {
         this.plugin = plugin;
         this.pluginName = pluginName;
         this.pluginType = getPluginType(pluginType);

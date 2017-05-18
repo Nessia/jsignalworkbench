@@ -11,8 +11,8 @@ import net.javahispano.jsignalwb.SignalManager;
 public class EMGAlgorithm extends SimpleAlgorithm {
 
 
-    protected float anchoVentanaSeg = 0.3F;
-    protected float desplazamientoVentanaSeg = 0.1F;
+    private float anchoVentanaSeg = 0.3F;
+    private float desplazamientoVentanaSeg = 0.1F;
 
     @Override
     public void runAlgorithm(SignalManager signalManager, Signal signal, float[] datos, float fs) {
@@ -25,7 +25,7 @@ public class EMGAlgorithm extends SimpleAlgorithm {
         //CUADRADO SENAL
         float[] newData = new float[datos.length];
         for (int i = 1; i < datos.length; i++) {
-            newData[i] = (datos[i] - tsenal.mediana) * (datos[i] - tsenal.mediana);
+            newData[i] = (datos[i] - tsenal.getMediana()) * (datos[i] - tsenal.getMediana());
         }
 
         Signal square = new Signal("Cuadrado de" + signal.getName(),

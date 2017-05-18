@@ -18,15 +18,15 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman Segador
  */
-public class ShowEmphasisLevelAction extends AbstractAction {
+class ShowEmphasisLevelAction extends AbstractAction {
     /**
      *
      */
     private static final long serialVersionUID = 8662020846407245634L;
 
     private String signalName;
-    
-    public ShowEmphasisLevelAction(String signalName) {
+
+    ShowEmphasisLevelAction(String signalName) {
         this.signalName = signalName;
         this.putValue(NAME, "Show Emphasis");
         this.putValue(SHORT_DESCRIPTION, "Make visible(or not) the emphasis level" +
@@ -37,13 +37,13 @@ public class ShowEmphasisLevelAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         JSWBManager jSWBManager = JSWBManager.getJSWBManagerInstance();
-        if (e.getActionCommand().toLowerCase().equals("true")) {
+        if ("true".equalsIgnoreCase(e.getActionCommand())) {
             if (jSWBManager.setSignalHasEmphasis(signalName, true)) {
                 jSWBManager.refreshJSM(true);
             } else {
                 JOptionPane.showMessageDialog(JSWBManager.getParentWindow(), "The signal " + signalName + " hasn't emphasis info");
             }
-        } else if (e.getActionCommand().toLowerCase().equals("false")) {
+        } else if ("false".equalsIgnoreCase(e.getActionCommand())) {
             jSWBManager.setSignalHasEmphasis(signalName, false);
             jSWBManager.refreshJSM(true);
         }

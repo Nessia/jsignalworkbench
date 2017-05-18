@@ -28,15 +28,15 @@ public class Sequencing extends SimpleAlgorithm {
 
     private static final Logger LOGGER = Logger.getLogger(Sequencing.class.getName());
 
-    public static final int LENGTH = 100000;
+    private static final int LENGTH = 100000;
 
     private static int height = 140;
     private static Color colour = blue;
 
-    public int[] guanine;
-    public int[] adenine;
-    public int[] thymine;
-    public int[] cytosine;
+    private int[] guanine;
+    private int[] adenine;
+    private int[] thymine;
+    private int[] cytosine;
 
     @Override
     public void runAlgorithm(SignalManager signalManager, Signal signal, float[] data, float fs) {
@@ -306,7 +306,7 @@ public class Sequencing extends SimpleAlgorithm {
         return false;
     }
 
-    protected void markSignal(SignalManager signalManager, String name) {
+    private void markSignal(SignalManager signalManager, String name) {
 
         Signal signal = signalManager.getSignal(name);
         float[] data = signalManager.getSignal(name).getValues();

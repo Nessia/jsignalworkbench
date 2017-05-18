@@ -17,7 +17,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.*;
  *
  * @author Roman
  */
-public class JToggleButtonXY extends JToggleButton implements JSignalMonitorModeListener {
+class JToggleButtonXY extends JToggleButton implements JSignalMonitorModeListener {
 
     /**
      *
@@ -27,7 +27,7 @@ public class JToggleButtonXY extends JToggleButton implements JSignalMonitorMode
     /**
      * Creates a new instance of JRadioButtonXY
      */
-    public JToggleButtonXY(JSignalMonitor jsm) {
+    JToggleButtonXY(JSignalMonitor jsm) {
         super(new ShowXYPointsAction(jsm));
         setFocusable(false);
         setText("");

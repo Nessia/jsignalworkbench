@@ -34,7 +34,7 @@ public class PluginManagerPanel extends JPanel {
      */
     private static final long serialVersionUID = 5798449466901514533L;
 
-    public enum Modes { ALL, LOADERS, SAVERS, ALGORITHMS, GENERICS, GRIDS, MARKS, ANNOTATIONS, FROM_JAR_FILE}
+    private enum Modes { ALL, LOADERS, SAVERS, ALGORITHMS, GENERICS, GRIDS, MARKS, ANNOTATIONS, FROM_JAR_FILE}
 
  // Declaracion de varibales -no modificar//GEN-BEGIN:variables
     private JScrollPane jScrollPane2;

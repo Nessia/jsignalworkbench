@@ -19,7 +19,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman Segador
  */
-public class PluginLoadAction extends AbstractAction {
+class PluginLoadAction extends AbstractAction {
 
     private static final Logger LOGGER = Logger.getLogger(PluginLoadAction.class.getName());
     /**
@@ -29,7 +29,7 @@ public class PluginLoadAction extends AbstractAction {
     private String pluginKey;
     private PluginManagerPanel pmPanel;
 
-    public PluginLoadAction(String pluginKey, PluginManagerPanel pmPanel) {
+    PluginLoadAction(String pluginKey, PluginManagerPanel pmPanel) {
         this.pluginKey = pluginKey;
         this.pmPanel = pmPanel;
         Image image = Toolkit.getDefaultToolkit().createImage(

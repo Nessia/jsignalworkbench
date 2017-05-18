@@ -21,7 +21,7 @@ public class MarksPopupMenu extends JPopupMenu {
      */
     private static final long serialVersionUID = -3894468091318497608L;
 
-    public MarksPopupMenu(JSignalMonitorDataSource dataSource, String signalName, long time) {
+    MarksPopupMenu(JSignalMonitorDataSource dataSource, String signalName, long time) {
         super();
         for (String markName : dataSource.getAvailableKindsOfInstantMarks()) {
             add(new AddMarkAction(markName, signalName, dataSource, time));

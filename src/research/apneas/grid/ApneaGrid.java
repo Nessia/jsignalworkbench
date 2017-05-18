@@ -146,11 +146,11 @@ public class ApneaGrid extends GridPluginAdapter {
         return "";
     }
 
-    public static Color getColorRed(short code) {
+    private static Color getColorRed(short code) {
         return new Color(255, (int) (2.5F * (100 - code)), 0);
     }
 
-    public static Color getColorYellow(short code) {
+    private static Color getColorYellow(short code) {
         return new Color(255 - (int) (2.5F * (100 - code)), 255, 0);
     }
 }

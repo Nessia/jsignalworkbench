@@ -2,7 +2,7 @@ package es.usc.gsi.conversordatosmit.interfaz;
 
 import javax.swing.JScrollPane;
 
-public class ScrollPanelFichero extends JScrollPane {
+class ScrollPanelFichero extends JScrollPane {
 
     /**
      *
@@ -13,7 +13,7 @@ public class ScrollPanelFichero extends JScrollPane {
 
 //*********************************************************************************
 
-     public ScrollPanelFichero(PanelFichero panelFichero) {
+     ScrollPanelFichero(PanelFichero panelFichero) {
          super();
          this.panelFichero = panelFichero;
          this.setViewportView(panelFichero);
@@ -29,13 +29,13 @@ public class ScrollPanelFichero extends JScrollPane {
 
 //*********************************************************************************
 
-     public void actualizaFrecuencia() {
+     void actualizaFrecuencia() {
          panelFichero.actualizaFrecuencia();
      }
 
 //*********************************************************************************
 
-     public void actualizaFechas(String fechaInicio, String fechaFin) {
+     void actualizaFechas(String fechaInicio, String fechaFin) {
          panelFichero.actualizaFechas(fechaInicio, fechaFin);
      }
 

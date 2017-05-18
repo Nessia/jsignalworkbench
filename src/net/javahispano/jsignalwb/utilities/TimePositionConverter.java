@@ -93,7 +93,7 @@ public class TimePositionConverter {
      * @return long tiempo que se corresponde con la posicion del array.
      * @throws RuntimeException si <code>(start<0 || position<0|| sRate<=0 )</code>
      */
-    public static long positionToTime(long start, int position, float sRate) {
+    private static long positionToTime(long start, int position, float sRate) {
         if (start < 0 || position < 0 || sRate <= 0) {
             throw new RuntimeException("The start value, position or frecuency is less than zero");
         }

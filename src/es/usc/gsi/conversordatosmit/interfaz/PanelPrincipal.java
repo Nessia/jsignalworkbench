@@ -35,7 +35,7 @@ public class PanelPrincipal extends JPanel /* implements ComponentListener */ {
         this.setLayout(new BorderLayout());
     }
 
-    public void abrirPaciente(FicheroHead[] ficherosHead) {
+    void abrirPaciente(FicheroHead[] ficherosHead) {
         this.cerrarPaciente(); // Cerramos el paciente actual para poder abrir otro.
 
         paciente = new Paciente(ficherosHead);
@@ -75,7 +75,7 @@ public class PanelPrincipal extends JPanel /* implements ComponentListener */ {
         } */
     ///////
 
-    public void actualizaFrecuencias() {
+    void actualizaFrecuencias() {
 
         if (paciente != null) {
             paciente.actualizaFrecuencias();
@@ -83,7 +83,7 @@ public class PanelPrincipal extends JPanel /* implements ComponentListener */ {
 
     }
 
-    public void actualizaFechas() throws Exception {
+    void actualizaFechas() throws Exception {
 
         if (paciente != null) {
             paciente.actualizaFechas();
@@ -91,7 +91,7 @@ public class PanelPrincipal extends JPanel /* implements ComponentListener */ {
 
     }
 
-    public void cambiaVista(FicheroHead[] ficherosHead, int modoVista) {
+    void cambiaVista(FicheroHead[] ficherosHead, int modoVista) {
 
         if (paciente == null) {
             return;

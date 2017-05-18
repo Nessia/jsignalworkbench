@@ -6,7 +6,6 @@ import net.javahispano.jsignalwb.JSWBManager;
 import javax.swing.*;
 import net.javahispano.jsignalwb.SignalManager;
 import java.awt.Color;
-import tmp.MedidaDroga;
 import net.javahispano.jsignalwb.plugins.AlgorithmAdapter;
 import net.javahispano.jsignalwb.plugins.framework.AlgorithmRunner;
 import java.util.List;
@@ -36,7 +35,7 @@ public class DiuresisAnalisisError extends AlgorithmAdapter {
     //private boolean caida = true;
     //private static int indiceDroga = 0;
     //private static int indiceParametro = 0;
-    MedidaDroga medidaActual;
+//    protected MedidaDroga medidaActual;
 
     @Override
     public void runAlgorithm(SignalManager sm, List<SignalIntervalProperties>
@@ -98,7 +97,7 @@ public class DiuresisAnalisisError extends AlgorithmAdapter {
 
     }
 
-    void calculaError(float[] diuresisAcumulada, float[] diuresisAcumuladaIdeal, float[]diuresis) {
+    private void calculaError(float[] diuresisAcumulada, float[] diuresisAcumuladaIdeal, float[]diuresis) {
         StringBuilder stringBuilderCVRMSE = new StringBuilder();
         //StringBuilder stringBuilderrm = new StringBuilder();
         StringBuilder stringBuilderMeanPerMinute = new StringBuilder();
@@ -136,28 +135,6 @@ public class DiuresisAnalisisError extends AlgorithmAdapter {
         LOGGER.log(Level.INFO, "%", stringBuilderVarianza.toString());
        // LOGGER.info(stringBuilderrm.toString());
     }
-
-    void calculaError2(float[] diuresisAcumulada, float[] diuresisAcumuladaIdeal) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < diuresisAcumulada.length; ) {
-            //int hora = 0;
-            int contador = 0;
-            double rmse = 0;
-            for (int j = 0; j < 60 && i < diuresisAcumulada.length; j++, i++) {
-                rmse += Math.pow(diuresisAcumulada[i] - diuresisAcumuladaIdeal[i], 2);
-                contador++;
-            }
-            assert contador != 0;
-            rmse = Math.sqrt(rmse / contador);
-            assert diuresisAcumulada[i - 1] == diuresisAcumuladaIdeal[i - 1];
-            double cvrmse =  rmse / (diuresisAcumuladaIdeal[i - 1]);
-            stringBuilder.append((float)cvrmse + "; ");// + rmse + ", ");
-            //hora ++;
-        }
-        LOGGER.log(Level.INFO, "%", stringBuilder.toString());
-    }
-
-
 
     @Override
     public String getName() {

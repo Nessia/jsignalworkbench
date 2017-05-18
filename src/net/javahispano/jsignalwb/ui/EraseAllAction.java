@@ -22,7 +22,7 @@ import net.javahispano.jsignalwb.SignalManager;
  * @author Abraham Otero
  * @version 0.5
  */
-public class EraseAllAction extends AbstractAction {
+class EraseAllAction extends AbstractAction {
     /**
      *
      */

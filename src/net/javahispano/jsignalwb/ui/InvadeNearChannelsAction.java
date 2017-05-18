@@ -19,7 +19,7 @@ import net.javahispano.jsignalwb.jsignalmonitor.ChannelProperties;
  *
  * @author Roman Segador
  */
-public class InvadeNearChannelsAction extends AbstractAction {
+class InvadeNearChannelsAction extends AbstractAction {
     /**
      *
      */
@@ -27,7 +27,7 @@ public class InvadeNearChannelsAction extends AbstractAction {
     private JSWBManager jswbManager;
     private ChannelProperties channelProperties;
 
-    public InvadeNearChannelsAction(JSWBManager jswbManager, ChannelProperties channelProperties) {
+    InvadeNearChannelsAction(JSWBManager jswbManager, ChannelProperties channelProperties) {
         this.channelProperties = channelProperties;
         this.jswbManager = jswbManager;
         this.putValue(Action.NAME, "InvadeNearChannels");
@@ -36,10 +36,10 @@ public class InvadeNearChannelsAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().toLowerCase().equals("true")) {
+        if ("true".equalsIgnoreCase(e.getActionCommand())) {
             channelProperties.setInvadeNearChannels(true);
             jswbManager.refreshJSM(false);
-        } else if (e.getActionCommand().toLowerCase().equals("false")) {
+        } else if ("false".equalsIgnoreCase(e.getActionCommand())) {
             channelProperties.setInvadeNearChannels(false);
             jswbManager.refreshJSM(false);
         }

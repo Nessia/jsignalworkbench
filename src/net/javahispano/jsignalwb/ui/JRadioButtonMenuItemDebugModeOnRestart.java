@@ -8,7 +8,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author roman.segador.torre
  */
-public class JRadioButtonMenuItemDebugModeOnRestart extends JRadioButtonMenuItem {
+class JRadioButtonMenuItemDebugModeOnRestart extends JRadioButtonMenuItem {
 
     /**
      *

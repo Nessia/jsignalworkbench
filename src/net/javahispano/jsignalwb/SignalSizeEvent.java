@@ -13,11 +13,13 @@ package net.javahispano.jsignalwb;
  *
  * @author Roman
  */
-public class SignalSizeEvent {
+class SignalSizeEvent {
+
     private Signal s;
     private boolean add;
+
     /** Creates a new instance of SignalSizeEvent */
-    public SignalSizeEvent(Signal s, boolean add) {
+    SignalSizeEvent(Signal s, boolean add) {
         this.s = s;
         this.add = add;
     }

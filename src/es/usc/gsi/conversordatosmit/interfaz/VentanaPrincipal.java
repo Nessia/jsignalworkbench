@@ -55,7 +55,7 @@ public class VentanaPrincipal extends JFrame {
     // InnerClass: Eventos de Ventana
     // LLAMAR A METODOS DEL CONTROLADOR PARA COMPROBAR QUE T.ODO ESTA CORRECTO
     // ANTES DE CERRAR LA APLICACION
-    class EventoVentana extends WindowAdapter {
+    private class EventoVentana extends WindowAdapter {
 
         @Override
         public void windowClosing(WindowEvent e) {

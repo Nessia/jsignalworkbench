@@ -25,12 +25,12 @@ public class VisualizadorDatosCerdo extends AlgorithmAdapter {
 
     private static final Logger LOGGER = Logger.getLogger(VisualizadorDatosCerdo.class.getName());
 
-    public static final String TITULO = "Visualizador de datos del cerdo";
-    public static final String FLUJO_CAROTIDA_SUAVIAZADO = "F. carótida suavizado";
-    public static final String PRESION_ARTERIAL_SISTOLICA = "P. arterial Sist.";
-    public static final String PRESION_ARTERIAL_DIASTOLICA = "P. arterial Diast.";
-    public static final String PRESION_PULMONAR_DIASTOLICA = "P. pulmonar Diast.";
-    public static final String PRESION_PULMONAR_SISTOLICA = "P. pulmonar Sist.";
+    private static final String TITULO = "Visualizador de datos del cerdo";
+    private static final String FLUJO_CAROTIDA_SUAVIAZADO = "F. carótida suavizado";
+    private static final String PRESION_ARTERIAL_SISTOLICA = "P. arterial Sist.";
+    private static final String PRESION_ARTERIAL_DIASTOLICA = "P. arterial Diast.";
+    private static final String PRESION_PULMONAR_DIASTOLICA = "P. pulmonar Diast.";
+    private static final String PRESION_PULMONAR_SISTOLICA = "P. pulmonar Sist.";
 
     private boolean flujos = false;
     private boolean flujosDelRinhon = false;
@@ -200,7 +200,7 @@ public class VisualizadorDatosCerdo extends AlgorithmAdapter {
     }
 
 
-    public static float[] calculaMediaMovil(float[] datos, int ventanaEnMuestras) {
+    private static float[] calculaMediaMovil(float[] datos, int ventanaEnMuestras) {
         float[] datosDelValoMedio = new float[datos.length / ventanaEnMuestras];
         for (int i = 0; i < datosDelValoMedio.length; i++) {
             float tmp = 0;
@@ -217,7 +217,7 @@ public class VisualizadorDatosCerdo extends AlgorithmAdapter {
         return datosDelValoMedio;
     }
 
-    public static float[] calculaMaxMovil(float[] datos, int ventanaEnMuestras) {
+    private static float[] calculaMaxMovil(float[] datos, int ventanaEnMuestras) {
         float[] datosValorMax = new float[datos.length / ventanaEnMuestras];
         for (int i = 0; i < datosValorMax.length; i++) {
             float tmp = 0;
@@ -232,7 +232,7 @@ public class VisualizadorDatosCerdo extends AlgorithmAdapter {
         return datosValorMax;
     }
 
-    public static float[] calculaMinMovil(float[] datos, int ventanaEnMuestras) {
+    private static float[] calculaMinMovil(float[] datos, int ventanaEnMuestras) {
         float[] datosValorMin = new float[datos.length / ventanaEnMuestras];
         for (int i = 0; i < datosValorMin.length; i++) {
             float tmp = 10000;

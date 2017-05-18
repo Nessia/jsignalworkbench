@@ -7,9 +7,9 @@ package es.usc.gsi.trace.importer.monitorizacion.data;
  * Contien las referencias a los arrays que conriene n las posibilidades que se
  * estan monitorizando.
  */
-public class ReferenciaPosibilidades extends Referencia {
+class ReferenciaPosibilidades extends Referencia {
     static final long serialVersionUID = 321455L;
-    ReferenciaDatos theReferenciaDatos;
+//    ReferenciaDatos theReferenciaDatos;
 
     ReferenciaPosibilidades() {
 

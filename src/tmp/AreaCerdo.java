@@ -23,9 +23,9 @@ public class AreaCerdo extends AlgorithmAdapter {
     private String parametro = "Presión arterial";
     private float peso = 10;
     private boolean caida = true;
-    protected MedidaDroga medidaActual;
+    private MedidaDroga medidaActual;
 
-    public static void retrocedeMedida() {
+    static void retrocedeMedida() {
         indiceParametro--;
         if (indiceParametro == -1) {
             indiceParametro = 7;

@@ -21,14 +21,14 @@ import es.usc.gsi.conversordatosmit.interfaz.PanelPrincipal;
  * @version 0.2
  */
 
-public class FrameConversorMIT extends JDialog {
+class FrameConversorMIT extends JDialog {
 
     private static final Logger LOGGER = Logger.getLogger(FrameConversorMIT.class.getName());
     /**
     *
     */
     private static final long serialVersionUID = -2550378812820799768L;
-    private static final String VER_LENGUETAS = "Ver como Lenguetas";
+    private static final String VER_LENGUETAS = "Ver como Lengüetas";
 
 
     private PanelPrincipal conversor;
@@ -38,7 +38,7 @@ public class FrameConversorMIT extends JDialog {
     private BorderLayout borderLayout2 = new BorderLayout();
     private JPanel jPanel2 = new JPanel();
     private JPanel jPanel3 = new JPanel();
-    private JPanel panel_anadir_conversor = new JPanel();
+    private JPanel panelAnadirConversor = new JPanel();
     private JButton abrirPaciente = new JButton();
     private JButton abrirArchivo = new JButton();
     private JButton cerrarVista = new JButton();
@@ -64,7 +64,7 @@ public class FrameConversorMIT extends JDialog {
            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
         this.setSize(500, 600);
-        panel_anadir_conversor.add(conversor, BorderLayout.CENTER);
+        panelAnadirConversor.add(conversor, BorderLayout.CENTER);
         this.setLocationRelativeTo(frame);
         //this.jswbManager = jswbManager;
         /*        Point d = frame.getLocation();
@@ -101,7 +101,7 @@ public class FrameConversorMIT extends JDialog {
                 cerrar_vista_actionPerformed();
             }
         });
-        panel_anadir_conversor.setLayout(borderLayout3);
+        panelAnadirConversor.setLayout(borderLayout3);
         aceptar.setToolTipText(
                 "Vuelve a la interfase y carga en ella los datos seleccionados.");
         aceptar.setText("Exportar al entorno");
@@ -164,20 +164,20 @@ public class FrameConversorMIT extends JDialog {
         jPanel1.add(jPanel3, BorderLayout.NORTH);
         jPanel3.add(jRadioButton1, null);
         jPanel3.add(jRadioButton2, null);
-        jPanel1.add(panel_anadir_conversor, BorderLayout.CENTER);
-        panel_anadir_conversor.add(jPanel2, BorderLayout.SOUTH);
+        jPanel1.add(panelAnadirConversor, BorderLayout.CENTER);
+        panelAnadirConversor.add(jPanel2, BorderLayout.SOUTH);
     }
 
-    void abrir_paciente_actionPerformed() {
+    private void abrir_paciente_actionPerformed() {
         archivoAbierto = conversor.abrirPaciente(archivoAbierto);
         conversor.setVista(PanelPrincipal.ETIQUETAS);
     }
 
-    void abrir_archivo_actionPerformed() {
+    private void abrir_archivo_actionPerformed() {
         archivoAbierto = conversor.abrirFichero(archivoAbierto);
     }
 
-    void cerrar_vista_actionPerformed() {
+    private void cerrar_vista_actionPerformed() {
         int opcion = JOptionPane.showConfirmDialog(this,
                 "<html><body  text=\"#000000\"><font size=\"5\" color=\"#0033FF\">&iquest;Seguro que desea cerrar los registros abiertos?</font></body></html>"
                 , "Advertencia", JOptionPane.YES_NO_OPTION,
@@ -188,18 +188,18 @@ public class FrameConversorMIT extends JDialog {
     }
 
 
-    void aceptar_actionPerformed() {
+    private void aceptar_actionPerformed() {
         //int opcion = Integer.MIN_VALUE;
         PideDatosAlConversor pideDatos = new PideDatosAlConversor(conversor/*, jswbManager*/);
         pideDatos.cargarDatos();
         dispose();
     }
 
-    void guardar_al_hdd_actionPerformed() {
+    private void guardar_al_hdd_actionPerformed() {
         conversor.vuelcaDatos();
     }
 
-    void jRadioButton1_stateChanged() {
+    private void jRadioButton1_stateChanged() {
         if (jRadioButton1.isSelected()) {
             conversor.setVista(PanelPrincipal.ETIQUETAS);
         } else {
@@ -207,7 +207,7 @@ public class FrameConversorMIT extends JDialog {
         }
     }
 
-    void cancelar_actionPerformed() {
+    private void cancelar_actionPerformed() {
         int opcion = JOptionPane.showConfirmDialog(this,
                 "<html><body text=\"#000000\"><font size=\"5\" color=\"#0033FF\">&iquest;Seguro que desea cerrar la herramienta de conversion?</font></body></html>"
                 , "Advertencia", JOptionPane.YES_NO_OPTION,

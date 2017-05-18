@@ -9,18 +9,19 @@ package net.javahispano.plugins.basicstats;
  * @version 0.2
  */
 
-public class CorrelacionException extends Exception {
+class CorrelacionException extends Exception {
     /**
      *
      */
     private static final long serialVersionUID = -5030201611028529763L;
-    private int longitutud1, longitud2;
+    private final int longitud1;
+    private final int longitud2;
 
-    public CorrelacionException(String mensaje, int longitutud1,
+    CorrelacionException(String mensaje, int longitud1,
                                 int longitud2) {
         super(mensaje);
         this.longitud2 = longitud2;
-        this.longitutud1 = longitutud1;
+        this.longitud1 = longitud1;
     }
 
     /**
@@ -28,7 +29,7 @@ public class CorrelacionException extends Exception {
      * @return
      */
     public int getLongitud1() {
-        return longitutud1;
+        return longitud1;
     }
 
     /**

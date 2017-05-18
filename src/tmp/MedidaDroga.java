@@ -2,7 +2,7 @@ package tmp;
 
 import java.io.Serializable;
 
-public class MedidaDroga implements Serializable {
+class MedidaDroga implements Serializable {
     /**
      *
      */
@@ -105,7 +105,7 @@ public class MedidaDroga implements Serializable {
         this.areaRatio = areaRatio;
     }
 
-    public String toString (boolean human) {
+    String toString (boolean human) {
         if (!human) {
             return droga + "," + parametro + "," + duracionTotal + "," + duracionCaida + ","
                     + duracionRecuperacion + "," +

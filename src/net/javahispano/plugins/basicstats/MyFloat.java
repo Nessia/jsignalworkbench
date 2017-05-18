@@ -2,43 +2,39 @@ package net.javahispano.plugins.basicstats;
 
 import java.text.DecimalFormat;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MyFloat {
-    private static boolean hay_parser = false;
-    private static DecimalFormat decimal_format;
-    private static int numero_decimales_actuales = 3;
+
+
+    private static final Logger LOGGER = Logger.getLogger(MyFloat.class.getName());
+
+    private static boolean hayParser = false;
+    private static DecimalFormat decimalFormat;
+//    private static int numeroDecimalesActuales = 3;
+
+    private MyFloat(){
+        // Hide constructor
+    }
 
     /**
      *
      */
     private static void contruyePraser() {
-        if (!hay_parser) {
+        if (!hayParser) {
             Locale default_locale = Locale.getDefault();
             //Ponemos como localidad la inglesa, pa que pille . en vez de ,
             Locale.setDefault(new Locale("en", "GB"));
-            decimal_format = new DecimalFormat("###.###");
+            decimalFormat = new DecimalFormat("###.###");
             //Ahora que ya tengo un parseador "A la inglesa" volvemos pa espananha:
             Locale.setDefault(default_locale);
-            hay_parser = true;
+            hayParser = true;
         }
 
     }
 
-    /**
-     *Se emplea para formatear los numeros que seguro estan bien,
-     * es decir los que ya se han chequeado y se vuelven a mostrar al usuario.
-     * @param numero
-     * @return
-     */
-    public static float parseFloatSeguro(String numero) {
-        if (!(numero.equals("&")) && !(numero.equals("-&"))) {
-            return Float.parseFloat(numero);
-        } else if (numero.equals("&")) {
-            return Integer.MAX_VALUE / 1000;
-        } else {
-            return Integer.MIN_VALUE / 1000; //Por que si no en validar dan overflow
-        }
-    }
+
 
     /**
      *
@@ -46,14 +42,14 @@ public class MyFloat {
      * @return
      * @throws Exception
      */
-    public static float parseFloat(String numero) throws Exception {
+    private static float parseFloat(String numero) throws Exception {
         try {
-            if (!(numero.equals("&")) && !(numero.equals("-&"))) {
+            if (!("&".equals(numero)) && !("-&".equals(numero))) {
                 return Float.parseFloat(numero);
-            } else if (numero.equals("&")) {
-                return Integer.MAX_VALUE / 1000;
+            } else if ("&".equals(numero)) {
+                return Integer.MAX_VALUE / 1000F;
             } else {
-                return Integer.MIN_VALUE / 1000; //Por que si no en validar dan overflow
+                return Integer.MIN_VALUE / 1000F; //Por que si no en validar dan overflow
             }
         } catch (NumberFormatException ex) {
             throw (new Exception("Numero Mal formado"));
@@ -74,19 +70,20 @@ public class MyFloat {
      * @param numero
      * @return
      */
-    public static String formateaNumero(String numero) {
-        if (!hay_parser) {
+    public static String formateaNumero(String numeroStr) {
+        if (!hayParser) {
             contruyePraser();
         }
-        numero = numero.trim();
-        if (numero.equals("&") || numero.equals("-&")) {
+        String numero = numeroStr.trim();
+        if ("&".equals(numero) || "-&".equals(numero)) {
             return numero;
         }
 
         try {
-            String resultado = decimal_format.format(parseFloat(numero));
-            return resultado;
+            return decimalFormat.format(parseFloat(numero));
+
         } catch (Exception ex) {
+            LOGGER.log(Level.WARNING, ex.getMessage(), ex);
             return null;
         }
     }
@@ -110,27 +107,27 @@ public class MyFloat {
      * Emplear para cambiar el numero de digitos decimales del patron
      * @param numero_decimaales
      */
-    public static void setNumeroDecimales(int numero_decimales) {
-        if (!hay_parser) {
-            contruyePraser();
-        }
-        String pattern = "###";
-        if (numero_decimales > 0) {
-            pattern = pattern + ".";
-            for (int i = 0; i < numero_decimales; i++) {
-                pattern = pattern + "#";
-            }
-
-        }
-        numero_decimales_actuales = numero_decimales;
-        decimal_format.applyPattern(pattern);
-    }
+//    public static void setNumeroDecimales(int numero_decimales) {
+//        if (!hayParser) {
+//            contruyePraser();
+//        }
+//        StringBuilder pattern = new StringBuilder("###");
+//        if (numero_decimales > 0) {
+//            pattern.append(".");
+//            for (int i = 0; i < numero_decimales; i++) {
+//                pattern.append("#");
+//            }
+//
+//        }
+//        numeroDecimalesActuales = numero_decimales;
+//        decimalFormat.applyPattern(pattern.toString());
+//    }
 
     /**
      *
      * @return
      */
-    public static int getNumeroDecimalesActuales() {
-        return numero_decimales_actuales;
-    }
+//    public static int getNumeroDecimalesActuales() {
+//        return numeroDecimalesActuales;
+//    }
 }

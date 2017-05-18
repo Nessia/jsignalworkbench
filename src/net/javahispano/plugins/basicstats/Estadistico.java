@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  * @version 0.2
  */
 
-public class Estadistico implements Serializable {
+class Estadistico implements Serializable {
 
     /**
      *
@@ -37,7 +37,7 @@ public class Estadistico implements Serializable {
      * Constructor
      */
 
-    public Estadistico(float[] datos, int[] percentiles_adicionales,
+    Estadistico(float[] datos, int[] percentiles_adicionales,
                        String nombreSenal,
                        String fechaInicio, String fechaFin) {
         this.datos = datos;

@@ -29,7 +29,7 @@ public class LeftPanelConfiguration implements Serializable{
         this(true, true, false, false, false, true);
     }
 
-    public LeftPanelConfiguration(boolean arrowsVisible, boolean nameVisible,
+    private LeftPanelConfiguration(boolean arrowsVisible, boolean nameVisible,
                                   boolean magnitudeVisible, boolean frecuencyVisible, boolean zoomVisible,
                                   boolean pointVisible) {
         this.arrowsVisible = arrowsVisible;

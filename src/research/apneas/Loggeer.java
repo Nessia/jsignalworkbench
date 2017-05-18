@@ -14,7 +14,8 @@ import net.javahispano.jsignalwb.*;
  * @author Abraham Otero
  * @version 0.5
  */
-public class Loggeer {
+class Loggeer {
+	
     private boolean debugNivel1 = false;
     private boolean debugNivel2 = false;
     private float frecuencia = 1;
@@ -22,20 +23,20 @@ public class Loggeer {
     private SignalManager sm;
 //    private Signal senalReferencia;
 
-    public Loggeer(Signal senalReferencia) {
+    Loggeer(Signal senalReferencia) {
         sm = JSWBManager.getSignalManager();
 //        this.senalReferencia = senalReferencia;
         fechaBase = senalReferencia.getStart();
         frecuencia = senalReferencia.getSRate();
     }
 
-    public void debugNivel1(String nombre, float[] posibilidad) {
+    void debugNivel1(String nombre, float[] posibilidad) {
         if (debugNivel1) {
             anadeSenalParaDebug(posibilidad, nombre);
         }
     }
 
-    public void debugNivel2(String nombre, float[] posibilidad) {
+    void debugNivel2(String nombre, float[] posibilidad) {
         if (debugNivel2) {
             anadeSenalParaDebug(posibilidad, nombre);
         }

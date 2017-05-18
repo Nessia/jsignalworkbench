@@ -2,7 +2,7 @@ package es.usc.gsi.conversordatosmit.interfaz;
 
 import javax.swing.JMenuBar;
 
-public class BarraMenuPrincipal extends JMenuBar {
+class BarraMenuPrincipal extends JMenuBar {
 
     /**
     *

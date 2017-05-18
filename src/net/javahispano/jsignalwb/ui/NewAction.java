@@ -22,7 +22,7 @@ import net.javahispano.jsignalwb.JSWBManager;
  *
  * @author Roman
  */
-public class NewAction extends AbstractAction {
+class NewAction extends AbstractAction {
     /**
      *
      */

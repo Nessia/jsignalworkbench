@@ -19,7 +19,7 @@ import net.javahispano.jsignalwb.Signal;
  *
  * @author Roman
  */
-public class JMenuSignal extends JMenu {
+class JMenuSignal extends JMenu {
     /**
     *
     */
@@ -29,18 +29,18 @@ public class JMenuSignal extends JMenu {
      * Atributos
      */
 
-    protected Signal signal;
+    private Signal signal;
 
     /*
      * Constructores
      */
 
     /** Creates a new instance of SignalAction */
-    public JMenuSignal(JSWBManager jswbManager, String signalName) {
+    JMenuSignal(JSWBManager jswbManager, String signalName) {
         this(jswbManager, signalName, true, true, true, true, true, true, true, true, true, true, true);
     }
 
-    public JMenuSignal(JSWBManager jswbManager, String signalName,
+    private JMenuSignal(JSWBManager jswbManager, String signalName,
                        boolean properties, boolean visible, boolean imaginary, boolean showEmphasis, boolean zoom,
                        boolean position,
                        boolean color, boolean remove, boolean invade, boolean grid, boolean adjust) {
