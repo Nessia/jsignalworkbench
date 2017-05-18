@@ -14,14 +14,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
+import net.javahispano.jsignalwb.ui.JTextFieldDate;
 
 import org.joda.time.DateTime;
 
 import com.michaelbaranov.microba.calendar.CalendarPane;
+import com.michaelbaranov.microba.calendar.DatePicker;
 
 /**
  *
@@ -37,12 +40,12 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
 
  // Variables declaration - do not modify//GEN-BEGIN:variables
     private JTextField colorTextField;
-    private JTextArea comentaryTextArea;
-    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
-    private com.michaelbaranov.microba.calendar.DatePicker datePicker2;
+    private JTextArea commentaryTextArea;
+    private DatePicker datePicker1;
+    private DatePicker datePicker2;
     private JButton jButton2;
-    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
-    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate2;
+    private JTextFieldDate jTextFieldDate1;
+    private JTextFieldDate jTextFieldDate2;
     private JLabel kindLabel;
     private JTextField markTitleTextField;
     private JLabel signalNameLabel;
@@ -50,7 +53,7 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
     private JWindow jw;
 
     private Signal signal;
-    private DefaultIntervalMark dim;
+    private transient DefaultIntervalMark dim;
 
     /** Creates new form DefaultIntervalMarkInfoPanel */
     public DefaultIntervalMarkInfoPanel(Signal signal, DefaultIntervalMark dim) {
@@ -77,7 +80,7 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
         }
         datePicker1.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
         datePicker2.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
-        comentaryTextArea.setText(dim.getComentary());
+        commentaryTextArea.setText(dim.getCommentary());
         kindLabel.setText("Kind of mark: " + dim.getName());
         colorTextField.setBackground(dim.getColor());
     }
@@ -117,14 +120,14 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
         JLabel jLabel3 = new JLabel();
         markTitleTextField = new JTextField();
         JLabel jLabel1 = new JLabel();
-        jTextFieldDate1 = new net.javahispano.jsignalwb.ui.JTextFieldDate();
-        jTextFieldDate2 = new net.javahispano.jsignalwb.ui.JTextFieldDate();
-        datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
-        datePicker2 = new com.michaelbaranov.microba.calendar.DatePicker();
+        jTextFieldDate1 = new JTextFieldDate();
+        jTextFieldDate2 = new JTextFieldDate();
+        datePicker1 = new DatePicker();
+        datePicker2 = new DatePicker();
         JPanel jPanel3 = new JPanel();
         JLabel jLabel4 = new JLabel();
         JScrollPane jScrollPane1 = new JScrollPane();
-        comentaryTextArea = new JTextArea();
+        commentaryTextArea = new JTextArea();
         JButton jButton1 = new JButton();
         kindLabel = new JLabel();
         jButton2 = new JButton();
@@ -133,7 +136,7 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
         JButton jButton3 = new JButton();
 
         setForeground(java.awt.Color.blue);
-        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 5, true));
+        jPanel1.setBorder(new LineBorder(new java.awt.Color(255, 153, 0), 5, true));
         signalNameLabel.setForeground(java.awt.Color.blue);
         signalNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         signalNameLabel.setText("Signal:");
@@ -222,9 +225,9 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
         jLabel4.setForeground(java.awt.Color.blue);
         jLabel4.setText("Comment");
 
-        comentaryTextArea.setColumns(20);
-        comentaryTextArea.setRows(5);
-        jScrollPane1.setViewportView(comentaryTextArea);
+        commentaryTextArea.setColumns(20);
+        commentaryTextArea.setRows(5);
+        jScrollPane1.setViewportView(commentaryTextArea);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -401,7 +404,7 @@ public class DefaultIntervalMarkInfoPanel extends javax.swing.JPanel implements 
 
     private void hideJWindow() {
         dim.setTitle(markTitleTextField.getText());
-        dim.setComentary(comentaryTextArea.getText());
+        dim.setCommentary(commentaryTextArea.getText());
         long start = TimeRepresentation.stringToMillis(jTextFieldDate1.getText());
         long end = TimeRepresentation.stringToMillis(jTextFieldDate2.getText());
         dim.setMarkTime(Math.min(start, end));

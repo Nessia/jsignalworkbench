@@ -28,10 +28,11 @@ public abstract class MarkPluginAdapter extends PluginAdapter implements MarkPlu
     /*
      * Atributos
      */
+
     protected Signal signal = null;
     protected Color color;
     protected long markTime;
-    protected String comentary;
+    protected String commentary;
     protected String title;
     protected BufferedImage im;
     protected JSWBManager jswbManager;
@@ -40,7 +41,7 @@ public abstract class MarkPluginAdapter extends PluginAdapter implements MarkPlu
     protected MarkPluginAdapter(){
        markTime = 0;
        title = "Write here the mark title...";
-       comentary = "Write here your comentary....";
+       commentary = "Write here your commentary....";
        jswbManager = null;
     }
 
@@ -52,12 +53,12 @@ public abstract class MarkPluginAdapter extends PluginAdapter implements MarkPlu
        return jswbManager;
     }
 
-    public void setComentary(String comentary) {
-       this.comentary = comentary;
+    public void setCommentary(String commentary) {
+       this.commentary = commentary;
     }
 
-    public String getComentary() {
-        return comentary;
+    public String getCommentary() {
+        return commentary;
     }
 
     public void setTitle(String title) {

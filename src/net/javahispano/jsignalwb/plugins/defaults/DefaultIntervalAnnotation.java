@@ -26,7 +26,7 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
     private long annotationTime;
     private long endTime;
     private String title;
-    private String comentary;
+    private String commentary;
     private String category;
     private Color color;
     private Image image;
@@ -44,7 +44,7 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
     public DefaultIntervalAnnotation() {
         annotationTime = 0;
         title = "Write here the annotation title...";
-        comentary = "Write here your comentary....";
+        commentary = "Write here your commentary....";
         color = Color.RED;
         imagePath = "default";
         image = getDefaultImage();
@@ -116,12 +116,12 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
         this.title = title;
     }
 
-    public void setComentary(String comentary) {
-        this.comentary = comentary;
+    public void setCommentary(String commentary) {
+        this.commentary = commentary;
     }
 
-    public String getComentary() {
-        return comentary;
+    public String getCommentary() {
+        return commentary;
     }
 
     public String getTitle() {
@@ -135,7 +135,7 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
 
     @Override
     public String getDataToSave() {
-        return "title:" + title + "|| comentary:" + comentary + " || icon:" +
+        return "title:" + title + "|| commentary:" + commentary + " || icon:" +
                 imagePath + " || isImage:" + isImage + "|| color:" +
                 color.getRGB() + "|| category: " + category;
     }
@@ -145,8 +145,8 @@ public class DefaultIntervalAnnotation extends AnnotationPluginAdapter {
         String data = d;
         data = data.substring(data.indexOf("title:") + 6);
         title = data.substring(0, data.indexOf("||"));
-        data = data.substring(data.indexOf("comentary:") + 10);
-        comentary = data.substring(0, data.indexOf("||"));
+        data = data.substring(data.indexOf("commentary:") + 10);
+        commentary = data.substring(0, data.indexOf("||"));
         data = data.substring(data.indexOf("icon:") + 5);
         imagePath = data.substring(0, data.indexOf("||"));
         data = data.substring(data.indexOf("isImage:") + 8);

@@ -409,7 +409,7 @@ EpisodioDesaturacion>();
                        "Posibilidad: " + e.getPosibilidad() + ",\n" +
                        "Tiempo de caida: " + e.getTiempoBajada() + ",\n" +
                        "Tiempo de subida: " + e.getTiempoSubida();
-        m.setComentary(texto);
+        m.setCommentary(texto);
         m.setTitle("Episodio de desaturacion");
         m.setTipo(LimitacionAnotacion.SENALES.DESATURACION);
         m.setAutomatica(true);

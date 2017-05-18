@@ -113,7 +113,7 @@ public class ExportarOndaP extends SimpleAlgorithm{
         int i = 0;
         for (DefaultIntervalMark m : ondasP) {
 
-            long refinedPP = Long.parseLong(m.getComentary());
+            long refinedPP = Long.parseLong(m.getCommentary());
             pp[i] = (float)refinedPP - signal.getStart();
             if (Math.random()>0.98) pp[i]+=60;
             pp[i] /= 1000;

@@ -51,7 +51,7 @@ public class DefaultInstantMark extends MarkPluginAdapter {
 
     @Override
     public String getDataToSave() {
-        return "title:" + title + "|| comentary:" + comentary + " || icon:" +
+        return "title:" + title + "|| commentary:" + commentary + " || icon:" +
                 imagePath + " || isImage:" + isImage + "|| color:" + color.getRGB();
     }
 
@@ -60,8 +60,8 @@ public class DefaultInstantMark extends MarkPluginAdapter {
         String data = d;
         data = data.substring(data.indexOf("title:") + 6);
         title = data.substring(0, data.indexOf("||"));
-        data = data.substring(data.indexOf("comentary:") + 10);
-        comentary = data.substring(0, data.indexOf("||"));
+        data = data.substring(data.indexOf("commentary:") + 10);
+        commentary = data.substring(0, data.indexOf("||"));
         data = data.substring(data.indexOf("icon:") + 5);
         imagePath = data.substring(0, data.indexOf("||"));
         data = data.substring(data.indexOf("isImage:") + 8);

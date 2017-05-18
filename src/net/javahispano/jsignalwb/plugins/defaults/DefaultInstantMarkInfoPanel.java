@@ -21,10 +21,12 @@ import javax.swing.filechooser.FileFilter;
 import net.javahispano.jsignalwb.JSWBManager;
 import net.javahispano.jsignalwb.Signal;
 import net.javahispano.jsignalwb.jsignalmonitor.TimeRepresentation;
+import net.javahispano.jsignalwb.ui.JTextFieldDate;
 
 import org.joda.time.DateTime;
 
 import com.michaelbaranov.microba.calendar.CalendarPane;
+import com.michaelbaranov.microba.calendar.DatePicker;
 
 /**
  *
@@ -40,14 +42,14 @@ public class DefaultInstantMarkInfoPanel extends JPanel implements PropertyChang
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JTextField colorTextField;
-    private JTextArea comentaryTextArea;
-    private com.michaelbaranov.microba.calendar.DatePicker datePicker1;
+    private JTextArea commentaryTextArea;
+    private DatePicker datePicker1;
     private JLabel iconLabel;
     private JButton jButton2;
     private JButton jButton3;
     private JButton jButton4;
     private JRadioButton jRadioButton2;
-    private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
+    private JTextFieldDate jTextFieldDate1;
     private JLabel kindLabel;
     private JTextField markTitleTextField;
     private JLabel signalNameLabel;
@@ -90,7 +92,7 @@ public class DefaultInstantMarkInfoPanel extends JPanel implements PropertyChang
             LOGGER.log(Level.WARNING, ex.getMessage(), ex);
         }
         datePicker1.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
-        comentaryTextArea.setText(dim.getComentary());
+        commentaryTextArea.setText(dim.getCommentary());
         kindLabel.setText("Kind of markhh: " + dim.getName());
     }
 
@@ -119,12 +121,12 @@ public class DefaultInstantMarkInfoPanel extends JPanel implements PropertyChang
         JLabel jLabel2 = new JLabel();
         JLabel jLabel3 = new JLabel();
         markTitleTextField = new JTextField();
-        jTextFieldDate1 = new net.javahispano.jsignalwb.ui.JTextFieldDate();
-        datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
+        jTextFieldDate1 = new JTextFieldDate();
+        datePicker1 = new DatePicker();
         JPanel jPanel2 = new JPanel();
         JLabel jLabel4 = new JLabel();
         JScrollPane jScrollPane1 = new JScrollPane();
-        comentaryTextArea = new JTextArea();
+        commentaryTextArea = new JTextArea();
         JButton jButton1 = new JButton();
         kindLabel = new JLabel();
         jButton2 = new JButton();
@@ -205,9 +207,9 @@ public class DefaultInstantMarkInfoPanel extends JPanel implements PropertyChang
         jLabel4.setForeground(java.awt.Color.blue);
         jLabel4.setText("Comment");
 
-        comentaryTextArea.setColumns(20);
-        comentaryTextArea.setRows(5);
-        jScrollPane1.setViewportView(comentaryTextArea);
+        commentaryTextArea.setColumns(20);
+        commentaryTextArea.setRows(5);
+        jScrollPane1.setViewportView(commentaryTextArea);
 
         GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -473,7 +475,7 @@ public class DefaultInstantMarkInfoPanel extends JPanel implements PropertyChang
 
     private void hideJWindowActionPerformed() { //GEN-FIRST:event_hideJWindow
         dim.setTitle(markTitleTextField.getText());
-        dim.setComentary(comentaryTextArea.getText());
+        dim.setCommentary(commentaryTextArea.getText());
         dim.setColor(colorTextField.getBackground());
         dim.setMarkTime(TimeRepresentation.stringToMillis(jTextFieldDate1.getText()));
         dim.setIsImage(jRadioButton2.isSelected());

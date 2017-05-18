@@ -121,7 +121,7 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
 
     public void setTipo(SENALES tipo) {
         this.tipo = tipo;
-        this.setComentary(tipo.name());
+        this.setCommentary(tipo.name());
 //        if (tipo == SENALES.HIPOAPNEA) {
 //          //  this.setColor(Color.YELLOW);
 //        } else if(tipo == SENALES.DESATURACION) {
@@ -146,35 +146,35 @@ public class LimitacionAnotacion extends DefaultIntervalMark {
         String a = data.substring(0, data.indexOf('*'));
         this.automatica = Boolean.parseBoolean(a);
         super.setSavedData(data.substring(data.indexOf('*') + 1, data.length()));
-        this.setTipo(SENALES.valueOf(this.getComentary()));
-//        if ("2".equalsIgnoreCase(this.getComentary())) {
+        this.setTipo(SENALES.valueOf(this.getCommentary()));
+//        if ("2".equalsIgnoreCase(this.getCommentary())) {
 //            this.setTipo(LimitacionAnotacion.HIPOAPNEA);
 //        }
-//        if ("3".equalsIgnoreCase(this.getComentary())) {
+//        if ("3".equalsIgnoreCase(this.getCommentary())) {
 //            this.setTipo(LimitacionAnotacion.DESATURACION);
 //        }
-//        if ("1".equalsIgnoreCase(this.getComentary())) {
+//        if ("1".equalsIgnoreCase(this.getCommentary())) {
 //            this.setTipo(LimitacionAnotacion.APNEA);
 //        }
-//        if ("0".equalsIgnoreCase(this.getComentary())) {
+//        if ("0".equalsIgnoreCase(this.getCommentary())) {
 //           this.setTipo(LimitacionAnotacion.N);
 //        }
-//        if ("-1".equalsIgnoreCase(this.getComentary())) {
+//        if ("-1".equalsIgnoreCase(this.getCommentary())) {
 //            this.setTipo(LimitacionAnotacion.A);
 //        }
-//        if ("-2".equalsIgnoreCase(this.getComentary())) {
+//        if ("-2".equalsIgnoreCase(this.getCommentary())) {
 //            this.setTipo(LimitacionAnotacion.V);
 //        }
-//        if ("-3".equalsIgnoreCase(this.getComentary())) {
+//        if ("-3".equalsIgnoreCase(this.getCommentary())) {
 //            this.setTipo(LimitacionAnotacion.P);
 //        }
-//        if ("-4".equalsIgnoreCase(this.getComentary())) {
+//        if ("-4".equalsIgnoreCase(this.getCommentary())) {
 //            this.setTipo(LimitacionAnotacion.TV);
 //        }
-//        if ("-5".equalsIgnoreCase(this.getComentary())) {
+//        if ("-5".equalsIgnoreCase(this.getCommentary())) {
 //            this.setTipo(LimitacionAnotacion.Vrt);
 //        }
-//        if ("-6".equalsIgnoreCase(this.getComentary())) {
+//        if ("-6".equalsIgnoreCase(this.getCommentary())) {
 //            this.setTipo(LimitacionAnotacion.Prt);
 //        }
     }

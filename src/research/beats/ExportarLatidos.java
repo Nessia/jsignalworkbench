@@ -114,7 +114,7 @@ public class ExportarLatidos extends AlgorithmAdapter {
         }
         List<DefaultIntervalMark> beatMarks = new LinkedList<DefaultIntervalMark>();
         for (MarkPlugin mark : l) {
-            if (mark instanceof DefaultIntervalMark && "0".equals(((DefaultIntervalMark) mark).getComentary())) {
+            if (mark instanceof DefaultIntervalMark && "0".equals(((DefaultIntervalMark) mark).getCommentary())) {
                 beatMarks.add((DefaultIntervalMark) mark);
             }
         }

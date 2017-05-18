@@ -40,7 +40,7 @@ public class TestJSWB extends AlgorithmAdapter {
                     DefaultIntervalMark m = new DefaultIntervalMark();
                     m.setMarkTime(inicio + d.getComienzo() * 1000);
                     m.setEndTime(inicio + d.getFin() * 1000);
-                    m.setComentary(d.getPos() + " " + d.getValorMinimo());
+                    m.setCommentary(d.getPos() + " " + d.getValorMinimo());
                     //m.setMarkTime(inicio + 10*1000);
                     //  m.setEndTime(inicio + 100*1000);
 

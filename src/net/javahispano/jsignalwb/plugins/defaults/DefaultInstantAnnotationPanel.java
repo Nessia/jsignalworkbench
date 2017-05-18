@@ -43,34 +43,21 @@ public class DefaultInstantAnnotationPanel extends javax.swing.JPanel
     public static final String COLOR = "Color";
 
  // Variables declaration - do not modify//GEN-BEGIN:variables
-//    private ButtonGroup buttonGroup1;
     private JTextField colorTextField;
-    private JTextArea comentaryTextArea;
+    private JTextArea commentaryTextArea;
     private DatePicker datePicker1;
     private JLabel iconLabel;
-//    private JButton jButton1;
-//    private JButton jButton2;
     private JButton jButton3;
     private JButton jButton4;
-//    private JButton jButton5;
-//    private JLabel jLabel1;
-//    private JLabel jLabel2;
-//    private JLabel jLabel3;
-//    private JLabel jLabel4;
-//    private JPanel jPanel1;
-//    private JPanel jPanel2;
-//    private JPanel jPanel3;
-//    private JPanel jPanel4;
     private JRadioButton jRadioButton1;
     private JRadioButton jRadioButton2;
-//    private JScrollPane jScrollPane1;
     private JTextField jTextField1;
     private net.javahispano.jsignalwb.ui.JTextFieldDate jTextFieldDate1;
     private JLabel kindLabel;
     private JTextField markTitleTextField;
     // End of variables declaration//GEN-END:variables
 
-    DefaultInstantAnnotation dim;
+    transient DefaultInstantAnnotation dim;
     JFileChooser jfc;
     JColorChooser jColorChooser1;
     JWindow jw;
@@ -101,7 +88,7 @@ public class DefaultInstantAnnotationPanel extends javax.swing.JPanel
             LOGGER.log(Level.WARNING, ex.getMessage(), ex);
         }
         datePicker1.addPropertyChangeListener(CalendarPane.PROPERTY_NAME_DATE, this);
-        comentaryTextArea.setText(dim.getComentary());
+        commentaryTextArea.setText(dim.getCommentary());
         kindLabel.setText("Kind of Annotation: " + dim.getName());
         jColorChooser1 = new JColorChooser();
     }
@@ -138,7 +125,7 @@ public class DefaultInstantAnnotationPanel extends javax.swing.JPanel
         JPanel jPanel3 = new JPanel();
         JLabel jLabel4 = new JLabel();
         JScrollPane jScrollPane1 = new JScrollPane();
-        comentaryTextArea = new JTextArea();
+        commentaryTextArea = new JTextArea();
         JButton jButton1 = new JButton();
         kindLabel = new JLabel();
         JButton jButton2 = new JButton();
@@ -232,9 +219,9 @@ public class DefaultInstantAnnotationPanel extends javax.swing.JPanel
         jLabel4.setForeground(java.awt.Color.blue);
         jLabel4.setText("Comment");
 
-        comentaryTextArea.setColumns(20);
-        comentaryTextArea.setRows(5);
-        jScrollPane1.setViewportView(comentaryTextArea);
+        commentaryTextArea.setColumns(20);
+        commentaryTextArea.setRows(5);
+        jScrollPane1.setViewportView(commentaryTextArea);
 
         GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -540,7 +527,7 @@ public class DefaultInstantAnnotationPanel extends javax.swing.JPanel
 
     private void jButton1hideJWindow() { //GEN-FIRST:event_jButton1hideJWindow
         dim.setTitle(markTitleTextField.getText());
-        dim.setComentary(comentaryTextArea.getText());
+        dim.setCommentary(commentaryTextArea.getText());
         dim.setAnnotationTime(TimeRepresentation.stringToMillis(jTextFieldDate1.getText()));
         dim.setCategory(jTextField1.getText());
         dim.setColor(colorTextField.getBackground());

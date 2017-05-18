@@ -112,7 +112,7 @@ public class DetectorDesaturacionesWrapper extends AlgorithmAdapter {
                        "Posibilidad: " + e.getPosibilidad() + ",\n" +
                        "Tiempo de caida: " + e.getTiempoBajada() + ",\n" +
                        "Tiempo de subida: " + e.getTiempoSubida();
-        m.setComentary(texto);
+        m.setCommentary(texto);
         m.setTitle("Episodio de desaturacion");
         JSWBManager.getSignalManager().addSignalMark(satO2.getName(), m);
     }

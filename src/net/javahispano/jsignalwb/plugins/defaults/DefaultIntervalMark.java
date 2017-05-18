@@ -105,7 +105,7 @@ public class DefaultIntervalMark extends MarkPluginAdapter {
 
     @Override
     public String getDataToSave() {
-        return "title:" + title + "|| comentary:" + comentary + "|| color:" +
+        return "title:" + title + "|| commentary:" + commentary + "|| color:" +
                 color.getRGB();
     }
 
@@ -113,8 +113,8 @@ public class DefaultIntervalMark extends MarkPluginAdapter {
     public void setSavedData(String d) {
         String data = d.substring(d.indexOf("title:") + 6);
         title = data.substring(0, data.indexOf("||"));
-        data = data.substring(data.indexOf("comentary:") + 10);
-        comentary = data.substring(0, data.indexOf("||"));
+        data = data.substring(data.indexOf("commentary:") + 10);
+        commentary = data.substring(0, data.indexOf("||"));
         data = data.substring(data.indexOf("color:") + 6);
         color = new Color(Integer.parseInt(data));
         refreshBufferedImage();

@@ -236,7 +236,7 @@ public class ReduccionFlujo {
         marca.setColor(Utilidades.getColor((short) episodio.getPosibilidad()));
         String texto = "Duracion: " + episodio.getDuracion() + "\n" + ", Posibilidad: " +
                        episodio.getPosibilidad();
-        marca.setComentary(texto);
+        marca.setCommentary(texto);
         marca.setTitle(titulo);
         marca.setColor(color);
         if (Color.RED == color) {

@@ -574,7 +574,7 @@ public class C {
         annotation.setColor(Utilidades.getColor((short) hipoapnea.getPosibilidad()));
         String texto = "Duracion: " + hipoapnea.getDuracion() + "\n" +
                        ", Posibilidad: " + hipoapnea.getPosibilidad() + "\n";
-        annotation.setComentary(texto);
+        annotation.setCommentary(texto);
         annotation.setTitle(titulo);
         annotation.setCategory(titulo);
         sm.addAnnotation(annotation);
